@@ -12,8 +12,6 @@ import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   
-  window.document.title = "Topwar Helper";
-
   return (
     <div className="container-fluid mt-5 pt-4">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
