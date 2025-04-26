@@ -27,7 +27,7 @@ export default function ServerAnalyzer() {
         // }]);
 
         //ajax 불러오기
-        const { data } = await axios.get(`http://data.progamer.info/${selectedServer}.json`);
+        const { data } = await axios.get(`//data.progamer.info/${selectedServer}.json`);
         setSelectedServers(prev => [...prev, {
             number: selectedServer,
             data: data ?? []
