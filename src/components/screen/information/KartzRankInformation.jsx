@@ -62,10 +62,16 @@ const KartzRankInformation = () => {
     useEffect(()=>{
         if(!provideDate) return;
 
-        const jsonFiles = require.context("../../../assets/json/kartz", false, /\.json$/);
-        const jsonFileData = jsonFiles(`./${provideDate}.json`);
-        setJsonData(jsonFileData);
+        //CRA 문법
+        //const jsonFiles = require.context("../../../assets/json/kartz", false, /\.json$/);
+        //const jsonFileData = jsonFiles(`./${provideDate}.json`);
 
+        //Vite 문법
+        const jsonFiles = import.meta.glob("/src/assets/json/kartz/*.json", {eager:true});
+        const jsonFileData = jsonFiles[`/src/assets/json/kartz/${provideDate}.json`];
+        if(jsonFileData) {
+            setJsonData(jsonFileData.default);
+        }
 
     }, [provideDate]);
 
