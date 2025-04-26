@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.slot-list-wrapper {
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.slot-wrapper {
+    box-shadow: 0 0 1px 0 black;
+    font-size: 20px;
+    width: 33.3333%;
+}
+
+.highlight-number {
+    font-weight: bolder;
+    color: #d63031;
+}
+.highlight-skill {
+    font-weight: bolder;
+    color: #0984e3;
+}

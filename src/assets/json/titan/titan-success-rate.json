@@ -1,0 +1,26 @@
+{
+    "top": {
+        "green": 0.0,
+        "blue": 0.0,
+        "purple": 0.0,
+        "gold": 100.0
+    },
+    "advanced": {
+        "green": 0.0,
+        "blue": 0.0,
+        "purple": 85.0,
+        "gold": 15.0
+    },
+    "mid": {
+        "green": 0.0,
+        "blue": 80.0,
+        "purple": 15.0,
+        "gold": 5.0
+    },
+    "none": {
+        "green": 55.0,
+        "blue": 35.0,
+        "purple": 9.5,
+        "gold": 0.5
+    }
+}

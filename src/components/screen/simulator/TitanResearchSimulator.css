@@ -1,0 +1,19 @@
+.catalyst-img {
+    font-size: calc(1.325rem + .9vw) !important;
+    width: 1em;
+    height: 1em;
+    opacity: 0.5;
+}
+
+.catalyst-img:hover {
+    box-shadow: 0 0 2px 2px darkgrey;
+}
+
+.catalyst-img.active {
+    opacity: 1;
+}
+
+.pointer-field {
+    cursor: pointer;
+}
+

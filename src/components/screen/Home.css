@@ -1,0 +1,62 @@
+.main-banner {
+    object-fit: scale-down;
+    width: 100%;
+    max-height: 700px;
+}
+
+.random-box {
+    opacity: 0.75;
+    cursor: pointer;
+    width:100%;
+    max-width: 500px;
+}
+.random-box:hover {
+    opacity: 1;
+}
+
+.reward-wrapper {
+    white-space: nowrap;
+}
+.reward-wrapper > .reward-item {
+    transition-property: transform, opacity;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+    position: relative;
+    max-width: 100px;
+    max-height: 100px;
+    width: 23vw;
+    height: 23vw;
+    margin: 0px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px black;
+    opacity: 1;
+}
+.reward-wrapper > .reward-item:nth-child(2) { transition-delay: 0.25s;}
+.reward-wrapper > .reward-item:nth-child(3) { transition-delay: 0.50s;}
+.reward-wrapper > .reward-item:nth-child(4) { transition-delay: 0.75s;}
+.reward-wrapper > .reward-item:nth-child(5) { transition-delay: 1.00s;}
+.reward-wrapper > .reward-item:not(.finish){
+    /* transform: translate(0%, 300%); */
+    transform: rotateY(180deg);
+    /* transform: translate(0%, 300%) rotateY(180deg); */
+    opacity: 0;
+}
+
+/* 슬롯머신 관련 */
+.iframe-container {
+    position: relative;
+    width: 100%; /* 폭에 맞게 */
+    padding-bottom: 56.25%; /* 16:9 비율 유지 (9/16 = 0.5625) */
+    height: 0; /* 높이는 패딩으로 조정 */
+    overflow: hidden; /* 넘치는 내용 숨기기 */
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* 필요 시 경계선 제거 */
+    max-height: 70vh;
+}

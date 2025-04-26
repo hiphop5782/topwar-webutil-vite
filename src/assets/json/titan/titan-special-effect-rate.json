@@ -1,0 +1,48 @@
+{
+    "pistol": {
+        "storm": 0.5,
+        "surge": 0.5,
+        "awareness": 1.5,
+        "searing": 0.63,
+        "breaking": 0.63,
+        "impact": 0.63,
+        "magnetic": 0.63
+    },
+    "backarmor": {
+        "steel": 0.5,
+        "unbreakable": 0.5,
+        "hologram": 1.5,
+        "flammable": 0.63,
+        "heavyblow": 0.63,
+        "debilitate": 0.63,
+        "magnetize": 0.63
+    },
+    "addon": {
+        "awareness": 2.5,
+        "searing": 0.63,
+        "breaking": 0.63,
+        "impact": 0.63,
+        "magnetic": 0.63
+    },
+    "headset": {
+        "hologram": 2.5,
+        "flammable": 0.63,
+        "heavyblow": 0.63,
+        "debilitate": 0.63,
+        "magnetize": 0.63
+    },
+    "gps": {
+        "awareness": 2.5,
+        "searing": 0.63,
+        "breaking": 0.63,
+        "impact": 0.63,
+        "magnetic": 0.63
+    },
+    "boots": {
+        "hologram": 2.5,
+        "flammable": 0.63,
+        "heavyblow": 0.63,
+        "debilitate": 0.63,
+        "magnetize": 0.63
+    }
+}

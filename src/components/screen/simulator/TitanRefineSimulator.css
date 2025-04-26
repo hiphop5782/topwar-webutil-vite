@@ -1,0 +1,30 @@
+.select-effect {
+    /* animation: blingbling 3s infinite alternate; */
+    animation: flash 1s;
+    color: #ff0;
+}
+
+@keyframes blingbling {
+    0% {
+        text-shadow: 0 0 5px #fff, 0 0 7px #ff0, 0 0 10px #ff0;
+    }
+
+    50% {
+        text-shadow: 0 0 10px #fff, 0 0 14px #ff0, 0 0 18px #ff0;
+    }
+
+    100% {
+        text-shadow: 0 0 5px #fff, 0 0 7px #ff0, 0 0 10px #ff0;
+    }
+}
+
+.option-mapper {
+    position: relative;
+}
+.option-highlighter {
+    position: absolute;
+    top:0;
+    left:-2px;
+    right: -2px;
+    box-shadow: 0 0 5px 2px #ff0;
+}

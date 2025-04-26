@@ -1,0 +1,6 @@
+[
+    {"no":1, "value":"데미지 증가", "color":"danger"},
+    {"no":2, "value":"데미지 감면", "color":"danger"},
+    {"no":3, "value":"공격력 증가", "color":"danger"},
+    {"no":4, "value":"생명력 증가", "color":"danger"}
+]

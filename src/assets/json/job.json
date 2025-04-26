@@ -1,0 +1,748 @@
+[
+    {
+        "row":1, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"전쟁광",
+                    "MM":"발전광"
+                }, 
+                "explain":{
+                    "CL":"공성 시 전체 공격력 증가 (2/4/6/8/10)",
+                    "MM":"채집 무게 증가 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":1, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":2, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":3, "time":"5일 05시간 22분 58초", "choice":false},
+                    {"level":4, "food":10000000, "oil":10000000, "item":4, "time":"6일 06시간 27분 34초", "choice":false},
+                    {"level":5, "food":15000000, "oil":15000000, "item":5, "time":"7일 12시간 33분 05초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":2, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"치명타 증가",
+                    "MM":"석유 채집"
+                }, 
+                "explain":{
+                    "CL":"전체 치명타율 증가 (3/6/9/12/15)",
+                    "MM":"석유 채집 속도 증가 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":2, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":3, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":4, "time":"5일 05시간 22분 58초", "choice":false},
+                    {"level":4, "food":10000000, "oil":10000000, "item":5, "time":"6일 06시간 27분 34초", "choice":false},
+                    {"level":5, "food":15000000, "oil":15000000, "item":6, "time":"11일 05시간 18분 25초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"황야 사냥꾼",
+                    "MM":"골드 채집"
+                }, 
+                "explain":{
+                    "CL":"암흑 군단 데미지 상승 (3/6/9/12/15)",
+                    "MM":"골드 채집 속도 증가 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":2, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":3, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":4, "time":"5일 05시간 22분 58초", "choice":false},
+                    {"level":4, "food":10000000, "oil":10000000, "item":5, "time":"6일 06시간 27분 34초", "choice":false},
+                    {"level":5, "food":15000000, "oil":15000000, "item":6, "time":"11일 05시간 18분 25초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"치명타 데미지 증가",
+                    "MM":"식량 채집"
+                },
+                "explain":{
+                    "CL":"전체 치명타 데미지 증가 (3/6/9/12/15)",
+                    "MM":"식량 채집 속도 증가 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":2, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":3, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":4, "time":"5일 05시간 22분 58초", "choice":false},
+                    {"level":4, "food":10000000, "oil":10000000, "item":5, "time":"6일 06시간 27분 34초", "choice":false},
+                    {"level":5, "food":15000000, "oil":15000000, "item":6, "time":"11일 05시간 18분 25초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":3, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"전투 선물",
+                    "MM":"채집 정예"
+                }, 
+                "explain":{
+                    "CL":"암흑 군단 사냥 시 추가 보물 상자 획득",
+                    "MM":"1시간 채집 시 최종 보상에 추가 자원 패키지 지급"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":4, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":6, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":8, "time":"5일 05시간 22분 58초", "choice":false},
+                    {"level":4, "food":10000000, "oil":10000000, "item":10, "time":"6일 06시간 27분 34초", "choice":false},
+                    {"level":5, "food":15000000, "oil":15000000, "item":15, "time":"11일 05시간 18분 25초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":4, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"지용겸비 - 공격",
+                    "MM":"정유 시설"
+                }, 
+                "explain":{
+                    "CL":"영웅 전쟁(WAR) 증가 (3/?/10)",
+                    "MM":"필드 유전에 석유 시설 건설 (1/2/3)"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":8, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":10, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":15, "time":"5일 05시간 22분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"정예 시련",
+                    "MM":"채금 시설"
+                }, 
+                "explain":{
+                    "CL":"경험치책 사용 시 경험치 증가 (3/?/10)",
+                    "MM":"필드 금광에 채금 시설 건설 (1/2/3)"
+                },
+                "upgrades":[
+                    {"level":1, "food":3400000, "oil":3400000, "item":8, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":5100000, "oil":5100000, "item":10, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":7650000, "oil":7650000, "item":15, "time":"5일 05시간 22분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"지용겸비 - 방어",
+                    "MM":"곡창 시설"
+                }, 
+                "explain":{
+                    "CL":"영웅 방어(DEF) 증가 (3/?/10)",
+                    "MM":"필드 농지에 곡창 시설 건설 (1/2/3)"
+                },
+                "upgrades":[
+                    {"level":1, "food":2970000, "oil":2970000, "item":8, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":4450000, "oil":4450000, "item":10, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":6680000, "oil":6680000, "item":15, "time":"5일 05시간 22분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":5, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"강화 무기",
+                    "MM":"약화 시설"
+                }, 
+                "explain":{
+                    "CL":"전체 공격력 증가 (5/10/15)",
+                    "MM":"약화 시설 건설 (1/2/3)"
+                },
+                "upgrades":[
+                    {"level":1, "food":7650000, "oil":7650000, "item":10, "time":"10일 19시간 59분 38초", "choice":false},
+                    {"level":2, "food":11500000, "oil":11500000, "item":15, "time":"12일 10시간 30분 41초", "choice":false},
+                    {"level":3, "food":17200000, "oil":17200000, "item":20, "time":"14일 02시간 13분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"지용겸비",
+                    "MM":"라이선스"
+                }, 
+                "explain":{
+                    "CL":"영웅 통솔 능력치 증가 (2/4/6/8/10)",
+                    "MM":"매일 라이선스 골드 상자 25개 지급"
+                },
+                "upgrades":[
+                    {"level":1, "food":7650000, "oil":7650000, "item":20, "time":"3일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":11500000, "oil":11500000, "item":25, "time":"4일 08시간 29분 09초", "choice":false},
+                    {"level":3, "food":17200000, "oil":17200000, "item":30, "time":"5일 05시간 22분 58초", "choice":false},
+                    {"level":4, "food":24100000, "oil":24100000, "item":35, "time":"6일 06시간 27분 34초", "choice":false},
+                    {"level":5, "food":33700000, "oil":33700000, "item":40, "time":"11일 05시간 18분 25초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"강화 장갑",
+                    "MM":"강화 시설"
+                }, 
+                "explain":{
+                    "CL":"전체 생명력 증가 (5/10/15)",
+                    "MM":"강화 시설 건설 (1/2/3)"
+                },
+                "upgrades":[
+                    {"level":1, "food":7650000, "oil":7650000, "item":10, "time":"10일 19시간 59분 38초", "choice":false},
+                    {"level":2, "food":11500000, "oil":11500000, "item":15, "time":"12일 10시간 30분 41초", "choice":false},
+                    {"level":3, "food":17200000, "oil":17200000, "item":20, "time":"14일 02시간 13분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":6, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"데미지 증가",
+                    "MM":"데미지 감면 강화"
+                }, 
+                "explain":{
+                    "CL":"전체 데미지 증가 (3/6/9/12/15)",
+                    "MM":"집결 시 부대 데미지 감면 증가 (5/10/15/20/25)"
+                },
+                "upgrades":[
+                    {"level":1, "food":8620000, "oil":8620000, "item":30, "time":"7일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":12900000, "oil":12900000, "item":35, "time":"9일 00시간 39분 42초", "choice":false},
+                    {"level":3, "food":19400000, "oil":19400000, "item":40, "time":"10일 19시간 59분 38초", "choice":false},
+                    {"level":4, "food":27200000, "oil":27200000, "item":45, "time":"12일 10시간 30분 41초", "choice":false},
+                    {"level":5, "food":38000000, "oil":38000000, "item":50, "time":"14일 02시간 13분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"전쟁광",
+                    "MM":"자원 보호"
+                }, 
+                "explain":{
+                    "CL":"공성 시 전체 공격력 증가 (3/6/9/12/15)",
+                    "MM":"공격 받을 경우 골드 손실 감소 (10/15/20/25/30)"
+                },
+                "upgrades":[
+                    {"level":1, "food":8620000, "oil":8620000, "item":30, "time":"7일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":12900000, "oil":12900000, "item":35, "time":"9일 00시간 39분 42초", "choice":false},
+                    {"level":3, "food":19400000, "oil":19400000, "item":40, "time":"10일 19시간 59분 38초", "choice":false},
+                    {"level":4, "food":27200000, "oil":27200000, "item":45, "time":"12일 10시간 30분 41초", "choice":false},
+                    {"level":5, "food":38000000, "oil":38000000, "item":50, "time":"14일 02시간 13분 58초", "choice":false}
+                ]
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"고급 데미지 감면",
+                    "MM":"데미지 강화"
+                }, 
+                "explain":{
+                    "CL":"전체 데미지 감면 증가 (4/8/12/16/20)",
+                    "MM":"집결 시 부대 데미지 증가 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":8620000, "oil":8620000, "item":30, "time":"7일 15시간 04분 17초", "choice":false},
+                    {"level":2, "food":12900000, "oil":12900000, "item":35, "time":"9일 00시간 39분 42초", "choice":false},
+                    {"level":3, "food":19400000, "oil":19400000, "item":40, "time":"10일 19시간 59분 38초", "choice":false},
+                    {"level":4, "food":27200000, "oil":27200000, "item":45, "time":"12일 10시간 30분 41초", "choice":false},
+                    {"level":5, "food":38000000, "oil":38000000, "item":50, "time":"14일 02시간 13분 58초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":7, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"전면전",
+                    "MM":"전면전"
+                }, 
+                "explain":{
+                    "CL":"부대에 3명의 영웅 출전",
+                    "MM":"부대에 3명의 영웅 출전"
+                },
+                "upgrades":[
+                    {"level":1, "food":59200000, "oil":59200000, "item":300, "time":"16일 04시간 36분 35초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":8, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"지용겸비 - 공격",
+                    "MM":"약화 시설"
+                }, 
+                "explain":{
+                    "CL":"영웅 전쟁(WAR) 증가 (5/10)",
+                    "MM":"약화 시설 건설 (4/5)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":30, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":40, "time":"8일 16시간 57분 29초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"초급 비상 경계",
+                    "MM":"초급 비상 경계"
+                },  
+                "explain":{
+                    "CL":"전체 DEF 증가 (1/2/3/4/5/6/7/8/9/10)",
+                    "MM":"전체 DEF 증가 (1/2/3/4/5/6/7/8/9/10)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":50, "time":"5일 06시간 23분 10초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":50, "time":"8일 20시간 19분 43초", "choice":false},
+                    {"level":3, "food":21600000, "oil":21600000, "item":50, "time":"10일 14시간 47분 39초", "choice":false},
+                    {"level":4, "food":30200000, "oil":30200000, "item":50, "time":"12일 04시간 32분 29초", "choice":false},
+                    {"level":5, "food":42300000, "oil":42300000, "item":50, "time":"15일 06시간 54분 12초", "choice":false},
+                    {"level":6, "food":48000000, "oil":48000000, "item":50, "time":"15일 20시간 50분 16초", "choice":false},
+                    {"level":7, "food":56100000, "oil":56100000, "item":50, "time":"15일 20시간 50분 16초", "choice":false},
+                    {"level":8, "food":64300000, "oil":64300000, "item":50, "time":"15일 20시간 50분 16초", "choice":false},
+                    {"level":9, "food":72400000, "oil":72400000, "item":50, "time":"15일 20시간 50분 16초", "choice":false},
+                    {"level":10, "food":80500000, "oil":80500000, "item":50, "time":"15일 20시간 50분 16초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"지용겸비 - 방어",
+                    "MM":"강화 시설"
+                }, 
+                "explain":{
+                    "CL":"영웅 방어(DEF) 증가 (5/10)",
+                    "MM":"강화 시설 건설 (4/5)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":30, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":40, "time":"8일 16시간 57분 29초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":9, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"지용겸비",
+                    "MM":"일류 수호자"
+                }, 
+                "explain":{
+                    "CL":"영웅 통솔 능력치 증가 (3/6/9/12/15)",
+                    "MM":"매일 즉시 수리 개수 30개 증가"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":50, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":55, "time":"8일 16시간 57분 29초", "choice":false},
+                    {"level":3, "food":21600000, "oil":21600000, "item":60, "time":"9일 20시간 45분 47초", "choice":false},
+                    {"level":4, "food":30200000, "oil":30200000, "item":65, "time":"11일 08시간 01분 37초", "choice":false},
+                    {"level":5, "food":42300000, "oil":42300000, "item":70, "time":"11일 08시간 01분 37초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":10, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"대공 미사일",
+                    "MM":"고급 시설 - 석유"
+                }, 
+                "explain":{
+                    "CL":"공군에 대한 육군 데미지 증가 (3/?/?)",
+                    "MM":"필드 유전에 석유 시설 건설 (4/5/6)"
+                },
+                "upgrades":[
+                    {"level":1, "food":42900000, "oil":42900000, "item":60, "time":"10일 16시간 48분 11초", "choice":false},
+                    {"level":2, "food":60100000, "oil":60100000, "item":80, "time":"14일 23시간 31분 28초", "choice":false},
+                    {"level":3, "food":84100000, "oil":84100000, "item":100, "time":"20일 23시간 20분 03초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"어뢰 공격",
+                    "MM":"고급 시설 - 골드"
+                }, 
+                "explain":{
+                    "CL":"해군에 대한 공군 데미지 증가 (3/?/?)",
+                    "MM":"필드 금광에 채금 시설 건설 (4/5/6)"
+                },
+                "upgrades":[
+                    {"level":1, "food":42900000, "oil":42900000, "item":60, "time":"10일 16시간 48분 11초", "choice":false},
+                    {"level":2, "food":60100000, "oil":60100000, "item":80, "time":"14일 23시간 31분 28초", "choice":false},
+                    {"level":3, "food":84100000, "oil":84100000, "item":100, "time":"20일 23시간 20분 03초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"정조준 미사일",
+                    "MM":"고급 시설 - 식량"
+                }, 
+                "explain":{
+                    "CL":"육군에 대한 해군의 데미지 증가 (3/?/?)",
+                    "MM":"필드 농지에 곡창 시설 건설 (4/5/6)"
+                },
+                "upgrades":[
+                    {"level":1, "food":42900000, "oil":42900000, "item":60, "time":"10일 16시간 48분 11초", "choice":false},
+                    {"level":2, "food":60100000, "oil":60100000, "item":80, "time":"14일 23시간 31분 28초", "choice":false},
+                    {"level":3, "food":84100000, "oil":84100000, "item":100, "time":"20일 23시간 20분 03초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":11, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"스킬 슬롯+1",
+                    "MM":"출정 최대치"
+                }, 
+                "explain":{
+                    "CL":"SSR 영웅 스킬 슬롯 개수 증가 (1)",
+                    "MM":"출정 최대치 증가 (10)"
+                },
+                "upgrades":[
+                    {"level":1, "food":59200000, "oil":59200000, "item":500, "time":"11일 08시간 01분 37초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"승리 수확",
+                    "MM":"정제 시설"
+                }, 
+                "explain":{
+                    "CL":"암흑 군단 처치 시 오딘 획득(400/600/800)",
+                    "MM":"필드 오딘 광맥 에 정제 시설 건설 (1/2/3)"
+                }, 
+                "upgrades":[
+                    {"level":1, "food":40000000, "oil":40000000, "item":60, "time":"10일 16시간 48분 11초", "choice":false},
+                    {"level":2, "food":65000000, "oil":65000000, "item":90, "time":"14일 23시간 31분 28초", "choice":false},
+                    {"level":3, "food":90000000, "oil":90000000, "item":120, "time":"20일 13시간 16분 03초", "choice":false}
+                ], 
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":12, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"데미지 증가",
+                    "MM":"공격력 강화"
+                }, 
+                "explain":{
+                    "CL":"전체 데미지 증가 (3/6/9/12/15)",
+                    "MM":"집결 시 부대 공격력 증가 (4/8/12/16/20)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":80, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":90, "time":"8일 16시간 57분 29초", "choice":false},
+                    {"level":3, "food":21600000, "oil":21600000, "item":100, "time":"9일 20시간 45분 47초", "choice":false},
+                    {"level":4, "food":30200000, "oil":30200000, "item":110, "time":"11일 08시간 01분 37초", "choice":false},
+                    {"level":5, "food":42300000, "oil":42300000, "item":120, "time":"11일 08시간 01분 37초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"강화 장갑",
+                    "MM":"강화 장갑"
+                }, 
+                "explain":{
+                    "CL":"전체 생명력 증가 (5/10/15/20/25/30/35/40/45/50)",
+                    "MM":"전체 생명력 증가 (8/16/24/32/40/48/56/64/72/80)"
+                },
+                "upgrades":[
+                    {"level":1, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":2, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":3, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":4, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":5, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":6, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":7, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":8, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":9, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false},
+                    {"level":10, "food":42000000, "oil":42000000, "item":100, "time":"11일 05시간 18분 25초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"고급 데미지 감면",
+                    "MM":"데미지 강화"
+                }, 
+                "explain":{
+                    "CL":"전체 데미지 감면 증가 (2/4/6/8/10)",
+                    "MM":"집결 시 부대 데미지 증가 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":80, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":90, "time":"8일 16시간 57분 29초", "choice":false},
+                    {"level":3, "food":21600000, "oil":21600000, "item":100, "time":"9일 20시간 45분 47초", "choice":false},
+                    {"level":4, "food":30200000, "oil":30200000, "item":110, "time":"11일 08시간 01분 37초", "choice":false},
+                    {"level":5, "food":42300000, "oil":42300000, "item":120, "time":"11일 08시간 01분 37초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":13, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"방어 모드",
+                    "MM":"방어 모드"
+                }, 
+                "explain":{
+                    "CL":"공격 시 방어(DEF) 증가 (1/2/3/4/5)",
+                    "MM":"공격 시 방어(DEF) 증가 (1/2/3/4/5)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":80, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":100, "time":"8일 16시간 57분 29초", "choice":false},
+                    {"level":3, "food":21600000, "oil":21600000, "item":120, "time":"9일 20시간 45분 47초", "choice":false},
+                    {"level":4, "food":30200000, "oil":30200000, "item":140, "time":"11일 08시간 01분 37초", "choice":false},
+                    {"level":5, "food":42300000, "oil":42300000, "item":160, "time":"11일 08시간 01분 37초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"포위 전술",
+                    "MM":"포위 전술"
+                }, 
+                "explain":{
+                    "CL":"2병종 출전시 데미지 증가 20%, 3병종 출전 시 추가 데미지 감면 30%",
+                    "MM":"2병종 출전시 데미지 증가 20%, 3병종 출전 시 추가 데미지 감면 30%"
+                },
+                "upgrades":[
+                    {"level":1, "food":59200000, "oil":59200000, "item":500, "time":"20일 23시간 20분 05초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"전략 방어",
+                    "MM":"전략 방어"
+                }, 
+                "explain":{
+                    "CL":"방어 시 방어(DEF) 증가 (1/2/3/4/5)",
+                    "MM":"방어 시 방어(DEF) 증가 (1/2/3/4/5)"
+                },
+                "upgrades":[
+                    {"level":1, "food":9590000, "oil":9590000, "item":80, "time":"7일 13시간 59분 45초", "choice":false},
+                    {"level":2, "food":14400000, "oil":14400000, "item":100, "time":"8일 16시간 57분 29초", "choice":false},
+                    {"level":3, "food":21600000, "oil":21600000, "item":120, "time":"9일 20시간 45분 47초", "choice":false},
+                    {"level":4, "food":30200000, "oil":30200000, "item":140, "time":"11일 08시간 01분 37초", "choice":false},
+                    {"level":5, "food":42300000, "oil":42300000, "item":160, "time":"11일 08시간 01분 37초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":14, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"기합 - 전투의 달인",
+                    "MM":"기합 - 수호자"
+                }, 
+                "explain":{
+                    "CL":"전투 승리 시 기합 포인트 획득(1당 데미지 증가 3%)",
+                    "MM":"전투 종료 시 기합 포인트 획득(1당 데미지 감면 3%)"
+                },
+                "upgrades":[
+                    {"level":1, "food":39239000, "oil":39239000, "item":100, "core":0, "time":"19일 15시간 39분 28초", "choice":false},
+                    {"level":2, "food":49239000, "oil":49239000, "item":200, "core":20, "time":"28일 21시간 52분 48초", "choice":false},
+                    {"level":3, "food":59239000, "oil":59239000, "item":300, "core":150, "time":"42일 19시간 12분 48초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":15, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"불굴의 정신",
+                    "MM":"긴급 수리소"
+                }, 
+                "explain":{
+                    "CL":"기합 포인트 보유 상한 증가 (1/2/3/4/5)",
+                    "MM":"필드에 긴급 수리소를 건설하여 범위내 부상유닛 치료 (1/2/3/4/5)"
+                },
+                "upgrades":[
+                    {"level":1, "food":39239000, "oil":39239000, "item":100, "core":300, "time":"19일 15시간 39분 28초", "choice":false},
+                    {"level":2, "food":49239000, "oil":49239000, "item":150, "core":400, "time":"28일 21시간 52분 48초", "choice":false},
+                    {"level":3, "food":59239000, "oil":59239000, "item":200, "core":500, "time":"38일 04시간 06분 08초", "choice":false},
+                    {"level":4, "food":69239000, "oil":69239000, "item":250, "core":600, "time":"42일 19시간 12분 48초", "choice":false},
+                    {"level":5, "food":79239000, "oil":79239000, "item":300, "core":800, "time":"47일 10시간 19분 28초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":2, 
+                "name":{
+                    "CL":"투혼",
+                    "MM":"에어 드롭 지원: 드론"
+                }, 
+                "explain":{
+                    "CL":"기합 포인트 3 초과시 1당 전체 공격력 증가 (1/2/3/4/5)",
+                    "MM":"전투 시 드론 소환(기합 포인트 5 필요)"
+                },
+                "upgrades":[
+                    {"level":1, "food":39239000, "oil":39239000, "item":100, "core":300, "time":"19일 15시간 39분 28초", "choice":false},
+                    {"level":2, "food":49239000, "oil":49239000, "item":150, "core":400, "time":"28일 21시간 52분 48초", "choice":false},
+                    {"level":3, "food":59239000, "oil":59239000, "item":200, "core":500, "time":"38일 04시간 06분 08초", "choice":false},
+                    {"level":4, "food":69239000, "oil":69239000, "item":250, "core":600, "time":"42일 19시간 12분 48초", "choice":false},
+                    {"level":5, "food":79239000, "oil":79239000, "item":300, "core":800, "time":"47일 10시간 19분 28초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            },
+            {
+                "col":3, 
+                "name":{
+                    "CL":"장갑 강화",
+                    "MM":"장갑 강화"
+                }, 
+                "explain":{
+                    "CL":"데미지 감면 버프 획득 (3/6/9/12/15)",
+                    "MM":"데미지 감면 버프 획득 (3/6/9/12/15)"
+                },
+                "upgrades":[
+                    {"level":1, "food":39239000, "oil":39239000, "item":100, "core":300, "time":"19일 15시간 39분 28초", "choice":false},
+                    {"level":2, "food":49239000, "oil":49239000, "item":150, "core":400, "time":"28일 21시간 52분 48초", "choice":false},
+                    {"level":3, "food":59239000, "oil":59239000, "item":200, "core":500, "time":"38일 04시간 06분 08초", "choice":false},
+                    {"level":4, "food":69239000, "oil":69239000, "item":250, "core":600, "time":"42일 19시간 12분 48초", "choice":false},
+                    {"level":5, "food":79239000, "oil":79239000, "item":300, "core":800, "time":"47일 10시간 19분 28초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    },
+    {
+        "row":16, 
+        "items":[
+            {
+                "col":1, 
+                "name":{
+                    "CL":"전쟁의 맹수",
+                    "MM":"드론: 강화"
+                }, 
+                "explain":{
+                    "CL":"기합 포인트 최대 시 5포인트 소모하여 디버프 무시",
+                    "MM":"드론 공격 +1회"
+                },
+                "upgrades":[
+                    {"level":1, "food":89239000, "oil":89239000, "item":500, "core":1000, "time":"52일 01시간 26분 08초", "choice":false}
+                ],
+                "allCheck":false,
+                "subtotal":null
+            }
+        ]
+    }
+]

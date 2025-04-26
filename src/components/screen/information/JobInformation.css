@@ -1,0 +1,99 @@
+.row-inner , .col-inner{
+    padding: 0.75em;
+    box-shadow: 0 0 0px 0px #2d3436;
+    position: relative;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.col-inner {
+    font-size: 0.55em;
+    cursor: pointer;
+}
+.col-inner img {
+    width: 100%;
+    height: 100%;
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+.col-inner.active img{
+    filter: none;
+    opacity: 1;
+}
+.row-inner {
+    border-top: 1px solid black;
+}
+.row-inner .title {
+    position: absolute;
+    font-size: 1em;
+    top:0;
+    left:0;
+    background-color: white;
+    transform: translate(50%, -50%);
+}
+
+.box {
+    box-shadow: 0 0 2px 1px ;
+    /* 디자인 이슈로 하나만 표시하기 위해 코드 추가 */
+    position: sticky;
+    top: 100px;
+    /* 디자인 이슈로 하나만 표시하기 위해 코드 추가 */
+}
+.table {
+    font-size: 14px;
+}
+
+.skill-detail {
+    position: relative;
+}
+.skill-detail > .advice {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    color: var(--bs-secondary);
+    cursor: pointer;
+    animation: blink 0.4s ease-in-out alternate infinite;
+}
+.skill-detail > .advice:hover {
+    color: var(--bs-black);
+    animation: none;
+}
+.skill-detail > .advice::after {
+    content: "초기화하려면 클릭하세요";
+}
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width:576px){
+    .skill-detail {
+        display: none;
+        position: fixed;   
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        padding: 150px 3%;
+        background-color: white;
+    }
+    .skill-detail.active {
+        display: block;
+    }
+    .skill-detail > .advice {
+        top: 125px;
+    }
+    .skill-detail > .advice::after {
+        content: "바깥쪽을 클릭하여 닫기";
+    }
+    .pc-only {
+        display: none;
+    }
+}
+
