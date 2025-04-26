@@ -9,15 +9,16 @@ import 'bootstrap/dist/js/bootstrap.esm.js';
 
 //loading router
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import MainContentView from './components/MainContentView';
 
 function App() {
-  
+
   return (
-    <div className="container-fluid mt-5 pt-4">
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <h1>테스트</h1>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <div className="container-fluid mt-5 pt-4">
+        <MainContentView/>
+      </div>
+    </BrowserRouter>
   )
 }
 
