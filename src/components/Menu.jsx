@@ -18,7 +18,7 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/information/hero">영웅 정보</NavLink> */}
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to="/information/job">전문 직업 강화</NavLink>
-                                <NavLink className="dropdown-item disabled" to="/information/formation-perk">군진 특성 (오류수정중)</NavLink>
+                                <NavLink className="dropdown-item" to="/information/formation-perk">군진 특성</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to="/information/server-info">서버 비교 분석</NavLink>
                                 <div className="dropdown-divider"></div>
