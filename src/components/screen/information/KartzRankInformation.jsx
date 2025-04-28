@@ -80,6 +80,7 @@ const KartzRankInformation = () => {
     }, [provideDate]);
 
     const [countList, setCountList] = useState([]);
+    
 
     useEffect(()=>{
         if(jsonData == null) return;
@@ -196,6 +197,11 @@ const KartzRankInformation = () => {
         return countList.filter(c=>c.server.toString().startsWith(keyword))
                         .map(c=>({...c, server:c.server.toString().replace(keyword, `<span class='text-primary fw-bold'>${keyword}</span>`)}));//시작검색
     }, [countList, keyword]);
+    const imageResult = useMemo(()=>{
+        if(keyword.length === 0) return [];
+        return jsonData.filter(user=>user.server===parseInt(keyword))
+                .map(user=>`${import.meta.env.VITE_KARTZ_URL}/${provideDate}/images/${user.rank}.png`);
+    }, [jsonData, keyword]);
 
     //높이같게
     const titleDisplay = useRef();
@@ -308,6 +314,13 @@ const KartzRankInformation = () => {
                 <span role="button" onClick={e=>setChartHeight("auto")}>↓펼치기↓</span>
                 )}
             </div> 
+        </div>
+        <div className="row mt-4">
+            {imageResult.map((src, index)=>(
+            <div className="col-md-4 col-sm-6 mb-2" key={index}>
+                <img src={src} width={"100%"}/>
+            </div>
+            ))}
         </div>
         <hr/>
         <div className="text-muted">Avg는 서버의 랭커 평균 도전 스테이지입니다</div>
