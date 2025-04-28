@@ -16,7 +16,7 @@ const TitanResearchSimulator = () => {
     const [count, setCount] = useState(1);
     const changeCount = useCallback((e) => {
         const value = parseInt(e.target.value);
-        if (value !== NaN && value >= 1 && value <= 100) {
+        if (isNaN(value) === false && value >= 1 && value <= 100) {
             setCount(value);
         }
     }, [count]);
