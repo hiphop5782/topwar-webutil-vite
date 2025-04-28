@@ -3,15 +3,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Pie } from 'react-chartjs-2';
 
 import SafeImage from '@src/components/template/SafeImage';
+import provideDates from "@src/assets/json/kartz/history.json";
 import "./KartzRankInformation.css";
+import axios from 'axios';
 
 // Chart.js 요소 등록 (ArcElement 필수!)
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-const provideDates = [
-    '2025-03-24',
-    '2025-02-24',
-];
 
 const chartBackgroundColors = [
     '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b',
@@ -22,7 +19,7 @@ const chartBackgroundColors = [
 
 const KartzRankInformation = () => {
 
-    const [provideDate, setProvideDate] = useState(provideDates[0]);
+    const [provideDate, setProvideDate] = useState(provideDates[provideDates.length-1]);
     const [jsonData, setJsonData] = useState(null);
 
     const chartRef = useRef(null);
@@ -67,11 +64,18 @@ const KartzRankInformation = () => {
         //const jsonFileData = jsonFiles(`./${provideDate}.json`);
 
         //Vite 문법
-        const jsonFiles = import.meta.glob("/src/assets/json/kartz/*.json", {eager:true});
-        const jsonFileData = jsonFiles[`/src/assets/json/kartz/${provideDate}.json`];
-        if(jsonFileData) {
-            setJsonData(jsonFileData.default);
-        }
+        //const jsonFiles = import.meta.glob("/src/assets/json/kartz/*.json", {eager:true});
+        //const jsonFileData = jsonFiles[`/src/assets/json/kartz/${provideDate}.json`];
+        //if(jsonFileData) {
+        //    setJsonData(jsonFileData.default);
+        //}
+
+        //json 분리
+        axios.get(`${import.meta.env.VITE_KARTZ_URL}/${provideDate}/rank.json`)
+        .then(({data})=>{
+            setJsonData(data);
+        })
+        .catch(err=>window.alert("데이터 서버가 응답하지 않습니다"));
 
     }, [provideDate]);
 
@@ -212,8 +216,9 @@ const KartzRankInformation = () => {
             <div className="col-sm-6" ref={titleDisplay}>
                 <h1>
                     카르츠 분석
-                    <select className="form-select w-auto d-inline-block ms-2" onChange={e=>setProvideDate(e.target.value)}>
-                        {provideDates.map(d=>(<option key={d}>{d}</option>))}
+                    <select className="form-select w-auto d-inline-block ms-2" 
+                        value={provideDate} onChange={e=>setProvideDate(e.target.value)}>
+                        {[...provideDates].reverse().map(d=>(<option key={d}>{d}</option>))}
                     </select>
                 </h1>
                 <div className="text-muted">차트에는 랭커가 <span className="text-danger fw-bold">5</span>명 이상인 서버만 표시됩니다</div>
@@ -224,7 +229,7 @@ const KartzRankInformation = () => {
                 <ul className="list-group">
                     {Array.from({length:500},(_, i)=>i+1).map(n=>(
                         <li className="list-group-item" key={n}>
-                            <SafeImage src={`${import.meta.env.VITE_PUBLIC_URL}/images/kartz/${provideDate}/${n}.png`} width={`100%`}/>
+                            <SafeImage src={`${import.meta.env.VITE_KARTZ_URL}/${provideDate}/images/${n}.png`} width={`100%`}/>
                         </li>                    
                     ))}
                 </ul>
