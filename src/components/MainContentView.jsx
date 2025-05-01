@@ -16,6 +16,7 @@ import SkillCalculator from './screen/calculator/SkillCalculator';
 import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
 import RandomSimulator from './screen/simulator/RandomSimulator';
 import Developer from './screen/Developer';
+import LanguageRouter from "./LanguageRouter";
 
 export default function MainContentView() {
     return (
@@ -24,29 +25,29 @@ export default function MainContentView() {
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
             </div>
             <div className="col-md-8">
-                <Routes>
-                    <Route exact path="/" element={<Home />}></Route>
-                    <Route path="/information/base" element={<BaseInformation />}></Route>
-                    {/* <Route path="/information/hero" element={<HeroInformation/>}></Route> */}
-                    {/* <Route path="/information/decor" element={<DecorInformation/>}></Route> */}
-                    <Route path="/information/job" element={<JobInformation />}></Route>
-                    <Route path="/information/formation-perk" element={<FormationPerk />}></Route>
-                    <Route path="/information/kartz-spec" element={<KartzSpecInformation/>}></Route>
-                    <Route path="/information/kartz-rank" element={<KartzRankInformation/>}></Route>
-                    <Route path="/information/server-info" element={<ServerAnalyzer />}></Route>
-                    <Route path="/calculator/vital" element={<VitalCalculator />}></Route>
-                    <Route path="/calculator/gathering" element={<GatheringCalculator />}></Route>
-                    <Route path="/calculator/skill" element={<SkillCalculator />}></Route>
-                    <Route path="/calculator/value-pack" element={<ValuePackCalculator/>}></Route>
-                    <Route path="/simulator/random" element={<RandomSimulator/>}></Route>
-                    {/* <Route path="/simulator/hero" element={<HeroSimulator/>}></Route> */}
-                    <Route path="/simulator/titan-research" element={<TitanResearchSimulator />}></Route>
-                    <Route path="/simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
-                    <Route path="/developer" element={<Developer/>}></Route>
-                    <Route path="/emoji" element={<Emoji />}></Route>
-                    {/* <Route path="/blog" element={<Blog />}></Route> */}
-                    <Route path="*" element={<PangeNotFound />}></Route>
-                </Routes>
+            <Routes>
+                <Route index element={<Home />}></Route>
+                <Route path="information/base" element={<BaseInformation />}></Route>
+                {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
+                {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
+                <Route path="information/job" element={<JobInformation />}></Route>
+                <Route path="information/formation-perk" element={<FormationPerk />}></Route>
+                <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
+                <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
+                <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
+                <Route path="calculator/vital" element={<VitalCalculator />}></Route>
+                <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
+                <Route path="calculator/skill" element={<SkillCalculator />}></Route>
+                <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
+                <Route path="simulator/random" element={<RandomSimulator/>}></Route>
+                {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
+                <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
+                <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
+                <Route path="developer" element={<Developer/>}></Route>
+                <Route path="emoji" element={<Emoji />}></Route>
+                {/* <Route path="/blog" element={<Blog />}></Route> */}
+                <Route path="*" element={<PangeNotFound />}></Route>
+            </Routes>
             </div>
             <div className="col-md-2 d-none d-md-block">
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}

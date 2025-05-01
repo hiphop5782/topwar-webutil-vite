@@ -1,0 +1,38 @@
+{
+    "menu": {
+      "info": {
+        "label": "Information",
+        "sub": {
+          "base": "Base Info",
+          "job": "Specialization Upgrade",
+          "formation-perk": "Formation Perks",
+          "server-analyze": "Server Comparison",
+          "kartz-information": "Kartz Monster Info",
+          "kartz-rank": "Kartz Ranking"
+        }
+      },
+      "calculator": {
+        "label": "Calculators",
+        "sub": {
+          "vital": "Stamina Recovery Calculator",
+          "skill-shard": "Exclusive Fragment Calculator",
+          "store": "Special Package Value Calculator"
+        }
+      },
+      "simulator": {
+        "label": "Simulators",
+        "sub": {
+          "titan-research": "Titan Crafting",
+          "titan-refine": "Titan Refinement",
+          "random": "Random Draw Simulator"
+        }
+      },
+      "emoji": {
+        "label": "Emojis"
+      },
+      "developer": {
+        "label": "Developer"
+      }
+    }
+  }
+  

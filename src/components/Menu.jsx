@@ -1,6 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useCallback } from "react";
 
 function Menu() {
+    const nagivate = useNavigate();
+    const { t, i18n } = useTranslation("common");
+    const { lang } = useParams();
+    console.log(lang);
+
+    const changeLanguage = useCallback((e)=>{
+        const newLang = e.target.value;
+        const pathWithoutLang = window.location.pathname.replace(/^\/(ko|en)/, '');
+        nagivate(`/${newLang}${pathWithoutLang}`);
+        i18n.changeLanguage(newLang);
+    }, []);
+
     return (
         <nav className="navbar navbar-expand-lg bg-primary fixed-top" data-bs-theme="dark">
             <div className="container-fluid">
@@ -11,48 +25,61 @@ function Menu() {
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto"> 
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정보</a>
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.info.label`)}</a>
                             <div className="dropdown-menu">
-                                <NavLink className="dropdown-item" to="/information/base">기지 정보</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/base`}>{t(`menu.info.sub.base`)}</NavLink>
                                 {/* <NavLink className="dropdown-item" to="/information/decor">장식 정보</NavLink> */}
                                 {/* <NavLink className="dropdown-item" to="/information/hero">영웅 정보</NavLink> */}
                                 <div className="dropdown-divider"></div>
-                                <NavLink className="dropdown-item" to="/information/job">전문 직업 강화</NavLink>
-                                <NavLink className="dropdown-item" to="/information/formation-perk">군진 특성</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/job`}>{t(`menu.info.sub.job`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/formation-perk`}>{t(`menu.info.sub.formation-perk`)}</NavLink>
                                 <div className="dropdown-divider"></div>
-                                <NavLink className="dropdown-item" to="/information/server-info">서버 비교 분석</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/server-info`}>{t(`menu.info.sub.server-analyze`)}</NavLink>
                                 <div className="dropdown-divider"></div>
-                                <NavLink className="dropdown-item" to="/information/kartz-spec">카르츠 몬스터 정보</NavLink>
-                                <NavLink className="dropdown-item" to="/information/kartz-rank">카르츠 순위 현황</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/kartz-spec`}>{t(`menu.info.sub.kartz-information`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/kartz-rank`}>{t(`menu.info.sub.kartz-rank`)}</NavLink>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계산기</a>
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.calculator.label`)}</a>
                             <div className="dropdown-menu">
-                                <NavLink className="dropdown-item" to="/calculator/vital">체력 회복 속도 계산기</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/calculator/vital`}>{t(`menu.calculator.sub.vital`)}</NavLink>
                                 {/* <NavLink className="dropdown-item" to="/calculator/gathering">채집 속도 계산기</NavLink> */}
-                                <NavLink className="dropdown-item" to="/calculator/skill">전속 조각 계산기</NavLink>
-                                <NavLink className="dropdown-item" to="/calculator/value-pack">특별패키지 계산기</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/calculator/skill`}>{t(`menu.calculator.sub.skill-shard`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/calculator/value-pack`}>{t(`menu.calculator.sub.store`)}</NavLink>
                                 {/* <div className="dropdown-divider"></div>/ */}
                                 {/* <a className="dropdown-item">Separated link</a> */}
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">시뮬레이터</a>
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.simulator.label`)}</a>
                             <div className="dropdown-menu">
-                                <NavLink className="dropdown-item" to="/simulator/titan-research">타이탄제작</NavLink>
-                                <NavLink className="dropdown-item" to="/simulator/titan-refine">타이탄재련</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/titan-research`}>{t(`menu.simulator.sub.titan-research`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/titan-refine`}>{t(`menu.simulator.sub.titan-refine`)}</NavLink>
                                 <div className="dropdown-divider"></div>
-                                <NavLink className="dropdown-item" to="/simulator/random">랜덤추첨기</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/random`}>{t(`menu.simulator.sub.random`)}</NavLink>
                                 {/* <NavLink className="nav-link" to="/simulator/hero">데미지계산기</NavLink> */}
                             </div>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/emoji">이모티콘</NavLink>
+                            <NavLink className="nav-link" to={`/${lang}/emoji`}>{t(`menu.emoji.label`)}</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/developer">개발자</NavLink>
+                            <NavLink className="nav-link" to={`/${lang}/developer`}>{t(`menu.developer.label`)}</NavLink>
                         </li>
+                        
+                        {/* ✅ 언어 선택 드롭다운 */}
+                        <form className="d-flex align-items-center">
+                            <select
+                            className="form-select form-select-sm text-bg-dark"
+                            value={lang}
+                            onChange={changeLanguage}
+                            style={{ width: "auto", marginLeft: "10px" }}
+                            >
+                            <option value="ko">한국어</option>
+                            <option value="en">English</option>
+                            </select>
+                        </form>
                     </ul>
                 </div>
             </div>

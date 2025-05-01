@@ -9,13 +9,13 @@ import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import MainContentView from './components/MainContentView';
 import Menu from './components/Menu';
 
+import "./i18n";
+import LanguageRouter from './components/LanguageRouter';
+
 function App() {
   return (
     <BrowserRouter>
-      <div className="container-fluid mt-5 pt-4">
-        <Menu/>
-        <MainContentView/>
-      </div>
+      <LanguageRouter/>
     </BrowserRouter>
   )
 }
