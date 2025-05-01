@@ -5,10 +5,13 @@ import axios from "axios";
 import { ResponsiveHeatMapCanvas } from "@nivo/heatmap";
 import { FaPlus, FaXmark } from "react-icons/fa6";
 
+import "./ServerAnalyzer.css";
+
 export default function ServerAnalyzer() {
     const [selectedServers, setSelectedServers] = useState([]);
     const [serverList, setServerList] = useState([...ServerListJson.list]);
     const [serverInput, setServerInput] = useState("");
+    const [cutoff, setCutoff] = useState(100);
 
     const addServer = useCallback(async () => {
         const selectedServer = parseInt(serverInput);
@@ -105,6 +108,43 @@ export default function ServerAnalyzer() {
             .map(x => x.toString()); // 다시 문자열로 변환
     }, [chartData]);
 
+    const getMaximumCP = useCallback((server)=>{
+        const average = server.data.okList.map(cp=>parseFloat(cp)).reduce((acc, cur)=> acc > cur ? acc : cur, 0);
+        return average.toFixed(1) + "M";
+    }, []);
+    const getMinimumCP = useCallback((server)=>{
+        const average = server.data.okList.map(cp=>parseFloat(cp)).reduce((acc, cur)=> acc > cur ? cur : acc, 9999);
+        return average.toFixed(1) + "M";
+    }, []);
+    const getAverageCP = useCallback((server)=>{
+        const average = server.data.okList.map(cp=>parseFloat(cp)).reduce((acc, cur)=> acc + cur, 0) / server.data.okList.length;
+        return average.toFixed(1) + "M";
+    }, []);
+    const getCutoffCount = useCallback((server)=>{
+        const filter = server.data.okList.map(cp=>parseFloat(cp)).filter(cp=>cp>=cutoff);
+        return filter.length;
+    }, [cutoff]);
+    const getTopNCP = useCallback((server, n)=>{
+        const average = server.data.okList.filter((cp,idx)=>idx < n).map(cp=>parseFloat(cp)).reduce((acc, cur)=> acc + cur, 0) / n;
+        return average.toFixed(1) + "M";
+    }, []);
+
+    const changeCutoff = useCallback(e=>{
+        const regex = /^[0-9]+\.?[0-9]*$/;
+        const value = e.target.value;
+        if(value.length === 0 || regex.test(value)) {
+            setCutoff(value);
+        }
+    }, []);
+
+    const cutoffIsDecimal = useMemo(()=>{
+        const fvalue = parseFloat(cutoff);
+        return isNaN(fvalue) === false;
+    }, [cutoff]);
+    const cutoffNumber = useMemo(()=>{
+        return parseFloat(cutoff);
+    }, [cutoff]);
+
     return (<>
         <h1>서버별 Top 100 분석</h1>
         <p className="text-muted">여러 서버의 Top 100 유저 분포를 히트맵으로 확인해보세요</p>
@@ -137,7 +177,7 @@ export default function ServerAnalyzer() {
         </div>
         <hr />
 
-        <div style={{ height: 130 + selectedServers.length * 55 }}>
+        <div style={{ height: `calc(8vw + ${(selectedServers.length-1) * 45}px)` , minHeight : 150 }}>
             {Array.isArray(chartData) && chartData.length > 0 && (
                 <ResponsiveHeatMapCanvas
                     data={chartData}
@@ -197,10 +237,45 @@ export default function ServerAnalyzer() {
                             }
                         },
                     }}
-                    label={({ value }) => value === 0 ? '' : value}
+                    label={({ width, value }) => (width < 25 || value === 0) ? '' : value}
                     annotations={[]}
                 />
             )}
         </div>
+
+        <hr/>
+        
+        {selectedServers.length > 0 && (<>
+            <div className="row">
+            <div className="col">
+                <input type="text" className="form-control w-auto" placeholder="기준CP" value={cutoff} onChange={changeCutoff}/>
+            </div>
+        </div>
+        <div className="row mt-4">
+            {selectedServers.map(server=>(
+            <div className="col-lg-6 mb-4 border p-4" key={server.number}>
+                <h3 className="mb-4 fw-bold">{server.number} 서버</h3>
+
+                {cutoffIsDecimal && (
+                <div className="text-danger fw-bold mb-2">{cutoff}M 이상 유저 수 : {getCutoffCount(server)}명</div>
+                )}
+
+                <div className="d-flex flex-wrap">
+                    <div className="w-100 w-lg-50">
+                        <div>최고 전투력 : {getMaximumCP(server)}</div>
+                        <div>평균 전투력 : {getAverageCP(server)}</div>
+                        <div>최저 전투력 : {getMinimumCP(server)}</div>
+                    </div>
+                    <div className="w-100 w-lg-50">
+                        <div>Top <span className="d-inline-block text-danger fw-bold" style={{width:30}}>5</span> 평균 : <span className="text-danger fw-bold">{getTopNCP(server, 5)}</span></div>
+                        <div>Top <span className="d-inline-block text-danger" style={{width:30}}>10</span> 평균 : <span className="text-danger">{getTopNCP(server, 10)}</span></div>
+                        <div>Top <span className="d-inline-block text-danger opacity-75" style={{width:30}}>20</span> 평균 : <span className="text-danger opacity-75">{getTopNCP(server, 20)}</span></div>
+                        <div>Top <span className="d-inline-block text-warning" style={{width:30}}>30</span> 평균 : <span className="text-warning">{getTopNCP(server, 30)}</span></div>
+                    </div>
+                </div>
+            </div>
+            ))}
+        </div>
+        </>)}
     </>)
 }
