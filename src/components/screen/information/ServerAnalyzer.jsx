@@ -14,6 +14,8 @@ export default function ServerAnalyzer() {
     const params = new URLSearchParams(location.search);
     useEffect(()=>{
         if(params === null) return;
+        if(selectedServers.length > 0) return;
+        
         const value = String(params.get("server"));
         const decoded = decodeURIComponent(value);
         decoded.split(",").forEach(addServerByParameter);
@@ -284,7 +286,8 @@ export default function ServerAnalyzer() {
         {selectedServers.length > 0 && (<>
             <div className="row">
             <div className="col">
-                <input type="text" className="form-control w-auto" placeholder="기준CP" value={cutoff} onChange={changeCutoff}/>
+                <span>인원수를 카운트할 기준 CP를 설정하세요</span>
+                <input type="text" className="form-control w-auto" value={cutoff} onChange={changeCutoff}/>
             </div>
         </div>
         <div className="row mt-4">
