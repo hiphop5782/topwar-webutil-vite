@@ -6,13 +6,33 @@ import { ResponsiveHeatMapCanvas } from "@nivo/heatmap";
 import { FaPlus, FaXmark } from "react-icons/fa6";
 
 import "./ServerAnalyzer.css";
+import { useLocation } from "react-router-dom";
 
 export default function ServerAnalyzer() {
+
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    useEffect(()=>{
+        if(params === null) return;
+        const value = String(params.get("server"));
+        const decoded = decodeURIComponent(value);
+        decoded.split(",").forEach(addServerByParameter);
+    }, []);
+
     const [selectedServers, setSelectedServers] = useState([]);
     const [serverList, setServerList] = useState([...ServerListJson.list]);
     const [serverInput, setServerInput] = useState("");
     const [cutoff, setCutoff] = useState(100);
 
+    const addServerByParameter = useCallback(async (target)=>{
+        const { data } = await axios.get(`//data.progamer.info/${target}.json`);
+        setSelectedServers(prev => [...prev, {
+            number: target,
+            data: data ?? []
+        }]);
+
+        setServerList(prev => prev.filter(server => server !== target));
+    }, []);
     const addServer = useCallback(async () => {
         const selectedServer = parseInt(serverInput);
         if (serverList.includes(selectedServer) === false) {
@@ -145,6 +165,22 @@ export default function ServerAnalyzer() {
         return parseFloat(cutoff);
     }, [cutoff]);
 
+    const listData = useMemo(()=>{
+        return selectedServers.sort((server1, server2)=>{
+            try {
+                if(cutoffIsDecimal) {
+                    const n1 = getCutoffCount(server1);
+                    const n2 = getCutoffCount(server2);
+                    if(n1 === n2) throw "pass";
+                    return n2 - n1;
+                }
+            }
+            catch(e) {}
+            return parseFloat(getTopNCP(server2, 5)) - parseFloat(getTopNCP(server1, 5));
+
+        });
+    }, [cutoffIsDecimal, cutoffNumber, selectedServers]);
+
     return (<>
         <h1>서버별 Top 100 분석</h1>
         <p className="text-muted">여러 서버의 Top 100 유저 분포를 히트맵으로 확인해보세요</p>
@@ -252,7 +288,7 @@ export default function ServerAnalyzer() {
             </div>
         </div>
         <div className="row mt-4">
-            {selectedServers.map(server=>(
+            {listData.map(server=>(
             <div className="col-lg-6 mb-4 border p-4" key={server.number}>
                 <h3 className="mb-4 fw-bold">{server.number} 서버</h3>
 
