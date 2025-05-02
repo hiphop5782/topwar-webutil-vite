@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from "re
 import supportedLanguages from "@src/assets/json/supported-languages.json";
 import Menu from "./Menu";
 import MainContentView from "./MainContentView";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function WithLanguageRouter() {
     const { lang } = useParams();
@@ -11,12 +12,23 @@ function WithLanguageRouter() {
     }
 
     const location = useLocation();
-    console.log("lang", lang, "pathname", location.pathname);
 
     return (
     <div className="container-fluid mt-5 pt-4">
         <Menu/>
         <MainContentView/>
+        <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}/>
     </div>
     )
 }

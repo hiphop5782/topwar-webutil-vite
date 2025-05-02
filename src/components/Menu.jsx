@@ -6,7 +6,6 @@ function Menu() {
     const nagivate = useNavigate();
     const { t, i18n } = useTranslation("common");
     const { lang } = useParams();
-    console.log(lang);
 
     const changeLanguage = useCallback((e)=>{
         const newLang = e.target.value;
