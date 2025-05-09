@@ -16,7 +16,7 @@ import SkillCalculator from './screen/calculator/SkillCalculator';
 import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
 import RandomSimulator from './screen/simulator/RandomSimulator';
 import Developer from './screen/Developer';
-import LanguageRouter from "./LanguageRouter";
+import EternalLand from "./screen/information/EternalLand";
 
 export default function MainContentView() {
     return (
@@ -34,6 +34,7 @@ export default function MainContentView() {
                 <Route path="information/formation-perk" element={<FormationPerk />}></Route>
                 <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
                 <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
+                <Route path="information/el" element={<EternalLand/>}></Route>
                 <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
                 <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                 <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
