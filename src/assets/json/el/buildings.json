@@ -3,120 +3,280 @@
         "name": "원정 본부 1",
         "x": 32.00,
         "y": 9.75,
-        "color": "blue"
+        "color": "blue",
+        "point":30
     },
     {
         "name": "원정 사령탑 1-1",
         "x": 16.10,
         "y": 5.00,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 1-2",
         "x": 23.10,
         "y": 11.28,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 1-3",
         "x": 39.20,
         "y": 12.58,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 1-4",
         "x": 44.10,
         "y": 5.50,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 본부 2",
         "x": 68.20,
         "y": 9.05,
-        "color": "blue"
+        "color": "blue",
+        "point":30
     },
     {
         "name": "원정 사령탑 2-1",
         "x": 59.00,
         "y": 5.8,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 2-2",
         "x": 62.30,
         "y": 11.90,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 2-3",
         "x": 78.90,
         "y": 11.90,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 2-4",
         "x": 84.00,
         "y": 7.50,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 본부 3",
         "x": 92.20,
         "y": 33.75,
-        "color": "blue"
+        "color": "blue",
+        "point":30
     },
     {
         "name": "원정 사령탑 3-1",
         "x": 93.20,
         "y": 21.60,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 3-2",
         "x": 89.00,
         "y": 28.40,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 3-3",
         "x": 89.00,
         "y": 40.90,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 3-4",
         "x": 93.00,
         "y": 46.95,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 본부 4",
         "x": 93.60,
         "y": 67.95,
-        "color": "blue"
+        "color": "blue",
+        "point":30
     },
     {
         "name": "원정 사령탑 4-1",
         "x": 94.25,
         "y": 56.20,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 4-2",
         "x": 89.35,
         "y": 63.45,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 4-3",
         "x": 89.35,
         "y": 72.95,
-        "color": "red"
+        "color": "red",
+        "point":10
     },
     {
         "name": "원정 사령탑 4-4",
         "x": 93.25,
         "y": 82.70,
-        "color": "red"
+        "color": "red",
+        "point":10
+    },
+    {
+        "name": "원정 본부 5",
+        "x": 69.50,
+        "y": 93.30,
+        "color": "blue",
+        "point":30
+    },
+    {
+        "name": "원정 사령탑 5-1",
+        "x": 55.90,
+        "y": 97.50,
+        "color": "red",
+        "point":10
+    },
+    {
+        "name": "원정 사령탑 5-2",
+        "x": 60.45,
+        "y": 90.20,
+        "color": "red",
+        "point":10
+    },
+    {
+        "name": "원정 사령탑 5-3",
+        "x": 79.65,
+        "y": 89.65,
+        "color": "red",
+        "point":10
+    },
+    {
+        "name": "원정 사령탑 5-4",
+        "x": 82.57,
+        "y": 96.70,
+        "color": "red",
+        "point":10
+    },
+    {
+        "name": "원정 본부 6",
+        "x": 31.60,
+        "y": 93.70,
+        "color": "blue",
+        "point":30
+    },
+    {
+        "name": "원정 사령탑 6-1",
+        "x": 13.90,
+        "y": 95.60,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 6-2",
+        "x": 22.53,
+        "y": 90.27,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 6-3",
+        "x": 39.77,
+        "y": 89.60,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 6-4",
+        "x": 45.25,
+        "y": 97.28,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 본부 7",
+        "x": 6.45,
+        "y": 68.00,
+        "color": "blue",
+        "point": 30
+    },
+    {
+        "name": "원정 사령탑 7-1",
+        "x": 5.50,
+        "y": 54.65,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 7-2",
+        "x": 11.05,
+        "y": 59.10,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 7-3",
+        "x": 12.10,
+        "y": 76.35,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 7-4",
+        "x": 5.25,
+        "y": 80.73,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 본부 8",
+        "x": 9.40,
+        "y": 33.60,
+        "color": "blue",
+        "point": 30
+    },
+    {
+        "name": "원정 사령탑 8-1",
+        "x": 7.50,
+        "y": 18.40,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 8-2",
+        "x": 11.55,
+        "y": 28.35,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 8-3",
+        "x": 11.60,
+        "y": 42.25,
+        "color": "red",
+        "point": 10
+    },
+    {
+        "name": "원정 사령탑 8-4",
+        "x": 7.55,
+        "y": 47.15,
+        "color": "red",
+        "point": 10
     }
 ]
