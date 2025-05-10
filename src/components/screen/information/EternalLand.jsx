@@ -1,9 +1,10 @@
 import ELmap from "@src/assets/images/el-map.jpg";
 import Buildings from "@src/assets/json/el/buildings.json";
-import { throttle } from "lodash";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { reverse, throttle } from "lodash";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import "./EternalLand.css";
+import { GrRadialSelected } from "react-icons/gr";
 
 export default function EternalLand() {
 
@@ -11,6 +12,14 @@ export default function EternalLand() {
     const [mapWidth, setMapWidth] = useState(0);
     const [mapHeight, setMapHeight] = useState(0);
     const [hoverObject, setHoverObject] = useState(null);
+    const [facilities, setFacilities] = useState([]);
+
+    useEffect(()=>{
+        setFacilities(Buildings.map(building=>({
+            ...building,
+            selected:false,
+        })))
+    }, []);
 
     useEffect(()=>{
         const updateSize = throttle(()=>{
@@ -37,26 +46,44 @@ export default function EternalLand() {
         return `translate(${x}%, ${y}%)`;
     }, []);
 
+    const toggleObject = useCallback((target)=>{
+        setFacilities(facilities.map(facility=>{
+            if(facility.name === target.name) {
+                return {...facility, selected : !facility.selected};
+            }
+            return facility;
+        }));
+    }, [facilities]);
+
+    const selectedFacilities = useMemo(()=>{
+        return facilities.filter(facility=>facility.selected);
+    }, [facilities]);
+
+    const selectedFacilitiesPoint = useMemo(()=>{
+        return selectedFacilities.reduce((acc, facility)=>acc + facility.point, 0);
+    }, [selectedFacilities]);
+
     return (<>
         <h1>영원의 땅</h1>
 
         <div className="position-relative" ref={map}>
             <img src={ELmap} width={"100%"} alt="eternel land map"/>
-            {Buildings.map(building=>(
-            <div className="position-absolute" style={
+            {facilities.map((facility, index)=>(
+            <div key={index} className="position-absolute" style={
                     {
-                        top: `${building.y}%`,
-                        left: `${building.x}%`,
+                        top: `${facility.y}%`,
+                        left: `${facility.x}%`,
                         transform: `translate(-50%, -50%) rotate(-45deg) skew(15deg, 15deg)`,
-                        // transform: "translate(-50%, -50%)",
-                        backgroundColor : `${building.color}`,
+                        backgroundColor : `${facility.color}`,
                         width: `${mapWidth*0.015}px`,
                         height: `${mapWidth*0.015}px`,
-                        cursor: `pointer`
+                        cursor: `pointer`,
+                        boxShadow:`${facility.selected ? '0 0 5px 5px rgb(255, 234, 167)' : ''}`
                     }
                 }
-                onMouseEnter={e=>setHoverObject(building)}
+                onMouseEnter={e=>setHoverObject(facility)}
                 onMouseLeave={e=>setHoverObject(null)}
+                onClick={e=>toggleObject(facility)}
             ></div>
             ))}
             {hoverObject !== null && (
@@ -102,6 +129,24 @@ export default function EternalLand() {
                 </div>
             </div>
             )}
+        </div>
+
+        <div className="row mt-4">
+            <div className="col">
+                {selectedFacilities.map((facility, index)=>(
+                <div key={index}>
+                    {facility.name} / 1분당 {facility.point.toLocaleString()}점
+                </div>
+                ))}
+            </div>
+        </div>
+
+        <div className="row mt-4 mb-4 pb-4">
+            <div className="col">
+                <div className="fs-2"><span className="fw-bold text-primary">1분</span> 당 총 <span className="fw-bold text-danger">{selectedFacilitiesPoint.toLocaleString()}</span> 점 획득 가능</div>
+                <div className="fs-2"><span className="fw-bold text-primary">1시간</span> 당 총 <span className="fw-bold text-danger">{(selectedFacilitiesPoint * 60).toLocaleString()}</span> 점 획득 가능</div>
+                <div className="fs-2"><span className="fw-bold text-primary">1일</span> 당 총 <span className="fw-bold text-danger">{(selectedFacilitiesPoint * 60 * 24).toLocaleString()}</span> 점 획득 가능</div>
+            </div>
         </div>
     </>);
 }
