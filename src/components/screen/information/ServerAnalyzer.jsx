@@ -1,4 +1,3 @@
-import ServerListJson from "@src/assets/json/servers.json";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
@@ -31,10 +30,18 @@ export default function ServerAnalyzer() {
         }
     }, [selectedServers, loading]);
 
-    const [serverList, setServerList] = useState([...ServerListJson.list]);
+    const [serverList, setServerList] = useState([]);
+    useEffect(()=>{
+        loadServerList();
+    }, []);
+
     const [serverInput, setServerInput] = useState("");
     const [cutoff, setCutoff] = useState(100);
 
+    const loadServerList = useCallback(async ()=>{
+        const {data} = await axios.get("https://raw.githubusercontent.com/hiphop5782/topwar-json/main/servers.json");
+        setServerList([...data.list]);
+    }, []);
     const addServerByParameter = useCallback(async (target) => {
         const { data } = await axios.get(`//data.progamer.info/${target}.json`);
         setSelectedServers(prev => [...prev, {
