@@ -5,7 +5,6 @@
             "sub":{
                 "base":"기지 정보",
                 "job":"전문 직업 강화",
-                "formation-perk":"군진 특성",
                 "el":"영원의 땅",
                 "server-analyze":"서버 비교 분석",
                 "kartz-information":"카르츠 몬스터 정보",
@@ -25,6 +24,7 @@
             "sub":{
                 "titan-research":"타이탄 제작",
                 "titan-refine":"타이탄 재련",
+                "formation-perk":"군진 특성",
                 "random":"랜덤 추첨기"
             }
         },
