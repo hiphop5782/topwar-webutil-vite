@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Pie } from 'react-chartjs-2';
 
 import SafeImage from '@src/components/template/SafeImage';
-import provideDates from "@src/assets/json/kartz/history.json";
 import "./KartzRankInformation.css";
 import axios from 'axios';
 
@@ -19,7 +18,12 @@ const chartBackgroundColors = [
 
 const KartzRankInformation = () => {
 
-    const [provideDate, setProvideDate] = useState(provideDates[provideDates.length-1]);
+    const [provideDate, setProvideDate] = useState("");
+    const [provideDates, setProvideDates] = useState([]);
+    useEffect(()=>{
+        loadHistory();
+    }, []);
+
     const [jsonData, setJsonData] = useState(null);
 
     const chartRef = useRef(null);
@@ -57,6 +61,7 @@ const KartzRankInformation = () => {
     const [total, setTotal] = useState(0);
 
     useEffect(()=>{
+        if(!provideDates || provideDates.length === 0) return;
         if(!provideDate) return;
 
         //CRA 문법
@@ -77,7 +82,7 @@ const KartzRankInformation = () => {
         })
         .catch(err=>window.alert("데이터 서버가 응답하지 않습니다"));
 
-    }, [provideDate]);
+    }, [provideDate, provideDates]);
 
     const [countList, setCountList] = useState([]);
     
@@ -215,6 +220,12 @@ const KartzRankInformation = () => {
         updateHeight();
         window.addEventListener("resize", updateHeight);
         return ()=>window.removeEventListener("resize", updateHeight);
+    }, []);
+
+    const loadHistory = useCallback(async ()=>{
+        const {data} = await axios.get("https://raw.githubusercontent.com/hiphop5782/topwar-kartz/refs/heads/main/history.json");
+        setProvideDates(data);
+        setProvideDate(data[data.length-1]);
     }, []);
 
     return (<>
