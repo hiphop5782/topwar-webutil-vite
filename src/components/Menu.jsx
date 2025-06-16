@@ -31,7 +31,6 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/information/hero">영웅 정보</NavLink> */}
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/job`}>{t(`menu.info.sub.job`)}</NavLink>
-                                <NavLink className="dropdown-item" to={`/${lang}/information/formation-perk`}>{t(`menu.info.sub.formation-perk`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/el`}>{t(`menu.info.sub.el`)} (구현중)</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/server-info`}>{t(`menu.info.sub.server-analyze`)}</NavLink>
@@ -56,6 +55,8 @@ function Menu() {
                             <div className="dropdown-menu">
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/titan-research`}>{t(`menu.simulator.sub.titan-research`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/titan-refine`}>{t(`menu.simulator.sub.titan-refine`)}</NavLink>
+                                <div className="dropdown-divider"></div>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/formation-perk`}>{t(`menu.simulator.sub.formation-perk`)}</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/random`}>{t(`menu.simulator.sub.random`)}</NavLink>
                                 {/* <NavLink className="nav-link" to="/simulator/hero">데미지계산기</NavLink> */}

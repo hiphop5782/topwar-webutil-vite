@@ -5,7 +5,7 @@ import VitalCalculator from './screen/calculator/VitalCalculator';
 import Emoji from './screen/Emoji';
 import Home from './screen/Home';
 import BaseInformation from './screen/information/BaseInformation';
-import FormationPerk from './screen/information/FormationPerk';
+import FormationPerk from './screen/simulator/FormationPerk';
 import JobInformation from './screen/information/JobInformation';
 import KartzRankInformation from './screen/information/KartzRankInformation';
 import KartzSpecInformation from './screen/information/KartzSpecInformation';
@@ -31,7 +31,6 @@ export default function MainContentView() {
                 {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
                 {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
                 <Route path="information/job" element={<JobInformation />}></Route>
-                <Route path="information/formation-perk" element={<FormationPerk />}></Route>
                 <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
                 <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
                 <Route path="information/el" element={<EternalLand/>}></Route>
@@ -42,6 +41,7 @@ export default function MainContentView() {
                 <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
                 <Route path="simulator/random" element={<RandomSimulator/>}></Route>
                 {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
+                <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
                 <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
                 <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
                 <Route path="developer" element={<Developer/>}></Route>
