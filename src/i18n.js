@@ -9,7 +9,7 @@ i18n
     .init({
         lng:"ko",
         fallbackLng:"en",
-        ns:["common", "base"],
+        ns:["common"],
         defaultNS:"common",
         backend: {
             loadPath: "/locales/{{lng}}/{{ns}}.json",
