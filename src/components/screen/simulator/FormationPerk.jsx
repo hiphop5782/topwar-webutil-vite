@@ -98,8 +98,8 @@ const FormationPerk = () => {
                 //console.log(imageMap[`/images/formation/perk/${node.id}-${node.level.current}.png`]);
                 return {
                     id: node.id,
-                    //image: `${import.meta.env.VITE_PUBLIC_URL}/images/formation/perk/${node.id}-${node.level.current}.png`
-                    image: imageMap[`/images/formation/perk/${node.id}-${node.level.current}.png`]
+                    image: `${import.meta.env.VITE_PUBLIC_URL}/images/formation/perk/${node.id}-${node.level.current}.png` || `${import.meta.env.VITE_PUBLIC_URL}/images/formation/perk/fallback.png`
+                    //image: imageMap[`/images/formation/perk/${node.id}-${node.level.current}.png`] || `${import.meta.env.VITE_PUBLIC_URL}/images/formation/perk/fallback.png`
                 }
             });
             nodes.update(updates);
