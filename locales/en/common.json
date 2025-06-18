@@ -25,7 +25,9 @@
           "titan-research": "Titan Crafting",
           "titan-refine": "Titan Refinement",
           "formation-perk": "Formation Perks",
-          "random": "Random Draw Simulator"
+          "random": "Random Draw Simulator",
+          "slot": "Topwar Slot Machine Game",
+          "luckybox":"Lucky Box Game"
         }
       },
       "emoji": {
