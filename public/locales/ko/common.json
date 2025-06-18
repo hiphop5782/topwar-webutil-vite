@@ -25,7 +25,9 @@
                 "titan-research":"타이탄 제작",
                 "titan-refine":"타이탄 재련",
                 "formation-perk":"군진 특성",
-                "random":"랜덤 추첨기"
+                "random":"랜덤 추첨기",
+                "slot": "탑워 슬롯머신 게임",
+                "luckybox":"행운상자 게임"
             }
         },
         "emoji":{

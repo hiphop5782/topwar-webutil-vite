@@ -17,6 +17,8 @@ import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
 import RandomSimulator from './screen/simulator/RandomSimulator';
 import Developer from './screen/Developer';
 import EternalLand from "./screen/information/EternalLand";
+import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
+import LuckyBox from "./screen/simulator/LuckyBox";
 
 export default function MainContentView() {
     return (
@@ -44,6 +46,8 @@ export default function MainContentView() {
                 <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
                 <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
                 <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
+                <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
+                <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
                 <Route path="developer" element={<Developer/>}></Route>
                 <Route path="emoji" element={<Emoji />}></Route>
                 {/* <Route path="/blog" element={<Blog />}></Route> */}
