@@ -37,6 +37,7 @@ function Menu() {
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/kartz-spec`}>{t(`menu.info.sub.kartz-information`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/kartz-rank`}>{t(`menu.info.sub.kartz-rank`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/kartz-statistics`}>{t(`menu.info.sub.kartz-statistics`)}</NavLink>
                             </div>
                         </li>
                         <li className="nav-item dropdown">

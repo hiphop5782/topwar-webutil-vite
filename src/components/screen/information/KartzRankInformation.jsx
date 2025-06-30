@@ -1,6 +1,6 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, plugins } from 'chart.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Pie } from 'react-chartjs-2';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import SafeImage from '@src/components/template/SafeImage';
 import "./KartzRankInformation.css";

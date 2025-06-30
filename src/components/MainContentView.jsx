@@ -19,6 +19,7 @@ import Developer from './screen/Developer';
 import EternalLand from "./screen/information/EternalLand";
 import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
 import LuckyBox from "./screen/simulator/LuckyBox";
+import KartzStatistics from "./screen/information/KartzStatistics";
 
 export default function MainContentView() {
     return (
@@ -35,6 +36,7 @@ export default function MainContentView() {
                 <Route path="information/job" element={<JobInformation />}></Route>
                 <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
                 <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
+                <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
                 <Route path="information/el" element={<EternalLand/>}></Route>
                 <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
                 <Route path="calculator/vital" element={<VitalCalculator />}></Route>

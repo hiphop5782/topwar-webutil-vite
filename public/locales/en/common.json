@@ -8,7 +8,8 @@
           "el":"Eternal Land",
           "server-analyze": "Server Comparison",
           "kartz-information": "Kartz Monster Info",
-          "kartz-rank": "Kartz Ranking"
+          "kartz-rank": "Kartz Ranking",
+          "kartz-statistics":"Kartz Ranking Changes"
         }
       },
       "calculator": {
