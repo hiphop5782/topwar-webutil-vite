@@ -5,6 +5,30 @@ import { Line } from 'react-chartjs-2';
 // Chart.js 구성 요소 등록
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
+const serverLabelPlugin = {
+  id: 'serverLabelPlugin',
+  afterDatasetsDraw(chart) {
+    const { ctx, data } = chart;
+    ctx.save();
+
+    data.datasets.forEach((dataset, i) => {
+      if (dataset.hidden) return;
+
+      const meta = chart.getDatasetMeta(i);
+      const midIndex = Math.floor(meta.data.length / 2);
+      const point = meta.data[midIndex];
+      if (!point) return;
+
+      ctx.fillStyle = dataset.borderColor || '#000';
+      ctx.font = "bold 12px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(dataset.label, point.x, point.y - 10);
+    });
+
+    ctx.restore();
+  }
+};
+
 const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -283,7 +307,7 @@ export default function KartzStatistics() {
             </div>
             <div className="row" style={{ height: "75vh", maxHeight: "75vh", marginBottom: "400px" }}>
                 <div className="col">
-                    <Line options={options} data={chartDataset} />
+                    <Line options={options} data={chartDataset} plugins={[serverLabelPlugin]}/>
                 </div>
             </div>
         </>)}
