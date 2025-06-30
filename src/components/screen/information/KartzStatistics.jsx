@@ -16,8 +16,8 @@ const options = {
         legend: {
             labels: {
                 filter: (legendItem, chartData) => {
-                    return legendItem.datasetIndex < 10;
-                    //return null;
+                    //return legendItem.datasetIndex < 10;
+                    return null;
                 }
             }
         },
