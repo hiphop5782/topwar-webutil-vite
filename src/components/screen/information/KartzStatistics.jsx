@@ -6,27 +6,27 @@ import { Line } from 'react-chartjs-2';
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const serverLabelPlugin = {
-  id: 'serverLabelPlugin',
-  afterDatasetsDraw(chart) {
-    const { ctx, data } = chart;
-    ctx.save();
+    id: 'serverLabelPlugin',
+    afterDatasetsDraw(chart) {
+        const { ctx, data } = chart;
+        ctx.save();
 
-    data.datasets.forEach((dataset, i) => {
-      if (dataset.hidden) return;
+        data.datasets.forEach((dataset, i) => {
+            if (dataset.hidden) return;
 
-      const meta = chart.getDatasetMeta(i);
-      const midIndex = Math.floor(meta.data.length / 2);
-      const point = meta.data[midIndex];
-      if (!point) return;
+            const meta = chart.getDatasetMeta(i);
+            const midIndex = Math.floor(meta.data.length / 2);
+            const point = meta.data[midIndex];
+            if (!point) return;
 
-      ctx.fillStyle = dataset.borderColor || '#000';
-      ctx.font = "bold 12px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText(dataset.label, point.x, point.y - 10);
-    });
+            ctx.fillStyle = dataset.borderColor || '#000';
+            ctx.font = "bold 12px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(dataset.label, point.x, point.y - 10);
+        });
 
-    ctx.restore();
-  }
+        ctx.restore();
+    }
 };
 
 const options = {
@@ -64,16 +64,16 @@ const options = {
 };
 
 const chartBackgroundColors = [
-    "#FF0000", "#FF2C00", "#FF5900", "#FF8500", "#FFA600",
-  "#FFC200", "#FFDE00", "#FAFF00", "#D4FF00", "#ADFF00",
-  "#85FF00", "#5CFF00", "#32FF00", "#00FF0B", "#00FF36",
-  "#00FF61", "#00FF8C", "#00FFB6", "#00FFE1", "#00F6FF",
-  "#00CCFF", "#00A2FF", "#0077FF", "#004DFF", "#0023FF",
-  "#0000FF", "#2300FF", "#4D00FF", "#7700FF", "#A100FF",
-  "#CB00FF", "#F500FF", "#FF00E4", "#FF00BA", "#FF0090",
-  "#FF0065", "#FF003B", "#FF0011", "#FF001B", "#FF0045",
-  "#FF006F", "#FF0099", "#FF00C3", "#FF00ED", "#E100FF",
-  "#B600FF", "#8C00FF", "#6100FF", "#3600FF", "#0B00FF"
+    "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
+    "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#008080",
+    "#9a6324", "#800000", "#aaffc3", "#808000", "#000075",
+    "#808080", "#000000", "#d72638", "#3f88c5", "#f49d37",
+    "#2b9348", "#f6bd60", "#ff6f61", "#3d348b", "#ff9f1c",
+    "#2ec4b6", "#011627", "#ff3366", "#28df99", "#247ba0",
+    "#00afb9", "#fed766", "#ef476f", "#118ab2", "#06d6a0",
+    "#073b4c", "#8ecae6", "#219ebc", "#023047", "#ffb703",
+    "#fb8500", "#6a4c93", "#5e548e", "#9d4edd", "#3a0ca3",
+    "#4361ee", "#4895ef", "#4cc9f0", "#ff006e", "#8338ec"
 ];
 
 export default function KartzStatistics() {
@@ -307,7 +307,7 @@ export default function KartzStatistics() {
             </div>
             <div className="row" style={{ height: "75vh", maxHeight: "75vh", marginBottom: "400px" }}>
                 <div className="col">
-                    <Line options={options} data={chartDataset} plugins={[serverLabelPlugin]}/>
+                    <Line options={options} data={chartDataset} plugins={[serverLabelPlugin]} />
                 </div>
             </div>
         </>)}
