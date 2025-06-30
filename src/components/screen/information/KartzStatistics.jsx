@@ -24,7 +24,7 @@ const options = {
     },
     scales: {
         y: {
-            beginAtZero: false,
+            beginAtZero: true,
             title: {
                 display: true,
                 text: "유저 수",
@@ -264,7 +264,7 @@ export default function KartzStatistics() {
         </div>
 
         {chartDataset !== null && (<>
-            <div className="row mt-4">
+            <div className="row mt-4 mb-4">
                 <div className="col">
                     <h6>
                         표시할 서버 선택
