@@ -21,5 +21,6 @@
     {"no":20, "value":"부두", "color":"warning"},
     {"no":21, "value":"공항", "color":"warning"},
     {"no":22, "value":"체력", "color":"success"},
-    {"no":23, "value":"방어", "color":"success"}
+    {"no":23, "value":"방어", "color":"success"},
+    {"no":24, "value":"스킬", "color":"danger"}
 ]
