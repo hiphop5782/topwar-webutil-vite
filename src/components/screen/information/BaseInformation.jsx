@@ -19,7 +19,7 @@ function BaseInformation() {
         }
     }, [selectedTypes]);
     useEffect(() => {
-        if (params !== null && selectedTypes.length === 0) {
+        if (params.size > 0 && selectedTypes.length === 0) {
             const value = String(params.get("type"));
             const decoded = decodeURIComponent(value);
             const typeList = decoded.split(",");
@@ -32,7 +32,9 @@ function BaseInformation() {
             }));
             //파라미터대로 검색되도록 처리
             typeList.forEach(type=>{
-                setSelectedTypes(prev=>[...prev, type]);
+                if(baseTypes.some(t=>t.value === type)) {
+                    setSelectedTypes(prev=>[...prev, type]);
+                }
             });
         }
     }, []);
