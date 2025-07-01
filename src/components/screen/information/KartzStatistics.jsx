@@ -16,13 +16,24 @@ const serverLabelPlugin = {
 
             const meta = chart.getDatasetMeta(i);
             const midIndex = Math.floor(meta.data.length / 2);
-            const point = meta.data[midIndex];
-            if (!point) return;
+            const lastIndex = meta.data.length - 1;
+            const midPoint = meta.data[midIndex];
+            const lastPoint = meta.data[lastIndex];
 
             ctx.fillStyle = dataset.borderColor || '#000';
             ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "center";
-            ctx.fillText(dataset.label, point.x, point.y - 10);
+
+            // 중간 라벨
+            if (midPoint) {
+                ctx.fillText(dataset.label, midPoint.x, midPoint.y - 10);
+            }
+
+            // 오른쪽 끝 라벨
+            if (lastPoint) {
+                ctx.textAlign = "right"; // 오른쪽에 그릴 때는 왼쪽 정렬이 자연스러움
+                ctx.fillText(dataset.label, lastPoint.x - 10, lastPoint.y -10);
+            }
         });
 
         ctx.restore();
@@ -203,7 +214,8 @@ export default function KartzStatistics() {
                 const serverObject = {
                     label: sData.label,
                     data: [],
-                    borderColor: chartBackgroundColors[index % chartBackgroundColors.length]
+                    borderColor: chartBackgroundColors[index % chartBackgroundColors.length],
+                    tension: 0.4,
                 };
                 checkDates.forEach(d => {
                     serverObject.data.push(sData[d.date]?.count || 0);
