@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 import { Line } from 'react-chartjs-2';
+import { absoluteAngleDegrees } from "@nivo/core";
 // Chart.js 구성 요소 등록
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -32,46 +33,12 @@ const serverLabelPlugin = {
             // 오른쪽 끝 라벨
             if (lastPoint) {
                 ctx.textAlign = "right"; // 오른쪽에 그릴 때는 왼쪽 정렬이 자연스러움
-                ctx.fillText(dataset.label, lastPoint.x - 10, lastPoint.y -10);
+                ctx.fillText(dataset.label, lastPoint.x - 10, lastPoint.y - 10);
             }
         });
 
         ctx.restore();
     }
-};
-
-const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-        title: {
-            display: true,
-            text: "카르츠 500위 유저 변화",
-        },
-        legend: {
-            labels: {
-                filter: (legendItem, chartData) => {
-                    //return legendItem.datasetIndex < 10;
-                    return null;
-                }
-            }
-        },
-    },
-    scales: {
-        y: {
-            beginAtZero: true,
-            title: {
-                display: true,
-                text: "유저 수",
-            },
-        },
-        x: {
-            title: {
-                display: false,
-                text: "날짜",
-            },
-        },
-    },
 };
 
 const chartBackgroundColors = [
@@ -91,6 +58,46 @@ export default function KartzStatistics() {
     const [history, setHistory] = useState([]);
     const [serverData, setServerData] = useState([]);
     const [allServer, setAllServer] = useState(true);
+    const [mode, setMode] = useState("count");
+
+    const [title, setTitle] = useState("카르츠 상위 500위 인구수 변화");
+    const [ylabel, setYlabel] = useState("유저 수");
+
+    const options = useMemo(() => {
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                },
+                legend: {
+                    labels: {
+                        filter: (legendItem, chartData) => {
+                            //return legendItem.datasetIndex < 10;
+                            return null;
+                        }
+                    }
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: ylabel,
+                    },
+                },
+                x: {
+                    title: {
+                        display: false,
+                        text: "날짜",
+                    },
+                },
+            },
+        };
+    }, [ylabel]);
 
     useEffect(() => {
         loadHistory();
@@ -218,7 +225,23 @@ export default function KartzStatistics() {
                     tension: 0.4,
                 };
                 checkDates.forEach(d => {
-                    serverObject.data.push(sData[d.date]?.count || 0);
+                    switch (mode) {
+                        case "count":
+                            serverObject.data.push(sData[d.date]?.count || 0);
+                            setTitle("카르츠 상위 500위 인구수 변화");
+                            setYlabel("유저 수");
+                            break;
+                        case "average":
+                            serverObject.data.push(sData[d.date]?.average || 0);
+                            setTitle("카르츠 상위 500위 평균 클리어 스테이지");
+                            setYlabel("평균 클리어 스테이지");
+                            break;
+                        case "weight":
+                            serverObject.data.push(sData[d.date]?.point || 0);
+                            setTitle("카르츠 상위 500위 클리어 가중치 변화");
+                            setYlabel("클리어 스테이지 가중치 합");
+                            break;
+                    }
                 });
                 second.push(serverObject);
             });
@@ -240,7 +263,7 @@ export default function KartzStatistics() {
             labels: [...checkDates.map(c => c.date)],
             datasets: third,
         });
-    }, [checkDates, serverData]);
+    }, [mode, checkDates, serverData]);
 
     const checkServer = useCallback((e, target) => {
         setServerList(prev => prev.map(server => {
@@ -284,10 +307,33 @@ export default function KartzStatistics() {
         }
     }, [allServer]);
 
+    const changeMode = useCallback((e) => {
+        if (e.target.checked) {
+            setMode(e.target.value);
+        }
+    }, []);
+
     return (<>
         <h1>카르츠 서버 랭커 변화</h1>
         <hr />
         <div className="row">
+            <div className="col">
+                <h6>표시할 항목</h6>
+                <label className="me-4">
+                    <input type="radio" checked={mode === "count"} value="count" onChange={changeMode} />
+                    <span className="ms-2">인원 수</span>
+                </label>
+                <label className="me-4">
+                    <input type="radio" checked={mode === "average"} value="average" onChange={changeMode} />
+                    <span className="ms-2">스테이지 평균</span>
+                </label>
+                <label className="me-4">
+                    <input type="radio" checked={mode === "weight"} value="weight" onChange={changeMode} />
+                    <span className="ms-2">스테이지 가중치</span>
+                </label>
+            </div>
+        </div>
+        <div className="row mt-2">
             <div className="col">
                 <h6>표시할 기간 선택</h6>
                 {history.map(h => (
