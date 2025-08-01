@@ -17,6 +17,8 @@ import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
 import RandomSimulator from './screen/simulator/RandomSimulator';
 import Developer from './screen/Developer';
 import EternalLand from "./screen/information/EternalLand";
+import AccountViewer from "./screen/trade/AccountViewer";
+import AccountCreator from "./screen/trade/AccountCreator";
 
 export default function MainContentView() {
     return (
@@ -47,6 +49,8 @@ export default function MainContentView() {
                 <Route path="developer" element={<Developer/>}></Route>
                 <Route path="emoji" element={<Emoji />}></Route>
                 {/* <Route path="/blog" element={<Blog />}></Route> */}
+                <Route path="account/viewer" element={<AccountViewer/>}></Route>
+                <Route path="account/creator" element={<AccountCreator/>}></Route>
                 <Route path="*" element={<PangeNotFound />}></Route>
             </Routes>
             </div>

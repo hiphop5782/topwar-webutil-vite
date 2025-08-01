@@ -31,6 +31,9 @@
       "emoji": {
         "label": "Emojis"
       },
+      "account": {
+        "label": "Trade"
+      },
       "developer": {
         "label": "Developer"
       }

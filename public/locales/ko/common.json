@@ -31,6 +31,13 @@
         "emoji":{
             "label":"이모티콘"
         },
+        "account":{
+            "label":"계정거래",
+            "sub":{
+                "viewer":"계정뷰어",
+                "creator":"홍보화면생성"
+            }
+        },
         "developer":{
             "label":"개발자"
         }

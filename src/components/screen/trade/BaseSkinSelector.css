@@ -1,0 +1,6 @@
+.base-wrapper > img {
+    opacity: 0.3;
+}
+.base-wrapper.active > img {
+    opacity: 1;
+}

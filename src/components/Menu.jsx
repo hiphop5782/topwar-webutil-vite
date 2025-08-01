@@ -64,6 +64,13 @@ function Menu() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/emoji`}>{t(`menu.emoji.label`)}</NavLink>
                         </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.account.label`)}</a>
+                            <div className="dropdown-menu">
+                                <NavLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu.account.sub.viewer`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu.account.sub.creator`)}</NavLink>
+                            </div>
+                        </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/developer`}>{t(`menu.developer.label`)}</NavLink>
                         </li>
