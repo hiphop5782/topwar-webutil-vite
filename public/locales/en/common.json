@@ -5,11 +5,11 @@
         "sub": {
           "base": "Base Info",
           "job": "Specialization Upgrade",
-          "formation-perk": "Formation Perks",
           "el":"Eternal Land",
           "server-analyze": "Server Comparison",
           "kartz-information": "Kartz Monster Info",
-          "kartz-rank": "Kartz Ranking"
+          "kartz-rank": "Kartz Ranking",
+          "kartz-statistics":"Kartz Ranking Changes"
         }
       },
       "calculator": {
@@ -25,7 +25,10 @@
         "sub": {
           "titan-research": "Titan Crafting",
           "titan-refine": "Titan Refinement",
-          "random": "Random Draw Simulator"
+          "formation-perk": "Formation Perks",
+          "random": "Random Draw Simulator",
+          "slot": "Topwar Slot Machine Game",
+          "luckybox":"Lucky Box Game"
         }
       },
       "emoji": {

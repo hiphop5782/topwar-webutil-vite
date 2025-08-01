@@ -11,6 +11,7 @@ export default function BaseSkinSelector({onSelect}) {
             if(base.name === "기본") return false;
             if(base.name === "영광의 성채") return false;
             if(base.name === "리더의 품격") return false;
+            if(base.name === "1호 기지") return false;
             return true;
         })
         .sort((a,b)=>{

@@ -31,13 +31,13 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/information/hero">영웅 정보</NavLink> */}
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/job`}>{t(`menu.info.sub.job`)}</NavLink>
-                                <NavLink className="dropdown-item" to={`/${lang}/information/formation-perk`}>{t(`menu.info.sub.formation-perk`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/el`}>{t(`menu.info.sub.el`)} (구현중)</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/server-info`}>{t(`menu.info.sub.server-analyze`)}</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/kartz-spec`}>{t(`menu.info.sub.kartz-information`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/kartz-rank`}>{t(`menu.info.sub.kartz-rank`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/kartz-statistics`}>{t(`menu.info.sub.kartz-statistics`)}</NavLink>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
@@ -57,7 +57,11 @@ function Menu() {
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/titan-research`}>{t(`menu.simulator.sub.titan-research`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/titan-refine`}>{t(`menu.simulator.sub.titan-refine`)}</NavLink>
                                 <div className="dropdown-divider"></div>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/formation-perk`}>{t(`menu.simulator.sub.formation-perk`)}</NavLink>
+                                <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/random`}>{t(`menu.simulator.sub.random`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/slot`}>{t(`menu.simulator.sub.slot`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/luckybox`}>{t(`menu.simulator.sub.luckybox`)}</NavLink>
                                 {/* <NavLink className="nav-link" to="/simulator/hero">데미지계산기</NavLink> */}
                             </div>
                         </li>
@@ -65,10 +69,10 @@ function Menu() {
                             <NavLink className="nav-link" to={`/${lang}/emoji`}>{t(`menu.emoji.label`)}</NavLink>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.account.label`)}</a>
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.account.label`)} (구현중)</a>
                             <div className="dropdown-menu">
-                                <NavLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu.account.sub.viewer`)}</NavLink>
-                                <NavLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu.account.sub.creator`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu.account.sub.viewer`)} (구현중)</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu.account.sub.creator`)} (구현중)</NavLink>
                             </div>
                         </li>
                         <li className="nav-item">
