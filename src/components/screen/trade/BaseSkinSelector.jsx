@@ -60,7 +60,7 @@ export default function BaseSkinSelector({onSelect}) {
         </div>
         <div className="row">
             {baseSkins.map(base=>(
-            <div className={`col-2 p-4 base-wrapper ${base.selected ? 'active':''}`} key={base.no}>
+            <div className={`col-sm-2 col-3 base-wrapper ${base.selected ? 'active':''}`} key={base.no}>
                 <img className="w-100" src={`${import.meta.env.VITE_PUBLIC_URL}/images/base/${base.no}.png`}
                         onClick={e=>clickBaseSkin(base)}/>
                 <p className="text-center fs-6">{base.name}</p>
