@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { PiKeyReturnThin } from "react-icons/pi";
 
 const grades = [
     {no:1, name:"에픽", color:"gold"},
@@ -52,6 +53,23 @@ export default function RemoldInformationInput({ json }) {
                 grade:grade
             }
         }));
+
+        if(type === "equip5" && grade === "에픽") {
+            setNavy(prev=>({
+                ...prev, 
+                equip5:{
+                    ...prev.equip5,
+                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
+                }
+            }));
+            setAirforce(prev=>({
+                ...prev, 
+                equip5:{
+                    ...prev.equip5,
+                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
+                }
+            }));
+        }
     }, []);
     const changeArmyLevel = useCallback((type, level)=>{
         setArmy(prev=>({
@@ -70,6 +88,23 @@ export default function RemoldInformationInput({ json }) {
                 grade:grade
             }
         }));
+
+        if(type === "equip5" && grade === "에픽") {
+            setArmy(prev=>({
+                ...prev, 
+                equip5:{
+                    ...prev.equip5,
+                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
+                }
+            }));
+            setAirforce(prev=>({
+                ...prev, 
+                equip5:{
+                    ...prev.equip5,
+                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
+                }
+            }));
+        }
     }, []);
     const changeNavyLevel = useCallback((type,grade)=>{
         setNavy(prev=>({
@@ -88,6 +123,23 @@ export default function RemoldInformationInput({ json }) {
                 grade:grade
             }
         }));
+
+        if(type === "equip5" && grade === "에픽") {
+            setArmy(prev=>({
+                ...prev, 
+                equip5:{
+                    ...prev.equip5,
+                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
+                }
+            }));
+            setNavy(prev=>({
+                ...prev, 
+                equip5:{
+                    ...prev.equip5,
+                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
+                }
+            }));
+        }
     }, []);
     const changeAirforceLevel = useCallback((type,grade)=>{
         setAirforce(prev=>({

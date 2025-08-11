@@ -2,17 +2,25 @@ import { useCallback, useState } from "react";
 import BaseSkinSelector from "./BaseSkinSelector";
 import BasicInformationInput from "./BasicInformationInput";
 import RemoldInformationInput from "./RemoldInformationInput";
+import MasteryInput from "./MasteryInput";
+import FormationInput from "./FomationInput";
+import TitanInformationInput from "./TitanInformationInput";
+import EnigmaFieldInformation from "./EnigmaFieldInformation";
+import EnigmaBeastInformation from "./EnigmaBeastInformation";
+import TroopInformation from "./TroopInformation";
 
 export default function AccountCreator() {
 
     const [user, setUser] = useState({
         vip:16,
         cp:100,
+        baseSkins:[85,71,17,67],
         mastery:{
             army:15,
             navy:15,
             airforce:15,
         },
+        troop:{},
         remold:{
             army:{
                 use:true,
@@ -39,55 +47,47 @@ export default function AccountCreator() {
                 equip5:{use:true,grade:"유니크"},
             }
         },
+        //formation:{},
+        //titan:{},
+        //enigmaField:{},
+        //enigmaBeast:{},
     });
 
     const onBasicInformationInput = useCallback((basicInformation)=>{
         console.log("기본정보 입력 : ",basicInformation);
-    });
+    }, []);
     
-    const onBaseSelect = useCallback((baseNoList)=>{
-        console.log("베이스 선택 : " , baseNoList);
+    const onBaseSelectionChange = useCallback((baseNoList)=>{
+        console.log("베이스 변경" , baseNoList);
     }, []);
 
-    const changeMastery = useCallback((type, value)=>{
-        const level = parseInt(value);
-        setUser(prev=>({
-            ...prev,
-            mastery:{
-                ...prev.mastery,
-                [type]:level
-            }
-        }));
+    const onTroopChange = useCallback((troop)=>{
+        console.log("부대 변경", troop);
     }, []);
 
-    const checkRemold = useCallback((type, checked)=>{
-        setUser(prev=>({
-            ...prev,
-            remold:{
-                ...prev.remold,
-                [type]:{
-                    ...prev.remold[type],
-                    use:checked
-                }
-            }
-        }));
+    const onMasteryChange = useCallback((mastery)=>{
+        console.log("전문강화 변경", mastery);
     }, []);
-    const changeRemoldGrade = useCallback((type, equip, grade)=>{
-        setUser(prev=>({
-            ...prev,
-            remold:{
-                ...prev.remold,
-                [type]:{
-                    ...prev.remold[type],
-                    [equip]:{
-                        ...prev.remold[type][equip],
 
-                    }
-                }
-            }
-        }));
+    const onRemoldChange = useCallback((remold)=>{
+        console.log("개조 변경", remold);
     }, []);
-    const changeRemoldLevel = useCallback((type, equip, level)=>{}, []);
+
+    const onFormationChange = useCallback((formation)=>{
+        console.log("군진 변경", formation)
+    }, []);
+
+    const onTitanChange = useCallback((titan)=>{
+        console.log("타이탄 변경", titan);
+    }, []);
+
+    const onEnigmaFieldChange = useCallback((enigmaField)=>{
+        console.log("초능력영역 변경", enigmaField);
+    }, []);
+
+    const onEnigmaBeastChange = useCallback((enigmaBeast)=>{
+        console.log("초능력동물 변경", enigmaBeast);
+    }, []);
 
     return (<>
         <h1>계정 홍보 화면 생성</h1>    
@@ -97,60 +97,36 @@ export default function AccountCreator() {
 
         <hr/>
         <h2>Step 2 : 보유 기지 정보</h2>
-        <BaseSkinSelector onSelect={onBaseSelect}/>
+        <BaseSkinSelector json={user} onChange={onBaseSelectionChange}/>
 
         <hr/>
         <h2>Step 3 : 전문 강화 정보</h2>
-
-        <div className="row mt-4">
-            <label className="col-sm-3 col-form-label">육군</label>
-            <div className="col-sm-9">
-                <select value={user.mastery.army} onChange={e=>changeMastery('army', e.target.value)} className="form-select">
-                    {Array.from({length:20}, (_, i)=>20-i).map(n=>(
-                        <option key={n} value={n}>{`${n}레벨`}</option>
-                    ))}
-                </select>
-            </div>
-        </div>
-        <div className="row mt-4">
-            <label className="col-sm-3 col-form-label">해군</label>
-            <div className="col-sm-9">
-                <select value={user.mastery.navy} onChange={e=>changeMastery('navy', e.target.value)} className="form-select">
-                    {Array.from({length:20}, (_, i)=>20-i).map(n=>(
-                        <option key={n} value={n}>{`${n}레벨`}</option>
-                    ))}
-                </select>
-            </div>
-        </div>
-        <div className="row mt-4">
-            <label className="col-sm-3 col-form-label">공군</label>
-            <div className="col-sm-9">
-                <select value={user.mastery.airforce} onChange={e=>changeMastery('airforce', e.target.value)} className="form-select">
-                    {Array.from({length:20}, (_, i)=>20-i).map(n=>(
-                        <option key={n} value={n}>{`${n}레벨`}</option>
-                    ))}
-                </select>
-            </div>
-        </div>
+        <MasteryInput json={user} onChange={onMasteryChange}/>
         
         <hr/>
         <h2>Step 4 : 부대 정보</h2>
+        <TroopInformation json={user} onChange={onTroopChange}/>
 
         <hr/>
         <h2>Step 5 : 장비 개조 정보</h2>
-        <RemoldInformationInput json={user}/>
+        <RemoldInformationInput json={user} onChange={onRemoldChange}/>
         
-
         <hr/>
         <h2>Step 6 : 군진 정보</h2>
+        <FormationInput json={user} onChange={onFormationChange}/>
 
         <hr/>
         <h2>Step 7 : 타이탄 정보</h2>
+        <TitanInformationInput json={user} onChange={onTitanChange}/>
 
         <hr/>
         <h2>Step 8 : 초능력 영역 정보</h2>
+        <EnigmaFieldInformation json={user} onChange={onEnigmaFieldChange}/>
 
         <hr/>
         <h2>Step 9 : 초능력 동물 정보</h2>
+        <EnigmaBeastInformation json={user} onChange={onEnigmaBeastChange}/>
+
+        <div style={{height:1000}}></div>
     </>)
 }

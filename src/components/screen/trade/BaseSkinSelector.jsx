@@ -3,8 +3,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import "./BaseSkinSelector.css";
 
-export default function BaseSkinSelector({onSelect}) {
+export default function BaseSkinSelector({json, onChange}) {
     const [baseSkins, setBaseSkins] = useState([]);
+    const [selectedList, setSelectedList] = useState([...json.baseSkins]);
     useEffect(()=>{
         setBaseSkins(baseListJson
         .filter(base=>{
@@ -18,7 +19,7 @@ export default function BaseSkinSelector({onSelect}) {
             return a.name.localeCompare(b.name);
         })
         .map(base=>{
-            return {...base, selected:false};
+            return {...base, selected:selectedList.includes(base.no)};
         }))
     }, []);
 
@@ -39,19 +40,18 @@ export default function BaseSkinSelector({onSelect}) {
         }));
     }, [baseSkins]);
     useEffect(()=>{
-        if(onSelect !== undefined && typeof onSelect === "function") {
-            onSelect(baseSkins.filter(base=>base.selected).map(base=>base.no));
+        setSelectedList(baseSkins.filter(base=>base.selected).map(base=>base.no));
+    }, [baseSkins]);
+    useEffect(()=>{
+        if(onChange !== undefined && typeof onChange === "function") {
+            onChange(selectedList);
         }
-    }, [baseSkins]);
-
-    const selectedBaseSkins = useMemo(()=>{
-        return baseSkins.filter(base=>base.selected);
-    }, [baseSkins]);
+    }, [selectedList]);
 
     return (<>
         <div className="row">
             <div className="col-6">
-                선택된 기지 수 : {selectedBaseSkins.length}개
+                선택된 기지 수 : {selectedList.length}개
             </div>
             <div className="col-6 text-end">
                 <button className="btn btn-sm btn-success" onClick={e=>clickAllBaseSkin(true)}>전체 선택</button>
