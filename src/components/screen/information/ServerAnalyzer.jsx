@@ -93,7 +93,7 @@ export default function ServerAnalyzer() {
 
     const convertToHeatmapData = useCallback((datalist) => {
         const dataset = [];
-        for (let i = 0; i < 200; i += 10) {
+        for (let i = 0; i < 250; i += 10) {
             dataset.push({ x: i, y: 0 });
         }
 
