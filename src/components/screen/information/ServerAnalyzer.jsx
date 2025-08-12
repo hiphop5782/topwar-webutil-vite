@@ -43,6 +43,8 @@ export default function ServerAnalyzer() {
         setServerList([...data.list]);
     }, []);
     const addServerByParameter = useCallback(async (target) => {
+        if(!target) return;
+        
         const { data } = await axios.get(`//data.progamer.info/${target}.json`);
         setSelectedServers(prev => [...prev, {
             number: target,
