@@ -8,6 +8,8 @@ import TitanInformationInput from "./TitanInformationInput";
 import EnigmaFieldInformation from "./EnigmaFieldInformation";
 import EnigmaBeastInformation from "./EnigmaBeastInformation";
 import TroopInformation from "./TroopInformation";
+import EtcInformation from "./EtcInformation";
+import { FaArrowDown } from "react-icons/fa6";
 
 export default function AccountCreator() {
 
@@ -47,10 +49,14 @@ export default function AccountCreator() {
                 equip5:{use:true,grade:"유니크"},
             }
         },
-        //formation:{},
-        //titan:{},
+        formation:{
+            shark:{tier:5, slot:[3,3,3,3,3], level:50},
+            scorpion:{tier:5, slot:[3,3,3,3,3], level:50},
+            eagle:{tier:5, slot:[3,3,3,3,3], level:50},
+        },
         //enigmaField:{},
         //enigmaBeast:{},
+        memo:"",
     });
 
     const onBasicInformationInput = useCallback((basicInformation)=>{
@@ -89,6 +95,10 @@ export default function AccountCreator() {
         console.log("초능력동물 변경", enigmaBeast);
     }, []);
 
+    const onEtcChange = useCallback((memo)=>{
+        console.log("기타 항목 변경", memo);
+    }, []);
+
     return (<>
         <h1>계정 홍보 화면 생성</h1>    
         <hr/>
@@ -125,9 +135,22 @@ export default function AccountCreator() {
 
         <hr/>
         <h2>Step 9 : 기타 정보</h2>
-        
+        <EtcInformation json={user} onChange={onEtcChange}/>
+
+        <div className="row my-5 text-center">
+            <div className="col">
+                <FaArrowDown size={150}></FaArrowDown>
+            </div>
+        </div>
+
+        <div className="row mt-5 pt-5">
+            <div className="col">
+                <h1>최종 생성 데이터</h1>
+                <textarea value={JSON.stringify(user, null, 4)} className="form-control" style={{minHeight:300}} readOnly></textarea>
+            </div>
+        </div>
 
 
-        <div style={{height:1000}}></div>
+        <div style={{height:700}}></div>
     </>)
 }
