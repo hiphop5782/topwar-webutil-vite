@@ -357,7 +357,7 @@ export default function ServerAnalyzer() {
                     <div className="col-lg-6 mb-4 border p-4" key={server.number}>
                         <h3 className="mb-4 fw-bold">{server.number} 서버</h3>
 
-                        <div>({dayjs(server.time).format("yyyy-MM-dd H시")} 기준)</div>
+                        <div>({dayjs(server.time).format("Y년 M월 D일 H시")} 기준)</div>
 
                         {cutoffIsDecimal && (
                             <div className="text-danger fw-bold mb-2">{cutoff}M 이상 유저 수 : {getCutoffCount(server)}명</div>
