@@ -24,8 +24,6 @@ export default function NumberSelector({value, min=1, max=10, block=5, onChange,
         return newArray;
     }, [range, block]);
 
-    console.log(subArray);
-
     return (<>
         {/* 숫자가 표시되는 자리 */}
         <div className={`number-select d-flex justify-content-center align-items-center ${className}`}
