@@ -130,7 +130,7 @@ export default function AccountCreator() {
         <EnigmaBeastInformation json={user} onChange={onEnigmaBeastChange}/>
 
         <hr/>
-        <h2>Step 8 : 초능력 영역 정보</h2>
+        <h2>Step 8 : 초능력 영역 정보 (클릭하여 변경)</h2>
         <EnigmaFieldInformation json={user} onChange={onEnigmaFieldChange}/>
 
         <hr/>
