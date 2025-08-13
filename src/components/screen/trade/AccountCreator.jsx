@@ -116,16 +116,17 @@ export default function AccountCreator() {
         <FormationInput json={user} onChange={onFormationChange}/>
 
         <hr/>
-        <h2>Step 7 : 타이탄 정보</h2>
-        <TitanInformationInput json={user} onChange={onTitanChange}/>
+        <h2>Step 7 : 초능력 동물 정보</h2>
+        <EnigmaBeastInformation json={user} onChange={onEnigmaBeastChange}/>
 
         <hr/>
         <h2>Step 8 : 초능력 영역 정보</h2>
         <EnigmaFieldInformation json={user} onChange={onEnigmaFieldChange}/>
 
         <hr/>
-        <h2>Step 9 : 초능력 동물 정보</h2>
-        <EnigmaBeastInformation json={user} onChange={onEnigmaBeastChange}/>
+        <h2>Step 9 : 기타 정보</h2>
+        
+
 
         <div style={{height:1000}}></div>
     </>)
