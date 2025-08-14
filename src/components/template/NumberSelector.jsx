@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "./NumberSelector.css";
 
-export default function NumberSelector({value, min=1, max=10, block=5, onChange, className}) {
+export default function NumberSelector({name, value, min=1, max=10, block=5, onChange, className}) {
     const changeNumber = useCallback(n=>{
         if(onChange && typeof onChange === "function") {
-            onChange(n);
+            onChange(name, n);
         }
         setOpen(false);
     }, []);

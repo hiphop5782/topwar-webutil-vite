@@ -22,6 +22,7 @@ import AccountCreator from "./screen/trade/AccountCreator";
 import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
 import LuckyBox from "./screen/simulator/LuckyBox";
 import KartzStatistics from "./screen/information/KartzStatistics";
+import { RecoilRoot } from "recoil";
 
 export default function MainContentView() {
     return (
@@ -56,7 +57,11 @@ export default function MainContentView() {
                 <Route path="emoji" element={<Emoji />}></Route>
                 {/* <Route path="/blog" element={<Blog />}></Route> */}
                 <Route path="account/viewer" element={<AccountViewer/>}></Route>
-                <Route path="account/creator" element={<AccountCreator/>}></Route>
+                <Route path="account/creator" element={
+                    <RecoilRoot>
+                        <AccountCreator/>
+                    </RecoilRoot>
+                }></Route>
                 <Route path="*" element={<PangeNotFound />}></Route>
             </Routes>
             </div>

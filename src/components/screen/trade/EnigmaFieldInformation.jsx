@@ -1,29 +1,28 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import NumberSelector from "../../template/NumberSelector";
+import { useRecoilState } from "recoil";
+import { userState } from "./recoil/AccountCreateState";
 
-export default function EnigmaFieldInformation({json, onChange}) {
-    const [firstArea, setFirstArea] = useState(json?.enigmaField?.firstArea || [5,10,10,10,10]);
-    const [secondArea, setSecondArea] = useState(json?.enigmaField?.secondArea || [10,5,5,5,5,5,5]);
-    const [thirdArea, setThirdArea] = useState(json?.enigmaField?.thirdArea || [5,3,3,3,3,3]);
+export default function EnigmaFieldInformation() {
+    const [user, setUser] = useRecoilState(userState);
 
-    const changeFirstArea = useCallback((index, level)=>{
-        setFirstArea(prev=>prev.map((lv,idx)=>{
-            if(idx === index) return level;
-            return lv;
+    const changeArea = useCallback((name,value)=>{
+        const type = name.split("-")[0];
+        const index = parseInt(name.split("-")[1]);
+        const level = value;
+
+        setUser(prev=>({
+            ...prev,
+            enigmaField: {
+                ...prev.enigmaField,
+                [type]: prev.enigmaField[type].map((lv,idx)=>idx === index ? level : lv)
+            }
         }));
     }, []);
-    const changeSecondArea = useCallback((index, level)=>{
-        setSecondArea(prev=>prev.map((lv,idx)=>{
-            if(idx === index) return level;
-            return lv;
-        }));
-    }, []);
-    const changeThirdArea = useCallback((index, level)=>{
-        setThirdArea(prev=>prev.map((lv,idx)=>{
-            if(idx === index) return level;
-            return lv;
-        }));
-    }, []);
+
+    const firstArea = useMemo(()=>user.enigmaField.first, [user.enigmaField]);
+    const secondArea = useMemo(()=>user.enigmaField.second, [user.enigmaField]);
+    const thirdArea = useMemo(()=>user.enigmaField.third, [user.enigmaField]);
 
     return (<>
         <div className="row mt-4">
@@ -31,7 +30,7 @@ export default function EnigmaFieldInformation({json, onChange}) {
             <div className="col-sm-8 d-flex">
                 {firstArea.map((n,i)=>(
                 <div className="w-100 d-flex justify-content-center align-items-center" key={i}>
-                    <NumberSelector min={1} max={20} value={n} onChange={lv=>changeFirstArea(i,lv)}/>
+                    <NumberSelector min={1} max={20} value={n} name={`first-${i}`} onChange={changeArea}/>
                 </div>
                 ))}
                 {7-firstArea.length > 0 && (<>
@@ -46,7 +45,7 @@ export default function EnigmaFieldInformation({json, onChange}) {
             <div className="col-sm-8 d-flex">
                 {secondArea.map((n,i)=>(
                 <div className="w-100 d-flex justify-content-center align-items-center" key={i}>
-                    <NumberSelector min={1} max={20} value={n} onChange={lv=>changeSecondArea(i,lv)}/>
+                    <NumberSelector min={1} max={20} value={n} name={`second-${i}`} onChange={changeArea}/>
                 </div>
                 ))}
                 {7-secondArea.length > 0 && (<>
@@ -61,7 +60,7 @@ export default function EnigmaFieldInformation({json, onChange}) {
             <div className="col-sm-8 d-flex">
                 {thirdArea.map((n,i)=>(
                 <div className="w-100 d-flex justify-content-center align-items-center" key={i}>
-                    <NumberSelector min={1} max={20} value={n} onChange={lv=>changeThirdArea(i,lv)}/>
+                    <NumberSelector min={1} max={20} value={n} name={`third-${i}`} onChange={changeArea}/>
                 </div>
                 ))}
                 {7-thirdArea.length > 0 && (<>

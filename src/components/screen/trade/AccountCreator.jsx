@@ -10,6 +10,8 @@ import EnigmaBeastInformation from "./EnigmaBeastInformation";
 import TroopInformation from "./TroopInformation";
 import EtcInformation from "./EtcInformation";
 import { FaArrowDown, FaCopy, FaDownload } from "react-icons/fa6";
+import { useRecoilState } from "recoil";
+import { userState } from "./recoil/AccountCreateState";
 
 function NextStep() {
     return (
@@ -23,58 +25,16 @@ function NextStep() {
 
 export default function AccountCreator() {
 
-    const [user, setUser] = useState({
-        vip: 16,
-        cp: 100,
-        baseSkins: [],
-        mastery: {
-            army: 15,
-            navy: 15,
-            airforce: 15,
-        },
-        troop: {},
-        remold: {
-            army: {
-                use: true,
-                equip1: { use: true, grade: "에픽", level: 12 },
-                equip2: { use: true, grade: "에픽", level: 12 },
-                equip3: { use: true, grade: "에픽", level: 12 },
-                equip4: { use: true, grade: "에픽", level: 12 },
-                equip5: { use: true, grade: "에픽" },
-            },
-            navy: {
-                use: true,
-                equip1: { use: true, grade: "에픽", level: 12 },
-                equip2: { use: true, grade: "에픽", level: 12 },
-                equip3: { use: true, grade: "에픽", level: 12 },
-                equip4: { use: true, grade: "에픽", level: 12 },
-                equip5: { use: true, grade: "유니크" },
-            },
-            airforce: {
-                use: true,
-                equip1: { use: true, grade: "에픽", level: 12 },
-                equip2: { use: true, grade: "에픽", level: 12 },
-                equip3: { use: true, grade: "에픽", level: 12 },
-                equip4: { use: true, grade: "에픽", level: 12 },
-                equip5: { use: true, grade: "유니크" },
-            }
-        },
-        formation: {
-            shark: { tier: 5, slot: [3, 3, 3, 3, 3], level: 50 },
-            scorpion: { tier: 5, slot: [3, 3, 3, 3, 3], level: 50 },
-            eagle: { tier: 5, slot: [3, 3, 3, 3, 3], level: 50 },
-        },
-        //enigmaField:{},
-        //enigmaBeast:{},
-        memo: "",
-    });
+    const [user, setUser] = useRecoilState(userState);
 
     const onBasicInformationInput = useCallback((basicInformation) => {
-        console.log("기본정보 입력 : ", basicInformation);
+        //console.log("기본정보 입력 : ", basicInformation);
+        setUser(prev=>({...prev, ...basicInformation}));
     }, []);
 
     const onBaseSelectionChange = useCallback((baseNoList) => {
-        console.log("베이스 변경", baseNoList);
+        //console.log("베이스 변경", baseNoList);
+        setUser(prev=>({...prev, baseSkins:[...baseNoList]}));
     }, []);
 
     const onTroopChange = useCallback((troop) => {
@@ -83,6 +43,7 @@ export default function AccountCreator() {
 
     const onMasteryChange = useCallback((mastery) => {
         console.log("전문강화 변경", mastery);
+        setUser(prev=>({...prev, mastery:{...mastery}}));
     }, []);
 
     const onRemoldChange = useCallback((remold) => {
@@ -157,19 +118,19 @@ export default function AccountCreator() {
         <input type="file" className="form-control" accept="application/json" onChange={handleFileChange} />
         <NextStep />
         <h2>Step 2 : 기본 정보</h2>
-        <BasicInformationInput json={user} onChange={onBasicInformationInput} />
+        <BasicInformationInput/>
         <NextStep />
         <h2>Step 3 : 보유 기지 정보</h2>
-        <BaseSkinSelector json={user} onChange={onBaseSelectionChange} />
+        <BaseSkinSelector/>
         <NextStep />
         <h2>Step 4 : 전문 강화 정보</h2>
-        <MasteryInput json={user} onChange={onMasteryChange} />
+        <MasteryInput/>
         <NextStep />
         <h2>Step 5 : 부대 정보</h2>
-        <TroopInformation json={user} onChange={onTroopChange} />
+        <TroopInformation/>
         <NextStep />
         <h2>Step 6 : 장비 개조 정보</h2>
-        <RemoldInformationInput json={user} onChange={onRemoldChange} />
+        <RemoldInformationInput/>
         <NextStep />
         <h2>Step 7 : 군진 정보</h2>
         <FormationInput json={user} onChange={onFormationChange} />

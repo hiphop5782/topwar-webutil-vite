@@ -1,5 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { PiKeyReturnThin } from "react-icons/pi";
+import { useRecoilState } from "recoil";
+import { userState } from "./recoil/AccountCreateState";
 
 const grades = [
     {no:1, name:"에픽", color:"gold"},
@@ -9,153 +11,99 @@ const grades = [
     {no:5, name:"일반", color:"black"},
 ];
 
-export default function RemoldInformationInput({ json }) {
-    const [army, setArmy] = useState({
-        use:true,
-        equip1:{use:true, grade:"에픽", level:12},
-        equip2:{use:true, grade:"에픽", level:12},
-        equip3:{use:true, grade:"에픽", level:12},
-        equip4:{use:true, grade:"에픽", level:12},
-        equip5:{use:true, grade:"에픽"},
-    });
-    const [navy, setNavy] = useState({
-        use:true,
-        equip1:{use:true, grade:"에픽", level:12},
-        equip2:{use:true, grade:"에픽", level:12},
-        equip3:{use:true, grade:"에픽", level:12},
-        equip4:{use:true, grade:"에픽", level:12},
-        equip5:{use:true, grade:"유니크"},
-    });
-    const [airforce, setAirforce] = useState({
-        use:true,
-        equip1:{use:true, grade:"에픽", level:12},
-        equip2:{use:true, grade:"에픽", level:12},
-        equip3:{use:true, grade:"에픽", level:12},
-        equip4:{use:true, grade:"에픽", level:12},
-        equip5:{use:true, grade:"유니크"},
-    });
+export default function RemoldInformationInput() {
+    const [user, setUser] = useRecoilState(userState);
 
-    const checkArmy = useCallback(e=>{
-        setArmy(prev=>({...prev, use:e.target.checked}));
-    }, []);
-    const checkNavy = useCallback(e=>{
-        setNavy(prev=>({...prev, use:e.target.checked}));
-    }, []);
-    const checkAirforce = useCallback(e=>{
-        setAirforce(prev=>({...prev, use:e.target.checked}));
+    //육해공 사용설정
+    const checkUse = useCallback(e=>{
+        setUser(prev=>({
+            ...prev,
+            remold: {
+                ...prev.remold,
+                [e.target.name] : {
+                    ...prev.remold[e.target.name],
+                    use: e.target.checked
+                }
+            }
+        }));
     }, []);
 
-    const changeArmyGrade = useCallback((type, grade)=>{
-        setArmy(prev=>({
-            ...prev, 
-            [type]:{
-                ...prev[type],
-                grade:grade
+    //육해공 등급변경
+    const changeGrade = useCallback(e=>{
+        const type = e.target.name.split("-")[0];
+        const part = e.target.name.split("-")[1];
+        const grade = e.target.value
+        setUser(prev=>({
+            ...prev,
+            remold: {
+                ...prev.remold,
+                [type]: {
+                    ...prev.remold[type],
+                    [part]: {
+                        ...prev.remold[type][part],
+                        grade: grade
+                    }
+                }
             }
         }));
 
-        if(type === "equip5" && grade === "에픽") {
-            setNavy(prev=>({
-                ...prev, 
-                equip5:{
-                    ...prev.equip5,
-                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
-                }
-            }));
-            setAirforce(prev=>({
-                ...prev, 
-                equip5:{
-                    ...prev.equip5,
-                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
-                }
-            }));
+        if(part === "equip5" && grade === "에픽") {
+            ["army", "navy", "airforce"]
+            .filter(m=>m !== type)
+            .forEach(m=>{
+                setUser(prev=>{
+                    const remold = prev.remold;
+                    const type = prev.remold[m];
+                    const currentGrade = type.equip5.grade;
+                    if(currentGrade === "에픽") {
+                        return {
+                            ...prev,
+                            remold:{
+                                ...remold,
+                                [m]:{
+                                    ...type,
+                                    equip5:{
+                                        ...type.equip5,
+                                        grade:"유니크"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return prev;
+                });
+            });
         }
     }, []);
-    const changeArmyLevel = useCallback((type, level)=>{
-        setArmy(prev=>({
-            ...prev,
-            [type]:{
-                ...prev[type],
-                level:level
-            }
-        }));
-    }, []);
-    const changeNavyGrade = useCallback((type,grade)=>{
-        setNavy(prev=>({
-            ...prev, 
-            [type]:{
-                ...prev[type],
-                grade:grade
-            }
-        }));
 
-        if(type === "equip5" && grade === "에픽") {
-            setArmy(prev=>({
-                ...prev, 
-                equip5:{
-                    ...prev.equip5,
-                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
-                }
-            }));
-            setAirforce(prev=>({
-                ...prev, 
-                equip5:{
-                    ...prev.equip5,
-                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
-                }
-            }));
-        }
-    }, []);
-    const changeNavyLevel = useCallback((type,grade)=>{
-        setNavy(prev=>({
+    //육해공 레벨변경
+    const changeLevel = useCallback(e=>{
+        const type = e.target.name.split("-")[0];
+        const part = e.target.name.split("-")[1];
+        setUser(prev=>({
             ...prev,
-            [type]:{
-                ...prev[type],
-                level:level
+            remold: {
+                ...prev.remold,
+                [type]: {
+                    ...prev.remold[type],
+                    [part]: {
+                        ...prev.remold[type][part],
+                        level: parseInt(e.target.value)
+                    }
+                }
             }
         }));
     }, []);
-    const changeAirforceGrade = useCallback((type,grade)=>{
-        setAirforce(prev=>({
-            ...prev, 
-            [type]:{
-                ...prev[type],
-                grade:grade
-            }
-        }));
 
-        if(type === "equip5" && grade === "에픽") {
-            setArmy(prev=>({
-                ...prev, 
-                equip5:{
-                    ...prev.equip5,
-                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
-                }
-            }));
-            setNavy(prev=>({
-                ...prev, 
-                equip5:{
-                    ...prev.equip5,
-                    grade:prev.equip5.grade === "에픽" ? "유니크" : prev.equip5.grade
-                }
-            }));
-        }
-    }, []);
-    const changeAirforceLevel = useCallback((type,grade)=>{
-        setAirforce(prev=>({
-            ...prev,
-            [type]:{
-                ...prev[type],
-                level:level
-            }
-        }));
-    }, []);
+    const army = useMemo(()=>user.remold.army, [user]);
+    const navy = useMemo(()=>user.remold.navy, [user]);
+    const airforce = useMemo(()=>user.remold.airforce, [user]);
 
     return (<>
         <div className="row mt-4">
             <div className="col-sm-3">
                 <label>
-                    <input type="checkbox" checked={army.use} onChange={checkArmy} />
+                    <input type="checkbox" name="army" checked={army.use} onChange={checkUse} />
                     <span className="ms-2">육군</span>
                 </label>
             </div>
@@ -165,14 +113,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비1</label>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip1.grade} onChange={e => changeArmyGrade('equip1', e.target.value)}>
+                        <select className="form-select" value={army.equip1.grade} 
+                            name="army-equip1" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip1.level} onChange={e => changeArmyLevel('equip1', e.target.value)}>
+                        <select className="form-select" value={army.equip1.level} 
+                            name="army-equip1" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -182,14 +132,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비2</label>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip2.grade} onChange={e => changeArmyGrade('equip2', e.target.value)}>
+                        <select className="form-select" value={army.equip2.grade} 
+                            name="army-equip2" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip2.level} onChange={e => changeArmyLevel('equip2', e.target.value)}>
+                        <select className="form-select" value={army.equip2.level} 
+                            name="army-equip2" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -199,14 +151,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비3</label>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip3.grade} onChange={e => changeArmyGrade('equip3', e.target.value)}>
+                        <select className="form-select" value={army.equip3.grade} 
+                            name="army-equip3" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip3.level} onChange={e => changeArmyLevel('equip3', e.target.value)}>
+                        <select className="form-select" value={army.equip3.level} 
+                            name="army-equip3" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -216,14 +170,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비4</label>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip4.grade} onChange={e => changeArmyGrade('equip4', e.target.value)}>
+                        <select className="form-select" value={army.equip4.grade} 
+                            name="army-equip4" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip4.level} onChange={e => changeArmyLevel('equip4', e.target.value)}>
+                        <select className="form-select" value={army.equip4.level}
+                            name="army-equip4" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -233,7 +189,8 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비5</label>
                     <div className="col-4">
-                        <select className="form-select" value={army.equip5.grade} onChange={e => changeArmyGrade('equip5', e.target.value)}>
+                        <select className="form-select" value={army.equip5.grade} 
+                            name="army-equip5" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
@@ -246,7 +203,7 @@ export default function RemoldInformationInput({ json }) {
         <div className="row mt-4">
             <div className="col-sm-3">
                 <label>
-                    <input type="checkbox" checked={navy.use} onChange={e => checkRemold('navy', e.target.checked)} />
+                    <input type="checkbox" checked={navy.use} name="navy" onChange={checkUse} />
                     <span className="ms-2">해군</span>
                 </label>
             </div>
@@ -256,14 +213,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비1</label>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip1.grade} onChange={e => changeNavyGrade('equip1', e.target.value)}>
+                        <select className="form-select" value={navy.equip1.grade} 
+                            name="navy-equip1" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip1.level} onChange={e => changeNavyLevel('equip1', e.target.value)}>
+                        <select className="form-select" value={navy.equip1.level} 
+                            name="navy-equip1" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -273,14 +232,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비2</label>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip2.grade} onChange={e => changeNavyGrade('equip2', e.target.value)}>
+                        <select className="form-select" value={navy.equip2.grade} 
+                            name="navy-equip2" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip2.level} onChange={e => changeNavyLevel('equip2', e.target.value)}>
+                        <select className="form-select" value={navy.equip2.level} 
+                            name="navy-equip2" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -290,14 +251,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비3</label>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip3.grade} onChange={e => changeNavyGrade('equip3', e.target.value)}>
+                        <select className="form-select" value={navy.equip3.grade} 
+                            name="navy-equip3" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip3.level} onChange={e => changeNavyLevel('equip3', e.target.value)}>
+                        <select className="form-select" value={navy.equip3.level} 
+                            name="navy-equip3" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -307,14 +270,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비4</label>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip4.grade} onChange={e => changeNavyGrade('equip4', e.target.value)}>
+                        <select className="form-select" value={navy.equip4.grade} 
+                            name="navy-equip4" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip4.level} onChange={e => changeNavyLevel('equip4', e.target.value)}>
+                        <select className="form-select" value={navy.equip4.level} 
+                            name="navy-equip4" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -324,7 +289,8 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비5</label>
                     <div className="col-4">
-                        <select className="form-select" value={navy.equip5.grade} onChange={e => changeNavyGrade('equip5', e.target.value)}>
+                        <select className="form-select" value={navy.equip5.grade} 
+                            name="navy-equip5" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
@@ -337,7 +303,7 @@ export default function RemoldInformationInput({ json }) {
         <div className="row mt-4">
             <div className="col-sm-3">
                 <label>
-                    <input type="checkbox" checked={airforce.use} onChange={e => checkRemold('airforce', e.target.checked)} />
+                    <input type="checkbox" checked={airforce.use} name="airforce" onChange={checkUse} />
                     <span className="ms-2">공군</span>
                 </label>
             </div>
@@ -347,14 +313,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비1</label>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip1.grade} onChange={e => changeAirforceGrade('equip1', e.target.value)}>
+                        <select className="form-select" value={airforce.equip1.grade} 
+                            name="airforce-equip1" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip1.level} onChange={e => changeAirforceLevel('equip1', e.target.value)}>
+                        <select className="form-select" value={airforce.equip1.level} 
+                            name="airforce-equip1" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -364,14 +332,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비2</label>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip2.grade} onChange={e => changeAirforceGrade('equip2', e.target.value)}>
+                        <select className="form-select" value={airforce.equip2.grade} 
+                            name="airforce-equip2" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip2.level} onChange={e => changeAirforceLevel('equip2', e.target.value)}>
+                        <select className="form-select" value={airforce.equip2.level} 
+                            name="airforce-equip2" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -381,14 +351,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비3</label>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip3.grade} onChange={e => changeAirforceGrade('equip3', e.target.value)}>
+                        <select className="form-select" value={airforce.equip3.grade} 
+                            name="airforce-equip3" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip3.level} onChange={e => changeAirforceLevel('equip3', e.target.value)}>
+                        <select className="form-select" value={airforce.equip3.level} 
+                            name="airforce-equip3" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -398,14 +370,16 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비4</label>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip4.grade} onChange={e => changeAirforceGrade('equip4', e.target.value)}>
+                        <select className="form-select" value={airforce.equip4.grade} 
+                            name="airforce-equip4" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip4.level} onChange={e => changeAirforceLevel('equip4', e.target.value)}>
+                        <select className="form-select" value={airforce.equip4.level} 
+                            name="airforce-equip4" onChange={changeLevel}>
                             {Array.from({ length: 12 }, (_, i) => 12 - i).map(n => (
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -415,7 +389,8 @@ export default function RemoldInformationInput({ json }) {
                 <div className="row">
                     <label className="col-4 col-form-label">장비5</label>
                     <div className="col-4">
-                        <select className="form-select" value={airforce.equip5.grade} onChange={e => changeAirforceGrade('equip5', e.target.value)}>
+                        <select className="form-select" value={airforce.equip5.grade} 
+                            name="airforce-equip5" onChange={changeGrade}>
                             {grades.map(grade => (
                                 <option key={grade.no}>{grade.name}</option>
                             ))}

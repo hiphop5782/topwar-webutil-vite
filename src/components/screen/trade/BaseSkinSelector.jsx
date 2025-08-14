@@ -2,10 +2,12 @@ import baseListJson from "@src/assets/json/base.json";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import "./BaseSkinSelector.css";
+import { useRecoilState } from "recoil";
+import { userState } from "./recoil/AccountCreateState";
 
-export default function BaseSkinSelector({json, onChange}) {
+export default function BaseSkinSelector() {
+    const [user, setUser] = useRecoilState(userState);
     const [baseSkins, setBaseSkins] = useState([]);
-    const [selectedList, setSelectedList] = useState([...json.baseSkins]);
     useEffect(()=>{
         setBaseSkins(baseListJson
         .filter(base=>{
@@ -19,39 +21,38 @@ export default function BaseSkinSelector({json, onChange}) {
             return a.name.localeCompare(b.name);
         })
         .map(base=>{
-            return {...base, selected:selectedList.includes(base.no)};
+            return {...base, selected:user.baseSkins.includes(base.no)};
         }))
-    }, []);
+    }, [user.baseSkins]);
 
-    const clickAllBaseSkin = useCallback((selected)=>{
+    useEffect(()=>{
+        if(!user.baseSkins || user.baseSkins.length === 0) return;
         setBaseSkins(prev=>prev.map(base=>{
-            return {...base, selected:selected};
-        }))
-    }, [baseSkins]);
-    const clickBaseSkin = useCallback((target)=>{
-        setBaseSkins(prev=>prev.map(base=>{
-            if(base.no === target.no) {
-                return {
-                    ...base, 
-                    selected : !target.selected
-                }
+            if(user.baseSkins.includes(base.no)) {
+                return {...base, selected:true};
             }
             return base;
         }));
+    }, [user.baseSkins]);
+
+    const clickAllBaseSkin = useCallback((selected)=>{
+        const newSkins = selected ? baseSkins.map(base=>base.no) : [];
+        setUser(prev=>({...prev, baseSkins:newSkins}));
     }, [baseSkins]);
-    useEffect(()=>{
-        setSelectedList(baseSkins.filter(base=>base.selected).map(base=>base.no));
-    }, [baseSkins]);
-    useEffect(()=>{
-        if(onChange !== undefined && typeof onChange === "function") {
-            onChange(selectedList);
-        }
-    }, [selectedList]);
+    const clickBaseSkin = useCallback((target)=>{
+        const current = user.baseSkins.includes(target.no);
+        const future = !current;
+        const newSkins = future ? user.baseSkins.concat(target.no) : user.baseSkins.filter(no => no !== target.no);
+        setUser(prev=>({
+            ...prev, 
+            baseSkins:newSkins
+        }));
+    }, [user.baseSkins]);
 
     return (<>
         <div className="row">
             <div className="col-6">
-                선택된 기지 수 : {selectedList.length}개
+                선택된 기지 수 : {user.baseSkins.length}개
             </div>
             <div className="col-6 text-end">
                 <button className="btn btn-sm btn-success" onClick={e=>clickAllBaseSkin(true)}>전체 선택</button>

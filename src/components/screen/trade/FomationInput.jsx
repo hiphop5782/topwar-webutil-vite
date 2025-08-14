@@ -1,8 +1,10 @@
 import { useCallback, useState } from "react";
+import { useRecoilState } from "recoil";
+import { userState } from "./recoil/AccountCreateState";
 
 const slotNumbers = {0:1, 1:2, 2:3, 3:5, 4:8};
 
-function FormationViewport({title, data, onTierChange, onLevelChange, onSlotChange}) {
+function FormationViewport({title, name, data, onTierChange, onLevelChange, onSlotChange}) {
     return (
         <div className="row mt-4">
             <div className="col-sm-3 col-form-label">{title}</div>
@@ -10,7 +12,7 @@ function FormationViewport({title, data, onTierChange, onLevelChange, onSlotChan
                 <div className="row">
                     <div className="col-4 col-form-label text-center">티어</div>
                     <div className="col-8">
-                        <select className="form-select" value={data.tier} onChange={onTierChange}>
+                        <select className="form-select" value={data.tier} name={name} onChange={onTierChange}>
                             {Array.from({length:10}, (_, i)=>10-i).map(n=>(
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -20,7 +22,7 @@ function FormationViewport({title, data, onTierChange, onLevelChange, onSlotChan
                 <div className="row">
                     <div className="col-4 col-form-label text-center">레벨</div>
                     <div className="col-8">
-                        <select className="form-select" value={data.level} onChange={onLevelChange}>
+                        <select className="form-select" value={data.level} name={name} onChange={onLevelChange}>
                             {Array.from({length:50}, (_, i)=>50-i).map(n=>(
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -32,7 +34,7 @@ function FormationViewport({title, data, onTierChange, onLevelChange, onSlotChan
                     <div className="col-2 col-form-label text-center">{i === 0 && "슬롯"}</div>
                     <div className="col-2 col-form-label text-center">{slotNumbers[i]}번</div>
                     <div className="col-8">
-                        <select className="form-select" value={s} onChange={e=>onSlotChange(i, e.target.value)}>
+                        <select className="form-select" value={s} name={name} onChange={e=>onSlotChange(i, e)}>
                             {Array.from({length:5}, (_, i)=>5-i).map(n=>(
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
@@ -45,68 +47,60 @@ function FormationViewport({title, data, onTierChange, onLevelChange, onSlotChan
     )
 }
 
-export default function FormationInput({json}) {
-    const [shark, setShark] = useState(json?.formation?.shark || {
-        tier:7,
-        slot:[4,4,4,4,4],
-        level:50,
-    });
-    const [scorpion, setScorpion] = useState(json?.formation?.scorpion || {
-        tier:7,
-        slot:[4,4,4,4,4],
-        level:50,
-    });
-    const [eagle, setEagle] = useState(json?.formation?.eagle || {
-        tier:7,
-        slot:[4,4,4,4,4],
-        level:50,
-    });
-
-    const changeSharkTier = useCallback(e=>{
-        setShark(prev=>({...prev, tier:parseInt(e.target.value)}));
-    }, []);
-    const changeSharkLevel = useCallback(e=>{
-        setShark(prev=>({...prev, level:parseInt(e.target.value)}));
-    }, []);
-    const changeSharkSlot = useCallback((slot, value)=>{
-        setShark(prev=>({
+export default function FormationInput() {
+    const [user, setUser] = useRecoilState(userState);
+    
+    const changeTier = useCallback(e=>{
+        const type = e.target.name;
+        const tier = parseInt(e.target.value);
+        setUser(prev=>({
             ...prev,
-            slot:prev.slot.map((s,i)=> i===slot ? parseInt(value) : s)
+            formation: {
+                ...prev.formation,
+                [type]:{
+                    ...prev.formation[type],
+                    tier:tier
+                }
+            }
         }));
     }, []);
 
-    const changeScorpionTier = useCallback(e=>{
-        setScorpion(prev=>({...prev, tier:parseInt(e.target.value)}));
-    }, []);
-    const changeScorpionLevel = useCallback(e=>{
-        setScorpion(prev=>({...prev, level:parseInt(e.target.value)}));
-    }, []);
-    const changeScorpionSlot = useCallback((slot, value)=>{
-        setScorpion(prev=>({
+    const changeSlot = useCallback((i,e)=>{
+        const type = e.target.name;
+        const slotLevel = parseInt(e.target.value);
+        setUser(prev=>({
             ...prev,
-            slot:prev.slot.map((s,i)=> i===slot ? parseInt(value) : s)
+            formation: {
+                ...prev.formation,
+                [type]:{
+                    ...prev.formation[type],
+                    slot:prev.formation[type].slot.map((cur, pos)=>i===pos ? parseInt(slotLevel) : cur)
+                }
+            }
         }));
     }, []);
 
-    const changeEagleTier = useCallback(e=>{
-        setEagle(prev=>({...prev, tier:parseInt(e.target.value)}));
-    }, []);
-    const changeEagleLevel = useCallback(e=>{
-        setEagle(prev=>({...prev, level:parseInt(e.target.value)}));
-    }, []);
-    const changeEagleSlot = useCallback((slot, value)=>{
-        setEagle(prev=>({
+    const changeLevel = useCallback(e=>{
+        const type = e.target.name;
+        const level = parseInt(e.target.value);
+        setUser(prev=>({
             ...prev,
-            slot:prev.slot.map((s,i)=> i===slot ? parseInt(value) : s)
+            formation: {
+                ...prev.formation,
+                [type]:{
+                    ...prev.formation[type],
+                    level:level
+                }
+            }
         }));
     }, []);
 
     return (<>
-        <FormationViewport title="샤크 군진" data={shark} 
-            onTierChange={changeSharkTier} onLevelChange={changeSharkLevel} onSlotChange={changeSharkSlot}/>
-        <FormationViewport title="스콜피온 군진" data={scorpion} 
-            onTierChange={changeScorpionTier} onLevelChange={changeScorpionLevel} onSlotChange={changeScorpionSlot}/>
-        <FormationViewport title="이글 군진" data={eagle} 
-            onTierChange={changeEagleTier} onLevelChange={changeEagleLevel} onSlotChange={changeEagleSlot}/>
+        <FormationViewport title="샤크 군진" data={user.formation.shark} 
+            onTierChange={changeTier} name="shark" onLevelChange={changeLevel} onSlotChange={changeSlot}/>
+        <FormationViewport title="스콜피온 군진" data={user.formation.scorpion} 
+            onTierChange={changeTier} name="scorpion" onLevelChange={changeLevel} onSlotChange={changeSlot}/>
+        <FormationViewport title="이글 군진" data={user.formation.eagle} 
+            onTierChange={changeTier} name="eagle" onLevelChange={changeLevel} onSlotChange={changeSlot}/>
     </>);
 }

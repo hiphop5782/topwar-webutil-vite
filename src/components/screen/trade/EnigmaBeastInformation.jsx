@@ -1,5 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { userState } from "./recoil/AccountCreateState";
+import { FaArrowUp } from "react-icons/fa6";
+
+import "./EnigmaBeastInformation.css";
 
 const beastList = ["사슴", "가오리", "독수리", "곰"];
 const gradeList = ["에픽", "유니크", "레어", "희귀"];
@@ -127,21 +132,22 @@ function EnigmaBeastViewer({index, beast, onChange}) {
         if(potential > potentials[beast.grade.max]) return;
 
         if(onChange && typeof onChange === "function") {
-            onChange(index, e);
+            onChange(index, "potential", potential);
         }
     }, []);
 
     const onMainOptionChange = useCallback((beast, index, e)=>{
         if(onChange && typeof onChange === "function") {
-            onChange(index, e);
+            onChange(index, "main", e.target.value);
         }
     }, []);
 
     const onSubOptionChange = useCallback((beast, index, e)=>{
         //기존에 사용중인 옵션을 선택하려고 할 경우 처리할 내용을 작성
 
+
         if(onChange && typeof onChange === "function") {
-            onChange(index, e);
+            onChange(index, e.target.name, e.target.value);
         }
     }, []);
 
@@ -151,7 +157,7 @@ function EnigmaBeastViewer({index, beast, onChange}) {
                 <div className="row">
                     <div className="col-sm-4 col-form-label">종류</div>
                     <div className="col-sm-8">
-                        <select className="form-select" value={beast.type} name="type" onChange={e=>onChange(index, e)}>
+                        <select className="form-select" value={beast.type} name="type" onChange={e=>onChange(index, e.target.name, e.target.value)}>
                             {beastList.map(beast=>(
                             <option key={beast}>{beast}</option>
                             ))}
@@ -161,7 +167,7 @@ function EnigmaBeastViewer({index, beast, onChange}) {
                 <div className="row">
                     <div className="col-sm-4 col-form-label">등급</div>
                     <div className="col-sm-8">
-                        <select className="form-select" value={beast.grade} name="grade" onChange={e=>onChange(index, e)}>
+                        <select className="form-select" value={beast.grade} name="grade" onChange={e=>onChange(index, e.target.name, e.target.value)}>
                             {gradeList.map(grade=>(
                             <option key={grade}>{grade}</option>
                             ))}
@@ -171,7 +177,7 @@ function EnigmaBeastViewer({index, beast, onChange}) {
                 <div className="row">
                     <div className="col-sm-4 col-form-label">성급</div>
                     <div className="col-sm-8">
-                        <select className="form-select" value={beast.level} name="level" onChange={e=>onChange(index, e)}>
+                        <select className="form-select" value={beast.level} name="level" onChange={e=>onChange(index, e.target.name, e.target.value)}>
                             {Array.from({length:5}, (_,i)=>5-i).map(n=>(
                             <option key={n}>{n}</option>
                             ))}
@@ -181,7 +187,7 @@ function EnigmaBeastViewer({index, beast, onChange}) {
                 <div className="row">
                     <div className="col-sm-4 col-form-label">잠재력</div>
                     <div className="col-sm-8">
-                        <input className="form-control" type="number" inputMode="numeric" placeholder="16000"
+                        <input className="form-control" type="text" inputMode="numeric" placeholder="16000"
                             min={potentials[beast.grade.min]} max={potentials[beast.grade.max]} name="potential" 
                             value={beast.potential} onChange={e=>onBeastPotentialChange(beast, index, e)}/>
                     </div>
@@ -231,46 +237,67 @@ function EnigmaBeastViewer({index, beast, onChange}) {
     )
 }
 
-export default function EnigmaBeastInformation({json, onChange}) {
-    const [beasts, setBeasts] = useState(json.enigmaBeast || [
-        {
-            type:"사슴",
-            grade:"에픽",
-            level:5,
-            potential:16000,
-            main:"출정 최대치",
-            sub1:"전체 데미지 증가",
-            sub2:"전체 데미지 감면",
-            sub3:"전체 공격력 증가"
-        }
-    ]);
+export default function EnigmaBeastInformation() {
+    const [user, setUser] = useRecoilState(userState);
+
+    const beasts = useMemo(()=>{
+        return user.enigmaBeast;
+    }, [user.enigmaBeast]);
+
+    const adjustPotential = useCallback((grade, value)=>{
+        if(value < potentials[grade].min) 
+            value = potentials[grade].min;
+        else if(value > potentials[grade].max)
+            value = potentials[grade].max;
+        return value;
+    }, []);
     
-    const onBeastChange = useCallback((index, e)=>{
-        const name = e.target.name;
-        let value = e.target.value;
+    const onBeastChange = useCallback((index, name, value)=>{
         switch(name) {
             case "level":
                 value = parseInt(value);
                 break;
             case "potential":
-                value = parseInt(value);
+                value = parseInt(value) || 0;
+                break;
         }
-        setBeasts(prev=>prev.map((beast, pos)=>{
-            if(pos === index) {
-                return {
-                    ...beast,
-                    [name] : value
+
+        //console.log(index, name, value);
+
+        setUser(prev=>({
+            ...prev,
+            enigmaBeast:prev.enigmaBeast.map((beast,pos)=>{
+                if(pos === index) {
+                    if(name === "grade") {
+                        return {
+                            ...beast,
+                            potential:adjustPotential(value, beast.potential),
+                            grade:value
+                        }
+                    }
+                    else {
+                        return {
+                            ...beast,
+                            [name]:value
+                        }
+                    }
                 }
-            }
-            return beast;
+                return beast;
+            })
         }));
     }, []);
 
     const addBeast = useCallback(()=>{
-        setBeasts(prev=>[...prev,{...dummyBeast}]);
+        setUser(prev=>({
+            ...prev,
+            enigmaBeast:[...prev.enigmaBeast, {...dummyBeast}],
+        }));
     }, []);
     const removeBeast = useCallback(index=>{
-        setBeasts(prev=>prev.filter((beast, i)=>index !== i));
+        setUser(prev=>({
+            ...prev,
+            enigmaBeast:prev.enigmaBeast.filter((b,i)=> index !== i)
+        }));
     }, []);
 
     return (<>
@@ -281,11 +308,11 @@ export default function EnigmaBeastInformation({json, onChange}) {
         </div>
 
         {beasts.map((beast, index)=>(
-            <div key={index}>
+            <div key={index} className="beast mt-4 p-4">
                 <EnigmaBeastViewer index={index} beast={beast} onChange={onBeastChange}/>
-                <button className="btn btn-danger" onClick={e=>removeBeast(index)}>
+                <button className="btn btn-danger mt-2" onClick={e=>removeBeast(index)}>
                     <FaMinus/>
-                    <span className="ms-2">삭제</span>
+                    <span className="mx-2">이 항목 삭제</span>
                 </button>
             </div>
         ))}
