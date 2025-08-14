@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "./recoil/AccountCreateState";
+import NumberGroup from "../../template/NumberGroup";
 
 const slotNumbers = {0:1, 1:2, 2:3, 3:5, 4:8};
 
@@ -33,12 +34,15 @@ function FormationViewport({title, name, data, onTierChange, onLevelChange, onSl
                 <div className="row" key={i}>
                     <div className="col-2 col-form-label text-center">{i === 0 && "슬롯"}</div>
                     <div className="col-2 col-form-label text-center">{slotNumbers[i]}번</div>
-                    <div className="col-8">
+                    <div className="col-8 d-flex">
+                        {/* 
                         <select className="form-select" value={s} name={name} onChange={e=>onSlotChange(i, e)}>
                             {Array.from({length:5}, (_, i)=>5-i).map(n=>(
                                 <option key={n} value={n}>{`${n}레벨`}</option>
                             ))}
                         </select>
+                        */}
+                        <NumberGroup name={name} min={1} max={5} value={s} onChange={e=>onSlotChange(i, e)}/>
                     </div>
                 </div>
                 ))}

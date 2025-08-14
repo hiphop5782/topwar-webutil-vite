@@ -1,0 +1,18 @@
+.number {
+    font-size: 16px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+}
+.number:hover {
+    box-shadow: 0 0 1px 1px lightgray;
+}
+.number.active {
+    font-weight: bolder;
+    color: #d63031;
+    box-shadow: 0 0 2px 2px #d63031;
+}

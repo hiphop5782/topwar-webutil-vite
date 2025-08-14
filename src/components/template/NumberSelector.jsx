@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "./NumberSelector.css";
 
-export default function NumberSelector({name, value, min=1, max=10, block=5, onChange, className}) {
+export default function NumberSelector({name, value, min=1, max=10, block=5, onChange, className, suffix=""}) {
     const changeNumber = useCallback(n=>{
         if(onChange && typeof onChange === "function") {
             onChange(name, n);
@@ -27,7 +27,7 @@ export default function NumberSelector({name, value, min=1, max=10, block=5, onC
     return (<>
         {/* 숫자가 표시되는 자리 */}
         <div className={`number-select d-flex justify-content-center align-items-center ${className}`}
-            onClick={openNumberSelectDialog}>{value}</div>
+            onClick={openNumberSelectDialog}>{value}{suffix.length > 0 && suffix}</div>
 
         {/* 팝업 */}
         <div className={`number-selector-backdrop ${open ? 'active':''}`}>

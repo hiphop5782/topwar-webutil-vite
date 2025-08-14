@@ -5,6 +5,7 @@ import { userState } from "./recoil/AccountCreateState";
 import { FaArrowUp } from "react-icons/fa6";
 
 import "./EnigmaBeastInformation.css";
+import NumberGroup from "../../template/NumberGroup";
 
 const beastList = ["사슴", "가오리", "독수리", "곰"];
 const gradeList = ["에픽", "유니크", "레어", "희귀"];
@@ -176,12 +177,15 @@ function EnigmaBeastViewer({index, beast, onChange}) {
                 </div>
                 <div className="row">
                     <div className="col-sm-4 col-form-label">성급</div>
-                    <div className="col-sm-8">
+                    <div className="col-sm-8 d-flex">
+                        {/*  
                         <select className="form-select" value={beast.level} name="level" onChange={e=>onChange(index, e.target.name, e.target.value)}>
                             {Array.from({length:5}, (_,i)=>5-i).map(n=>(
                             <option key={n}>{n}</option>
                             ))}
                         </select>
+                        */}
+                        <NumberGroup min={1} max={5} value={beast.level} name="level" onChange={e=>onChange(index, e.target.name, e.target.value)}/>
                     </div>
                 </div>
                 <div className="row">
@@ -303,7 +307,7 @@ export default function EnigmaBeastInformation() {
     return (<>
         <div className="row mt-4">
             <div className="col text-end">
-                <button className="btn btn-success" onClick={addBeast}><FaPlus/><span className="ms-2">추가</span></button>
+                <button className="btn btn-success" onClick={addBeast}><FaPlus/><span className="ms-2">새로운 동물 추가</span></button>
             </div>
         </div>
 
@@ -320,7 +324,7 @@ export default function EnigmaBeastInformation() {
         
         <div className="row mt-4">
             <div className="col text-end">
-                <button className="btn btn-success" onClick={addBeast}><FaPlus/><span className="ms-2">추가</span></button>
+                <button className="btn btn-success" onClick={addBeast}><FaPlus/><span className="ms-2">새로운 동물 추가</span></button>
             </div>
         </div>
     </>)
