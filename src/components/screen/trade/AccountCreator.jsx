@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
-import BaseSkinSelector from "./BaseSkinSelector";
-import BasicInformationInput from "./BasicInformationInput";
-import RemoldInformationInput from "./RemoldInformationInput";
-import MasteryInput from "./MasteryInput";
-import FormationInput from "./FomationInput";
-import TitanInformationInput from "./TitanInformationInput";
-import EnigmaFieldInformation from "./EnigmaFieldInformation";
-import EnigmaBeastInformation from "./EnigmaBeastInformation";
-import TroopInformation from "./TroopInformation";
-import EtcInformation from "./EtcInformation";
+import BaseSkinSelector from "./component/BaseSkinSelector";
+import BasicInformationInput from "./component/BasicInformationInput";
+import RemoldInformationInput from "./component/RemoldInformationInput";
+import MasteryInput from "./component/MasteryInput";
+import FormationInput from "./component/FomationInput";
+import TitanInformationInput from "./component/TitanInformationInput";
+import EnigmaFieldInformation from "./component/EnigmaFieldInformation";
+import EnigmaBeastInformation from "./component/EnigmaBeastInformation";
+import TroopInformation from "./component/TroopInformation";
+import EtcInformation from "./component/EtcInformation";
 import { FaArrowDown, FaCopy, FaDownload } from "react-icons/fa6";
 import { useRecoilState } from "recoil";
 import { userState } from "./recoil/AccountCreateState";
+import HeavyTrooperInformation from "./component/HeavyTrooperInformation";
 
 function NextStep() {
     return (
@@ -26,49 +27,6 @@ function NextStep() {
 export default function AccountCreator() {
 
     const [user, setUser] = useRecoilState(userState);
-
-    const onBasicInformationInput = useCallback((basicInformation) => {
-        //console.log("기본정보 입력 : ", basicInformation);
-        setUser(prev=>({...prev, ...basicInformation}));
-    }, []);
-
-    const onBaseSelectionChange = useCallback((baseNoList) => {
-        //console.log("베이스 변경", baseNoList);
-        setUser(prev=>({...prev, baseSkins:[...baseNoList]}));
-    }, []);
-
-    const onTroopChange = useCallback((troop) => {
-        console.log("부대 변경", troop);
-    }, []);
-
-    const onMasteryChange = useCallback((mastery) => {
-        console.log("전문강화 변경", mastery);
-        setUser(prev=>({...prev, mastery:{...mastery}}));
-    }, []);
-
-    const onRemoldChange = useCallback((remold) => {
-        console.log("개조 변경", remold);
-    }, []);
-
-    const onFormationChange = useCallback((formation) => {
-        console.log("군진 변경", formation)
-    }, []);
-
-    const onTitanChange = useCallback((titan) => {
-        console.log("타이탄 변경", titan);
-    }, []);
-
-    const onEnigmaFieldChange = useCallback((enigmaField) => {
-        console.log("초능력영역 변경", enigmaField);
-    }, []);
-
-    const onEnigmaBeastChange = useCallback((enigmaBeast) => {
-        console.log("초능력동물 변경", enigmaBeast);
-    }, []);
-
-    const onEtcChange = useCallback((memo) => {
-        console.log("기타 항목 변경", memo);
-    }, []);
 
     const handleFileChange = useCallback(e => {
         const file = e.target.files[0];
@@ -116,33 +74,36 @@ export default function AccountCreator() {
         <hr />
         <h2>Step 1 : 기존 정보 파일이 있다면 선택(없으면 pass)</h2>
         <input type="file" className="form-control" accept="application/json" onChange={handleFileChange} />
-        <NextStep />
+        <NextStep/>
         <h2>Step 2 : 기본 정보</h2>
         <BasicInformationInput/>
-        <NextStep />
+        <NextStep/>
         <h2>Step 3 : 보유 기지 정보</h2>
         <BaseSkinSelector/>
-        <NextStep />
+        <NextStep/>
         <h2>Step 4 : 전문 강화 정보</h2>
         <MasteryInput/>
-        <NextStep />
+        <NextStep/>
         <h2>Step 5 : 부대 정보</h2>
         <TroopInformation/>
-        <NextStep />
-        <h2>Step 6 : 장비 개조 정보</h2>
+        <NextStep/>
+        <h2>Step 6 : 메카 정보</h2>
+        <HeavyTrooperInformation/>
+        <NextStep/>
+        <h2>Step 7 : 장비 개조 정보</h2>
         <RemoldInformationInput/>
-        <NextStep />
-        <h2>Step 7 : 군진 정보</h2>
-        <FormationInput json={user} onChange={onFormationChange} />
-        <NextStep />
-        <h2>Step 8 : 초능력 동물 정보</h2>
-        <EnigmaBeastInformation json={user} onChange={onEnigmaBeastChange} />
-        <NextStep />
-        <h2>Step 9 : 초능력 영역 정보 (클릭하여 변경)</h2>
-        <EnigmaFieldInformation json={user} onChange={onEnigmaFieldChange} />
-        <NextStep />
-        <h2>Step 10 : 기타 정보</h2>
-        <EtcInformation json={user} onChange={onEtcChange} />
+        <NextStep/>
+        <h2>Step 8 : 군진 정보</h2>
+        <FormationInput/>
+        <NextStep/>
+        <h2>Step 9 : 초능력 동물 정보</h2>
+        <EnigmaBeastInformation/>
+        <NextStep/>
+        <h2>Step 10 : 초능력 영역 정보 (클릭하여 변경)</h2>
+        <EnigmaFieldInformation/>
+        <NextStep/>
+        <h2>Step 11 : 기타 정보</h2>
+        <EtcInformation/>
 
         <NextStep />
         <h1>최종 생성 데이터</h1>

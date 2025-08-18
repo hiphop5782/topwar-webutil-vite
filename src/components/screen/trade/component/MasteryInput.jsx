@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
-import NumberSelector from "../../template/NumberSelector";
+import { userState } from "../recoil/AccountCreateState";
+import NumberSelector from "../../../template/NumberSelector";
 
 //전문강화 선택화면
 export default function MasteryInput() {

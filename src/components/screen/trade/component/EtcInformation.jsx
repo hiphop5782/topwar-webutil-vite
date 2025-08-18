@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
+import { userState } from "../recoil/AccountCreateState";
 
 export default function EtcInformation() {
     const [user, setUser] = useRecoilState(userState);

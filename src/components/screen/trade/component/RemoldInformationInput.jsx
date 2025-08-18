@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { PiKeyReturnThin } from "react-icons/pi";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
+import { userState } from "../recoil/AccountCreateState";
 
 const grades = [
     {no:1, name:"에픽", color:"gold"},

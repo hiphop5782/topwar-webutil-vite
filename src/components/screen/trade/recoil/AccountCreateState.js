@@ -11,7 +11,81 @@ export const userState = atom({
             navy: 15,
             airforce: 15,
         },
-        troop: {},
+        troop: [
+
+        ],
+        ht:[
+            {
+                chip1:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"메카 데미지 증가", value:10.0},
+                        {title:"메카 데미지 감면", value:10.0},
+                        {title:"메카 공격 속도", value:3.0},
+                        {title:"메카 실드", value:10.0}
+                    ]
+                },
+                chip2:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"메카 데미지 증가", value:10.0},
+                        {title:"메카 데미지 감면", value:10.0},
+                        {title:"메카 공격 속도", value:3.0},
+                        {title:"메카 실드", value:10.0}
+                    ]
+                },
+                chip3:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"메카 데미지 증가", value:10.0},
+                        {title:"메카 데미지 감면", value:10.0},
+                        {title:"메카 공격 속도", value:3.0},
+                        {title:"메카 실드", value:10.0}
+                    ]
+                },
+                core:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"전체 방어도 증가", value:30.0},
+                        {title:"전체 데미지 증가", value:30.0}
+                    ]
+                },
+                chip4:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"전체 방어도 증가", value:10.0},
+                        {title:"전체 데미지 증가", value:10.0},
+                        {title:"전체 데미지 감면", value:10.0},
+                        {title:"전체 공격력 증가", value:10.0}
+                    ]
+                },
+                chip5:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"전체 방어도 증가", value:10.0},
+                        {title:"전체 데미지 증가", value:10.0},
+                        {title:"전체 데미지 감면", value:10.0},
+                        {title:"전체 공격력 증가", value:10.0}
+                    ]
+                },
+                chip6:{
+                    type:"자이스톤",
+                    grade:"에픽",
+                    options:[
+                        {title:"전체 방어도 증가", value:10.0},
+                        {title:"전체 데미지 증가", value:10.0},
+                        {title:"전체 데미지 감면", value:10.0},
+                        {title:"전체 공격력 증가", value:10.0}
+                    ]
+                }
+            }
+        ],
         remold: {
             army: {
                 use: true,

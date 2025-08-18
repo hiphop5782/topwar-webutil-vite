@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import "./BaseSkinSelector.css";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
+import { userState } from "../recoil/AccountCreateState";
 
 export default function BaseSkinSelector() {
     const [user, setUser] = useRecoilState(userState);

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-import NumberSelector from "../../template/NumberSelector";
+import NumberSelector from "../../../template/NumberSelector";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
+import { userState } from "../recoil/AccountCreateState";
 
 export default function EnigmaFieldInformation() {
     const [user, setUser] = useRecoilState(userState);

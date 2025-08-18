@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
+import { userState } from "../recoil/AccountCreateState";
 import { FaArrowUp } from "react-icons/fa6";
 
 import "./EnigmaBeastInformation.css";
-import NumberGroup from "../../template/NumberGroup";
+import NumberGroup from "../../../template/NumberGroup";
 
 const beastList = ["사슴", "가오리", "독수리", "곰"];
 const gradeList = ["에픽", "유니크", "레어", "희귀"];

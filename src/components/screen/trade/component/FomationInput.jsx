@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
-import { userState } from "./recoil/AccountCreateState";
-import NumberGroup from "../../template/NumberGroup";
+import { userState } from "../recoil/AccountCreateState";
+import NumberGroup from "../../../template/NumberGroup";
 
 const slotNumbers = {0:1, 1:2, 2:3, 3:5, 4:8};
 

@@ -1,6 +1,7 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
+import { FaArrowUp } from "react-icons/fa6";
 
 function Menu() {
     const nagivate = useNavigate();
@@ -92,6 +93,13 @@ function Menu() {
                             </select>
                         </form>
                     </ul>
+
+                    {/* <button className="btn btn-primary mt-3 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true">메뉴 접기</button> */}
+                    <div className="navbar-toggler border border-0 mt-2 text-center" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true">
+                        <FaArrowUp/>
+                        <span className="mx-2">메뉴 접기</span>
+                        <FaArrowUp/>
+                    </div>
                 </div>
             </div>
         </nav>
