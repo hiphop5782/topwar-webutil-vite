@@ -17,7 +17,8 @@
         "sub": {
           "vital": "Stamina Recovery Calculator",
           "skill-shard": "Exclusive Fragment Calculator",
-          "store": "Special Package Value Calculator"
+          "store": "Special Package Value Calculator",
+          "el-score":"EL Score Calculator"
         }
       },
       "simulator": {
