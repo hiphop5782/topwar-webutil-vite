@@ -1,0 +1,53 @@
+.el-map {
+    box-shadow: 0 0 0 1px black;
+    width: 100%;
+    min-height: 500px;
+
+    position: relative;
+}
+
+.el-map > .el-building {
+    position: absolute;
+    box-shadow: 0 0 0 1px black;
+    font-size: 28px;
+    width: 1em;
+    height: 1em;
+}
+
+.el-map > .el-building > [type=checkbox] {
+    display: none;
+}
+.el-map > .el-building > [type=checkbox] + span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-size: contain;
+    background-position: center;
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check1 {
+    background-image: url("/images/checkbox/check1.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check2 {
+    background-image: url("/images/checkbox/check2.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check3 {
+    background-image: url("/images/checkbox/check3.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check4 {
+    background-image: url("/images/checkbox/check4.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check5 {
+    background-image: url("/images/checkbox/check5.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check6 {
+    background-image: url("/images/checkbox/check6.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check7 {
+    background-image: url("/images/checkbox/check7.png");
+}
+.el-map > .el-building > [type=checkbox]:checked + span.check8 {
+    background-image: url("/images/checkbox/check8.png");
+}

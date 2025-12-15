@@ -23,6 +23,7 @@ import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
 import LuckyBox from "./screen/simulator/LuckyBox";
 import KartzStatistics from "./screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
+import ELScoreCalculator from "./screen/calculator/ELScoreCalculator";
 
 export default function MainContentView() {
     return (
@@ -46,6 +47,7 @@ export default function MainContentView() {
                 <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
                 <Route path="calculator/skill" element={<SkillCalculator />}></Route>
                 <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
+                <Route path="calculator/el-score" element={<ELScoreCalculator/>}></Route>
                 <Route path="simulator/random" element={<RandomSimulator/>}></Route>
                 {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
                 <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
