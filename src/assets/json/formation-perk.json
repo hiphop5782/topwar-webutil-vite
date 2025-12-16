@@ -36,10 +36,20 @@
         { "id": 101 , "level":{ "current":0, "min":0, "max":5, "point":17} },
         { "id": 102 , "level":{ "current":0, "min":0, "max":5, "point":17} },
         { "id": 103 , "level":{ "current":0, "min":0, "max":5, "point":17} },
+        { "id": 105 , "level":{ "current":0, "min":0, "max":5, "point":24} },
         { "id": 112 , "level":{ "current":0, "min":0, "max":5, "point":17} },
+        { "id": 114 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 115 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 116 , "level":{ "current":0, "min":0, "max":5, "point":24} },
         { "id": 121 , "level":{ "current":0, "min":0, "max":5, "point":32} },
         { "id": 122 , "level":{ "current":0, "min":0, "max":1, "point":85} },
-        { "id": 123 , "level":{ "current":0, "min":0, "max":5, "point":32} }
+        { "id": 123 , "level":{ "current":0, "min":0, "max":5, "point":32} },
+        { "id": 124 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 125 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 126 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 134 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 135 , "level":{ "current":0, "min":0, "max":5, "point":24} },
+        { "id": 136 , "level":{ "current":0, "min":0, "max":5, "point":24} }
     ],
     "edges":[
         { "from": 12, "to": 21 },
@@ -90,6 +100,17 @@
         { "from": 75, "to": 85 },
         { "from": 75, "to": 86 },
         { "from": 84, "to": 94 },
-        { "from": 86, "to": 96 }
+        { "from": 86, "to": 96 },
+        { "from": 94, "to": 105 },
+        { "from": 96, "to": 105 },
+        { "from": 105, "to": 114 },
+        { "from": 105, "to": 115 },
+        { "from": 105, "to": 116 },
+        { "from": 114, "to": 124 },
+        { "from": 115, "to": 125 },
+        { "from": 116, "to": 126 },
+        { "from": 124, "to": 134 },
+        { "from": 125, "to": 135 },
+        { "from": 126, "to": 136 }
     ]
 }
