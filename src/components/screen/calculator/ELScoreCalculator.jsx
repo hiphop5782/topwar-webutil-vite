@@ -354,7 +354,7 @@ export default function ELScoreCalculator() {
                                 <th>순위</th>
                                 <th>서버</th>
                                 <th className="text-end">현재 점수</th>
-                                <th className="text-end">시간당 점수</th>
+                                <th className="text-end">1분당 점수</th>
                                 <th className="text-end">최종 점수</th>
                             </tr>
                         </thead>
@@ -364,7 +364,7 @@ export default function ELScoreCalculator() {
                                 <td>{index+1}</td>
                                 <td>{server.name}</td>
                                 <td className="text-end">{server.currentScore?.toLocaleString()}</td>
-                                <td className="text-end">{server.scorePerHour?.toLocaleString()}</td>
+                                <td className="text-end">{server.scorePerMinute?.toLocaleString()}</td>
                                 <td className="text-end">{server.scoreTotal?.toLocaleString()}</td>
                             </tr>
                             ))}
