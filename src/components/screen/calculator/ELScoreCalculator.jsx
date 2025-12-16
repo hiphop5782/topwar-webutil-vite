@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { FaEraser, FaPlus, FaXmark } from "react-icons/fa6";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import BuildingList from "@src/assets/json/el/buildings.json";
+import ColorList from "@src/assets/json/colors.json";
 
 import "./ELScoreCalculator.css";
 
@@ -160,8 +161,16 @@ export default function ELScoreCalculator() {
         if(fillCount < 1)
             return 2;
 
-        return 5;
+        return 9999;
     }, [servers, selected, endDate, endTime]);
+
+    const getColor = useCallback((building)=>{
+        if(building.server === null) 
+            return "transparent";
+        if(selected !== null && building.server.no !== selected.no)
+            return "transparent";
+        return ColorList[building.server.no % ColorList.length];
+    }, [selected]);
 
     //render
     return (<>
@@ -259,12 +268,13 @@ export default function ELScoreCalculator() {
         <div className="row my-4">
             <h2>4. 서버별 점령 지역 설정 ({selected === null ? "전체 지도" : `${selected.name} 서버 시점`})</h2>
             <div className="col-12 mb-2">
-                <button className={`btn w-100 ${selected === null ? 'btn-primary' : 'btn-outline-primary'}`} onClick={e=>setSelected(null)}>전체 서버 상황 보기</button>
+                <button className={`btn w-100 fw-bold ${selected === null ? 'btn-secondary' : 'btn-outline-secondary'}`} onClick={e=>setSelected(null)}>전체 서버 상황 보기</button>
             </div>
 
             {servers.map((server, index)=>(
             <div className="col-md-3 col-sm-4 col-6 mb-2" key={index}>
-                <button className={`btn w-100 ${selected?.no === server.no ? 'btn-primary' : 'btn-outline-primary'}`} 
+                <button className={`btn w-100 fw-bold ${selected?.no === server.no ? 'btn-colored' : 'btn-outline-colored'}`} 
+                        style={{"--btn-color" : ColorList[server.no % ColorList.length]}}
                         onClick={e=>setSelected(server)}>{server.name}</button>
             </div>
             ))}
@@ -333,9 +343,9 @@ export default function ELScoreCalculator() {
                             ) : (
                             <input type="checkbox" 
                                 onChange={e=>checkBuilding(e, building)}
-                                checked={building.server !== null && building.server?.name === selected?.name} />
+                                checked={building.server !== null && building.server?.no === selected?.no} />
                             )}
-                            <span className={`${building.server !== null ? `check${building.server.no}` : ''}`}></span>
+                            <span style={{backgroundColor : getColor(building)}}></span>
                         </label>
                     ))}
                 </div>
