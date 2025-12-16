@@ -48,6 +48,7 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/calculator/gathering">채집 속도 계산기</NavLink> */}
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/skill`}>{t(`menu.calculator.sub.skill-shard`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/value-pack`}>{t(`menu.calculator.sub.store`)}</NavLink>
+                                <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/el-score`}>{t(`menu.calculator.sub.el-score`)}</NavLink>
                                 {/* <div className="dropdown-divider"></div>/ */}
                                 {/* <a className="dropdown-item">Separated link</a> */}
@@ -70,13 +71,13 @@ function Menu() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/emoji`}>{t(`menu.emoji.label`)}</NavLink>
                         </li>
-                        <li className="nav-item dropdown">
+                        {/* <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.account.label`)} (구현중)</a>
                             <div className="dropdown-menu">
                                 <NavLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu.account.sub.viewer`)} (구현중)</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu.account.sub.creator`)} (구현중)</NavLink>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/developer`}>{t(`menu.developer.label`)}</NavLink>
                         </li>
