@@ -225,7 +225,7 @@ export default function ELScoreCalculator() {
             <div className="col-12 d-flex flex-wrap mt-2">
                 {servers.map((server, index)=>(
                 <button type="button" className="btn btn-outline-primary d-inline-flex align-items-center me-2 mb-2"
-                                onClick={e=>removeServer(server)}>
+                                onClick={e=>removeServer(server)} key={index}>
                     <span>{server.name}</span>
                     <FaXmark className="ms-2"/>
                 </button>
@@ -243,7 +243,7 @@ export default function ELScoreCalculator() {
             <h2>3. 현재 점수 입력</h2>
         </div>
         {servers.map((server, index)=>(
-            <div className="row mt-2" key={index}>
+        <div className="row mt-2" key={index}>
             <label className="col-sm-3 col-form-label">{server.name}</label>
             <div className="col-sm-9">
                 <input type="text" inputMode="numeric" className="form-control" 
@@ -259,12 +259,13 @@ export default function ELScoreCalculator() {
         <div className="row my-4">
             <h2>4. 서버별 점령 지역 설정 ({selected === null ? "전체 지도" : `${selected.name} 서버 시점`})</h2>
             <div className="col-12 mb-2">
-                <button className="btn btn-secondary w-100" onClick={e=>setSelected(null)}>전체 서버 상황 보기</button>
+                <button className={`btn w-100 ${selected === null ? 'btn-primary' : 'btn-outline-primary'}`} onClick={e=>setSelected(null)}>전체 서버 상황 보기</button>
             </div>
 
             {servers.map((server, index)=>(
             <div className="col-md-3 col-sm-4 col-6 mb-2" key={index}>
-                <button className="btn btn-primary w-100" onClick={e=>setSelected(server)}>{server.name} 서버</button>
+                <button className={`btn w-100 ${selected?.no === server.no ? 'btn-primary' : 'btn-outline-primary'}`} 
+                        onClick={e=>setSelected(server)}>{server.name}</button>
             </div>
             ))}
             <div className="col-12 mt-4">
