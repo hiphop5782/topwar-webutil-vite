@@ -1,20 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { FaEraser, FaPlus } from "react-icons/fa6";
+import { FaEraser, FaPlus, FaXmark } from "react-icons/fa6";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import BuildingList from "@src/assets/json/el/buildings.json";
 
 import "./ELScoreCalculator.css";
 
-const initialValue = [
-    {no:1, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:2, number: "",currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:3, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:4, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:5, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:6, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:7, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-    {no:8, number: "", currentScore:0, scorePerMinute:0, scoreTotal : 0},
-];
+const initialObject = {
+    no : 0 , name : "", currentScore : 0, scorePerMinute:0, scoreTotal : 0
+};
 
 const dateOptions = {
     year: 'numeric',
@@ -23,35 +16,46 @@ const dateOptions = {
 };
 
 export default function ELScoreCalculator() {
+    const [no, setNo] = useState(1);
     const [selected, setSelected] = useState(null);
-    const [servers, setServers] = useLocalStorage('servers', initialValue);
-    const [buildings, setBuildings] = useState(()=>{
-        return BuildingList.map(building=>({...building, server : null}));
-    });
-    const [endDate, setEndDate] = useState(()=>{
+    const [servers, setServers] = useLocalStorage('servers', []);
+    const [input, setInput] = useState("");
+    const [buildings, setBuildings] = useLocalStorage('buildings', 
+        BuildingList.map(building=>({...building, server : null}))
+    );
+    // const [buildings, setBuildings] = useState(()=>{
+    //     return BuildingList.map(building=>({...building, server : null}));
+    // });
+
+    const getDayAfter = useCallback(diff=>{
         const today = new Date();
         const nextWeek = new Date();
-        nextWeek.setDate(today.getDate() + 7);
+        nextWeek.setDate(today.getDate() + diff);
         return nextWeek.toLocaleDateString("sv-SE", dateOptions);
-    });
-    const [endTime, setEndTime] = useState("23:00");
-
-    const resetServers = useCallback(()=>{
-        setServers(initialValue);
     }, []);
-    const changeServerNumber = useCallback((e, target)=>{
-        const value = e.target.value;
-        const replacement = value.replace(/[^0-9]+/g, "");
-        const replacement2 = replacement.replace(/^0+/, "").substring(0, 4);
-        setServers(prev=>prev.map((server,idx)=>{
-            if(server.no === target.no) {
-                return {
-                    ...server, 
-                    number : replacement2.length === 0 ? "" : replacement2
-                };
-            }
-            return server;
-        }));
+
+    const [endDate, setEndDate] = useLocalStorage("endDate", getDayAfter(7));
+    const [endTime, setEndTime] = useLocalStorage("endTime", "23:00");
+
+    const addServer = useCallback(()=>{
+        setServers(prev=>{
+            const newNo = no;
+            setNo(prev=>prev+1);
+            return [
+                ...prev, 
+                { ...initialObject, no : newNo, name : input }
+            ]
+        });
+        setInput("");
+    }, [input]);
+    const resetServers = useCallback(()=>{
+        setServers([]);
+    }, []);
+    const removeServer = useCallback(target=>{
+        const choice = window.confirm("대상을 삭제하시겠습니까?");
+        if(choice === false) return;
+
+        setServers(prev=>prev.filter(server=>server.no !== target.no));
     }, []);
 
     const changeCurrnetScore = useCallback((e, target)=>{
@@ -131,12 +135,12 @@ export default function ELScoreCalculator() {
         buildings.forEach(building=>{
             if(building.server === null) return true;
 
-            const origin = conquestObject[building.server.number] || 0;
-            conquestObject[building.server.number] = origin + building.point;
+            const origin = conquestObject[building.server.name] || 0;
+            conquestObject[building.server.name] = origin + building.point;
         });
 
         const calculated = servers.map(server=>{
-            const score = conquestObject[server.number] || 0;
+            const score = conquestObject[server.name] || 0;
             return {
                 ...server,
                 scorePerMinute : score,
@@ -146,6 +150,18 @@ export default function ELScoreCalculator() {
 
         return calculated.sort((a,b)=>b.scoreTotal - a.scoreTotal);
     }, [buildings]);
+
+    //진행 단계
+    const step = useMemo(()=>{
+        if(endDate.length === 0 || endTime.length === 0) 
+            return 1;
+
+        const fillCount = servers.reduce((acc, c)=>c.name.length > 0 ? acc + 1 : acc, 0);
+        if(fillCount < 1)
+            return 2;
+
+        return 5;
+    }, [servers, selected, endDate, endTime]);
 
     //render
     return (<>
@@ -158,7 +174,7 @@ export default function ELScoreCalculator() {
         </div>
         <hr/>
 
-        <div className="row mt-4">
+        <div className="row mt-5 pt-5">
             <h2>1. 종료 시간 설정</h2>
         </div>
         <div className="row">
@@ -181,8 +197,9 @@ export default function ELScoreCalculator() {
                 {remainTimeValue}
             </div>
         </div>
-        <hr/>
 
+        {step >= 2 && (<>
+        <hr className="mt-5 pt-5"/>
         <div className="row">
             <h2>
                 2. 서버 번호 설정
@@ -191,23 +208,43 @@ export default function ELScoreCalculator() {
                     <span className="ms-2">서버 초기화</span>
                 </button>
             </h2>
-            {servers.map((server)=>(
-            <div className="col-md-3 col-sm-4 col-6 mb-2" key={server.no}>
-                <input type="text" inputMode="numeric" className="form-control"
-                    placeholder={`서버 ${server.no} 번호 입력`}
-                    value={server.number}
-                    onChange={e=>changeServerNumber(e,server)}/>
-            </div>
-            ))}
-        </div>
-        <hr/>
 
-        <div className="row mt-4">
+            <div className="col-12 d-flex align-items-center">
+                <input type="text" className="form-control w-auto flex-grow-1" 
+                    placeholder="번호 입력 후 추가 버튼 클릭 혹은 엔터" 
+                    value={input} onChange={e=>setInput(e.target.value)}
+                    onKeyUp={e=>{
+                        if(e.key === "Enter") addServer();
+                    }}/>
+                <button className="btn btn-success ms-2" onClick={addServer}>
+                    <FaPlus/>
+                    <span className="ms-2 d-none d-sm-inline-block">추가</span>
+                </button>
+            </div>
+
+            <div className="col-12 d-flex flex-wrap mt-2">
+                {servers.map((server, index)=>(
+                <button type="button" className="btn btn-outline-primary d-inline-flex align-items-center me-2 mb-2"
+                                onClick={e=>removeServer(server)}>
+                    <span>{server.name}</span>
+                    <FaXmark className="ms-2"/>
+                </button>
+                ))}
+            </div>
+            <div className="col-12 mt-2">
+                총 {servers.length}개 등록중
+            </div>
+        </div>
+        </>)}
+
+        {step >= 3 && (<>
+        <hr className="mt-5 pt-5"/>
+        <div className="row">
             <h2>3. 현재 점수 입력</h2>
         </div>
-        {servers.map(server=>(
-        <div className="row" key={server.no}>
-            <label className="col-sm-3 col-form-label">{server.number}</label>
+        {servers.map((server, index)=>(
+            <div className="row mt-2" key={index}>
+            <label className="col-sm-3 col-form-label">{server.name}</label>
             <div className="col-sm-9">
                 <input type="text" inputMode="numeric" className="form-control" 
                     value={server.currentScore}
@@ -215,29 +252,74 @@ export default function ELScoreCalculator() {
             </div>
         </div>
         ))}
+        </>)}
 
-        <hr/>
-
-        {/* 제어 버튼 */}
-        <div className="row mt-4">
-            <h2>4. 서버 선택</h2>
+        {step >= 4 && (<>
+        <hr className="mt-5 pt-5"/>
+        <div className="row my-4">
+            <h2>4. 서버별 점령 지역 설정 ({selected === null ? "전체 지도" : `${selected.name} 서버 시점`})</h2>
             <div className="col-12 mb-2">
                 <button className="btn btn-secondary w-100" onClick={e=>setSelected(null)}>전체 서버 상황 보기</button>
             </div>
 
             {servers.map((server, index)=>(
             <div className="col-md-3 col-sm-4 col-6 mb-2" key={index}>
-                <button className="btn btn-primary w-100" onClick={e=>setSelected(server)}>{server.number} 서버</button>
+                <button className="btn btn-primary w-100" onClick={e=>setSelected(server)}>{server.name} 서버</button>
             </div>
             ))}
-        </div>
-
-        <hr/>
-        <div className="row my-4">
-            <h2>5. 지도 확인 ({selected === null ? "전체" : `${selected.number} 서버`} 상황 확인 중)</h2>
-            <div className="col">
+            <div className="col-12 mt-4">
                 
                 <div className="el-map">
+                    <div className="el-lines">
+                        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                            {/* 1구역 */}
+                            <line x1={0} y1={0} x2={16} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={16} y1={16.5} x2={51} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={51} y1={16.5} x2={51} y2={0} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 2구역 */}
+                            <line x1={100} y1={0} x2={86} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={86} y1={16.5} x2={51} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* <line x1={51} y1={16.5} x2={51} y2={0} stroke="#0984e3" strokeWidth={0.2}/> */}
+                            {/* 3구역 */}
+                            <line x1={86} y1={16.5} x2={86} y2={50} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={86} y1={50} x2={100} y2={50} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 4구역 */}
+                            <line x1={86} y1={50} x2={86} y2={85} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={86} y1={85} x2={100} y2={100} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 5구역 */}
+                            <line x1={86} y1={85} x2={51} y2={85} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={51} y1={85} x2={51} y2={100} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 6구역 */}
+                            <line x1={0} y1={100} x2={16} y2={85} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={16} y1={85} x2={51} y2={85} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 7구역 */}
+                            <line x1={16} y1={85} x2={16} y2={50} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={0} y1={50} x2={16} y2={50} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 8구역 */}
+                            <line x1={16} y1={16.5} x2={16} y2={50} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 9구역 */}
+                            <line x1={16} y1={16.5} x2={26} y2={26} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={26} y1={26} x2={76.5} y2={26} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={76.5} y1={26} x2={86} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 10구역 */}
+                            <line x1={76.5} y1={26} x2={76.5} y2={75} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={76.5} y1={75} x2={86} y2={85} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 11구역 */}
+                            <line x1={76.5} y1={75} x2={26} y2={75} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={16} y1={85} x2={26} y2={75} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 12구역 */}
+                            <line x1={26} y1={26} x2={26} y2={75} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 13구역 */}
+                            <line x1={26} y1={26} x2={42} y2={42} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={42} y1={42} x2={58} y2={42} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={58} y1={42} x2={58} y2={58} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={58} y1={58} x2={76.5} y2={75} stroke="#0984e3" strokeWidth={0.2}/>
+                            {/* 14구역 */}
+                            <line x1={42} y1={42} x2={42} y2={58} stroke="#0984e3" strokeWidth={0.2}/>
+                            <line x1={42} y1={58} x2={58} y2={58} stroke="#0984e3" strokeWidth={0.2}/>
+
+                        </svg>
+                    </div>
                     {buildings.map((building, index)=>(
                         <label className="el-building" style={{
                             top : `${building.x}%`,
@@ -250,7 +332,7 @@ export default function ELScoreCalculator() {
                             ) : (
                             <input type="checkbox" 
                                 onChange={e=>checkBuilding(e, building)}
-                                checked={building.server !== null && building.server?.number === selected?.number} />
+                                checked={building.server !== null && building.server?.name === selected?.name} />
                             )}
                             <span className={`${building.server !== null ? `check${building.server.no}` : ''}`}></span>
                         </label>
@@ -258,27 +340,32 @@ export default function ELScoreCalculator() {
                 </div>
             </div>
         </div>
-        <hr/>
+        </>)}
+
+        {step >= 5 && (<>
+        <hr className="mt-5 pt-5"/>
         <div className="row mt-4">
-            <h2>6. 예상 점수 확인</h2>
+            <h2>5. 예상 점수 확인</h2>
             <div className="col-12">
                 <div className="text-nowrap table-responsive">
                     <table className="table">
                         <thead>
-                            <tr>
+                            <tr className="text-center">
                                 <th>순위</th>
-                                <th>현재 점수</th>
-                                <th>시간당 점수</th>
-                                <th>최종 점수</th>
+                                <th>서버</th>
+                                <th className="text-end">현재 점수</th>
+                                <th className="text-end">시간당 점수</th>
+                                <th className="text-end">최종 점수</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="text-center">
                             {sortedServers.map((server, index)=>(
-                            <tr key={server.no}>
+                            <tr key={server.no} className={`${index === 0 ? 'table-primary' : ''}${index === 1 ? 'table-success' : ''}`}>
                                 <td>{index+1}</td>
-                                <td>{server.currentScore}</td>
-                                <td>{server.scorePerHour}</td>
-                                <td>{server.scoreTotal}</td>
+                                <td>{server.name}</td>
+                                <td className="text-end">{server.currentScore?.toLocaleString()}</td>
+                                <td className="text-end">{server.scorePerHour?.toLocaleString()}</td>
+                                <td className="text-end">{server.scoreTotal?.toLocaleString()}</td>
                             </tr>
                             ))}
                         </tbody>
@@ -286,6 +373,7 @@ export default function ELScoreCalculator() {
                 </div>
             </div>
         </div>
+        </>)}
 
         <div className="row my-5 py-5"></div>
     </>)
