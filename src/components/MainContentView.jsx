@@ -24,12 +24,14 @@ import LuckyBox from "./screen/simulator/LuckyBox";
 import KartzStatistics from "./screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "./screen/calculator/ELScoreCalculator";
+import KakaoAdsVertical from "./adsense/KakaoAdsVertical";
 
 export default function MainContentView() {
     return (
         <div className="row">
             <div className="col-md-2 d-none d-md-block">
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
+                <KakaoAdsVertical id="DAN-2TYGu5OktHTg0aW6"/>
             </div>
             <div className="col-md-8">
             <Routes>
@@ -69,6 +71,7 @@ export default function MainContentView() {
             </div>
             <div className="col-md-2 d-none d-md-block">
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
+                <KakaoAdsVertical id="DAN-2TYGu5OktHTg0aW6"/>
             </div>
         </div>
     )
