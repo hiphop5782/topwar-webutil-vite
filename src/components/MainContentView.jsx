@@ -86,7 +86,7 @@ export default function MainContentView() {
             </div>
             <div className="col-md-2 d-none d-md-block" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
-                <KakaoAds id="DAN-2TYGu5OktHTg0aW6"/>
+                <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/>
             </div>
         </div>
     )
