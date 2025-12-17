@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function KakaoAdsVertical({ id = null }) {
-    if(id === null) return null;
-
+export default function KakaoAds({ id , width , height }) {
     //ref
     const adRef = useRef(null);
 
@@ -17,8 +15,8 @@ export default function KakaoAdsVertical({ id = null }) {
         ins.className = "kakao_ad_area";
         ins.style.display = "none";
         ins.setAttribute("data-ad-unit", id);
-        ins.setAttribute("data-ad-width", "160");
-        ins.setAttribute("data-ad-height", "600");
+        ins.setAttribute("data-ad-width", `${width}`);
+        ins.setAttribute("data-ad-height", `${height}`);
 
         if(adRef.current) {
             adRef.current.appendChild(ins);

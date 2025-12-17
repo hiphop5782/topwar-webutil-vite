@@ -24,54 +24,69 @@ import LuckyBox from "./screen/simulator/LuckyBox";
 import KartzStatistics from "./screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "./screen/calculator/ELScoreCalculator";
-import KakaoAdsVertical from "./adsense/KakaoAdsVertical";
+import KakaoAds from "./adsense/KakaoAds";
+import { useIsMobile } from "@src/hooks/useIsMobile";
 
 export default function MainContentView() {
+    const isMobile = useIsMobile(768);
+
     return (
         <div className="row">
             <div className="col-md-2 d-none d-md-block" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
-                <KakaoAdsVertical id="DAN-2TYGu5OktHTg0aW6"/>
+                <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
             </div>
             <div className="col-md-8">
-            <Routes>
-                <Route index element={<Home />}></Route>
-                <Route path="information/base" element={<BaseInformation />}></Route>
-                {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
-                {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
-                <Route path="information/job" element={<JobInformation />}></Route>
-                <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
-                <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
-                <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
-                <Route path="information/el" element={<EternalLand/>}></Route>
-                <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
-                <Route path="calculator/vital" element={<VitalCalculator />}></Route>
-                <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
-                <Route path="calculator/skill" element={<SkillCalculator />}></Route>
-                <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
-                <Route path="calculator/el-score" element={<ELScoreCalculator/>}></Route>
-                <Route path="simulator/random" element={<RandomSimulator/>}></Route>
-                {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
-                <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
-                <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
-                <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
-                <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
-                <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
-                <Route path="developer" element={<Developer/>}></Route>
-                <Route path="emoji" element={<Emoji />}></Route>
-                {/* <Route path="/blog" element={<Blog />}></Route> */}
-                <Route path="account/viewer" element={<AccountViewer/>}></Route>
-                <Route path="account/creator" element={
-                    <RecoilRoot>
-                        <AccountCreator/>
-                    </RecoilRoot>
-                }></Route>
-                <Route path="*" element={<PangeNotFound />}></Route>
-            </Routes>
+                {/* 카카오 애드핏 수평 광고 */}
+                <div className="row mb-4">
+                    <div className="col">
+                        {isMobile ? (
+                            <KakaoAds id="DAN-lZUjWtUlP8hglGID" width={320} height={50} />
+                        ) : (
+                            <KakaoAds id="DAN-Z2S2sYjDqUqroYxO" width={728} height={90} />
+                        )}
+                    </div>
+                </div>
+
+                {/* routes */}
+                <Routes>
+                    <Route index element={<Home />}></Route>
+                    <Route path="information/base" element={<BaseInformation />}></Route>
+                    {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
+                    {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
+                    <Route path="information/job" element={<JobInformation />}></Route>
+                    <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
+                    <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
+                    <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
+                    <Route path="information/el" element={<EternalLand/>}></Route>
+                    <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
+                    <Route path="calculator/vital" element={<VitalCalculator />}></Route>
+                    <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
+                    <Route path="calculator/skill" element={<SkillCalculator />}></Route>
+                    <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
+                    <Route path="calculator/el-score" element={<ELScoreCalculator/>}></Route>
+                    <Route path="simulator/random" element={<RandomSimulator/>}></Route>
+                    {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
+                    <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
+                    <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
+                    <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
+                    <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
+                    <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
+                    <Route path="developer" element={<Developer/>}></Route>
+                    <Route path="emoji" element={<Emoji />}></Route>
+                    {/* <Route path="/blog" element={<Blog />}></Route> */}
+                    <Route path="account/viewer" element={<AccountViewer/>}></Route>
+                    <Route path="account/creator" element={
+                        <RecoilRoot>
+                            <AccountCreator/>
+                        </RecoilRoot>
+                    }></Route>
+                    <Route path="*" element={<PangeNotFound />}></Route>
+                </Routes>
             </div>
             <div className="col-md-2 d-none d-md-block" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
-                <KakaoAdsVertical id="DAN-2TYGu5OktHTg0aW6"/>
+                <KakaoAds id="DAN-2TYGu5OktHTg0aW6"/>
             </div>
         </div>
     )
