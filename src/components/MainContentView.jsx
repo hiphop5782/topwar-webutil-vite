@@ -16,7 +16,7 @@ import SkillCalculator from './screen/calculator/SkillCalculator';
 import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
 import RandomSimulator from './screen/simulator/RandomSimulator';
 import Developer from './screen/Developer';
-import EternalLand from "./screen/information/EternalLand";
+import EternalLand from "./screen/information/el/EternalLand";
 import AccountViewer from "./screen/trade/AccountViewer";
 import AccountCreator from "./screen/trade/AccountCreator";
 import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
@@ -26,6 +26,11 @@ import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "./screen/calculator/ELScoreCalculator";
 import KakaoAds from "./adsense/KakaoAds";
 import { useIsMobile } from "@src/hooks/useIsMobile";
+import EternalLandScore from "./screen/information/el/EternalLandScore";
+import EternalLandHowto from "./screen/information/el/EternalLandHowto";
+import EternalLandTip from "./screen/information/el/EternalLandTip";
+import EternalLandReward from "./screen/information/el/EternalLandReward";
+import EternalLandDarkforce from "./screen/information/el/EternalLandDarkforce";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(768);
@@ -58,7 +63,13 @@ export default function MainContentView() {
                     <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
                     <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
                     <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
-                    <Route path="information/el" element={<EternalLand/>}></Route>
+                    <Route path="information/el" element={<EternalLand/>}>
+                        <Route index element={<EternalLandScore/>}/>
+                        <Route path="howto" element={<EternalLandHowto/>}/>
+                        <Route path="tip" element={<EternalLandTip/>}/>
+                        <Route path="reward" element={<EternalLandReward/>}/>
+                        <Route path="darkforce" element={<EternalLandDarkforce/>}/>
+                    </Route>
                     <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>

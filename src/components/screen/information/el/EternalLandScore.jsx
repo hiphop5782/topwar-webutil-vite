@@ -3,10 +3,10 @@ import Buildings from "@src/assets/json/el/buildings.json";
 import { reverse, throttle } from "lodash";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import "./EternalLand.css";
+import "./EternalLandScore.css";
 import { GrRadialSelected } from "react-icons/gr";
 
-export default function EternalLand() {
+export default function EternalLandScore() {
 
     const map = useRef();
     const [mapWidth, setMapWidth] = useState(0);
@@ -37,11 +37,14 @@ export default function EternalLand() {
     
     const calculateTranslate = useCallback((building)=>{
         let x = 15, y = 15;
-        if(building.x > 70) x = -115; 
-        else if(building.x > 30) x = -50;
+        // if(building.x > 70) x = -115; 
+        // else if(building.x > 30) x = -50;
+        
+        // if(building.y > 70) y = -115;
+        // else if(building.y > 30) y = -50;
 
-        if(building.y > 70) y = -115;
-        else if(building.y > 30) y = -50;
+        if(building.x > 30) x = -115;
+        y = -50;
 
         return `translate(${x}%, ${y}%)`;
     }, []);
@@ -64,10 +67,8 @@ export default function EternalLand() {
     }, [selectedFacilities]);
 
     return (<>
-        <h1>영원의 땅</h1>
-
         <div className="position-relative" ref={map}>
-            <img src={ELmap} width={"100%"} alt="eternel land map"/>
+            <img src={ELmap} width={"100%"} height={500} alt="eternel land map"/>
             {facilities.map((facility, index)=>(
             <div key={index} className="position-absolute" style={
                     {
