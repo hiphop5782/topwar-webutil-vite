@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import "./EternalLandScore.css";
 import { GrRadialSelected } from "react-icons/gr";
+import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
 export default function EternalLandScore() {
 
@@ -147,7 +148,9 @@ export default function EternalLandScore() {
                 <div className="fs-2"><span className="fw-bold text-primary">1분</span> 당 총 <span className="fw-bold text-danger">{selectedFacilitiesPoint.toLocaleString()}</span> 점 획득 가능</div>
                 <div className="fs-2"><span className="fw-bold text-primary">1시간</span> 당 총 <span className="fw-bold text-danger">{(selectedFacilitiesPoint * 60).toLocaleString()}</span> 점 획득 가능</div>
                 <div className="fs-2"><span className="fw-bold text-primary">1일</span> 당 총 <span className="fw-bold text-danger">{(selectedFacilitiesPoint * 60 * 24).toLocaleString()}</span> 점 획득 가능</div>
+                <div className="fs-2 mt-2">더 자세한 점수 계산은 <LanguageRouterLink to={"/calculator/el-score"}>계산기</LanguageRouterLink>에서 </div>
             </div>
         </div>
+
     </>);
 }

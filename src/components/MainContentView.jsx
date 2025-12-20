@@ -36,7 +36,7 @@ export default function MainContentView() {
     const isMobile = useIsMobile(768);
 
     return (
-        <div className="row">
+        <div className="row mb-5 pb-5">
             <div className="col-md-2 d-none d-md-block" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
                 <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
