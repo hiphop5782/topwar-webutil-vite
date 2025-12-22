@@ -21,7 +21,10 @@ export default function EternalLand() {
                 <LanguageRouterLink className="btn btn-info w-100 text-nowrap" to={"/information/el/reward"}>획득 보상(작성중)</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink className="btn btn-secondary w-100 text-nowrap" to={"/information/el/darkforce"}>암흑 점수</LanguageRouterLink>
+                <LanguageRouterLink className="btn btn-warning w-100 text-nowrap" to={"/information/el/darkforce"}>암흑 점수 계산</LanguageRouterLink>
+            </div>
+            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <LanguageRouterLink className="btn btn-danger w-100 text-nowrap" to={"/information/el/score"}>점령 점수 계산</LanguageRouterLink>
             </div>
         </div>
         <hr/>

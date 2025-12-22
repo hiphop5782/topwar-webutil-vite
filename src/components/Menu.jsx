@@ -48,8 +48,8 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/calculator/gathering">채집 속도 계산기</NavLink> */}
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/skill`}>{t(`menu.calculator.sub.skill-shard`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/value-pack`}>{t(`menu.calculator.sub.store`)}</NavLink>
-                                <div className="dropdown-divider"></div>
-                                <NavLink className="dropdown-item" to={`/${lang}/calculator/el-score`}>{t(`menu.calculator.sub.el-score`)}</NavLink>
+                                {/* <div className="dropdown-divider"></div> */}
+                                {/* <NavLink className="dropdown-item" to={`/${lang}/calculator/el-score`}>{t(`menu.calculator.sub.el-score`)}</NavLink> */}
                                 {/* <div className="dropdown-divider"></div>/ */}
                                 {/* <a className="dropdown-item">Separated link</a> */}
                             </div>

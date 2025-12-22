@@ -1,36 +1,36 @@
 import { Route, Routes } from "react-router-dom";
 import PangeNotFound from "./error/PageNotFound";
-import GatheringCalculator from './screen/calculator/GatheringCalculator';
-import VitalCalculator from './screen/calculator/VitalCalculator';
-import Emoji from './screen/Emoji';
-import Home from './screen/Home';
-import BaseInformation from './screen/information/BaseInformation';
-import FormationPerk from './screen/simulator/FormationPerk';
-import JobInformation from './screen/information/JobInformation';
-import KartzRankInformation from './screen/information/KartzRankInformation';
-import KartzSpecInformation from './screen/information/KartzSpecInformation';
-import ServerAnalyzer from './screen/information/ServerAnalyzer';
-import TitanRefineSimulator from './screen/simulator/TitanRefineSimulator';
-import TitanResearchSimulator from './screen/simulator/TitanResearchSimulator';
-import SkillCalculator from './screen/calculator/SkillCalculator';
-import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
-import RandomSimulator from './screen/simulator/RandomSimulator';
-import Developer from './screen/Developer';
-import EternalLand from "./screen/information/el/EternalLand";
-import AccountViewer from "./screen/trade/AccountViewer";
-import AccountCreator from "./screen/trade/AccountCreator";
-import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
-import LuckyBox from "./screen/simulator/LuckyBox";
-import KartzStatistics from "./screen/information/KartzStatistics";
+import GatheringCalculator from '@src/components/screen/calculator/GatheringCalculator';
+import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
+import Emoji from '@src/components/screen/Emoji';
+import Home from '@src/components/screen/Home';
+import BaseInformation from '@src/components/screen/information/BaseInformation';
+import FormationPerk from '@src/components/screen/simulator/FormationPerk';
+import JobInformation from '@src/components/screen/information/JobInformation';
+import KartzRankInformation from '@src/components/screen/information/KartzRankInformation';
+import KartzSpecInformation from '@src/components/screen/information/KartzSpecInformation';
+import ServerAnalyzer from '@src/components/screen/information/ServerAnalyzer';
+import TitanRefineSimulator from '@src/components/screen/simulator/TitanRefineSimulator';
+import TitanResearchSimulator from '@src/components/screen/simulator/TitanResearchSimulator';
+import SkillCalculator from '@src/components/screen/calculator/SkillCalculator';
+import ValuePackCalculator from '@src/components/screen/simulator/VapuePackCalculator';
+import RandomSimulator from '@src/components/screen/simulator/RandomSimulator';
+import Developer from '@src/components/screen/Developer';
+import EternalLand from "@src/components/screen/information/el/EternalLand";
+import AccountViewer from "@src/components/screen/trade/AccountViewer";
+import AccountCreator from "@src/components/screen/trade/AccountCreator";
+import TopwarSlotMachine from "@src/components/screen/simulator/TopwarSlotMachine";
+import LuckyBox from "@src/components/screen/simulator/LuckyBox";
+import KartzStatistics from "@src/components/screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
-import ELScoreCalculator from "./screen/calculator/ELScoreCalculator";
+import ELScoreCalculator from "@src/components/screen/information/el/ELScoreCalculator";
 import KakaoAds from "./adsense/KakaoAds";
 import { useIsMobile } from "@src/hooks/useIsMobile";
-import EternalLandScore from "./screen/information/el/EternalLandScore";
-import EternalLandHowto from "./screen/information/el/EternalLandHowto";
-import EternalLandTip from "./screen/information/el/EternalLandTip";
-import EternalLandReward from "./screen/information/el/EternalLandReward";
-import EternalLandDarkforce from "./screen/information/el/EternalLandDarkforce";
+import EternalLandScore from "@src/components/screen/information/el/EternalLandScore";
+import EternalLandHowto from "@src/components/screen/information/el/EternalLandHowto";
+import EternalLandTip from "@src/components/screen/information/el/EternalLandTip";
+import EternalLandReward from "@src/components/screen/information/el/EternalLandReward";
+import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(768);
@@ -69,13 +69,13 @@ export default function MainContentView() {
                         <Route path="tip" element={<EternalLandTip/>}/>
                         <Route path="reward" element={<EternalLandReward/>}/>
                         <Route path="darkforce" element={<EternalLandDarkforce/>}/>
+                        <Route path="score" element={<ELScoreCalculator/>}/>
                     </Route>
                     <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>
                     <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
-                    <Route path="calculator/el-score" element={<ELScoreCalculator/>}></Route>
                     <Route path="simulator/random" element={<RandomSimulator/>}></Route>
                     {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
                     <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>

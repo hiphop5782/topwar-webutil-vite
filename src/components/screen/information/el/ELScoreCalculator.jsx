@@ -3,7 +3,7 @@ import { FaEraser, FaPlus, FaXmark } from "react-icons/fa6";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import BuildingList from "@src/assets/json/el/buildings.json";
 import ColorList from "@src/assets/json/colors.json";
-
+import NextStep from "@src/components/template/NextStep";
 import "./ELScoreCalculator.css";
 
 const initialObject = {
@@ -19,9 +19,9 @@ const dateOptions = {
 export default function ELScoreCalculator() {
     const [no, setNo] = useState(1);
     const [selected, setSelected] = useState(null);
-    const [servers, setServers] = useLocalStorage('servers', []);
     const [input, setInput] = useState("");
-    const [buildings, setBuildings] = useLocalStorage('buildings', 
+    const [servers, setServers] = useLocalStorage('el-score-servers', []);
+    const [buildings, setBuildings] = useLocalStorage('el-score-buildings', 
         BuildingList.map(building=>({...building, server : null}))
     );
     // const [buildings, setBuildings] = useState(()=>{
@@ -35,8 +35,8 @@ export default function ELScoreCalculator() {
         return nextWeek.toLocaleDateString("sv-SE", dateOptions);
     }, []);
 
-    const [endDate, setEndDate] = useLocalStorage("endDate", getDayAfter(7));
-    const [endTime, setEndTime] = useLocalStorage("endTime", "23:00");
+    const [endDate, setEndDate] = useLocalStorage("el-score-endDate", getDayAfter(7));
+    const [endTime, setEndTime] = useLocalStorage("el-score-endTime", "23:00");
 
     const addServer = useCallback(()=>{
         setServers(prev=>{
@@ -176,12 +176,11 @@ export default function ELScoreCalculator() {
     return (<>
         <div className="row">
             <div className="col">
-                <h1>
+                <h2>
                     EL 점수 계산기                    
-                </h1>
+                </h2>
             </div>
         </div>
-        <hr/>
 
         <div className="row mt-5 pt-5">
             <h2>1. 종료 시간 설정</h2>
@@ -208,7 +207,7 @@ export default function ELScoreCalculator() {
         </div>
 
         {step >= 2 && (<>
-        <hr className="mt-5 pt-5"/>
+        <NextStep size={50}/>
         <div className="row">
             <h2>
                 2. 서버 번호 설정
@@ -247,7 +246,7 @@ export default function ELScoreCalculator() {
         </>)}
 
         {step >= 3 && (<>
-        <hr className="mt-5 pt-5"/>
+        <NextStep size={50}/>
         <div className="row">
             <h2>3. 현재 점수 입력</h2>
         </div>
@@ -264,7 +263,7 @@ export default function ELScoreCalculator() {
         </>)}
 
         {step >= 4 && (<>
-        <hr className="mt-5 pt-5"/>
+        <NextStep size={50}/>
         <div className="row my-4">
             <h2>4. 서버별 점령 지역 설정 ({selected === null ? "전체 지도" : `${selected.name} 서버 시점`})</h2>
             <div className="col-12 mb-2">
@@ -354,9 +353,9 @@ export default function ELScoreCalculator() {
         </>)}
 
         {step >= 5 && (<>
-        <hr className="mt-5 pt-5"/>
+        <NextStep size={50}/>
         <div className="row mt-4">
-            <h2>5. 예상 점수 확인</h2>
+            <h2>5. 예상 점수 및 순위 확인</h2>
             <div className="col-12">
                 <div className="text-nowrap table-responsive">
                     <table className="table">
