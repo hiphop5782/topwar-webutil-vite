@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./EternalLandScore.css";
 import { GrRadialSelected } from "react-icons/gr";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
+import { FaAsterisk } from "react-icons/fa6";
 
 export default function EternalLandScore() {
 
@@ -68,6 +69,12 @@ export default function EternalLandScore() {
     }, [selectedFacilities]);
 
     return (<>
+        <div className="row my-2">
+            <div className="col text-muted">
+                <FaAsterisk className="me-2"/>
+                지도의 마름모 도형에 마우스를 올리시거나 클릭하셔서 점수를 확인해보세요
+            </div>
+        </div>
         <div className="position-relative" ref={map}>
             <img src={ELmap} width={"100%"} height={500} alt="eternel land map"/>
             {facilities.map((facility, index)=>(
