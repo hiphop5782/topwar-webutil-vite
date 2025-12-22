@@ -32,7 +32,7 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/information/hero">영웅 정보</NavLink> */}
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/job`}>{t(`menu.info.sub.job`)}</NavLink>
-                                <NavLink className="dropdown-item" to={`/${lang}/information/el`}>{t(`menu.info.sub.el`)} (구현중)</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/el`}>{t(`menu.info.sub.el`)}</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/server-info`}>{t(`menu.info.sub.server-analyze`)}</NavLink>
                                 <div className="dropdown-divider"></div>

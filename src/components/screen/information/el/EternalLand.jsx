@@ -11,15 +11,15 @@ export default function EternalLand() {
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink className="btn btn-secondary w-100 text-nowrap" to={"/information/el"}>지도 및 점수</LanguageRouterLink>
             </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+            {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink className="btn btn-success w-100 text-nowrap" to={"/information/el/howto"}>진행 방법(작성중)</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+            </div> */}
+            {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink className="btn btn-info w-100 text-nowrap" to={"/information/el/tip"}>각종 Tip(작성중)</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+            </div> */}
+            {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink className="btn btn-info w-100 text-nowrap" to={"/information/el/reward"}>획득 보상(작성중)</LanguageRouterLink>
-            </div>
+            </div> */}
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink className="btn btn-warning w-100 text-nowrap" to={"/information/el/darkforce"}>암흑 점수 계산</LanguageRouterLink>
             </div>
