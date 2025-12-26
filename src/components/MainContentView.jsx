@@ -37,7 +37,7 @@ export default function MainContentView() {
 
     return (
         <div className="row mb-5 pb-5">
-            <div className="col-md-2 d-none d-lg-flex justify-content-center align-items-center" style={{minWidth:"160px"}}>
+            <div className="col-md-2 d-none d-lg-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
                 <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
             </div>
@@ -95,7 +95,7 @@ export default function MainContentView() {
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
             </div>
-            <div className="col-md-2 d-none d-lg-flex justify-content-center align-items-center" style={{minWidth:"160px"}}>
+            <div className="col-md-2 d-none d-lg-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
                 <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/>
             </div>
