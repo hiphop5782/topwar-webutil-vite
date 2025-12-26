@@ -9,7 +9,7 @@ export default function KakaoAds({ id , width , height }) {
         const script = document.createElement("script");
         script.async = true;
         script.type = "text/javascript";
-        script.src = "//t1/daumcdn.net/kas/static/ba.min.js";
+        script.src = "//t1.daumcdn.net/kas/static/ba.min.js";
 
         const ins = document.createElement("ins");
         ins.className = "kakao_ad_area";
