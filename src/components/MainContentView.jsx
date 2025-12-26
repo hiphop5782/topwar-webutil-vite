@@ -33,7 +33,7 @@ import EternalLandReward from "@src/components/screen/information/el/EternalLand
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
 
 export default function MainContentView() {
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile(1200);
 
     return (
         <div className="row mb-5 pb-5">
