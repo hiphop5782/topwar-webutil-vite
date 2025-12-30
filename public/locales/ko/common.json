@@ -42,6 +42,9 @@
                 "creator":"홍보화면생성"
             }
         },
+        "vote":{
+            "label":"투표"
+        },
         "developer":{
             "label":"개발자"
         }

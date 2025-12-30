@@ -38,6 +38,9 @@
       "account": {
         "label": "Trade"
       },
+      "vote":{
+            "label":"Vote"
+        },
       "developer": {
         "label": "Developer"
       }

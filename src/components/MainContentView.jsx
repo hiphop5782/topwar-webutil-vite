@@ -31,6 +31,8 @@ import EternalLandHowto from "@src/components/screen/information/el/EternalLandH
 import EternalLandTip from "@src/components/screen/information/el/EternalLandTip";
 import EternalLandReward from "@src/components/screen/information/el/EternalLandReward";
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
+import AttendanceVoteCreator from "./screen/vote/AttendanceVoteCreator";
+import AttendanceVoteReader from "./screen/vote/AttendanceVoteReader";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -92,6 +94,8 @@ export default function MainContentView() {
                             <AccountCreator/>
                         </RecoilRoot>
                     }></Route>
+                    <Route path="vote" element={<AttendanceVoteCreator/>}></Route>
+                    <Route path="vote/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
             </div>

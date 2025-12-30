@@ -79,6 +79,9 @@ function Menu() {
                             </div>
                         </li> */}
                         <li className="nav-item">
+                            <NavLink className="nav-link" to={`/${lang}/vote`}>{t(`menu.vote.label`)}</NavLink>
+                        </li>
+                        <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/developer`}>{t(`menu.developer.label`)}</NavLink>
                         </li>
                         
