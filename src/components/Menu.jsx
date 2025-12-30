@@ -78,8 +78,13 @@ function Menu() {
                                 <NavLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu.account.sub.creator`)} (구현중)</NavLink>
                             </div>
                         </li> */}
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to={`/${lang}/vote`}>{t(`menu.vote.label`)}</NavLink>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.vote.label`)}</a>
+                            <div className="dropdown-menu">
+                                <NavLink className="dropdown-item" to={`/${lang}/vote/create`}>{t(`menu.vote.sub.create`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/vote/cast`}>{t(`menu.vote.sub.cast`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/vote/manage`}>{t(`menu.vote.sub.manage`)}</NavLink>
+                            </div>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/developer`}>{t(`menu.developer.label`)}</NavLink>

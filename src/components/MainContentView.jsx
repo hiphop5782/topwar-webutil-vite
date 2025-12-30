@@ -33,6 +33,7 @@ import EternalLandReward from "@src/components/screen/information/el/EternalLand
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
 import AttendanceVoteCreator from "./screen/vote/AttendanceVoteCreator";
 import AttendanceVoteReader from "./screen/vote/AttendanceVoteReader";
+import AttendanceVoteManager from "./screen/vote/AttendanceVoteManager";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -94,8 +95,10 @@ export default function MainContentView() {
                             <AccountCreator/>
                         </RecoilRoot>
                     }></Route>
-                    <Route path="vote" element={<AttendanceVoteCreator/>}></Route>
-                    <Route path="vote/:voteId" element={<AttendanceVoteReader/>}></Route>
+                    <Route path="vote/create" element={<AttendanceVoteCreator/>}></Route>
+                    <Route path="vote/cast" element={<AttendanceVoteReader/>}></Route>
+                    {/* <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route> */}
+                    <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
             </div>
