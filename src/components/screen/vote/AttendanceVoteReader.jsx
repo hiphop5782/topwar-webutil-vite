@@ -15,9 +15,12 @@ export default function AttendanceVoteReader() {
     const { getVote, castVote } = useFirebase();
 
     const loadVote = useCallback(()=>{
-        const unsubscribe = getVote(uuid, (data)=>{
-            setVote(data);
-        });
+            const unsubscribe = getVote(uuid, (data)=>{
+                if(data === null) {
+                    toast.error("투표가 존재하지 않습니다");
+                }
+                setVote(data);
+            });
     }, [uuid, getVote]);
 
     const [choiceNo, setChoiceNo] = useState(null);
@@ -50,7 +53,6 @@ export default function AttendanceVoteReader() {
         if(userInfo.cp === "") return false;
         return true;
     }, [userInfo]);
-    
 
     const submitVote = useCallback(async ()=>{
         if(writeUserInfoComplete === false) return toast.error("내 정보를 모두 작성해야 투표가 가능합니다!");
@@ -60,6 +62,16 @@ export default function AttendanceVoteReader() {
             toast.success("투표가 완료되었습니다!");
         }
     }, [uuid, userInfo, writeUserInfoComplete, choiceNo]);
+
+    // 투표 마감 상태 계산
+    const isVoteExpired = useMemo(() => {
+        if (!vote) return false;
+        if (vote.closed) return true; // 수동 마감
+        if (vote.expiresAt) {
+            return new Date() > vote.expiresAt.toDate(); // 시간 만료
+        }
+        return false;
+    }, [vote]);
 
     return (<>
         <h1>참여 투표</h1>
@@ -114,6 +126,14 @@ export default function AttendanceVoteReader() {
             </div>
         </div>
 
+        {isVoteExpired ? (<>
+        <hr/>
+        <div className="row mt-4">
+            <div className="col">
+                <h3 className="text-danger">종료된 투표입니다</h3>
+            </div>
+        </div>
+        </>) : (<>
         {vote !== null && (<>
         <hr/>
         <div className="row mt-4">
@@ -157,8 +177,9 @@ export default function AttendanceVoteReader() {
                     </>)}
                 </button>
             </div>
-        </div>
+        </div>        
         </>)}
-        
+        </>)}
+
     </>)
 }

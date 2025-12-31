@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { useFirebase } from "@src/hooks/useFirebase";
 import { useParams } from "react-router-dom";
+import { FaPlay, FaStop } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 export default function AttendanceVoteManager() {
     const {voteId} = useParams();
@@ -8,12 +10,15 @@ export default function AttendanceVoteManager() {
     const [uuid, setUuid] = useState(voteId);   
     const [vote, setVote] = useState(null);
 
-    const { getVote } = useFirebase();
+    const { getVote, closeVoteManually, openVoteManually } = useFirebase();
 
     const loadVote = useCallback(()=>{
-        const unsubscribe = getVote(uuid, (data)=>{
-            setVote(data);
-        });
+            const unsubscribe = getVote(uuid, (data)=>{
+                if(data === null) {
+                    toast.error("투표가 존재하지 않습니다");
+                }
+                setVote(data);
+            });
     }, [uuid, getVote]);
 
     const totalCount = useMemo(()=>{
@@ -21,6 +26,24 @@ export default function AttendanceVoteManager() {
 
         return vote.choices.reduce((acc, cur)=>acc + cur.currentCount, 0);
     }, [vote]);
+
+    const closeVote = useCallback(async ()=>{
+        if(window.confirm("이 투표를 중지하시겠습니까?")) {
+            const success = await closeVoteManually(uuid);
+            if(success) {
+                toast.error("투표가 중지되었습니다");
+            }
+        }
+    }, [closeVoteManually, uuid]);
+
+    const openVote = useCallback(async ()=>{
+        if(window.confirm("이 투표를 다시 시작하시겠습니까?")) {
+            const success = await openVoteManually(uuid);
+            if(success) {
+                toast.success("투표가 다시 시작되었습니다");
+            }
+        }
+    }, [openVoteManually, uuid]);
 
     return (<>
         <h1>투표 현황 및 관리</h1>
@@ -37,6 +60,25 @@ export default function AttendanceVoteManager() {
 
         {vote !== null && (<>
         <div className="row mt-4">
+            <label className="col-form-label col-sm-3">투표 상태</label>
+            <div className="col-sm-9 fs-4">
+                {vote.closed === true ? (<>
+                    <span className="text-danger">투표 마감됨</span>
+                    <button className="btn btn-primary ms-2 d-inline-flex justify-content-center align-items-center" onClick={openVote}>
+                        <FaPlay/>
+                        <span className="ms-2">재개</span>
+                    </button>
+                </>) : (<>
+                    <span className="text-primary">투표 진행중</span>
+                    <button className="btn btn-danger ms-2 d-inline-flex justify-content-center align-items-center" onClick={closeVote}>
+                        <FaStop/>
+                        <span className="ms-2">중지</span>
+                    </button>
+                </>)}
+            </div>
+        </div>
+
+        <div className="row mt-4">
             <label className="col-form-label col-sm-3">투표 제목</label>
             <div className="col-sm-9 fs-3">
                 {vote.title}
@@ -44,7 +86,7 @@ export default function AttendanceVoteManager() {
         </div>
         <hr/>
         {vote.choices.map((choice, index)=>(
-        <div className="row mt-1">
+        <div className="row mt-1" key={choice.no}>
             <label className="col-form-label col-sm-3">{index === 0 && "투표 현황"}</label>
             <div className="col-sm-9">
                 <div className="d-flex align-items-center">
