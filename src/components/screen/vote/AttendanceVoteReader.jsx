@@ -4,6 +4,7 @@ import { useFirebase } from "@src/hooks/useFirebase";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import { FaVoteYea } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 export default function AttendanceVoteReader() {
     const {voteId} = useParams();
@@ -52,11 +53,11 @@ export default function AttendanceVoteReader() {
     
 
     const submitVote = useCallback(async ()=>{
-        if(writeUserInfoComplete === false) return window.alert("내 정보를 모두 작성해야 투표가 가능합니다!");
+        if(writeUserInfoComplete === false) return toast.error("내 정보를 모두 작성해야 투표가 가능합니다!");
 
         const success = await castVote(uuid, choiceNo, userInfo);
         if (success) {
-            alert("투표가 완료되었습니다!");
+            toast.success("투표가 완료되었습니다!");
         }
     }, [uuid, userInfo, writeUserInfoComplete, choiceNo]);
 
