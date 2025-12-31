@@ -171,8 +171,8 @@ export default function AttendanceVoteCreator() {
                     <label className="col-form-label col-sm-3">
                         <span>항목 {index + 1}</span>
                         {index > 0 && (
-                            <span className="badge text-bg-danger ms-4">
-                                <FaXmark className="fw-bold me-2" onClick={e => deleteChoice(choice)} />
+                            <span className="badge text-bg-danger ms-4" onClick={e => deleteChoice(choice)}>
+                                <FaXmark className="fw-bold me-2"/>
                                 <span>제거</span>
                             </span>
                         )}
