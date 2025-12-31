@@ -38,6 +38,14 @@
       "account": {
         "label": "Trade"
       },
+      "vote":{
+            "label":"Vote",
+            "sub":{
+                "create":"Create Vote",
+                "cast":"Cast Vote",
+                "manage":"Manage Vote"
+            }
+        },
       "developer": {
         "label": "Developer"
       }

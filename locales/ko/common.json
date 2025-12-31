@@ -42,6 +42,14 @@
                 "creator":"홍보화면생성"
             }
         },
+        "vote":{
+            "label":"투표",
+            "sub":{
+                "create":"투표 생성",
+                "cast":"투표 참여",
+                "manage":"투표 관리"
+            }
+        },
         "developer":{
             "label":"개발자"
         }
