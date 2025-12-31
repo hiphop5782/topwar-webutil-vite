@@ -97,8 +97,9 @@ export default function MainContentView() {
                     }></Route>
                     <Route path="vote/create" element={<AttendanceVoteCreator/>}></Route>
                     <Route path="vote/cast" element={<AttendanceVoteReader/>}></Route>
-                    {/* <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route> */}
+                    <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
+                    <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
             </div>
