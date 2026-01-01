@@ -34,7 +34,22 @@ export const useFirebase = () => {
 
     // 2. 투표 데이터 실시간 불러오기 (추가된 부분)
     // callback을 사용하여 리렌더링 시 함수 재생성을 방지합니다.
-    const getVote = useCallback((uuid, password, callback) => {
+    const getVote = useCallback((uuid, callback) => {
+        if (!uuid) return;
+
+        const voteRef = doc(db, "votes", uuid);
+
+        return onSnapshot(voteRef, (docSnap) => {
+            if (docSnap.exists()) {
+                callback(docSnap.data());
+            } else {
+                callback(null);
+            }
+        }, (error) => {
+            console.error("Firebase 읽기 에러:", error);
+        });
+    }, []);
+    const getVoteManager = useCallback((uuid, password, callback) => {
         if (!uuid) return;
 
         const voteRef = doc(db, "votes", uuid);
@@ -44,17 +59,21 @@ export const useFirebase = () => {
                 const data = docSnap.data();
                 const dbPassword = data.password;
 
-                // 1. DB에 비밀번호가 없는 경우 (조건 없이 통과)
-                // 2. DB 비밀번호와 입력한 비밀번호가 일치하는 경우
-                if (!dbPassword || dbPassword === "" || dbPassword === password) {
+                // [케이스 1] DB에 비밀번호가 아예 없는 경우 -> 누구나 관리 가능 (Public)
+                if (!dbPassword) {
+                    callback(data);
+                    return;
+                }
+
+                // [케이스 2] 비밀번호가 있는 경우 -> 입력값과 대조 (Admin Mode)
+                if (dbPassword === password) {
                     callback(data);
                 } else {
-                    // 비밀번호가 틀린 경우
-                    console.warn("비밀번호가 일치하지 않습니다.");
-                    callback({ error: "AUTH_FAILED", message: "비밀번호가 틀렸습니다." });
+                    // 비밀번호가 틀렸을 때 처리
+                    console.warn("관리 권한이 없습니다.");
+                    callback({ error: "FORBIDDEN", message: "비밀번호가 일치하지 않습니다." });
                 }
             } else {
-                console.error("해당 투표 데이터가 없습니다.");
                 callback(null);
             }
         }, (error) => {
@@ -187,5 +206,5 @@ export const useFirebase = () => {
         }
     };
 
-    return { saveVote, getVote, castVote, closeVoteManually, openVoteManually };
+    return { saveVote, getVote, getVoteManager, castVote, closeVoteManually, openVoteManually };
 };

@@ -11,16 +11,16 @@ export default function AttendanceVoteManager() {
     const [password, setPassword] = useState("");
     const [vote, setVote] = useState(null);
 
-    const { getVote, closeVoteManually, openVoteManually } = useFirebase();
+    const { getVoteManager, closeVoteManually, openVoteManually } = useFirebase();
 
     const loadVote = useCallback(()=>{
-            const unsubscribe = getVote(uuid, password, (data)=>{
+            const unsubscribe = getVoteManager(uuid, password, (data)=>{
                 if(data === null) {
                     toast.error("투표가 존재하지 않습니다");
                 }
                 setVote(data);
             });
-    }, [uuid, password, getVote]);
+    }, [uuid, password, getVoteManager]);
 
     const totalCount = useMemo(()=>{
         if(vote === null) return 0;
