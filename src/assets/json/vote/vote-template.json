@@ -9,9 +9,9 @@
         }
     },
     {
-        "name" : "거인전(TC)",
+        "name" : "거인의 협곡(TC)",
         "vote" : {
-            "title" : "거인전(TC) 참여 조사",
+            "title" : "거인의 협곡(TC) 참여 조사",
             "choices" : [
                 { "no" : 1 , "content" : "A팀 (토요일 리셋-2)", "limit" : true , "count" : 35 },
                 { "no" : 2 , "content" : "B팀 (토요일 리셋-2)", "limit" : true , "count" : 35 },
