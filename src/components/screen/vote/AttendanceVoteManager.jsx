@@ -1,25 +1,26 @@
 import { useCallback, useMemo, useState } from "react";
 import { useFirebase } from "@src/hooks/useFirebase";
 import { useParams } from "react-router-dom";
-import { FaPlay, FaStop } from "react-icons/fa6";
+import { FaPlay, FaStop, FaUpload } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 export default function AttendanceVoteManager() {
     const {voteId} = useParams();
 
     const [uuid, setUuid] = useState(voteId);   
+    const [password, setPassword] = useState("");
     const [vote, setVote] = useState(null);
 
     const { getVote, closeVoteManually, openVoteManually } = useFirebase();
 
     const loadVote = useCallback(()=>{
-            const unsubscribe = getVote(uuid, (data)=>{
+            const unsubscribe = getVote(uuid, password, (data)=>{
                 if(data === null) {
                     toast.error("투표가 존재하지 않습니다");
                 }
                 setVote(data);
             });
-    }, [uuid, getVote]);
+    }, [uuid, password, getVote]);
 
     const totalCount = useMemo(()=>{
         if(vote === null) return 0;
@@ -51,10 +52,24 @@ export default function AttendanceVoteManager() {
 
         <div className="row mt-4">
             <label className="col-form-label col-sm-3">투표ID</label>
-            <div className="col d-flex align-items-center">
-                <input type="text" className="form-control w-auto flex-grow-1" placeholder="투표 고유 ID 입력" 
-                        value={uuid} onChange={e=>setUuid(e.target.value)}/>
-                <button className="btn btn-primary ms-2" onClick={loadVote}>불러오기</button>
+            <div className="col-sm-9">
+                <input type="text" className="form-control" placeholder="투표 고유 ID 입력" 
+                        value={uuid} onChange={e=>setUuid(e.target.value)}/>             
+            </div>
+        </div>
+        <div className="row mt-2">
+            <label className="col-form-label col-sm-3">관리자 비밀번호</label>
+            <div className="col-sm-9">
+                <input type="password" className="form-control" placeholder="관리자 비밀번호 입력"
+                        value={password} onChange={e=>setPassword(e.target.value)}/>
+            </div>
+        </div>
+        <div className="row mt-2">
+            <div className="offset-sm-3 col-sm-9">
+                <button className="btn btn-primary w-100" onClick={loadVote}>
+                    <FaUpload/>    
+                    <span className="ms-2">불러오기</span>
+                </button>
             </div>
         </div>
 

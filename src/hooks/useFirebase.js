@@ -21,7 +21,7 @@ export const useFirebase = () => {
                     players: []//참여 인원은 비어있도록 설정
                 })),
                 createdAt: new Date(),
-                closed:false,
+                closed: false,
             };
 
             await setDoc(voteRef, finalData);
@@ -34,16 +34,25 @@ export const useFirebase = () => {
 
     // 2. 투표 데이터 실시간 불러오기 (추가된 부분)
     // callback을 사용하여 리렌더링 시 함수 재생성을 방지합니다.
-    const getVote = useCallback((uuid, callback) => {
+    const getVote = useCallback((uuid, password, callback) => {
         if (!uuid) return;
 
         const voteRef = doc(db, "votes", uuid);
 
-        // onSnapshot은 해당 문서의 변경사항을 실시간으로 감시합니다.
-        // 이 함수는 '감시 종료 함수(unsubscribe)'를 반환합니다.
         return onSnapshot(voteRef, (docSnap) => {
             if (docSnap.exists()) {
-                callback(docSnap.data());
+                const data = docSnap.data();
+                const dbPassword = data.password;
+
+                // 1. DB에 비밀번호가 없는 경우 (조건 없이 통과)
+                // 2. DB 비밀번호와 입력한 비밀번호가 일치하는 경우
+                if (!dbPassword || dbPassword === "" || dbPassword === password) {
+                    callback(data);
+                } else {
+                    // 비밀번호가 틀린 경우
+                    console.warn("비밀번호가 일치하지 않습니다.");
+                    callback({ error: "AUTH_FAILED", message: "비밀번호가 틀렸습니다." });
+                }
             } else {
                 console.error("해당 투표 데이터가 없습니다.");
                 callback(null);

@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react"
-import { FaArrowRotateRight, FaCopy, FaFloppyDisk, FaPlus, FaRecycle, FaShare, FaXmark } from "react-icons/fa6";
-import { useParams } from "react-router-dom"
+import { FaArrowRotateRight, FaCopy, FaEye, FaEyeSlash, FaFloppyDisk, FaPlus, FaRecycle, FaShare, FaXmark } from "react-icons/fa6";
 import { v4 as uuidv4 } from "uuid";
 import { useFirebase } from "@src/hooks/useFirebase";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import VoteTemplates from "@src/assets/json/vote/vote-template.json";
 
 export default function AttendanceVoteCreator() {
     const { saveVote } = useFirebase();
@@ -12,15 +12,14 @@ export default function AttendanceVoteCreator() {
     const [vote, setVote] = useState({
         uuid: "",
     });
+    const [showPwd, setShowPwd] = useState(false);
 
-    const createVote = useCallback(() => {
-        setVote(prev => ({
-            uuid: uuidv4(),
-            title: "",
-            choices: [
-                { no: 1, content: "", limit: false, count: 35 }
-            ],
-        }));
+    const createVoteByTemplate = useCallback((template)=>{
+        setVote({
+            ...template.vote, 
+            uuid:uuidv4(), 
+            password: ""
+        })
     }, []);
 
     const addChoice = useCallback(() => {
@@ -128,34 +127,52 @@ export default function AttendanceVoteCreator() {
         <hr />
 
         <div className="row mt-4">
-            <label className="col-form-label col-sm-3">투표 ID</label>
-            <div className="col-sm-9 d-flex align-items-center flex-wrap">
-                <span className="">{vote.uuid}</span>
-                <div className="w-100 mt-1">
-                {vote.uuid.length === 0 ? (
-                    <button className="btn btn-success me-2 text-nowrap" onClick={createVote}>
-                        <FaPlus className="me-2" />
-                        <span>생성</span>
-                    </button>
-                ) : (<>
-                    <button className="btn btn-danger me-2 text-nowrap" onClick={createVote}>
-                        <FaArrowRotateRight className="me-2" />
-                        <span>재생성</span>
-                    </button>
-                    <button className="btn btn-primary me-2 text-nowrap" onClick={copyUuidToClipboard}>
-                        <FaCopy className="me-2" />
-                        <span>ID복사</span>
-                    </button>
-                    <button className="btn btn-primary text-nowrap" onClick={copyLinkToClipboard}>
-                        <FaShare className="me-2" />
-                        <span>공유주소복사</span>
-                    </button>
-                </>)}
-                </div>
+            <label className="col-form-label col-sm-3">템플릿</label>
+            <div className="col-sm-9">
+                {VoteTemplates.map((template, index)=>(
+                <button key={index} className="btn me-2 btn-outline-primary text-nowrap" onClick={e=>createVoteByTemplate(template)}>
+                    {template.name}
+                </button>
+                ))}
             </div>
         </div>
 
         {vote.uuid.length > 0 && (<>
+            {/* 투표 ID */}
+            <div className="row mt-2">
+                <label className="col-form-label col-sm-3">투표 ID</label>
+                <div className="col-sm-9 d-flex align-items-center flex-wrap">
+                    {vote.uuid}
+                    <div className="w-100 mt-1">
+                        <button className="btn btn-primary me-2 text-nowrap" onClick={copyUuidToClipboard}>
+                            <FaCopy className="me-2" />
+                            <span>ID복사하기</span>
+                        </button>
+                        <button className="btn btn-primary text-nowrap" onClick={copyLinkToClipboard}>
+                            <FaShare className="me-2" />
+                            <span>투표 페이지 주소 복사</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* 투표 비밀번호 */}
+            <div className="row my-5">
+                <label className="col-form-label col-sm-3 d-flex align-items-center">
+                    관리자 비밀번호
+                    {showPwd === true ? (
+                        <FaEye className="ms-2 text-info" onClick={e=>setShowPwd(false)}/>
+                    ) : (
+                        <FaEyeSlash className="ms-2 text-danger" onClick={e=>setShowPwd(true)}/>
+                    )}
+                </label>
+                <div className="col-sm-9">
+                    <input type={showPwd ? "text" : "password"} className="form-control" placeholder=""
+                        style={{fontFamily : "monospace"}}
+                        value={vote.password} onChange={e => setVote(prev => ({ ...prev, password: e.target.value }))} />
+                </div>
+            </div>
+
             {/* 투표 제목 */}
             <div className="row my-5">
                 <label className="col-form-label col-sm-3">투표 제목</label>
