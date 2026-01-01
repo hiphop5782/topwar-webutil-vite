@@ -17,14 +17,20 @@ export default function AttendanceVoteManager() {
             const unsubscribe = getVoteManager(uuid, password, (data)=>{
                 if(data === null) {
                     toast.error("투표가 존재하지 않습니다");
+                    setVote(null);
                 }
-                setVote(data);
+                else if(data.error) {
+                    toast.error(data.message);
+                    setVote(null);
+                }
+                else {
+                    setVote(data);
+                }
             });
     }, [uuid, password, getVoteManager]);
 
     const totalCount = useMemo(()=>{
         if(vote === null) return 0;
-
         return vote.choices.reduce((acc, cur)=>acc + cur.currentCount, 0);
     }, [vote]);
 
