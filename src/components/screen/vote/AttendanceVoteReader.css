@@ -56,6 +56,8 @@
 /* 기존 점 효과와 조합하면 더 좋습니다 */
 .dots::after {
   content: '';
+  display: inline-block;
+  min-width: 3em;
   animation: dots 1.5s infinite;
 }
 
