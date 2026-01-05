@@ -241,8 +241,18 @@ export default function EmojiCreator() {
 
                         <button onClick={() => {
                             const stage = stageRef.current;
-                            // 저장 시에는 현재 보이는 1:1 틀 그대로 저장 (pixelRatio를 높이면 고화질)
+
+                            // 1. 커서 가이드 레이어(Stage의 두 번째 레이어)를 찾아 숨깁니다.
+                            const layers = stage.getLayers();
+                            const cursorLayer = layers[1]; // 코드 구조상 두 번째 레이어가 커서 레이어입니다.
+                            if (cursorLayer) cursorLayer.hide();
+
+                            // 2. 현재 보이는 1:1 틀 그대로 저장 (pixelRatio를 높이면 고화질)
                             const dataURL = stage.toDataURL({ pixelRatio: 2 });
+
+                            // 3. 숨겼던 커서 레이어를 다시 보여줍니다.
+                            if (cursorLayer) cursorLayer.show();
+
                             const link = document.createElement('a');
                             link.download = 'square_emoticon.png';
                             link.href = dataURL;
