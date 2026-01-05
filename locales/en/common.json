@@ -33,10 +33,18 @@
         }
       },
       "emoji": {
-        "label": "Emojis"
+        "label": "Emojis",
+        "sub": {
+          "create": "Creator",
+          "list": "Legacy Emoji"
+        }
       },
       "account": {
-        "label": "Trade"
+        "label": "Trade",
+        "sub":{
+              "viewer":"Viewer",
+              "creator":"Creator"
+          }
       },
       "vote":{
             "label":"Vote",
