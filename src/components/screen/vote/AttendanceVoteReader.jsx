@@ -250,11 +250,14 @@ export default function AttendanceVoteReader() {
                                 <span className="badge rounded-pill bg-danger ms-4">
                                     {choice.currentCount} / {choice.count}
                                 </span>
-                            ) : (
+                            ) : (<>
                                 <span className="badge rounded-pill bg-secondary ms-4">
                                     제한 없음
                                 </span>
-                            )}
+                                {choice.currentCount > 0 && (
+                                    <span className="ms-4 text-danger fw-bold">{choice.currentCount} 명 참여중</span>
+                                )}
+                            </>)}
                         </li>
                     ))}
                 </ul>
