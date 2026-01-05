@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import PangeNotFound from "./error/PageNotFound";
 import GatheringCalculator from '@src/components/screen/calculator/GatheringCalculator';
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
-import Emoji from '@src/components/screen/Emoji';
+import LegacyEmoji from '@src/components/screen/emoji/LegacyEmoji';
 import Home from '@src/components/screen/Home';
 import BaseInformation from '@src/components/screen/information/BaseInformation';
 import FormationPerk from '@src/components/screen/simulator/FormationPerk';
@@ -31,16 +31,17 @@ import EternalLandHowto from "@src/components/screen/information/el/EternalLandH
 import EternalLandTip from "@src/components/screen/information/el/EternalLandTip";
 import EternalLandReward from "@src/components/screen/information/el/EternalLandReward";
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
-import AttendanceVoteCreator from "./screen/vote/AttendanceVoteCreator";
-import AttendanceVoteReader from "./screen/vote/AttendanceVoteReader";
-import AttendanceVoteManager from "./screen/vote/AttendanceVoteManager";
+import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCreator";
+import AttendanceVoteReader from "@src/components/screen/vote/AttendanceVoteReader";
+import AttendanceVoteManager from "@src/components/screen/vote/AttendanceVoteManager";
+import EmojiCreator from "@src/components/screen/emoji/EmojiCreator";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
 
     return (
         <div className="row mb-5 pb-5">
-            <div className="col-md-2 d-none d-lg-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
+            <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
                 <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
             </div>
@@ -87,7 +88,8 @@ export default function MainContentView() {
                     <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
                     <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
                     <Route path="developer" element={<Developer/>}></Route>
-                    <Route path="emoji" element={<Emoji />}></Route>
+                    <Route path="emoji/create" element={<EmojiCreator />}></Route>
+                    <Route path="emoji/list" element={<LegacyEmoji />}></Route>
                     {/* <Route path="/blog" element={<Blog />}></Route> */}
                     <Route path="account/viewer" element={<AccountViewer/>}></Route>
                     <Route path="account/creator" element={
@@ -103,7 +105,7 @@ export default function MainContentView() {
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
             </div>
-            <div className="col-md-2 d-none d-lg-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
+            <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
                 <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/>
             </div>

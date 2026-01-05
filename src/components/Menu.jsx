@@ -68,8 +68,12 @@ function Menu() {
                                 {/* <NavLink className="nav-link" to="/simulator/hero">데미지계산기</NavLink> */}
                             </div>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to={`/${lang}/emoji`}>{t(`menu.emoji.label`)}</NavLink>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.emoji.label`)}</a>
+                            <div className="dropdown-menu">
+                                <NavLink className="dropdown-item" to={`/${lang}/emoji/create`}>{t(`menu.emoji.sub.create`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu.emoji.sub.list`)}</NavLink>
+                            </div>
                         </li>
                         {/* <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.account.label`)} (구현중)</a>

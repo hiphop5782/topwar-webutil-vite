@@ -11,6 +11,10 @@ export default defineConfig({
     allowedHosts:true,
   },
   plugins: [react()],
+  optimizeDeps: {
+    // 의존성 사전 빌드에서 제외하여 직접 참조하도록 설정
+    exclude: ['@imgly/background-removal']
+  },
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, 'src'), // ⬅️ 요거 추가

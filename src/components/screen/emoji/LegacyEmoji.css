@@ -1,0 +1,28 @@
+.topwar-emoji {
+    cursor: pointer;
+}
+.topwar-emoji:hover,
+.topwar-emoji.on {
+    box-shadow: 0 0 4px 0 black;
+}
+.color-palette {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 0 0 1px gray;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.color-palette > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+}
+.color-palette:hover,
+.color-palette.on {
+    box-shadow: 0 0 4px 2px black;
+    z-index: 5;
+}
