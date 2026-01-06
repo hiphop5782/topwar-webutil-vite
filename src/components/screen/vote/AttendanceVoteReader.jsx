@@ -22,6 +22,12 @@ export default function AttendanceVoteReader() {
 
     const [translateLoading, setTranslateLoading] = useState(false);
 
+    useEffect(()=>{
+        if(uuid) {
+            loadVote();
+        }
+    }, [uuid]);
+
     const loadVote = useCallback(() => {
         const unsubscribe = getVote(uuid, (data) => {
             if (data === null) {
