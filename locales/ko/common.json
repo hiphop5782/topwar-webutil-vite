@@ -29,7 +29,8 @@
                 "formation-perk":"군진 특성",
                 "random":"랜덤 추첨기",
                 "slot": "탑워 슬롯머신 게임",
-                "luckybox":"행운상자 게임"
+                "luckybox":"행운상자 게임",
+                "lotto":"로또생성기"
             }
         },
         "emoji":{
