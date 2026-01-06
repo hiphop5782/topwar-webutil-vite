@@ -147,6 +147,11 @@ export default function AttendanceVoteReader() {
         }
     }, [vote]);
 
+    const totalCount = useMemo(()=>{
+        if(vote === null) return 0;
+        return vote.choices.reduce((acc, cur)=>acc + cur.currentCount, 0);
+    }, [vote]);
+
     return (<>
         <h1>참여 투표</h1>
 
@@ -235,29 +240,40 @@ export default function AttendanceVoteReader() {
 
                 <ul className="list-group">
                     {voteTranslated.choices.map((choice, index) => (
-                        <li className="list-group-item d-flex align-items-center" key={index}>
-                            <label>
-                                <input type="radio" name="choice" className="form-check-input me-2"
-                                    checked={choiceNo === choice.no} onChange={e => setChoiceNo(choice.no)} />
-                                {translateLoading ? (
-                                    <span className="shimmer-text">번역 중입니다<span className="dots"></span></span>
-                                ) : (
-                                    <span>{choice.content}</span>
-                                )}
-                            </label>
+                        <li className="list-group-item position-relative" key={index}>
+                            <div className="d-flex align-items-center">
+                                <label>
+                                    <input type="radio" name="choice" className="form-check-input me-2"
+                                        checked={choiceNo === choice.no} onChange={e => setChoiceNo(choice.no)} />
+                                    {translateLoading ? (
+                                        <span className="shimmer-text">번역 중입니다<span className="dots"></span></span>
+                                    ) : (
+                                        <span>{choice.content}</span>
+                                    )}
+                                </label>
 
-                            {choice.limit === true ? (
-                                <span className="badge rounded-pill bg-danger ms-4">
-                                    {choice.currentCount} / {choice.count}
-                                </span>
-                            ) : (<>
-                                <span className="badge rounded-pill bg-secondary ms-4">
-                                    제한 없음
-                                </span>
-                                {choice.currentCount > 0 && (
-                                    <span className="ms-4 text-danger fw-bold">{choice.currentCount} 명 참여중</span>
-                                )}
-                            </>)}
+                                {choice.limit === true ? (
+                                    <span className="badge rounded-pill bg-danger ms-4">
+                                        {choice.currentCount} / {choice.count}
+                                    </span>
+                                ) : (<>
+                                    <span className="badge rounded-pill bg-secondary ms-4">
+                                        제한 없음
+                                    </span>
+                                    {choice.currentCount > 0 && (
+                                        <span className="ms-4 text-danger fw-bold">{choice.currentCount} 명 참여중</span>
+                                    )}
+                                </>)}
+                            </div>
+                            <div className="position-absolute" style={
+                                {
+                                    top:"90%", left:0, bottom:0, right:0, zIndex:0, 
+                                    background: "linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%)",
+                                    width:`${choice.currentCount * 100 / totalCount}%`
+                                }
+                            }>
+
+                            </div>
                         </li>
                     ))}
                 </ul>
