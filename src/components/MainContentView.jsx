@@ -35,6 +35,7 @@ import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCre
 import AttendanceVoteReader from "@src/components/screen/vote/AttendanceVoteReader";
 import AttendanceVoteManager from "@src/components/screen/vote/AttendanceVoteManager";
 import EmojiCreator from "@src/components/screen/emoji/EmojiCreator";
+import LottoGenerator from "./screen/simulator/LottoGenerator";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -87,6 +88,7 @@ export default function MainContentView() {
                     <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
                     <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
                     <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
+                    <Route path="simulator/lotto" element={<LottoGenerator/>}></Route>
                     <Route path="developer" element={<Developer/>}></Route>
                     <Route path="emoji/create" element={<EmojiCreator />}></Route>
                     <Route path="emoji/list" element={<LegacyEmoji />}></Route>
