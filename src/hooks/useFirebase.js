@@ -206,5 +206,49 @@ export const useFirebase = () => {
         }
     };
 
-    return { saveVote, getVote, getVoteManager, castVote, closeVoteManually, openVoteManually };
+    //관리자용 삭제 함수
+    const deletePlayerFromVote = async (voteId, choiceNo, nickname, inputPassword) => {
+        const voteRef = doc(db, "votes", voteId);
+
+        try {
+            await runTransaction(db, async (transaction) => {
+                const voteDoc = await transaction.get(voteRef);
+                if (!voteDoc.exists()) throw "투표가 존재하지 않습니다.";
+
+                const data = voteDoc.data();
+
+                // --- 비밀번호 검사 로직 추가 ---
+                // DB에 비밀번호가 설정되어 있는데, 입력한 비밀번호와 다르면 에러 발생
+                if (data.password && data.password !== inputPassword) {
+                    throw "관리자 비밀번호가 일치하지 않습니다.";
+                }
+                // -----------------------------
+
+                const newChoices = [...data.choices];
+                const choiceIndex = newChoices.findIndex(c => c.no === choiceNo);
+                if (choiceIndex === -1) throw "해당 항목을 찾을 수 없습니다.";
+
+                const targetChoice = newChoices[choiceIndex];
+                const updatedPlayers = targetChoice.players.filter(p => p.nickname !== nickname);
+
+                if (updatedPlayers.length === targetChoice.players.length) return;
+
+                newChoices[choiceIndex] = {
+                    ...targetChoice,
+                    currentCount: Math.max(0, targetChoice.currentCount - 1),
+                    players: updatedPlayers
+                };
+
+                transaction.update(voteRef, { choices: newChoices });
+            });
+            return true;
+        } catch (error) {
+            // castVote처럼 alert로 에러 메시지를 보여주거나 처리합니다.
+            alert(error);
+            console.error("플레이어 삭제 에러:", error);
+            return false;
+        }
+    };
+
+    return { saveVote, getVote, getVoteManager, castVote, closeVoteManually, openVoteManually, deletePlayerFromVote};
 };

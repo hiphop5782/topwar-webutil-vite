@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useFirebase } from "@src/hooks/useFirebase";
 import { useParams } from "react-router-dom";
-import { FaPlay, FaStop, FaUpload } from "react-icons/fa6";
+import { FaPlay, FaStop, FaUpload, FaXmark } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 export default function AttendanceVoteManager() {
@@ -11,7 +11,7 @@ export default function AttendanceVoteManager() {
     const [password, setPassword] = useState("");
     const [vote, setVote] = useState(null);
 
-    const { getVoteManager, closeVoteManually, openVoteManually } = useFirebase();
+    const { getVoteManager, closeVoteManually, openVoteManually, deletePlayerFromVote } = useFirebase();
 
     const loadVote = useCallback(()=>{
             const unsubscribe = getVoteManager(uuid, password, (data)=>{
@@ -51,6 +51,20 @@ export default function AttendanceVoteManager() {
             }
         }
     }, [openVoteManually, uuid]);
+
+    const handleDeletePlayer = useCallback(async (choiceNo, player) => {
+        // 1차 확인창
+        if (window.confirm(`[${player.nickname}] 님의 투표 기록을 삭제하시겠습니까?`)) {
+            
+            // 훅에서 수정한 함수 호출 (uuid, 항목번호, 닉네임, 현재입력된 비밀번호)
+            const success = await deletePlayerFromVote(uuid, choiceNo, player.nickname, password);
+            
+            if (success) {
+                toast.success(`${player.nickname} 님이 삭제되었습니다.`);
+            }
+            // 에러 발생 시(비밀번호 틀림 등)는 useFirebase 내부의 alert가 띄워집니다.
+        }
+    }, [uuid, password, deletePlayerFromVote]); // password 의존성 추가
 
     return (<>
         <h1>투표 현황 및 관리</h1>
@@ -116,9 +130,10 @@ export default function AttendanceVoteManager() {
                     <span className="badge rounded-pill bg-danger ms-4">
                         {choice.currentCount} / {choice.count}
                     </span>
-                    ) : (
+                    ) : (<>
                     <span className="badge rounded-pill bg-secondary ms-4">제한 없음</span>
-                    )}
+                    <span className="ms-4 text-primary fw-bold">{choice.currentCount}명 참여중  (총 {totalCount}명 중 {(choice.currentCount * 100 / totalCount).toFixed(2)+"%"})</span>
+                    </>)}
                 </div>
                 <div className="progress" role="progressbar">
                     <div className="progress-bar" style={{width : choice.currentCount * 100 / totalCount+"%"}}></div>
@@ -144,7 +159,7 @@ export default function AttendanceVoteManager() {
                             }).map(player=>(
                                 <li className="list-group-item text-nowrap" key={player.nickname}>
                                     <div className="row">
-                                        <div className="col-6">
+                                        <div className="col-5">
                                             <span>{player.nickname}</span>
                                         </div>
                                         <div className="col-2">
@@ -155,6 +170,16 @@ export default function AttendanceVoteManager() {
                                         </div>
                                         <div className={`col-2 ${player.job === "MM" && player.skill >= 3 ? "text-danger fw-bold" : ""}`}>
                                             {player.job === "CE" ? "기합" : "응시"} {player.skill}
+                                        </div>
+                                        {/* X 버튼 추가 */}
+                                        <div className="col-1 text-end">
+                                            <button 
+                                                className="btn btn-sm btn-outline-danger border-0"
+                                                onClick={() => handleDeletePlayer(choice.no, player)}
+                                                title="투표 삭제"
+                                            >
+                                                <FaXmark />
+                                            </button>
                                         </div>
                                     </div>
                                 </li>
