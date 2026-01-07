@@ -6,28 +6,26 @@ export default function LottoGenerator() {
     const [isSpinning, setIsSpinning] = useState(false);
     const [history, setHistory] = useState([]);
     const [displayNumbers, setDisplayNumbers] = useState(Array(7).fill("?"));
-    const [activeIdx, setActiveIdx] = useState(-1); // 현재 뽑히고 있는 공의 인덱스
+    const [activeIdx, setActiveIdx] = useState(-1);
 
-    const getBallColor = (num) => {
-        if (!num || num === "?") return 'bg-light text-muted opacity-50';
-        if (num <= 10) return 'bg-warning text-dark';
-        if (num <= 20) return 'bg-primary text-white';
-        if (num <= 30) return 'bg-danger text-white';
-        if (num <= 40) return 'bg-secondary text-white';
-        return 'bg-success text-white';
+    const getBallStyle = (num) => {
+        if (!num || num === "?") return 'ball-empty';
+        if (num <= 10) return 'ball-yellow';
+        if (num <= 20) return 'ball-blue';
+        if (num <= 30) return 'ball-red';
+        if (num <= 40) return 'ball-gray';
+        return 'ball-green';
     };
 
     const fireConfetti = () => {
         const duration = 3 * 1000;
         const animationEnd = Date.now() + duration;
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
-
         const randomInRange = (min, max) => Math.random() * (max - min) + min;
 
         const interval = setInterval(function() {
             const timeLeft = animationEnd - Date.now();
             if (timeLeft <= 0) return clearInterval(interval);
-
             const particleCount = 50 * (timeLeft / duration);
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
@@ -46,11 +44,8 @@ export default function LottoGenerator() {
             if (!pickedNumbers.includes(num)) pickedNumbers.push(num);
         }
 
-        // 7개의 공을 하나씩 순차적으로 추첨
         for (let i = 0; i < 7; i++) {
-            setActiveIdx(i); // 현재 공 활성화 (애니메이션 트리거)
-            
-            // 보너스 번호(마지막 번호)는 더 긴장되게 더 오래 돌림
+            setActiveIdx(i);
             const rollingDuration = i === 6 ? 2000 : 800 + (i * 200); 
             
             await new Promise((resolve) => {
@@ -61,51 +56,50 @@ export default function LottoGenerator() {
                         next[i] = Math.floor(Math.random() * 45) + 1;
                         return next;
                     });
-
                     if (Date.now() - startTime > rollingDuration) {
                         clearInterval(interval);
                         resolve();
                     }
-                }, 60); // 숫자가 바뀌는 속도
+                }, 60);
             });
 
-            // 번호 확정
             setDisplayNumbers(prev => {
                 const next = [...prev];
                 next[i] = pickedNumbers[i];
                 return next;
             });
 
-            // 보너스 번호 전에는 약간의 정적(0.5초)을 주어 긴장감 유발
             if (i === 5) await new Promise(r => setTimeout(r, 800));
         }
 
         const mainNumbers = pickedNumbers.slice(0, 6).sort((a, b) => a - b);
         const bonusNum = pickedNumbers[6];
         
-        setActiveIdx(-1); // 활성화 해제
+        setActiveIdx(-1);
         setHistory(prev => [[...mainNumbers, bonusNum], ...prev].slice(0, 10));
         setIsSpinning(false);
         fireConfetti();
     }, [isSpinning]);
 
     return (
-        <div className="container py-4 px-2" style={{ maxWidth: '850px' }}>
+        <div className="container py-4 px-2" style={{ maxWidth: '850px', fontFamily: 'Pretendard, sans-serif' }}>
+            {/* 제목 섹션: 골드 메탈릭 효과 적용 */}
             <div className="text-center mb-4">
-                <h1 className="fw-bold text-primary display-5">PREMIUM LOTTO</h1>
-                <p className="text-muted small">이번 주 1등은 바로 나!</p>
+                <h1 className="fw-bold display-5 golden-title">PREMIUM LOTTO</h1>
+                <p className="text-muted small">황금빛 행운이 당신과 함께하기를!</p>
             </div>
 
             <div className={`card shadow-lg mb-5 border-0 bg-dark p-3 p-md-5 main-card ${isSpinning ? 'shaking-card' : ''}`} 
-                 style={{ borderRadius: '35px', transition: 'all 0.3s' }}>
+                 style={{ borderRadius: '35px', background: 'linear-gradient(145deg, #1a1a1a, #2a2a2a)' }}>
                 <div className="card-body p-0">
                     <div className="lotto-responsive-container">
                         <div className="main-balls-grid">
                             {displayNumbers.slice(0, 6).map((num, idx) => (
                                 <div key={idx} className={`ball-slot ${activeIdx === idx ? 'active-glow' : ''}`}>
-                                    <div className={`lotto-ball shadow-lg ${getBallColor(num)} ${num !== "?" ? 'confirmed' : ''}`}>
-                                        {num}
+                                    <div className={`lotto-ball ${getBallStyle(num)} ${num !== "?" ? 'confirmed' : ''}`}>
+                                        <span className="ball-number">{num}</span>
                                     </div>
+                                    <div className="ball-shadow"></div>
                                 </div>
                             ))}
                         </div>
@@ -113,9 +107,10 @@ export default function LottoGenerator() {
                         <div className={`bonus-plus ${activeIdx === 6 ? 'text-warning' : 'text-white'}`}>+</div>
 
                         <div className={`bonus-ball-slot ${activeIdx === 6 ? 'active-glow' : ''}`}>
-                            <div className={`lotto-ball shadow-lg ${getBallColor(displayNumbers[6])} ${displayNumbers[6] !== "?" ? 'confirmed' : ''}`}>
-                                {displayNumbers[6]}
+                            <div className={`lotto-ball ${getBallStyle(displayNumbers[6])} ${displayNumbers[6] !== "?" ? 'confirmed' : ''}`}>
+                                <span className="ball-number">{displayNumbers[6]}</span>
                             </div>
+                            <div className="ball-shadow"></div>
                         </div>
                     </div>
 
@@ -124,7 +119,7 @@ export default function LottoGenerator() {
                             className={`btn ${isSpinning ? 'btn-secondary disabled' : 'btn-warning'} w-100 w-md-auto px-5 py-3 rounded-pill fw-bold fs-3 shadow-lg main-btn`}
                             onClick={generateLotto}
                         >
-                            {isSpinning ? "번호 조합 중..." : "행운 섞기 시작"}
+                            {isSpinning ? "추첨 대기 중..." : "황금 번호 뽑기"}
                             <FaRotateRight className={`ms-2 ${isSpinning ? 'fa-spin' : ''}`} />
                         </button>
                     </div>
@@ -147,10 +142,9 @@ export default function LottoGenerator() {
                                     {set.map((n, i) => (
                                         <React.Fragment key={i}>
                                             {i === 6 && <span className="text-muted fw-bold mx-1">+</span>}
-                                            <span className={`badge rounded-circle d-flex align-items-center justify-content-center ${getBallColor(n)} shadow-sm`} 
-                                                  style={{ width: '34px', height: '34px', fontSize: '12px', fontWeight: 'bold' }}>
+                                            <div className={`history-ball ${getBallStyle(n)}`}>
                                                 {n}
-                                            </span>
+                                            </div>
                                         </React.Fragment>
                                     ))}
                                 </div>
@@ -161,75 +155,113 @@ export default function LottoGenerator() {
             )}
 
             <style>{`
-                /* 레이아웃 제어 */
-                .lotto-responsive-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-                .main-balls-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-                .bonus-plus { font-size: 3rem; font-weight: bold; line-height: 1; transition: color 0.3s; }
+                /* 황금색 반짝임 효과 (Golden Shimmer) */
+                .golden-title {
+                    background: linear-gradient(
+                        to right, 
+                        #BF953F 0%, 
+                        #FCF6BA 20%, 
+                        #B38728 40%, 
+                        #FBF5B7 60%, 
+                        #AA771C 80%,
+                        #BF953F 100%
+                    );
+                    background-size: 200% auto;
+                    color: #BF953F;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: shine 3s linear infinite;
+                    display: inline-block;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+                }
+
+                @keyframes shine {
+                    to { background-position: 200% center; }
+                }
+
+                .lotto-responsive-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+                .main-balls-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+                .bonus-plus { font-size: 3rem; font-weight: bold; line-height: 1; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
                 @media (min-width: 992px) {
                     .lotto-responsive-container { flex-direction: row; justify-content: center; gap: 30px; }
                     .main-balls-grid { grid-template-columns: repeat(6, 1fr); gap: 15px; }
                 }
 
-                /* 공 스타일 및 애니메이션 */
+                .ball-slot { position: relative; display: flex; flex-direction: column; align-items: center; }
+
                 .lotto-ball {
-                    width: 70px; height: 70px; border-radius: 50%;
+                    width: 75px; height: 75px; border-radius: 50%;
                     display: flex; align-items: center; justify-content: center;
-                    font-weight: 900; font-size: 1.8rem;
-                    border: 4px solid rgba(255,255,255,0.15);
-                    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    position: relative; z-index: 2;
+                    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    box-shadow: inset -8px -8px 15px rgba(0,0,0,0.3), inset 8px 8px 15px rgba(255,255,255,0.2);
                 }
 
-                /* [긴장감] 번호가 확정될 때 팡! 튀어오르는 효과 */
+                .ball-number {
+                    font-weight: 900; font-size: 1.8rem; z-index: 3;
+                    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+                }
+
+                .ball-shadow {
+                    width: 50px; height: 8px; background: rgba(0,0,0,0.4);
+                    border-radius: 50%; margin-top: 8px; filter: blur(4px);
+                    transition: all 0.3s; opacity: 0.6;
+                }
+
+                .ball-empty { background: radial-gradient(circle at 30% 30%, #ffffff, #d1d1d1); color: #999; }
+                .ball-yellow { background: radial-gradient(circle at 30% 30%, #ffeb3b, #fbc02d); color: #000; }
+                .ball-blue { background: radial-gradient(circle at 30% 30%, #44a1ff, #1976d2); color: #fff; }
+                .ball-red { background: radial-gradient(circle at 30% 30%, #ff6b6b, #d32f2f); color: #fff; }
+                .ball-gray { background: radial-gradient(circle at 30% 30%, #adb5bd, #616161); color: #fff; }
+                .ball-green { background: radial-gradient(circle at 30% 30%, #69db7c, #388e3c); color: #fff; }
+
                 .lotto-ball.confirmed {
-                    animation: ballPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.5) forwards;
-                    border: 4px solid rgba(255,255,255,0.4);
+                    animation: ballPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5) forwards;
                 }
 
                 @keyframes ballPop {
-                    0% { transform: scale(0.7); filter: brightness(2); }
-                    70% { transform: scale(1.15); filter: brightness(1.2); }
-                    100% { transform: scale(1); filter: brightness(1); }
+                    0% { transform: scale(0.5) translateY(-20px); }
+                    70% { transform: scale(1.1) translateY(5px); }
+                    100% { transform: scale(1) translateY(0); }
                 }
 
-                /* [긴장감] 현재 추첨 중인 슬롯 강조 */
-                .active-glow {
-                    position: relative;
+                .history-ball {
+                    width: 32px; height: 32px; border-radius: 50%;
+                    font-size: 11px; font-weight: bold;
+                    display: flex; align-items: center; justify-content: center;
+                    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2);
                 }
-                .active-glow::after {
-                    content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
-                    border-radius: 50%; background: rgba(255, 193, 7, 0.2);
-                    animation: pulse 0.6s infinite alternate;
+
+                .active-glow::before {
+                    content: ''; position: absolute; top: -5px; width: 85px; height: 85px;
+                    border-radius: 50%; background: rgba(255, 193, 7, 0.15);
+                    animation: pulse 0.8s infinite alternate; z-index: 1;
                 }
 
                 @keyframes pulse {
-                    from { transform: scale(0.9); opacity: 0.5; }
-                    to { transform: scale(1.1); opacity: 1; }
+                    from { transform: scale(0.95); opacity: 0.3; }
+                    to { transform: scale(1.15); opacity: 0.7; }
                 }
 
-                /* [긴장감] 추첨 중 기계가 미세하게 떨리는 효과 */
-                .shaking-card {
-                    animation: machineShake 0.1s infinite;
-                }
+                .shaking-card { animation: machineShake 0.15s infinite; }
                 @keyframes machineShake {
-                    0% { transform: translate(1px, 1px); }
-                    50% { transform: translate(-1px, 0px); }
-                    100% { transform: translate(1px, -1px); }
+                    0% { transform: rotate(0.1deg); }
+                    50% { transform: rotate(-0.1deg); }
+                    100% { transform: rotate(0.1deg); }
                 }
 
-                .main-btn { transition: all 0.2s; }
-                .main-btn:hover:not(.disabled) { transform: translateY(-3px) scale(1.05); }
-
-                .animate-slide-in {
-                    animation: slideIn 0.4s ease-out forwards;
-                }
                 @keyframes slideIn {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
+                    from { opacity: 0; transform: translateX(-20px); }
+                    to { opacity: 1; transform: translateX(0); }
                 }
 
                 @media (max-width: 400px) {
-                    .lotto-ball { width: 60px; height: 60px; font-size: 1.5rem; }
+                    .lotto-ball { width: 60px; height: 60px; }
+                    .ball-number { font-size: 1.4rem; }
                 }
             `}</style>
         </div>
