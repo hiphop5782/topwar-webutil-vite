@@ -134,7 +134,7 @@ export default function LottoGenerator() {
             {history.length > 0 && (
                 <div className="mt-5 px-1">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h4 className="fw-bold mb-0 small text-secondary"><FaTicket className="me-2"/>RECENT DRAW HISTORY</h4>
+                        <h4 className="fw-bold mb-0 small text-secondary"><FaTicket className="me-2"/>최근 추첨 내역</h4>
                         <button className="btn btn-sm text-danger p-0 border-0" onClick={() => setHistory([])}>
                             <FaTrashCan className="me-1" /> 비우기
                         </button>
