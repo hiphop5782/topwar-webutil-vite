@@ -93,7 +93,7 @@ export default function LottoGenerator() {
         <div className="container py-4 px-2" style={{ maxWidth: '850px' }}>
             <div className="text-center mb-4">
                 <h1 className="fw-bold text-primary display-5">PREMIUM LOTTO</h1>
-                <p className="text-muted small">공이 확정될 때의 타격감과 긴장감을 느껴보세요</p>
+                <p className="text-muted small">이번 주 1등은 바로 나!</p>
             </div>
 
             <div className={`card shadow-lg mb-5 border-0 bg-dark p-3 p-md-5 main-card ${isSpinning ? 'shaking-card' : ''}`} 
