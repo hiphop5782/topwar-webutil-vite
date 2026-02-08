@@ -6,6 +6,7 @@
                 "base":"기지 정보",
                 "job":"전문 직업 강화",
                 "el":"영원의 땅",
+                "server-data":"서버 및 유저 정보",
                 "server-analyze":"서버 비교 분석",
                 "kartz-information":"카르츠 몬스터 정보",
                 "kartz-rank":"카르츠 순위 현황",
@@ -30,7 +31,6 @@
                 "random":"랜덤 추첨기",
                 "slot": "탑워 슬롯머신 게임",
                 "luckybox":"행운상자 게임",
-                "strategy-tool":"전략 생성 도구",
                 "lotto":"로또생성기"
             }
         },
