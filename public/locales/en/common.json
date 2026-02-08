@@ -28,7 +28,8 @@
           "formation-perk": "Formation Perks",
           "random": "Random Draw Simulator",
           "slot": "Topwar Slot Machine Game",
-          "luckybox":"Lucky Box Game"
+          "luckybox":"Lucky Box Game",
+          "strategy-tool":"Strategy Tool"
         }
       },
       "emoji": {
