@@ -66,7 +66,11 @@ function Menu() {
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/slot`}>{t(`menu.simulator.sub.slot`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/luckybox`}>{t(`menu.simulator.sub.luckybox`)}</NavLink>
                                 <div className="dropdown-divider"></div>
+<<<<<<< HEAD
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/strategy-tool`}>{t(`menu.simulator.sub.strategy-tool`)}</NavLink>
+=======
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/lotto`}>{t(`menu.simulator.sub.lotto`)}</NavLink>
+>>>>>>> 566331064c2b87f7ce14bfd484275f107f859a3d
                                 {/* <NavLink className="nav-link" to="/simulator/hero">데미지계산기</NavLink> */}
                             </div>
                         </li>
