@@ -6,7 +6,7 @@
           "base": "Base Info",
           "job": "Specialization Upgrade",
           "el":"Eternal Land",
-          "server-data":"Server & User Data",
+          "data":"Server & User Data",
           "server-analyze": "Server Comparison",
           "kartz-information": "Kartz Monster Info",
           "kartz-rank": "Kartz Ranking",

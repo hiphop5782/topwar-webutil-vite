@@ -1,28 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import PangeNotFound from "./error/PageNotFound";
-<<<<<<< HEAD
-import GatheringCalculator from './screen/calculator/GatheringCalculator';
-import VitalCalculator from './screen/calculator/VitalCalculator';
-import Emoji from './screen/Emoji';
-import Home from './screen/Home';
-import BaseInformation from './screen/information/BaseInformation';
-import FormationPerk from './screen/simulator/FormationPerk';
-import JobInformation from './screen/information/JobInformation';
-import KartzRankInformation from './screen/information/KartzRankInformation';
-import KartzSpecInformation from './screen/information/KartzSpecInformation';
-import ServerAnalyzer from './screen/information/ServerAnalyzer';
-import TitanRefineSimulator from './screen/simulator/TitanRefineSimulator';
-import TitanResearchSimulator from './screen/simulator/TitanResearchSimulator';
-import SkillCalculator from './screen/calculator/SkillCalculator';
-import ValuePackCalculator from './screen/simulator/VapuePackCalculator';
-import RandomSimulator from './screen/simulator/RandomSimulator';
-import Developer from './screen/Developer';
-import EternalLand from "./screen/information/EternalLand";
-import TopwarSlotMachine from "./screen/simulator/TopwarSlotMachine";
-import LuckyBox from "./screen/simulator/LuckyBox";
-import KartzStatistics from "./screen/information/KartzStatistics";
-import StrategyTool from "./screen/simulator/StrategyTool";
-=======
 import GatheringCalculator from '@src/components/screen/calculator/GatheringCalculator';
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
 import LegacyEmoji from '@src/components/screen/emoji/LegacyEmoji';
@@ -58,8 +35,11 @@ import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCre
 import AttendanceVoteReader from "@src/components/screen/vote/AttendanceVoteReader";
 import AttendanceVoteManager from "@src/components/screen/vote/AttendanceVoteManager";
 import EmojiCreator from "@src/components/screen/emoji/EmojiCreator";
-import LottoGenerator from "./screen/simulator/LottoGenerator";
->>>>>>> 566331064c2b87f7ce14bfd484275f107f859a3d
+import LottoGenerator from "@src/components/screen/simulator/LottoGenerator";
+import TopwarDataViewer from "@src/components/screen/information/server/TopwarDataViewer";
+import TopwarPlayerDataViewer from "@src/components/screen/information/server/TopwarPlayerDataViewer";
+import TopwarServerDataViewer from "@src/components/screen/information/server/TopwarServerDataViewer";
+import TopwarAllianceDataViewer from "@src/components/screen/information/server/TopwarAllianceDataViewer";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -71,36 +51,6 @@ export default function MainContentView() {
                 <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
             </div>
             <div className="col-md-8">
-<<<<<<< HEAD
-            <Routes>
-                <Route index element={<Home />}></Route>
-                <Route path="information/base" element={<BaseInformation />}></Route>
-                {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
-                {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
-                <Route path="information/job" element={<JobInformation />}></Route>
-                <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
-                <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
-                <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
-                <Route path="information/el" element={<EternalLand/>}></Route>
-                <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
-                <Route path="calculator/vital" element={<VitalCalculator />}></Route>
-                <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
-                <Route path="calculator/skill" element={<SkillCalculator />}></Route>
-                <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
-                <Route path="simulator/random" element={<RandomSimulator/>}></Route>
-                {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
-                <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
-                <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
-                <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
-                <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
-                <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
-                <Route path="simulator/strategy-tool" element={<StrategyTool/>}></Route>
-                <Route path="developer" element={<Developer/>}></Route>
-                <Route path="emoji" element={<Emoji />}></Route>
-                {/* <Route path="/blog" element={<Blog />}></Route> */}
-                <Route path="*" element={<PangeNotFound />}></Route>
-            </Routes>
-=======
                 {/* 카카오 애드핏 수평 광고 */}
                 <div className="row mb-4">
                     <div className="col d-flex justify-content-center align-items-center">
@@ -131,6 +81,11 @@ export default function MainContentView() {
                         <Route path="score" element={<ELScoreCalculator/>}/>
                     </Route>
                     <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
+                    <Route path="information/data" element={<TopwarDataViewer/>}>
+                        <Route index element={<TopwarPlayerDataViewer/>}></Route>
+                        <Route path="server" element={<TopwarServerDataViewer/>}></Route>
+                        <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
+                    </Route>
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>
@@ -160,7 +115,6 @@ export default function MainContentView() {
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
->>>>>>> 566331064c2b87f7ce14bfd484275f107f859a3d
             </div>
             <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}>
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
