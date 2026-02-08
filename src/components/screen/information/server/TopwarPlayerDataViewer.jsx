@@ -53,19 +53,19 @@ export default function TopwarPlayerDataViewer() {
                         itemContent={(index, player) => (
                             <div className="d-flex align-items-center border-bottom bg-white" 
                                  style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
-                                <div style={{ width: 75 }}>
+                                <div style={{ width: 100 }}>
                                     {/* filteredPlayers를 기준으로 index 재계산 */}
                                     <span className="badge text-bg-primary">{player.rank}</span>
                                 </div>
-                                <div style={{ width: 200 }} className="text-truncate">
+                                <div style={{ width: 200 }} className="text-truncate flex-grow-1">
                                     <strong>{player.nickname}</strong>
                                 </div>
-                                <div style={{ width: 150 }}>
-                                    {parseInt(player.cp / 1000000) + "M"}
+                                <div style={{ width: 80 }} className="numeric-cell fw-bold">
+                                    {(player.cp / 1000000).toFixed(2) + "M"}
                                 </div>
-                                <div style={{ width: 150 }} className="text-end pe-3">
-                                    {player.server} 
-                                    {player.alliance && `(AAAA)`}
+                                <div style={{ width: 120 }} className="text-end pe-3 numeric-cell fw-bold">
+                                    {player.server}
+                                    {player.alliance && `[AAAA]`}
                                 </div>
                             </div>
                         )}

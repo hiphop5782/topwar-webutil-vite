@@ -3,3 +3,11 @@
   width: 0px;
   background: transparent;
 }
+
+.numeric-cell {
+    /* 숫자의 간격을 일정하게 맞춰주는 속성 */
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    /* 고정 너비 폰트를 선호하신다면 추가 */
+    font-family: 'Roboto Mono', monospace; 
+}
