@@ -1,6 +1,7 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
+import { FaArrowUp } from "react-icons/fa6";
 
 function Menu() {
     const nagivate = useNavigate();
@@ -31,7 +32,7 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/information/hero">영웅 정보</NavLink> */}
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/job`}>{t(`menu.info.sub.job`)}</NavLink>
-                                <NavLink className="dropdown-item" to={`/${lang}/information/el`}>{t(`menu.info.sub.el`)} (구현중)</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/information/el`}>{t(`menu.info.sub.el`)}</NavLink>
                                 <div className="dropdown-divider"></div>
                                 <NavLink className="dropdown-item" to={`/${lang}/information/server-info`}>{t(`menu.info.sub.server-analyze`)}</NavLink>
                                 <div className="dropdown-divider"></div>
@@ -47,6 +48,8 @@ function Menu() {
                                 {/* <NavLink className="dropdown-item" to="/calculator/gathering">채집 속도 계산기</NavLink> */}
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/skill`}>{t(`menu.calculator.sub.skill-shard`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/calculator/value-pack`}>{t(`menu.calculator.sub.store`)}</NavLink>
+                                {/* <div className="dropdown-divider"></div> */}
+                                {/* <NavLink className="dropdown-item" to={`/${lang}/calculator/el-score`}>{t(`menu.calculator.sub.el-score`)}</NavLink> */}
                                 {/* <div className="dropdown-divider"></div>/ */}
                                 {/* <a className="dropdown-item">Separated link</a> */}
                             </div>
@@ -63,12 +66,35 @@ function Menu() {
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/slot`}>{t(`menu.simulator.sub.slot`)}</NavLink>
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/luckybox`}>{t(`menu.simulator.sub.luckybox`)}</NavLink>
                                 <div className="dropdown-divider"></div>
+<<<<<<< HEAD
                                 <NavLink className="dropdown-item" to={`/${lang}/simulator/strategy-tool`}>{t(`menu.simulator.sub.strategy-tool`)}</NavLink>
+=======
+                                <NavLink className="dropdown-item" to={`/${lang}/simulator/lotto`}>{t(`menu.simulator.sub.lotto`)}</NavLink>
+>>>>>>> 566331064c2b87f7ce14bfd484275f107f859a3d
                                 {/* <NavLink className="nav-link" to="/simulator/hero">데미지계산기</NavLink> */}
                             </div>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to={`/${lang}/emoji`}>{t(`menu.emoji.label`)}</NavLink>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.emoji.label`)}</a>
+                            <div className="dropdown-menu">
+                                <NavLink className="dropdown-item" to={`/${lang}/emoji/create`}>{t(`menu.emoji.sub.create`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu.emoji.sub.list`)}</NavLink>
+                            </div>
+                        </li>
+                        {/* <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.account.label`)} (구현중)</a>
+                            <div className="dropdown-menu">
+                                <NavLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu.account.sub.viewer`)} (구현중)</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu.account.sub.creator`)} (구현중)</NavLink>
+                            </div>
+                        </li> */}
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu.vote.label`)}</a>
+                            <div className="dropdown-menu">
+                                <NavLink className="dropdown-item" to={`/${lang}/vote/create`}>{t(`menu.vote.sub.create`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/vote/cast`}>{t(`menu.vote.sub.cast`)}</NavLink>
+                                <NavLink className="dropdown-item" to={`/${lang}/vote/manage`}>{t(`menu.vote.sub.manage`)}</NavLink>
+                            </div>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`/${lang}/developer`}>{t(`menu.developer.label`)}</NavLink>
@@ -87,6 +113,14 @@ function Menu() {
                             </select>
                         </form>
                     </ul>
+
+                    {/* <button className="btn btn-primary mt-3 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true">메뉴 접기</button> */}
+                    <div className="navbar-toggler border border-0 mt-2 text-center" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true"
+                        style={{cursor:"pointer"}}>
+                        <FaArrowUp/>
+                        <span className="mx-2">메뉴 접기</span>
+                        <FaArrowUp/>
+                    </div>
                 </div>
             </div>
         </nav>

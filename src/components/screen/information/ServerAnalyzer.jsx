@@ -8,6 +8,12 @@ import "./ServerAnalyzer.css";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
+
 export default function ServerAnalyzer() {
     const [params, setParams] = useSearchParams();
     const [selectedServers, setSelectedServers] = useState([]);
@@ -43,6 +49,8 @@ export default function ServerAnalyzer() {
         setServerList([...data.list]);
     }, []);
     const addServerByParameter = useCallback(async (target) => {
+        if(!target) return;
+
         const { data } = await axios.get(`//data.progamer.info/${target}.json`);
         setSelectedServers(prev => [...prev, {
             number: target,
@@ -93,7 +101,7 @@ export default function ServerAnalyzer() {
 
     const convertToHeatmapData = useCallback((datalist) => {
         const dataset = [];
-        for (let i = 0; i < 200; i += 10) {
+        for (let i = 0; i < 250; i += 10) {
             dataset.push({ x: i, y: 0 });
         }
 
@@ -348,6 +356,7 @@ export default function ServerAnalyzer() {
                 {listData.map(server => (
                     <div className="col-lg-6 mb-4 border p-4" key={server.number}>
                         <h3 className="mb-4 fw-bold">{server.number} 서버</h3>
+                        <div>({dayjs(server.data.time).format("YYYY년 M월 D일 H시")} 기준)</div>
 
                         {cutoffIsDecimal && (
                             <div className="text-danger fw-bold mb-2">{cutoff}M 이상 유저 수 : {getCutoffCount(server)}명</div>

@@ -1,0 +1,61 @@
+.loading-box {
+    padding: 60px;
+    border: 2px dashed #007bff;
+    border-radius: 12px;
+    backgroundColor: #f8fbff;
+    width: 100%; /* 부모 너비에 맞춤 */
+}
+
+.image-viewport {
+    border: 2px solid #333;
+    line-height: 0;
+    cursor: none;
+    background-color: #ffffff;
+    background-image:
+        linear-gradient(45deg, #ddd 25%, transparent 25%), 
+        linear-gradient(-45deg, #ddd 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #ddd 75%), 
+        linear-gradient(-45deg, transparent 75%, #ddd 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    width: 100%; /* 너비 100% 강제 */
+    overflow: hidden;
+}
+
+.brush-info {
+    font-size: 14px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 4px 10px;
+    border-radius: 6px;
+}.loading-box {
+    padding: 60px;
+    border: 2px dashed #007bff;
+    border-radius: 12px;
+    backgroundColor: #f8fbff;
+    width: 100%; /* 부모 너비에 맞춤 */
+}
+
+.image-viewport {
+    border: 2px solid #333;
+    line-height: 0;
+    cursor: none;
+    background-color: #ffffff;
+    background-image:
+        linear-gradient(45deg, #ddd 25%, transparent 25%), 
+        linear-gradient(-45deg, #ddd 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #ddd 75%), 
+        linear-gradient(-45deg, transparent 75%, #ddd 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    width: 100%; /* 너비 100% 강제 */
+    overflow: hidden;
+}
+
+.brush-info {
+    font-size: 14px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 4px 10px;
+    border-radius: 6px;
+}

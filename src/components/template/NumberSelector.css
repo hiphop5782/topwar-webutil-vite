@@ -1,0 +1,51 @@
+.number-select {
+    cursor:pointer;
+    font-weight: bold;
+    font-size: 40px;
+}
+.number-select:hover {
+    color: red;
+}
+
+.number-selector-backdrop {
+    display: none;
+    position:fixed;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba(0,0,0,0.3);
+}
+.number-selector-backdrop.active {
+    display: block;
+}
+.number-selector-wrapper {
+    position: absolute;
+    max-width: 90%;
+    min-width: 50%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 15px;
+}
+
+.number-selector-unit {
+    padding: 1em;
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.number-selector-unit.active {
+    background-color: black;
+    color: white;
+}
+.number-selector-unit:hover {
+    background-color: darkgray;
+    color: white;
+}

@@ -17,7 +17,8 @@
         "sub": {
           "vital": "Stamina Recovery Calculator",
           "skill-shard": "Exclusive Fragment Calculator",
-          "store": "Special Package Value Calculator"
+          "store": "Special Package Value Calculator",
+          "el-score":"EL Score Calculator"
         }
       },
       "simulator": {
@@ -29,12 +30,31 @@
           "random": "Random Draw Simulator",
           "slot": "Topwar Slot Machine Game",
           "luckybox":"Lucky Box Game",
-          "strategy-tool":"Strategy Tool"
+          "lotto": "Lotto Generator"
         }
       },
       "emoji": {
-        "label": "Emojis"
+        "label": "Emojis",
+        "sub": {
+          "create": "Creator",
+          "list": "Legacy Emoji"
+        }
       },
+      "account": {
+        "label": "Trade",
+        "sub":{
+              "viewer":"Viewer",
+              "creator":"Creator"
+          }
+      },
+      "vote":{
+            "label":"Vote",
+            "sub":{
+                "create":"Create Vote",
+                "cast":"Cast Vote",
+                "manage":"Manage Vote"
+            }
+        },
       "developer": {
         "label": "Developer"
       }

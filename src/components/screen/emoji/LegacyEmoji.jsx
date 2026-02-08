@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import "./Emoji.css";
+import "./LegacyEmoji.css";
 
 const backgroundColors = [
     'transparent', '#ffffff', '#bacee0', '#677bac', '#9dcdb8', '#51a5a0', '#9bb157',
@@ -7,7 +7,7 @@ const backgroundColors = [
     '#d3d5d0', '#525252', '#404372', '#10374a', '#818b9c'
 ];
 
-const Emoji = () => {
+const LegacyEmoji = () => {
     const [images] = useState(Array.from({ length: 111 }, (_, index) => index + 1));
     const [emoji, setEmoji] = useState(1);
     const [backgroundColor, setBackgroundColor] = useState('#bacee0');
@@ -108,4 +108,4 @@ const Emoji = () => {
     </>);
 };
 
-export default Emoji;
+export default LegacyEmoji;

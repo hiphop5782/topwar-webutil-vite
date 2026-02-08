@@ -3,10 +3,12 @@ import Buildings from "@src/assets/json/el/buildings.json";
 import { reverse, throttle } from "lodash";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import "./EternalLand.css";
+import "./EternalLandScore.css";
 import { GrRadialSelected } from "react-icons/gr";
+import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
+import { FaAsterisk } from "react-icons/fa6";
 
-export default function EternalLand() {
+export default function EternalLandScore() {
 
     const map = useRef();
     const [mapWidth, setMapWidth] = useState(0);
@@ -37,11 +39,14 @@ export default function EternalLand() {
     
     const calculateTranslate = useCallback((building)=>{
         let x = 15, y = 15;
-        if(building.x > 70) x = -115; 
-        else if(building.x > 30) x = -50;
+        // if(building.x > 70) x = -115; 
+        // else if(building.x > 30) x = -50;
+        
+        // if(building.y > 70) y = -115;
+        // else if(building.y > 30) y = -50;
 
-        if(building.y > 70) y = -115;
-        else if(building.y > 30) y = -50;
+        if(building.x > 30) x = -115;
+        y = -50;
 
         return `translate(${x}%, ${y}%)`;
     }, []);
@@ -64,10 +69,14 @@ export default function EternalLand() {
     }, [selectedFacilities]);
 
     return (<>
-        <h1>영원의 땅</h1>
-
+        <div className="row my-2">
+            <div className="col text-muted">
+                <FaAsterisk className="me-2"/>
+                지도의 마름모 도형에 마우스를 올리시거나 클릭하셔서 점수를 확인해보세요
+            </div>
+        </div>
         <div className="position-relative" ref={map}>
-            <img src={ELmap} width={"100%"} alt="eternel land map"/>
+            <img src={ELmap} width={"100%"} height={500} alt="eternel land map"/>
             {facilities.map((facility, index)=>(
             <div key={index} className="position-absolute" style={
                     {
@@ -146,7 +155,9 @@ export default function EternalLand() {
                 <div className="fs-2"><span className="fw-bold text-primary">1분</span> 당 총 <span className="fw-bold text-danger">{selectedFacilitiesPoint.toLocaleString()}</span> 점 획득 가능</div>
                 <div className="fs-2"><span className="fw-bold text-primary">1시간</span> 당 총 <span className="fw-bold text-danger">{(selectedFacilitiesPoint * 60).toLocaleString()}</span> 점 획득 가능</div>
                 <div className="fs-2"><span className="fw-bold text-primary">1일</span> 당 총 <span className="fw-bold text-danger">{(selectedFacilitiesPoint * 60 * 24).toLocaleString()}</span> 점 획득 가능</div>
+                <div className="fs-2 mt-2">더 자세한 점수 계산은 <LanguageRouterLink to={"/calculator/el-score"}>계산기</LanguageRouterLink>에서 </div>
             </div>
         </div>
+
     </>);
 }

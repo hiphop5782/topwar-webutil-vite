@@ -17,7 +17,8 @@
             "sub":{
                 "vital":"체력 회복 속도 계산기",
                 "skill-shard":"전속 조각 수량 계산기",
-                "store":"특별 패키지 단가 계산기"
+                "store":"특별 패키지 단가 계산기",
+                "el-score":"영원의 땅 점수 계산기"
             }
         },
         "simulator":{
@@ -29,11 +30,31 @@
                 "random":"랜덤 추첨기",
                 "slot": "탑워 슬롯머신 게임",
                 "luckybox":"행운상자 게임",
-                "strategy-tool":"전략 생성 도구"
+                "strategy-tool":"전략 생성 도구",
+                "lotto":"로또생성기"
             }
         },
         "emoji":{
-            "label":"이모티콘"
+            "label":"이모티콘",
+            "sub": {
+                "create": "신규 이모티콘 생성",
+                "list": "탑워 이모티콘 목록"
+            }
+        },
+        "account":{
+            "label":"계정거래",
+            "sub":{
+                "viewer":"계정뷰어",
+                "creator":"홍보화면생성"
+            }
+        },
+        "vote":{
+            "label":"투표",
+            "sub":{
+                "create":"투표 생성",
+                "cast":"투표 참여",
+                "manage":"투표 관리"
+            }
         },
         "developer":{
             "label":"개발자"
