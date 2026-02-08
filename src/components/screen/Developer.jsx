@@ -1,12 +1,22 @@
 import NameCard from "@src/assets/images/developer.png";
+import UtterancesComments from "../comments/UtterancesComments";
 
 function Developer() {
     return (
         <>
             <div className="row">
                 <div className="col">
-                    <h1>개발자 정보</h1>
-                    <hr/>
+                    <h1 className="mb-4">Topwar 유틸리티 페이지 입니다</h1>
+                    <p>
+                        개인이 운영하는 홈페이지여서 항상 최신 정보가 아닐 수도 있습니다<br/>
+                        필요한 기능이 있거나 문의사항 등은 댓글로 남겨주세요.
+                        <span className="text-muted ms-2">(Github 계정이 필요합니다)</span>
+
+                        <br/><br/>
+                        아니면 3223 서버의 
+                        <b className="text-primary mx-2">ＫＩＤ³²²³</b>
+                        에게 채팅 보내주세요!
+                    </p>
                 </div>
             </div>
             <div className="row mt-4">
@@ -26,6 +36,12 @@ function Developer() {
                             <li className="list-group-item"><a href="https://hiphop5782.gitbook.io/lpi-dubu" className="card-link">2690 서버 홍보글 보러가기</a></li>
                         </ul> */}
                     </div>
+                </div>
+            </div>
+            <hr />
+            <div className="row mt-4">
+                <div className="col">
+                    <UtterancesComments />
                 </div>
             </div>
         </>
