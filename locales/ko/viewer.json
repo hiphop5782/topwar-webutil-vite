@@ -1,0 +1,38 @@
+{
+    "TopwarDataViewer":{
+        "btn-player-data" : "유저 데이터",
+        "btn-server-data" : "서버 데이터",
+        "btn-alliance-data" : "동맹 데이터",
+        "btn-server-compare" : "서버 간 비교"
+    },
+    "TopwarPlayerDataViewer": {
+        "label-input" : "서버",
+        "label-total" : "총 유저",
+        "label-active" : "활성 유저",
+        "label-pause" : "미접속(7일↑)",
+        "label-stop" : "미접속(30일↑)",
+        
+        "overlay-day7" : "7일 이상 미접속",
+        "overlay-day30" : "30일 이상 미접속",
+
+        "no-result" : "검색 결과가 없습니다"
+    },
+    "TopwarCompareViewer": {
+        "label-input" : "서버",
+        
+        "btn-share" : "공유하기",
+
+        "label-cutoff" : "인원수를 카운트할 기준 CP를 설정하세요",
+        "label-server" : "서버",
+        "label-user" : "이상 유저 수",
+        "label-maxcp" : "최고 전투력",
+        "label-mincp" : "최저 전투력",
+        "label-avgcp" : "평균 전투력",
+        "label-avg" : "평균",
+
+        "label-noserver" : "존재하지 않거나 이미 추가한 서버 번호입니다",
+
+        "label-copy-ok" : "URL이 복사되었습니다",
+        "label-copy-nok" : "URL 복사이 실패했습니다"
+    }
+}
