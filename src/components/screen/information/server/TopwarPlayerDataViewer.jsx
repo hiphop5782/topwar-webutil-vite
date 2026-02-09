@@ -1,7 +1,10 @@
+import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import PlayerListJson from "@src/assets/json/power/playerData.json";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
+import "flag-icons/sass/flag-icons.scss";
 import "./TopwarData.css";
+import { FaMars, FaVenus } from "react-icons/fa6";
 
 export default function TopwarPlayerDataViewer() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -22,16 +25,21 @@ export default function TopwarPlayerDataViewer() {
         );
     }, [searchTerm, sortedPlayers]);
 
+    const isFold = useCallback((player)=>{
+        const period = 30 * 24 * 60 * 60;
+        return Date.now() / 1000 - player.lastLogin >= period;
+    }, []);
+
     return (
         <>
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3>
-                {/* 검색 입력창 추가 */}
-                <div style={{ width: '250px' }}>
+            <div className="d-flex align-items-center mb-3">
+                {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
+                    {/* 검색 입력창 추가 */}
+                    <span>서버</span>
                     <input 
                         type="text" 
-                        className="form-control" 
-                        placeholder="서버 검색" 
+                        className="form-control w-auto ms-4" 
+                        placeholder="(ex) 3223" 
                         value={searchTerm}
                         onChange={(e) => {
                             const regex = /[0-9]*/;
@@ -39,7 +47,6 @@ export default function TopwarPlayerDataViewer() {
                             setSearchTerm(e.target.value);
                         }}
                     />
-                </div>
             </div>
 
             <div className="row mt-2">
@@ -51,21 +58,30 @@ export default function TopwarPlayerDataViewer() {
                         data={filteredPlayers}
                         useWindowScroll
                         itemContent={(index, player) => (
-                            <div className="d-flex align-items-center border-bottom bg-white" 
+                            <div className={`d-flex align-items-center border-bottom bg-white ${isFold(player) ? 'fold' : ''}`}
                                  style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
                                 <div style={{ width: 100 }}>
                                     {/* filteredPlayers를 기준으로 index 재계산 */}
                                     <span className="badge text-bg-primary">{player.rank}</span>
                                 </div>
-                                <div style={{ width: 200 }} className="text-truncate flex-grow-1">
-                                    <strong>{player.nickname}</strong>
+                                <div style={{ width: 200 }} className="text-truncate flex-grow-1 d-flex align-items-center">
+                                    <span className={`fi fi-sq fi-${CountryFlagJson[player.countryFlag]}`}></span>
+                                    <strong className="ms-2">{player.nickname}</strong>
+                                    {/* <span>{player.countryFlag}</span> */}
+                                    
+                                    {/* {player.gender === 0 && <FaMars className="text-info"/>} */}
+                                    {/* {player.gender === 1 && <FaVenus className="text-danger"/>} */}
                                 </div>
                                 <div style={{ width: 80 }} className="numeric-cell fw-bold">
                                     {(player.cp / 1000000).toFixed(2) + "M"}
                                 </div>
                                 <div style={{ width: 120 }} className="text-end pe-3 numeric-cell fw-bold">
-                                    {player.server}
-                                    {player.alliance && `[AAAA]`}
+                                    <span className="text-info">{player.server}</span>
+                                    
+                                    <span className="d-none d-sm-inline">
+                                        &nbsp;
+                                        <span className="text-danger">[{player.allianceTag ? player.allianceTag.padEnd(4) : <>&nbsp;&nbsp;&nbsp;&nbsp;</>}]</span>
+                                    </span>
                                 </div>
                             </div>
                         )}

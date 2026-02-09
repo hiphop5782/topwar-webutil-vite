@@ -60,11 +60,11 @@ export default function TopwarAllianceDataViewer() {
                                 <div className="text-truncate flex-grow-1">
                                     <strong>[{alliance.tag}] {alliance.name}</strong>
                                 </div>
-                                <div style={{ width: 150 }} className="text-end pe-3 numeric-cell">
+                                <div style={{ width: 150 }} className="text-end pe-3 numeric-cell fw-bold">
                                     {alliance.score.toLocaleString()}
                                 </div>
-                                <div style={{ width: 75 }} className="text-end pe-3 numeric-cell">
-                                    0000
+                                <div style={{ width: 75 }} className="text-end pe-3 numeric-cell fw-bold">
+                                    {alliance.server}
                                 </div>
                             </div>
                         )}
