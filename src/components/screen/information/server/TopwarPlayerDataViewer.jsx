@@ -34,9 +34,20 @@ export default function TopwarPlayerDataViewer() {
         return '';
     }, []);
 
+    const countObj = useMemo(()=>{
+        return filteredPlayers.reduce((acc, player)=>{
+            const today = parseInt(Date.now() / 24 / 60 / 60 / 1000);
+            const lastLogin = parseInt(player.lastLogin / 24 / 60 / 60);
+            const days = today - lastLogin;
+            if(days > 30) return {...acc, total : acc.total + 1 , stop : acc.stop + 1};
+            if(days > 7) return {...acc, total : acc.total + 1 , pause : acc.pause + 1};
+            return {...acc, total : acc.total + 1 , active : acc.active + 1};
+        }, {total : 0 , active : 0, pause : 0 , stop : 0});
+    }, [filteredPlayers]);
+
     return (
         <>
-            <div className="d-flex align-items-center mb-3">
+            <div className="d-flex align-items-center mb-1">
                 {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
                     {/* 검색 입력창 추가 */}
                     <span>서버</span>
@@ -51,6 +62,12 @@ export default function TopwarPlayerDataViewer() {
                             setSearchTerm(e.target.value);
                         }}
                     />
+            </div>
+            <div className="mb-3">
+                    <span className="me-4 text-dark">Total ({countObj.total.toLocaleString()})</span>
+                    <span className="me-4 text-info">Active ({countObj.active.toLocaleString()})</span>
+                    <span className="me-4 text-warning">Pause ({countObj.pause.toLocaleString()})</span>
+                    <span className="text-danger">Stop ({countObj.stop.toLocaleString()})</span>
             </div>
 
             <div className="row mt-2">
