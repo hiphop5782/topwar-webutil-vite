@@ -12,18 +12,47 @@
     font-family: 'Roboto Mono', monospace; 
 }
 
+/* 기본 fold 설정 */
 div.fold {
-    position:relative;
+    position: relative;
+    overflow: hidden; /* 영역 밖으로 나가는 오버레이 숨김 */
 }
+
 div.fold::after {
-    content:"";
-    position:absolute;
+    position: absolute;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    color: white;
+    padding-right: 1em;
     left: 0;
     right: 0;
-    top:0;
+    top: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    
+    /* 애니메이션 핵심: 우측으로 이동시키고 투명하게 시작 */
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.4s ease-out, opacity 0.3s ease-out;
+    pointer-events: none; /* 오버레이가 클릭을 방해하지 않도록 설정 */
+    z-index: 10;
 }
+
+/* 7일 이상 스타일 */
+div.fold.day-7::after {
+    content: "7일 이상 미접속";
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.78) 50%, rgba(0, 0, 0, 1) 100%);
+}
+
+/* 30일 이상 스타일 */
+div.fold.day-30::after {
+    content: "30일 이상 미접속";
+    color: #fdcb6e;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(66, 0, 0, 0.78) 50%, rgba(74, 0, 0, 1) 100%);
+}
+
+/* Hover 시 우측으로 사라짐 */
 div.fold:hover::after {
-    display: none;
+    transform: translateX(100%); /* 우측으로 완전히 밀어냄 */
+    opacity: 0; /* 서서히 투명해짐 */
 }

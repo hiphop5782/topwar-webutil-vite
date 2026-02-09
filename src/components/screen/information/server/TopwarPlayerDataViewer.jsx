@@ -25,9 +25,13 @@ export default function TopwarPlayerDataViewer() {
         );
     }, [searchTerm, sortedPlayers]);
 
-    const isFold = useCallback((player)=>{
-        const period = 30 * 24 * 60 * 60;
-        return Date.now() / 1000 - player.lastLogin >= period;
+    const calculateDays = useCallback((player)=>{
+        const today = parseInt(Date.now() / 24 / 60 / 60 / 1000);
+        const lastLogin = parseInt(player.lastLogin / 24 / 60 / 60);
+        const days = today - lastLogin;
+        if(days > 30) return 'fold day-30';
+        else if(days > 7) return 'fold day-7';
+        return '';
     }, []);
 
     return (
@@ -58,7 +62,7 @@ export default function TopwarPlayerDataViewer() {
                         data={filteredPlayers}
                         useWindowScroll
                         itemContent={(index, player) => (
-                            <div className={`d-flex align-items-center border-bottom bg-white ${isFold(player) ? 'fold' : ''}`}
+                            <div className={`d-flex align-items-center border-bottom bg-white ${calculateDays(player)}`}
                                  style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
                                 <div style={{ width: 100 }}>
                                     {/* filteredPlayers를 기준으로 index 재계산 */}
