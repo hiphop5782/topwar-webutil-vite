@@ -1,0 +1,38 @@
+{
+    "TopwarDataViewer":{
+        "btn-player-data" : "Player Data",
+        "btn-server-data" : "Server Data",
+        "btn-alliance-data" : "Alliance Data",
+        "btn-server-compare" : "Server Comparison"
+    },
+    "TopwarPlayerDataViewer": {
+        "label-input" : "Server",
+        "label-total" : "Total Players",
+        "label-active" : "Active Players",
+        "label-pause" : "Inactive (7d+)",
+        "label-stop" : "Inactive (30d+)",
+        
+        "overlay-day7" : "Inactive for 7+ days",
+        "overlay-day30" : "Inactive for 30+ days",
+
+        "no-result" : "No search results found"
+    },
+    "TopwarCompareViewer": {
+        "label-input" : "Server",
+        
+        "btn-share" : "Share",
+
+        "label-cutoff" : "Set the threshold CP for player count",
+        "label-server" : "Server",
+        "label-user" : "Count (Above CP)",
+        "label-maxcp" : "Max CP",
+        "label-mincp" : "Min CP",
+        "label-avgcp" : "Avg CP",
+        "label-avg" : "Average",
+
+        "label-noserver" : "Invalid server or already added",
+
+        "label-copy-ok" : "URL has been copied",
+        "label-copy-nok" : "Failed to copy URL"
+    }
+}

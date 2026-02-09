@@ -5,9 +5,11 @@ import { Virtuoso } from "react-virtuoso";
 import "flag-icons/sass/flag-icons.scss";
 import "./TopwarData.css";
 import { FaMars, FaVenus } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 export default function TopwarPlayerDataViewer() {
     const [searchTerm, setSearchTerm] = useState("");
+    const { t } = useTranslation("viewer");
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)
     const sortedPlayers = useMemo(() => {
@@ -50,7 +52,7 @@ export default function TopwarPlayerDataViewer() {
             <div className="d-flex align-items-center mb-1">
                 {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
                     {/* 검색 입력창 추가 */}
-                    <span>서버</span>
+                    <span>{t(`TopwarPlayerDataViewer.label-input`)}</span>
                     <input 
                         type="text" 
                         className="form-control w-auto ms-4" 
@@ -63,15 +65,36 @@ export default function TopwarPlayerDataViewer() {
                         }}
                     />
             </div>
-            <div className="mb-3">
-                    <span className="me-4 text-dark">Total ({countObj.total.toLocaleString()})</span>
-                    <span className="me-4 text-info">Active ({countObj.active.toLocaleString()})</span>
-                    <span className="me-4 text-warning">Pause ({countObj.pause.toLocaleString()})</span>
-                    <span className="text-danger">Stop ({countObj.stop.toLocaleString()})</span>
+            <div className="row mb-3">
+                    <div className="col-6 col-lg-3 p-2">
+                        <div className="d-flex flex-column shadow rounded text-nowrap">
+                            <span className="text-dark text-center">{t(`TopwarPlayerDataViewer.label-total`)}</span> 
+                            <span className="text-dark text-center">({countObj.total.toLocaleString()})</span>
+                        </div>
+                    </div>
+                    <div className="col-6 col-lg-3 p-2">
+                        <div className="d-flex flex-column shadow rounded text-nowrap">
+                            <span className="text-info text-center">{t(`TopwarPlayerDataViewer.label-active`)}</span> 
+                            <span className="text-info text-center">({countObj.active.toLocaleString()})</span>
+                        </div>
+                    </div>
+                    <div className="col-6 col-lg-3 p-2">
+                        <div className="d-flex flex-column shadow rounded text-nowrap">
+                            <span className="text-warning text-center">{t(`TopwarPlayerDataViewer.label-pause`)}</span> 
+                            <span className="text-warning text-center">({countObj.pause.toLocaleString()})</span>
+                        </div>
+                    </div>
+                    <div className="col-6 col-lg-3 p-2">
+                        <div className="d-flex flex-column shadow rounded text-nowrap">
+                            <span className="text-danger text-center">{t(`TopwarPlayerDataViewer.label-stop`)}</span> 
+                            <span className="text-danger text-center">({countObj.stop.toLocaleString()})</span>
+                        </div>
+                    </div>
             </div>
 
             <div className="row mt-2">
                 <div className="col">
+                    {filteredPlayers.length > 0 && (
                     <Virtuoso
                         // useWindowScroll 사용 시 style의 height는 초기 렌더링 높이 역할을 하거나 
                         // 제거해도 무방하지만, 영역 확보를 위해 유지합니다.
@@ -96,7 +119,7 @@ export default function TopwarPlayerDataViewer() {
                                 <div style={{ width: 80 }} className="numeric-cell fw-bold">
                                     {(player.cp / 1000000).toFixed(2) + "M"}
                                 </div>
-                                <div style={{ width: 120 }} className="text-end pe-3 numeric-cell fw-bold">
+                                <div style={{ width: 120 }} className="text-end pe-3 numeric-cell fw-bold text-nowrap">
                                     <span className="text-info">{player.server}</span>
                                     
                                     <span className="d-none d-sm-inline">
@@ -107,8 +130,9 @@ export default function TopwarPlayerDataViewer() {
                             </div>
                         )}
                     />
+                    )}
                     {filteredPlayers.length === 0 && (
-                        <div className="text-center py-5 text-muted">검색 결과가 없습니다.</div>
+                        <div className="text-center py-5 text-muted fs-2">{t(`TopwarPlayerDataViewer.no-result`)}</div>
                     )}
                 </div>
             </div>

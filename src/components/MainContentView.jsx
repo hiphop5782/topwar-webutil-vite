@@ -9,7 +9,6 @@ import FormationPerk from '@src/components/screen/simulator/FormationPerk';
 import JobInformation from '@src/components/screen/information/JobInformation';
 import KartzRankInformation from '@src/components/screen/information/KartzRankInformation';
 import KartzSpecInformation from '@src/components/screen/information/KartzSpecInformation';
-import ServerAnalyzer from '@src/components/screen/information/ServerAnalyzer';
 import TitanRefineSimulator from '@src/components/screen/simulator/TitanRefineSimulator';
 import TitanResearchSimulator from '@src/components/screen/simulator/TitanResearchSimulator';
 import SkillCalculator from '@src/components/screen/calculator/SkillCalculator';
@@ -40,6 +39,7 @@ import TopwarDataViewer from "@src/components/screen/information/server/TopwarDa
 import TopwarPlayerDataViewer from "@src/components/screen/information/server/TopwarPlayerDataViewer";
 import TopwarServerDataViewer from "@src/components/screen/information/server/TopwarServerDataViewer";
 import TopwarAllianceDataViewer from "@src/components/screen/information/server/TopwarAllianceDataViewer";
+import TopwarCompareViewer from "./screen/information/server/TopwarCompareViewer";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -80,11 +80,11 @@ export default function MainContentView() {
                         <Route path="darkforce" element={<EternalLandDarkforce/>}/>
                         <Route path="score" element={<ELScoreCalculator/>}/>
                     </Route>
-                    <Route path="information/server-info" element={<ServerAnalyzer />}></Route>
                     <Route path="information/data" element={<TopwarDataViewer/>}>
                         <Route index element={<TopwarPlayerDataViewer/>}></Route>
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
+                        <Route path="compare" element={<TopwarCompareViewer/>}></Route>
                     </Route>
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>

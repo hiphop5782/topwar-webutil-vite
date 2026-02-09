@@ -1,0 +1,61 @@
+{
+    "info":{
+        "label":"정보",
+        "sub":{
+            "base":"기지 정보",
+            "job":"전문 직업 강화",
+            "el":"영원의 땅",
+            "data":"서버 및 유저 정보",
+            "server-analyze":"서버 비교 분석",
+            "kartz-information":"카르츠 몬스터 정보",
+            "kartz-rank":"카르츠 순위 현황",
+            "kartz-statistics":"카르츠 통계"
+        }
+    },
+    "calculator":{
+        "label":"계산기",
+        "sub":{
+            "vital":"체력 회복 속도 계산기",
+            "skill-shard":"전속 조각 수량 계산기",
+            "store":"특별 패키지 단가 계산기",
+            "el-score":"영원의 땅 점수 계산기"
+        }
+    },
+    "simulator":{
+        "label":"시뮬레이터",
+        "sub":{
+            "titan-research":"타이탄 제작",
+            "titan-refine":"타이탄 재련",
+            "formation-perk":"군진 특성",
+            "random":"랜덤 추첨기",
+            "slot": "탑워 슬롯머신 게임",
+            "luckybox":"행운상자 게임",
+            "lotto":"로또생성기"
+        }
+    },
+    "emoji":{
+        "label":"이모티콘",
+        "sub": {
+            "create": "신규 이모티콘 생성",
+            "list": "탑워 이모티콘 목록"
+        }
+    },
+    "account":{
+        "label":"계정거래",
+        "sub":{
+            "viewer":"계정뷰어",
+            "creator":"홍보화면생성"
+        }
+    },
+    "vote":{
+        "label":"투표",
+        "sub":{
+            "create":"투표 생성",
+            "cast":"투표 참여",
+            "manage":"투표 관리"
+        }
+    },
+    "developer":{
+        "label":"개발자"
+    }
+}

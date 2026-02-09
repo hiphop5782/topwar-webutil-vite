@@ -1,0 +1,61 @@
+{
+  "info": {
+    "label": "情報",
+    "sub": {
+      "base": "基地情報",
+      "job": "専門職強化",
+      "el": "悠久の地",
+      "data": "サーバー・プレイヤー情報",
+      "server-analyze": "サーバー比較分析",
+      "kartz-information": "カーツモンスター情報",
+      "kartz-rank": "カーツ順位状況",
+      "kartz-statistics": "カーツ統計"
+    }
+  },
+  "calculator": {
+    "label": "計算機",
+    "sub": {
+      "vital": "体力回復速度計算機",
+      "skill-shard": "専用スキル破片計算機",
+      "store": "特別ギフト単価計算機",
+      "el-score": "悠久の地ポイント計算機"
+    }
+  },
+  "simulator": {
+    "label": "シミュレーター",
+    "sub": {
+      "titan-research": "タイタン製造",
+      "titan-refine": "タイタン洗練",
+      "formation-perk": "軍陣特性",
+      "random": "ランダム抽選機",
+      "slot": "スロットゲーム",
+      "luckybox": "ラッキー宝箱",
+      "lotto": "ロト生成機"
+    }
+  },
+  "emoji": {
+    "label": "絵文字",
+    "sub": {
+      "create": "新規絵文字作成",
+      "list": "絵文字一覧"
+    }
+  },
+  "account": {
+    "label": "アカウント取引",
+    "sub": {
+      "viewer": "アカウントビューアー",
+      "creator": "宣伝画面作成"
+    }
+  },
+  "vote": {
+    "label": "投票",
+    "sub": {
+      "create": "投票作成",
+      "cast": "投票参加",
+      "manage": "投票管理"
+    }
+  },
+  "developer": {
+    "label": "開発者"
+  }
+}

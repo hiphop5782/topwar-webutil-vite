@@ -56,3 +56,27 @@ div.fold:hover::after {
     transform: translateX(100%); /* 우측으로 완전히 밀어냄 */
     opacity: 0; /* 서서히 투명해짐 */
 }
+
+.w-sm-50, .w-md-50, .w-lg-50 {
+    width: 100% !important;    
+    margin-bottom: 10px;
+}
+
+@media (min-width: 576px) {
+    .w-sm-50 {
+        width: 50% !important;
+        margin-bottom: 0;
+    }
+}
+@media (min-width: 768px) {
+    .w-md-50 {
+        width: 50% !important;
+        margin-bottom: 0;
+    }
+}
+@media (min-width:1200px) {
+    .w-lg-50 {
+        width: 50% !important;
+        margin-bottom: 0;
+    }
+}
