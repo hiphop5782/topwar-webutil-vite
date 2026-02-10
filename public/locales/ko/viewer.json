@@ -2,7 +2,7 @@
     "TopwarDataViewer":{
         "btn-player-data" : "유저 데이터",
         "btn-server-data" : "서버 데이터",
-        "btn-alliance-data" : "동맹 데이터",
+        "btn-alliance-data" : "길드 데이터",
         "btn-server-compare" : "서버 간 비교"
     },
     "TopwarPlayerDataViewer": {
@@ -14,6 +14,16 @@
         
         "overlay-day7" : "7일 이상 미접속",
         "overlay-day30" : "30일 이상 미접속",
+
+        "no-result" : "검색 결과가 없습니다"
+    },
+    "TopwarAllianceDataViewer":{
+        "label-title": "길드 순위",
+        "search-placeholder": "서버 검색",
+        "data-rank": "순위",
+        "data-server": "서버",
+        "data-name": "태그 & 길드명",
+        "data-score": "전투력",
 
         "no-result" : "검색 결과가 없습니다"
     },

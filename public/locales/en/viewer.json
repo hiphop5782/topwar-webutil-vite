@@ -1,38 +1,41 @@
 {
-    "TopwarDataViewer":{
-        "btn-player-data" : "Player Data",
-        "btn-server-data" : "Server Data",
-        "btn-alliance-data" : "Alliance Data",
-        "btn-server-compare" : "Server Comparison"
+    "TopwarDataViewer": {
+        "btn-player-data": "Player Data",
+        "btn-server-data": "Server Data",
+        "btn-alliance-data": "Alliance Data",
+        "btn-server-compare": "Server Comparison"
     },
     "TopwarPlayerDataViewer": {
-        "label-input" : "Server",
-        "label-total" : "Total Players",
-        "label-active" : "Active Players",
-        "label-pause" : "Inactive (7d+)",
-        "label-stop" : "Inactive (30d+)",
-        
-        "overlay-day7" : "Inactive for 7+ days",
-        "overlay-day30" : "Inactive for 30+ days",
-
-        "no-result" : "No search results found"
+        "label-input": "Server",
+        "label-total": "Total Players",
+        "label-active": "Active Players",
+        "label-pause": "Inactive (7d+)",
+        "label-stop": "Inactive (30d+)",
+        "overlay-day7": "Inactive for 7+ days",
+        "overlay-day30": "Inactive for 30+ days",
+        "no-result": "No results found"
+    },
+    "TopwarAllianceDataViewer": {
+        "label-title": "Alliance Rankings",
+        "search-placeholder": "Search Server",
+        "data-rank": "Rank",
+        "data-server": "Server",
+        "data-name": "Tag & Alliance Name",
+        "data-score": "CP",
+        "no-result": "No results found"
     },
     "TopwarCompareViewer": {
-        "label-input" : "Server",
-        
-        "btn-share" : "Share",
-
-        "label-cutoff" : "Set the threshold CP for player count",
-        "label-server" : "Server",
-        "label-user" : "Count (Above CP)",
-        "label-maxcp" : "Max CP",
-        "label-mincp" : "Min CP",
-        "label-avgcp" : "Avg CP",
-        "label-avg" : "Average",
-
-        "label-noserver" : "Invalid server or already added",
-
-        "label-copy-ok" : "URL has been copied",
-        "label-copy-nok" : "Failed to copy URL"
+        "label-input": "Server",
+        "btn-share": "Share",
+        "label-cutoff": "Set the CP threshold for counting players",
+        "label-server": "Server",
+        "label-user": "Players above threshold",
+        "label-maxcp": "Max CP",
+        "label-mincp": "Min CP",
+        "label-avgcp": "Avg CP",
+        "label-avg": "Avg",
+        "label-noserver": "The server does not exist or has already been added",
+        "label-copy-ok": "URL copied to clipboard",
+        "label-copy-nok": "Failed to copy URL"
     }
 }
