@@ -1,38 +1,41 @@
 {
-    "TopwarDataViewer":{
-        "btn-player-data" : "プレイヤーデータ",
-        "btn-server-data" : "サーバーデータ",
-        "btn-alliance-data" : "連盟データ",
-        "btn-server-compare" : "サーバー間比較"
+    "TopwarDataViewer": {
+        "btn-player-data": "プレイヤーデータ",
+        "btn-server-data": "サーバーデータ",
+        "btn-alliance-data": "連盟データ",
+        "btn-server-compare": "サーバー間比較"
     },
     "TopwarPlayerDataViewer": {
-        "label-input" : "サーバー",
-        "label-total" : "総プレイヤー数",
-        "label-active" : "アクティブプレイヤー",
-        "label-pause" : "未ログイン(7日以上)",
-        "label-stop" : "未ログイン(30日以上)",
-        
-        "overlay-day7" : "7日以上ログインなし",
-        "overlay-day30" : "30日以上ログインなし",
-
-        "no-result" : "検索結果がありません"
+        "label-input": "サーバー",
+        "label-total": "総プレイヤー数",
+        "label-active": "アクティブプレイヤー",
+        "label-pause": "未ログイン(7日以上)",
+        "label-stop": "未ログイン(30日以上)",
+        "overlay-day7": "7日以上ログインなし",
+        "overlay-day30": "30日以上ログインなし",
+        "no-result": "検索結果がありません"
+    },
+    "TopwarAllianceDataViewer": {
+        "label-title": "連盟ランキング",
+        "search-placeholder": "サーバー検索",
+        "data-rank": "順位",
+        "data-server": "サーバー",
+        "data-name": "タグ & 連盟名",
+        "data-score": "戦力",
+        "no-result": "検索結果がありません"
     },
     "TopwarCompareViewer": {
-        "label-input" : "サーバー",
-        
-        "btn-share" : "共有する",
-
-        "label-cutoff" : "カウント基準となる戦力を設定してください",
-        "label-server" : "サーバー",
-        "label-user" : "基準以上の人数",
-        "label-maxcp" : "最高戦力",
-        "label-mincp" : "最低戦力",
-        "label-avgcp" : "平均戦力",
-        "label-avg" : "平均",
-
-        "label-noserver" : "存在しないか、すでに追加されたサーバー番号です",
-
-        "label-copy-ok" : "URLをコピーしました",
-        "label-copy-nok" : "URLのコピーに失敗しました"
+        "label-input": "サーバー",
+        "btn-share": "共有する",
+        "label-cutoff": "カウント基準となる戦力(CP)を設定してください",
+        "label-server": "サーバー",
+        "label-user": "基準以上の人数",
+        "label-maxcp": "最高戦力",
+        "label-mincp": "最低戦력",
+        "label-avgcp": "平均戦力",
+        "label-avg": "平均",
+        "label-noserver": "存在しないか、すでに追加されたサーバー番号です",
+        "label-copy-ok": "URLをコピーしました",
+        "label-copy-nok": "URLのコピーに失敗しました"
     }
 }
