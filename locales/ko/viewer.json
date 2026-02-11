@@ -1,4 +1,37 @@
 {
+    "AttendanceVoteReader":{
+        "title" : "투표하기",
+        "level":"레벨",
+        
+        "id-label" : "투표ID",
+        "id-placeholder" : "투표 고유 ID 입력",
+        "id-load-btn" : "불러오기",
+
+        "myinfo-title" : "내 정보",
+        "myinfo-nickname" : "닉네임",
+        "myinfo-nickname-placeholder" : "게임에서 사용하는 닉네임 입력",
+        "myinfo-cp" : "전투력",
+        "myinfo-cp-placeholder" : "M 제외하고 소수점 없이 입력 (ex : 65)",
+        "myinfo-job" : "직업(전투/기계)",
+        "myinfo-job-ce":"전투 정예",
+        "myinfo-job-mm":"기계 전문가",
+        "myinfo-morale":"기합",
+        "myinfo-urgent":"응급시설",
+
+        "btn-vote": "투표하기",
+        "btn-need-choice": "항목 선택 후 투표가 가능합니다",
+
+        "message-notfound": "투표가 존재하지 않습니다",
+        "message-require-info": "내 정보를 모두 작성해야 투표에 참여할 수 있습니다",
+        "message-complete": "투표가 완료되었습니다",
+        "message-closed": "이미 종료된 투표입니다",
+        "message-language-search": "번역 가능한 언어 목록을 찾고 있습니다",
+        "message-translate": "번역 중입니다",
+        "message-mychoice": "내가 투표한 항목",
+        "message-nolimit": "제한 없음",
+        "message-countview": "명 참여중"
+    },
+
     "TopwarDataViewer":{
         "btn-player-data" : "유저 데이터",
         "btn-server-data" : "서버 데이터",

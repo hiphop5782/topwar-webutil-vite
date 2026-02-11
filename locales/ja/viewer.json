@@ -1,4 +1,37 @@
 {
+    "AttendanceVoteReader": {
+        "title": "投票する",
+        "level": "レベル",
+        
+        "id-label": "投票ID",
+        "id-placeholder": "投票固有IDを入力",
+        "id-load-btn": "読み込み",
+
+        "myinfo-title": "マイ情報",
+        "myinfo-nickname": "ニックネーム",
+        "myinfo-nickname-placeholder": "ゲーム内のニックネームを入力",
+        "myinfo-cp": "戦力 (CP)",
+        "myinfo-cp-placeholder": "Mを除き、整数で 입력 (例: 65)",
+        "myinfo-job": "職種 (CE/MM)",
+        "myinfo-job-ce": "戦闘精鋭 (CE)",
+        "myinfo-job-mm": "メカニック (MM)",
+        "myinfo-morale": "気合",
+        "myinfo-urgent": "応急施設",
+
+        "btn-vote": "投票する",
+        "btn-need-choice": "項目を選択すると投票できます",
+
+        "message-notfound": "投票が見つかりません",
+        "message-require-info": "投票するにはすべての情報を入力してください",
+        "message-complete": "投票が完了しました！",
+        "message-closed": "この投票は終了しています",
+        "message-language-search": "翻訳 가능한 言語を確認しています",
+        "message-translate": "翻訳中...",
+        "message-mychoice": "自分の投票項目",
+        "message-nolimit": "制限なし",
+        "message-countview": "名が参加中"
+    },
+
     "TopwarDataViewer": {
         "btn-player-data": "プレイヤーデータ",
         "btn-server-data": "サーバーデータ",
