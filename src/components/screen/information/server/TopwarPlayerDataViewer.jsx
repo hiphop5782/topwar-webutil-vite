@@ -56,7 +56,7 @@ export default function TopwarPlayerDataViewer() {
                     <input 
                         type="text" 
                         className="form-control w-auto ms-4" 
-                        placeholder="(ex) 3223" 
+                        placeholder="e.g., 3223" 
                         value={searchTerm}
                         onChange={(e) => {
                             const regex = /[0-9]*/;

@@ -10,8 +10,10 @@ import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
 
 import "flag-icons/css/flag-icons.min.css";
 import "./AttendanceVoteReader.css";
+import { useTranslation } from "react-i18next";
 
 export default function AttendanceVoteReader() {
+    const { t } = useTranslation("viewer"); 
     const { voteId } = useParams();
 
     const [uuid, setUuid] = useState(voteId);
@@ -31,7 +33,7 @@ export default function AttendanceVoteReader() {
     const loadVote = useCallback(() => {
         const unsubscribe = getVote(uuid, (data) => {
             if (data === null) {
-                toast.error("투표가 존재하지 않습니다");
+                toast.error(t("AttendanceVoteReader.title"));
             }
             // 1. 원본 데이터는 항상 최신으로 유지
             setVote(data);
@@ -159,53 +161,53 @@ export default function AttendanceVoteReader() {
     }, [vote]);
 
     return (<>
-        <h1>참여 투표</h1>
+        <h1>{t(`AttendanceVoteReader.title`)}</h1>
 
         <hr />
 
         <div className="row mt-4">
-            <label className="col-form-label col-sm-3">투표ID</label>
+            <label className="col-form-label col-sm-3">{t(`AttendanceVoteReader.id-label`)}</label>
             <div className="col d-flex align-items-center">
-                <input type="text" className="form-control w-auto flex-grow-1" placeholder="투표 고유 ID 입력"
+                <input type="text" className="form-control w-auto flex-grow-1" placeholder={t(`AttendanceVoteReader.id-placeholder`)}
                     value={uuid} onChange={e => setUuid(e.target.value)} />
-                <button className="btn btn-primary ms-2" onClick={loadVote}>불러오기</button>
+                <button className="btn btn-primary ms-2" onClick={loadVote}>{t(`AttendanceVoteReader.id-load-btn`)}</button>
             </div>
         </div>
         <hr />
         <div className="row mt-4">
             <div className="col">
-                <h3>내 정보</h3>
+                <h3>{t("AttendanceVoteReader.myinfo-title")}</h3>
             </div>
         </div>
         <div className="row mt-1">
-            <label className="col-form-label col-sm-3">닉네임(Nickname)</label>
+            <label className="col-form-label col-sm-3">{t("AttendanceVoteReader.myinfo-nickname")}</label>
             <div className="col-sm-9">
-                <input type="text" className="form-control" placeholder="게임에서 사용하는 닉네임 입력"
+                <input type="text" className="form-control" placeholder={t("AttendanceVoteReader.myinfo-nickname-placeholder")}
                     name="nickname" value={userInfo.nickname} onChange={changeUserStrInfo} />
             </div>
         </div>
         <div className="row mt-1">
-            <label className="col-form-label col-sm-3">전투력(CP)</label>
+            <label className="col-form-label col-sm-3">{t("AttendanceVoteReader.myinfo-cp")}</label>
             <div className="col-sm-9">
-                <input type="text" className="form-control" placeholder="M 제외하고 소수점 없이 입력 (ex : 65)"
+                <input type="text" className="form-control" placeholder={t("AttendanceVoteReader.myinfo-cp-placeholder")}
                     name="cp" value={userInfo.cp} onChange={changeUserNumberInfo} />
             </div>
         </div>
         <div className="row mt-1">
-            <label className="col-form-label col-sm-3">직업(CE/MM)</label>
+            <label className="col-form-label col-sm-3">{t("AttendanceVoteReader.myinfo-job")}</label>
             <div className="col-sm-9">
                 <select className="form-select" name="job" onChange={changeUserStrInfo}>
-                    <option value="CE">전투(CE)</option>
-                    <option value="MM">기계(MM)</option>
+                    <option value="CE">{t("AttendanceVoteReader.myinfo-job-ce")}</option>
+                    <option value="MM">{t("AttendanceVoteReader.myinfo-job-mm")}</option>
                 </select>
             </div>
         </div>
         <div className="row mt-1">
-            <label className="col-form-label col-sm-3">{userInfo.job === "CE" ? "기합(Morale)" : "응급시설(Urgent)"}</label>
+            <label className="col-form-label col-sm-3">{userInfo.job === "CE" ? t("AttendanceVoteReader.myinfo-morale") : t("AttendanceVoteReader.myinfo-urgent")}</label>
             <div className="col-sm-9">
                 <select className="form-select" name="skill" onChange={changeUserNumberInfo} ref={skillRef}>
                     {Array.from({ length: userInfo.job === "CE" ? 11 : 6 }, (_, i) => userInfo.job === "CE" ? 10 - i : 5 - i).map(n => (
-                        <option key={n} value={n}>{n}레벨</option>
+                        <option key={n} value={n}>{n}{t("AttendanceVoteReader.level")}</option>
                     ))}
                 </select>
             </div>
@@ -215,7 +217,7 @@ export default function AttendanceVoteReader() {
             <hr />
             <div className="row mt-4">
                 <div className="col">
-                    <h3 className="text-danger">종료된 투표입니다</h3>
+                    <h3 className="text-danger">{t("AttendanceVoteReader.message-closed")}</h3>
                 </div>
             </div>
         </>) : (<>
@@ -224,7 +226,7 @@ export default function AttendanceVoteReader() {
                 <div className="row mt-4">
                     <div className="col d-flex gap-1">
                         {languages.length === 0 ? (
-                            <span className="shimmer-text">번역 가능한 언어 목록을 찾고 있습니다<span className="dots"></span></span>
+                            <span className="shimmer-text">{t("AttendanceVoteReader.message-language-search")}<span className="dots"></span></span>
                         ) : (<>
                             {languages.map(language => (
                                 <FlagWithTooltip key={language.name} lang={language} onClick={e => translateVote(language)} />
@@ -236,7 +238,7 @@ export default function AttendanceVoteReader() {
                     <div className="col">
                         <h3>
                             {translateLoading ? (
-                                <span className="shimmer-text">번역 중입니다<span className="dots"></span></span>
+                                <span className="shimmer-text">{t("AttendanceVoteReader.message-translate")}<span className="dots"></span></span>
                             ) : (
                                 <span>{voteTranslated.title}</span>
                             )}
@@ -257,13 +259,13 @@ export default function AttendanceVoteReader() {
                                             <input type="radio" name="choice" className="form-check-input me-2"
                                                 checked={choiceNo === choice.no} onChange={e => setChoiceNo(choice.no)} />
                                             {translateLoading ? (
-                                                <span className="shimmer-text">번역 중입니다<span className="dots"></span></span>
+                                                <span className="shimmer-text">{t("AttendanceVoteReader.message-translate")}<span className="dots"></span></span>
                                             ) : (
                                                 <span>
                                                     {choice.content}
                                                     {isMyChoice && (<>
-                                                        <FaVoteYea className="ms-2" title="내가 투표함"/>
-                                                        <span className="text-danger">내가 투표함</span>
+                                                        <FaVoteYea className="ms-2" title={t("AttendanceVoteReader.message-mychoice")}/>
+                                                        <span className="text-danger">{t("AttendanceVoteReader.message-mychoice")}</span>
                                                     </>)}
                                                 </span>
                                             )}
@@ -275,10 +277,10 @@ export default function AttendanceVoteReader() {
                                             </span>
                                         ) : (<>
                                             <span className="badge rounded-pill bg-secondary ms-4">
-                                                제한 없음
+                                                {t("AttendanceVoteReader.message-nolimit")}
                                             </span>
                                             {choice.currentCount > 0 && (
-                                                <span className="ms-4 text-danger fw-bold">{choice.currentCount} 명 참여중</span>
+                                                <span className="ms-4 text-danger fw-bold">{choice.currentCount} {t("AttendanceVoteReader.message-countview")}</span>
                                             )}
                                         </>)}
                                     </div>
@@ -301,10 +303,10 @@ export default function AttendanceVoteReader() {
                             disabled={choiceNo === null} onClick={submitVote}>
                             {choiceNo === null ? (<>
                                 <FaXmark className="me-2" />
-                                <span>항목 선택 후 투표가 가능합니다</span>
+                                <span>{t("AttendanceVoteReader.btn-need-choice")}</span>
                             </>) : (<>
                                 <FaVoteYea className="me-2" />
-                                <span>투표하기</span>
+                                <span>{t("AttendanceVoteReader.btn-vote")}</span>
                             </>)}
                         </button>
                     </div>

@@ -1,4 +1,37 @@
 {
+    "AttendanceVoteReader": {
+        "title": "Cast Your Vote",
+        "level": "Level",
+        
+        "id-label": "Vote ID",
+        "id-placeholder": "Enter Unique Vote ID",
+        "id-load-btn": "Load",
+
+        "myinfo-title": "My Profile",
+        "myinfo-nickname": "Nickname",
+        "myinfo-nickname-placeholder": "Enter your in-game nickname",
+        "myinfo-cp": "CP",
+        "myinfo-cp-placeholder": "Enter without 'M' or decimals (e.g., 65)",
+        "myinfo-job": "Class (CE/MM)",
+        "myinfo-job-ce": "Combat Elite (CE)",
+        "myinfo-job-mm": "Mechanical Master (MM)",
+        "myinfo-morale": "Morale",
+        "myinfo-urgent": "Urgent Medical",
+
+        "btn-vote": "Vote Now",
+        "btn-need-choice": "Please select an option to vote",
+
+        "message-notfound": "Vote not found",
+        "message-require-info": "Please complete your profile to participate in the vote",
+        "message-complete": "Vote submitted successfully!",
+        "message-closed": "This vote has already ended",
+        "message-language-search": "Searching for available languages",
+        "message-translate": "Translating...",
+        "message-mychoice": "My Choice",
+        "message-nolimit": "No Limit",
+        "message-countview": "Participants"
+    },
+
     "TopwarDataViewer": {
         "btn-player-data": "Player Data",
         "btn-server-data": "Server Data",
