@@ -66,30 +66,30 @@ export default function TopwarPlayerDataViewer() {
                     />
             </div>
             <div className="row mb-3">
-                    <div className="col-6 col-lg-3 p-2">
-                        <div className="d-flex flex-column shadow rounded text-nowrap">
-                            <span className="text-dark text-center">{t(`TopwarPlayerDataViewer.label-total`)}</span> 
-                            <span className="text-dark text-center">({countObj.total.toLocaleString()})</span>
-                        </div>
+                <div className="col-6 col-lg-3 p-2">
+                    <div className="d-flex flex-column shadow rounded text-nowrap">
+                        <span className="text-dark text-center">{t(`TopwarPlayerDataViewer.label-total`)}</span> 
+                        <span className="text-dark text-center">({countObj.total.toLocaleString()})</span>
                     </div>
-                    <div className="col-6 col-lg-3 p-2">
-                        <div className="d-flex flex-column shadow rounded text-nowrap">
-                            <span className="text-info text-center">{t(`TopwarPlayerDataViewer.label-active`)}</span> 
-                            <span className="text-info text-center">({countObj.active.toLocaleString()})</span>
-                        </div>
+                </div>
+                <div className="col-6 col-lg-3 p-2">
+                    <div className="d-flex flex-column shadow rounded text-nowrap">
+                        <span className="text-info text-center">{t(`TopwarPlayerDataViewer.label-active`)}</span> 
+                        <span className="text-info text-center">({countObj.active.toLocaleString()})</span>
                     </div>
-                    <div className="col-6 col-lg-3 p-2">
-                        <div className="d-flex flex-column shadow rounded text-nowrap">
-                            <span className="text-warning text-center">{t(`TopwarPlayerDataViewer.label-pause`)}</span> 
-                            <span className="text-warning text-center">({countObj.pause.toLocaleString()})</span>
-                        </div>
+                </div>
+                <div className="col-6 col-lg-3 p-2">
+                    <div className="d-flex flex-column shadow rounded text-nowrap">
+                        <span className="text-warning text-center">{t(`TopwarPlayerDataViewer.label-pause`)}</span> 
+                        <span className="text-warning text-center">({countObj.pause.toLocaleString()})</span>
                     </div>
-                    <div className="col-6 col-lg-3 p-2">
-                        <div className="d-flex flex-column shadow rounded text-nowrap">
-                            <span className="text-danger text-center">{t(`TopwarPlayerDataViewer.label-stop`)}</span> 
-                            <span className="text-danger text-center">({countObj.stop.toLocaleString()})</span>
-                        </div>
+                </div>
+                <div className="col-6 col-lg-3 p-2">
+                    <div className="d-flex flex-column shadow rounded text-nowrap">
+                        <span className="text-danger text-center">{t(`TopwarPlayerDataViewer.label-stop`)}</span> 
+                        <span className="text-danger text-center">({countObj.stop.toLocaleString()})</span>
                     </div>
+                </div>
             </div>
 
             <div className="row mt-2">

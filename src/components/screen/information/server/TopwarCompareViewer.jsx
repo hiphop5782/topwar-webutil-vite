@@ -215,7 +215,7 @@ export default function TopwarCompareViewer() {
             <div className="col">
                 <div className="d-flex align-items-center">
                     <span className="me-2">{t(`TopwarCompareViewer.label-input`)}</span>
-                    <input type="text" className="form-control w-auto" placeholder="(ex) 3223"
+                    <input type="text" className="form-control w-auto" placeholder="e.g., 3223"
                         onChange={inputServer} value={serverInput}
                         onKeyUp={e => {
                             if (e.key === "Enter") addServer();
