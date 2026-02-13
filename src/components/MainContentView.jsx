@@ -39,7 +39,8 @@ import TopwarDataViewer from "@src/components/screen/information/server/TopwarDa
 import TopwarPlayerDataViewer from "@src/components/screen/information/server/TopwarPlayerDataViewer";
 import TopwarServerDataViewer from "@src/components/screen/information/server/TopwarServerDataViewer";
 import TopwarAllianceDataViewer from "@src/components/screen/information/server/TopwarAllianceDataViewer";
-import TopwarCompareViewer from "./screen/information/server/TopwarCompareViewer";
+import TopwarCompareViewer from "@src/components/screen/information/server/TopwarCompareViewer";
+import TopwarServerRealtimeDataViewer from "@src/components/screen/information/server/TopwarServerRealtimeDataViewer";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -85,6 +86,7 @@ export default function MainContentView() {
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
                         <Route path="compare" element={<TopwarCompareViewer/>}></Route>
+                        <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route>
                     </Route>
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>

@@ -6,7 +6,7 @@ import { FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function ServerChooser({onChangeServer}) {
+export default function ServerChooser({onChangeServer, onSelectServer, useParameter=true, disabled=false}) {
     const {t} = useTranslation("viewer");
     
     const [params, setParams] = useSearchParams();
@@ -18,6 +18,7 @@ export default function ServerChooser({onChangeServer}) {
 
     const [loading, setLoading] = useState(false);
     useEffect(() => {
+        if(useParameter !== true) return;
         if (params !== null && selectedServers.length === 0) {
             const value = params.get("server");
             if(value !== null) {
@@ -28,6 +29,7 @@ export default function ServerChooser({onChangeServer}) {
         setLoading(true);
     }, []);
     useEffect(() => {
+        if(useParameter !== true) return;
         if (loading == false) return;
         if (selectedServers.length === 0) {
             setParams({});
@@ -56,6 +58,10 @@ export default function ServerChooser({onChangeServer}) {
         if (serverList.includes(selectedServer) === false) {
             window.alert(t(`TopwarCompareViewer.label-noserver`));
             return;
+        }
+
+        if(onSelectServer !== undefined && typeof onSelectServer === "function"){
+            onSelectServer(selectedServer);
         }
 
         const datalist = ServerDataJson.filter(server=>server.serverNumber === selectedServer);
@@ -115,8 +121,9 @@ export default function ServerChooser({onChangeServer}) {
                         onChange={inputServer} value={serverInput}
                         onKeyUp={e => {
                             if (e.key === "Enter") addServer();
-                        }} />
-                    <button className="btn btn-success ms-2" onClick={addServer}>
+                        }} 
+                        disabled={disabled}/>
+                    <button className="btn btn-success ms-2" onClick={addServer} disabled={disabled}>
                         <FaPlus className="fw-bold" />
                     </button>
                 </div>
@@ -126,13 +133,13 @@ export default function ServerChooser({onChangeServer}) {
             <div className="col">
                 <div className="d-flex flex-wrap">
                     {selectedServers.map(server => (
-                        <button className="btn btn-info me-2 mb-2" key={server.serverNumber} onClick={e => removeServer(server)}>
+                        <button className="btn btn-info me-2 mb-2" key={server.serverNumber} onClick={e => removeServer(server)} disabled={disabled}>
                             {server.serverNumber}
                             <FaXmark className="ms-2" />
                         </button>
                     ))}
                     {selectedServers.length > 0 && (
-                        <button className="btn btn-primary mb-2" onClick={copyUrlToClipboard}>
+                        <button className="btn btn-primary mb-2" onClick={copyUrlToClipboard} disabled={disabled}>
                             <FaShareNodes className="me-2"/>
                             <span>{t(`TopwarCompareViewer.btn-share`)}</span>
                         </button>
