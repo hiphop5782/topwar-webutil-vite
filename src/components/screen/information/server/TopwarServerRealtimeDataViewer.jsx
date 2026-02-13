@@ -36,15 +36,49 @@ export default function TopwarServerRealtimeDataViewer() {
                 return acc;
             }, {});
 
-            //동맹별 12시간이내 접속자 수 파악
+            //동맹별 7일이내 접속자 수 파악
             const now = parseInt(Date.now() / 1000);
             const playerMap = {};
             const activePlayers = server.playerList.filter(player=>now-player.lastLogin < 7*24*60*60);
             const activePlayerData = activePlayers.reduce((acc, cur)=>({count:acc.count+1, score:acc.score + cur.score}), {count:0, score:0});
             activePlayers.forEach(player=>{
-                playerMap[player.allianceTag] = playerMap[player.allianceTag ?? "소속없음"] ?? [];
-                playerMap[player.allianceTag].push(player);
+                playerMap[player.allianceTag] = playerMap[player.allianceTag ?? "소속없음"] ?? {cpTotal : 0, players : []};
+                playerMap[player.allianceTag].cpTotal += player.cp;
+                playerMap[player.allianceTag].players.push(player);
             });
+            const activePlayerCpTotal = activePlayers.reduce((acc, player)=>activeAllianceData.tags.includes(player.allianceTag) ? acc + player.cp : acc, 0);
+
+            //차트데이터 생성
+            const allianceChartObj = {
+                labels:[],
+                datasets:[
+                    {
+                        data:[],
+                        backgroundColor:chartBackgroundColors
+                    }
+                ]
+            };
+            const playerChartObj = {
+                labels:[],
+                datasets:[
+                    {
+                        data:[],
+                        backgroundColor:chartBackgroundColors
+                    }
+                ]
+            };
+            server.allianceList.filter((alliance, index)=>index < activeAllianceData.count).forEach((alliance)=>{
+                allianceChartObj.labels.push(alliance.tag);
+                allianceChartObj.datasets[0].data.push(alliance.score);
+            });
+            Object.keys(playerMap).forEach((k, i)=>{
+                if(activeAllianceData.tags.includes(k)) {
+                    playerChartObj.labels.push(k);
+                    console.log(playerMap);
+                    playerChartObj.datasets[0].data.push(playerMap[k].players.reduce((a, c)=>a + c.cp, 0));
+                }
+            });
+            console.log(allianceChartObj); 
             
             return {
                 ...server,
@@ -52,6 +86,9 @@ export default function TopwarServerRealtimeDataViewer() {
                 activePlayerData : activePlayerData,
                 activePlayerMap : playerMap,
                 activePlayerCount : activePlayers.length,
+                allianceChartData : allianceChartObj,
+                playerChartData : playerChartObj,
+                activePlayerCpTotal : activePlayerCpTotal
             };
         });
 
@@ -61,14 +98,13 @@ export default function TopwarServerRealtimeDataViewer() {
     const searchServer = useCallback(async (server)=>{
         if(loading) return;
         setLoading(true);
-        const {data} = await axios.post("http://192.168.0.9:55555", {server:server});
+        //const {data} = await axios.post("http://192.168.0.9:55555", {server:server});
+        const {data} = await axios.post("https://bot.progamer.info", {server:server});
         setSelectedServers(prev=>([...prev, data]));
         setLoading(false);
     }, [loading]);
 
     //차트
-    const playerChartRef = useRef(null);
-    const allianceChartRef = useRef(null);
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -84,48 +120,11 @@ export default function TopwarServerRealtimeDataViewer() {
         }
     };
 
-    const allianceChartData = useMemo(()=>{
-        const obj = {
-            labels:[],
-            datasets:[
-                {
-                    data:[],
-                    backgroundColor:chartBackgroundColors
-                }
-            ]
-        };
-        calculateData.forEach(server=>{
-            server.allianceList.filter((alliance, index)=>index < server.activeAllianceData.count).forEach((alliance)=>{
-                obj.labels.push(alliance.tag);
-                obj.datasets[0].data.push(alliance.score);
-            });
-        });
-        return obj;
-    }, [calculateData]);
-
-    const playerChartData = useMemo(()=>{
-        const obj = {
-            labels:[],
-            datasets:[
-                {
-                    data:[],
-                    backgroundColor:chartBackgroundColors
-                }
-            ]
-        };
-        calculateData.forEach(server=>{
-            Object.keys(server.activePlayerMap).forEach((k, i)=>{
-                if(server.activeAllianceData.tags.includes(k)) {
-                    obj.labels.push(k);
-                    obj.datasets[0].data.push(server.activePlayerMap[k].reduce((a, c)=>a + c.cp, 0));
-                }
-            });
-        });
-        return obj;
-    }, [calculateData]);
-
     return (<>
-        <ServerChooser onSelectServer={server=>searchServer(server)} useParameter={false} disabled={loading}/>
+        <ServerChooser onSelectServer={server=>searchServer(server)} 
+                useParameter={false} disabled={loading} 
+                onRemoveServer={server=>setSelectedServers(prev=>prev.filter(s=>s.serverNumber !== server.serverNumber))}
+                enableShare={false}/>
         <hr/>
         <div className="row my-4">
         {calculateData.map(server=>(
@@ -152,53 +151,63 @@ export default function TopwarServerRealtimeDataViewer() {
                                     </div>
                                 </li>
                                 ))}
-                                <li className="list-group-item d-flex justify-content-between align-items-center bg-dark text-light">
+                                <li className="list-group-item d-flex justify-content-between align-items-center" style={{backgroundColor: "rgba(255, 255, 0, 0.15)"}}>
                                     <div>
                                         <span>합계</span>
                                     </div>
                                     <div>
-                                        <span className="numeric-cell fw-bold text-info">{server.activeAllianceData.score.toLocaleString()}</span>
+                                        <span className="numeric-cell fw-bold text-primary">{server.activeAllianceData.score.toLocaleString()}</span>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-sm-4 d-none d-sm-block">
-                                <div ref={allianceChartRef}>
-                                    {allianceChartData !== null && <Pie data={allianceChartData} options={chartOptions}/>}
-                                </div>
+                            {server.allianceChartData !== null && <Pie data={server.allianceChartData} options={chartOptions}/>}
                         </div>
                     </div>
-                    <div className="fs-5 mt-4">활성 사용자(7일이내 접속) : {server.activePlayerCount}</div>
+                    <div className="fs-5 mt-4">활성 사용자 : {server.activePlayerCount}</div>
                     <div className="row align-items-stretch">
                         <div className="col-sm-8">
                             <ul className="list-group mt-2">
-                                {Object.keys(server.activePlayerMap).map((k,i)=>(
+                                {Object.keys(server.activePlayerMap)
+                                    //.filter(k=>server.activeAllianceData.tags.includes(k))
+                                    .map((k,i)=>(
                                 <li className="list-group-item d-flex justify-content-between align-items-center" key={i}>
                                     {server.activeAllianceData.tags.includes(k) ? (<>
                                     <div className="d-flex align-items-center">
                                             <span className={`badge ${k === server.allianceTag ? 'text-bg-danger' : 'text-bg-primary'}`}>{k}</span>
-                                            <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].length.toLocaleString()}명</span>
+                                            <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].players.length.toLocaleString()}명</span>
                                     </div>
                                     <div>
-                                        <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].reduce((acc,cur)=>acc+cur.score, 0).toLocaleString()}</span>
+                                        <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].cpTotal.toLocaleString()}</span>
                                     </div>
                                     </>) : (<>
                                     <div className="d-flex align-items-center">
                                             <span className="badge text-bg-secondary">{k === "null" ? "소속없음" : k}</span>
-                                            <span className="numeric-cell fw-bold text-muted ms-2">{server.activePlayerMap[k].length.toLocaleString()}명</span>
+                                            <span className="numeric-cell fw-bold text-muted ms-2">
+                                                <s>{server.activePlayerMap[k].players.length.toLocaleString()}명</s>
+                                            </span>
                                     </div>
                                     <div>
-                                        <span className="numeric-cell fw-bold text-muted">{server.activePlayerMap[k].reduce((acc,cur)=>acc+cur.score, 0).toLocaleString()}</span>
+                                        <span className="numeric-cell fw-bold text-muted">
+                                            <s>{server.activePlayerMap[k].cpTotal.toLocaleString()}</s>
+                                        </span>
                                     </div>
                                     </>)}
                                 </li>
                                 ))}
+                                <li className="list-group-item d-flex justify-content-between align-items-center" style={{backgroundColor: "rgba(255, 255, 0, 0.15)"}}>
+                                    <div>
+                                        <span>합계</span>
+                                    </div>
+                                    <div>
+                                        <span className="numeric-cell fw-bold text-primary">{server.activePlayerCpTotal.toLocaleString()}</span>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div className="col-sm-4 d-none d-sm-block">
-                            <div ref={playerChartRef}>
-                                {playerChartData !== null && <Pie data={playerChartData} options={chartOptions}/>}
-                            </div>
+                            {server.playerChartData !== null && <Pie data={server.playerChartData} options={chartOptions}/>}
                         </div>
                     </div>
                 </div>

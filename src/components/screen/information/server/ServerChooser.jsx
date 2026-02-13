@@ -6,7 +6,14 @@ import { FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function ServerChooser({onChangeServer, onSelectServer, useParameter=true, disabled=false}) {
+export default function ServerChooser({
+    onChangeServer, 
+    onSelectServer, 
+    useParameter=true, 
+    disabled=false,
+    onRemoveServer,
+    enableShare=true,
+}) {
     const {t} = useTranslation("viewer");
     
     const [params, setParams] = useSearchParams();
@@ -73,6 +80,9 @@ export default function ServerChooser({onChangeServer, onSelectServer, useParame
     const removeServer = useCallback(targetServer => {
         setSelectedServers(prev => prev.filter(server => server.serverNumber !== targetServer.serverNumber));
         setServerList(prev => [...prev, targetServer.serverNumber].sort());
+        if(onRemoveServer !== undefined && typeof onRemoveServer === "function") {
+            onRemoveServer(targetServer);
+        }
     }, []);
 
     const inputServer = useCallback(e => {
@@ -138,7 +148,7 @@ export default function ServerChooser({onChangeServer, onSelectServer, useParame
                             <FaXmark className="ms-2" />
                         </button>
                     ))}
-                    {selectedServers.length > 0 && (
+                    {enableShare && selectedServers.length > 0 && (
                         <button className="btn btn-primary mb-2" onClick={copyUrlToClipboard} disabled={disabled}>
                             <FaShareNodes className="me-2"/>
                             <span>{t(`TopwarCompareViewer.btn-share`)}</span>
