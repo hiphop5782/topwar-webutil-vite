@@ -45,3 +45,49 @@ body {
   --bs-btn-disabled-border-color: var(--btn-color);
   --bs-gradient: none;
 }
+
+/* 반짝이는 애니메이션 정의 */
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 클래스 적용 */
+.blink-effect {
+  animation: blink 1.5s step-start infinite;
+  /* 딱딱 끊기게 반짝임 */
+  /* 부드럽게 반짝이길 원하면 step-start 대신 linear 사용 */
+}
+
+/* 조금 더 화려한 느낌 (광택 효과) */
+@keyframes glow {
+  0% {
+    /* box-shadow: 0 0 0 0px #dc3545; */
+    opacity: 0;
+  }
+
+  50% {
+    /* box-shadow: 0 0 0 2px #dc3545; */
+    color: yellow;
+    opacity: 1;
+  }
+
+  100% {
+    /* box-shadow: 0 0 0 0px #dc3545; */
+    color: white;
+    opacity: 0;
+  }
+}
+
+.glow-effect {
+  animation: glow 1.5s infinite ease-in-out;
+}

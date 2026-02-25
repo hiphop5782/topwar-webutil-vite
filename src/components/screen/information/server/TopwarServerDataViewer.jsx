@@ -77,16 +77,14 @@ export default function TopwarServerDataViewer() {
                     <div className="fs-5 mt-4">활성 사용자(7일이내 접속) : {server.activePlayerCount}</div>
                     <ul className="list-group mt-2">
                         {Object.keys(server.activePlayerMap).map((k,i)=>(
-                        <li className="list-group-item">
-                            <li className="list-group-item d-flex justify-content-between align-items-center" key={i}>
-                                <div className="d-flex align-items-center">
-                                    {k === "null" ? <span className="badge text-bg-secondary">소속없음</span> : <span className="badge text-bg-primary">{k}</span>}
-                                    <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].length.toLocaleString()}명</span>
-                                </div>
-                                <div>
-                                    <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].reduce((acc,cur)=>acc+cur.score, 0).toLocaleString()}</span>
-                                </div>
-                            </li>
+                        <li className="list-group-item d-flex justify-content-between align-items-center" key={i}>
+                            <div className="d-flex align-items-center">
+                                {k === "null" ? <span className="badge text-bg-secondary">소속없음</span> : <span className="badge text-bg-primary">{k}</span>}
+                                <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].length.toLocaleString()}명</span>
+                            </div>
+                            <div>
+                                <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].reduce((acc,cur)=>acc+cur.score, 0).toLocaleString()}</span>
+                            </div>
                         </li>
                         ))}
                     </ul>

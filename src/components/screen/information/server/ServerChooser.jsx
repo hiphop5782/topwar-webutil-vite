@@ -1,9 +1,8 @@
-import ServerDataJson from "@src/assets/json/power/serverData.json"
-
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
+import PacmanLoader from "react-spinners/PacmanLoader";
 import { toast } from "react-toastify";
 
 export default function ServerChooser({
@@ -14,27 +13,39 @@ export default function ServerChooser({
     onRemoveServer,
     enableShare=true,
 }) {
+    const [serverData, setServerData] = useState([]);
+    const [dataLoading, setDataLoading] = useState(true);
+    const loadData = useCallback(async ()=>{
+        const data = await import("@src/assets/json/power/serverData.json");
+        setServerData(data.default);
+        setDataLoading(false);
+    }, []);
+    useEffect(()=>{ loadData(); }, []);
+
     const {t} = useTranslation("viewer");
     
     const [params, setParams] = useSearchParams();
-    const [serverList, setServerList] = useState(()=>{
-        return ServerDataJson.map(server=>server.serverNumber);
-    });
+    const [serverList, setServerList] = useState([]);
+    useEffect(()=>{
+        if(serverData.length === 0) return;
+        setServerList(serverData.map(server=>server.serverNumber));
+    }, [serverData]);
 
     const [selectedServers, setSelectedServers] = useState([]);
 
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         if(useParameter !== true) return;
-        if (params !== null && selectedServers.length === 0) {
-            const value = params.get("server");
-            if(value !== null) {
-                const decoded = decodeURIComponent(value);
-                decoded.split(",").forEach(addServerByParameter);
-            }
-        }
+        if(params.size === 0) return;
+        if(serverData.length === 0) return;
+
+        const value = params.get("server");
+        if(value === null)  return;
+        const decoded = decodeURIComponent(value);
+        decoded.split(",").forEach(addServerByParameter);
+
         setLoading(true);
-    }, []);
+    }, [useParameter, serverData]);
     useEffect(() => {
         if(useParameter !== true) return;
         if (loading == false) return;
@@ -44,7 +55,7 @@ export default function ServerChooser({
         else {
             setParams({ server: selectedServers.map(server => server.serverNumber).join(",") });
         }
-    }, [selectedServers, loading]);
+    }, [useParameter, selectedServers, loading]);
     useEffect(()=>{
         if(onChangeServer !== undefined && typeof onChangeServer === "function") {
             onChangeServer(selectedServers);
@@ -53,14 +64,13 @@ export default function ServerChooser({
 
     const [serverInput, setServerInput] = useState("");
 
-    const addServerByParameter = useCallback(async (target) => {
+    const addServerByParameter = useCallback((target) => {
         if(!target) return;
-
-        const datalist = ServerDataJson.filter(server=>server.serverNumber === parseInt(target));
+        const datalist = serverData.filter(server=>server.serverNumber === parseInt(target));
         setSelectedServers(prev => [...prev, datalist[0]]);
         setServerList(prev => prev.filter(server => server !== target));
-    }, []);
-    const addServer = useCallback(async () => {
+    }, [serverData]);
+    const addServer = useCallback(() => {
         const selectedServer = parseInt(serverInput);
         if (serverList.includes(selectedServer) === false) {
             window.alert(t(`TopwarCompareViewer.label-noserver`));
@@ -71,11 +81,11 @@ export default function ServerChooser({
             onSelectServer(selectedServer);
         }
 
-        const datalist = ServerDataJson.filter(server=>server.serverNumber === selectedServer);
+        const datalist = serverData.filter(server=>server.serverNumber === selectedServer);
         setSelectedServers(prev => [...prev, datalist[0]]);
         setServerList(prev => prev.filter(server => server !== selectedServer));
         setServerInput("");
-    }, [serverInput]);
+    }, [serverInput, serverList]);
 
     const removeServer = useCallback(targetServer => {
         setSelectedServers(prev => prev.filter(server => server.serverNumber !== targetServer.serverNumber));
@@ -121,6 +131,10 @@ export default function ServerChooser({
             }
         }
     }, [selectedServers]);
+
+    if(dataLoading === true) {
+        return <PacmanLoader color="#0984e3"/>
+    }
 
     return (<>
         <div className="row">

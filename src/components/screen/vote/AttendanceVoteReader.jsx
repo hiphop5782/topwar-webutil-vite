@@ -261,13 +261,7 @@ export default function AttendanceVoteReader() {
                                             {translateLoading ? (
                                                 <span className="shimmer-text">{t("AttendanceVoteReader.message-translate")}<span className="dots"></span></span>
                                             ) : (
-                                                <span>
-                                                    {choice.content}
-                                                    {isMyChoice && (<>
-                                                        <FaVoteYea className="ms-2" title={t("AttendanceVoteReader.message-mychoice")}/>
-                                                        <span className="text-danger">{t("AttendanceVoteReader.message-mychoice")}</span>
-                                                    </>)}
-                                                </span>
+                                                <span>{choice.content}</span>
                                             )}
                                         </label>
 
@@ -283,6 +277,13 @@ export default function AttendanceVoteReader() {
                                                 <span className="ms-4 text-danger fw-bold">{choice.currentCount} {t("AttendanceVoteReader.message-countview")}</span>
                                             )}
                                         </>)}
+
+                                        {isMyChoice && (
+                                        <span className="badge bg-danger text-light ms-4 glow-effect">
+                                            <FaVoteYea className="me-2" />
+                                            <span>{t("AttendanceVoteReader.message-mychoice")}</span> 
+                                        </span>
+                                        )}
                                     </div>
                                     <div className="position-absolute" style={
                                         {

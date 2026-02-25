@@ -1,20 +1,29 @@
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
-import PlayerListJson from "@src/assets/json/power/playerData.json";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import "flag-icons/sass/flag-icons.scss";
 import "./TopwarData.css";
 import { FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import PacmanLoader from "react-spinners/PacmanLoader"
 
 export default function TopwarPlayerDataViewer() {
+    const [playerList, setPlayerList] = useState([]);
+    const [dataLoading, setDataLoading] = useState(true);
+    const loadData = useCallback(async ()=>{
+        const data = await import("@src/assets/json/power/playerData.json");
+        setPlayerList(data.default);
+        setDataLoading(false);
+    }, []);
+    useEffect(()=>{ loadData(); }, []);
+
     const [searchTerm, setSearchTerm] = useState("");
     const { t } = useTranslation("viewer");
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)
     const sortedPlayers = useMemo(() => {
-        return [...PlayerListJson].sort((p1, p2) => p2.cp - p1.cp).map((player, index)=>({...player, rank:index+1}));
-    }, []);
+        return [...playerList].sort((p1, p2) => p2.cp - p1.cp).map((player, index)=>({...player, rank:index+1}));
+    }, [playerList]);
 
     // 2. 검색 필터링 로직 추가
     const filteredPlayers = useMemo(() => {
@@ -131,7 +140,12 @@ export default function TopwarPlayerDataViewer() {
                         )}
                     />
                     )}
-                    {filteredPlayers.length === 0 && (
+                    {dataLoading === true && filteredPlayers.length === 0 && (
+                        <div className="text-center py-5 text-muted fs-2">
+                            <PacmanLoader color="#0984e3"/>
+                        </div>
+                    )}
+                    {dataLoading === false && filteredPlayers.length === 0 && (
                         <div className="text-center py-5 text-muted fs-2">{t(`TopwarPlayerDataViewer.no-result`)}</div>
                     )}
                 </div>

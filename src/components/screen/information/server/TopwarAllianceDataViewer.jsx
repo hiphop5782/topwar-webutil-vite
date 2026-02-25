@@ -1,17 +1,26 @@
-import AllianceListData from "@src/assets/json/power/allianceData.json";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import "./TopwarData.css";
 import { useTranslation } from "react-i18next";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function TopwarAllianceDataViewer() {
+    const [allianceList, setAllianceList] = useState([]);
+    const [dataLoading, setDataLoading] = useState(true);
+    const loadData = useCallback(async ()=>{
+        const data = await import("@src/assets/json/power/allianceData.json");
+        setAllianceList(data.default);
+        setDataLoading(false);
+    }, []);
+    useEffect(()=>{ loadData(); }, []);
+
     const [searchTerm, setSearchTerm] = useState("");
     const { t } = useTranslation("viewer");
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)
     const sortedAlliances = useMemo(() => {
-        return [...AllianceListData].sort((p1, p2) => p2.score - p1.score).map((alliance, index)=>({...alliance, rank:index+1}));
-    }, []);
+        return [...allianceList].sort((p1, p2) => p2.score - p1.score).map((alliance, index)=>({...alliance, rank:index+1}));
+    }, [allianceList]);
 
     // 2. 검색 필터링 로직 추가
     const filteredAlliance = useMemo(() => {
@@ -89,7 +98,12 @@ export default function TopwarAllianceDataViewer() {
                             </div>
                         )}
                     />
-                    {filteredAlliance.length === 0 && (
+                    {dataLoading === true && filteredAlliance.length === 0 && (
+                        <div className="text-center py-5 text-muted fs-2">
+                            <PacmanLoader color="#0984e3"/>
+                        </div>
+                    )}
+                    {dataLoading === false && filteredAlliance.length === 0 && (
                         <div className="text-center py-5 text-muted">{t(`TopwarAllianceDataViewer.no-result`)}</div>
                     )}
                 </div>
