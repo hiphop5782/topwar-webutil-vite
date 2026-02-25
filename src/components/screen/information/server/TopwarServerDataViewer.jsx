@@ -1,6 +1,18 @@
 import { useTranslation } from "react-i18next";
 import ServerChooser from "./ServerChooser";
 import { useMemo, useState } from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, plugins } from 'chart.js';
+import { Bar, Pie } from 'react-chartjs-2';
+
+// Chart.js 요소 등록 (ArcElement 필수!)
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const chartBackgroundColors = [
+    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b',
+    '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#aec7e8', '#ffbb78',
+    '#98df8a', '#ff9896', '#c5b0d5', '#c49c94', '#f7b6d2', '#c7c7c7',
+    '#dbdb8d', '#9edae5'
+];
 
 export default function TopwarServerDataViewer() {
     const [selectedServers, setSelectedServers] = useState([]);
@@ -15,22 +27,56 @@ export default function TopwarServerDataViewer() {
             //활성 동맹 분석
             let allianceCountFlag = false;
             const activeAllianceData = server.allianceList.reduce((acc, cur, idx, arr)=>{
-                if(idx === 0) return {count:1, score:cur.score};
+                if(idx === 0) return {count:1, score:cur.score, tags:[cur.tag]};
                 if(!allianceCountFlag && cur.score > arr[idx-1].score * 0.8) 
-                    return {count:acc.count+1, score:acc.score + cur.score};
+                    return {count:acc.count+1, score:acc.score + cur.score, tags:[...acc.tags, cur.tag]};
                 allianceCountFlag = true;
                 return acc;
             }, {});
 
-            //동맹별 12시간이내 접속자 수 파악
+            //동맹별 7일이내 접속자 수 파악
             const now = parseInt(Date.now() / 1000);
             const playerMap = {};
             const activePlayers = server.playerList.filter(player=>now-player.lastLogin < 7*24*60*60);
             const activePlayerData = activePlayers.reduce((acc, cur)=>({count:acc.count+1, score:acc.score + cur.score}), {count:0, score:0});
             activePlayers.forEach(player=>{
-                playerMap[player.allianceTag] = playerMap[player.allianceTag ?? "소속없음"] ?? [];
-                playerMap[player.allianceTag].push(player);
+                playerMap[player.allianceTag] = playerMap[player.allianceTag ?? "소속없음"] ?? {cpTotal : 0, players : []};
+                playerMap[player.allianceTag].cpTotal += player.cp;
+                playerMap[player.allianceTag].players.push(player);
             });
+            const activePlayerCpTotal = activePlayers.reduce((acc, player)=>activeAllianceData.tags.includes(player.allianceTag) ? acc + player.cp : acc, 0);
+
+            //차트데이터 생성
+            const allianceChartObj = {
+                labels:[],
+                datasets:[
+                    {
+                        data:[],
+                        backgroundColor:chartBackgroundColors
+                    }
+                ]
+            };
+            const playerChartObj = {
+                labels:[],
+                datasets:[
+                    {
+                        data:[],
+                        backgroundColor:chartBackgroundColors
+                    }
+                ]
+            };
+            server.allianceList.filter((alliance, index)=>index < activeAllianceData.count).forEach((alliance)=>{
+                allianceChartObj.labels.push(alliance.tag);
+                allianceChartObj.datasets[0].data.push(alliance.score);
+            });
+            Object.keys(playerMap).forEach((k, i)=>{
+                if(activeAllianceData.tags.includes(k)) {
+                    playerChartObj.labels.push(k);
+                    console.log(playerMap);
+                    playerChartObj.datasets[0].data.push(playerMap[k].players.reduce((a, c)=>a + c.cp, 0));
+                }
+            });
+            console.log(allianceChartObj); 
             
             return {
                 ...server,
@@ -38,59 +84,121 @@ export default function TopwarServerDataViewer() {
                 activePlayerData : activePlayerData,
                 activePlayerMap : playerMap,
                 activePlayerCount : activePlayers.length,
+                allianceChartData : allianceChartObj,
+                playerChartData : playerChartObj,
+                activePlayerCpTotal : activePlayerCpTotal
             };
         });
 
         return newData;
     }, [selectedServers]);
 
+    //차트
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+            animationScale: true,
+            animationRotate: true,
+        },
+        plugins: {
+            legend: {
+                display: false,
+                position: "left",
+            }
+        }
+    };
+
     return (<>
         <ServerChooser onChangeServer={servers=>setSelectedServers(servers)}/>
         <hr/>
         <div className="row my-4">
         {calculateData.map(server=>(
-            <div className="col-sm-6" key={server.serverNumber}>
-                <div className="shadow rounded p-4">
-                    <h3>{server.serverNumber} 서버</h3>
-                    <div className="fs-5 mt-4">활성 동맹 : {server.activeAllianceData.count}</div>
-                    <ul className="list-group mt-2">
-                        {server.allianceList.filter((a, i)=>i < server.activeAllianceData.count).map((alliance, idx)=>(
-                        <li className="list-group-item d-flex justify-content-between align-items-center" key={idx}>
-                            <div>
-                                <span className="badge text-bg-primary me-2">{alliance.tag}</span>
-                                <span>{alliance.name}</span>
+                    <div className="col-12" key={server.serverNumber}>
+                        <div className="shadow rounded p-4">
+                            <h3>{server.serverNumber} 서버</h3>
+                            <div className="fs-5 mt-4 d-flex align-items-center">
+                                <span>지도자 : </span>
+                                <span className="badge text-bg-danger ms-2">{server.allianceTag}</span>
+                                <span className="fw-bold ms-2">{server.kingName}</span>
                             </div>
-                            <div>
-                                <span className="numeric-cell fw-bold text-primary">{alliance.score.toLocaleString()}</span>
+                            <div className="fs-5 mt-4">활성 동맹 : {server.activeAllianceData.count}</div>
+                            <div className="row align-items-stretch">
+                                <div className="col-sm-8">
+                                    <ul className="list-group mt-2">
+                                        {server.allianceList.filter((a, i)=>i < server.activeAllianceData.count).map((alliance, idx)=>(
+                                        <li className="list-group-item d-flex justify-content-between align-items-center" key={idx}>
+                                            <div>
+                                                <span className={`badge ${alliance.tag === server.allianceTag ? 'text-bg-danger' : 'text-bg-primary'} me-2`}>{alliance.tag}</span>
+                                                <span>{alliance.name}</span>
+                                            </div>
+                                            <div>
+                                                <span className="numeric-cell fw-bold text-primary">{alliance.score.toLocaleString()}</span>
+                                            </div>
+                                        </li>
+                                        ))}
+                                        <li className="list-group-item d-flex justify-content-between align-items-center" style={{backgroundColor: "rgba(255, 255, 0, 0.15)"}}>
+                                            <div>
+                                                <span>합계</span>
+                                            </div>
+                                            <div>
+                                                <span className="numeric-cell fw-bold text-primary">{server.activeAllianceData.score.toLocaleString()}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="col-sm-4 d-none d-sm-block">
+                                    {server.allianceChartData !== null && <Pie data={server.allianceChartData} options={chartOptions}/>}
+                                </div>
                             </div>
-                        </li>
-                        ))}
-                        <li className="list-group-item d-flex justify-content-between align-items-center bg-dark text-light">
-                            <div>
-                                <span>합계</span>
+                            <div className="fs-5 mt-4">활성 사용자 : {server.activePlayerCount}</div>
+                            <div className="row align-items-stretch">
+                                <div className="col-sm-8">
+                                    <ul className="list-group mt-2">
+                                        {Object.keys(server.activePlayerMap)
+                                            //.filter(k=>server.activeAllianceData.tags.includes(k))
+                                            .map((k,i)=>(
+                                        <li className="list-group-item d-flex justify-content-between align-items-center" key={i}>
+                                            {server.activeAllianceData.tags.includes(k) ? (<>
+                                            <div className="d-flex align-items-center">
+                                                    <span className={`badge ${k === server.allianceTag ? 'text-bg-danger' : 'text-bg-primary'}`}>{k}</span>
+                                                    <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].players.length.toLocaleString()}명</span>
+                                            </div>
+                                            <div>
+                                                <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].cpTotal.toLocaleString()}</span>
+                                            </div>
+                                            </>) : (<>
+                                            <div className="d-flex align-items-center">
+                                                    <span className="badge text-bg-secondary">{k === "null" ? "소속없음" : k}</span>
+                                                    <span className="numeric-cell fw-bold text-muted ms-2">
+                                                        <s>{server.activePlayerMap[k].players.length.toLocaleString()}명</s>
+                                                    </span>
+                                            </div>
+                                            <div>
+                                                <span className="numeric-cell fw-bold text-muted">
+                                                    <s>{server.activePlayerMap[k].cpTotal.toLocaleString()}</s>
+                                                </span>
+                                            </div>
+                                            </>)}
+                                        </li>
+                                        ))}
+                                        <li className="list-group-item d-flex justify-content-between align-items-center" style={{backgroundColor: "rgba(255, 255, 0, 0.15)"}}>
+                                            <div>
+                                                <span>합계</span>
+                                            </div>
+                                            <div>
+                                                <span className="numeric-cell fw-bold text-primary">{server.activePlayerCpTotal.toLocaleString()}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="col-sm-4 d-none d-sm-block">
+                                    {server.playerChartData !== null && <Pie data={server.playerChartData} options={chartOptions}/>}
+                                </div>
                             </div>
-                            <div>
-                                <span className="numeric-cell fw-bold text-info">{server.activeAllianceData.score.toLocaleString()}</span>
-                            </div>
-                        </li>
-                    </ul>
-                    <div className="fs-5 mt-4">활성 사용자(7일이내 접속) : {server.activePlayerCount}</div>
-                    <ul className="list-group mt-2">
-                        {Object.keys(server.activePlayerMap).map((k,i)=>(
-                        <li className="list-group-item d-flex justify-content-between align-items-center" key={i}>
-                            <div className="d-flex align-items-center">
-                                {k === "null" ? <span className="badge text-bg-secondary">소속없음</span> : <span className="badge text-bg-primary">{k}</span>}
-                                <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].length.toLocaleString()}명</span>
-                            </div>
-                            <div>
-                                <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].reduce((acc,cur)=>acc+cur.score, 0).toLocaleString()}</span>
-                            </div>
-                        </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        ))}
+                        </div>
+                    </div>
+                ))}
         </div>
     </>);
 }
