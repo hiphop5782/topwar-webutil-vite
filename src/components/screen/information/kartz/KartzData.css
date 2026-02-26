@@ -1,0 +1,30 @@
+.table-rank > tbody > tr:nth-child(1) > td {
+    font-weight: bold;
+    background-color: #FFD700CC !important;
+}
+.table-rank > tbody > tr:nth-child(2) > td {
+    font-weight: bold;
+    background-color: #C0C0C0CC !important;
+}
+.table-rank > tbody > tr:nth-child(3) > td {
+    font-weight: bold;
+    background-color: #CD7F32CC !important;
+}
+.table-rank > tbody > tr:nth-child(4) > td,
+.table-rank > tbody > tr:nth-child(5) > td,
+.table-rank > tbody > tr:nth-child(6) > td,
+.table-rank > tbody > tr:nth-child(7) > td,
+.table-rank > tbody > tr:nth-child(8) > td,
+.table-rank > tbody > tr:nth-child(9) > td,
+.table-rank > tbody > tr:nth-child(10) > td {
+    font-weight: bold;
+}
+
+/* 숫자 폭을 동일하게 맞추는 클래스 */
+.numeric-cell {
+  /* 숫자를 고정폭(Tabular)으로 설정 */
+  font-variant-numeric: tabular-nums;
+  
+  /* 가독성을 위한 폰트 설정 (숫자가 예쁜 폰트 권장) */
+  font-family: 'Pretendard', 'Inter', -apple-system, sans-serif;
+}
