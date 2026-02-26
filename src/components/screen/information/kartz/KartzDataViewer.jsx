@@ -3,7 +3,8 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 
-export default function TopwarDataViewer() {
+export default function KartzDataViewer() {
+
     const location = useLocation();
     const {t}= useTranslation("viewer");
     
@@ -19,21 +20,21 @@ export default function TopwarDataViewer() {
     return (<>
         <div className="row mb-4">
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data`} className={getBtnClass("/information/data")}>{t(`TopwarDataViewer.btn-player-data`)}</LanguageRouterLink>
+                <LanguageRouterLink to={`/information/kartz/`} className={getBtnClass("/")}>몬스터 정보</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/server`} className={getBtnClass("/information/data/server")}>{t(`TopwarDataViewer.btn-server-data`)}</LanguageRouterLink>
+                <LanguageRouterLink to={`/information/kartz/rank`} className={getBtnClass("/information/kartz/rank")}>회차별 순위</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/alliance`} className={getBtnClass("/information/data/alliance")}>{t(`TopwarDataViewer.btn-alliance-data`)}</LanguageRouterLink>
+                <LanguageRouterLink to={`/information/kartz/server`} className={getBtnClass("/information/kartz/server")}>서버 히스토리</LanguageRouterLink>
             </div>
-            {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/compare`} className={getBtnClass("/information/data/compare")}>{t(`TopwarDataViewer.btn-server-compare`)}</LanguageRouterLink>
-            </div> */}
+            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <LanguageRouterLink to={`/information/kartz/user`} className={getBtnClass("/information/kartz/user")}>유저 히스토리</LanguageRouterLink>
+            </div>
         </div>
 
         <hr/>
 
         <Outlet/>
-    </>);
+    </>)
 }

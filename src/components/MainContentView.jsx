@@ -8,7 +8,7 @@ import BaseInformation from '@src/components/screen/information/BaseInformation'
 import FormationPerk from '@src/components/screen/simulator/FormationPerk';
 import JobInformation from '@src/components/screen/information/JobInformation';
 import KartzRankInformation from '@src/components/screen/information/KartzRankInformation';
-import KartzSpecInformation from '@src/components/screen/information/KartzSpecInformation';
+import KartzSpecInformation from '@src/components/screen/information/kartz/KartzSpecInformation';
 import TitanRefineSimulator from '@src/components/screen/simulator/TitanRefineSimulator';
 import TitanResearchSimulator from '@src/components/screen/simulator/TitanResearchSimulator';
 import SkillCalculator from '@src/components/screen/calculator/SkillCalculator';
@@ -42,6 +42,11 @@ import TopwarAllianceDataViewer from "@src/components/screen/information/server/
 import TopwarCompareViewer from "@src/components/screen/information/server/TopwarCompareViewer";
 import TopwarServerRealtimeDataViewer from "@src/components/screen/information/server/TopwarServerRealtimeDataViewer";
 
+import KartzDataViewer from "@src/components/screen/information/kartz/KartzDataViewer";
+import KartzRankViewer from "@src/components/screen/information/kartz/KartzRankViewer";
+import KartzServerHistoryViewer from "@src/components/screen/information/kartz/KartzServerHistoryViewer";
+import KartzUserHistoryViewer from "@src/components/screen/information/kartz/KartzUserHistoryViewer";
+
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
 
@@ -70,9 +75,10 @@ export default function MainContentView() {
                     {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
                     {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
                     <Route path="information/job" element={<JobInformation />}></Route>
-                    <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route>
-                    <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route>
-                    <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
+                    {/* <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route> */}
+                    {/* <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route> */}
+                    {/* <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route> */}
+                    
                     <Route path="information/el" element={<EternalLand/>}>
                         <Route index element={<EternalLandScore/>}/>
                         <Route path="howto" element={<EternalLandHowto/>}/>
@@ -85,8 +91,14 @@ export default function MainContentView() {
                         <Route index element={<TopwarPlayerDataViewer/>}></Route>
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
-                        <Route path="compare" element={<TopwarCompareViewer/>}></Route>
+                        {/* <Route path="compare" element={<TopwarCompareViewer/>}></Route> */}
                         <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route>
+                    </Route>
+                    <Route path="information/kartz" element={<KartzDataViewer/>}>
+                        <Route index element={<KartzSpecInformation/>}></Route>
+                        <Route path="rank" element={<KartzRankViewer/>}></Route>
+                        <Route path="user" element={<KartzUserHistoryViewer/>}></Route>
+                        <Route path="server" element={<KartzServerHistoryViewer/>}></Route>
                     </Route>
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>

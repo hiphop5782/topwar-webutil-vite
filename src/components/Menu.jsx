@@ -67,9 +67,10 @@ function Menu() {
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/data`}>{t(`menu:info.sub.data`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz-spec`}>{t(`menu:info.sub.kartz-information`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz-rank`}>{t(`menu:info.sub.kartz-rank`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz-statistics`}>{t(`menu:info.sub.kartz-statistics`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz`}>{t(`menu:info.sub.kartz`)}</LanguageRouterLink>
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz-spec`}>{t(`menu:info.sub.kartz-information`)}</LanguageRouterLink> */}
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz-rank`}>{t(`menu:info.sub.kartz-rank`)}</LanguageRouterLink> */}
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz-statistics`}>{t(`menu:info.sub.kartz-statistics`)}</LanguageRouterLink> */}
                             </div>
                         </li>
                         <li className="nav-item dropdown">
