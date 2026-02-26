@@ -46,8 +46,8 @@ export default function KartzRankViewer(){
     }, [rankData]);
 
     return (<>
-        <label className="d-flex align-items-center">
-            <span>회차</span>
+        <label className="d-flex">
+            <span className="d-flex align-items-center">회차</span>
             <select className="form-select w-auto ms-4" onChange={e=>setSelectedData(e.target.value)}>
                 {fileNames.map((file, index)=>(
                 <option key={index} value={file.path}>{file.fileName}</option>
@@ -71,16 +71,20 @@ export default function KartzRankViewer(){
                                 <th>순위</th>
                                 <th>서버</th>
                                 <th>유저명</th>
-                                <th>라운드</th>
+                                <th className="text-end">라운드</th>
                             </tr>
                         </thead>
                         <tbody>
                             {userRankData.map((player, index)=>(
                             <tr key={index}>
-                                <td>{player.rank}</td>
+                                <td>
+                                    <span className="badge text-bg-secondary">
+                                        {player.rank}
+                                    </span>
+                                </td>
                                 <td>{player.server}</td>
                                 <td>{player.nickname}</td>
-                                <td>{player.round}</td>
+                                <td className="text-end">{player.round}</td>
                             </tr>
                             ))}
                         </tbody>
@@ -89,26 +93,28 @@ export default function KartzRankViewer(){
             </div>
             <div className="col-md-6">
                 <h3>동맹 순위</h3>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>순위</th>
-                            <th>서버</th>
-                            <th>동맹명</th>
-                            <th>점수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {allianceRankData.map((alliance, index)=>(
-                        <tr key={index}>
-                            <td>{alliance.rank}</td>
-                            <td>{alliance.server}</td>
-                            <td>{alliance.name}</td>
-                            <td>{alliance.score}</td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className="text-nowrap table-responsive">
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>서버</th>
+                                <th>동맹명</th>
+                                <th className="text-end">점수</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {allianceRankData.map((alliance, index)=>(
+                            <tr key={index}>
+                                <td>{alliance.rank}</td>
+                                <td>{alliance.server}</td>
+                                <td>{alliance.name}</td>
+                                <td className="text-end">{alliance.score.toLocaleString()}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         )}
