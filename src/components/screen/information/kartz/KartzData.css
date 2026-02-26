@@ -1,22 +1,22 @@
-.table-rank > tbody > tr:nth-child(1) > td {
+.table-rank > tbody > tr.rank-1 > td {
     font-weight: bold;
     background-color: #FFD700CC !important;
 }
-.table-rank > tbody > tr:nth-child(2) > td {
+.table-rank > tbody > tr.rank-2 > td {
     font-weight: bold;
     background-color: #C0C0C0CC !important;
 }
-.table-rank > tbody > tr:nth-child(3) > td {
+.table-rank > tbody > tr.rank-3 > td {
     font-weight: bold;
     background-color: #CD7F32CC !important;
 }
-.table-rank > tbody > tr:nth-child(4) > td,
-.table-rank > tbody > tr:nth-child(5) > td,
-.table-rank > tbody > tr:nth-child(6) > td,
-.table-rank > tbody > tr:nth-child(7) > td,
-.table-rank > tbody > tr:nth-child(8) > td,
-.table-rank > tbody > tr:nth-child(9) > td,
-.table-rank > tbody > tr:nth-child(10) > td {
+.table-rank > tbody > tr.rank-4 > td,
+.table-rank > tbody > tr.rank-5 > td,
+.table-rank > tbody > tr.rank-6 > td,
+.table-rank > tbody > tr.rank-7 > td,
+.table-rank > tbody > tr.rank-8 > td,
+.table-rank > tbody > tr.rank-9 > td,
+.table-rank > tbody > tr.rank-10 > td {
     font-weight: bold;
 }
 

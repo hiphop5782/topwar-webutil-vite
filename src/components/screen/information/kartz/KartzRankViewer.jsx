@@ -12,13 +12,17 @@ export default function KartzRankViewer(){
         return Object.keys(jsonModules).map(path=>{
             const fileName = path.split('/').pop().replace(".json", "");
             return {path, fileName};
-        });
+        }).sort((a,b)=>b.fileName.localeCompare(a.fileName));
     }, []);
     const [selectedData, setSelectedData] = useState(()=>{
         return fileNames?.length > 0 ? fileNames[0].path : null
     });
 
     const [loading, setLoading] = useState(false);
+    useEffect(()=>{
+        if(selectedData === null) return;
+        handleFileSelect();
+    }, [selectedData]);
     const handleFileSelect = useCallback(async ()=>{
         setLoading(true);
         try {
@@ -36,11 +40,11 @@ export default function KartzRankViewer(){
     const [rankData, setRankData] = useState(null);    
     const userRankData = useMemo(()=>{
         if(rankData === null) return [];
-        return rankData.playerRankList;
+        return rankData.playerRankList ?? [];
     }, [rankData]);
     const allianceRankData = useMemo(()=>{
         if(rankData === null) return [];
-        return rankData.allianceRankList;
+        return rankData.allianceRankList ?? [];
     }, [rankData]);
 
     const dataExist = useMemo(()=>{
@@ -73,11 +77,6 @@ export default function KartzRankViewer(){
                 <option key={index} value={file.path}>{file.fileName}</option>
                 ))}
             </select>
-            <button className="btn btn-primary ms-2 d-flex align-items-center"
-                    onClick={handleFileSelect}>
-                <FaMagnifyingGlass/>
-                <span className="d-none d-md-inline-block ms-1">검색</span>
-            </button>
         </label>
 
         {dataExist && (
@@ -106,10 +105,10 @@ export default function KartzRankViewer(){
                         </thead>
                         <tbody>
                             {filteredUserRankData.map((player, index)=>(
-                            <tr key={index}>
+                            <tr key={index} className={`rank-${player.rank}`}>
                                 <td>{player.rank}</td>
                                 <td className="numeric-cell">{player.server}</td>
-                                <td>{player.nickname}</td>
+                                <td>{player.nickname ?? "Unknown"}</td>
                                 <td className=" numeric-cell text-end">{player.round}</td>
                             </tr>
                             ))}
@@ -117,6 +116,7 @@ export default function KartzRankViewer(){
                     </table>
                 </div>
             </div>
+            {allianceRankData.length > 0 && (
             <div className="col-md-6">
                 <h3>동맹 순위 (총 {filteredAllianceRankData.length}개)</h3>
                 <div className="text-nowrap table-responsive">
@@ -131,7 +131,7 @@ export default function KartzRankViewer(){
                         </thead>
                         <tbody>
                             {filteredAllianceRankData.map((alliance, index)=>(
-                            <tr key={index}>
+                            <tr key={index} className={`rank-${alliance.rank}`}>
                                 <td>{alliance.rank}</td>
                                 <td className="numeric-cell">{alliance.server}</td>
                                 <td className="text-truncate">[{alliance.tag}] {alliance.name}</td>
@@ -142,6 +142,7 @@ export default function KartzRankViewer(){
                     </table>
                 </div>
             </div>
+            )}
         </div>
         )}
     </>)
