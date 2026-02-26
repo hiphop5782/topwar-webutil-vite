@@ -3,6 +3,7 @@ import baseListJson from "@src/assets/json/base.json";
 import "./BaseInformation.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import SafeImage from "@src/components/template/SafeImage";
 
 function BaseInformation() {
     const [baseTypes, setBaseTypes] = useState(baseTypeJson);
@@ -127,7 +128,8 @@ function BaseInformation() {
                                     <span className="text-danger fw-bold ms-2">(구매 불가)</span>
                                 </>)}
                             </h5>
-                            <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/base/${b.no}.png`} height={200}/>
+                            {/* <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/base/${b.no}.png`} height={200}/> */}
+                            <SafeImage src={`${import.meta.env.VITE_PUBLIC_URL}/images/base/${b.no}.png`} height={200}></SafeImage>
                             <div className="card-body">
                                 <div className="card-text">
                                     <span className="badge bg-secondary">사용 시 효과</span>
