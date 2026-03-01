@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import ServerChooser from "./ServerChooser";
+import ServerChooser from "@src/components/template/ServerChooser";
 import { useMemo, useState, useCallback } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, plugins } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';

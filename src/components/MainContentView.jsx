@@ -77,7 +77,7 @@ export default function MainContentView() {
                     <Route path="information/job" element={<JobInformation />}></Route>
                     {/* <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route> */}
                     {/* <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route> */}
-                    {/* <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route> */}
+                    <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
                     
                     <Route path="information/el" element={<EternalLand/>}>
                         <Route index element={<EternalLandScore/>}/>
