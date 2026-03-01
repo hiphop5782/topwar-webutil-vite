@@ -17,6 +17,8 @@ const serverLabelPlugin = {
 
         data.datasets.forEach((dataset, i) => {
             if (dataset.hidden) return;
+            // 강조되지 않은(order가 100인) 데이터셋은 라벨 그리기를 건너뜀
+            if (dataset.order !== 0) return;
 
             const meta = chart.getDatasetMeta(i);
             const midIndex = Math.floor(meta.data.length / 2);
@@ -165,19 +167,22 @@ export default function KartzServerHistoryViewer() {
                 }
             });
             Object.keys(temp).forEach(server=>{
-                dummyDatasets[server] = dummyDatasets[server] ?? [];
+                dummyDatasets[server] = dummyDatasets[server] ?? Array.from({length:chartLabels.length}, ()=>0);
                 dummyDatasets[server][index] = temp[server];
             });
         });
-        //console.log(dummyDatasets);//empty는 향후 0으로 교체
 
         //3.차트데이터로 변환
         const chartDatasets = Object.keys(dummyDatasets).map((key, index)=>{
+            const isSelected = serverList.includes(parseInt(key));
             return {
                 label : "s"+key , //서버명
-                data : dummyDatasets[key].map(v=>v ?? 0),
+                data : dummyDatasets[key].map(v=>v || 0),
                 tension : 0.4,
-                borderColor : serverList.includes(parseInt(key)) ? chartBackgroundColors[index % chartBackgroundColors.length] : "rgba(0, 0, 0, 0.05)"
+                fill : isSelected,
+                order: isSelected ? 0 : 100,
+                borderColor : isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
+                pointRadius : isSelected ? 2 : 0,
             }
         });
 
