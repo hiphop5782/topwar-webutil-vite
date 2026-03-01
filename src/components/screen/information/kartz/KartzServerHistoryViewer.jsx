@@ -67,12 +67,12 @@ export default function KartzServerHistoryViewer() {
         setSelectedServers(servers);
     }, []);
 
-    const fileNames = useMemo(()=>{
+    const [fileNames, setFileNames] = useState(()=>{
         return Object.keys(jsonModules).map(path=>{
             const fileName = path.split('/').pop().replace(".json", "");
             return {path, fileName, checked:false};
         }).sort((a,b)=>b.fileName.localeCompare(a.fileName));
-    }, []);
+    });
 
     //구현중
     const [selectedFiles, setSelectedFiles] = useState(null);
@@ -82,7 +82,13 @@ export default function KartzServerHistoryViewer() {
             setFileLoading(true);
             try {
                 const module = await jsonModules[file.path]();
-                setSelectedFiles(prev=>({...prev, [file.fileName] : module.default}))    
+                setSelectedFiles(prev=>({...prev, [file.fileName] : module.default}));
+                setFileNames(prev=>prev.map(f=>{
+                    if(f.fileName === file.fileName) {
+                        return {...f , checked : checked};
+                    }
+                    return {...f};
+                }));
             }
             catch(error) {
                 console.error("데이터 로드 실패", error);
@@ -200,14 +206,67 @@ export default function KartzServerHistoryViewer() {
             ]
         };
     }, [selectedServers, selectedFiles, showOthers]);
+
+    const checkPeriod = useCallback(n=>{
+        if(selectedFiles === null) return false;
+
+        const filenameList = fileNames.map(file=>file.fileName).sort((a,b)=>a.localeCompare(b));
+        const selectedFilenameList = Object.keys(selectedFiles).sort((a,b)=>a.localeCompare(b));
+        if(n === undefined) 
+            return filenameList.length === selectedFilenameList.length && selectedFilenameList.every((v,i)=>v === filenameList[i]);
+
+        if(selectedFilenameList.length !== n) return false;
+        return filenameList.length >= selectedFilenameList.length 
+                && selectedFilenameList.every((v,i)=>{
+                    const offset = filenameList.length - selectedFilenameList.length;
+                    return v === filenameList[offset + i];
+                });
+    }, [selectedFiles, fileNames]);
+
+    const changePeriod = useCallback(async (n)=>{
+        setFileLoading(true);
+        
+        const filenameList = fileNames.sort((a,b)=>b.fileName.localeCompare(a.fileName)).slice(0, n);
+
+        const newSelectedFiles = {};
+        try {
+            for(const file of filenameList) {
+                const loader = jsonModules[file.path];
+                if(typeof loader === 'function') {
+                    const module = await loader();
+                    newSelectedFiles[file.fileName] = module.default;
+                }
+            }
+
+            setSelectedFiles(newSelectedFiles);
+            setFileNames(prev=>prev.map((file,index)=>({
+                ...file, checked : index < n
+            })));
+        }
+        catch(error) {
+            console.error("데이터 로드 실패", error);
+        }
+        finally {
+            setFileLoading(false);
+        }
+    }, [fileNames, jsonModules]);
+
     return (<>
         <ServerChooser onChangeServer={onChangeServer} enableShare={false}/>
         
         {isServerExist && (<>
+            {/* 주요 기간 버튼 생성 */}
+            <div className="my-1">
+                <button className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod(3)}>최근 3회차</button>
+                <button className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod(6)}>최근 6회차</button>
+                <button className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod(12)}>최근 12회차</button>
+                <button className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod()}>전체 회차</button>
+            </div>
+
             {/* 파일명을 체크박스로 생성 */}
             {fileNames.map((file, index)=>(
             <label className="me-4" key={index}>
-                <input type="checkbox" className="form-check-input" onChange={e=>checkItem(file, e.target.checked)}/>
+                <input type="checkbox" className="form-check-input" onChange={e=>checkItem(file, e.target.checked)} checked={file.checked}/>
                 <span className="form-check-label ms-2 numeric-cell">{file.fileName}</span>
             </label>
             ))}
