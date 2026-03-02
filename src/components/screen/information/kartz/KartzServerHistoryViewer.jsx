@@ -7,6 +7,7 @@ const jsonModules = import.meta.glob('@src/assets/json/kartz/history/*.json');
 
 import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 import { Line } from 'react-chartjs-2';
+import { getBaseOptions } from "./KartzChartToolkit";
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const serverLabelPlugin = {
@@ -61,36 +62,36 @@ const chartBackgroundColors = [
 
 export default function KartzServerHistoryViewer() {
     const [selectedServers, setSelectedServers] = useState([]);
-    const onChangeServer = useCallback((servers)=>{
-        if(servers.length === 0) 
+    const onChangeServer = useCallback((servers) => {
+        if (servers.length === 0)
             setSelectedFiles(null);
         setSelectedServers(servers);
     }, []);
 
-    const [fileNames, setFileNames] = useState(()=>{
-        return Object.keys(jsonModules).map(path=>{
+    const [fileNames, setFileNames] = useState(() => {
+        return Object.keys(jsonModules).map(path => {
             const fileName = path.split('/').pop().replace(".json", "");
-            return {path, fileName, checked:false};
-        }).sort((a,b)=>b.fileName.localeCompare(a.fileName));
+            return { path, fileName, checked: false };
+        }).sort((a, b) => b.fileName.localeCompare(a.fileName));
     });
 
     //구현중
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [fileLoading, setFileLoading] = useState(false);
-    const checkItem = useCallback(async (file, checked)=>{
-        if(checked) {//체크시 추가
+    const checkItem = useCallback(async (file, checked) => {
+        if (checked) {//체크시 추가
             setFileLoading(true);
             try {
                 const module = await jsonModules[file.path]();
-                setSelectedFiles(prev=>({...prev, [file.fileName] : module.default}));
-                setFileNames(prev=>prev.map(f=>{
-                    if(f.fileName === file.fileName) {
-                        return {...f , checked : checked};
+                setSelectedFiles(prev => ({ ...prev, [file.fileName]: module.default }));
+                setFileNames(prev => prev.map(f => {
+                    if (f.fileName === file.fileName) {
+                        return { ...f, checked: checked };
                     }
-                    return {...f};
+                    return { ...f };
                 }));
             }
-            catch(error) {
+            catch (error) {
                 console.error("데이터 로드 실패", error);
             }
             finally {
@@ -98,97 +99,65 @@ export default function KartzServerHistoryViewer() {
             }
         }
         else {//체크 해제시 제거
-            setSelectedFiles(prev=>{
-                const { [file.fileName] : _, ...rest } = prev;
-                if(Object.keys(rest).length === 0)
+            setSelectedFiles(prev => {
+                const { [file.fileName]: _, ...rest } = prev;
+                if (Object.keys(rest).length === 0)
                     return null;
                 return rest;
             });
         }
     }, [selectedServers]);
 
-    const isServerExist = useMemo(()=>selectedServers.length > 0, [selectedServers]);
-    const isFileSelected = useMemo(()=>selectedFiles !== null, [selectedFiles]);
+    const isServerExist = useMemo(() => selectedServers.length > 0, [selectedServers]);
+    const isFileSelected = useMemo(() => selectedFiles !== null, [selectedFiles]);
 
     //차트 표시 속성
-    const options = useMemo(() => {
-        return {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: "상위 500위 유저 분포",
-                },
-                legend: {
-                    labels: {
-                        filter: (legendItem, chartData) => {
-                            //return legendItem.datasetIndex < 10;
-                            return null;
-                        }
-                    }
-                },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: "인원수",
-                    },
-                },
-                x: {
-                    title: {
-                        display: false,
-                        text: "날짜",
-                    },
-                },
-            },
-        };
-    }, []);
+    const options1 = getBaseOptions("Top 500 분포", "인원수", "회차");
+    const options2 = getBaseOptions("Top 500 스테이지 분포", "스테이지", "회차");
+    const options3 = getBaseOptions("Top 500 평균 대비 가중치", "가중치", "회차");
 
     //차트 데이터
     const [showOthers, setShowOthers] = useState(false);//다른 서버 같이 보기
-    const chartDataset = useMemo(()=>{
+    const chartDataset1 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
-        if(selectedServers.length === 0) return null;
-        if(selectedFiles === null) return null;
+        if (selectedServers.length === 0) return null;
+        if (selectedFiles === null) return null;
 
         //선택 서버 명단 추출
-        const serverList = selectedServers.map(server=>server.serverNumber);
+        const serverList = selectedServers.map(server => server.serverNumber);
 
         //차트 데이터 생성
         //1. 라벨 생성
-        const chartLabels = Object.keys(selectedFiles).sort((a, b)=>a.localeCompare(b));
+        const chartLabels = Object.keys(selectedFiles).sort((a, b) => a.localeCompare(b));
 
         //2. 누적 데이터 계산
         const dummyDatasets = {};
-        chartLabels.forEach((date, index)=>{
+        chartLabels.forEach((date, index) => {
             const temp = {};
             const origin = selectedFiles[date].playerRankList;
-            origin.forEach(player=>{
-                if(showOthers || serverList.includes(player.server)) {
+            origin.forEach(player => {
+                if (showOthers || serverList.includes(player.server)) {
                     temp[player.server] = temp[player.server] ?? 0;
                     temp[player.server]++;
                 }
             });
-            Object.keys(temp).forEach(server=>{
-                dummyDatasets[server] = dummyDatasets[server] ?? Array.from({length:chartLabels.length}, ()=>0);
+            Object.keys(temp).forEach(server => {
+                dummyDatasets[server] = dummyDatasets[server] ?? Array.from({ length: chartLabels.length }, () => 0);
                 dummyDatasets[server][index] = temp[server];
             });
         });
 
         //3.차트데이터로 변환
-        const chartDatasets = Object.keys(dummyDatasets).map((key, index)=>{
+        const chartDatasets = Object.keys(dummyDatasets).map((key, index) => {
             const isSelected = serverList.includes(parseInt(key));
             return {
-                label : "s"+key , //서버명
-                data : dummyDatasets[key].map(v=>v || 0),
-                tension : 0.4,
-                fill : isSelected,
+                label: "s" + key, //서버명
+                data: dummyDatasets[key].map(v => v || 0),
+                tension: 0.4,
+                fill: isSelected,
                 order: isSelected ? 0 : 100,
-                borderColor : isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
-                pointRadius : isSelected ? 2 : 0,
+                borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
+                pointRadius: isSelected ? 2 : 0,
             }
         });
 
@@ -199,51 +168,186 @@ export default function KartzServerHistoryViewer() {
 
         //더미
         return {
-            labels:['2025-10', '2025-11', '2025-12', '2026-01'],
-            datasets:[
-                {label:'s3223', data:[65,59,80,81,56], tension:0.2},
-                {label:'s3224', data:[28,48,40,19,86], tension:0.2},
+            labels: ['2025-10', '2025-11', '2025-12', '2026-01'],
+            datasets: [
+                { label: 's3223', data: [65, 59, 80, 81, 56], tension: 0.2 },
+                { label: 's3224', data: [28, 48, 40, 19, 86], tension: 0.2 },
             ]
         };
     }, [selectedServers, selectedFiles, showOthers]);
+    const chartDataset2 = useMemo(() => {
+        //선택된 서버나 파일이 없으면 차단
+        if (selectedServers.length === 0) return null;
+        if (selectedFiles === null) return null;
 
-    const checkPeriod = useCallback(n=>{
-        if(selectedFiles === null) return false;
+        //선택 서버 명단 추출
+        const serverList = selectedServers.map(server => server.serverNumber);
 
-        const filenameList = fileNames.map(file=>file.fileName).sort((a,b)=>a.localeCompare(b));
-        const selectedFilenameList = Object.keys(selectedFiles).sort((a,b)=>a.localeCompare(b));
-        if(n === undefined) 
-            return filenameList.length === selectedFilenameList.length && selectedFilenameList.every((v,i)=>v === filenameList[i]);
+        //차트 데이터 생성
+        //1. 라벨 생성
+        const chartLabels = Object.keys(selectedFiles).sort((a, b) => a.localeCompare(b));
 
-        if(selectedFilenameList.length !== n) return false;
-        return filenameList.length >= selectedFilenameList.length 
-                && selectedFilenameList.every((v,i)=>{
-                    const offset = filenameList.length - selectedFilenameList.length;
-                    return v === filenameList[offset + i];
-                });
+        //2. 누적 데이터 계산
+        const dummyDatasets = {};
+        const averageData = Array.from({ length: chartLabels.length }, () => 0);
+        chartLabels.forEach((date, index) => {
+            const temp = {};
+            const origin = selectedFiles[date].playerRankList;
+
+            // 회차별 전체 유저의 라운드 합계와 인원수 (평균용)
+            let totalRoundForDate = 0;
+            let totalCountForDate = 0;
+            origin.forEach(player => {
+                // 전체 평균 계산용 (필터링 없이 모든 데이터 합산)
+                totalRoundForDate += player.round;
+                totalCountForDate++;
+
+                if (showOthers || serverList.includes(player.server)) {
+                    temp[player.server] = temp[player.server] ?? { total: 0, count: 0 };
+                    temp[player.server].total += player.damage ? player.round - 1 : player.round;
+                    temp[player.server].count++;
+                }
+            });
+            // 해당 회차의 전체 평균 저장
+            averageData[index] = totalCountForDate > 0 ? totalRoundForDate / totalCountForDate : 0;
+
+            Object.keys(temp).forEach(server => {
+                dummyDatasets[server] = dummyDatasets[server] ?? Array.from({ length: chartLabels.length }, () => 0);
+                dummyDatasets[server][index] = temp[server].total / temp[server].count;
+            });
+        });
+
+        //3.차트데이터로 변환
+        const chartDatasets = Object.keys(dummyDatasets).map((key, index) => {
+            const isSelected = serverList.includes(parseInt(key));
+            return {
+                label: "s" + key, //서버명
+                data: dummyDatasets[key].map(v => v || 0),
+                tension: 0.4,
+                fill: isSelected,
+                order: isSelected ? 0 : 100,
+                borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
+                pointRadius: isSelected ? 2 : 0,
+            }
+        });
+
+        // 4. 전체 평균선 추가
+        chartDatasets.push({
+            label: "전체 평균",
+            data: averageData,
+            borderColor: "#333", // 진한 회색 또는 검정
+            borderWidth: 1,
+            borderDash: [5, 5], // 점선 효과
+            pointRadius: 0,
+            tension: 0,
+            fill: false,
+            order: -1, // 다른 어떤 선보다 위에 그림
+        });
+
+        return {
+            labels: chartLabels,
+            datasets: chartDatasets
+        };
+    }, [selectedServers, selectedFiles, showOthers]);
+
+    const chartDataset3 = useMemo(() => {
+        //선택된 서버나 파일이 없으면 차단
+        if (selectedServers.length === 0) return null;
+        if (selectedFiles === null) return null;
+
+        //선택 서버 명단 추출
+        const serverList = selectedServers.map(server => server.serverNumber);
+
+        //차트 데이터 생성
+        //1. 라벨 생성
+        const chartLabels = Object.keys(selectedFiles).sort((a, b) => a.localeCompare(b));
+
+        //2. 누적 데이터 계산
+        const dummyDatasets = {};
+        chartLabels.forEach((date, index) => {
+            const temp = {};
+            const origin = selectedFiles[date].playerRankList;
+
+            // 회차별 전체 유저의 라운드 합계와 인원수 (평균용)
+            let totalRoundForDate = 0;
+            let totalCountForDate = 0;
+            origin.forEach(player => {
+                // 전체 평균 계산용 (필터링 없이 모든 데이터 합산)
+                totalRoundForDate += player.round;
+                totalCountForDate++;
+            });
+            // 해당 회차의 전체 평균 저장
+            const averageData = totalCountForDate > 0 ? totalRoundForDate / totalCountForDate : 0;
+            origin.forEach(player => {
+                if (showOthers || serverList.includes(player.server)) {
+                    temp[player.server] = temp[player.server] ?? 0;
+                    temp[player.server] += Math.pow(Math.abs((player.damage ? player.round - 1 : player.round) - averageData), 2);
+                }
+            });
+
+            Object.keys(temp).forEach(server => {
+                dummyDatasets[server] = dummyDatasets[server] ?? Array.from({ length: chartLabels.length }, () => 0);
+                dummyDatasets[server][index] = temp[server];
+            });
+        });
+
+        //3.차트데이터로 변환
+        const chartDatasets = Object.keys(dummyDatasets).map((key, index) => {
+            const isSelected = serverList.includes(parseInt(key));
+            return {
+                label: "s" + key, //서버명
+                data: dummyDatasets[key].map(v => v || 0),
+                tension: 0.4,
+                fill: isSelected,
+                order: isSelected ? 0 : 100,
+                borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
+                pointRadius: isSelected ? 2 : 0,
+            }
+        });
+
+        return {
+            labels: chartLabels,
+            datasets: chartDatasets
+        };
+    }, [selectedServers, selectedFiles, showOthers]);
+
+    const checkPeriod = useCallback(n => {
+        if (selectedFiles === null) return false;
+
+        const filenameList = fileNames.map(file => file.fileName).sort((a, b) => a.localeCompare(b));
+        const selectedFilenameList = Object.keys(selectedFiles).sort((a, b) => a.localeCompare(b));
+        if (n === undefined)
+            return filenameList.length === selectedFilenameList.length && selectedFilenameList.every((v, i) => v === filenameList[i]);
+
+        if (selectedFilenameList.length !== n) return false;
+        return filenameList.length >= selectedFilenameList.length
+            && selectedFilenameList.every((v, i) => {
+                const offset = filenameList.length - selectedFilenameList.length;
+                return v === filenameList[offset + i];
+            });
     }, [selectedFiles, fileNames]);
 
-    const changePeriod = useCallback(async (n)=>{
+    const changePeriod = useCallback(async (n) => {
         setFileLoading(true);
-        
-        const filenameList = fileNames.sort((a,b)=>b.fileName.localeCompare(a.fileName)).slice(0, n);
+
+        const filenameList = fileNames.sort((a, b) => b.fileName.localeCompare(a.fileName)).slice(0, n);
 
         const newSelectedFiles = {};
         try {
-            for(const file of filenameList) {
+            for (const file of filenameList) {
                 const loader = jsonModules[file.path];
-                if(typeof loader === 'function') {
+                if (typeof loader === 'function') {
                     const module = await loader();
                     newSelectedFiles[file.fileName] = module.default;
                 }
             }
 
             setSelectedFiles(newSelectedFiles);
-            setFileNames(prev=>prev.map((file,index)=>({
-                ...file, checked : index < n
+            setFileNames(prev => prev.map((file, index) => ({
+                ...file, checked: index < n
             })));
         }
-        catch(error) {
+        catch (error) {
             console.error("데이터 로드 실패", error);
         }
         finally {
@@ -252,37 +356,51 @@ export default function KartzServerHistoryViewer() {
     }, [fileNames, jsonModules]);
 
     return (<>
-        <ServerChooser onChangeServer={onChangeServer} enableShare={false}/>
-        
+        <ServerChooser onChangeServer={onChangeServer} enableShare={false} />
+
         {isServerExist && (<>
             {/* 주요 기간 버튼 생성 */}
             <div className="my-1">
-                <button className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod(3)}>최근 3회차</button>
-                <button className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod(6)}>최근 6회차</button>
-                <button className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod(12)}>최근 12회차</button>
-                <button className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e=>changePeriod()}>전체 회차</button>
+                <button className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(3)}>최근 3회차</button>
+                <button className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(6)}>최근 6회차</button>
+                <button className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(12)}>최근 12회차</button>
+                <button className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod()}>전체 회차</button>
             </div>
 
             {/* 파일명을 체크박스로 생성 */}
-            {fileNames.map((file, index)=>(
-            <label className="me-4" key={index}>
-                <input type="checkbox" className="form-check-input" onChange={e=>checkItem(file, e.target.checked)} checked={file.checked}/>
-                <span className="form-check-label ms-2 numeric-cell">{file.fileName}</span>
-            </label>
+            {fileNames.map((file, index) => (
+                <label className="me-4" key={index}>
+                    <input type="checkbox" className="form-check-input" onChange={e => checkItem(file, e.target.checked)} checked={file.checked} />
+                    <span className="form-check-label ms-2 numeric-cell">{file.fileName}</span>
+                </label>
             ))}
 
             {isFileSelected && (<>
-            <label className="d-block mt-2">
-                <input type="checkbox" className="form-check-input" checked={showOthers} onChange={e=>setShowOthers(e.target.checked)}/>
-                <span className="form-check-label ms-2 text-primary fw-bold">다른 서버 같이 보기</span>
-            </label>
+                <label className="d-block mt-2">
+                    <input type="checkbox" className="form-check-input" checked={showOthers} onChange={e => setShowOthers(e.target.checked)} />
+                    <span className="form-check-label ms-2 text-primary fw-bold">다른 서버 같이 보기</span>
+                </label>
             </>)}
-            {chartDataset !== null && (
-            <div className="row" style={{ height: "75vh", maxHeight: "75vh", marginBottom: "400px" }}>
-                <div className="col">
-                    <Line options={options} data={chartDataset} plugins={[serverLabelPlugin]} />
+            {chartDataset1 !== null && (
+                <div className="row mt-4" style={{ height: "60vh", maxHeight: "60vh" }}>
+                    <div className="col">
+                        <Line options={options1} data={chartDataset1} plugins={[serverLabelPlugin]} />
+                    </div>
                 </div>
-            </div>
+            )}
+            {chartDataset2 !== null && (
+                <div className="row mt-4" style={{ height: "60vh", maxHeight: "60vh" }}>
+                    <div className="col">
+                        <Line options={options2} data={chartDataset2} plugins={[serverLabelPlugin]} />
+                    </div>
+                </div>
+            )}
+            {chartDataset3 !== null && (
+                <div className="row mt-4" style={{ height: "60vh", maxHeight: "60vh", marginBottom: "400px" }}>
+                    <div className="col">
+                        <Line options={options3} data={chartDataset3} plugins={[serverLabelPlugin]} />
+                    </div>
+                </div>
             )}
         </>)}
     </>)

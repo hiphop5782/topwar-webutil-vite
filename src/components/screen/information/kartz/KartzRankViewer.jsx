@@ -101,6 +101,7 @@ export default function KartzRankViewer(){
                                 <th width={55}>서버</th>
                                 <th>유저명</th>
                                 <th className="text-end">라운드</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,6 +111,7 @@ export default function KartzRankViewer(){
                                 <td className="numeric-cell">{player.server}</td>
                                 <td>{player.nickname ?? "Unknown"}</td>
                                 <td className=" numeric-cell text-end">{player.round}</td>
+                                <td>{player.damage?.length > 0 ? <span>{player.damage}</span> : <span className="text-danger fw-bold">Clear</span>}</td>
                             </tr>
                             ))}
                         </tbody>
