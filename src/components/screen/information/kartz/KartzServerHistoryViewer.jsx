@@ -114,7 +114,7 @@ export default function KartzServerHistoryViewer() {
     }, [selectedServers, selectedFiles]);
 
     const isServerExist = useMemo(() => selectedServers.length > 0, [selectedServers]);
-    const isFileSelected = useMemo(() => selectedFiles.length > 0, [selectedFiles]);
+    const isFileSelected = useMemo(() => Object.keys(selectedFiles).length > 0, [selectedFiles]);
 
     //차트 표시 속성
     const options1 = getBaseOptions("Top 500 분포", "인원수", "회차", true);
@@ -127,7 +127,7 @@ export default function KartzServerHistoryViewer() {
     const chartDataset1 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
-        if (selectedFiles.length === 0) return null;
+        if (Object.keys(selectedFiles).length === 0) return null;
 
         //선택 서버 명단 추출
         const serverList = selectedServers.map(server => server.serverNumber);
@@ -184,7 +184,7 @@ export default function KartzServerHistoryViewer() {
     const chartDataset2 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
-        if (selectedFiles.length === 0) return null;
+        if (Object.keys(selectedFiles).length === 0) return null;
 
         //선택 서버 명단 추출
         const serverList = selectedServers.map(server => server.serverNumber);
@@ -259,7 +259,7 @@ export default function KartzServerHistoryViewer() {
     const chartDataset3 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
-        if (selectedFiles.length === 0) return null;
+        if (Object.keys(selectedFiles).length === 0) return null;
 
         //선택 서버 명단 추출
         const serverList = selectedServers.map(server => server.serverNumber);
