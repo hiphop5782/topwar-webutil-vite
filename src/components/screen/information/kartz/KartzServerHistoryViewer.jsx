@@ -67,7 +67,7 @@ export default function KartzServerHistoryViewer() {
     const [selectedServers, setSelectedServers] = useState([]);
     const onChangeServer = useCallback((servers) => {
         if (servers.length === 0)
-            setSelectedFiles(null);
+            setSelectedFiles([]);
         setSelectedServers(servers);
     }, []);
 
@@ -80,20 +80,21 @@ export default function KartzServerHistoryViewer() {
 
     //구현중
     //const [selectedFiles, setSelectedFiles] = useListParamState('date');
-    const [selectedFiles, setSelectedFiles] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const [fileLoading, setFileLoading] = useState(false);
     const checkItem = useCallback(async (file, checked) => {
+        setFileNames(prev => prev.map(f => {
+            if (f.fileName === file.fileName) {
+                return { ...f, checked: checked };
+            }
+            return { ...f };
+        }));
+
         if (checked) {//체크시 추가
             setFileLoading(true);
             try {
                 const module = await jsonModules[file.path]();
                 setSelectedFiles(prev => ({ ...prev, [file.fileName]: module.default }));
-                setFileNames(prev => prev.map(f => {
-                    if (f.fileName === file.fileName) {
-                        return { ...f, checked: checked };
-                    }
-                    return { ...f };
-                }));
             }
             catch (error) {
                 console.error("데이터 로드 실패", error);
@@ -106,14 +107,14 @@ export default function KartzServerHistoryViewer() {
             setSelectedFiles(prev => {
                 const { [file.fileName]: _, ...rest } = prev;
                 if (Object.keys(rest).length === 0)
-                    return null;
+                    return [];
                 return rest;
             });
         }
-    }, [selectedServers]);
+    }, [selectedServers, selectedFiles]);
 
     const isServerExist = useMemo(() => selectedServers.length > 0, [selectedServers]);
-    const isFileSelected = useMemo(() => selectedFiles !== null, [selectedFiles]);
+    const isFileSelected = useMemo(() => selectedFiles.length > 0, [selectedFiles]);
 
     //차트 표시 속성
     const options1 = getBaseOptions("Top 500 분포", "인원수", "회차", true);
@@ -126,7 +127,7 @@ export default function KartzServerHistoryViewer() {
     const chartDataset1 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
-        if (selectedFiles === null) return null;
+        if (selectedFiles.length === 0) return null;
 
         //선택 서버 명단 추출
         const serverList = selectedServers.map(server => server.serverNumber);
@@ -183,7 +184,7 @@ export default function KartzServerHistoryViewer() {
     const chartDataset2 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
-        if (selectedFiles === null) return null;
+        if (selectedFiles.length === 0) return null;
 
         //선택 서버 명단 추출
         const serverList = selectedServers.map(server => server.serverNumber);
@@ -258,7 +259,7 @@ export default function KartzServerHistoryViewer() {
     const chartDataset3 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
-        if (selectedFiles === null) return null;
+        if (selectedFiles.length === 0) return null;
 
         //선택 서버 명단 추출
         const serverList = selectedServers.map(server => server.serverNumber);
