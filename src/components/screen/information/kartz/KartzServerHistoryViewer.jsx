@@ -229,7 +229,7 @@ export default function KartzServerHistoryViewer() {
             return {
                 label: "s" + key, //서버명
                 data: dummyDatasets[key].map(v => v || 0),
-                tension: 0.4,
+                tension: 0.2,
                 fill: isSelected,
                 order: isSelected ? 0 : 100,
                 borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
