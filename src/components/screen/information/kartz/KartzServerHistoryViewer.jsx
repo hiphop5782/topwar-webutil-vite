@@ -333,7 +333,7 @@ export default function KartzServerHistoryViewer() {
             });
     }, [selectedFiles, fileNames]);
 
-    const changePeriod = useCallback(async (n) => {
+    const changePeriod = useCallback(async (n = 999999999) => {
         setFileLoading(true);
 
         const filenameList = fileNames.sort((a, b) => b.fileName.localeCompare(a.fileName)).slice(0, n);
