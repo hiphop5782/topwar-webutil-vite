@@ -77,5 +77,55 @@
 
         "label-copy-ok" : "URL이 복사되었습니다",
         "label-copy-nok" : "URL 복사이 실패했습니다"
+    },
+
+    "KartzDataViewer": {
+        "monster" : "몬스터 정보",
+        "rank" : "회차별 순위",
+        "server" : "서버별 기록"
+    }
+    ,"KartzSpecInformation":{
+        "title": "카르츠 라운드별 몬스터 정보",
+        "boss-only": "보스 라운드만 보기",
+        "table-round": "라운드",
+        "table-level": "레벨",
+        "table-unitcount": "유닛수",
+        "table-atk-hp":"공격/생명",
+        "table-dmg":"데미지증가/감면",
+        "table-acc-agi" : "명중/회피",
+        "table-critical":"치명타데미지",
+        "table-def":"방어도",
+        "table-type":"군종"
+    }
+    ,"KartzRankViewer": {
+        "season":"회차",
+        "server":"서버",
+        "user-title-prefix":"유저 순위 (총",
+        "user-title-suffix":"명)",
+        "alliance-title-prefix":"동맹 순위 (총",
+        "alliance-title-suffix":"개)",
+        "table-rank":"순위",
+        "table-server":"서버",
+        "table-username":"유저명",
+        "table-round":"라운드",
+        "table-alliance":"동맹명",
+        "table-score":"점수"
+    }
+    ,"KartzServerHistoryViewer": {
+        "title-top500-count":"Top 500 인구 분포",
+        "title-top500-count-y":"인원수",
+        "title-top500-count-x":"회차",
+        "title-top500-round":"Top 500 라운드 분포 (점선=평균)",
+        "title-top500-round-y":"라운드",
+        "title-top500-round-x":"회차",
+        "title-top500-weight":"Top 500 평균 대비 가중치", 
+        "title-top500-weight-y":"가중치",
+        "title-top500-weight-x":"회차",
+        "average-label":"전체  평균",
+        "recent-prefix":"최근",
+        "recent-suffix":"회차",
+        "recent-all":"전체 회차",
+        "show-others":"다른 서버 같이 보기",
+        "error-load-fail":"데이터 로드 실패"
     }
 }

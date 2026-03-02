@@ -70,5 +70,56 @@
         "label-noserver": "存在しないか、すでに追加されたサーバー番号です",
         "label-copy-ok": "URLをコピーしました",
         "label-copy-nok": "URLのコピーに失敗しました"
+    },
+
+    "KartzDataViewer": {
+        "monster" : "モンスター図鑑",
+        "rank" : "シーズン順位",
+        "server" : "サーバー履歴"
+    }
+
+    ,"KartzSpecInformation": {
+        "title": "カルツの試練：ラウンド別モンスター情報",
+        "boss-only": "ボスのみ表示",
+        "table-round": "ラウンド",
+        "table-level": "Lv.",
+        "table-unitcount": "ユニット数",
+        "table-atk-hp": "攻撃/HP",
+        "table-dmg": "与ダメ増/被ダメ減",
+        "table-acc-agi": "命中/回避",
+        "table-critical": "会心ダメ",
+        "table-def": "防御",
+        "table-type": "兵種"
+    }
+    ,"KartzRankViewer": {
+        "season": "回次",
+        "server": "サーバー",
+        "user-title-prefix": "ユーザー順位 (計 ",
+        "user-title-suffix": "名)",
+        "alliance-title-prefix": "同盟順位 (計 ",
+        "alliance-title-suffix": "団体)",
+        "table-rank": "順位",
+        "table-server": "サーバー",
+        "table-username": "ユーザー名",
+        "table-round": "ラウンド",
+        "table-alliance": "同盟名",
+        "table-score": "スコア"
+    }
+    ,"KartzServerHistoryViewer": {
+        "title-top500-count": "Top 500 人구 분포 (分布)",
+        "title-top500-count-y": "人数",
+        "title-top500-count-x": "回次",
+        "title-top500-round": "Top 500 ラウンド分布 (点線 = 平均)",
+        "title-top500-round-y": "ラウンド",
+        "title-top500-round-x": "回次",
+        "title-top500-weight": "Top 500 平均対比 가중치 (ウェイト)", 
+        "title-top500-weight-y": "ウェイト",
+        "title-top500-weight-x": "回次",
+        "average-label": "全体平均",
+        "recent-prefix": "直近 ",
+        "recent-suffix": " 回次",
+        "recent-all": "全回次",
+        "show-others": "他サーバーも表示",
+        "error-load-fail": "データの読み込み에 실패했습니다"
     }
 }
