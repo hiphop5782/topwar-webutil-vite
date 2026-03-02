@@ -42,7 +42,7 @@ export default function ServerChooser({
         const value = params.get("server");
         if(value === null)  return;
         const decoded = decodeURIComponent(value);
-        decoded.split(",").forEach(addServerByParameter);
+        [...new Set(decoded.split(","))].forEach(addServerByParameter);
 
         setLoading(true);
     }, [useParameter, serverData]);
@@ -50,10 +50,10 @@ export default function ServerChooser({
         if(useParameter !== true) return;
         if (loading == false) return;
         if (selectedServers.length === 0) {
-            setParams({});
+            setParams(prev=>({server:_, ...prev}));
         }
         else {
-            setParams({ server: selectedServers.map(server => server.serverNumber).join(",") });
+            setParams(prev=>({...prev, server: selectedServers.map(server => server.serverNumber).join(",") }));
         }
     }, [useParameter, selectedServers, loading]);
     useEffect(()=>{

@@ -10,6 +10,9 @@ import { Line } from 'react-chartjs-2';
 import { getBaseOptions } from "./KartzChartToolkit";
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
+import ChartDataTable from "@src/components/template/ChartDataTable";
+import { useListParamState } from "@src/hooks/useListParamState";
+
 const serverLabelPlugin = {
     id: 'serverLabelPlugin',
     afterDatasetsDraw(chart) {
@@ -76,6 +79,7 @@ export default function KartzServerHistoryViewer() {
     });
 
     //구현중
+    //const [selectedFiles, setSelectedFiles] = useListParamState('date');
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [fileLoading, setFileLoading] = useState(false);
     const checkItem = useCallback(async (file, checked) => {
@@ -112,12 +116,13 @@ export default function KartzServerHistoryViewer() {
     const isFileSelected = useMemo(() => selectedFiles !== null, [selectedFiles]);
 
     //차트 표시 속성
-    const options1 = getBaseOptions("Top 500 분포", "인원수", "회차");
-    const options2 = getBaseOptions("Top 500 스테이지 분포", "스테이지", "회차");
+    const options1 = getBaseOptions("Top 500 분포", "인원수", "회차", true);
+    const options2 = getBaseOptions("Top 500 스테이지 분포 (점선 = 평균)", "스테이지", "회차");
     const options3 = getBaseOptions("Top 500 평균 대비 가중치", "가중치", "회차");
 
     //차트 데이터
     const [showOthers, setShowOthers] = useState(false);//다른 서버 같이 보기
+    const [showTables, setShowTables] = useState(false);//표 같이 보기
     const chartDataset1 = useMemo(() => {
         //선택된 서버나 파일이 없으면 차단
         if (selectedServers.length === 0) return null;
@@ -380,12 +385,21 @@ export default function KartzServerHistoryViewer() {
                     <input type="checkbox" className="form-check-input" checked={showOthers} onChange={e => setShowOthers(e.target.checked)} />
                     <span className="form-check-label ms-2 text-primary fw-bold">다른 서버 같이 보기</span>
                 </label>
+                {/* <label className="d-block mt-2">
+                    <input type="checkbox" className="form-check-input" checked={showTables} onChange={e => setShowTables(e.target.checked)} />
+                    <span className="form-check-label ms-2 text-primary fw-bold">표를 같이 출력하기</span>
+                </label> */}
             </>)}
             {chartDataset1 !== null && (
                 <div className="row mt-4" style={{ height: "60vh", maxHeight: "60vh" }}>
                     <div className="col">
                         <Line options={options1} data={chartDataset1} plugins={[serverLabelPlugin]} />
                     </div>
+                    {showTables && (
+                        <div className="col-12" style={{ contain: 'content', minHeight: '400px' }}>
+                            <ChartDataTable data={chartDataset1} />
+                        </div>
+                    )}
                 </div>
             )}
             {chartDataset2 !== null && (
@@ -393,6 +407,7 @@ export default function KartzServerHistoryViewer() {
                     <div className="col">
                         <Line options={options2} data={chartDataset2} plugins={[serverLabelPlugin]} />
                     </div>
+                    {showTables && <div className="col-12"><ChartDataTable data={chartDataset2} /></div>}
                 </div>
             )}
             {chartDataset3 !== null && (
@@ -400,6 +415,7 @@ export default function KartzServerHistoryViewer() {
                     <div className="col">
                         <Line options={options3} data={chartDataset3} plugins={[serverLabelPlugin]} />
                     </div>
+                    {showTables && <div className="col-12"><ChartDataTable data={chartDataset3} /></div>}
                 </div>
             )}
         </>)}
