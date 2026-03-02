@@ -163,7 +163,7 @@ export default function KartzServerHistoryViewer() {
                 fill: isSelected,
                 order: isSelected ? 0 : 100,
                 borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
-                pointRadius: isSelected ? 2 : 0,
+                pointRadius: isSelected ? 4 : 1,
             }
         });
 
@@ -233,7 +233,7 @@ export default function KartzServerHistoryViewer() {
                 fill: isSelected,
                 order: isSelected ? 0 : 100,
                 borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
-                pointRadius: isSelected ? 2 : 0,
+                pointRadius: isSelected ? 4 : 1,
             }
         });
 
@@ -287,7 +287,7 @@ export default function KartzServerHistoryViewer() {
             origin.forEach(player => {
                 if (showOthers || serverList.includes(player.server)) {
                     temp[player.server] = temp[player.server] ?? 0;
-                    temp[player.server] += Math.pow(Math.abs((player.damage ? player.round - 1 : player.round) - averageData), 2);
+                    temp[player.server] += Math.pow(Math.max((player.damage ? player.round - 1 : player.round) - averageData, 0), 2);
                 }
             });
 
@@ -307,7 +307,7 @@ export default function KartzServerHistoryViewer() {
                 fill: isSelected,
                 order: isSelected ? 0 : 100,
                 borderColor: isSelected ? chartBackgroundColors[index % chartBackgroundColors.length] : "#EEE",
-                pointRadius: isSelected ? 2 : 0,
+                pointRadius: isSelected ? 4 : 1,
             }
         });
 
