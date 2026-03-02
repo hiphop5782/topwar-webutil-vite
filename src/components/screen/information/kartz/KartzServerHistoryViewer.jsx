@@ -12,6 +12,7 @@ ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, T
 
 import ChartDataTable from "@src/components/template/ChartDataTable";
 import { useListParamState } from "@src/hooks/useListParamState";
+import { useTranslation } from "react-i18next";
 
 const serverLabelPlugin = {
     id: 'serverLabelPlugin',
@@ -64,6 +65,8 @@ const chartBackgroundColors = [
 ];
 
 export default function KartzServerHistoryViewer() {
+    const {t} = useTranslation("viewer");
+
     const [selectedServers, setSelectedServers] = useState([]);
     const onChangeServer = useCallback((servers) => {
         if (servers.length === 0)
@@ -97,7 +100,7 @@ export default function KartzServerHistoryViewer() {
                 setSelectedFiles(prev => ({ ...prev, [file.fileName]: module.default }));
             }
             catch (error) {
-                console.error("데이터 로드 실패", error);
+                console.error(t("error-load-fail"), error);
             }
             finally {
                 setFileLoading(false);
@@ -117,9 +120,12 @@ export default function KartzServerHistoryViewer() {
     const isFileSelected = useMemo(() => Object.keys(selectedFiles).length > 0, [selectedFiles]);
 
     //차트 표시 속성
-    const options1 = getBaseOptions("Top 500 분포", "인원수", "회차", true);
-    const options2 = getBaseOptions("Top 500 스테이지 분포 (점선 = 평균)", "스테이지", "회차");
-    const options3 = getBaseOptions("Top 500 평균 대비 가중치", "가중치", "회차");
+    //const options1 = getBaseOptions("Top 500 분포", "인원수", "회차", true);
+    //const options2 = getBaseOptions("Top 500 스테이지 분포 (점선 = 평균)", "스테이지", "회차");
+    //const options3 = getBaseOptions("Top 500 평균 대비 가중치", "가중치", "회차");
+    const options1 = getBaseOptions(t("KartzServerHistoryViewer.title-top500-count"), t("KartzServerHistoryViewer.title-top500-count-y"), t("KartzServerHistoryViewer.title-top500-count-x"), true);
+    const options2 = getBaseOptions(t("KartzServerHistoryViewer.title-top500-round"), t("KartzServerHistoryViewer.title-top500-round-y"), t("KartzServerHistoryViewer.title-top500-round-x"));
+    const options3 = getBaseOptions(t("KartzServerHistoryViewer.title-top500-weight"), t("KartzServerHistoryViewer.title-top500-weight-y"), t("KartzServerHistoryViewer.title-top500-weight-x"));
 
     //차트 데이터
     const [showOthers, setShowOthers] = useState(false);//다른 서버 같이 보기
@@ -239,7 +245,7 @@ export default function KartzServerHistoryViewer() {
 
         // 4. 전체 평균선 추가
         chartDatasets.push({
-            label: "전체 평균",
+            label: t("KartzServerHistoryViewer.average-label"),
             data: averageData,
             borderColor: "#333", // 진한 회색 또는 검정
             borderWidth: 1,
@@ -354,7 +360,7 @@ export default function KartzServerHistoryViewer() {
             })));
         }
         catch (error) {
-            console.error("데이터 로드 실패", error);
+            console.error(t("KartzServerHistoryViewer.error-load-fail"), error);
         }
         finally {
             setFileLoading(false);
@@ -367,10 +373,10 @@ export default function KartzServerHistoryViewer() {
         {isServerExist && (<>
             {/* 주요 기간 버튼 생성 */}
             <div className="my-1">
-                <button className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(3)}>최근 3회차</button>
-                <button className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(6)}>최근 6회차</button>
-                <button className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(12)}>최근 12회차</button>
-                <button className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod()}>전체 회차</button>
+                <button className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(3)}>{t("KartzServerHistoryViewer.recent-prefix")} 3{t("KartzServerHistoryViewer.recent-suffix")}</button>
+                <button className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(6)}>{t("KartzServerHistoryViewer.recent-prefix")} 6{t("KartzServerHistoryViewer.recent-suffix")}</button>
+                <button className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(12)}>{t("KartzServerHistoryViewer.recent-prefix")} 12{t("KartzServerHistoryViewer.recent-suffix")}</button>
+                <button className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod()}>{t("KartzServerHistoryViewer.recent-all")}</button>
             </div>
 
             {/* 파일명을 체크박스로 생성 */}
@@ -384,7 +390,7 @@ export default function KartzServerHistoryViewer() {
             {isFileSelected && (<>
                 <label className="d-block mt-2">
                     <input type="checkbox" className="form-check-input" checked={showOthers} onChange={e => setShowOthers(e.target.checked)} />
-                    <span className="form-check-label ms-2 text-primary fw-bold">다른 서버 같이 보기</span>
+                    <span className="form-check-label ms-2 text-primary fw-bold">{t("KartzServerHistoryViewer.show-others")}</span>
                 </label>
                 {/* <label className="d-block mt-2">
                     <input type="checkbox" className="form-check-input" checked={showTables} onChange={e => setShowTables(e.target.checked)} />

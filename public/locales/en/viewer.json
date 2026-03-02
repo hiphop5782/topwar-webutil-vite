@@ -70,5 +70,57 @@
         "label-noserver": "The server does not exist or has already been added",
         "label-copy-ok": "URL copied to clipboard",
         "label-copy-nok": "Failed to copy URL"
+    },
+
+    "KartzDataViewer": {
+        "monster" : "Monster Database",
+        "rank" : "Round Rankings",
+        "server" : "Server History"
+    }
+
+    ,"KartzSpecInformation": {
+        "title": "Kartz's Trial: Monster Info by Round",
+        "boss-only": "Boss Rounds Only",
+        "table-round": "Round",
+        "table-level": "Lv.",
+        "table-unitcount": "Units",
+        "table-atk-hp": "ATK/HP",
+        "table-dmg": "DMG Inc./Red.",
+        "table-acc-agi": "ACC/AGI",
+        "table-critical": "Crit DMG",
+        "table-def": "DEF",
+        "table-type": "Type"
+    }
+    ,"KartzRankViewer": {
+        "season": "Season",
+        "server": "Server",
+        "user-title-prefix": "User Rankings (Total: ",
+        "user-title-suffix": ")",
+        "alliance-title-prefix": "Alliance Rankings (Total: ",
+        "alliance-title-suffix": ")",
+        "table-rank": "Rank",
+        "table-server": "Server",
+        "table-username": "Username",
+        "table-round": "Round",
+        "table-alliance": "Alliance",
+        "table-score": "Score"
+    }
+
+    ,"KartzServerHistoryViewer": {
+        "title-top500-count": "Top 500 Population Distribution",
+        "title-top500-count-y": "Players",
+        "title-top500-count-x": "Season",
+        "title-top500-round": "Top 500 Round Distribution (Dashed = Avg.)",
+        "title-top500-round-y": "Round",
+        "title-top500-round-x": "Season",
+        "title-top500-weight": "Top 500 Weight vs. Average", 
+        "title-top500-weight-y": "Weight",
+        "title-top500-weight-x": "Season",
+        "average-label": "Global Average",
+        "recent-prefix": "Recent ",
+        "recent-suffix": " Seasons",
+        "recent-all": "All Seasons",
+        "show-others": "Show Other Servers",
+        "error-load-fail": "Failed to load data"
     }
 }

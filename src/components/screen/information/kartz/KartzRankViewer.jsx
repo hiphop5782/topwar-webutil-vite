@@ -71,7 +71,7 @@ export default function KartzRankViewer(){
 
     return (<>
         <label className="d-flex">
-            <span className="d-flex align-items-center">회차</span>
+            <span className="d-flex align-items-center">{t("KartzRankViewer.season")}</span>
             <select className="form-select w-auto ms-4" onChange={e=>setSelectedData(e.target.value)}>
                 {fileNames.map((file, index)=>(
                 <option key={index} value={file.path}>{file.fileName}</option>
@@ -82,7 +82,7 @@ export default function KartzRankViewer(){
         {dataExist && (
         <div className="row mt-2">
             <div className="col d-flex">
-                <label className="col-form-label me-4">서버</label>
+                <label className="col-form-label me-4">{t("KartzRankViewer.server")}</label>
                 <input type="text" className="form-control w-auto" placeholder="e.g., 3223"
                             value={serverInput} onChange={changeServerInput} inputMode="numeric"/>
             </div>
@@ -92,15 +92,19 @@ export default function KartzRankViewer(){
         {dataExist && (
         <div className="row mt-4">
             <div className="col-md-6">
-                <h3>유저 순위 (총 {filteredUserRankData.length}명)</h3>
+                <h3>
+                    {t("KartzRankViewer.user-title-prefix")}
+                    {filteredUserRankData.length}
+                    {t("KartzRankViewer.user-title-suffix")}
+                </h3>
                 <div className="text-nowrap text-responsive">
                     <table className="table table-striped table-rank">
                         <thead>
                             <tr>
-                                <th width={45}>순위</th>
-                                <th width={55}>서버</th>
-                                <th>유저명</th>
-                                <th className="text-end">라운드</th>
+                                <th width={45}>{t("KartzRankViewer.table-rank")}</th>
+                                <th width={55}>{t("KartzRankViewer.table-server")}</th>
+                                <th>{t("KartzRankViewer.table-username")}</th>
+                                <th className="text-end">{t("KartzRankViewer.table-round")}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -120,15 +124,19 @@ export default function KartzRankViewer(){
             </div>
             {allianceRankData.length > 0 && (
             <div className="col-md-6">
-                <h3>동맹 순위 (총 {filteredAllianceRankData.length}개)</h3>
+                <h3>
+                    {t("KartzRankViewer.alliance-title-prefix")}
+                    {filteredAllianceRankData.length}
+                    {t("KartzRankViewer.alliance-title-suffix")}
+                </h3>
                 <div className="text-nowrap table-responsive">
                     <table className="table table-striped table-rank">
                         <thead>
                             <tr>
-                                <th width={45}>순위</th>
-                                <th width={55}>서버</th>
-                                <th>동맹명</th>
-                                <th className="text-end" width={75}>점수</th>
+                                <th width={45}>{t("KartzRankViewer.table-rank")}</th>
+                                <th width={55}>{t("KartzRankViewer.table-server")}</th>
+                                <th>{t("KartzRankViewer.table-alliance")}</th>
+                                <th className="text-end" width={75}>{t("KartzRankViewer.score")}</th>
                             </tr>
                         </thead>
                         <tbody>

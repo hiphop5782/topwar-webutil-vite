@@ -1,7 +1,9 @@
 import KartzSpecInfoList from '@src/assets/json/kartz/enemy.json';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const KartzSpecInformation = ()=>{
+    const {t} = useTranslation("viewer");
 
     const [list, setList] = useState([]);
 
@@ -20,11 +22,11 @@ const KartzSpecInformation = ()=>{
     }, []);
 
     return (<>
-        <h1>카르츠 몬스터 정보</h1>
+        <h1>{t("KartzSpecInformation.title")}</h1>
         <hr/>
         <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={bossOnly} onChange={e=>setBossOnly(e.target.checked)}/>
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">보스 라운드만 보기</label>
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{t("KartzSpecInformation.boss-only")}</label>
         </div>
         <div className="row mt-4">
             <div className="col">
@@ -32,15 +34,15 @@ const KartzSpecInformation = ()=>{
                     <table className='table table-hover'>
                         <thead className='text-center table-primary'>
                             <tr>
-                                <th>라운드</th>
-                                <th>레벨</th>
-                                <th>유닛수</th>
-                                <th>공격/생명</th>
-                                <th>데미지증가/감면</th>
-                                <th>명중/회피</th>
-                                <th>치명타데미지</th>
-                                <th>방어도</th>
-                                <th>군종</th>
+                                <th>{t("KartzSpecInformation.table-round")}</th>
+                                <th>{t("KartzSpecInformation.table-level")}</th>
+                                <th>{t("KartzSpecInformation.table-unitcount")}</th>
+                                <th>{t("KartzSpecInformation.table-atk-hp")}</th>
+                                <th>{t("KartzSpecInformation.table-dmg")}</th>
+                                <th>{t("KartzSpecInformation.table-acc-agi")}</th>
+                                <th>{t("KartzSpecInformation.table-critical")}</th>
+                                <th>{t("KartzSpecInformation.table-def")}</th>
+                                <th>{t("KartzSpecInformation.table-type")}</th>
                             </tr>
                         </thead>
                         <tbody className='text-center'>
