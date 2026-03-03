@@ -220,13 +220,13 @@ export default function TopwarServerDataViewer() {
             {calculateData.map(server => (
                 <div className="col-lg-6" key={server.serverNumber}>
                     <div className="shadow rounded p-4">
-                        <h3>{server.serverNumber} 서버</h3>
+                        <h3>{server.serverNumber} {t("TopwarServerDataViewer.server-suffix")}</h3>
                         <div className="fs-5 mt-4 d-flex align-items-center">
-                            <span>지도자 : </span>
+                            <span>{t("TopwarServerDataViewer.server-leader")} : </span>
                             <span className="badge text-bg-danger ms-2">{server.allianceTag}</span>
                             <span className="fw-bold ms-2">{server.kingName}</span>
                         </div>
-                        <div className="fs-5 mt-4">활성 동맹 : {server.activeAllianceData.count}</div>
+                        <div className="fs-5 mt-4">{t("TopwarServerDataViewer.active-alliance")} : {server.activeAllianceData.count}</div>
                         <div className="row align-items-stretch">
                             <div className="col-sm-8">
                                 <ul className="list-group mt-2">
@@ -243,7 +243,7 @@ export default function TopwarServerDataViewer() {
                                     ))}
                                     <li className="list-group-item d-flex justify-content-between align-items-center" style={{ backgroundColor: "rgba(255, 255, 0, 0.15)" }}>
                                         <div>
-                                            <span>합계</span>
+                                            <span>{t("TopwarServerDataViewer.label-total")}</span>
                                         </div>
                                         <div>
                                             <span className="numeric-cell fw-bold text-primary">{server.activeAllianceData.score.toLocaleString()}</span>
@@ -255,7 +255,7 @@ export default function TopwarServerDataViewer() {
                                 {server.allianceChartData !== null && <Pie data={server.allianceChartData} options={chartOptions} />}
                             </div>
                         </div>
-                        <div className="fs-5 mt-4">활성 사용자 : {server.activePlayerCount}</div>
+                        <div className="fs-5 mt-4">{t("TopwarServerDataViewer.active-user")} : {server.activePlayerCount}</div>
                         <div className="row align-items-stretch">
                             <div className="col-sm-8">
                                 <ul className="list-group mt-2">
@@ -266,7 +266,10 @@ export default function TopwarServerDataViewer() {
                                                 {server.activeAllianceData.tags.includes(k) ? (<>
                                                     <div className="d-flex align-items-center">
                                                         <span className={`badge ${k === server.allianceTag ? 'text-bg-danger' : 'text-bg-primary'}`}>{k}</span>
-                                                        <span className="numeric-cell fw-bold text-primary ms-2">{server.activePlayerMap[k].players.length.toLocaleString()}명</span>
+                                                        <span className="numeric-cell fw-bold text-primary ms-2">
+                                                            {server.activePlayerMap[k].players.length.toLocaleString()}
+                                                            {t("TopwarServerDataViewer.people-suffix")}
+                                                        </span>
                                                     </div>
                                                     <div>
                                                         <span className="numeric-cell fw-bold text-primary">{server.activePlayerMap[k].cpTotal.toLocaleString()}</span>
@@ -275,7 +278,10 @@ export default function TopwarServerDataViewer() {
                                                     <div className="d-flex align-items-center">
                                                         <span className="badge text-bg-secondary">{k === "null" ? "소속없음" : k}</span>
                                                         <span className="numeric-cell fw-bold text-muted ms-2">
-                                                            <s>{server.activePlayerMap[k].players.length.toLocaleString()}명</s>
+                                                            <s>
+                                                                {server.activePlayerMap[k].players.length.toLocaleString()}
+                                                                {t("TopwarServerDataViewer.people-suffix")}
+                                                            </s>
                                                         </span>
                                                     </div>
                                                     <div>
@@ -288,7 +294,7 @@ export default function TopwarServerDataViewer() {
                                         ))}
                                     <li className="list-group-item d-flex justify-content-between align-items-center" style={{ backgroundColor: "rgba(255, 255, 0, 0.15)" }}>
                                         <div>
-                                            <span>합계</span>
+                                            <span>{t("TopwarServerDataViewer.label-total")}</span>
                                         </div>
                                         <div>
                                             <span className="numeric-cell fw-bold text-primary">{server.activePlayerCpTotal.toLocaleString()}</span>
@@ -379,34 +385,34 @@ export default function TopwarServerDataViewer() {
             <div className="col">
                 <input type="text" className="form-control d-inline-block me-4 w-auto" value={cutoff} onChange={changeCutoff} />
                 <FaArrowLeft />
-                <span>{t(`TopwarCompareViewer.label-cutoff`)}</span>
+                <span>{t(`TopwarServerDataViewer.label-cutoff`)}</span>
             </div>
         </div>
         <div className="row mt-4">
             {listData.map(server => (
                 <div className="col-lg-6 mb-4 border p-4" key={server.serverNumber}>
                     <h3 className="mb-4 fw-bold">
-                        {server.serverNumber} {t(`TopwarCompareViewer.label-server`)}
+                        {server.serverNumber} {t(`TopwarServerDataViewer.label-server`)}
                     </h3>
                     {/* <div>({dayjs(server.data?.time).format("YYYY년 M월 D일 H시")} 기준)</div> */}
 
                     {cutoffIsDecimal && (
                         <div className="text-danger fw-bold mb-2">
-                            {cutoff}M {t(`TopwarCompareViewer.label-user`)} : {getCutoffCount(server)}
+                            {cutoff}M {t(`TopwarServerDataViewer.label-user`)} : {getCutoffCount(server)}
                         </div>
                     )}
 
                     <div className="d-flex flex-wrap">
                         <div className="w-100 w-lg-50">
-                            <div>{t(`TopwarCompareViewer.label-maxcp`)} : {getMaximumCP(server)}</div>
-                            <div>{t(`TopwarCompareViewer.label-avgcp`)} : {getAverageCP(server)}</div>
-                            <div>{t(`TopwarCompareViewer.label-mincp`)} : {getMinimumCP(server)}</div>
+                            <div>{t(`TopwarServerDataViewer.label-maxcp`)} : {getMaximumCP(server)}</div>
+                            <div>{t(`TopwarServerDataViewer.label-avgcp`)} : {getAverageCP(server)}</div>
+                            <div>{t(`TopwarServerDataViewer.label-mincp`)} : {getMinimumCP(server)}</div>
                         </div>
                         <div className="w-100 w-lg-50">
-                            <div>Top <span className="d-inline-block text-danger fw-bold" style={{ width: 30 }}>5</span> {t(`TopwarCompareViewer.label-avg`)} : <span className="text-danger fw-bold">{getTopNCP(server, 5)}</span></div>
-                            <div>Top <span className="d-inline-block text-danger" style={{ width: 30 }}>10</span> {t(`TopwarCompareViewer.label-avg`)} : <span className="text-danger">{getTopNCP(server, 10)}</span></div>
-                            <div>Top <span className="d-inline-block text-danger opacity-75" style={{ width: 30 }}>20</span> {t(`TopwarCompareViewer.label-avg`)} : <span className="text-danger opacity-75">{getTopNCP(server, 20)}</span></div>
-                            <div>Top <span className="d-inline-block text-warning" style={{ width: 30 }}>30</span> {t(`TopwarCompareViewer.label-avg`)} : <span className="text-warning">{getTopNCP(server, 30)}</span></div>
+                            <div>Top <span className="d-inline-block text-danger fw-bold" style={{ width: 30 }}>5</span> {t(`TopwarServerDataViewer.label-avg`)} : <span className="text-danger fw-bold">{getTopNCP(server, 5)}</span></div>
+                            <div>Top <span className="d-inline-block text-danger" style={{ width: 30 }}>10</span> {t(`TopwarServerDataViewer.label-avg`)} : <span className="text-danger">{getTopNCP(server, 10)}</span></div>
+                            <div>Top <span className="d-inline-block text-danger opacity-75" style={{ width: 30 }}>20</span> {t(`TopwarServerDataViewer.label-avg`)} : <span className="text-danger opacity-75">{getTopNCP(server, 20)}</span></div>
+                            <div>Top <span className="d-inline-block text-warning" style={{ width: 30 }}>30</span> {t(`TopwarServerDataViewer.label-avg`)} : <span className="text-warning">{getTopNCP(server, 30)}</span></div>
                         </div>
                     </div>
                 </div>

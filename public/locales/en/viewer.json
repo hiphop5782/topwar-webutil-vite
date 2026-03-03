@@ -71,6 +71,27 @@
         "label-copy-ok": "URL copied to clipboard",
         "label-copy-nok": "Failed to copy URL"
     },
+    "TopwarServerDataViewer": {
+        "active-alliance": "Active Alliances",
+        "active-user": "Active Users",
+        "people-suffix": " Players",
+        "server-suffix": " Server",
+        "server-leader": "Leader",
+
+        "label-cutoff": "Set minimum CP to count users",
+        "label-server": "Server",
+        "label-user": "Users Above Threshold",
+        "label-maxcp": "Max CP",
+        "label-mincp": "Min CP",
+        "label-avgcp": "Avg CP",
+        "label-avg": "Average",
+        "label-total": "Total",
+
+        "label-noserver": "Server ID does not exist or has already been added",
+
+        "label-copy-ok": "URL copied to clipboard",
+        "label-copy-nok": "Failed to copy URL"
+    },
 
     "KartzDataViewer": {
         "monster" : "Monster Database",

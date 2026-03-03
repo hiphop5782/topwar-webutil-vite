@@ -78,6 +78,27 @@
         "label-copy-ok" : "URL이 복사되었습니다",
         "label-copy-nok" : "URL 복사이 실패했습니다"
     },
+    "TopwarServerDataViewer": {
+        "active-alliance":"활성 동맹",
+        "active-user":"활성 사용자",
+        "people-suffix":"명",
+        "server-suffix":"서버",
+        "server-leader":"지도자",
+
+        "label-cutoff" : "인원수를 카운트할 기준 CP를 설정하세요",
+        "label-server" : "서버",
+        "label-user" : "이상 유저 수",
+        "label-maxcp" : "최고 전투력",
+        "label-mincp" : "최저 전투력",
+        "label-avgcp" : "평균 전투력",
+        "label-avg" : "평균",
+        "label-total": "합계",
+
+        "label-noserver" : "존재하지 않거나 이미 추가한 서버 번호입니다",
+
+        "label-copy-ok" : "URL이 복사되었습니다",
+        "label-copy-nok" : "URL 복사이 실패했습니다"
+    },
 
     "KartzDataViewer": {
         "monster" : "몬스터 정보",
