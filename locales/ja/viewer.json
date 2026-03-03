@@ -71,6 +71,27 @@
         "label-copy-ok": "URLをコピーしました",
         "label-copy-nok": "URLのコピーに失敗しました"
     },
+    "TopwarServerDataViewer": {
+        "active-alliance": "アクティブ同盟",
+        "active-user": "アクティブユーザー",
+        "people-suffix": " 名",
+        "server-suffix": " サーバー",
+        "server-leader": "指導者",
+
+        "label-cutoff": "カウント基準となるCPを設定してください",
+        "label-server": "サーバー",
+        "label-user": "以上のユーザー数",
+        "label-maxcp": "最高戦力",
+        "label-mincp": "最低戦力",
+        "label-avgcp": "平均戦力",
+        "label-avg": "平均",
+        "label-total": "合計",
+
+        "label-noserver": "存在しないか、すでに追加済みのサーバー番号です",
+
+        "label-copy-ok": "URLをコピーしました",
+        "label-copy-nok": "URLのコピーに失敗しました"
+    },
 
     "KartzDataViewer": {
         "monster" : "モンスター図鑑",
