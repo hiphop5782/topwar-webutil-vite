@@ -18,7 +18,7 @@ export default function TopwarPlayerDataViewer() {
     useEffect(()=>{ loadData(); }, []);
 
     const [searchTerm, setSearchTerm] = useState("");
-    const { t } = useTranslation("viewer");
+    const { t } = useTranslation(["viewer", "commons"]);
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)
     const sortedPlayers = useMemo(() => {
@@ -128,7 +128,7 @@ export default function TopwarPlayerDataViewer() {
                 {firstRowNationKeys.map((key, index)=>(
                 <div key={index} className="col-1 mb-2 p-1">
                     <div className="border p-2 d-flex flex-column rounded">
-                        <span className={`fi fi-sq fi-${CountryFlagJson[key]} fs-1`}></span>
+                        <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{aspectRatio: '1 / 1'}}></span>
                         <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
                     </div>
                 </div>
@@ -136,9 +136,9 @@ export default function TopwarPlayerDataViewer() {
                 {sortedNationKeys.length > 12 && (<>
                     {expendNations && (<>
                     {restRowNationKeys.map((key, index)=>(
-                    <div key={index} className="col-1 mb-2 p-1">
+                        <div key={index} className="col-1 mb-2 p-1">
                         <div className="border p-2 d-flex flex-column rounded">
-                            <span className={`fi fi-sq fi-${CountryFlagJson[key]} fs-1`}></span>
+                            <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{aspectRatio: '1 / 1'}}></span>
                             <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
                         </div>
                     </div>
@@ -148,13 +148,13 @@ export default function TopwarPlayerDataViewer() {
                         {expendNations ? (
                         <button className="btn btn-outline-secondary w-100" onClick={e=>setExpendNations(false)}>
                             <FaChevronUp/>
-                            <span className="fw-bold mx-2">숨기기</span>
+                            <span className="fw-bold mx-2">{t("common:show-less")}</span>
                             <FaChevronUp/>
                         </button>
                         ) : (
                         <button className="btn btn-outline-secondary w-100" onClick={e=>setExpendNations(true)}>
                             <FaChevronDown/>
-                            <span className="fw-bold mx-2">더보기</span>
+                            <span className="fw-bold mx-2">{t("common:show-more")}</span>
                             <FaChevronDown/>
                         </button>
                         )}
