@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import "flag-icons/sass/flag-icons.scss";
 import "./TopwarData.css";
-import { FaMars, FaVenus } from "react-icons/fa6";
+import { FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader"
 
@@ -56,6 +56,29 @@ export default function TopwarPlayerDataViewer() {
         }, {total : 0 , active : 0, pause : 0 , stop : 0});
     }, [filteredPlayers]);
 
+    const nationObj = useMemo(()=>{
+        return filteredPlayers.reduce((acc, player)=>{
+            acc[player.countryFlag] = acc[player.countryFlag] ?? 0;
+            acc[player.countryFlag]++;
+            return acc;
+        }, {});
+    }, [filteredPlayers]);
+
+    const minNations = useMemo(()=>{
+        return searchTerm.length > 0 ? 1 : 100;
+    }, [searchTerm]);
+
+    const [expendNations, setExpendNations] = useState(false);
+    const sortedNationKeys = useMemo(()=>{
+        return Object.keys(nationObj).filter(k=>nationObj[k] >= minNations).sort((a,b)=>nationObj[b] - nationObj[a]);
+    }, [nationObj, minNations]);
+    const firstRowNationKeys = useMemo(()=>{
+        return sortedNationKeys.slice(0, 12);
+    }, [sortedNationKeys]);
+    const restRowNationKeys = useMemo(()=>{
+        return sortedNationKeys.slice(12);
+    }, [sortedNationKeys]);
+
     return (
         <>
             <div className="d-flex align-items-center mb-1">
@@ -99,6 +122,44 @@ export default function TopwarPlayerDataViewer() {
                         <span className="text-danger text-center">({countObj.stop.toLocaleString()})</span>
                     </div>
                 </div>
+            </div>
+
+            <div className="row mt-2">
+                {firstRowNationKeys.map((key, index)=>(
+                <div key={index} className="col-1 mb-2 p-1">
+                    <div className="border p-2 d-flex flex-column rounded">
+                        <span className={`fi fi-sq fi-${CountryFlagJson[key]} fs-1`}></span>
+                        <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
+                    </div>
+                </div>
+                ))}
+                {sortedNationKeys.length > 12 && (<>
+                    {expendNations && (<>
+                    {restRowNationKeys.map((key, index)=>(
+                    <div key={index} className="col-1 mb-2 p-1">
+                        <div className="border p-2 d-flex flex-column rounded">
+                            <span className={`fi fi-sq fi-${CountryFlagJson[key]} fs-1`}></span>
+                            <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
+                        </div>
+                    </div>
+                    ))}
+                    </>)}
+                    <div className="col-12">
+                        {expendNations ? (
+                        <button className="btn btn-outline-secondary w-100" onClick={e=>setExpendNations(false)}>
+                            <FaChevronUp/>
+                            <span className="fw-bold mx-2">숨기기</span>
+                            <FaChevronUp/>
+                        </button>
+                        ) : (
+                        <button className="btn btn-outline-secondary w-100" onClick={e=>setExpendNations(true)}>
+                            <FaChevronDown/>
+                            <span className="fw-bold mx-2">더보기</span>
+                            <FaChevronDown/>
+                        </button>
+                        )}
+                    </div>
+                </>)}
             </div>
 
             <div className="row mt-2">
