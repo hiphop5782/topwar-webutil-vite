@@ -218,7 +218,7 @@ export default function TopwarServerDataViewer() {
         {selectedServers.length > 0 && (<>
         <div className="row my-4">
             {calculateData.map(server => (
-                <div className="col-lg-6" key={server.serverNumber}>
+                <div className="col-12" key={server.serverNumber}>
                     <div className="shadow rounded p-4">
                         <h3>{server.serverNumber} {t("TopwarServerDataViewer.server-suffix")}</h3>
                         <div className="fs-5 mt-4 d-flex align-items-center">
