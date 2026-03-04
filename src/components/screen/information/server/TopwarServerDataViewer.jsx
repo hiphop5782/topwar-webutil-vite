@@ -75,7 +75,7 @@ export default function TopwarServerDataViewer() {
             Object.keys(playerMap).forEach((k, i) => {
                 if (activeAllianceData.tags.includes(k)) {
                     playerChartObj.labels.push(k);
-                    console.log(playerMap);
+                    //console.log(playerMap);
                     playerChartObj.datasets[0].data.push(playerMap[k].players.reduce((a, c) => a + c.cp, 0));
                 }
             });
