@@ -56,6 +56,9 @@
       "manage": "Manage Vote"
     }
   },
+   "post":{
+        "label":"Tips"
+    },
   "developer": {
     "label": "Developer"
   }
