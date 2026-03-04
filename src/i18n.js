@@ -16,7 +16,8 @@ i18n
         ns: ["common", "menu", "viewer"],
         defaultNS: "common",
         backend: { loadPath: "/locales/{{lng}}/{{ns}}.json" },
-        interpolation: { escapeValue: false }
+        interpolation: { escapeValue: false },
+        react: {useSuspense:false},
     });
 
 export default i18n;

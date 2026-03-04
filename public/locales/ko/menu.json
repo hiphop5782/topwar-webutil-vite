@@ -56,6 +56,9 @@
             "manage":"투표 관리"
         }
     },
+    "post":{
+        "label":"공략"
+    },
     "developer":{
         "label":"개발자"
     }

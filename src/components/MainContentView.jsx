@@ -46,6 +46,8 @@ import KartzDataViewer from "@src/components/screen/information/kartz/KartzDataV
 import KartzRankViewer from "@src/components/screen/information/kartz/KartzRankViewer";
 import KartzServerHistoryViewer from "@src/components/screen/information/kartz/KartzServerHistoryViewer";
 import KartzUserHistoryViewer from "@src/components/screen/information/kartz/KartzUserHistoryViewer";
+import PostList from "@src/components/screen/post/PostList";
+import Post from "@src/components/screen/post/Post";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -71,6 +73,11 @@ export default function MainContentView() {
                 {/* routes */}
                 <Routes>
                     <Route index element={<Home />}></Route>
+
+                    {/* 포스트 */}
+                    <Route path="post" element={<PostList/>}></Route>
+                    <Route path="post/:folder" element={<Post/>}></Route>
+
                     <Route path="information/base" element={<BaseInformation />}></Route>
                     {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
                     {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}

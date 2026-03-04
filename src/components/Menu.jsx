@@ -125,6 +125,9 @@ function Menu() {
                             </div>
                         </li>
                         <li className="nav-item">
+                            <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
+                        </li>
+                        <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/developer`}>{t(`menu:developer.label`)}</LanguageRouterLink>
                         </li>
 

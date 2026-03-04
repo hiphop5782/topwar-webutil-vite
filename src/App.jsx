@@ -12,7 +12,10 @@ import LanguageRouter from './components/LanguageRouter';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    }}>
       <LanguageRouter/>
     </BrowserRouter>
   )
