@@ -7,7 +7,7 @@ import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
 const localeMap = { ko, en: enUS, ja };
 
-const modules = import.meta.glob("/src/assets/md/*/readme.md", {eager: true, query: "?raw"});
+const modules = import.meta.glob("/src/assets/md/*/readme.md", { eager: true, query: "?raw" });
 
 export default function PostList() {
     const { i18n } = useTranslation();
@@ -16,40 +16,87 @@ export default function PostList() {
     const currentLang = i18n.language.split('-')[0];
     const currentLocale = localeMap[currentLang] || enUS; // 매핑 실패 시 영어 기본
 
-    const posts = useMemo(()=>{
-        return Object.keys(modules).sort((a,b)=>b.localeCompare(a)).map((path, index)=>{
+    const posts = useMemo(() => {
+        return Object.keys(modules).sort((a, b) => b.localeCompare(a)).map((path, index) => {
             const pathParts = path.split("/");
-            const folderName = pathParts[pathParts.length-2];
+            const folderName = pathParts[pathParts.length - 2];
             const rawContent = modules[path].default || "";
-            const {attributes, body} = fm(rawContent);
+            const { attributes, body } = fm(rawContent);
+
+            // ✅ 본문에서 첫 번째 이미지 URL 추출 로직
+            const imgRegex = /!\[.*?\]\((.*?)\)/;
+            const match = body.match(imgRegex);
+            let thumbnailUrl = null;
+
+            if (match && match[1]) {
+                const src = match[1];
+                // 상대 경로인 경우 처리 (상세페이지와 동일한 방식)
+                thumbnailUrl = src.startsWith('./')
+                    ? new URL(`/src/assets/md/${folderName}/${src.replace('./', '')}`, import.meta.url).href
+                    : src;
+            }
+
             return {
-                no : index,
+                no: index,
                 title: attributes.title || "제목이 없는 포스트",
                 folder: folderName,
                 date: attributes.date || "",
                 tags: attributes.tags || [],
                 summary: attributes.description || "",
+                thumbnail: thumbnailUrl,
             }
         });
     }, [modules]);
 
-    return (<>
-        <h1>포스트 ({posts.length})</h1>
+    return (
+        <div className="container-fluid mb-5">
+            <h1>포스트 ({posts.length})</h1>
 
-        <hr/>
+            <hr />
 
-        <ul className="list-group list-group-flush">
-        {posts.map(post=>(
-            <li className="list-group-item p-4 border-0 px-0" key={post.no}>
-                <div className="shadow p-4 rounded border border-secondary">
-                    <h3 className="text-truncate mb-4 fw-bold">
-                        <LanguageRouterLink to={`/post/${post.folder}`} className="text-primary text-decoration-none">{post.title}</LanguageRouterLink>
-                    </h3>
-                    <p className="text-muted">{post.summary}</p>
-                    <p className="text-muted text-end">{formatDistanceToNow(post.date, {addSuffix:true, locale:currentLocale})}</p>
-                </div>
-            </li>
-        ))}
-        </ul>
-    </>)
+            <ul className="list-group list-group-flush">
+                {posts.map(post => (
+                    <li className="list-group-item p-4 border-0 px-0" key={post.no}>
+                        <div className="shadow p-4 rounded border border-secondary">
+                            <div className="row g-0">
+                                {/* ✅ 썸네일 영역: 이미지가 있을 때만 표시 */}
+                                {post.thumbnail && (
+                                    <div className="col-md-4">
+                                        <LanguageRouterLink to={`/post/${post.folder}`}>
+                                            <img
+                                                src={post.thumbnail}
+                                                alt={post.title}
+                                                className="img-fluid img-thumbnail h-100 w-100"
+                                                style={{ objectFit: 'cover', minHeight: '200px' }}
+                                            />
+                                        </LanguageRouterLink>
+                                    </div>
+                                )}
+                                <div className={post.thumbnail ? "col-md-8" : "col-12"}>
+                                    <div className="p-4 h-100 d-flex flex-column">
+                                        <h3 className="text-truncate mb-3 fw-bold">
+                                            <LanguageRouterLink to={`/post/${post.folder}`} className="text-primary text-decoration-none">
+                                                {post.title}
+                                            </LanguageRouterLink>
+                                        </h3>
+                                        <p className="text-muted flex-grow-1" style={{
+                                            display: '-webkit-box',
+                                            WebkitLineClamp: '3',
+                                            WebkitBoxOrient: 'vertical',
+                                            overflow: 'hidden'
+                                        }}>
+                                            {post.summary}
+                                        </p>
+                                        {/* <div className="text-muted text-end mt-3 small">
+                                            {post.date && formatDistanceToNow(new Date(post.date), { addSuffix: true, locale: currentLocale })}
+                                        </div> */}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>)
 }

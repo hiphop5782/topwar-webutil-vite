@@ -8,12 +8,12 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import fm from "front-matter";
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
-import { ko, enUS, ja } from "date-fns/locale";
+// import { ko, enUS, ja } from "date-fns/locale";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import { FaChevronLeft, FaChevronRight, FaList } from "react-icons/fa6";
 
 const ALL_MODULES = import.meta.glob("/src/assets/md/*/readme.md", { query: "?raw" });
-const localeMap = { ko, en: enUS, ja };
+// const localeMap = { ko, en: enUS, ja };
 
 // ✅ 리딩 바 (내부 상태 격리)
 const ReadingBar = () => {
