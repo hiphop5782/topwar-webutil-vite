@@ -87,21 +87,21 @@ export default function Post() {
                         <h5 className="fw-bold m-0 text-truncate text-start" style={{ maxWidth: '60%' }}>
                             {post.attributes.title || folder}
                         </h5>
-                        
+
                         {/* 오른쪽 끝: 버튼 그룹 */}
                         <div className="d-flex gap-2 flex-shrink-0">
-                            <LanguageRouterLink to={pagination.prev ? `/post/${pagination.prev.folder}` : "#"} 
+                            <LanguageRouterLink to={pagination.prev ? `/post/${pagination.prev.folder}` : "#"}
                                 className={`btn btn-sm ${!pagination.prev ? 'btn-light disabled' : 'btn-outline-secondary'}`}>
-                                    <FaChevronLeft/>
-                            </LanguageRouterLink>
-                            
-                            <LanguageRouterLink to="/post" className="btn btn-sm btn-outline-dark px-3">
-                                <FaList/>
+                                <FaChevronLeft />
                             </LanguageRouterLink>
 
-                            <LanguageRouterLink to={pagination.next ? `/post/${pagination.next.folder}` : "#"} 
+                            <LanguageRouterLink to="/post" className="btn btn-sm btn-outline-dark px-3">
+                                <FaList />
+                            </LanguageRouterLink>
+
+                            <LanguageRouterLink to={pagination.next ? `/post/${pagination.next.folder}` : "#"}
                                 className={`btn btn-sm ${!pagination.next ? 'btn-light disabled' : 'btn-outline-secondary'}`}>
-                                <FaChevronRight/>
+                                <FaChevronRight />
                             </LanguageRouterLink>
                         </div>
                     </div>
@@ -127,10 +127,20 @@ export default function Post() {
                                 );
                             },
                             img: ({ src, alt }) => {
-                                const imagePath = src.startsWith('./')
-                                    ? new URL(`/src/assets/md/${folder}/${src.replace('./', '')}`, import.meta.url).href
-                                    : src;
-                                return <img src={imagePath} alt={alt} style={{ maxWidth: "100%", borderRadius: "8px", margin: "20px 0" }} />;
+                                // 1. URL 인코딩된 한글을 다시 원래 한글로 변환 (decodeURI 사용)
+                                const decodedSrc = decodeURI(src);
+
+                                const imagePath = decodedSrc.startsWith('./')
+                                    ? new URL(`/src/assets/md/${folder}/${decodedSrc.replace('./', '')}`, import.meta.url).href
+                                    : decodedSrc;
+
+                                return (
+                                    <img
+                                        src={imagePath}
+                                        alt={alt}
+                                        style={{ maxWidth: "100%", borderRadius: "8px", margin: "20px 0" }}
+                                    />
+                                );
                             },
                             table: ({ children }) => (
                                 <div className="table-responsive my-4">
