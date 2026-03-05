@@ -61,7 +61,7 @@ export default function PostList() {
                             <div className="row g-0">
                                 {/* ✅ 썸네일 영역: 이미지가 있을 때만 표시 */}
                                 {post.thumbnail && (
-                                    <div className="col-md-4">
+                                    <div className="col-sm-2">
                                         <LanguageRouterLink to={`/post/${post.folder}`}>
                                             <img
                                                 src={post.thumbnail}
@@ -72,7 +72,7 @@ export default function PostList() {
                                         </LanguageRouterLink>
                                     </div>
                                 )}
-                                <div className={post.thumbnail ? "col-md-8" : "col-12"}>
+                                <div className={post.thumbnail ? "col-sm-10" : "col-12"}>
                                     <div className="p-4 h-100 d-flex flex-column">
                                         <h3 className="text-truncate mb-3 fw-bold">
                                             <LanguageRouterLink to={`/post/${post.folder}`} className="text-primary text-decoration-none">
