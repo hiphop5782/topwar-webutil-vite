@@ -17,7 +17,14 @@ export default function PostList() {
     const currentLocale = localeMap[currentLang] || enUS; // 매핑 실패 시 영어 기본
 
     const posts = useMemo(() => {
-        return Object.keys(modules).sort((a, b) => b.localeCompare(a)).map((path, index) => {
+        return Object.keys(modules).sort((a, b) => b.localeCompare(a))
+        .filter(path=>{
+            const pathParts = path.split("/");
+            const folderName = pathParts[pathParts.length - 2];
+            console.log(folderName, folderName.startsWith("9999-99-99") === false);
+            return folderName.startsWith("9999-99-99") === false;
+        })
+        .map((path, index) => {
             const pathParts = path.split("/");
             const folderName = pathParts[pathParts.length - 2];
             const rawContent = modules[path].default || "";
