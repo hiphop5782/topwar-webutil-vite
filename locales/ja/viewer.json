@@ -40,6 +40,7 @@
     },
     "TopwarPlayerDataViewer": {
         "label-input": "サーバー",
+        "label-nickname" : "ニックネーム",
         "label-total": "総プレイヤー数",
         "label-active": "アクティブプレイヤー",
         "label-pause": "未ログイン(7日以上)",

@@ -40,6 +40,7 @@
     },
     "TopwarPlayerDataViewer": {
         "label-input" : "서버",
+        "label-nickname" : "닉네임",
         "label-total" : "총 유저",
         "label-active" : "활성 유저",
         "label-pause" : "미접속(7일+)",
