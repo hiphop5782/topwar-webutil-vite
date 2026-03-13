@@ -40,6 +40,7 @@
     },
     "TopwarPlayerDataViewer": {
         "label-input": "Server",
+        "label-nickname" : "Nickname",
         "label-total": "Total Players",
         "label-active": "Active Players",
         "label-pause": "Inactive (7d+)",

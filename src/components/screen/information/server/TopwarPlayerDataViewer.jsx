@@ -18,6 +18,7 @@ export default function TopwarPlayerDataViewer() {
     useEffect(()=>{ loadData(); }, []);
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [searchNickname, setSearchNickname] = useState("");
     const { t } = useTranslation(["viewer", "commons"]);
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)
@@ -28,13 +29,20 @@ export default function TopwarPlayerDataViewer() {
     // 2. 검색 필터링 로직 추가
     const filteredPlayers = useMemo(() => {
         const term = searchTerm.trim().toLowerCase();
-        if (!term) return sortedPlayers;
-
-        return sortedPlayers.filter(player => {
+        const nickname = searchNickname.trim().toLowerCase();
+        if (!term && !nickname) return sortedPlayers;
+        
+        if(nickname.length > 0) return sortedPlayers.filter(player => {
+            return player.nickname?.toLowerCase().startsWith(nickname);
+        });
+        if(term.length > 0) return sortedPlayers.filter(player => {
             return player.server.toString() === term;
-        }
-        );
-    }, [searchTerm, sortedPlayers]);
+        });
+
+        return sortedPlayers.filter(player=>{
+            return player.nickname === nickname && player.server.toString() === term;
+        });
+    }, [searchTerm, searchNickname, sortedPlayers]);
 
     const calculateDays = useCallback((player)=>{
         const today = parseInt(Date.now() / 24 / 60 / 60 / 1000);
@@ -96,6 +104,8 @@ export default function TopwarPlayerDataViewer() {
                             setSearchTerm(e.target.value);
                         }}
                     />
+                    <span className="ms-4">{t(`TopwarPlayerDataViewer.label-nickname`)}</span>
+                    <input type="text" className="form-control w-auto ms-4" placeholder="e.g., ＫＩＤ" value={searchNickname} onChange={e=>setSearchNickname(e.target.value)}/>
             </div>
             <div className="row mb-3">
                 <div className="col-6 col-lg-3 p-2">
