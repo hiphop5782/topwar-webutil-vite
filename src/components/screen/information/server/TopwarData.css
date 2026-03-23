@@ -6,10 +6,13 @@
 
 .numeric-cell {
     /* 숫자의 간격을 일정하게 맞춰주는 속성 */
-    font-feature-settings: "tnum";
-    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" !important;
+    font-variant-numeric: tabular-nums !important;
     /* 고정 너비 폰트를 선호하신다면 추가 */
-    font-family: 'Roboto Mono', monospace; 
+    font-family: 'Roboto Mono', monospace !important;
+    
+    /* 공백(Space)의 크기까지 엄격하게 맞추고 싶다면 추가 */
+    white-space: pre !important;
 }
 
 /* 기본 fold 설정 */

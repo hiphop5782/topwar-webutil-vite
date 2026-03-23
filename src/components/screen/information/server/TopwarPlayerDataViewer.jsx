@@ -199,12 +199,11 @@ export default function TopwarPlayerDataViewer() {
                                 <div style={{ width: 80 }} className="numeric-cell fw-bold">
                                     {(player.cp / 1000000).toFixed(2) + "M"}
                                 </div>
-                                <div style={{ width: 120 }} className="text-end pe-3 numeric-cell fw-bold text-nowrap">
-                                    <span className="text-info">{player.server}</span>
+                                <div style={{ width: 140 }} className="text-end pe-3 numeric-cell fw-bold text-nowrap d-inline-flex">
+                                    <span className="text-info w-100 numeric-cell">{player.server}</span>
                                     
-                                    <span className="d-none d-sm-inline">
-                                        &nbsp;
-                                        <span className="text-danger">[{player.allianceTag ? player.allianceTag.padEnd(4) : <>&nbsp;&nbsp;&nbsp;&nbsp;</>}]</span>
+                                    <span className="d-none d-sm-inline-block w-100 numeric-cell">
+                                        <span className="text-danger">{player.allianceTag ? `[${player.allianceTag.padEnd(4)}]` : ``}</span>
                                     </span>
                                 </div>
                             </div>
