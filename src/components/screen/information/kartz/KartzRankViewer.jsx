@@ -136,7 +136,7 @@ export default function KartzRankViewer(){
                                 <th width={45}>{t("KartzRankViewer.table-rank")}</th>
                                 <th width={55}>{t("KartzRankViewer.table-server")}</th>
                                 <th>{t("KartzRankViewer.table-alliance")}</th>
-                                <th className="text-end" width={75}>{t("KartzRankViewer.score")}</th>
+                                <th className="text-end" width={75}>{t("KartzRankViewer.table-score")}</th>
                             </tr>
                         </thead>
                         <tbody>
