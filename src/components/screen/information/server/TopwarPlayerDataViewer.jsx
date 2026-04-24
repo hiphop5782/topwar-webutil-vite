@@ -48,8 +48,8 @@ export default function TopwarPlayerDataViewer() {
         const today = parseInt(Date.now() / 24 / 60 / 60 / 1000);
         const lastLogin = parseInt(player.lastLogin / 24 / 60 / 60);
         const days = today - lastLogin;
-        if(days > 30) return 'fold day-30';
-        else if(days > 7) return 'fold day-7';
+        if(days > 30) return 'day30';
+        else if(days > 7) return 'day7';
         return '';
     }, []);
 
@@ -181,9 +181,11 @@ export default function TopwarPlayerDataViewer() {
                         style={{ height: '600px', border: 'none', outline: 'none' }}
                         data={filteredPlayers}
                         useWindowScroll
-                        itemContent={(index, player) => (
-                            <div className={`d-flex align-items-center border-bottom bg-white ${calculateDays(player)}`}
-                                 style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
+                        itemContent={(index, player) => {
+                            const foldDays = calculateDays(player);
+                            return (
+                            <div className={`user-panel position-relative d-flex align-items-center border-bottom bg-white`}
+                                style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
                                 <div style={{ width: 100 }}>
                                     {/* filteredPlayers를 기준으로 index 재계산 */}
                                     <span className="badge text-bg-primary">{player.rank}</span>
@@ -206,8 +208,12 @@ export default function TopwarPlayerDataViewer() {
                                         <span className="text-danger">{player.allianceTag ? `[${player.allianceTag.padEnd(4)}]` : ``}</span>
                                     </span>
                                 </div>
+                                {foldDays.length > 0 && (
+                                <div className={`fold ${foldDays}`}>{t(`TopwarPlayerDataViewer.overlay-${foldDays}`)}</div>
+                                )}
                             </div>
-                        )}
+                            )
+                        }}
                     />
                     )}
                     {dataLoading === true && filteredPlayers.length === 0 && (
