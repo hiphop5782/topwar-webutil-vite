@@ -103,8 +103,9 @@ description: 폭풍의 눈 전투를 승리하기 위해 알아야 할 것들
 - 외곽 유적 (`S-1` ~ `S-12`) : 개당 `500`점
 - 내곽 유적 (`H-1` ~ `H-9` ) : 개당 `1000`점
 
-<img src="./유적 최초 점령 점수.png" width="250"> <br>
-<img src="./image-5.png" width="250">
+<p><img src="./유적 최초 점령 점수.png" width="300"></p>
+
+<p><img src="./image-5.png" width="300"></p>
 
 # 자신에 전투력에 맞는 플레이 스타일
 
@@ -151,8 +152,9 @@ description: 폭풍의 눈 전투를 승리하기 위해 알아야 할 것들
 ![alt text](./image-9.png)
 
 2. 지도에서 탈환 신호를 확인하면 아군에게 알리고 보상 포인트를 획득  
-![alt text](<./지도에 표시된 유적 점령 신호.gif>)
-![alt text](<./보상 포인트.png>)
+
+<p><img src="./지도에 표시된 유적 점령 신호.gif" width="500" style="max-width:100%"></p>
+<p><img src="./보상 포인트.png>" width="500" style="max-width:100%"></p>
 
 # 보스 공격
 
