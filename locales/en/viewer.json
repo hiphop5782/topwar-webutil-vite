@@ -43,6 +43,11 @@
         "title": "Seal Stone Chaos Anlyzer",
         "label-input": "Server",
         "label-cutoff" : "Minimum Score",
+        "result-count" : "Count",
+        "result-total" : "Total Points",
+        "result-average" : "Average Points",
+        "result-iqr-total" : "Total IQR Points",
+        "result-iqr-average" : "Average IQR Points",
         "no-result": "No results found"
     },
     "TopwarPlayerDataViewer": {

@@ -36,6 +36,11 @@
         "title": "봉인석 전장 개인 순위",
         "label-input" : "서버",
         "label-cutoff" : "최소점수",
+        "result-count" : "인원수",
+        "result-total" : "포인트합계",
+        "result-average" : "포인트평균",
+        "result-iqr-total" : "IQR 포인트합계",
+        "result-iqr-average" : "IQR 포인트평균",
         "no-result" : "검색 결과가 없습니다"
     },
     "TopwarDataViewer":{
