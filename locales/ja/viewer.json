@@ -33,7 +33,9 @@
     },
 
     "TopwarSscPointViewer":{
+        "title": "封印石カオスー暴風覚醒・個人ランキング",
         "label-input": "サーバー",
+        "label-cutoff" : "最低点",
         "no-result": "検索結果がありません"
     },
     "TopwarDataViewer": {

@@ -33,7 +33,9 @@
     },
 
     "TopwarSscPointViewer":{
+        "title": "봉인석 전장 개인 순위",
         "label-input" : "서버",
+        "label-cutoff" : "최소점수",
         "no-result" : "검색 결과가 없습니다"
     },
     "TopwarDataViewer":{

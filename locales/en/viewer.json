@@ -40,7 +40,9 @@
     },
     
     "TopwarSscPointViewer": {
+        "title": "Seal Stone Chaos Anlyzer",
         "label-input": "Server",
+        "label-cutoff" : "Minimum Score",
         "no-result": "No results found"
     },
     "TopwarPlayerDataViewer": {
