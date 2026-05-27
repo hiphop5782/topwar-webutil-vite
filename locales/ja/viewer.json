@@ -32,6 +32,10 @@
         "message-countview": "名が参加中"
     },
 
+    "TopwarSscPointViewer":{
+        "label-input": "サーバー",
+        "no-result": "検索結果がありません"
+    },
     "TopwarDataViewer": {
         "btn-player-data": "プレイヤーデータ",
         "btn-server-data": "サーバーデータ",

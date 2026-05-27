@@ -32,6 +32,10 @@
         "message-countview": "명 참여중"
     },
 
+    "TopwarSscPointViewer":{
+        "label-input" : "서버",
+        "no-result" : "검색 결과가 없습니다"
+    },
     "TopwarDataViewer":{
         "btn-player-data" : "유저 데이터",
         "btn-server-data" : "서버 데이터",
