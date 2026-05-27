@@ -48,6 +48,7 @@ import KartzServerHistoryViewer from "@src/components/screen/information/kartz/K
 import KartzUserHistoryViewer from "@src/components/screen/information/kartz/KartzUserHistoryViewer";
 import PostList from "@src/components/screen/post/PostList";
 import Post from "@src/components/screen/post/Post";
+import TopwarSscPointViewer from "@src/components/screen/information/server/TopwarSscPointViewer";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -99,7 +100,7 @@ export default function MainContentView() {
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
                         {/* <Route path="compare" element={<TopwarCompareViewer/>}></Route> */}
-                        <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route>
+                        {/* <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route> */}
                     </Route>
                     <Route path="information/kartz" element={<KartzDataViewer/>}>
                         <Route index element={<KartzSpecInformation/>}></Route>
@@ -107,6 +108,9 @@ export default function MainContentView() {
                         <Route path="user" element={<KartzUserHistoryViewer/>}></Route>
                         <Route path="server" element={<KartzServerHistoryViewer/>}></Route>
                     </Route>
+
+                    <Route path="information/ssc" element={<TopwarSscPointViewer/>}></Route>
+                    
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>

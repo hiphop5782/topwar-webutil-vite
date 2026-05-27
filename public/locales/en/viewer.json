@@ -38,6 +38,11 @@
         "btn-alliance-data": "Alliance Data",
         "btn-server-compare": "Server Comparison"
     },
+    
+    "TopwarSscPointViewer": {
+        "label-input": "Server",
+        "no-result": "No results found"
+    },
     "TopwarPlayerDataViewer": {
         "label-input": "Server",
         "label-nickname" : "Nickname",
