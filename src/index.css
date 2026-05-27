@@ -21,3 +21,15 @@ code {
 .navbar * {
   text-transform: none !important;
 }
+
+.label-with-dashline {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.label-with-dashline:after {
+  content: "";
+  flex-grow: 1;
+  border: 1px dashed black;
+  margin-left: 10px;
+}
