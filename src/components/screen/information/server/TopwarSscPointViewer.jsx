@@ -11,6 +11,7 @@ export default function TopwarSscPointViewer() {
     const [mainData, setMainData] = useState(null);
     const playerList = useMemo(() => mainData?.rows ?? [], [mainData]);
     const [dataLoading, setDataLoading] = useState(true);
+    const [minimum, setMinimum] = useState(0);
     const loadData = useCallback(async () => {
         const data = await import("@src/assets/json/ssc/userData.json");
         setMainData(data.default);
@@ -29,16 +30,12 @@ export default function TopwarSscPointViewer() {
     // 2. 검색 필터링 로직 추가
     const filteredPlayers = useMemo(() => {
         const term = searchTerm.trim().toLowerCase();
-        if (!term) return sortedPlayers;
-
-        if (term.length > 0) return sortedPlayers.filter(player => {
-            return player.sid.toString() === term;
-        });
+        const empty = term.length === 0;
 
         return sortedPlayers.filter(player => {
-            return player.server.toString() === term;
+            return (empty ? true : player.sid.toString() === term) && player.score > minimum;
         });
-    }, [searchTerm, sortedPlayers]);
+    }, [searchTerm, minimum, sortedPlayers]);
 
     const calculateDays = useCallback((player) => {
         const today = parseInt(Date.now() / 24 / 60 / 60 / 1000);
@@ -131,7 +128,7 @@ export default function TopwarSscPointViewer() {
 
     return (
         <>
-            <h1>봉인석 전장 랭킹</h1>
+            <h1>{t("TopwarSscPointViewer.title")}</h1>
             <div className="d-flex align-items-center mb-1 mt-4">
                 {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
                 {/* 검색 입력창 추가 */}
@@ -147,6 +144,20 @@ export default function TopwarSscPointViewer() {
                         setSearchTerm(e.target.value);
                     }}
                 />
+                
+                <span className="ms-4">{t("TopwarSscPointViewer.label-cutoff")}</span>
+                <input
+                    type="text"
+                    className="form-control w-auto ms-4"
+                    placeholder="e.g., 10000"
+                    value={minimum}
+                    onChange={(e) => {
+                        const regex = /[0-9]*/;
+                        if (!regex.test(e.target.value)) return;
+                        setMinimum(parseInt(e.target.value || 0));
+                    }}
+                />
+
             </div>
 
             <div className="row mt-4">
