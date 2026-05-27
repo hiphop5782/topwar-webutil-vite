@@ -178,8 +178,8 @@ export default function TopwarSscPointViewer() {
                 </div>
             </div>
             <div className="row mt-2">
-                <div className="col-3 text-danger">IQR 평균 :</div>
-                <div className="col-9 fw-bold">
+                <div className="col-sm-4 text-danger">IQR 평균 :</div>
+                <div className="col-sm-8 fw-bold">
                     {formatCompactNumber(filteredPlayerAverageScoreWithIQR)} &nbsp;&nbsp;&nbsp;&nbsp;
                     ( {filteredPlayerAverageScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
                 </div>
