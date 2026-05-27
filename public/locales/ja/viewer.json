@@ -36,6 +36,11 @@
         "title": "封印石カオスー暴風覚醒・個人ランキング",
         "label-input": "サーバー",
         "label-cutoff" : "最低点",
+        "result-count" : "結果数",
+        "result-total" : "ポイント合計",
+        "result-average" : "ポイント平均",
+        "result-iqr-total" : "IQRポイント合計",
+        "result-iqr-average" : "IQRポイント平均",
         "no-result": "検索結果がありません"
     },
     "TopwarDataViewer": {

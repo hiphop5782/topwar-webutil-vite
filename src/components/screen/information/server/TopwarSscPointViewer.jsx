@@ -161,35 +161,35 @@ export default function TopwarSscPointViewer() {
             </div>
 
             <div className="row mt-4">
-                <div className="col-sm-4 text-primary">결과 수 :</div>
+                <div className="col-sm-4 text-primary">{t("TopwarSscPointViewer.result-count")}</div>
                 <div className="col-sm-8 fw-bold">
                     {formatCompactNumber(filteredPlayers.length)} &nbsp;&nbsp;&nbsp;&nbsp;
                     ( {filteredPlayers.length.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
                 </div>
             </div>
             <div className="row mt-2">
-                <div className="col-sm-4 text-primary">포인트 합계 :</div>
+                <div className="col-sm-4 text-primary">{t("TopwarSscPointViewer.result-total")}</div>
                 <div className="col-sm-8 fw-bold">
                     {formatCompactNumber(filteredPlayerTotalScore)} &nbsp;&nbsp;&nbsp;&nbsp;
                     ( {filteredPlayerTotalScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
                 </div>
             </div>
             <div className="row mt-2">
-                <div className="col-sm-4 text-primary">1인당 평균 포인트 :</div>
+                <div className="col-sm-4 text-primary">{t("TopwarSscPointViewer.result-average")}</div>
                 <div className="col-sm-8 fw-bold">
                     {formatCompactNumber(filteredPlayerAverageScore)} &nbsp;&nbsp;&nbsp;&nbsp;
                     ( {filteredPlayerAverageScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
                 </div>
             </div>
             <div className="row mt-2">
-                <div className="col-sm-4 text-danger">IQR 합계 :</div>
+                <div className="col-sm-4 text-danger">{t("TopwarSscPointViewer.result-iqr-total")}</div>
                 <div className="col-sm-8 fw-bold">
                     {formatCompactNumber(filteredPlayerTotalScoreWithIQR)} &nbsp;&nbsp;&nbsp;&nbsp;
                     ( {filteredPlayerTotalScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
                 </div>
             </div>
             <div className="row mt-2">
-                <div className="col-sm-4 text-danger">IQR 평균 :</div>
+                <div className="col-sm-4 text-danger">{t("TopwarSscPointViewer.result-iqr-average")}</div>
                 <div className="col-sm-8 fw-bold">
                     {formatCompactNumber(filteredPlayerAverageScoreWithIQR)} &nbsp;&nbsp;&nbsp;&nbsp;
                     ( {filteredPlayerAverageScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
