@@ -32,4 +32,11 @@ code {
   flex-grow: 1;
   border: 1px dashed black;
   margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media screen and (max-width:576px) {
+  .label-with-dashline:after {
+    display: none;
+  }
 }

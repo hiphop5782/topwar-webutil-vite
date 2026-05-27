@@ -137,19 +137,23 @@ export default function TopwarPlayerDataViewer() {
             <div className="row mt-2">
                 {firstRowNationKeys.map((key, index)=>(
                 <div key={index} className="col-1 mb-2 p-1">
-                    <div className="border p-2 d-flex flex-column rounded">
-                        <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{aspectRatio: '1 / 1'}}></span>
-                        <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
+                    <div className="border d-flex flex-column rounded">
+                        <div className="p-2">
+                            <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{ aspectRatio: '1 / 1' }}></span>
+                        </div>
+                        <span className="numeric-responsive-cell text-center">{nationObj[key].toLocaleString()}</span>
                     </div>
                 </div>
                 ))}
                 {sortedNationKeys.length > 12 && (<>
                     {expendNations && (<>
                     {restRowNationKeys.map((key, index)=>(
-                        <div key={index} className="col-1 mb-2 p-1">
-                        <div className="border p-2 d-flex flex-column rounded">
-                            <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{aspectRatio: '1 / 1'}}></span>
-                            <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
+                    <div key={index} className="col-1 mb-2 p-1">
+                        <div className="border d-flex flex-column rounded">
+                            <div className="p-2">
+                                <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{ aspectRatio: '1 / 1' }}></span>
+                            </div>
+                            <span className="numeric-responsive-cell text-center">{nationObj[key].toLocaleString()}</span>
                         </div>
                     </div>
                     ))}

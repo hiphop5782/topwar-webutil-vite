@@ -4,7 +4,7 @@
   background: transparent;
 }
 
-.numeric-cell {
+.numeric-cell, .numeric-responsive-cell {
     /* 숫자의 간격을 일정하게 맞춰주는 속성 */
     font-feature-settings: "tnum" !important;
     font-variant-numeric: tabular-nums !important;
@@ -13,6 +13,16 @@
     
     /* 공백(Space)의 크기까지 엄격하게 맞추고 싶다면 추가 */
     white-space: pre !important;
+}
+@media screen and (max-width:576px){
+    .numeric-responsive-cell {
+        font-size: 0.6em;
+    }
+}
+@media screen and (max-width:960px){
+    .numeric-responsive-cell {
+        font-size: 0.75em;
+    }
 }
 
 /* 기본 fold 설정 */

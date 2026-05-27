@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import "flag-icons/sass/flag-icons.scss";
 import "./TopwarData.css";
-import { FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
+import { FaArrowRight, FaArrowRightLong, FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader"
 
@@ -129,91 +129,106 @@ export default function TopwarSscPointViewer() {
     return (
         <>
             <h1>{t("TopwarSscPointViewer.title")}</h1>
-            <div className="d-flex align-items-center mb-1 mt-4">
+            <div className="row mb-1 mt-4">
                 {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
                 {/* 검색 입력창 추가 */}
-                <span>{t(`TopwarSscPointViewer.label-input`)}</span>
-                <input
-                    type="text"
-                    className="form-control w-auto ms-4"
-                    placeholder="e.g., 3223"
-                    value={searchTerm}
-                    onChange={(e) => {
-                        const regex = /[0-9]*/;
-                        if (!regex.test(e.target.value)) return;
-                        setSearchTerm(e.target.value);
-                    }}
-                />
-                
-                <span className="ms-4">{t("TopwarSscPointViewer.label-cutoff")}</span>
-                <input
-                    type="text"
-                    className="form-control w-auto ms-4"
-                    placeholder="e.g., 10000"
-                    value={minimum}
-                    onChange={(e) => {
-                        const regex = /[0-9]*/;
-                        if (!regex.test(e.target.value)) return;
-                        setMinimum(parseInt(e.target.value || 0));
-                    }}
-                />
+                <div className="col-md-6 d-flex align-items-center">
+                    <span style={{width:75, whiteSpace:"nowrap"}}>{t(`TopwarSscPointViewer.label-input`)}</span>
+                    <input
+                        type="text"
+                        className="form-control w-auto ms-4"
+                        placeholder="e.g., 3223"
+                        value={searchTerm}
+                        onChange={(e) => {
+                            const regex = /[0-9]*/;
+                            if (!regex.test(e.target.value)) return;
+                            setSearchTerm(e.target.value);
+                        }}
+                    />
+                </div>
+                <div className="col-md-6 d-flex align-items-center mt-2 mt-md-0">
+                    <span style={{width:75, whiteSpace:"nowrap"}}>{t("TopwarSscPointViewer.label-cutoff")}</span>
+                    <input
+                        type="text"
+                        className="form-control w-auto ms-4"
+                        placeholder="e.g., 10000"
+                        value={minimum}
+                        onChange={(e) => {
+                            const regex = /[0-9]*/;
+                            if (!regex.test(e.target.value)) return;
+                            setMinimum(parseInt(e.target.value || 0));
+                        }}
+                    />
+                </div>
 
             </div>
 
-            <div className="row mt-4">
-                <div className="col-sm-4 text-primary label-with-dashline">{t("TopwarSscPointViewer.result-count")}</div>
+            <div className="row mt-4 text-danger">
+                <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-count")}</div>
                 <div className="col-sm-8 fw-bold">
-                    {formatCompactNumber(filteredPlayers.length)} &nbsp;&nbsp;&nbsp;&nbsp;
-                    ( {filteredPlayers.length.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
+                    <div className="row">
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayers.length)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayers.length.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                    </div>
                 </div>
             </div>
-            <div className="row mt-2">
-                <div className="col-sm-4 text-primary label-with-dashline">{t("TopwarSscPointViewer.result-total")}</div>
+            <div className="row mt-2 text-dark">
+                <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-total")}</div>
                 <div className="col-sm-8 fw-bold">
-                    {formatCompactNumber(filteredPlayerTotalScore)} &nbsp;&nbsp;&nbsp;&nbsp;
-                    ( {filteredPlayerTotalScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
+                    <div className="row">
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerTotalScore)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerTotalScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                    </div>
                 </div>
             </div>
-            <div className="row mt-2">
-                <div className="col-sm-4 text-primary label-with-dashline">{t("TopwarSscPointViewer.result-average")}</div>
+            <div className="row mt-2 text-dark">
+                <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-average")}</div>
                 <div className="col-sm-8 fw-bold">
-                    {formatCompactNumber(filteredPlayerAverageScore)} &nbsp;&nbsp;&nbsp;&nbsp;
-                    ( {filteredPlayerAverageScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
+                    <div className="row">
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerAverageScore)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerAverageScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                    </div>
                 </div>
             </div>
-            <div className="row mt-2">
-                <div className="col-sm-4 text-danger label-with-dashline">{t("TopwarSscPointViewer.result-iqr-total")}</div>
+            <div className="row mt-2 text-info">
+                <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-iqr-total")}</div>
                 <div className="col-sm-8 fw-bold">
-                    {formatCompactNumber(filteredPlayerTotalScoreWithIQR)} &nbsp;&nbsp;&nbsp;&nbsp;
-                    ( {filteredPlayerTotalScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
+                    <div className="row">
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerTotalScoreWithIQR)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerTotalScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                    </div>
                 </div>
             </div>
-            <div className="row mt-2">
-                <div className="col-sm-4 text-danger label-with-dashline">{t("TopwarSscPointViewer.result-iqr-average")}</div>
+            <div className="row mt-2 text-info">
+                <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-iqr-average")}</div>
                 <div className="col-sm-8 fw-bold">
-                    {formatCompactNumber(filteredPlayerAverageScoreWithIQR)} &nbsp;&nbsp;&nbsp;&nbsp;
-                    ( {filteredPlayerAverageScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })} )
+                    <div className="row">
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerAverageScoreWithIQR)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerAverageScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                    </div>
                 </div>
             </div>
 
             <div className="row mt-2">
                 {firstRowNationKeys.map((key, index) => (
-                    <div key={index} className="col-1 mb-2 p-1">
-                        <div className="border p-2 d-flex flex-column rounded">
-                            <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{ aspectRatio: '1 / 1' }}></span>
-                            <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
+                    <div key={index} className="col-2 col-sm-1 mb-2 p-1">
+                        <div className="border d-flex flex-column rounded">
+                            <div className="p-2">
+                                <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{ aspectRatio: '1 / 1' }}></span>
+                            </div>
+                            <span className="numeric-responsive-cell text-center">{nationObj[key].toLocaleString()}</span>
                         </div>
                     </div>
                 ))}
                 {sortedNationKeys.length > 12 && (<>
                     {expendNations && (<>
                         {restRowNationKeys.map((key, index) => (
-                            <div key={index} className="col-1 mb-2 p-1">
-                                <div className="border p-2 d-flex flex-column rounded">
+                            <div key={index} className="col-2 col-sm-1 mb-2 p-1">
+                                <div className="border d-flex flex-column rounded">
                                     <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{ aspectRatio: '1 / 1' }}></span>
-                                    <span className="numeric-cell text-center">{nationObj[key].toLocaleString()}</span>
+                                    <span className="numeric-responsive-cell text-center">{nationObj[key].toLocaleString()}</span>
                                 </div>
-                            </div>
+                            </div> 
                         ))}
                     </>)}
                     <div className="col-12">
