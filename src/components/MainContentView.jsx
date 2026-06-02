@@ -49,6 +49,7 @@ import KartzUserHistoryViewer from "@src/components/screen/information/kartz/Kar
 import PostList from "@src/components/screen/post/PostList";
 import Post from "@src/components/screen/post/Post";
 import TopwarSscPointViewer from "@src/components/screen/information/server/TopwarSscPointViewer";
+import TopwarRealPowerViewer from "@src/components/screen/information/server/TopwarRealPowerViewer";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -110,6 +111,8 @@ export default function MainContentView() {
                     </Route>
 
                     <Route path="information/ssc" element={<TopwarSscPointViewer/>}></Route>
+                    
+                    <Route path="information/realpower" element={<TopwarRealPowerViewer/>}></Route>
                     
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>

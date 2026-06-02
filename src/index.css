@@ -40,3 +40,8 @@ code {
     display: none;
   }
 }
+
+dl, dd {
+  margin: 0;
+  padding: 0;
+}
