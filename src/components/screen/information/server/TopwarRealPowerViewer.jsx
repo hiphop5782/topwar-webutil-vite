@@ -265,11 +265,13 @@ export default function TopwarRealPowerViewer() {
                         <span className="d-inline-block" style={{ width: 100 }}>Rank</span>
                     </dd>
                 </div>
-                {filteredPlayers.map((player, index) => (
+                {filteredPlayers.map((player, index) => {
+                    const idx = alliances.findIndex(alliance=>alliance.allianceTag === player.allianceTag);
+                    return (
                     <div className="d-flex mt-2">
                         <dt style={{ width: "35%" }}>
                             {player.allianceTag ? (
-                                <span className={`d-inline-block badge bg-${calculateType(index)}`} style={{ width: 60 }}>{player.allianceTag}</span>
+                                <span className={`d-inline-block badge bg-${calculateType(idx)}`} style={{ width: 60 }}>{player.allianceTag}</span>
                             ) : (
                                 <span className="d-inline-block" style={{ width: 60 }}></span>
                             )}
@@ -293,7 +295,8 @@ export default function TopwarRealPowerViewer() {
                             )}
                         </dd>
                     </div>
-                ))}
+                )
+                })}
             </div>
         </>)}
     </>);
