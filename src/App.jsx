@@ -1,7 +1,7 @@
 import './App.css'
 
 //loading bootstrap + bootswatch
-import 'bootswatch/dist/sandstone/bootstrap.min.css';
+import 'bootswatch/dist/zephyr/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.esm.js';
 
 //loading router

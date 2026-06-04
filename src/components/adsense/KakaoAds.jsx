@@ -32,5 +32,5 @@ export default function KakaoAds({ id , width , height }) {
     }, [id]);
 
     //render
-    return <div ref={adRef}/>;
+    return <div ref={adRef} style={{position:"sticky", top:100}}/>;
 }
