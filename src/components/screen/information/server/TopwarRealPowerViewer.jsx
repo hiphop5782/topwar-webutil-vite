@@ -19,9 +19,10 @@ export default function TopwarRealPowerViewer() {
         sort((a, b) => parseInt(a.fileName) - parseInt(b.fileName));
     }, []);
 
-    const [selectedServer, setSelectedServer] = useState(() => {
-        return fileNames?.length > 0 ? fileNames[0].path : null
-    });
+    // const [selectedServer, setSelectedServer] = useState(() => {
+    //     return fileNames?.length > 0 ? fileNames[0].path : null
+    // });
+    const [selectedServer, setSelectedServer] = useState("");
 
     const [json, setJson] = useState(null);
 
