@@ -122,6 +122,17 @@ export default function TopwarRealPowerViewer() {
         }).sort((a, b) => b.power - a.power);
     }, [json, alliances, selectedAlliance]);
 
+
+    const calculateType = useCallback((index)=>{
+        switch(index % 5) {
+        case 0: return "danger";
+        case 1: return "warning";
+        case 2: return "success";
+        case 3: return "info";
+        case 4: return "secondary";
+        }
+    }, []);
+
     return (<>
         <h1>리얼 파워 뷰어</h1>
 
@@ -234,7 +245,7 @@ export default function TopwarRealPowerViewer() {
                     onClick={e => setSelectedAlliance("all")}>전체</button>
 
                 {alliances.map((alliance, index) => (
-                    <button type="button" className={`btn ${selectedAlliance === alliance.allianceTag ? "btn-primary" : "btn-outline-primary"} me-2`}
+                    <button type="button" className={`btn ${selectedAlliance === alliance.allianceTag ? "btn-" : "btn-outline-"}${calculateType(index)} me-2`}
                         onClick={e => setSelectedAlliance(alliance.allianceTag)}>
                         {alliance.allianceTag}
                     </button>
@@ -258,7 +269,7 @@ export default function TopwarRealPowerViewer() {
                     <div className="d-flex mt-2">
                         <dt style={{ width: "35%" }}>
                             {player.allianceTag ? (
-                                <span className="d-inline-block badge bg-primary" style={{ width: 60 }}>{player.allianceTag}</span>
+                                <span className={`d-inline-block badge bg-${calculateType(index)}`} style={{ width: 60 }}>{player.allianceTag}</span>
                             ) : (
                                 <span className="d-inline-block" style={{ width: 60 }}></span>
                             )}
