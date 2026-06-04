@@ -257,7 +257,11 @@ export default function TopwarRealPowerViewer() {
                 {filteredPlayers.map((player, index) => (
                     <div className="d-flex mt-2">
                         <dt style={{ width: "35%" }}>
-                            <span className="d-inline-block badge bg-primary" style={{ width: 60 }}>{player.allianceTag}</span>
+                            {player.allianceTag ? (
+                                <span className="d-inline-block badge bg-primary" style={{ width: 60 }}>{player.allianceTag}</span>
+                            ) : (
+                                <span className="d-inline-block" style={{ width: 60 }}></span>
+                            )}
                             <span className={`ms-4 fi fi-sq fi-${CountryFlagJson[player.nationalflag]}`} style={{ aspectRatio: '1 / 1' }}></span>
                             <span className="ms-2">{player.username}</span>
                         </dt>
@@ -267,7 +271,7 @@ export default function TopwarRealPowerViewer() {
                             <span className="d-inline-block" style={{ width: 100 }}>{player.activityScore}</span>
                             <span className="d-inline-block" style={{ width: 100 }}>
                                 {index+1}
-                                {selectedAlliance === "all" && (<span className="ms-1">({player.powerRankInAlliance})</span>)}
+                                {selectedAlliance === "all" && player.allianceTag && (<span className="ms-1">({player.powerRankInAlliance})</span>)}
                             </span>
                             {player.lastLogin !== undefined ? (
                             <span className="d-inline-block">
