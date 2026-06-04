@@ -1,0 +1,136 @@
+.ai-evaluation-card {
+    padding: 24px;
+    border-radius: 18px;
+    background: #111827;
+    color: #f9fafb;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.ai-evaluation-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: #9ca3af;
+}
+
+.ai-evaluation-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.score-badges {
+    display: flex;
+    gap: 12px;
+}
+
+.score-badge {
+    min-width: 110px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    text-align: center;
+}
+
+.score-badge span {
+    display: block;
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.score-badge strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.score-badge em {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    font-style: normal;
+    color: #d1d5db;
+}
+
+.score-badge.activity {
+    border: 1px solid rgba(34, 197, 94, 0.45);
+}
+
+.score-badge.risk {
+    border: 1px solid rgba(239, 68, 68, 0.45);
+}
+
+.summary-box,
+.recommendation-box,
+.evaluation-section {
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.summary-box {
+    margin-bottom: 16px;
+}
+
+.summary-box h3,
+.recommendation-box h3,
+.evaluation-section h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.summary-box p,
+.recommendation-box p {
+    margin: 0;
+    line-height: 1.65;
+    color: #e5e7eb;
+}
+
+.evaluation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.evaluation-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.evaluation-section li {
+    margin-bottom: 8px;
+    line-height: 1.55;
+    color: #e5e7eb;
+}
+
+.evaluation-section.warning {
+    border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+@media (max-width: 768px) {
+    .ai-evaluation-header {
+        flex-direction: column;
+    }
+
+    .score-badges {
+        width: 100%;
+    }
+
+    .score-badge {
+        flex: 1;
+    }
+
+    .evaluation-grid {
+        grid-template-columns: 1fr;
+    }
+}

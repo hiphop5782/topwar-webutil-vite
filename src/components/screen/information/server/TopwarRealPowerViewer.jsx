@@ -5,6 +5,7 @@ import "dayjs/locale/ko";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "flag-icons/sass/flag-icons.scss";
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
+import AiEvaluationCard from "./AiEvaluationCard";
 
 const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
 
@@ -38,7 +39,7 @@ export default function TopwarRealPowerViewer() {
             setJson(module.default);
         }
         catch (error) {
-            console.error("데이터 로드 실패", error);
+            //console.error("데이터 로드 실패", error);
         }
         finally {
             setLoading(false);
@@ -123,15 +124,100 @@ export default function TopwarRealPowerViewer() {
     }, [json, alliances, selectedAlliance]);
 
 
-    const calculateType = useCallback((index)=>{
-        switch(index % 5) {
-        case 0: return "danger";
-        case 1: return "warning";
-        case 2: return "success";
-        case 3: return "info";
-        case 4: return "secondary";
+    const calculateType = useCallback((index) => {
+        switch (index % 5) {
+            case 0: return "danger";
+            case 1: return "warning";
+            case 2: return "success";
+            case 3: return "info";
+            case 4: return "secondary";
         }
     }, []);
+
+    const [agentLoading, setAgentLoading] = useState(false);
+    const [streamingText, setStreamingText] = useState("");
+    const [result, setResult] = useState(null);
+    const [error, setError] = useState(null);
+
+    const requestToAgent = useCallback(async (serverJson) => {
+        setLoading(true);
+        setError(null);
+        setResult(null);
+        setStreamingText("");
+
+        const jsonStr = JSON.stringify(serverJson);
+
+        let fullText = "";
+
+        try {
+            const response = await fetch("http://kh.sysout.co.kr:7777/api/server/analyze", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    json: jsonStr,
+                    lang: "ko"
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("AI 분석 요청에 실패했습니다.");
+            }
+
+            if (!response.body) {
+                throw new Error("스트리밍 응답을 받을 수 없습니다.");
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+
+            while (true) {
+                const { value, done } = await reader.read();
+
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                fullText += chunk;
+
+                // 개발 중 확인용
+                setStreamingText(fullText);
+            }
+
+            const cleaned = cleanJson(fullText);
+            const parsed = JSON.parse(cleaned, null, 4);
+
+            setResult(parsed);
+        } catch (e) {
+            console.error(e);
+            setError(e.message || "알 수 없는 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
+        }
+    }, [agentLoading, streamingText, result, error]);
+
+    const cleanJson = useCallback(text => {
+        let cleaned = text
+            .trim()
+            .replace(/^```json\s*/i, "")
+            .replace(/^```\s*/i, "")
+            .replace(/```$/i, "")
+            .trim();
+
+        const first = cleaned.indexOf("{");
+        const last = cleaned.lastIndexOf("}");
+
+        if (first !== -1 && last !== -1 && last > first) {
+            cleaned = cleaned.slice(first, last + 1);
+        }
+
+        return cleaned;
+    }, []);
+
+    useEffect(() => {
+        if (json === null) return;
+        requestToAgent(json);
+    }, [json]);
 
     return (<>
         <h1>리얼 파워 뷰어</h1>
@@ -147,6 +233,48 @@ export default function TopwarRealPowerViewer() {
         </label>
 
         {json !== null && (<>
+            {loading && (
+                <div className="alert alert-light border rounded-4 my-3">
+                    <div className="d-flex align-items-center gap-2">
+                        <div
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                        />
+                        <strong>AI가 서버 데이터를 분석하고 있습니다.</strong>
+                    </div>
+
+                    <p className="text-secondary small mt-2 mb-0">
+                        원본 JSON을 요약한 뒤 활동성, 전쟁 가능성, 위험 요소를 평가하는 중입니다.
+                    </p>
+                </div>
+            )}
+
+            {error && (
+                <div className="alert alert-danger rounded-4 my-3">
+                    {error}
+                </div>
+            )}
+
+            {result && (
+                <div className="my-3">
+                    <AiEvaluationCard evaluation={result}></AiEvaluationCard>
+                </div>
+            )}
+
+            {/* 개발 중 디버그용. 운영에서는 제거 또는 접기 처리 추천 */}
+            {streamingText && !result && (
+                <div className="my-3">
+                    <summary className="text-secondary small">
+                        스트리밍 원문 보기
+                    </summary>
+                    <div className="bg-light border rounded-4 p-3 mt-2 small">
+                        {streamingText}
+                    </div>
+                </div>
+            )}
+
+
             <hr />
             <h3>{json.serverId} 서버 요약 정보</h3>
             <div className="d-flex mt-4">
@@ -245,7 +373,7 @@ export default function TopwarRealPowerViewer() {
                     onClick={e => setSelectedAlliance("all")}>전체</button>
 
                 {alliances.map((alliance, index) => (
-                    <button type="button" className={`btn ${selectedAlliance === alliance.allianceTag ? "btn-" : "btn-outline-"}${calculateType(index)} me-2`}
+                    <button key={index} type="button" className={`btn ${selectedAlliance === alliance.allianceTag ? "btn-" : "btn-outline-"}${calculateType(index)} me-2`}
                         onClick={e => setSelectedAlliance(alliance.allianceTag)}>
                         {alliance.allianceTag}
                     </button>
@@ -266,36 +394,36 @@ export default function TopwarRealPowerViewer() {
                     </dd>
                 </div>
                 {filteredPlayers.map((player, index) => {
-                    const idx = alliances.findIndex(alliance=>alliance.allianceTag === player.allianceTag);
+                    const idx = alliances.findIndex(alliance => alliance.allianceTag === player.allianceTag);
                     return (
-                    <div className="d-flex mt-2">
-                        <dt style={{ width: "35%" }}>
-                            {player.allianceTag ? (
-                                <span className={`d-inline-block badge bg-${calculateType(idx)}`} style={{ width: 60 }}>{player.allianceTag}</span>
-                            ) : (
-                                <span className="d-inline-block" style={{ width: 60 }}></span>
-                            )}
-                            <span className={`ms-4 fi fi-sq fi-${CountryFlagJson[player.nationalflag]}`} style={{ aspectRatio: '1 / 1' }}></span>
-                            <span className="ms-2">{player.username}</span>
-                        </dt>
-                        <dd className="flex-grow-1s">
-                            <span className="d-inline-block" style={{ width: 100 }}>{formatPower(player.power)}</span>
-                            <span className="d-inline-block" style={{ width: 100 }}>{player.armyPowerText}</span>
-                            <span className="d-inline-block" style={{ width: 100 }}>{player.activityScore}</span>
-                            <span className="d-inline-block" style={{ width: 100 }}>
-                                {index+1}
-                                {selectedAlliance === "all" && player.allianceTag && (<span className="ms-1">({player.powerRankInAlliance})</span>)}
-                            </span>
-                            {player.lastLogin !== undefined ? (
-                            <span className="d-inline-block">
-                                {dayjs.unix(player.lastLogin).from(json.exportedAt)}
-                            </span>
-                            ) : (
-                            <span className="d-inline-block" style={{color:"#EEE"}}>Unknown</span>
-                            )}
-                        </dd>
-                    </div>
-                )
+                        <div className="d-flex mt-2" key={index}>
+                            <dt style={{ width: "35%" }}>
+                                {player.allianceTag ? (
+                                    <span className={`d-inline-block badge bg-${calculateType(idx)}`} style={{ width: 60 }}>{player.allianceTag}</span>
+                                ) : (
+                                    <span className="d-inline-block" style={{ width: 60 }}></span>
+                                )}
+                                <span className={`ms-4 fi fi-sq fi-${CountryFlagJson[player.nationalflag]}`} style={{ aspectRatio: '1 / 1' }}></span>
+                                <span className="ms-2">{player.username}</span>
+                            </dt>
+                            <dd className="flex-grow-1s">
+                                <span className="d-inline-block" style={{ width: 100 }}>{formatPower(player.power)}</span>
+                                <span className="d-inline-block" style={{ width: 100 }}>{player.armyPowerText}</span>
+                                <span className="d-inline-block" style={{ width: 100 }}>{player.activityScore}</span>
+                                <span className="d-inline-block" style={{ width: 100 }}>
+                                    {index + 1}
+                                    {selectedAlliance === "all" && player.allianceTag && (<span className="ms-1">({player.powerRankInAlliance})</span>)}
+                                </span>
+                                {player.lastLogin !== undefined ? (
+                                    <span className="d-inline-block">
+                                        {dayjs.unix(player.lastLogin).from(json.exportedAt)}
+                                    </span>
+                                ) : (
+                                    <span className="d-inline-block" style={{ color: "#EEE" }}>Unknown</span>
+                                )}
+                            </dd>
+                        </div>
+                    )
                 })}
             </div>
         </>)}
