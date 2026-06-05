@@ -72,7 +72,9 @@
         "result-player-unit-column": "Troops",
         "result-player-score-column": "Score",
         "result-player-rank-column": "Rank",
-        "result-player-unknown": "Unknown"
+        "result-player-unknown": "Unknown",
+
+        "result-notfound": "No data available for this server."
     },
     "AiEvaluationCard": {
         "activity-veryhigh": "Very Active",

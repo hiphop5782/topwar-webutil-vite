@@ -65,7 +65,9 @@
         "result-player-unit-column": "병력",
         "result-player-score-column": "점수",
         "result-player-rank-column": "등수",
-        "result-player-unknown": "알 수 없음"
+        "result-player-unknown": "알 수 없음",
+
+        "result-notfound": "해당 서버의 데이터가 존재하지 않습니다"
     },
         "AiEvaluationCard":{
         "activity-veryhigh": "매우 활발",
