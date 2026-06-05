@@ -194,7 +194,8 @@ export default function TopwarRealPowerViewer() {
             const response = await fetch(`${import.meta.env.VITE_AI_ANALYZE_URL}/api/server/analyze`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    //"Content-Type": "application/json",
+                    "Content-Type": "text/plain",
                 },
                 body: JSON.stringify({
                     json: jsonStr,
