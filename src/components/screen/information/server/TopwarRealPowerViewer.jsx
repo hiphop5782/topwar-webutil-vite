@@ -6,10 +6,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "flag-icons/sass/flag-icons.scss";
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import AiEvaluationCard from "./AiEvaluationCard";
+import { useTranslation } from "react-i18next";
 
 const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
 
 export default function TopwarRealPowerViewer() {
+
+    const { t, i18n } = useTranslation(["viewer", "commons"]);
 
     const fileNames = useMemo(() => {
         return Object.keys(jsonModules).map(path => {
@@ -199,17 +202,17 @@ export default function TopwarRealPowerViewer() {
                 },
                 body: JSON.stringify({
                     json: jsonStr,
-                    lang: "ko"
+                    lang: i18n.language
                 }),
                 signal: controller.signal
             });
 
             if (!response.ok) {
-                throw new Error("AI 분석 요청에 실패했습니다.");
+                throw new Error(t("TopwarRealPowerViewer.error-analyze-fail"));
             }
 
             if (!response.body) {
-                throw new Error("스트리밍 응답을 받을 수 없습니다.");
+                throw new Error(t("TopwarRealPowerViewer.error-streaming-fail"));
             }
 
             const reader = response.body.getReader();
@@ -250,7 +253,7 @@ export default function TopwarRealPowerViewer() {
             }
 
             console.error(e);
-            setError(e.message || "알 수 없는 오류가 발생했습니다.");
+            setError(e.message || t("TopwarRealPowerViewer.error-unknown"));
         } finally {
             if (requestSeq === requestSeqRef.current) {
                 setAgentLoading(false);
@@ -271,12 +274,12 @@ export default function TopwarRealPowerViewer() {
     }, [json, requestToAgent]);
 
     return (<>
-        <h1>리얼 파워 뷰어</h1>
+        <h1>{t("TopwarRealPowerViewer.title")}</h1>
 
         <label className="d-flex">
-            <span className="d-flex align-items-center">서버</span>
+            <span className="d-flex align-items-center">{t("TopwarRealPowerViewer.server-label")}</span>
             <select className="form-select w-auto ms-4" onChange={e => setSelectedServer(e.target.value)}>
-                <option value="">선택하세요</option>
+                <option value="">{t("TopwarRealPowerViewer.select-default-label")}</option>
                 {fileNames.map((file, index) => (
                     <option key={index} value={file.path}>{file.fileName}</option>
                 ))}
@@ -292,7 +295,7 @@ export default function TopwarRealPowerViewer() {
                             role="status"
                             aria-hidden="true"
                         />
-                        <strong>AI가 서버 데이터를 분석하고 있습니다.</strong>
+                        <strong>{t("TopwarRealPowerViewer.ai-on-progress")}</strong>
                     </div>
 
                     {/* <p className="text-secondary small mt-2 mb-0">
@@ -301,9 +304,6 @@ export default function TopwarRealPowerViewer() {
                     {/* 개발 중 디버그용. 운영에서는 제거 또는 접기 처리 추천 */}
                     {streamingText && !result && (
                         <div className="my-3">
-                            <summary className="text-secondary small">
-                                스트리밍 원문 보기
-                            </summary>
                             <div className="bg-light border rounded-4 p-3 small">
                                 {streamingText}
                             </div>
@@ -325,27 +325,25 @@ export default function TopwarRealPowerViewer() {
             )}
 
             <hr />
-            <h3>{json.serverId} 서버 요약 정보</h3>
+            <h3>{json.serverId}&nbsp;&nbsp;{t("TopwarRealPowerViewer.result-server-label")}</h3>
             <div className="d-flex mt-4">
-                <dt className="w-25 text-primary">조사 시각</dt>
+                <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-time-label")}</dt>
                 <dd className="w-75">{dayjs(json.exportedAt).format()}</dd>
             </div>
             <div className="d-flex">
-                <dt className="w-25 text-primary">플레이어</dt>
+                <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-player-label")}</dt>
                 <dd className="w-75">
                     {json.summary.allianceMemberMergedPlayers} / {json.summary.players}
-                    <span className="ms-2">(활성/전체)</span>
                 </dd>
             </div>
             <div className="d-flex">
-                <dt className="w-25 text-primary">동맹</dt>
+                <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-label")}</dt>
                 <dd className="w-75">
                     ? / {json.summary.alliances}
-                    <span className="ms-2">(활성/전체)</span>
                 </dd>
             </div>
             <div className="d-flex align-items-start">
-                <dt className="w-25 text-primary">액티브 점수</dt>
+                <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-active-score-label")}</dt>
                 <dd className="w-75">
                     <div className="fs-4">{json.summary.activity.activeTotalCount}</div>
                     <div className="text-muted">
@@ -362,18 +360,18 @@ export default function TopwarRealPowerViewer() {
             </div>
             <hr />
 
-            <h3>동맹 목록</h3>
+            <h3>{t("TopwarRealPowerViewer.result-alliance-list-label")}</h3>
 
             {alliances.map((alliance, index) => (
                 <div className="py-2 mb-3" key={index}>
                     <div className="shadow rounded p-4">
                         <h4>[{alliance.allianceTag}] {alliance.allianceName ?? <s className="text-muted">Unknown(Search Error)</s>}</h4>
                         <div className="d-flex mt-4">
-                            <dt className="w-25 text-primary">Leader</dt>
+                            <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-leader-label")}</dt>
                             <dd className="w-75">{alliance.allianceLeader}</dd>
                         </div>
                         <div className="d-flex">
-                            <dt className="w-25 text-primary">Power</dt>
+                            <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-power-label")}</dt>
                             <dd className="w-75">
                                 <span className="text-info fw-bold">{formatPower(alliance.activitySummary.corePowerSum)}</span>
                                 &nbsp;/&nbsp;
@@ -383,7 +381,7 @@ export default function TopwarRealPowerViewer() {
                             </dd>
                         </div>
                         <div className="d-flex">
-                            <dt className="w-25 text-primary">User</dt>
+                            <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-user-label")}</dt>
                             <dd className="w-75">
                                 <span className="text-info fw-bold">{alliance.activitySummary.coreCount}</span>
                                 &nbsp;/&nbsp;
@@ -398,16 +396,19 @@ export default function TopwarRealPowerViewer() {
                             </dd>
                         </div>
                         <div className="d-flex">
-                            <dt className="w-25 text-primary">Top20 User%</dt>
+                            <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-top20-label")}</dt>
                             <dd className="w-75">{alliance.activitySummary.top20PowerCount}%</dd>
                         </div>
                         <div className="d-flex">
-                            <dt className="w-25 text-primary">80% count</dt>
+                            <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-top80count-label")}</dt>
                             <dd className="w-75">{alliance.activitySummary.cumulative80PowerCount}</dd>
                         </div>
                         <div className="d-flex">
-                            <dt className="w-25 text-primary">Active Grade</dt>
-                            <dd className="w-75">{alliance.activeAllianceGrade} (Score : {alliance.activeAllianceScore})</dd>
+                            <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-grade-label")}</dt>
+                            <dd className="w-75">
+                                {alliance.activeAllianceGrade} 
+                                ({t("TopwarRealPowerViewer.result-alliance-score-label")} : {alliance.activeAllianceScore})
+                                </dd>
                         </div>
                     </div>
                 </div>
@@ -415,11 +416,11 @@ export default function TopwarRealPowerViewer() {
 
             <hr />
 
-            <h3>플레이어 목록</h3>
+            <h3>{t("TopwarRealPowerViewer.result-player-list-label")}</h3>
 
             <div className="mt-2">
-                <button type="button" className={`btn ${selectedAlliance === "all" ? "btn-danger" : "btn-outline-danger"} me-4`}
-                    onClick={e => setSelectedAlliance("all")}>전체</button>
+                <button type="button" className={`btn ${selectedAlliance === "all" ? "btn-secondary" : "btn-outline-secondary"} me-4`}
+                    onClick={e => setSelectedAlliance("all")}>{t("TopwarRealPowerViewer.result-player-all-button")}</button>
 
                 {alliances.map((alliance, index) => (
                     <button key={index} type="button" className={`btn ${selectedAlliance === alliance.allianceTag ? "btn-" : "btn-outline-"}${calculateType(index)} me-2`}
@@ -432,14 +433,14 @@ export default function TopwarRealPowerViewer() {
             <div className="mt-4">
                 <div className="d-flex mt-2">
                     <dt style={{ width: "35%" }}>
-                        <span className="d-inline-block" style={{ width: 60 }}>Alliance</span>
+                        <span className="d-inline-block" style={{ width: 60 }}>{t("TopwarRealPowerViewer.result-player-alliance-column")}</span>
                         <span className="ms-4">Username</span>
                     </dt>
                     <dd className="flex-grow-1s">
-                        <span className="d-inline-block" style={{ width: 100 }}>CP</span>
-                        <span className="d-inline-block" style={{ width: 100 }}>Unit</span>
-                        <span className="d-inline-block" style={{ width: 100 }}>Score</span>
-                        <span className="d-inline-block" style={{ width: 100 }}>Rank</span>
+                        <span className="d-inline-block" style={{ width: 100 }}>{t("TopwarRealPowerViewer.result-player-cp-column")}</span>
+                        <span className="d-inline-block" style={{ width: 100 }}>{t("TopwarRealPowerViewer.result-player-unit-column")}</span>
+                        <span className="d-inline-block" style={{ width: 100 }}>{t("TopwarRealPowerViewer.result-player-score-column")}</span>
+                        <span className="d-inline-block" style={{ width: 100 }}>{t("TopwarRealPowerViewer.result-player-rank-column")}</span>
                     </dd>
                 </div>
                 {filteredPlayers.map((player, index) => {
@@ -468,7 +469,7 @@ export default function TopwarRealPowerViewer() {
                                         {dayjs.unix(player.lastLogin).from(json.exportedAt)}
                                     </span>
                                 ) : (
-                                    <span className="d-inline-block" style={{ color: "#EEE" }}>Unknown</span>
+                                    <span className="d-inline-block" style={{ color: "#EEE" }}>{t("TopwarRealPowerViewer.result-player-unknown")}</span>
                                 )}
                             </dd>
                         </div>

@@ -31,7 +31,42 @@
         "message-nolimit": "제한 없음",
         "message-countview": "명 참여중"
     },
+    "TopwarRealPowerViewer":{
+        "error-analyze-fail": "AI 분석 요청에 실패했습니다",
+        "error-streaming-fail": "스트리밍 응답을 받을 수 없습니다",
+        "error-unknown":"알 수 없는 에러가 발생했습니다",
 
+        "title": "🤖서버 분석🌍",
+        "server-label": "서버",
+        "select-default-label": "선택하세요",
+
+        "ai-on-progress": "AI가 서버 데이터를 분석하고 있습니다...",
+
+        "result-server-label": "서버 요약 정보",
+        "result-time-label": "조사 시각",
+        "result-player-label": "플레이어",
+        "result-alliance-label": "길드",
+        "result-active-score-label": "활성화 지수",
+
+        "result-alliance-list-label": "길드 목록",
+        "result-alliance-leader-label": "길드장",
+        "result-alliance-power-label": "길드 전투력",
+        "result-alliance-user-label": "길드원",
+        "result-alliance-top20-label": "상위 20명 비중",
+        "result-alliance-top80count-label": "80% 달성인원",
+        "result-alliance-grade-label": "길드 등급",
+        "result-alliance-score-label": "점수",
+
+        "result-player-list-label": "유저 목록",
+        "result-player-all-button": "전체 길드",
+        "result-player-alliance-column": "소속",
+        "result-player-username-column": "닉네임",
+        "result-player-cp-column": "전투력",
+        "result-player-unit-column": "병력",
+        "result-player-score-column": "점수",
+        "result-player-rank-column": "등수",
+        "result-player-unknown": "알 수 없음"
+    },
     "TopwarSscPointViewer":{
         "title": "봉인석 전장 개인 순위",
         "label-input" : "서버",
