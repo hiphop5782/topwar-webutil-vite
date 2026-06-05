@@ -67,6 +67,27 @@
         "result-player-rank-column": "등수",
         "result-player-unknown": "알 수 없음"
     },
+        "AiEvaluationCard":{
+        "activity-veryhigh": "매우 활발",
+        "activity-high": "활발",
+        "activity-normal": "보통",
+        "activity-low": "저조",
+        "activity-disabled": "비활성",
+
+        "risk-veryhigh": "위험 높음",
+        "risk-high": "주의 필요",
+        "risk-normal": "보통",
+        "risk-low": "낮음",
+        "risk-disabled": "안정",
+        
+        "card-title": "서버 활동성 평가",
+        "card-activity" : "활동 점수",
+        "card-risk": "위험 점수",
+        "card-summary": "한 줄 요약",
+        "card-strength": "서버의 강점",
+        "card-weakness": "서버의 약점/위험 신호",
+        "card-recommand": "운영 방향 추천"
+    },
     "TopwarSscPointViewer":{
         "title": "봉인석 전장 개인 순위",
         "label-input" : "서버",
