@@ -11,7 +11,8 @@
             "kartz-information":"카르츠 몬스터 정보",
             "kartz-rank":"카르츠 순위 현황",
             "kartz-statistics":"카르츠 통계",
-            "ssc": "봉인석 전장 분석기"
+            "ssc": "봉인석 전장 분석기",
+            "realpower":"서버 지도 분석기(AI)"
         }
     },
     "calculator":{
