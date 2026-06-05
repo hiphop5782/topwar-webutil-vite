@@ -261,9 +261,12 @@ export default function TopwarSscPointViewer() {
                             itemContent={(index, player) => (
                                 <div className={`user-panel position-relative d-flex align-items-center border-bottom bg-white`}
                                     style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
-                                    <div style={{ width: 100 }}>
+                                    <div style={{ width: 150 }}>
                                         {/* filteredPlayers를 기준으로 index 재계산 */}
                                         <span className="badge text-bg-primary">{player.rank}</span>
+                                        {searchTerm.length > 0 && (
+                                        <span className="badge text-bg-danger ms-2">{index+1}</span>
+                                        )}
                                     </div>
                                     <div style={{ width: 200 }} className="text-truncate flex-grow-1 d-flex align-items-center">
                                         <span className={`fi fi-sq fi-${CountryFlagJson[player.nationalflag]}`}></span>
