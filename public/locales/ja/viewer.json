@@ -85,6 +85,27 @@
         "result-player-rank-column": "順位",
         "result-player-unknown": "不明"
     },
+    "AiEvaluationCard": {
+        "activity-veryhigh": "超活発",
+        "activity-high": "活発",
+        "activity-normal": "普通",
+        "activity-low": "低下",
+        "activity-disabled": "非アクティブ",
+
+        "risk-veryhigh": "高リスク",
+        "risk-high": "要注意",
+        "risk-normal": "普通",
+        "risk-low": "低リスク",
+        "risk-disabled": "安定",
+        
+        "card-title": "サーバー活動評価",
+        "card-activity": "活動スコア",
+        "card-risk": "リスクスコア",
+        "card-summary": "要約",
+        "card-strength": "サーバーの強み",
+        "card-weakness": "弱み・リスク要因",
+        "card-recommand": "推奨運用方針"
+    },
     "TopwarPlayerDataViewer": {
         "label-input": "サーバー",
         "label-nickname" : "ニックネーム",

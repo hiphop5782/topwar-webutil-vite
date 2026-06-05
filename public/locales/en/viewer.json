@@ -74,6 +74,27 @@
         "result-player-rank-column": "Rank",
         "result-player-unknown": "Unknown"
     },
+    "AiEvaluationCard": {
+        "activity-veryhigh": "Very Active",
+        "activity-high": "Active",
+        "activity-normal": "Normal",
+        "activity-low": "Low",
+        "activity-disabled": "Inactive",
+
+        "risk-veryhigh": "High Risk",
+        "risk-high": "Warning",
+        "risk-normal": "Normal",
+        "risk-low": "Low",
+        "risk-disabled": "Stable",
+        
+        "card-title": "Server Activity Report",
+        "card-activity": "Activity Score",
+        "card-risk": "Risk Score",
+        "card-summary": "Summary",
+        "card-strength": "Strengths",
+        "card-weakness": "Weaknesses/Risks",
+        "card-recommand": "Recommendations"
+    },
     "TopwarSscPointViewer": {
         "title": "Seal Stone Chaos Anlyzer",
         "label-input": "Server",
