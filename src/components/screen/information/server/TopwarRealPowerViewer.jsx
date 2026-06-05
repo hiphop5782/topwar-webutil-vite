@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "flag-icons/sass/flag-icons.scss";
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import AiEvaluationCard from "./AiEvaluationCard";
@@ -28,23 +28,32 @@ export default function TopwarRealPowerViewer() {
     const [json, setJson] = useState(null);
 
     const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        if (selectedServer === null) return;
-        handiveFileSelect();
-    }, [selectedServer]);
     const handiveFileSelect = useCallback(async () => {
+        if (!selectedServer || !jsonModules[selectedServer]) {
+            setJson(null);
+            return;
+        }
+
         setLoading(true);
+
         try {
             const module = await jsonModules[selectedServer]();
             setJson(module.default);
-        }
-        catch (error) {
-            //console.error("데이터 로드 실패", error);
-        }
-        finally {
+        } catch (error) {
+            console.error("데이터 로드 실패", error);
+            setJson(null);
+        } finally {
             setLoading(false);
         }
     }, [selectedServer]);
+    useEffect(() => {
+        if (!selectedServer) {
+            setJson(null);
+            return;
+        }
+
+        handiveFileSelect();
+    }, [selectedServer, handiveFileSelect]);
 
     const formatPower = useCallback((value, options = {}) => {
         if (value == null) return null;
@@ -139,62 +148,8 @@ export default function TopwarRealPowerViewer() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
-    const requestToAgent = useCallback(async (serverJson) => {
-        setLoading(true);
-        setError(null);
-        setResult(null);
-        setStreamingText("");
-
-        const jsonStr = JSON.stringify(serverJson);
-
-        let fullText = "";
-
-        try {
-            const response = await fetch("http://kh.sysout.co.kr:7777/api/server/analyze", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    json: jsonStr,
-                    lang: "ko"
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error("AI 분석 요청에 실패했습니다.");
-            }
-
-            if (!response.body) {
-                throw new Error("스트리밍 응답을 받을 수 없습니다.");
-            }
-
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder("utf-8");
-
-            while (true) {
-                const { value, done } = await reader.read();
-
-                if (done) break;
-
-                const chunk = decoder.decode(value, { stream: true });
-                fullText += chunk;
-
-                // 개발 중 확인용
-                setStreamingText(fullText);
-            }
-
-            const cleaned = cleanJson(fullText);
-            const parsed = JSON.parse(cleaned, null, 4);
-
-            setResult(parsed);
-        } catch (e) {
-            console.error(e);
-            setError(e.message || "알 수 없는 오류가 발생했습니다.");
-        } finally {
-            setLoading(false);
-        }
-    }, [agentLoading, streamingText, result, error]);
+    const requestSeqRef = useRef(0);
+    const abortRef = useRef(null);
 
     const cleanJson = useCallback(text => {
         let cleaned = text
@@ -214,10 +169,105 @@ export default function TopwarRealPowerViewer() {
         return cleaned;
     }, []);
 
+    const requestToAgent = useCallback(async (serverJson) => {
+        if (!serverJson) return;
+
+        // 이전 요청 중단
+        if (abortRef.current) {
+            abortRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortRef.current = controller;
+
+        const requestSeq = ++requestSeqRef.current;
+
+        setAgentLoading(true);
+        setError(null);
+        setResult(null);
+        setStreamingText("");
+
+        const jsonStr = JSON.stringify(serverJson);
+        let fullText = "";
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_AI_ANALYZE_URL}/api/server/analyze`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    json: jsonStr,
+                    lang: "ko"
+                }),
+                signal: controller.signal
+            });
+
+            if (!response.ok) {
+                throw new Error("AI 분석 요청에 실패했습니다.");
+            }
+
+            if (!response.body) {
+                throw new Error("스트리밍 응답을 받을 수 없습니다.");
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+
+            while (true) {
+                const { value, done } = await reader.read();
+
+                if (done) break;
+
+                // 이미 더 최신 요청이 시작되었으면 현재 응답은 버림
+                if (requestSeq !== requestSeqRef.current) {
+                    return;
+                }
+
+                const chunk = decoder.decode(value, { stream: true });
+                fullText += chunk;
+
+                setStreamingText(fullText);
+            }
+
+            // 완료 시점에도 최신 요청인지 재확인
+            if (requestSeq !== requestSeqRef.current) {
+                return;
+            }
+
+            const cleaned = cleanJson(fullText);
+            const parsed = JSON.parse(cleaned);
+
+            setResult(parsed);
+        } catch (e) {
+            if (e.name === "AbortError") {
+                return;
+            }
+
+            if (requestSeq !== requestSeqRef.current) {
+                return;
+            }
+
+            console.error(e);
+            setError(e.message || "알 수 없는 오류가 발생했습니다.");
+        } finally {
+            if (requestSeq === requestSeqRef.current) {
+                setAgentLoading(false);
+            }
+        }
+    }, [cleanJson]);
+
     useEffect(() => {
         if (json === null) return;
+
         requestToAgent(json);
-    }, [json]);
+
+        return () => {
+            if (abortRef.current) {
+                abortRef.current.abort();
+            }
+        };
+    }, [json, requestToAgent]);
 
     return (<>
         <h1>리얼 파워 뷰어</h1>
@@ -233,7 +283,7 @@ export default function TopwarRealPowerViewer() {
         </label>
 
         {json !== null && (<>
-            {loading && (
+            {agentLoading && (
                 <div className="alert alert-light border rounded-4 my-3">
                     <div className="d-flex align-items-center gap-2">
                         <div
@@ -244,9 +294,20 @@ export default function TopwarRealPowerViewer() {
                         <strong>AI가 서버 데이터를 분석하고 있습니다.</strong>
                     </div>
 
-                    <p className="text-secondary small mt-2 mb-0">
+                    {/* <p className="text-secondary small mt-2 mb-0">
                         원본 JSON을 요약한 뒤 활동성, 전쟁 가능성, 위험 요소를 평가하는 중입니다.
-                    </p>
+                    </p> */}
+                    {/* 개발 중 디버그용. 운영에서는 제거 또는 접기 처리 추천 */}
+                    {streamingText && !result && (
+                        <div className="my-3">
+                            <summary className="text-secondary small">
+                                스트리밍 원문 보기
+                            </summary>
+                            <div className="bg-light border rounded-4 p-3 small">
+                                {streamingText}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
 
@@ -261,19 +322,6 @@ export default function TopwarRealPowerViewer() {
                     <AiEvaluationCard evaluation={result}></AiEvaluationCard>
                 </div>
             )}
-
-            {/* 개발 중 디버그용. 운영에서는 제거 또는 접기 처리 추천 */}
-            {streamingText && !result && (
-                <div className="my-3">
-                    <summary className="text-secondary small">
-                        스트리밍 원문 보기
-                    </summary>
-                    <div className="bg-light border rounded-4 p-3 mt-2 small">
-                        {streamingText}
-                    </div>
-                </div>
-            )}
-
 
             <hr />
             <h3>{json.serverId} 서버 요약 정보</h3>
