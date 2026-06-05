@@ -296,7 +296,7 @@ export default function TopwarRealPowerViewer() {
                     <option key={index} value={file.path}>{file.fileName}</option>
                 ))}
             </select> */}
-            <input type="text" className="form-control w-auto" value={selectedServer}
+            <input type="text" className="form-control w-auto ms-2" value={selectedServer}
                     placeholder="e.g., 3223"
                     onChange={e=>{
                         setSelectedServer(e.target.value.replace(/[^0-9]/g, ''))
