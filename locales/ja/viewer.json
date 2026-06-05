@@ -49,6 +49,42 @@
         "btn-alliance-data": "連盟データ",
         "btn-server-compare": "サーバー間比較"
     },
+    "TopwarRealPowerViewer": {
+        "error-analyze-fail": "AI分析に失敗しました",
+        "error-streaming-fail": "通信エラーが発生しました",
+        "error-unknown": "不明なエラーが発生しました",
+
+        "title": "🤖サーバー分析🌍",
+        "server-label": "サーバー",
+        "select-default-label": "選択してください",
+
+        "ai-on-progress": "AIデータを分析中...",
+
+        "result-server-label": "サーバー概要",
+        "result-time-label": "調査日時",
+        "result-player-label": "プレイヤー",
+        "result-alliance-label": "連盟",
+        "result-active-score-label": "アクティブ度",
+
+        "result-alliance-list-label": "連盟リスト",
+        "result-alliance-leader-label": "盟主",
+        "result-alliance-power-label": "連盟総戦力",
+        "result-alliance-user-label": "メンバー",
+        "result-alliance-top20-label": "上位20名比率",
+        "result-alliance-top80count-label": "80%達成人数",
+        "result-alliance-grade-label": "ランク",
+        "result-alliance-score-label": "スコア",
+
+        "result-player-list-label": "プレイヤーリスト",
+        "result-player-all-button": "全連盟",
+        "result-player-alliance-column": "所属",
+        "result-player-username-column": "名前",
+        "result-player-cp-column": "戦力",
+        "result-player-unit-column": "兵力",
+        "result-player-score-column": "スコア",
+        "result-player-rank-column": "順位",
+        "result-player-unknown": "不明"
+    },
     "TopwarPlayerDataViewer": {
         "label-input": "サーバー",
         "label-nickname" : "ニックネーム",

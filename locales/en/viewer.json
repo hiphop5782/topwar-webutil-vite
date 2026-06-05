@@ -38,7 +38,42 @@
         "btn-alliance-data": "Alliance Data",
         "btn-server-compare": "Server Comparison"
     },
-    
+    "TopwarRealPowerViewer": {
+        "error-analyze-fail": "AI analysis failed.",
+        "error-streaming-fail": "Streaming error.",
+        "error-unknown": "Unknown error.",
+
+        "title": "🤖Server AI🌍",
+        "server-label": "Server",
+        "select-default-label": "Select",
+
+        "ai-on-progress": "AI analyzing server data...",
+
+        "result-server-label": "Server Info",
+        "result-time-label": "Scanned At",
+        "result-player-label": "Players",
+        "result-alliance-label": "Alliances",
+        "result-active-score-label": "Activity Index",
+
+        "result-alliance-list-label": "Alliances",
+        "result-alliance-leader-label": "Leader",
+        "result-alliance-power-label": "Alliance CP",
+        "result-alliance-user-label": "Members",
+        "result-alliance-top20-label": "Top 20 Ratio",
+        "result-alliance-top80count-label": "80% Reach",
+        "result-alliance-grade-label": "Grade",
+        "result-alliance-score-label": "Score",
+
+        "result-player-list-label": "Players",
+        "result-player-all-button": "All Alliances",
+        "result-player-alliance-column": "Alliance",
+        "result-player-username-column": "Name",
+        "result-player-cp-column": "CP",
+        "result-player-unit-column": "Troops",
+        "result-player-score-column": "Score",
+        "result-player-rank-column": "Rank",
+        "result-player-unknown": "Unknown"
+    },
     "TopwarSscPointViewer": {
         "title": "Seal Stone Chaos Anlyzer",
         "label-input": "Server",
