@@ -34,7 +34,8 @@ export default function TopwarRealPowerViewer() {
 
     const [loading, setLoading] = useState(false);
     const handiveFileSelect = useCallback(async () => {
-        if (!selectedServer || !jsonModules[selectedServer]) {
+        const path = fileNames.filter(file=>file.fileName == selectedServer)[0].path;
+        if (!jsonModules[path]) {
             setJson(null);
             return;
         }
@@ -42,7 +43,7 @@ export default function TopwarRealPowerViewer() {
         setLoading(true);
 
         try {
-            const module = await jsonModules[selectedServer]();
+            const module = await jsonModules[path]();
             setJson(module.default);
         } catch (error) {
             console.error("데이터 로드 실패", error);
@@ -62,7 +63,7 @@ export default function TopwarRealPowerViewer() {
     const search = useCallback(()=>{
         if(selectedServer.length === 0) return;
         if(fileNames === null) return;
-        if(!fileNames.some(file=>file.fileeName == selectedServer)) {
+        if(!fileNames.some(file=>file.fileName == selectedServer)) {
             toast.error(t("TopwarRealPowerViewer.result-noutfound"));
             return;
         }
