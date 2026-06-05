@@ -7,6 +7,8 @@ import "flag-icons/sass/flag-icons.scss";
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import AiEvaluationCard from "./AiEvaluationCard";
 import { useTranslation } from "react-i18next";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
 
@@ -49,9 +51,19 @@ export default function TopwarRealPowerViewer() {
             setLoading(false);
         }
     }, [selectedServer]);
-    useEffect(() => {
-        if (!selectedServer) {
-            setJson(null);
+    // useEffect(() => {
+    //     if (!selectedServer) {
+    //         setJson(null);
+    //         return;
+    //     }
+
+    //     handiveFileSelect();
+    // }, [selectedServer, handiveFileSelect]);
+    const search = useCallback(()=>{
+        if(selectedServer.length === 0) return;
+        if(fileNames === null) return;
+        if(!fileNames.some(file=>file.fileeName == selectedServer)) {
+            toast.error(t("TopwarRealPowerViewer.result-noutfound"));
             return;
         }
 
@@ -276,15 +288,23 @@ export default function TopwarRealPowerViewer() {
     return (<>
         <h1>{t("TopwarRealPowerViewer.title")}</h1>
 
-        <label className="d-flex">
+        <div className="d-flex">
             <span className="d-flex align-items-center">{t("TopwarRealPowerViewer.server-label")}</span>
-            <select className="form-select w-auto ms-4" onChange={e => setSelectedServer(e.target.value)}>
+            {/* <select className="form-select w-auto ms-4" onChange={e => setSelectedServer(e.target.value)}>
                 <option value="">{t("TopwarRealPowerViewer.select-default-label")}</option>
                 {fileNames.map((file, index) => (
                     <option key={index} value={file.path}>{file.fileName}</option>
                 ))}
-            </select>
-        </label>
+            </select> */}
+            <input type="text" className="form-control w-auto" value={selectedServer}
+                    placeholder="e.g., 3223"
+                    onChange={e=>{
+                        setSelectedServer(e.target.value.replace(/[^0-9]/g, ''))
+                    }}/>
+            <button className="btn btn-success ms-2" onClick={search}>
+                <FaMagnifyingGlass/>
+            </button>
+        </div>
 
         {json !== null && (<>
             {agentLoading && (
