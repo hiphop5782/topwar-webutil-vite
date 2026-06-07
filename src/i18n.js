@@ -3,6 +3,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import HttpBackend from "i18next-http-backend";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import "dayjs/locale/ja";
 
 // ✅ 여기서 지원 언어를 한 번만 정의합니다.
 export const supportedLngs = ["ko", "en", "ja"];
@@ -21,22 +23,13 @@ i18n
         react: { useSuspense: false },
     });
 
-// 💡 [여기에 작성하세요] 언어가 변경될 때마다 실행되는 리스너
-i18n.on('languageChanged', async (lng) => {
-    try {
-        // i18next의 lng 값(예: ko-KR, en-US)을 dayjs 형식에 맞게 보정 (필요시)
-        // 예: 'ko-KR' -> 'ko', 'en-US' -> 'en'
-        const shortLng = lng.split('-')[0];
-
-        // dayjs locale 동적 로드
-        await import(`dayjs/locale/${shortLng}.js`);
-        dayjs.locale(shortLng);
-
-        console.log(`dayjs locale이 변경되었습니다: ${shortLng}`);
-    } catch (error) {
-        console.error(`dayjs locale 로드 실패 (${lng}):`, error);
-        dayjs.locale('en'); // 실패 시 기본값
-    }
+// 2. 동적 import 대신 미리 로드된 locale을 매칭만 해줍니다.
+i18n.on('languageChanged', (lng) => {
+  const shortLng = lng.split('-')[0]; // 'ko-KR' -> 'ko'
+  
+  // dayjs에 해당 locale을 적용 (이미 위에서 import 되었으므로 바로 작동합니다)
+  dayjs.locale(shortLng); 
+  console.log(`dayjs locale 변경: ${shortLng}`);
 });
 
 export default i18n;
