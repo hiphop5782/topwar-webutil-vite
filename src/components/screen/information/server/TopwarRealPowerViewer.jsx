@@ -286,6 +286,10 @@ export default function TopwarRealPowerViewer() {
         };
     }, [json, requestToAgent]);
 
+    const coreAllianceCount = useMemo(()=>{
+        return alliances.reduce((s, c)=>c.activeAllianceGrade === 'CORE' ? s + 1 : s , 0);
+    }, [alliances]);
+
     return (<>
         <h1>{t("TopwarRealPowerViewer.title")}</h1>
 
@@ -301,7 +305,11 @@ export default function TopwarRealPowerViewer() {
                     placeholder="e.g., 3223"
                     onChange={e=>{
                         setSelectedServer(e.target.value.replace(/[^0-9]/g, ''))
-                    }}/>
+                    }}
+                    onKeyUp={e=>{
+                        if(e.key === 'Enter') search();
+                    }}
+                    />
             <button className="btn btn-success ms-2" onClick={search}>
                 <FaMagnifyingGlass/>
             </button>
@@ -360,7 +368,7 @@ export default function TopwarRealPowerViewer() {
             <div className="d-flex">
                 <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-label")}</dt>
                 <dd className="w-75">
-                    ? / {json.summary.alliances}
+                    {coreAllianceCount} / {json.summary.alliances}
                 </dd>
             </div>
             <div className="d-flex align-items-start">
