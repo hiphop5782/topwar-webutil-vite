@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "flag-icons/sass/flag-icons.scss";
@@ -594,6 +598,9 @@ export default function TopwarRealPowerViewer() {
                         <tbody>
                             {filteredPlayers.map((player, index) => {
                                 const idx = alliances.findIndex(alliance => alliance.allianceTag === player.allianceTag);
+                                const lastLoginTime = dayjs.unix(player.lastLogin).utc();
+                                const exportedTime = dayjs.utc(json.exportedAt);
+                                const diff = lastLoginTime.from(exportedTime);
                                 return (
                                     <tr className={`player-info ${calculateUserGrade(player.lastLogin, json.exportedAt)}`} key={index}>
                                         <td>
@@ -615,7 +622,7 @@ export default function TopwarRealPowerViewer() {
                                         <td>
                                             {player.lastLogin !== undefined ? (
                                                 <span>
-                                                    {dayjs.unix(player.lastLogin).from(json.exportedAt)}
+                                                    {diff}
                                                 </span>
                                             ) : (
                                                 <span className="d-inline-block" style={{ color: "#EEE" }}>{t("TopwarRealPowerViewer.result-player-unknown")}</span>
