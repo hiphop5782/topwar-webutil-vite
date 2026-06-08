@@ -215,7 +215,8 @@ export default function TopwarRealPowerViewer() {
                 },
                 body: JSON.stringify({
                     json: jsonStr,
-                    lang: i18n.language
+                    lang: i18n.language,
+                    server: serverJson.serverId
                 }),
                 signal: controller.signal
             });
