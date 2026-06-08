@@ -280,6 +280,7 @@ export default function TopwarRealPowerViewer() {
         const jsonStr = JSON.stringify(serverJson);
         let fullText = "";
 
+
         try {
             const response = await fetch(`${import.meta.env.VITE_AI_ANALYZE_URL}/api/server/analyze`, {
                 method: "POST",
@@ -596,7 +597,9 @@ export default function TopwarRealPowerViewer() {
                                 return (
                                     <tr className={`player-info ${calculateUserGrade(player.lastLogin, json.exportedAt)}`} key={index}>
                                         <td>
-                                            {player.allianceTag || ""}
+                                            {player.allianceTag && (
+                                            <span className={`badge bg-${calculateType(idx)}`}>{player.allianceTag}</span>
+                                            )}
                                         </td>
                                         <td>
                                             <span className={`fi fi-sq fi-${CountryFlagJson[player.nationalflag]}`} style={{ aspectRatio: '1 / 1' }}></span>
