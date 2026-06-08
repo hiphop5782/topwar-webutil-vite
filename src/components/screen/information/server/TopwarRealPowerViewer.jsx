@@ -290,7 +290,8 @@ export default function TopwarRealPowerViewer() {
                 body: JSON.stringify({
                     json: jsonStr,
                     lang: i18n.language,
-                    server: serverJson.serverId
+                    server: serverJson.serverId,
+                    time: serverJson.exportedAt
                 }),
                 signal: controller.signal
             });
