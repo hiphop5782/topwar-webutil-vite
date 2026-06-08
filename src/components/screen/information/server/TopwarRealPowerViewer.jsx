@@ -552,7 +552,7 @@ export default function TopwarRealPowerViewer() {
 
             <h3>{t("TopwarRealPowerViewer.result-player-list-label")}</h3>
 
-            <div className="mt-2">
+            <div className="mt-4">
                 <button type="button" className={`btn ${selectedAlliance === "all" ? "btn-secondary" : "btn-outline-secondary"} me-4`}
                     onClick={e => setSelectedAlliance("all")}>{t("TopwarRealPowerViewer.result-player-all-button")}</button>
 
