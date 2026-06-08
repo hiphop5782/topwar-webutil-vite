@@ -83,6 +83,7 @@
         "result-player-unit-column": "兵力",
         "result-player-score-column": "スコア",
         "result-player-rank-column": "順位",
+        "result-player-login-column": "最終ログイン",
         "result-player-unknown": "不明",
 
         "result-notfound": "データが存在しないサーバーです。"

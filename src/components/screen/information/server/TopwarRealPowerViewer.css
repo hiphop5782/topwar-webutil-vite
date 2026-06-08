@@ -1,0 +1,37 @@
+.player-info {
+    position: relative;
+    overflow: hidden;
+}
+.player-info::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: transform 0.1s ease-out;    
+}
+.player-info:hover::after {
+    transform: translateX(100%); /* 우측으로 완전히 밀어냄 */
+    opacity: 0; /* 서서히 투명해짐 */
+}
+.player-info.sleepy::after {
+    background: linear-gradient(90deg, rgba(133, 77, 14, 0.18) 0%, rgba(161, 98, 7, 0.82) 50%, rgba(202, 138, 4, 1) 100%);
+}
+.player-info.inactive::after {
+    background: linear-gradient(90deg, rgba(154, 52, 18, 0.18) 0%, rgba(194, 65, 12, 0.82) 50%, rgba(234, 88, 12, 1) 100%);
+}
+.player-info.quit::after {
+    background: linear-gradient(90deg, rgba(127, 29, 29, 0.2) 0%, rgba(153, 27, 27, 0.86) 50%, rgba(185, 28, 28, 1) 100%);
+}
+.player-info.unknown::after {
+    background: linear-gradient(90deg, rgba(31, 41, 55, 0.18) 0%, rgba(55, 65, 81, 0.82) 50%, rgba(75, 85, 99, 1) 100%);
+}
+/*
+ACTIVE: "linear-gradient(90deg, rgba(20, 83, 45, 0.18) 0%, rgba(22, 101, 52, 0.82) 50%, rgba(21, 128, 61, 1) 100%)",
+RECENT: "linear-gradient(90deg, rgba(30, 64, 175, 0.18) 0%, rgba(30, 64, 175, 0.82) 50%, rgba(37, 99, 235, 1) 100%)",
+SLEEPY: "linear-gradient(90deg, rgba(133, 77, 14, 0.18) 0%, rgba(161, 98, 7, 0.82) 50%, rgba(202, 138, 4, 1) 100%)",
+INACTIVE: "linear-gradient(90deg, rgba(154, 52, 18, 0.18) 0%, rgba(194, 65, 12, 0.82) 50%, rgba(234, 88, 12, 1) 100%)",
+QUIT_LIKELY: "linear-gradient(90deg, rgba(127, 29, 29, 0.2) 0%, rgba(153, 27, 27, 0.86) 50%, rgba(185, 28, 28, 1) 100%)",
+UNKNOWN: "linear-gradient(90deg, rgba(31, 41, 55, 0.18) 0%, rgba(55, 65, 81, 0.82) 50%, rgba(75, 85, 99, 1) 100%)"
+*/

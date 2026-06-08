@@ -72,6 +72,7 @@
         "result-player-unit-column": "Troops",
         "result-player-score-column": "Score",
         "result-player-rank-column": "Rank",
+        "result-player-login-column": "Last Login",
         "result-player-unknown": "Unknown",
 
         "result-notfound": "No data available for this server."
