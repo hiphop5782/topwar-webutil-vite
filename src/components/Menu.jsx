@@ -72,8 +72,8 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/ssc`}>{t(`menu:info.sub.ssc`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/realpower`}>
-                                    {/* {t(`menu:info.sub.realpower`)} */}
-                                    리얼파워(테스트중)
+                                    {t(`menu:info.sub.realpower`)}
+                                    {/* 리얼파워(테스트중) */}
                                 </LanguageRouterLink>
                             </div>
                         </li>
