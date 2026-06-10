@@ -18,6 +18,7 @@ const chartBackgroundColors = [
 
 export default function TopwarServerDataViewer() {
     const { t } = useTranslation("viewer");
+
     const [selectedServers, setSelectedServers] = useState([]);
 
     //서버 계산 기준

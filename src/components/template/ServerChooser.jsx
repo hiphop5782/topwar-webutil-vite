@@ -1,99 +1,142 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
-import { useSearchParams } from "react-router-dom";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { toast } from "react-toastify";
+import { useListParamState } from "@src/hooks/useListParamState"
 
 export default function ServerChooser({
-    onChangeServer, 
-    onSelectServer, 
-    useParameter=true, 
-    disabled=false,
+    onChangeServer,
+    onSelectServer,
+    useParameter = true,
+    disabled = false,
     onRemoveServer,
-    enableShare=true,
+    enableShare = true,
 }) {
     const [serverData, setServerData] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const loadData = useCallback(async ()=>{
+    const loadData = useCallback(async () => {
         const data = await import("@src/assets/json/power/serverData.json");
         setServerData(data.default);
         setDataLoading(false);
     }, []);
-    useEffect(()=>{ loadData(); }, []);
+    useEffect(() => { loadData(); }, []);
 
-    const {t} = useTranslation("viewer");
-    
-    const [params, setParams] = useSearchParams();
-    const [serverList, setServerList] = useState([]);
-    useEffect(()=>{
-        if(serverData.length === 0) return;
-        setServerList(serverData.map(server=>server.serverNumber));
-    }, [serverData]);
+    const { t } = useTranslation("viewer");
 
+    const [serverParams, setServerParams] = useListParamState("server");
     const [selectedServers, setSelectedServers] = useState([]);
 
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        if(useParameter !== true) return;
-        if(params.size === 0) return;
-        if(serverData.length === 0) return;
+    const selectedServerNumberSet = useMemo(() => {
+        return new Set(selectedServers.map(server => Number(server.serverNumber)));
+    }, [selectedServers]);
 
-        const value = params.get("server");
-        if(value === null)  return;
-        const decoded = decodeURIComponent(value);
-        [...new Set(decoded.split(","))].forEach(addServerByParameter);
+    const serverList = useMemo(() => {
+        return serverData
+            .map(server => server.serverNumber)
+            .filter(serverNumber => !selectedServerNumberSet.has(Number(serverNumber)));
+    }, [serverData, selectedServerNumberSet]);
 
-        setLoading(true);
-    }, [useParameter, serverData]);
     useEffect(() => {
-        if(useParameter !== true) return;
-        if (loading == false) return;
-        if (selectedServers.length === 0) {
-            setParams(prev=>({server:_, ...prev}));
-        }
-        else {
-            setParams(prev=>({...prev, server: selectedServers.map(server => server.serverNumber).join(",") }));
-        }
-    }, [useParameter, selectedServers, loading]);
-    useEffect(()=>{
-        if(onChangeServer !== undefined && typeof onChangeServer === "function") {
+        if (useParameter !== true) return;
+        if (serverData.length === 0) return;
+
+        const wantedSet = new Set(
+            serverParams
+                .map(value => Number(value))
+                .filter(value => Number.isInteger(value))
+        );
+
+        const selected = serverData.filter(server =>
+            wantedSet.has(Number(server.serverNumber))
+        );
+
+        setSelectedServers(prev => {
+            const prevKeys = prev.map(server => Number(server.serverNumber)).join(",");
+            const nextKeys = selected.map(server => Number(server.serverNumber)).join(",");
+
+            if (prevKeys === nextKeys) {
+                return prev;
+            }
+
+            return selected;
+        });
+    }, [useParameter, serverData, serverParams]);
+    useEffect(() => {
+        if (typeof onChangeServer === "function") {
             onChangeServer(selectedServers);
         }
-    }, [selectedServers]);
+    }, [selectedServers, onChangeServer]);
 
     const [serverInput, setServerInput] = useState("");
 
-    const addServerByParameter = useCallback((target) => {
-        if(!target) return;
-        const datalist = serverData.filter(server=>server.serverNumber === parseInt(target));
-        setSelectedServers(prev => [...prev, datalist[0]]);
-        setServerList(prev => prev.filter(server => server !== target));
-    }, [serverData]);
     const addServer = useCallback(() => {
-        const selectedServer = parseInt(serverInput);
-        if (serverList.includes(selectedServer) === false) {
+        const selectedServerNumber = Number(serverInput);
+
+        if (!Number.isInteger(selectedServerNumber)) {
+            return;
+        }
+
+        if (!serverList.includes(selectedServerNumber)) {
             window.alert(t(`TopwarCompareViewer.label-noserver`));
             return;
         }
 
-        if(onSelectServer !== undefined && typeof onSelectServer === "function"){
-            onSelectServer(selectedServer);
+        const targetServer = serverData.find(server =>
+            Number(server.serverNumber) === selectedServerNumber
+        );
+
+        if (!targetServer) {
+            window.alert(t(`TopwarCompareViewer.label-noserver`));
+            return;
         }
 
-        const datalist = serverData.filter(server=>server.serverNumber === selectedServer);
-        setSelectedServers(prev => [...prev, datalist[0]]);
-        setServerList(prev => prev.filter(server => server !== selectedServer));
-        setServerInput("");
-    }, [serverInput, serverList]);
+        if (typeof onSelectServer === "function") {
+            onSelectServer(selectedServerNumber);
+        }
 
-    const removeServer = useCallback(targetServer => {
-        setSelectedServers(prev => prev.filter(server => server.serverNumber !== targetServer.serverNumber));
-        setServerList(prev => [...prev, targetServer.serverNumber].sort());
-        if(onRemoveServer !== undefined && typeof onRemoveServer === "function") {
+        setSelectedServers(prev => {
+            if (prev.some(server => Number(server.serverNumber) === selectedServerNumber)) {
+                return prev;
+            }
+
+            const next = [...prev, targetServer];
+
+            if (useParameter === true) {
+                setServerParams(next.map(server => String(server.serverNumber)));
+            }
+
+            return next;
+        });
+
+        setServerInput("");
+    }, [
+        serverInput,
+        serverList,
+        serverData,
+        onSelectServer,
+        setServerParams,
+        useParameter,
+        t
+    ]);
+
+    const removeServer = useCallback((targetServer) => {
+        setSelectedServers(prev => {
+            const next = prev.filter(server =>
+                Number(server.serverNumber) !== Number(targetServer.serverNumber)
+            );
+
+            if (useParameter === true) {
+                setServerParams(next.map(server => String(server.serverNumber)));
+            }
+
+            return next;
+        });
+
+        if (typeof onRemoveServer === "function") {
             onRemoveServer(targetServer);
         }
-    }, []);
+    }, [onRemoveServer, setServerParams, useParameter]);
 
     const inputServer = useCallback(e => {
         const regex = /^[1-9][0-9]*$/;
@@ -110,7 +153,7 @@ export default function ServerChooser({
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(text)
                 .then(() => toast.success(t(`TopwarCompareViewer.label-copy-ok`)))
-                .catch(err => toast.error(t(`TopwarCompareViewer.label-copy-nok`) + "<br/>"+err));
+                .catch(err => toast.error(t(`TopwarCompareViewer.label-copy-nok`) + "<br/>" + err));
         } else {
             // fallback (구형 브라우저 대응)
             const textarea = document.createElement("textarea");
@@ -125,15 +168,15 @@ export default function ServerChooser({
                 document.execCommand("copy");
                 toast.success(t(`TopwarCompareViewer.label-copy-ok`));
             } catch (err) {
-                toast.error(t(`TopwarCompareViewer.label-copy-nok`) + "<br/>" +err);
+                toast.error(t(`TopwarCompareViewer.label-copy-nok`) + "<br/>" + err);
             } finally {
                 document.body.removeChild(textarea);
             }
         }
     }, [selectedServers]);
 
-    if(dataLoading === true) {
-        return <PacmanLoader color="#0984e3"/>
+    if (dataLoading === true) {
+        return <PacmanLoader color="#0984e3" />
     }
 
     return (<>
@@ -145,8 +188,8 @@ export default function ServerChooser({
                         onChange={inputServer} value={serverInput}
                         onKeyUp={e => {
                             if (e.key === "Enter") addServer();
-                        }} 
-                        disabled={disabled}/>
+                        }}
+                        disabled={disabled} />
                     <button className="btn btn-success ms-2" onClick={addServer} disabled={disabled}>
                         <FaPlus className="fw-bold" />
                     </button>
@@ -164,7 +207,7 @@ export default function ServerChooser({
                     ))}
                     {enableShare && selectedServers.length > 0 && (
                         <button className="btn btn-primary mb-2" onClick={copyUrlToClipboard} disabled={disabled}>
-                            <FaShareNodes className="me-2"/>
+                            <FaShareNodes className="me-2" />
                             <span>{t(`TopwarCompareViewer.btn-share`)}</span>
                         </button>
                     )}

@@ -3,55 +3,73 @@ import { useTranslation } from "react-i18next";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import "./KartzData.css";
+import { useParamState } from "../../../../hooks/useParamState";
 
 const jsonModules = import.meta.glob('@src/assets/json/kartz/history/*.json');
 
-export default function KartzRankViewer(){
+export default function KartzRankViewer() {
     const { t } = useTranslation("viewer");
-    const fileNames = useMemo(()=>{
-        return Object.keys(jsonModules).map(path=>{
+    const fileNames = useMemo(() => {
+        return Object.keys(jsonModules).map(path => {
             const fileName = path.split('/').pop().replace(".json", "");
-            return {path, fileName};
-        }).sort((a,b)=>b.fileName.localeCompare(a.fileName));
+            return { path, fileName };
+        }).sort((a, b) => b.fileName.localeCompare(a.fileName));
     }, []);
-    const [selectedData, setSelectedData] = useState(()=>{
-        return fileNames?.length > 0 ? fileNames[0].path : null
+
+    const defaultWhen = useMemo(() => {
+        return fileNames?.length > 0 ? fileNames[0].fileName : "";
+    }, [fileNames]);
+
+    const [selectedWhen, setSelectedWhen] = useParamState("when", defaultWhen, {
+        validate: value => value === "" || /^2[0-9]{3}-(0[1-9]|1[0-2])$/.test(value),
     });
 
+    const selectedFile = useMemo(() => {
+        if (!selectedWhen) return null;
+
+        return fileNames.find(file => file.fileName === selectedWhen) ?? null;
+    }, [fileNames, selectedWhen]);
+
     const [loading, setLoading] = useState(false);
-    useEffect(()=>{
-        if(selectedData === null) return;
-        handleFileSelect();
-    }, [selectedData]);
-    const handleFileSelect = useCallback(async ()=>{
+    const handleFileSelect = useCallback(async () => {
+        if (!selectedFile) return;
+
         setLoading(true);
+
         try {
-            const module = await jsonModules[selectedData]();
+            const module = await jsonModules[selectedFile.path]();
             setRankData(module.default);
-        }
-        catch(error) {
+        } catch (error) {
             console.error("데이터 로드 실패", error);
-        }
-        finally {
+            setRankData(null);
+        } finally {
             setLoading(false);
         }
-    }, [selectedData]);
-    
-    const [rankData, setRankData] = useState(null);    
-    const userRankData = useMemo(()=>{
-        if(rankData === null) return [];
+    }, [selectedFile]);
+
+    useEffect(() => {
+        handleFileSelect();
+    }, [handleFileSelect]);
+
+    const [rankData, setRankData] = useState(null);
+    const userRankData = useMemo(() => {
+        if (rankData === null) return [];
         return rankData.playerRankList ?? [];
     }, [rankData]);
-    const allianceRankData = useMemo(()=>{
-        if(rankData === null) return [];
+    const allianceRankData = useMemo(() => {
+        if (rankData === null) return [];
         return rankData.allianceRankList ?? [];
     }, [rankData]);
 
-    const dataExist = useMemo(()=>{
+    const dataExist = useMemo(() => {
         return rankData !== null;
     }, [rankData]);
 
-    const [serverInput, setServerInput] = useState("");
+    //const [serverInput, setServerInput] = useState("");
+    const [serverInput, setServerInput] = useParamState("server", "", {
+        validate: value => /^[0-9]*$/.test(value),
+    });
+
     const changeServerInput = useCallback((e) => {
         const value = e.target.value;
         // 빈 문자열이거나(전체 삭제 대응) 숫자만 포함된 경우에만 업데이트
@@ -60,100 +78,106 @@ export default function KartzRankViewer(){
         }
     }, []); // 의존성 배열을 비워 함수 재생성을 방지합니다.
 
-    const filteredUserRankData = useMemo(()=>{
-        if(serverInput === "") return userRankData;
-        return userRankData.filter(user=>user.server === parseInt(serverInput));
+    const filteredUserRankData = useMemo(() => {
+        if (serverInput === "") return userRankData;
+        return userRankData.filter(user => user.server === parseInt(serverInput));
     }, [userRankData, serverInput]);
-    const filteredAllianceRankData = useMemo(()=>{
-        if(serverInput === "") return allianceRankData;
-        return allianceRankData.filter(alliance=>alliance.server === parseInt(serverInput));
+    const filteredAllianceRankData = useMemo(() => {
+        if (serverInput === "") return allianceRankData;
+        return allianceRankData.filter(alliance => alliance.server === parseInt(serverInput));
     }, [allianceRankData, serverInput]);
 
     return (<>
         <label className="d-flex">
             <span className="d-flex align-items-center">{t("KartzRankViewer.season")}</span>
-            <select className="form-select w-auto ms-4" onChange={e=>setSelectedData(e.target.value)}>
-                {fileNames.map((file, index)=>(
-                <option key={index} value={file.path}>{file.fileName}</option>
+            <select
+                className="form-select w-auto ms-4"
+                value={selectedWhen}
+                onChange={e => setSelectedWhen(e.target.value)}
+            >
+                {fileNames.map((file, index) => (
+                    <option key={index} value={file.fileName}>
+                        {file.fileName}
+                    </option>
                 ))}
             </select>
         </label>
 
         {dataExist && (
-        <div className="row mt-2">
-            <div className="col d-flex">
-                <label className="col-form-label me-4">{t("KartzRankViewer.server")}</label>
-                <input type="text" className="form-control w-auto" placeholder="e.g., 3223"
-                            value={serverInput} onChange={changeServerInput} inputMode="numeric"/>
+            <div className="row mt-2">
+                <div className="col d-flex">
+                    <label className="col-form-label me-4">{t("KartzRankViewer.server")}</label>
+                    <input type="text" className="form-control w-auto" placeholder="e.g., 3223"
+                        value={serverInput} onChange={changeServerInput} inputMode="numeric" />
+                </div>
             </div>
-        </div>
         )}
 
         {dataExist && (
-        <div className="row mt-4">
-            <div className="col-md-6">
-                <h3>
-                    {t("KartzRankViewer.user-title-prefix")}
-                    {filteredUserRankData.length}
-                    {t("KartzRankViewer.user-title-suffix")}
-                </h3>
-                <div className="text-nowrap text-responsive">
-                    <table className="table table-striped table-rank">
-                        <thead>
-                            <tr>
-                                <th width={45}>{t("KartzRankViewer.table-rank")}</th>
-                                <th width={55}>{t("KartzRankViewer.table-server")}</th>
-                                <th>{t("KartzRankViewer.table-username")}</th>
-                                <th className="text-end">{t("KartzRankViewer.table-round")}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredUserRankData.map((player, index)=>(
-                            <tr key={index} className={`rank-${player.rank}`}>
-                                <td>{player.rank}</td>
-                                <td className="numeric-cell">{player.server}</td>
-                                <td>{player.nickname ?? "Unknown"}</td>
-                                <td className=" numeric-cell text-end">{player.round}</td>
-                                <td>{player.damage?.length > 0 ? <span>{player.damage}</span> : <span className="text-danger fw-bold">Clear</span>}</td>
-                            </tr>
-                            ))}
-                        </tbody>
-                    </table>
+            <div className="row mt-4">
+                <div className="col-md-6">
+                    <h3>
+                        {t("KartzRankViewer.user-title-prefix")}
+                        {filteredUserRankData.length}
+                        {t("KartzRankViewer.user-title-suffix")}
+                    </h3>
+                    <div className="text-nowrap text-responsive">
+                        <table className="table table-striped table-rank">
+                            <thead>
+                                <tr>
+                                    <th width={45}>{t("KartzRankViewer.table-rank")}</th>
+                                    <th width={55}>{t("KartzRankViewer.table-server")}</th>
+                                    <th>{t("KartzRankViewer.table-username")}</th>
+                                    <th className="text-end">{t("KartzRankViewer.table-round")}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredUserRankData.map((player, index) => (
+                                    <tr key={index} className={`rank-${player.rank}`}>
+                                        <td>{player.rank}</td>
+                                        <td className="numeric-cell">{player.server}</td>
+                                        <td>{player.nickname ?? "Unknown"}</td>
+                                        <td className=" numeric-cell text-end">{player.round}</td>
+                                        <td>{player.damage?.length > 0 ? <span>{player.damage}</span> : <span className="text-danger fw-bold">Clear</span>}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                {allianceRankData.length > 0 && (
+                    <div className="col-md-6">
+                        <h3>
+                            {t("KartzRankViewer.alliance-title-prefix")}
+                            {filteredAllianceRankData.length}
+                            {t("KartzRankViewer.alliance-title-suffix")}
+                        </h3>
+                        <div className="text-nowrap table-responsive">
+                            <table className="table table-striped table-rank">
+                                <thead>
+                                    <tr>
+                                        <th width={45}>{t("KartzRankViewer.table-rank")}</th>
+                                        <th width={55}>{t("KartzRankViewer.table-server")}</th>
+                                        <th>{t("KartzRankViewer.table-alliance")}</th>
+                                        <th className="text-end" width={75}>{t("KartzRankViewer.table-score")}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredAllianceRankData.map((alliance, index) => (
+                                        <tr key={index} className={`rank-${alliance.rank}`}>
+                                            <td>{alliance.rank}</td>
+                                            <td className="numeric-cell">{alliance.server}</td>
+                                            <td className="text-truncate">[{alliance.tag}] {alliance.name}</td>
+                                            <td className="text-end numeric-cell">{alliance.score.toLocaleString()}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
             </div>
-            {allianceRankData.length > 0 && (
-            <div className="col-md-6">
-                <h3>
-                    {t("KartzRankViewer.alliance-title-prefix")}
-                    {filteredAllianceRankData.length}
-                    {t("KartzRankViewer.alliance-title-suffix")}
-                </h3>
-                <div className="text-nowrap table-responsive">
-                    <table className="table table-striped table-rank">
-                        <thead>
-                            <tr>
-                                <th width={45}>{t("KartzRankViewer.table-rank")}</th>
-                                <th width={55}>{t("KartzRankViewer.table-server")}</th>
-                                <th>{t("KartzRankViewer.table-alliance")}</th>
-                                <th className="text-end" width={75}>{t("KartzRankViewer.table-score")}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredAllianceRankData.map((alliance, index)=>(
-                            <tr key={index} className={`rank-${alliance.rank}`}>
-                                <td>{alliance.rank}</td>
-                                <td className="numeric-cell">{alliance.server}</td>
-                                <td className="text-truncate">[{alliance.tag}] {alliance.name}</td>
-                                <td className="text-end numeric-cell">{alliance.score.toLocaleString()}</td>
-                            </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            )}
-        </div>
         )}
     </>)
 }

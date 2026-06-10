@@ -1,13 +1,18 @@
 import KartzSpecInfoList from '@src/assets/json/kartz/enemy.json';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParamState } from '../../../../hooks/useParamState';
 
 const KartzSpecInformation = ()=>{
     const {t} = useTranslation("viewer");
 
     const [list, setList] = useState([]);
 
-    const [bossOnly, setBossOnly] = useState(true);
+    //const [bossOnly, setBossOnly] = useState(true);
+    const [bossOnly, setBossOnly] = useParamState("boss", false, {
+        parse: (value) => value === "true",
+        serialize: (value) => String(value),
+    });
     useEffect(()=>{
         if(bossOnly) {
             setList(KartzSpecInfoList.filter(info=>info.round%5 === 0));

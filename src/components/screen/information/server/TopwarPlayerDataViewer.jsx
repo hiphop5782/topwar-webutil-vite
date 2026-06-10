@@ -6,6 +6,7 @@ import "./TopwarData.css";
 import { FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader"
+import { useParamState } from "../../../../hooks/useParamState";
 
 export default function TopwarPlayerDataViewer() {
     const [playerList, setPlayerList] = useState([]);
@@ -17,8 +18,12 @@ export default function TopwarPlayerDataViewer() {
     }, []);
     useEffect(()=>{ loadData(); }, []);
 
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchNickname, setSearchNickname] = useState("");
+    //const [searchTerm, setSearchTerm] = useState("");
+    //const [searchNickname, setSearchNickname] = useState("");
+    const [searchTerm, setSearchTerm] = useParamState("server", "", {
+        validate: value=> /^[0-9]*$/.test(value)
+    });
+    const [searchNickname, setSearchNickname] = useParamState("user", "");
     const { t } = useTranslation(["viewer", "commons"]);
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)

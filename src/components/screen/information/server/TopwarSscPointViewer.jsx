@@ -6,12 +6,13 @@ import "./TopwarData.css";
 import { FaArrowRight, FaArrowRightLong, FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader"
+import { useParams, useSearchParams } from "react-router-dom";
+import { useParamState } from "../../../../hooks/useParamState";
 
 export default function TopwarSscPointViewer() {
     const [mainData, setMainData] = useState(null);
     const playerList = useMemo(() => mainData?.rows ?? [], [mainData]);
     const [dataLoading, setDataLoading] = useState(true);
-    const [minimum, setMinimum] = useState(0);
     const loadData = useCallback(async () => {
         const data = await import("@src/assets/json/ssc/userData.json");
         setMainData(data.default);
@@ -19,8 +20,14 @@ export default function TopwarSscPointViewer() {
     }, []);
     useEffect(() => { loadData(); }, []);
 
-    const [searchTerm, setSearchTerm] = useState("");
+    
     const { t } = useTranslation(["viewer", "commons"]);
+    const [searchTerm, setSearchTerm] = useParamState("server", "", {
+        validate: value=>/^[0-9]*$/.test(value),
+    });
+    const [minimum, setMinimum] = useParamState("min", "0", {
+        validate: value=>/^[0-9]*$/.test(value),
+    });
 
     // 1. 원본 데이터 정렬 (기존 유지, 렌더링 시 재계산 방지)
     const sortedPlayers = useMemo(() => {
@@ -85,7 +92,7 @@ export default function TopwarSscPointViewer() {
         }).format(num);
     }, []);
 
-    const getPercentile = useCallback((arr, percentile)=>{
+    const getPercentile = useCallback((arr, percentile) => {
         const index = (arr.length - 1) * percentile;
         const lower = Math.floor(index);
         const upper = Math.ceil(index);
@@ -94,7 +101,7 @@ export default function TopwarSscPointViewer() {
     }, []);
 
     //이상치를 제거한 합계와 평균
-    const filteredPlayersConsiderIQR = useMemo(()=>{
+    const filteredPlayersConsiderIQR = useMemo(() => {
         // 데이터가 너무 적으면 사분위수를 구하는 의미가 없으므로 그대로 반환
         if (filteredPlayers.length < 4) {
             return filteredPlayers;
@@ -133,28 +140,28 @@ export default function TopwarSscPointViewer() {
                 {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
                 {/* 검색 입력창 추가 */}
                 <div className="col-md-6 d-flex align-items-center">
-                    <span style={{width:75, whiteSpace:"nowrap"}}>{t(`TopwarSscPointViewer.label-input`)}</span>
+                    <span style={{ width: 75, whiteSpace: "nowrap" }}>{t(`TopwarSscPointViewer.label-input`)}</span>
                     <input
                         type="text"
                         className="form-control w-auto ms-4"
                         placeholder="e.g., 3223"
                         value={searchTerm}
                         onChange={(e) => {
-                            const regex = /[0-9]*/;
+                            const regex = /^[0-9]*$/;
                             if (!regex.test(e.target.value)) return;
                             setSearchTerm(e.target.value);
                         }}
                     />
                 </div>
                 <div className="col-md-6 d-flex align-items-center mt-2 mt-md-0">
-                    <span style={{width:75, whiteSpace:"nowrap"}}>{t("TopwarSscPointViewer.label-cutoff")}</span>
+                    <span style={{ width: 75, whiteSpace: "nowrap" }}>{t("TopwarSscPointViewer.label-cutoff")}</span>
                     <input
                         type="text"
                         className="form-control w-auto ms-4"
                         placeholder="e.g., 10000"
                         value={minimum}
                         onChange={(e) => {
-                            const regex = /[0-9]*/;
+                            const regex = /^[0-9]*$/;
                             if (!regex.test(e.target.value)) return;
                             setMinimum(parseInt(e.target.value || 0));
                         }}
@@ -167,8 +174,8 @@ export default function TopwarSscPointViewer() {
                 <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-count")}</div>
                 <div className="col-sm-8 fw-bold">
                     <div className="row">
-                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayers.length)}</div>
-                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayers.length.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none" />{formatCompactNumber(filteredPlayers.length)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none" />{filteredPlayers.length.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
                     </div>
                 </div>
             </div>
@@ -176,8 +183,8 @@ export default function TopwarSscPointViewer() {
                 <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-total")}</div>
                 <div className="col-sm-8 fw-bold">
                     <div className="row">
-                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerTotalScore)}</div>
-                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerTotalScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none" />{formatCompactNumber(filteredPlayerTotalScore)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none" />{filteredPlayerTotalScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
                     </div>
                 </div>
             </div>
@@ -185,8 +192,8 @@ export default function TopwarSscPointViewer() {
                 <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-average")}</div>
                 <div className="col-sm-8 fw-bold">
                     <div className="row">
-                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerAverageScore)}</div>
-                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerAverageScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none" />{formatCompactNumber(filteredPlayerAverageScore)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none" />{filteredPlayerAverageScore.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
                     </div>
                 </div>
             </div>
@@ -194,8 +201,8 @@ export default function TopwarSscPointViewer() {
                 <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-iqr-total")}</div>
                 <div className="col-sm-8 fw-bold">
                     <div className="row">
-                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerTotalScoreWithIQR)}</div>
-                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerTotalScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none" />{formatCompactNumber(filteredPlayerTotalScoreWithIQR)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none" />{filteredPlayerTotalScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
                     </div>
                 </div>
             </div>
@@ -203,8 +210,8 @@ export default function TopwarSscPointViewer() {
                 <div className="col-sm-4 label-with-dashline">{t("TopwarSscPointViewer.result-iqr-average")}</div>
                 <div className="col-sm-8 fw-bold">
                     <div className="row">
-                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none"/>{formatCompactNumber(filteredPlayerAverageScoreWithIQR)}</div>
-                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none"/>{filteredPlayerAverageScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
+                        <div className="col-sm-6 label-with-dashline"><FaArrowRightLong className="me-2 d-sm-none" />{formatCompactNumber(filteredPlayerAverageScoreWithIQR)}</div>
+                        <div className="col-sm-6"><FaArrowRightLong className="me-2 d-sm-none" />{filteredPlayerAverageScoreWithIQR.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}</div>
                     </div>
                 </div>
             </div>
@@ -228,7 +235,7 @@ export default function TopwarSscPointViewer() {
                                     <span className={`fi fi-sq fi-${CountryFlagJson[key]} w-100 d-block`} style={{ aspectRatio: '1 / 1' }}></span>
                                     <span className="numeric-responsive-cell text-center">{nationObj[key].toLocaleString()}</span>
                                 </div>
-                            </div> 
+                            </div>
                         ))}
                     </>)}
                     <div className="col-12">
@@ -265,7 +272,7 @@ export default function TopwarSscPointViewer() {
                                         {/* filteredPlayers를 기준으로 index 재계산 */}
                                         <span className="badge text-bg-primary">{player.rank}</span>
                                         {searchTerm.length > 0 && (
-                                        <span className="badge text-bg-danger ms-2">{index+1}</span>
+                                            <span className="badge text-bg-danger ms-2">{index + 1}</span>
                                         )}
                                     </div>
                                     <div style={{ width: 200 }} className="text-truncate flex-grow-1 d-flex align-items-center">
