@@ -20,7 +20,7 @@ export const allowedPaths = [
     { 
         path: "/information/kartz", 
         label: "카르츠 정보",
-        examples: ["카르츠 라운드", "카르츠 몬스터", "카르츠 보스"],
+        examples: ["카르츠 라운드", "카르츠 몬스터", "카르츠 보스", "카르츠 스펙"],
         chatbot: true,
         queryParams: {
             boss: {
