@@ -8,7 +8,8 @@ import 'bootstrap/dist/js/bootstrap.esm.js';
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 
 import "./i18n";
-import LanguageRouter from './components/LanguageRouter';
+import LanguageRouter from '@src/components/LanguageRouter';
+import Chatbot from '@src/components/ai/Chatbot';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       v7_relativeSplatPath: true,
     }}>
       <LanguageRouter/>
+      <Chatbot/>
     </BrowserRouter>
   )
 }
