@@ -410,7 +410,7 @@ export default function TopwarRealPowerViewer() {
         if(selectedServer.length === 0) return;
 
         init.current = true;
-        
+
         search();
     }, [selectedServer]);
 
