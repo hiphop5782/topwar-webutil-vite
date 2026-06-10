@@ -79,7 +79,7 @@ export default function TopwarRealPowerViewer() {
         if(selectedServer.length === 0) return;
         if(fileNames === null) return;
         if(!fileNames.some(file=>file.fileName == selectedServer)) {
-            toast.error(t("TopwarRealPowerViewer.result-noutfound"));
+            toast.error(t("TopwarRealPowerViewer.result-notfound"));
             return;
         }
 
