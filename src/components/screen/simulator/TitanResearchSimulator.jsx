@@ -195,8 +195,8 @@ const TitanResearchSimulator = () => {
         <div className="row">
     
             {titanResult.map((gear, index) => (
-                <div className="col-xl-3 col-lg-4 col-sm-6" key={gear.no}>
-                    <div className="card mb-3 bg-dark text-light flex-row flex-sm-column">
+                <div className="col-xl-6" key={gear.no}>
+                    <div className="card mb-3 bg-dark text-light flex-row">
                         <div className="card-img-top p-2 position-relative">
                             <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/titan/${gear.type}-${gear.grade}.png`} width={'100%'} />
                             {gear.specialEffect !== null && (
