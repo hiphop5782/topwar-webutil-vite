@@ -307,7 +307,7 @@ const TitanRefineSimulator = () => {
             </div>
         </div>
         <div className="row">
-            <div className="col-sm-6">
+            <div className="col-lg-6">
                 <h2>
                     <span className="me-2">타이탄 설정</span>
                     <span role="button" className="text-primary fs-6" onClick={addGearOptions}>추가</span>
@@ -361,7 +361,7 @@ const TitanRefineSimulator = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-sm-6">
+            <div className="col-lg-6">
                 <h2>
                     <span className="me-2">재료 설정</span>
                 </h2>
