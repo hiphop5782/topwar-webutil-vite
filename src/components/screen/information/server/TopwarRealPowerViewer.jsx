@@ -14,6 +14,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 import "./TopwarRealPowerViewer.css";
+import { useParamState } from "@src/hooks/useParamState";
 
 const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
 
@@ -33,7 +34,8 @@ export default function TopwarRealPowerViewer() {
     // const [selectedServer, setSelectedServer] = useState(() => {
     //     return fileNames?.length > 0 ? fileNames[0].path : null
     // });
-    const [selectedServer, setSelectedServer] = useState("");
+    //const [selectedServer, setSelectedServer] = useState("");
+    const [selectedServer, setSelectedServer] = useParamState("server", "");
 
     const [json, setJson] = useState(null);
 
@@ -400,6 +402,17 @@ export default function TopwarRealPowerViewer() {
             };
         }, {active:0, sleepy:0, inactive:0, quit:0, unknown:0, total:0});
     }, [json, filteredPlayers]);
+
+    //최초 1회 로딩 처리 여부 판정
+    const init = useRef(false);
+    useEffect(()=>{
+        if(init.current === true) return;
+        if(selectedServer.length === 0) return;
+
+        init.current = true;
+        
+        search();
+    }, [selectedServer]);
 
     return (<>
         <h1>{t("TopwarRealPowerViewer.title")}</h1>
