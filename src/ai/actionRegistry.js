@@ -73,7 +73,7 @@ export const allowedPaths = [
     },
 
     { 
-        path: "/posts", 
+        path: "/post", 
         label: "공략" ,
         examples: ["블로그","포스트","공략"]
     },
