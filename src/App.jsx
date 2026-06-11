@@ -1,8 +1,9 @@
-import './App.css'
 
 //loading bootstrap + bootswatch
 import 'bootswatch/dist/litera/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.esm.js';
+
+import './App.css'
 
 //loading router
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';

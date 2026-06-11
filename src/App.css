@@ -1,3 +1,46 @@
+/* reset style */
+:root {
+  --bs-font-sans-serif: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-size: 1rem;
+  --bs-body-line-height: 1.6;
+}
+
+html,
+body,
+#root {
+  font-family: var(--bs-font-sans-serif);
+}
+
+body,
+p,
+span,
+div,
+a,
+button,
+input,
+select,
+textarea,
+label,
+small,
+table,
+th,
+td,
+.btn,
+.form-control,
+.form-select,
+.card,
+.navbar,
+.dropdown-menu {
+  font-family: var(--bs-font-sans-serif);
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 ::-webkit-scrollbar {
   width: 1px;
   background-color: var(--bs-primary);
@@ -87,11 +130,139 @@
 .fa-spin {
   animation: fa-spin 1s linear infinite;
 }
+
 @keyframes fa-spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+/* reform bs5 navbar */
+.navbar {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.navbar-brand {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.navbar .nav-link {
+  font-weight: 650;
+  border-radius: 0.65rem;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+.navbar .nav-link:hover {
+  background: rgba(79, 70, 229, 0.08);
+}
+
+.app-navbar {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.app-navbar .navbar-brand {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #111827;
+}
+
+.app-navbar .navbar-brand:hover {
+  color: #111827;
+}
+
+.app-navbar .nav-link {
+  color: #6b7280;
+  font-weight: 650;
+  border-radius: 0.65rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+  color: #4f46e5;
+  background: rgba(79, 70, 229, 0.08);
+}
+
+.app-navbar .navbar-toggler {
+  border-color: rgba(15, 23, 42, 0.12);
+}
+
+.app-navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.15rem rgba(79, 70, 229, 0.18);
+}
+
+
+.btn {
+  border-radius: 0.75rem;
+  font-weight: 700;
+  padding: 0.55rem 0.95rem;
+}
+
+.btn-sm {
+  border-radius: 0.6rem;
+  padding: 0.35rem 0.7rem;
+}
+
+.btn-lg {
+  border-radius: 0.9rem;
+  padding: 0.75rem 1.2rem;
+}
+
+
+.form-control,
+.form-select {
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.85rem;
+}
+
+.form-label {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.input-group .form-control:first-child {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.input-group .btn:last-child {
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+
+.table-card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.table-card .table {
+  margin-bottom: 0;
+}
+
+.table-card thead th {
+  background: #f8fafc;
+  color: #374151;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.table-card tbody td {
+  vertical-align: middle;
 }

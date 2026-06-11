@@ -1,18 +1,8 @@
-@font-face {
+/* @font-face {
   font-family: melona;
   src: url("./assets/fonts/BinggraeMelona.ttf") format("truetype");
-}
+} */
 
-:root {
-  --font-main: "Pretendard", -apple-system, sans-serif;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-main);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

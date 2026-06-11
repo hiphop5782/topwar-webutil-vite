@@ -236,6 +236,7 @@ export default function TopwarRealPowerViewer() {
             case 2: return "success";
             case 3: return "info";
             case 4: return "secondary";
+            default: return "secondary";
         }
     }, []);
 
