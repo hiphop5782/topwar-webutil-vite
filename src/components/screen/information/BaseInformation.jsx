@@ -105,7 +105,7 @@ function BaseInformation() {
                 <div className="col">
                     {
                         baseTypes.map((t, i) => (
-                            <span className={getBadgeStyle(t)} key={t.no}
+                            <span className={`${getBadgeStyle(t)} mb-2`} key={t.no}
                                 onClick={e => clickBadge(i, t.active)}>{t.value}</span>
                         ))
                     }
