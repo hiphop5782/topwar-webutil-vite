@@ -124,6 +124,29 @@ export const allowedPaths = [
         label: "타이탄제작",
         examples: ["타이탄만들기", "타이탄생성"],
         chatbot: true,
+        queryParams: {
+            type: {
+                type: "string",
+                required: false,
+                description: "타이탄 종류",
+                pattern: "^(pistol|backarmor|addon|headset|gps|boots)$",
+                aliases: ["타이탄 종류", "타이탄 파츠", "타이탄 유형"]
+            },
+            catalyst: {
+                type: "string",
+                required: false,
+                description: "촉매제",
+                pattern: "^(top|advanced|mid)$",
+                aliases: ["촉매제 종류", "타이탄 촉매제", "에픽촉매제", "노랑촉매제", "보라촉매제", "유니크촉매제", "매직촉매제", "파랑촉매제"]
+            },
+            count: {
+                type: "number",
+                required: false,
+                description: "개수",
+                pattern: "^[0-9]*$",
+                aliases:["수량", "개수", "개", "ea"]
+            }
+        },
     },
     { 
         path: "/simulator/titan-refine", 

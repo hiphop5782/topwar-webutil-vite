@@ -8,12 +8,13 @@ import specialEffectRateList from "@src/assets/json/titan/titan-special-effect-r
 import colorList from "@src/assets/json/titan/titan-colors.json";
 import specialEffectNames from "@src/assets/json/titan/titan-special-effect-names.json";
 import gearNames from "@src/assets/json/titan/titan-gear-names.json";
+import { useParamState } from "@src/hooks/useParamState";
 
 
 const TitanResearchSimulator = () => {
-    const [parts, setParts] = useState('pistol');
-    const [catalyst, setCatalyst] = useState('top');
-    const [count, setCount] = useState(1);
+    const [parts, setParts] = useParamState('type', 'pistol');
+    const [catalyst, setCatalyst] = useParamState('catalyst', 'top');
+    const [count, setCount] = useParamState('count', 1);
     const changeCount = useCallback((e) => {
         const value = parseInt(e.target.value);
         if (isNaN(value) === false && value >= 1 && value <= 100) {

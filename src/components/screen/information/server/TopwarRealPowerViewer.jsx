@@ -405,11 +405,14 @@ export default function TopwarRealPowerViewer() {
 
     //최초 1회 로딩 처리 여부 판정
     const init = useRef(false);
+    const touch = useRef(false);
     useEffect(()=>{
         if(init.current === true) return;
+        if(touch.current === true) return;
         if(selectedServer.length === 0) return;
 
         init.current = true;
+        touch.current = true;
 
         search();
     }, [selectedServer]);
@@ -433,6 +436,7 @@ export default function TopwarRealPowerViewer() {
                     onKeyUp={e=>{
                         if(e.key === 'Enter') search();
                     }}
+                    onFocus={e=>touch.current = true}
                     />
             <button className="btn btn-success ms-2" onClick={search}>
                 <FaMagnifyingGlass/>
