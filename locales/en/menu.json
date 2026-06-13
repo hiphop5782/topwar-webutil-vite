@@ -43,6 +43,12 @@
       "list": "Legacy Emoji"
     }
   },
+  "history":{
+        "label":"History",
+        "sub":{
+            "ssc2026":"Seal Stone Chaos(2026)"
+        }
+    },
   "account": {
     "label": "Trade",
     "sub": {
