@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
 
 import {
     Chart as ChartJS,
@@ -31,8 +30,6 @@ ChartJS.register(
     Legend
 );
 
-const DEFAULT_SERVER = 3223;
-const SERVER_PARAM_STORAGE_KEY = "ssc-dashboard-server-params";
 const SERVER_COLORS = [
     {
         line: "#0d6efd",
@@ -140,7 +137,7 @@ function ServerAutocomplete({
         const keyword = inputValue.trim();
 
         if (!keyword) {
-            return servers.slice(0, 30);
+            return [];
         }
 
         const startsWith = [];
@@ -250,7 +247,13 @@ function ServerAutocomplete({
                     placeholder={placeholder}
                     autoComplete="off"
                     onChange={handleInputChange}
-                    onFocus={() => setIsOpen(true)}
+                    onFocus={() =>
+                        setIsOpen(
+                            Boolean(
+                                inputValue.trim()
+                            )
+                        )
+                    }
                     onBlur={() => {
                         setTimeout(() => {
                             setIsOpen(false);
@@ -277,7 +280,7 @@ function ServerAutocomplete({
                         }
                         onClick={() => {
                             setInputValue("");
-                            setIsOpen(true);
+                            setIsOpen(false);
                             setActiveIndex(-1);
                         }}
                     >
@@ -286,7 +289,8 @@ function ServerAutocomplete({
                 )}
             </div>
 
-            {isOpen && (
+            {isOpen &&
+                inputValue.trim() !== "" && (
                 <div
                     className="dropdown-menu show w-100 shadow"
                     style={{
@@ -418,10 +422,8 @@ function ServerColorBadge({
     );
 }
 
-export default function SscDashboard() {
+function SscDashboardContent({ serverParams, setServerParams }) {
     const { t, i18n } = useTranslation("viewer");
-    const location = useLocation();
-    const restoredServerParamsRef = useRef(false);
 
     const locale =
         i18n.resolvedLanguage === "ja"
@@ -474,113 +476,17 @@ export default function SscDashboard() {
         ].sort((a, b) => a - b);
     }, [normalizedData]);
 
-    const defaultServer =
-        servers.includes(DEFAULT_SERVER)
-            ? DEFAULT_SERVER
-            : servers[0] ?? "";
-
-    const defaultServerParams = useMemo(
-        () =>
-            defaultServer === ""
-                ? []
-                : [String(defaultServer)],
-        [defaultServer]
-    );
-
-    const [serverParams, setServerParams] =
-        useListParamState(
-            "server",
-            defaultServerParams
-        );
-
-    const hasServerSearchParam = useMemo(
-        () =>
-            new URLSearchParams(
-                location.search
-            ).has("server"),
-        [location.search]
-    );
-
-    useEffect(() => {
-        if (hasServerSearchParam) {
-            if (serverParams.length > 0) {
-                sessionStorage.setItem(
-                    SERVER_PARAM_STORAGE_KEY,
-                    serverParams.join(",")
-                );
-            }
-
-            restoredServerParamsRef.current = true;
-            return;
-        }
-
-        if (restoredServerParamsRef.current) {
-            return;
-        }
-
-        restoredServerParamsRef.current = true;
-
-        const savedValue =
-            sessionStorage.getItem(
-                SERVER_PARAM_STORAGE_KEY
-            );
-
-        if (!savedValue) {
-            return;
-        }
-
-        const restoredValues = [
-            ...new Set(
-                savedValue
-                    .split(",")
-                    .map((item) => item.trim())
-                    .filter(Boolean)
-            ),
-        ];
-
-        if (restoredValues.length > 0) {
-            setServerParams(restoredValues);
-        }
-    }, [
-        hasServerSearchParam,
-        serverParams,
-        setServerParams,
-    ]);
-
     const comparisonServers = useMemo(() => {
-        const validServerSet = new Set(servers);
+        const validServers = new Set(servers);
 
-        return [
-            ...new Set(
-                serverParams
-                    .map(Number)
-                    .filter(
-                        (server) =>
-                            Number.isFinite(server) &&
-                            validServerSet.has(server)
-                    )
-            ),
-        ];
+        return [...new Set(
+            serverParams
+                .map(Number)
+                .filter(server => Number.isFinite(server) && validServers.has(server))
+        )];
     }, [serverParams, servers]);
 
-    const selectedServer =
-        comparisonServers[0] ??
-        defaultServer;
-
-    useEffect(() => {
-        if (
-            comparisonServers.length === 0 &&
-            defaultServer !== ""
-        ) {
-            setServerParams([
-                String(defaultServer),
-            ]);
-        }
-    }, [
-        comparisonServers.length,
-        defaultServer,
-        setServerParams,
-    ]);
+    const selectedServer = comparisonServers[0];
 
     const [selectedRound, setSelectedRound] =
         useState(null);
@@ -1622,6 +1528,18 @@ export default function SscDashboard() {
                                 handlePrimaryServerChange
                             }
                         />
+
+                        <button
+                            type="button"
+                            className="btn btn-outline-danger btn-sm mt-2"
+                            onClick={() =>
+                                setServerParams([])
+                            }
+                        >
+                            {t(
+                                "SscDashboard.reset-server-button"
+                            )}
+                        </button>
                     </div>
 
                     <div
@@ -2524,3 +2442,59 @@ export default function SscDashboard() {
         </div>
     );
 }
+
+function SscDashboard() {
+    const { t } = useTranslation("viewer");
+    const [serverParams, setServerParams] = useListParamState("server");
+
+    const servers = useMemo(() => {
+        return [...new Set(
+            mergedData
+                .map(item => Number(item.sid))
+                .filter(Number.isFinite)
+        )].sort((a, b) => a - b);
+    }, []);
+
+    const validServerParams = useMemo(() => {
+        const validServers = new Set(servers);
+
+        return [...new Set(
+            serverParams
+                .map(Number)
+                .filter(server => Number.isFinite(server) && validServers.has(server))
+        )].map(String);
+    }, [serverParams, servers]);
+
+    const hasServer = validServerParams.length > 0;
+
+    return (
+        <>
+            {!hasServer ? (
+                <div className="container-fluid py-4">
+                    <div className="row justify-content-end">
+                        <div className="col-12 col-md-6 col-lg-4" style={{ minWidth: "280px" }}>
+                            <ServerAutocomplete
+                                servers={servers}
+                                value={null}
+                                label={t("SscDashboard.primary-server-label")}
+                                placeholder={t("SscDashboard.server-placeholder")}
+                                serverPrefix={t("SscDashboard.server-prefix")}
+                                selectedLabel={t("SscDashboard.selected-label")}
+                                noResultLabel={t("SscDashboard.server-no-result")}
+                                clearAriaLabel={t("SscDashboard.clear-input")}
+                                onChange={server => setServerParams([String(server)])}
+                            />
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <SscDashboardContent
+                    serverParams={validServerParams}
+                    setServerParams={setServerParams}
+                />
+            )}
+        </>
+    );
+}
+
+export default SscDashboard;

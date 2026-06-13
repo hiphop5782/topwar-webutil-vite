@@ -1,8 +1,12 @@
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
-import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCallback, useEffect } from "react";
 import { FaArrowUp } from "react-icons/fa6";
+import {
+    useLocation,
+    useNavigate,
+    useParams,
+} from "react-router-dom";
 
 const countryCodeMap = {
     ko: 'kr',
@@ -12,6 +16,7 @@ const countryCodeMap = {
 
 function Menu() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { t, i18n } = useTranslation("menu");
     const { lang } = useParams();
 
@@ -21,24 +26,63 @@ function Menu() {
         }
     }, [lang, i18n]);
 
-    const changeLanguage = useCallback((newLang) => {
-        // 1. i18n 설정에서 지원 언어 목록 가져오기
-        const supportedLngs = i18n.options.supportedLngs || [];
+    const changeLanguage = useCallback(
+    (newLang) => {
+        const supportedLngs =
+            i18n.options.supportedLngs || [];
 
-        // 2. 동적 정규식 생성: /^(ko|en|ja)/
-        const langRegex = new RegExp(`^/(${supportedLngs.filter(l => l !== 'cimode').join('|')})`);
+        const languageCodes =
+            supportedLngs.filter(
+                (language) =>
+                    language !== "cimode"
+            );
 
-        // 3. 현재 경로에서 기존 언어 코드 제거
-        const currentPath = window.location.pathname;
-        const pathWithoutLang = currentPath.replace(langRegex, '');
+        const langRegex = new RegExp(
+            `^/(${languageCodes.join("|")})(?=/|$)`
+        );
 
-        // 4. 새 언어와 결합하여 이동
-        const targetPath = `/${newLang}${pathWithoutLang === "" ? "" : pathWithoutLang}`;
+        const pathWithoutLang =
+            location.pathname.replace(
+                langRegex,
+                ""
+            );
 
-        i18n.changeLanguage(newLang).then(() => {
-            navigate(targetPath);
-        });
-    }, [navigate, i18n]);
+        const normalizedPath =
+            pathWithoutLang === ""
+                ? "/"
+                : pathWithoutLang.startsWith("/")
+                ? pathWithoutLang
+                : `/${pathWithoutLang}`;
+
+        const targetPath =
+            `/${newLang}${
+                normalizedPath === "/"
+                    ? ""
+                    : normalizedPath
+            }`;
+
+        i18n
+            .changeLanguage(newLang)
+            .then(() => {
+                navigate({
+                    pathname: targetPath,
+
+                    // 기존 server 등의 파라미터 유지
+                    search: location.search,
+
+                    // 해시가 있다면 같이 유지
+                    hash: location.hash,
+                });
+            });
+    },
+    [
+        navigate,
+        i18n,
+        location.pathname,
+        location.search,
+        location.hash,
+    ]
+);
 
     // 언어에 맞는 국기 코드를 반환하는 함수
     const getFlagCode = useCallback((lang) => {
