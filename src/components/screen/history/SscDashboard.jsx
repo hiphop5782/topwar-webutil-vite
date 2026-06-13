@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -18,6 +18,7 @@ import {
 } from "react-chartjs-2";
 
 import mergedData from "@src/assets/json/ssc/2026-ssc-allround.json";
+import { useListParamState } from "@src/hooks/useListParamState";
 
 ChartJS.register(
     CategoryScale,
@@ -30,8 +31,6 @@ ChartJS.register(
 );
 
 const DEFAULT_SERVER = 3223;
-const MAX_COMPARE_SERVERS = 5;
-
 const SERVER_COLORS = [
     {
         line: "#0d6efd",
@@ -325,10 +324,10 @@ function ServerAutocomplete({
 
                                     {Number(value) ===
                                         Number(server) && (
-                                            <span className="ms-2 badge text-bg-primary">
-                                                {selectedLabel}
-                                            </span>
-                                        )}
+                                        <span className="ms-2 badge text-bg-primary">
+                                            {selectedLabel}
+                                        </span>
+                                    )}
                                 </button>
                             )
                         )
@@ -424,8 +423,8 @@ export default function SscDashboard() {
         i18n.resolvedLanguage === "ja"
             ? "ja-JP"
             : i18n.resolvedLanguage === "en"
-                ? "en-US"
-                : "ko-KR";
+            ? "en-US"
+            : "ko-KR";
 
     const formatNumber = (value) => {
         if (
@@ -476,21 +475,60 @@ export default function SscDashboard() {
             ? DEFAULT_SERVER
             : servers[0] ?? "";
 
-    const [selectedServer, setSelectedServer] =
-        useState(defaultServer);
+    const defaultServerParams = useMemo(
+        () =>
+            defaultServer === ""
+                ? []
+                : [String(defaultServer)],
+        [defaultServer]
+    );
+
+    const [serverParams, setServerParams] =
+        useListParamState(
+            "server",
+            defaultServerParams
+        );
+
+    const comparisonServers = useMemo(() => {
+        const validServerSet = new Set(servers);
+
+        return [
+            ...new Set(
+                serverParams
+                    .map(Number)
+                    .filter(
+                        (server) =>
+                            Number.isFinite(server) &&
+                            validServerSet.has(server)
+                    )
+            ),
+        ];
+    }, [serverParams, servers]);
+
+    const selectedServer =
+        comparisonServers[0] ??
+        defaultServer;
+
+    useEffect(() => {
+        if (
+            comparisonServers.length === 0 &&
+            defaultServer !== ""
+        ) {
+            setServerParams([
+                String(defaultServer),
+            ]);
+        }
+    }, [
+        comparisonServers.length,
+        defaultServer,
+        setServerParams,
+    ]);
 
     const [selectedRound, setSelectedRound] =
         useState(null);
 
     const [topCount, setTopCount] =
         useState(15);
-
-    const [compareServers, setCompareServers] =
-        useState(
-            defaultServer === ""
-                ? []
-                : [defaultServer]
-        );
 
     const effectiveSelectedRound =
         selectedRound ?? latestRound;
@@ -546,9 +584,9 @@ export default function SscDashboard() {
             normalizedData.find(
                 (item) =>
                     item.sid ===
-                    Number(selectedServer) &&
+                        Number(selectedServer) &&
                     item.round ===
-                    Number(effectiveSelectedRound)
+                        Number(effectiveSelectedRound)
             ) ?? null
         );
     }, [
@@ -638,21 +676,6 @@ export default function SscDashboard() {
             t,
         ]);
 
-    const comparisonServers = useMemo(() => {
-        const values = [
-            Number(selectedServer),
-            ...compareServers.map(Number),
-        ].filter(Number.isFinite);
-
-        return [...new Set(values)].slice(
-            0,
-            MAX_COMPARE_SERVERS
-        );
-    }, [
-        selectedServer,
-        compareServers,
-    ]);
-
     const comparisonRows = useMemo(() => {
         return comparisonServers
             .map((server, index) => {
@@ -667,17 +690,17 @@ export default function SscDashboard() {
                         (item) =>
                             item.sid === server &&
                             item.round ===
-                            Number(
-                                effectiveSelectedRound
-                            )
+                                Number(
+                                    effectiveSelectedRound
+                                )
                     );
 
                 return {
                     server,
                     color:
                         SERVER_COLORS[
-                        index %
-                        SERVER_COLORS.length
+                            index %
+                                SERVER_COLORS.length
                         ],
                     cumulativeRank:
                         cumulative?.cumulativeRank ??
@@ -754,6 +777,40 @@ export default function SscDashboard() {
         comparisonServers,
     ]);
 
+    const roundPointComparisonTrend =
+        useMemo(() => {
+            return rounds
+                .filter(
+                    (round) =>
+                        effectiveSelectedRound === null ||
+                        round <= effectiveSelectedRound
+                )
+                .map((round) => {
+                    const row = { round };
+
+                    comparisonServers.forEach(
+                        (server) => {
+                            const item =
+                                normalizedData.find(
+                                    (data) =>
+                                        data.sid === server &&
+                                        data.round === round
+                                );
+
+                            row[`point_${server}`] =
+                                item?.score ?? 0;
+                        }
+                    );
+
+                    return row;
+                });
+        }, [
+            rounds,
+            effectiveSelectedRound,
+            normalizedData,
+            comparisonServers,
+        ]);
+
     const selectedServerRoundTrend =
         useMemo(() => {
             return rounds
@@ -767,9 +824,9 @@ export default function SscDashboard() {
                         normalizedData.find(
                             (row) =>
                                 row.sid ===
-                                Number(
-                                    selectedServer
-                                ) &&
+                                    Number(
+                                        selectedServer
+                                    ) &&
                                 row.round === round
                         );
 
@@ -807,7 +864,7 @@ export default function SscDashboard() {
             return;
         }
 
-        setCompareServers((current) =>
+        setServerParams((current) =>
             current.filter(
                 (item) =>
                     Number(item) !== Number(server)
@@ -818,20 +875,171 @@ export default function SscDashboard() {
     const handlePrimaryServerChange = (value) => {
         const server = Number(value);
 
-        setSelectedServer(server);
+        setServerParams((current) => [
+            String(server),
+            ...current.filter(
+                (item) =>
+                    Number(item) !== server
+            ),
+        ]);
+    };
 
-        setCompareServers((current) => {
-            const merged = [
-                server,
+    const addCompareServer = (value) => {
+        const server = Number(value);
+
+        setServerParams((current) => {
+            if (
+                current.some(
+                    (item) =>
+                        Number(item) === server
+                )
+            ) {
+                return current;
+            }
+
+            return [
                 ...current,
+                String(server),
             ];
-
-            return [...new Set(merged)].slice(
-                0,
-                MAX_COMPARE_SERVERS
-            );
         });
     };
+
+    const roundPointComparisonChartData =
+        useMemo(() => ({
+            labels:
+                roundPointComparisonTrend.map(
+                    (item) => `${item.round}R`
+                ),
+            datasets:
+                comparisonServers.map(
+                    (server, index) => {
+                        const color =
+                            SERVER_COLORS[
+                                index %
+                                    SERVER_COLORS.length
+                            ];
+
+                        const isPrimary =
+                            Number(selectedServer) ===
+                            server;
+
+                        return {
+                            label: `${t(
+                                "SscDashboard.server-prefix"
+                            )} ${server}`,
+                            data:
+                                roundPointComparisonTrend.map(
+                                    (item) =>
+                                        item[
+                                            `point_${server}`
+                                        ]
+                                ),
+                            borderColor:
+                                color.line,
+                            backgroundColor:
+                                color.soft,
+                            pointBackgroundColor:
+                                color.line,
+                            pointBorderColor:
+                                "#ffffff",
+                            pointBorderWidth: 2,
+                            pointRadius:
+                                isPrimary ? 5 : 3,
+                            pointHoverRadius: 7,
+                            borderWidth:
+                                isPrimary ? 4 : 2.5,
+                            tension: 0.2,
+                            fill: false,
+                            spanGaps: true,
+                        };
+                    }
+                ),
+        }), [
+            roundPointComparisonTrend,
+            comparisonServers,
+            selectedServer,
+            i18n.resolvedLanguage,
+        ]);
+
+    const roundPointComparisonChartOptions =
+        useMemo(() => ({
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: "index",
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    position: "top",
+                    labels: {
+                        usePointStyle: true,
+                        boxWidth: 10,
+                    },
+                },
+                tooltip: {
+                    callbacks: {
+                        title(items) {
+                            const item =
+                                roundPointComparisonTrend[
+                                    items[0]?.dataIndex
+                                ];
+
+                            return item
+                                ? t(
+                                      "SscDashboard.round-point-tooltip-title",
+                                      {
+                                          round:
+                                              item.round,
+                                      }
+                                  )
+                                : "";
+                        },
+                        label(context) {
+                            return `${context.dataset.label}: ${formatNumber(
+                                context.raw
+                            )}`;
+                        },
+                    },
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                        callback(value) {
+                            return formatNumber(value);
+                        },
+                    },
+                    grid: {
+                        color:
+                            "rgba(108, 117, 125, 0.16)",
+                    },
+                    title: {
+                        display: true,
+                        text: t(
+                            "SscDashboard.round-point"
+                        ),
+                    },
+                },
+                x: {
+                    grid: {
+                        color:
+                            "rgba(108, 117, 125, 0.08)",
+                    },
+                    title: {
+                        display: true,
+                        text: t(
+                            "SscDashboard.round"
+                        ),
+                    },
+                },
+            },
+        }), [
+            roundPointComparisonTrend,
+            i18n.resolvedLanguage,
+        ]);
 
     const cumulativeRankChartData =
         useMemo(() => ({
@@ -843,8 +1051,8 @@ export default function SscDashboard() {
                     (server, index) => {
                         const color =
                             SERVER_COLORS[
-                            index %
-                            SERVER_COLORS.length
+                                index %
+                                    SERVER_COLORS.length
                             ];
 
                         const isPrimary =
@@ -858,7 +1066,7 @@ export default function SscDashboard() {
                             data: comparisonTrend.map(
                                 (item) =>
                                     item[
-                                    `rank_${server}`
+                                        `rank_${server}`
                                     ]
                             ),
                             borderColor:
@@ -907,13 +1115,25 @@ export default function SscDashboard() {
                         title(items) {
                             const item =
                                 comparisonTrend[
-                                items[0]?.dataIndex
+                                    items[0]?.dataIndex
                                 ];
 
-                            return item ? t("SscDashboard.until-round",{round: item.round,}) : "";
+                            return item
+                                ? t(
+                                      "SscDashboard.until-round",
+                                      {
+                                          round:
+                                              item.round,
+                                      }
+                                  )
+                                : "";
                         },
                         label(context) {
-                            return `${context.dataset.label}: ${formatNumber(context.raw)}${t("SscDashboard.rank-suffix")}`;
+                            return `${context.dataset.label}: ${formatNumber(
+                                context.raw
+                            )}${t(
+                                "SscDashboard.rank-suffix"
+                            )}`;
                         },
                     },
                 },
@@ -922,34 +1142,29 @@ export default function SscDashboard() {
                 y: {
                     reverse: true,
                     beginAtZero: false,
-                    suggestedMin: 1,
-                    grace: "8%",
-
                     ticks: {
                         precision: 0,
                         callback(value) {
-                            if (value < 1) {
-                                return "";
-                            }
-
                             return `${value}${t(
                                 "SscDashboard.rank-suffix"
                             )}`;
                         },
                     },
-
                     grid: {
-                        color: "rgba(108, 117, 125, 0.16)",
+                        color:
+                            "rgba(108, 117, 125, 0.16)",
                     },
-
                     title: {
                         display: true,
-                        text: t("SscDashboard.cumulative-rank"),
+                        text: t(
+                            "SscDashboard.cumulative-rank"
+                        ),
                     },
                 },
                 x: {
                     grid: {
-                        color: "rgba(108, 117, 125, 0.08)",
+                        color:
+                            "rgba(108, 117, 125, 0.08)",
                     },
                     title: {
                         display: true,
@@ -975,8 +1190,8 @@ export default function SscDashboard() {
                 (server, index) => {
                     const color =
                         SERVER_COLORS[
-                        index %
-                        SERVER_COLORS.length
+                            index %
+                                SERVER_COLORS.length
                         ];
 
                     const isPrimary =
@@ -990,7 +1205,7 @@ export default function SscDashboard() {
                         data: comparisonTrend.map(
                             (item) =>
                                 item[
-                                `${fieldPrefix}_${server}`
+                                    `${fieldPrefix}_${server}`
                                 ]
                         ),
                         borderColor: color.line,
@@ -1061,17 +1276,17 @@ export default function SscDashboard() {
                     title(items) {
                         const item =
                             comparisonTrend[
-                            items[0]?.dataIndex
+                                items[0]?.dataIndex
                             ];
 
                         return item
                             ? t(
-                                "SscDashboard.until-round",
-                                {
-                                    round:
-                                        item.round,
-                                }
-                            )
+                                  "SscDashboard.until-round",
+                                  {
+                                      round:
+                                          item.round,
+                                  }
+                              )
                             : "";
                     },
                     label(context) {
@@ -1180,17 +1395,17 @@ export default function SscDashboard() {
                         title(items) {
                             const item =
                                 selectedServerRoundTrend[
-                                items[0]?.dataIndex
+                                    items[0]?.dataIndex
                                 ];
 
                             return item
                                 ? t(
-                                    "SscDashboard.round-earned-tooltip",
-                                    {
-                                        round:
-                                            item.round,
-                                    }
-                                )
+                                      "SscDashboard.round-earned-tooltip",
+                                      {
+                                          round:
+                                              item.round,
+                                      }
+                                  )
                                 : "";
                         },
                         label(context) {
@@ -1258,8 +1473,8 @@ export default function SscDashboard() {
                     (server, index) => [
                         server,
                         SERVER_COLORS[
-                        index %
-                        SERVER_COLORS.length
+                            index %
+                                SERVER_COLORS.length
                         ],
                     ]
                 )
@@ -1330,25 +1545,25 @@ export default function SscDashboard() {
                         title(items) {
                             const item =
                                 topServerRanking[
-                                items[0]?.dataIndex
+                                    items[0]?.dataIndex
                                 ];
 
                             return item
                                 ? t(
-                                    "SscDashboard.ranking-tooltip-title",
-                                    {
-                                        rank:
-                                            item.cumulativeRank,
-                                        server:
-                                            item.sid,
-                                    }
-                                )
+                                      "SscDashboard.ranking-tooltip-title",
+                                      {
+                                          rank:
+                                              item.cumulativeRank,
+                                          server:
+                                              item.sid,
+                                      }
+                                  )
                                 : "";
                         },
                         label(context) {
                             const item =
                                 topServerRanking[
-                                context.dataIndex
+                                    context.dataIndex
                                 ];
 
                             if (!item) {
@@ -1415,7 +1630,7 @@ export default function SscDashboard() {
 
     return (
         <div className="container-fluid py-4">
-            <div className="d-flex flex-column gap-3 mb-4">
+            <div className="d-flex flex-column flex-xl-row justify-content-between align-items-xl-end gap-3 mb-4">
                 <div>
                     <div className="small fw-bold text-primary mb-1">
                         2026 SSC
@@ -1432,9 +1647,9 @@ export default function SscDashboard() {
                     </p>
                 </div>
 
-                <div className="d-flex flex-column flex-xl-row gap-3">
+                <div className="d-flex flex-column flex-md-row gap-3">
                     <div
-                        className="w-100"
+                        className="flex-grow-1"
                         style={{
                             minWidth: "280px",
                         }}
@@ -1467,7 +1682,7 @@ export default function SscDashboard() {
                     </div>
 
                     <div
-                        className="w-100"
+                        className="flex-grow-1"
                         style={{
                             minWidth: "240px",
                         }}
@@ -1529,11 +1744,7 @@ export default function SscDashboard() {
 
                             <div className="small text-secondary">
                                 {t(
-                                    "SscDashboard.compare-server-description",
-                                    {
-                                        count:
-                                            MAX_COMPARE_SERVERS,
-                                    }
+                                    "SscDashboard.compare-server-description"
                                 )}
                             </div>
                         </div>
@@ -1569,24 +1780,9 @@ export default function SscDashboard() {
                                 clearAriaLabel={t(
                                     "SscDashboard.clear-input"
                                 )}
-                                onChange={(server) => {
-                                    setCompareServers(
-                                        (current) =>
-                                            [
-                                                ...new Set(
-                                                    [
-                                                        ...current,
-                                                        Number(
-                                                            server
-                                                        ),
-                                                    ]
-                                                ),
-                                            ].slice(
-                                                0,
-                                                MAX_COMPARE_SERVERS
-                                            )
-                                    );
-                                }}
+                                onChange={
+                                    addCompareServer
+                                }
                             />
                         </div>
                     </div>
@@ -1599,8 +1795,8 @@ export default function SscDashboard() {
                                     server={server}
                                     color={
                                         SERVER_COLORS[
-                                        index %
-                                        SERVER_COLORS.length
+                                            index %
+                                                SERVER_COLORS.length
                                         ]
                                     }
                                     removable={
@@ -1638,8 +1834,8 @@ export default function SscDashboard() {
                                 <strong className="display-2 fw-bold text-primary">
                                     {selectedServerCumulative
                                         ? formatNumber(
-                                            selectedServerCumulative.cumulativeRank
-                                        )
+                                              selectedServerCumulative.cumulativeRank
+                                          )
                                         : "-"}
                                 </strong>
 
@@ -1728,10 +1924,10 @@ export default function SscDashboard() {
                     value={
                         selectedRoundData
                             ? `${formatNumber(
-                                selectedRoundData.rank
-                            )}${t(
-                                "SscDashboard.rank-suffix"
-                            )}`
+                                  selectedRoundData.rank
+                              )}${t(
+                                  "SscDashboard.rank-suffix"
+                              )}`
                             : "-"
                     }
                     description={t(
@@ -1859,9 +2055,9 @@ export default function SscDashboard() {
                                                 Number(
                                                     row.server
                                                 ) ===
-                                                    Number(
-                                                        selectedServer
-                                                    )
+                                                Number(
+                                                    selectedServer
+                                                )
                                                     ? "table-primary"
                                                     : ""
                                             }
@@ -1937,6 +2133,35 @@ export default function SscDashboard() {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+
+            <div className="card border-0 shadow-sm mb-3">
+                <div className="card-header bg-body border-0 pt-3 px-3">
+                    <h2 className="h6 fw-bold mb-1">
+                        {t(
+                            "SscDashboard.round-point-compare-title"
+                        )}
+                    </h2>
+
+                    <p className="small text-secondary mb-0">
+                        {t(
+                            "SscDashboard.round-point-compare-description"
+                        )}
+                    </p>
+                </div>
+
+                <div className="card-body">
+                    <div style={{ height: "430px" }}>
+                        <Line
+                            data={
+                                roundPointComparisonChartData
+                            }
+                            options={
+                                roundPointComparisonChartOptions
+                            }
+                        />
                     </div>
                 </div>
             </div>

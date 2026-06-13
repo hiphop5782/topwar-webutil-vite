@@ -214,9 +214,9 @@
         "recent-all": "全回次",
         "show-others": "他サーバーも表示",
         "error-load-fail": "データの読み込み에 실패했습니다"
-    },
-
-    "SscDashboard": {
+    }
+    
+    ,"SscDashboard": {
         "title": "サーバー累積ランキング",
         "description": "選択したラウンドまでに獲得したポイントと名誉を合算して累積順位を計算します。",
         "primary-server-label": "基準サーバー",
@@ -231,7 +231,7 @@
         "cumulative-round-label": "累積基準ラウンド",
         "round-range": "第1～{{round}}ラウンド",
         "compare-server-title": "比較サーバー",
-        "compare-server-description": "基準サーバーを含めて最大{{count}}台のサーバーの累積推移を比較します。",
+        "compare-server-description": "基準サーバーを含め、必要な数だけサーバーを追加して累積推移を比較できます。",
         "cumulative-rank-title": "第1～{{round}}ラウンド累積順位",
         "rank-suffix": "位",
         "cumulative-point": "累積ポイント",
@@ -276,7 +276,10 @@
         "tooltip-cumulative-honor": "累積名誉：{{value}}",
         "point": "ポイント",
         "honor": "名誉",
-        "round": "ラウンド"
+        "round": "ラウンド",
+        "round-point-compare-title": "ラウンド別ポイント比較",
+        "round-point-compare-description": "第1ラウンドから選択した現在のラウンドまで、基準サーバーと比較サーバーが各ラウンドで獲得したポイントを比較します。",
+        "round-point-tooltip-title": "第{{round}}ラウンドポイント"
     }
 
     ,"Developer": {
