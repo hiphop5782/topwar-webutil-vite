@@ -951,8 +951,7 @@ export default function SscDashboard() {
                     },
 
                     grid: {
-                        color:
-                            "rgba(108, 117, 125, 0.16)",
+                        color: "rgba(108, 117, 125, 0.16)",
                     },
 
                     title: {
@@ -964,8 +963,7 @@ export default function SscDashboard() {
                 },
                 x: {
                     grid: {
-                        color:
-                            "rgba(108, 117, 125, 0.08)",
+                        color: "rgba(108, 117, 125, 0.08)",
                     },
                     title: {
                         display: true,

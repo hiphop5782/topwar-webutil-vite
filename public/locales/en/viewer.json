@@ -278,4 +278,48 @@
         "honor": "Honor",
         "round": "Round"
     }
+
+    ,"Developer": {
+        "title": "Making Top War a Little Easier",
+        "description": "A personal utility page built to analyze game data and reduce repetitive tasks.",
+
+        "badge": "Top War Utility",
+        "personal-project": "Personal project",
+
+        "btn-profile": "About the Developer",
+        "btn-comments": "Leave Feedback",
+
+        "notice-personal-title": "Independently Operated",
+        "notice-personal-description": "This website is developed and operated by an individual. Some information may not always reflect the latest in-game data.",
+
+        "notice-feature-title": "Feature Suggestions Welcome",
+        "notice-feature-description": "Please leave a comment below if you have a feature request or improvement suggestion.",
+
+        "notice-chat-title": "In-game Contact",
+        "notice-chat-description-prefix": "You can also send a message to",
+        "notice-chat-description-suffix": "on server 3223.",
+
+        "profile-section-label": "Developer",
+        "profile-title": "About the Developer",
+        "profile-name": "KID³²²³",
+        "profile-server": "Server 3223",
+        "profile-description": "An ordinary Top War player who enjoys building simulations and automation tools.",
+
+        "profile-specialty-label": "Specialty",
+        "profile-specialty-value": "Simulation Development",
+        "profile-interest-label": "Interests",
+        "profile-interest-value": "Data Analysis · Automation",
+        "profile-game-server-label": "Game Server",
+        "profile-nickname-label": "Nickname",
+
+        "btn-kakao": "Contact via KakaoTalk",
+        "btn-comment": "Leave a Comment",
+        "github-required": "A GitHub account is required to post a comment.",
+
+        "feedback-label": "Feedback",
+        "feedback-title": "Questions and Feedback",
+        "feedback-description": "Feel free to report errors, request features, or suggest improvements.",
+
+        "image-alt": "KID developer profile"
+    }
 }

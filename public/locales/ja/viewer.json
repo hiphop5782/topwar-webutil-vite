@@ -215,7 +215,7 @@
         "show-others": "他サーバーも表示",
         "error-load-fail": "データの読み込み에 실패했습니다"
     },
-    
+
     "SscDashboard": {
         "title": "サーバー累積ランキング",
         "description": "選択したラウンドまでに獲得したポイントと名誉を合算して累積順位を計算します。",
@@ -277,5 +277,49 @@
         "point": "ポイント",
         "honor": "名誉",
         "round": "ラウンド"
+    }
+
+    ,"Developer": {
+        "title": "トップウォーをもう少し便利に",
+        "description": "ゲームデータの分析や繰り返し作業の軽減を目的として作られた個人運営のユーティリティページです。",
+
+        "badge": "トップウォー ユーティリティ",
+        "personal-project": "個人プロジェクト",
+
+        "btn-profile": "開発者紹介",
+        "btn-comments": "お問い合わせ・ご意見",
+
+        "notice-personal-title": "個人運営サービス",
+        "notice-personal-description": "個人が開発・運営しているページです。一部の情報はゲーム内の最新情報と異なる場合があります。",
+
+        "notice-feature-title": "機能のご提案歓迎",
+        "notice-feature-description": "必要な機能や改善案がありましたら、ページ下部のコメント欄にお寄せください。",
+
+        "notice-chat-title": "ゲーム内でのお問い合わせ",
+        "notice-chat-description-prefix": "3223サーバーの",
+        "notice-chat-description-suffix": "にチャットを送っていただいても構いません。",
+
+        "profile-section-label": "開発者",
+        "profile-title": "開発者紹介",
+        "profile-name": "KID³²²³",
+        "profile-server": "サーバー3223",
+        "profile-description": "トップウォーが好きで、シミュレーションや自動化ツールを作っている一般プレイヤーです。",
+
+        "profile-specialty-label": "得意分野",
+        "profile-specialty-value": "シミュレーション制作",
+        "profile-interest-label": "関心分野",
+        "profile-interest-value": "データ分析・自動化",
+        "profile-game-server-label": "ゲームサーバー",
+        "profile-nickname-label": "ニックネーム",
+
+        "btn-kakao": "KakaoTalkで問い合わせ",
+        "btn-comment": "コメントを残す",
+        "github-required": "コメントの投稿にはGitHubアカウントが必要です。",
+
+        "feedback-label": "フィードバック",
+        "feedback-title": "お問い合わせ・ご意見",
+        "feedback-description": "不具合報告、機能要望、改善案などを自由にお寄せください。",
+
+        "image-alt": "KID開発者プロフィール"
     }
 }
