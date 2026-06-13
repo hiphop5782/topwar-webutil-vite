@@ -217,11 +217,12 @@
         "error-load-fail": "Failed to load data"
     }
     
-    ,    "SscDashboard": {
+    ,"SscDashboard": {
         "title": "Cumulative Server Ranking",
         "description": "Calculates cumulative rankings by adding points and honor earned through the selected round.",
+
         "primary-server-label": "Primary server",
-        "server-placeholder": "Enter server number (e.g. 3223)",
+        "server-placeholder": "Enter server number",
         "compare-server-add-label": "Add comparison server",
         "compare-server-placeholder": "Enter a server number to compare",
         "server-prefix": "Server",
@@ -229,15 +230,21 @@
         "server-no-result": "No matching server found",
         "clear-input": "Clear input",
         "remove-compare-server": "Remove server {{server}} from comparison",
+        "reset-server-button": "Clear primary server",
+        "select-server-button": "Select",
+
         "cumulative-round-label": "Cumulative round",
         "round-range": "Rounds 1–{{round}}",
+
         "compare-server-title": "Comparison servers",
         "compare-server-description": "Add as many servers as needed, including the primary server, to compare cumulative trends.",
+
         "cumulative-rank-title": "Cumulative ranking through round {{round}}",
         "rank-suffix": "",
         "cumulative-point": "Cumulative points",
         "cumulative-honor": "Cumulative honor",
         "ranking-rule": "When cumulative points are tied, the server with more cumulative honor ranks higher.",
+
         "selected-round-rank-title": "Round {{round}} ranking",
         "selected-round-point-title": "Round {{round}} points",
         "selected-round-honor-title": "Round {{round}} honor",
@@ -246,44 +253,59 @@
         "round-honor-description": "Honor earned in the selected round",
         "rounds-played": "Rounds played",
         "round-basis": "Based on rounds 1–{{round}}",
+
         "compare-summary-title": "Server comparison summary",
         "compare-summary-description": "Compare cumulative results through the selected round at a glance.",
+
         "server": "Server",
         "cumulative-rank": "Cumulative rank",
         "round-rank-short": "Round rank",
         "round-point": "Round points",
         "round-honor": "Round honor",
+
+        "round-point-compare-title": "Points by Round",
+        "round-point-compare-description": "Compares the points earned by the primary and comparison servers in each round from round 1 through the selected round.",
+        "round-point-tooltip-title": "Round {{round}} points",
+        "round-number": "Round {{round}}",
+        "total": "Total",
+
         "cumulative-rank-compare-title": "Cumulative rank comparison",
         "cumulative-rank-compare-description": "Shows changes in cumulative ranking for the selected servers.",
+
         "cumulative-point-compare-title": "Cumulative points comparison",
         "cumulative-point-compare-description": "Compares cumulative points as rounds progress.",
+
         "cumulative-honor-compare-title": "Cumulative honor comparison",
         "cumulative-honor-compare-description": "Compares cumulative honor, which breaks ties in points.",
+
         "round-earned-title": "Server {{server}} earnings by round",
         "round-earned-description": "Points and honor earned by the primary server in each round.",
+
         "cumulative-top-server-title": "Top cumulative servers through round {{round}}",
         "highlight-description": "Servers selected for comparison are highlighted with unique colors.",
         "display-count-label": "Number to display",
         "top-count": "Top {{count}}",
+
         "first-cumulative-rank": "First cumulative ranking",
         "no-cumulative-data": "No cumulative data",
         "rank-no-change": "No change from the previous cumulative ranking",
         "rank-up": "Up {{count}} places",
         "rank-down": "Down {{count}} places",
+
         "until-round": "Through round {{round}}",
         "round-earned-tooltip": "Round {{round}} earnings",
         "ranking-tooltip-title": "Rank {{rank}} · Server {{server}}",
         "tooltip-cumulative-point": "Cumulative points: {{value}}",
         "tooltip-cumulative-honor": "Cumulative honor: {{value}}",
+
         "point": "Points",
         "honor": "Honor",
         "round": "Round",
-        "round-point-compare-title": "Points by Round",
-        "round-point-compare-description": "Compares the points earned by the primary and comparison servers in each round from round 1 through the selected round.",
-        "round-point-tooltip-title": "Round {{round}} points",
-        "round-number": "Round {{round}}",
-        "total": "Total"
+
+        "no-server-selected-title": "Select a server",
+        "no-server-selected-description": "Select a primary server to view cumulative rankings and comparison results."
     }
+
 
     ,"Developer": {
         "title": "Making Top War a Little Easier",
