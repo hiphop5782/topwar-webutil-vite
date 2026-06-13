@@ -219,8 +219,8 @@
         "recent-all":"전체 회차",
         "show-others":"다른 서버 같이 보기",
         "error-load-fail":"데이터 로드 실패"
-    },
-    "SscDashboard": {
+    }
+    ,"SscDashboard": {
         "title": "누적 서버 랭킹",
         "description": "선택한 라운드까지의 포인트와 명예를 합산해 누적 순위를 계산합니다.",
         "primary-server-label": "기준 서버",
@@ -235,7 +235,7 @@
         "cumulative-round-label": "누적 기준 라운드",
         "round-range": "1~{{round}}라운드",
         "compare-server-title": "비교 서버",
-        "compare-server-description": "기준 서버를 포함해 최대 {{count}}개 서버의 누적 추이를 비교합니다.",
+        "compare-server-description": "기준 서버를 포함해 원하는 만큼 서버를 추가하여 누적 추이를 비교합니다.",
         "cumulative-rank-title": "1~{{round}}라운드 누적 순위",
         "rank-suffix": "위",
         "cumulative-point": "누적 포인트",
@@ -280,8 +280,12 @@
         "tooltip-cumulative-honor": "누적 명예: {{value}}",
         "point": "포인트",
         "honor": "명예",
-        "round": "라운드"
+        "round": "라운드",
+        "round-point-compare-title": "라운드별 포인트 현황 비교",
+        "round-point-compare-description": "1라운드부터 선택한 현재 라운드까지 기준 서버와 비교 서버가 각 라운드에서 획득한 포인트를 비교합니다.",
+        "round-point-tooltip-title": "{{round}}라운드 포인트"
     }
+    
 
     ,"Developer": {
         "title": "탑워를 조금 더 편하게",

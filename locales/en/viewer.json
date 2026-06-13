@@ -215,8 +215,9 @@
         "recent-all": "All Seasons",
         "show-others": "Show Other Servers",
         "error-load-fail": "Failed to load data"
-    },
-    "SscDashboard": {
+    }
+    
+    ,"SscDashboard": {
         "title": "Cumulative Server Ranking",
         "description": "Calculates cumulative rankings by adding points and honor earned through the selected round.",
         "primary-server-label": "Primary server",
@@ -231,7 +232,7 @@
         "cumulative-round-label": "Cumulative round",
         "round-range": "Rounds 1–{{round}}",
         "compare-server-title": "Comparison servers",
-        "compare-server-description": "Compare cumulative trends for up to {{count}} servers, including the primary server.",
+        "compare-server-description": "Add as many servers as needed, including the primary server, to compare cumulative trends.",
         "cumulative-rank-title": "Cumulative ranking through round {{round}}",
         "rank-suffix": "",
         "cumulative-point": "Cumulative points",
@@ -276,7 +277,10 @@
         "tooltip-cumulative-honor": "Cumulative honor: {{value}}",
         "point": "Points",
         "honor": "Honor",
-        "round": "Round"
+        "round": "Round",
+        "round-point-compare-title": "Points by Round Comparison",
+        "round-point-compare-description": "Compares the points earned by the primary and comparison servers in each round from round 1 through the selected round.",
+        "round-point-tooltip-title": "Round {{round}} points"
     }
 
     ,"Developer": {
