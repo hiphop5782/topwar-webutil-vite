@@ -216,7 +216,7 @@
         "error-load-fail": "データの読み込み에 실패했습니다"
     }
     
-    ,"SscDashboard": {
+    ,    "SscDashboard": {
         "title": "サーバー累積ランキング",
         "description": "選択したラウンドまでに獲得したポイントと名誉を合算して累積順位を計算します。",
         "primary-server-label": "基準サーバー",
@@ -277,9 +277,11 @@
         "point": "ポイント",
         "honor": "名誉",
         "round": "ラウンド",
-        "round-point-compare-title": "ラウンド別ポイント比較",
-        "round-point-compare-description": "第1ラウンドから選択した現在のラウンドまで、基準サーバーと比較サーバーが各ラウンドで獲得したポイントを比較します。",
-        "round-point-tooltip-title": "第{{round}}ラウンドポイント"
+        "round-point-compare-title": "ラウンド別ポイント状況",
+        "round-point-compare-description": "第1ラウンドから選択した現在のラウンドまで、基準サーバーと比較サーバーのラウンド別獲得ポイントを表で比較します。",
+        "round-point-tooltip-title": "第{{round}}ラウンドポイント",
+        "round-number": "第{{round}}ラウンド",
+        "total": "合計"
     }
 
     ,"Developer": {

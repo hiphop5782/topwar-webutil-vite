@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 import {
     Chart as ChartJS,
@@ -31,6 +32,7 @@ ChartJS.register(
 );
 
 const DEFAULT_SERVER = 3223;
+const SERVER_PARAM_STORAGE_KEY = "ssc-dashboard-server-params";
 const SERVER_COLORS = [
     {
         line: "#0d6efd",
@@ -418,6 +420,8 @@ function ServerColorBadge({
 
 export default function SscDashboard() {
     const { t, i18n } = useTranslation("viewer");
+    const location = useLocation();
+    const restoredServerParamsRef = useRef(false);
 
     const locale =
         i18n.resolvedLanguage === "ja"
@@ -488,6 +492,60 @@ export default function SscDashboard() {
             "server",
             defaultServerParams
         );
+
+    const hasServerSearchParam = useMemo(
+        () =>
+            new URLSearchParams(
+                location.search
+            ).has("server"),
+        [location.search]
+    );
+
+    useEffect(() => {
+        if (hasServerSearchParam) {
+            if (serverParams.length > 0) {
+                sessionStorage.setItem(
+                    SERVER_PARAM_STORAGE_KEY,
+                    serverParams.join(",")
+                );
+            }
+
+            restoredServerParamsRef.current = true;
+            return;
+        }
+
+        if (restoredServerParamsRef.current) {
+            return;
+        }
+
+        restoredServerParamsRef.current = true;
+
+        const savedValue =
+            sessionStorage.getItem(
+                SERVER_PARAM_STORAGE_KEY
+            );
+
+        if (!savedValue) {
+            return;
+        }
+
+        const restoredValues = [
+            ...new Set(
+                savedValue
+                    .split(",")
+                    .map((item) => item.trim())
+                    .filter(Boolean)
+            ),
+        ];
+
+        if (restoredValues.length > 0) {
+            setServerParams(restoredValues);
+        }
+    }, [
+        hasServerSearchParam,
+        serverParams,
+        setServerParams,
+    ]);
 
     const comparisonServers = useMemo(() => {
         const validServerSet = new Set(servers);
@@ -811,6 +869,28 @@ export default function SscDashboard() {
             comparisonServers,
         ]);
 
+    const roundPointTotals = useMemo(() => {
+        const totals = {};
+
+        comparisonServers.forEach((server) => {
+            totals[server] =
+                roundPointComparisonTrend.reduce(
+                    (sum, item) =>
+                        sum +
+                        Number(
+                            item[`point_${server}`] ??
+                                0
+                        ),
+                    0
+                );
+        });
+
+        return totals;
+    }, [
+        roundPointComparisonTrend,
+        comparisonServers,
+    ]);
+
     const selectedServerRoundTrend =
         useMemo(() => {
             return rounds
@@ -903,143 +983,6 @@ export default function SscDashboard() {
             ];
         });
     };
-
-    const roundPointComparisonChartData =
-        useMemo(() => ({
-            labels:
-                roundPointComparisonTrend.map(
-                    (item) => `${item.round}R`
-                ),
-            datasets:
-                comparisonServers.map(
-                    (server, index) => {
-                        const color =
-                            SERVER_COLORS[
-                                index %
-                                    SERVER_COLORS.length
-                            ];
-
-                        const isPrimary =
-                            Number(selectedServer) ===
-                            server;
-
-                        return {
-                            label: `${t(
-                                "SscDashboard.server-prefix"
-                            )} ${server}`,
-                            data:
-                                roundPointComparisonTrend.map(
-                                    (item) =>
-                                        item[
-                                            `point_${server}`
-                                        ]
-                                ),
-                            borderColor:
-                                color.line,
-                            backgroundColor:
-                                color.soft,
-                            pointBackgroundColor:
-                                color.line,
-                            pointBorderColor:
-                                "#ffffff",
-                            pointBorderWidth: 2,
-                            pointRadius:
-                                isPrimary ? 5 : 3,
-                            pointHoverRadius: 7,
-                            borderWidth:
-                                isPrimary ? 4 : 2.5,
-                            tension: 0.2,
-                            fill: false,
-                            spanGaps: true,
-                        };
-                    }
-                ),
-        }), [
-            roundPointComparisonTrend,
-            comparisonServers,
-            selectedServer,
-            i18n.resolvedLanguage,
-        ]);
-
-    const roundPointComparisonChartOptions =
-        useMemo(() => ({
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: "index",
-                intersect: false,
-            },
-            plugins: {
-                legend: {
-                    position: "top",
-                    labels: {
-                        usePointStyle: true,
-                        boxWidth: 10,
-                    },
-                },
-                tooltip: {
-                    callbacks: {
-                        title(items) {
-                            const item =
-                                roundPointComparisonTrend[
-                                    items[0]?.dataIndex
-                                ];
-
-                            return item
-                                ? t(
-                                      "SscDashboard.round-point-tooltip-title",
-                                      {
-                                          round:
-                                              item.round,
-                                      }
-                                  )
-                                : "";
-                        },
-                        label(context) {
-                            return `${context.dataset.label}: ${formatNumber(
-                                context.raw
-                            )}`;
-                        },
-                    },
-                },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0,
-                        callback(value) {
-                            return formatNumber(value);
-                        },
-                    },
-                    grid: {
-                        color:
-                            "rgba(108, 117, 125, 0.16)",
-                    },
-                    title: {
-                        display: true,
-                        text: t(
-                            "SscDashboard.round-point"
-                        ),
-                    },
-                },
-                x: {
-                    grid: {
-                        color:
-                            "rgba(108, 117, 125, 0.08)",
-                    },
-                    title: {
-                        display: true,
-                        text: t(
-                            "SscDashboard.round"
-                        ),
-                    },
-                },
-            },
-        }), [
-            roundPointComparisonTrend,
-            i18n.resolvedLanguage,
-        ]);
 
     const cumulativeRankChartData =
         useMemo(() => ({
@@ -2152,16 +2095,206 @@ export default function SscDashboard() {
                     </p>
                 </div>
 
-                <div className="card-body">
-                    <div style={{ height: "430px" }}>
-                        <Line
-                            data={
-                                roundPointComparisonChartData
-                            }
-                            options={
-                                roundPointComparisonChartOptions
-                            }
-                        />
+                <div className="card-body p-0">
+                    <div className="table-responsive">
+                        <table className="table table-hover table-bordered align-middle text-nowrap mb-0">
+                            <thead className="table-light">
+                                <tr>
+                                    <th
+                                        className="text-center position-sticky start-0 bg-body-tertiary"
+                                        style={{
+                                            minWidth: "90px",
+                                            zIndex: 2,
+                                        }}
+                                    >
+                                        {t(
+                                            "SscDashboard.round"
+                                        )}
+                                    </th>
+
+                                    {comparisonServers.map(
+                                        (server, index) => {
+                                            const color =
+                                                SERVER_COLORS[
+                                                    index %
+                                                        SERVER_COLORS.length
+                                                ];
+
+                                            const isPrimary =
+                                                Number(
+                                                    server
+                                                ) ===
+                                                Number(
+                                                    selectedServer
+                                                );
+
+                                            return (
+                                                <th
+                                                    key={
+                                                        server
+                                                    }
+                                                    className={[
+                                                        "text-end",
+                                                        isPrimary
+                                                            ? "table-primary"
+                                                            : "",
+                                                    ]
+                                                        .filter(
+                                                            Boolean
+                                                        )
+                                                        .join(
+                                                            " "
+                                                        )}
+                                                    style={{
+                                                        minWidth:
+                                                            "135px",
+                                                        borderTop: `3px solid ${color.line}`,
+                                                    }}
+                                                >
+                                                    <span className="d-inline-flex align-items-center gap-2">
+                                                        <span
+                                                            className="rounded-circle d-inline-block"
+                                                            style={{
+                                                                width:
+                                                                    "9px",
+                                                                height:
+                                                                    "9px",
+                                                                backgroundColor:
+                                                                    color.line,
+                                                            }}
+                                                        />
+
+                                                        {t(
+                                                            "SscDashboard.server-prefix"
+                                                        )}{" "}
+                                                        {
+                                                            server
+                                                        }
+                                                    </span>
+                                                </th>
+                                            );
+                                        }
+                                    )}
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {roundPointComparisonTrend.map(
+                                    (item) => (
+                                        <tr
+                                            key={
+                                                item.round
+                                            }
+                                        >
+                                            <th
+                                                scope="row"
+                                                className="text-center position-sticky start-0 bg-body"
+                                                style={{
+                                                    zIndex: 1,
+                                                }}
+                                            >
+                                                {t(
+                                                    "SscDashboard.round-number",
+                                                    {
+                                                        round:
+                                                            item.round,
+                                                    }
+                                                )}
+                                            </th>
+
+                                            {comparisonServers.map(
+                                                (
+                                                    server
+                                                ) => {
+                                                    const isPrimary =
+                                                        Number(
+                                                            server
+                                                        ) ===
+                                                        Number(
+                                                            selectedServer
+                                                        );
+
+                                                    return (
+                                                        <td
+                                                            key={
+                                                                server
+                                                            }
+                                                            className={[
+                                                                "text-end",
+                                                                "fw-semibold",
+                                                                isPrimary
+                                                                    ? "table-primary"
+                                                                    : "",
+                                                            ]
+                                                                .filter(
+                                                                    Boolean
+                                                                )
+                                                                .join(
+                                                                    " "
+                                                                )}
+                                                        >
+                                                            {formatNumber(
+                                                                item[
+                                                                    `point_${server}`
+                                                                ]
+                                                            )}
+                                                        </td>
+                                                    );
+                                                }
+                                            )}
+                                        </tr>
+                                    )
+                                )}
+                            </tbody>
+
+                            <tfoot className="table-light">
+                                <tr>
+                                    <th className="text-center position-sticky start-0 bg-body-tertiary">
+                                        {t(
+                                            "SscDashboard.total"
+                                        )}
+                                    </th>
+
+                                    {comparisonServers.map(
+                                        (server) => {
+                                            const isPrimary =
+                                                Number(
+                                                    server
+                                                ) ===
+                                                Number(
+                                                    selectedServer
+                                                );
+
+                                            return (
+                                                <th
+                                                    key={
+                                                        server
+                                                    }
+                                                    className={[
+                                                        "text-end",
+                                                        isPrimary
+                                                            ? "table-primary"
+                                                            : "",
+                                                    ]
+                                                        .filter(
+                                                            Boolean
+                                                        )
+                                                        .join(
+                                                            " "
+                                                        )}
+                                                >
+                                                    {formatNumber(
+                                                        roundPointTotals[
+                                                            server
+                                                        ]
+                                                    )}
+                                                </th>
+                                            );
+                                        }
+                                    )}
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
             </div>
