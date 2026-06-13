@@ -220,7 +220,7 @@
         "show-others":"다른 서버 같이 보기",
         "error-load-fail":"데이터 로드 실패"
     }
-    ,"SscDashboard": {
+    ,    "SscDashboard": {
         "title": "누적 서버 랭킹",
         "description": "선택한 라운드까지의 포인트와 명예를 합산해 누적 순위를 계산합니다.",
         "primary-server-label": "기준 서버",
@@ -281,9 +281,11 @@
         "point": "포인트",
         "honor": "명예",
         "round": "라운드",
-        "round-point-compare-title": "라운드별 포인트 현황 비교",
-        "round-point-compare-description": "1라운드부터 선택한 현재 라운드까지 기준 서버와 비교 서버가 각 라운드에서 획득한 포인트를 비교합니다.",
-        "round-point-tooltip-title": "{{round}}라운드 포인트"
+        "round-point-compare-title": "라운드별 포인트 현황",
+        "round-point-compare-description": "1라운드부터 선택한 현재 라운드까지 기준 서버와 비교 서버의 라운드별 획득 포인트를 표로 비교합니다.",
+        "round-point-tooltip-title": "{{round}}라운드 포인트",
+        "round-number": "{{round}}라운드",
+        "total": "합계"
     }
     
 

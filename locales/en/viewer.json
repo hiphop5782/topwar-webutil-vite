@@ -217,7 +217,7 @@
         "error-load-fail": "Failed to load data"
     }
     
-    ,"SscDashboard": {
+    ,    "SscDashboard": {
         "title": "Cumulative Server Ranking",
         "description": "Calculates cumulative rankings by adding points and honor earned through the selected round.",
         "primary-server-label": "Primary server",
@@ -278,9 +278,11 @@
         "point": "Points",
         "honor": "Honor",
         "round": "Round",
-        "round-point-compare-title": "Points by Round Comparison",
+        "round-point-compare-title": "Points by Round",
         "round-point-compare-description": "Compares the points earned by the primary and comparison servers in each round from round 1 through the selected round.",
-        "round-point-tooltip-title": "Round {{round}} points"
+        "round-point-tooltip-title": "Round {{round}} points",
+        "round-number": "Round {{round}}",
+        "total": "Total"
     }
 
     ,"Developer": {
