@@ -51,6 +51,8 @@ import Post from "@src/components/screen/post/Post";
 import TopwarSscPointViewer from "@src/components/screen/information/server/TopwarSscPointViewer";
 import TopwarRealPowerViewer from "@src/components/screen/information/server/TopwarRealPowerViewer";
 
+import SscDashboard from "@src/components/screen/history/SscDashboard";
+
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
 
@@ -141,6 +143,10 @@ export default function MainContentView() {
                     <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
+                    
+                    <Route path="history/ssc-2026" element={<SscDashboard/>}></Route>
+
+                    {/* 404 not found */}
                     <Route path="*" element={<PangeNotFound />}></Route>
                 </Routes>
             </div>

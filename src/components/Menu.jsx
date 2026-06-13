@@ -113,6 +113,12 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu:emoji.sub.list`)}</LanguageRouterLink>
                             </div>
                         </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:history.label`)}</a>
+                            <div className="dropdown-menu">
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/history/ssc-2026`}>{t(`menu:history.sub.ssc2026`)}</LanguageRouterLink>
+                            </div>
+                        </li>
                         {/* <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:account.label`)} (구현중)</a>
                             <div className="dropdown-menu">
