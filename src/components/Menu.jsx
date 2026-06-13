@@ -137,9 +137,9 @@ function Menu() {
                         <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/developer`}>{t(`menu:developer.label`)}</LanguageRouterLink>
-                        </li>
+                        </li> */}
 
                         {/* ✅ 언어 선택 드롭다운 부분 */}
                         <div className="dropdown ms-lg-2 mt-2 mt-lg-0">
