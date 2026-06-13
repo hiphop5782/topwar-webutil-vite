@@ -3,7 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # 또는 master
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -11,29 +18,33 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
+          cache: npm
 
-      # 👇 이 단계를 추가하여 GitHub Secrets에 저장된 내용으로 파일을 만듭니다.
       - name: Create .env.production file
+        shell: bash
         run: |
-          echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+          printf '%s' '${{ secrets.ENV_PRODUCTION }}' > .env.production
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project (with CI=false and force redeploy)
+      - name: Build project
+        env:
+          CI: false
         run: |
-          CI=false npm run build
-          echo "<!-- force redeploy $(date) -->" >> dist/index.html
+          npm run build
+          echo "<!-- force redeploy $(date -u) -->" >> dist/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: gh-pages
           cname: www.progamer.info
