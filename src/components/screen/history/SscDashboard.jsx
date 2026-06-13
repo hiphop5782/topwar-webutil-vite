@@ -910,22 +910,10 @@ export default function SscDashboard() {
                                 items[0]?.dataIndex
                                 ];
 
-                            return item
-                                ? t(
-                                    "SscDashboard.until-round",
-                                    {
-                                        round:
-                                            item.round,
-                                    }
-                                )
-                                : "";
+                            return item ? t("SscDashboard.until-round",{round: item.round,}) : "";
                         },
                         label(context) {
-                            return `${context.dataset.label}: ${formatNumber(
-                                context.raw
-                            )}${t(
-                                "SscDashboard.rank-suffix"
-                            )}`;
+                            return `${context.dataset.label}: ${formatNumber(context.raw)}${t("SscDashboard.rank-suffix")}`;
                         },
                     },
                 },
@@ -956,9 +944,7 @@ export default function SscDashboard() {
 
                     title: {
                         display: true,
-                        text: t(
-                            "SscDashboard.cumulative-rank"
-                        ),
+                        text: t("SscDashboard.cumulative-rank"),
                     },
                 },
                 x: {
