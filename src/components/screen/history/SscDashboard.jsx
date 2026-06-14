@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -488,14 +488,65 @@ function SscDashboardContent({ serverParams, setServerParams }) {
 
     const selectedServer = comparisonServers[0];
 
-    const [selectedRound, setSelectedRound] =
-        useState(null);
+    const [selectedRound, setSelectedRound] = useState(null);
+    const [topCount, setTopCount] = useState(15);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [playbackEndRound, setPlaybackEndRound] = useState(null);
+    const [playbackRankingStart, setPlaybackRankingStart] = useState(null);
 
-    const [topCount, setTopCount] =
-        useState(15);
+    const effectiveSelectedRound = selectedRound ?? latestRound;
 
-    const effectiveSelectedRound =
-        selectedRound ?? latestRound;
+    useEffect(() => {
+        if (!isPlaying || rounds.length === 0 || playbackEndRound === null) return;
+
+        const timer = window.setInterval(() => {
+            setSelectedRound(current => {
+                const currentRound = current ?? rounds[0];
+                const currentIndex = rounds.indexOf(currentRound);
+                const nextRound = rounds[currentIndex + 1];
+
+                if (nextRound === undefined || nextRound > playbackEndRound) {
+                    setIsPlaying(false);
+                    setPlaybackRankingStart(null);
+                    return currentRound;
+                }
+
+                return nextRound;
+            });
+        }, 900);
+
+        return () => window.clearInterval(timer);
+    }, [isPlaying, playbackEndRound, rounds]);
+
+    const startPlayback = () => {
+        if (rounds.length === 0) return;
+
+        const endRound = effectiveSelectedRound ?? latestRound;
+        if (endRound === null) return;
+
+        const endRanking = cumulativeRankingByRound.get(endRound) ?? [];
+        const selectedIndex = endRanking.findIndex(
+            item => item.sid === Number(selectedServer)
+        );
+
+        let rankingStart = 0;
+
+        if (endRanking.length > topCount && selectedIndex >= topCount) {
+            const half = Math.floor(topCount / 2);
+            const maxStart = endRanking.length - topCount;
+            rankingStart = Math.max(0, Math.min(selectedIndex - half, maxStart));
+        }
+
+        setPlaybackEndRound(endRound);
+        setPlaybackRankingStart(rankingStart);
+        setSelectedRound(rounds[0]);
+        setIsPlaying(true);
+    };
+
+    const stopPlayback = () => {
+        setIsPlaying(false);
+        setPlaybackRankingStart(null);
+    };
 
     const cumulativeRankingByRound =
         useMemo(() => {
@@ -831,16 +882,36 @@ function SscDashboardContent({ serverParams, setServerParams }) {
             selectedServer,
         ]);
 
-    const topServerRanking =
-        useMemo(() => {
+    const topServerRanking = useMemo(() => {
+        if (cumulativeRanking.length <= topCount) return cumulativeRanking;
+
+        if (isPlaying && playbackRankingStart !== null) {
             return cumulativeRanking.slice(
-                0,
-                topCount
+                playbackRankingStart,
+                playbackRankingStart + topCount
             );
-        }, [
-            cumulativeRanking,
-            topCount,
-        ]);
+        }
+
+        const selectedIndex = cumulativeRanking.findIndex(
+            item => item.sid === Number(selectedServer)
+        );
+
+        if (selectedIndex < 0 || selectedIndex < topCount) {
+            return cumulativeRanking.slice(0, topCount);
+        }
+
+        const half = Math.floor(topCount / 2);
+        const maxStart = cumulativeRanking.length - topCount;
+        const start = Math.max(0, Math.min(selectedIndex - half, maxStart));
+
+        return cumulativeRanking.slice(start, start + topCount);
+    }, [
+        cumulativeRanking,
+        selectedServer,
+        topCount,
+        isPlaying,
+        playbackRankingStart,
+    ]);
 
     const removeCompareServer = (server) => {
         if (
@@ -1557,38 +1628,43 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                             )}
                         </label>
 
-                        <select
-                            id="ssc-round"
-                            className="form-select w-100"
-                            value={
-                                effectiveSelectedRound ??
-                                ""
-                            }
-                            onChange={(event) =>
-                                setSelectedRound(
-                                    Number(
-                                        event.target
-                                            .value
-                                    )
-                                )
-                            }
-                        >
-                            {rounds.map(
-                                (round) => (
-                                    <option
-                                        key={round}
-                                        value={round}
-                                    >
-                                        {t(
-                                            "SscDashboard.round-range",
-                                            {
-                                                round,
-                                            }
-                                        )}
+                        <div className="d-flex gap-2">
+                            <select
+                                id="ssc-round"
+                                className="form-select w-100"
+                                value={effectiveSelectedRound ?? ""}
+                                disabled={isPlaying}
+                                onChange={event => {
+                                    setIsPlaying(false);
+                                    setSelectedRound(Number(event.target.value));
+                                }}
+                            >
+                                {rounds.map(round => (
+                                    <option key={round} value={round}>
+                                        {t("SscDashboard.round-range", { round })}
                                     </option>
-                                )
+                                ))}
+                            </select>
+
+                            {isPlaying ? (
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-danger text-nowrap"
+                                    onClick={stopPlayback}
+                                >
+                                    {t("SscDashboard.pause-playback")}
+                                </button>
+                            ) : (
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-primary text-nowrap"
+                                    onClick={startPlayback}
+                                    disabled={rounds.length === 0}
+                                >
+                                    {t("SscDashboard.start-playback")}
+                                </button>
                             )}
-                        </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2368,10 +2444,17 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                             </h2>
 
                             <p className="small text-secondary mb-0">
-                                {t(
-                                    "SscDashboard.highlight-description"
-                                )}
+                                {t("SscDashboard.highlight-description")}
                             </p>
+
+                            {topServerRanking.length > 0 && (
+                                <div className="small text-primary mt-1">
+                                    {t("SscDashboard.ranking-range", {
+                                        start: topServerRanking[0].cumulativeRank,
+                                        end: topServerRanking.at(-1).cumulativeRank,
+                                    })}
+                                </div>
+                            )}
                         </div>
 
                         <div style={{ minWidth: "200px" }}>
