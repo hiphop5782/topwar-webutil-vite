@@ -302,7 +302,11 @@
         "round": "ラウンド",
 
         "no-server-selected-title": "サーバーを選択してください",
-        "no-server-selected-description": "基準サーバーを選択すると、累積順位と比較結果が表示されます。"
+        "no-server-selected-description": "基準サーバーを選択すると、累積順位と比較結果が表示されます。",
+
+        "start-playback": "再生",
+        "pause-playback": "一時停止",
+        "ranking-range": "{{start}}位～{{end}}位を表示"
     }
 
 

@@ -303,7 +303,11 @@
         "round": "Round",
 
         "no-server-selected-title": "Select a server",
-        "no-server-selected-description": "Select a primary server to view cumulative rankings and comparison results."
+        "no-server-selected-description": "Select a primary server to view cumulative rankings and comparison results.",
+
+        "start-playback": "Play",
+        "pause-playback": "Pause",
+        "ranking-range": "Showing ranks {{start}}–{{end}}"
     }
 
 
