@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 
 import {
     Chart as ChartJS,
@@ -699,26 +700,51 @@ function SscDashboardContent({ serverParams, setServerParams }) {
     }, [serverParams, servers]);
 
     const selectedServer = comparisonServers[0];
-
-    const [selectedRound, setSelectedRound] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [playbackRound, setPlaybackRound] = useState(null);
     const [topCount, setTopCount] = useState(15);
     const [isPlaying, setIsPlaying] = useState(false);
     const [playbackEndRound, setPlaybackEndRound] = useState(null);
+    const [isExportingVideo, setIsExportingVideo] = useState(false);
 
-    const effectiveSelectedRound = selectedRound ?? latestRound;
+    const selectedRound = useMemo(() => {
+        const round = Number(searchParams.get("round"));
+
+        if (Number.isFinite(round) && rounds.includes(round)) {
+            return round;
+        }
+
+        return latestRound;
+    }, [searchParams, rounds, latestRound]);
+
+    const effectiveSelectedRound = playbackRound ?? selectedRound;
+
+    const setRoundParam = round => {
+        setSearchParams(prev => {
+            const nextParams = new URLSearchParams(prev);
+
+            if (round === null || round === undefined) {
+                nextParams.delete("round");
+            } else {
+                nextParams.set("round", String(round));
+            }
+
+            return nextParams;
+        }, { replace: true });
+    };
 
     useEffect(() => {
         if (!isPlaying || rounds.length === 0 || playbackEndRound === null) return;
 
         const timer = window.setInterval(() => {
-            setSelectedRound(current => {
+            setPlaybackRound(current => {
                 const currentRound = current ?? rounds[0];
                 const currentIndex = rounds.indexOf(currentRound);
                 const nextRound = rounds[currentIndex + 1];
 
                 if (nextRound === undefined || nextRound > playbackEndRound) {
                     setIsPlaying(false);
-                    return currentRound;
+                    return null;
                 }
 
                 return nextRound;
@@ -729,17 +755,329 @@ function SscDashboardContent({ serverParams, setServerParams }) {
     }, [isPlaying, playbackEndRound, rounds]);
 
     const startPlayback = () => {
-        if (rounds.length === 0) return;
+        if (rounds.length === 0 || selectedRound === null) return;
 
-        const endRound = effectiveSelectedRound ?? latestRound;
-        if (endRound === null) return;
-
-        setPlaybackEndRound(endRound);
-        setSelectedRound(rounds[0]);
+        setPlaybackEndRound(selectedRound);
+        setPlaybackRound(rounds[0]);
         setIsPlaying(true);
     };
 
-    const stopPlayback = () => setIsPlaying(false);
+    const stopPlayback = () => {
+        setIsPlaying(false);
+        setPlaybackRound(null);
+    };
+
+    const wait = milliseconds => new Promise(resolve => {
+        window.setTimeout(resolve, milliseconds);
+    });
+
+    const downloadBlob = (blob, filename) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+
+    const getSupportedVideoMimeType = () => {
+        const candidates = [
+            "video/webm;codecs=vp9",
+            "video/webm;codecs=vp8",
+            "video/webm",
+        ];
+
+        return candidates.find(type => MediaRecorder.isTypeSupported(type)) ?? "";
+    };
+
+    const drawRankingFrame = ({
+        context,
+        width,
+        height,
+        rows,
+        maxPoint,
+        round,
+    }) => {
+        context.clearRect(0, 0, width, height);
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, width, height);
+
+        context.fillStyle = "#212529";
+        context.font = "700 28px Pretendard, Arial, sans-serif";
+        context.fillText(
+            t("SscDashboard.cumulative-top-server-title", { round }),
+            32,
+            42
+        );
+
+        context.fillStyle = "#6c757d";
+        context.font = "500 16px Pretendard, Arial, sans-serif";
+        context.fillText(`Round ${round}`, 32, 68);
+
+        const rowHeight = 42;
+        const chartTop = 92;
+        const rankWidth = 64;
+        const serverWidth = 96;
+        const valueWidth = 130;
+        const barLeft = rankWidth + serverWidth + 32;
+        const barRight = width - valueWidth - 32;
+        const barMaxWidth = Math.max(100, barRight - barLeft);
+
+        const comparedMap = new Map(
+            comparisonServers.map((server, index) => [
+                Number(server),
+                SERVER_COLORS[index % SERVER_COLORS.length],
+            ])
+        );
+
+        rows
+            .filter(row => row.opacity > 0.01)
+            .sort((a, b) => a.visualRank - b.visualRank)
+            .forEach(row => {
+                const y = chartTop + (row.visualRank - 1) * rowHeight;
+                const color = comparedMap.get(Number(row.sid));
+                const barColor = color?.bar ?? DEFAULT_BAR_COLOR;
+                const borderColor = color?.line ?? DEFAULT_BAR_BORDER;
+                const barWidth = Math.max(
+                    1,
+                    Math.min(
+                        barMaxWidth,
+                        (Number(row.visualPoint) / Math.max(1, maxPoint)) * barMaxWidth
+                    )
+                );
+
+                context.save();
+                context.globalAlpha = row.opacity;
+
+                context.fillStyle = "#212529";
+                context.font = "700 16px Pretendard, Arial, sans-serif";
+                context.textAlign = "right";
+                context.fillText(
+                    `${Math.round(row.visualRank)}${t("SscDashboard.rank-suffix")}`,
+                    rankWidth,
+                    y + 26
+                );
+
+                context.textAlign = "left";
+                context.font = "600 16px Pretendard, Arial, sans-serif";
+                context.fillText(`S${row.sid}`, rankWidth + 16, y + 26);
+
+                context.fillStyle = barColor;
+                context.strokeStyle = borderColor;
+                context.lineWidth = color ? 2 : 1;
+
+                const barY = y + 7;
+                const barHeight = 28;
+                const radius = 7;
+
+                context.beginPath();
+                context.roundRect(barLeft, barY, barWidth, barHeight, radius);
+                context.fill();
+                context.stroke();
+
+                context.fillStyle = "#212529";
+                context.font = "600 15px Pretendard, Arial, sans-serif";
+                context.fillText(
+                    formatNumber(Math.round(row.visualPoint)),
+                    Math.min(barLeft + barWidth + 10, width - valueWidth),
+                    y + 26
+                );
+
+                context.restore();
+            });
+    };
+
+    const exportRankingVideo = async () => {
+        const endRound = effectiveSelectedRound ?? latestRound;
+
+        if (
+            endRound === null ||
+            isExportingVideo ||
+            typeof MediaRecorder === "undefined"
+        ) {
+            return;
+        }
+
+        const exportRounds = rounds.filter(round => round <= endRound);
+        if (exportRounds.length === 0) return;
+
+        const mimeType = getSupportedVideoMimeType();
+
+        if (!mimeType) {
+            console.error("This browser does not support WebM recording.");
+            return;
+        }
+
+        const wasPlaying = isPlaying;
+        const fps = 30;
+        const frameDuration = 1000 / fps;
+        const transitionFrames = Math.round(
+            (RANKING_ANIMATION_MS / 1000) * fps
+        );
+        const holdFrames = Math.max(
+            1,
+            Math.round(
+                ((PLAYBACK_STEP_MS - RANKING_ANIMATION_MS) / 1000) * fps
+            )
+        );
+
+        const canvas = document.createElement("canvas");
+        const width = 1280;
+        const height = Math.max(
+            520,
+            112 + fixedLowestComparisonRank * 42
+        );
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        const stream = canvas.captureStream(fps);
+        const chunks = [];
+        const recorder = new MediaRecorder(stream, {
+            mimeType,
+            videoBitsPerSecond: 8_000_000,
+        });
+
+        recorder.ondataavailable = event => {
+            if (event.data.size > 0) chunks.push(event.data);
+        };
+
+        const finished = new Promise((resolve, reject) => {
+            recorder.onstop = resolve;
+            recorder.onerror = event => reject(event.error);
+        });
+
+        setIsPlaying(false);
+        setIsExportingVideo(true);
+
+        try {
+            recorder.start(250);
+
+            let previousRanking = [];
+
+            for (const round of exportRounds) {
+                const currentRanking = (
+                    cumulativeRankingByRound.get(round) ?? []
+                ).slice(0, fixedLowestComparisonRank);
+
+                const previousMap = new Map(
+                    previousRanking.map(item => [Number(item.sid), item])
+                );
+                const currentMap = new Map(
+                    currentRanking.map(item => [Number(item.sid), item])
+                );
+
+                const serverIds = [...new Set([
+                    ...previousMap.keys(),
+                    ...currentMap.keys(),
+                ])];
+
+                for (let frame = 0; frame <= transitionFrames; frame += 1) {
+                    const rawProgress = frame / transitionFrames;
+                    const progress = easeInOutCubic(rawProgress);
+
+                    const rows = serverIds.map(serverId => {
+                        const previous = previousMap.get(serverId);
+                        const current = currentMap.get(serverId);
+
+                        const startRank =
+                            previous?.cumulativeRank ??
+                            current?.cumulativeRank ??
+                            fixedLowestComparisonRank + 1;
+
+                        const targetRank =
+                            current?.cumulativeRank ??
+                            fixedLowestComparisonRank + 1;
+
+                        const startPoint =
+                            previous?.cumulativePoint ?? 0;
+
+                        const targetPoint =
+                            current?.cumulativePoint ??
+                            previous?.cumulativePoint ??
+                            0;
+
+                        const startOpacity = previous ? 1 : 0;
+                        const targetOpacity = current ? 1 : 0;
+
+                        return {
+                            sid: serverId,
+                            visualRank:
+                                startRank +
+                                (targetRank - startRank) * progress,
+                            visualPoint:
+                                startPoint +
+                                (targetPoint - startPoint) * progress,
+                            opacity:
+                                startOpacity +
+                                (targetOpacity - startOpacity) * progress,
+                        };
+                    });
+
+                    drawRankingFrame({
+                        context,
+                        width,
+                        height,
+                        rows,
+                        maxPoint: fixedRankingMaxPoint,
+                        round,
+                    });
+
+                    await wait(frameDuration);
+                }
+
+                const holdRows = currentRanking.map(item => ({
+                    sid: item.sid,
+                    visualRank: item.cumulativeRank,
+                    visualPoint: item.cumulativePoint,
+                    opacity: 1,
+                }));
+
+                for (let frame = 0; frame < holdFrames; frame += 1) {
+                    drawRankingFrame({
+                        context,
+                        width,
+                        height,
+                        rows: holdRows,
+                        maxPoint: fixedRankingMaxPoint,
+                        round,
+                    });
+
+                    await wait(frameDuration);
+                }
+
+                previousRanking = currentRanking;
+            }
+
+            recorder.stop();
+            await finished;
+
+            const blob = new Blob(chunks, { type: mimeType });
+
+            downloadBlob(
+                blob,
+                `ssc-ranking-round1-${endRound}.webm`
+            );
+        } catch (error) {
+            console.error("Ranking video export failed", error);
+
+            if (recorder.state !== "inactive") {
+                recorder.stop();
+            }
+        } finally {
+            stream.getTracks().forEach(track => track.stop());
+
+            setIsPlaying(wasPlaying);
+            setIsExportingVideo(false);
+        }
+    };
 
     const cumulativeRankingByRound =
         useMemo(() => {
@@ -1856,10 +2194,10 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                                 id="ssc-round"
                                 className="form-select w-100"
                                 value={effectiveSelectedRound ?? ""}
-                                disabled={isPlaying}
+                                disabled={isPlaying || isExportingVideo}
                                 onChange={event => {
-                                    setIsPlaying(false);
-                                    setSelectedRound(Number(event.target.value));
+                                    stopPlayback();
+                                    setRoundParam(Number(event.target.value));
                                 }}
                             >
                                 {rounds.map(round => (
@@ -2669,7 +3007,7 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                                     id="ssc-top-count"
                                     className="form-select form-select-sm"
                                     value={topCount}
-                                    disabled={isPlaying}
+                                    disabled={isPlaying || isExportingVideo}
                                     onChange={event => setTopCount(Number(event.target.value))}
                                 >
                                     {[10, 15, 20, 30, 50].map(count => (
@@ -2685,7 +3023,7 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                                     type="button"
                                     className="btn btn-outline-danger btn-sm text-nowrap"
                                     onClick={stopPlayback}
-                                    
+                                    disabled={isExportingVideo}
                                 >
                                     {t("SscDashboard.pause-playback")}
                                 </button>
@@ -2694,13 +3032,22 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                                     type="button"
                                     className="btn btn-outline-primary btn-sm text-nowrap"
                                     onClick={startPlayback}
-                                    disabled={rounds.length === 0}
+                                    disabled={rounds.length === 0 || isExportingVideo}
                                 >
                                     {t("SscDashboard.start-playback")}
                                 </button>
                             )}
 
-
+                            <button
+                                type="button"
+                                className="btn btn-outline-success btn-sm text-nowrap"
+                                onClick={exportRankingVideo}
+                                disabled={isPlaying || isExportingVideo || rounds.length === 0}
+                            >
+                                {isExportingVideo
+                                    ? t("SscDashboard.exporting-video")
+                                    : t("SscDashboard.export-video")}
+                            </button>
                         </div>
                     </div>
                 </div>
