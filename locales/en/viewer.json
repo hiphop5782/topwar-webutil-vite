@@ -307,7 +307,10 @@
 
         "start-playback": "Play",
         "pause-playback": "Pause",
-        "ranking-range": "Showing ranks {{start}}–{{end}}"
+        "ranking-range": "Showing ranks {{start}}–{{end}}",
+
+        "export-video": "Export video",
+        "exporting-video": "Creating video..."
     }
 
 

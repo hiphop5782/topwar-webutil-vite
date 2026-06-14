@@ -306,7 +306,10 @@
 
         "start-playback": "再生",
         "pause-playback": "一時停止",
-        "ranking-range": "{{start}}位～{{end}}位を表示"
+        "ranking-range": "{{start}}位～{{end}}位を表示",
+
+        "export-gif": "Video を書き出す",
+        "exporting-gif": "Video を作成中..."
     }
 
 

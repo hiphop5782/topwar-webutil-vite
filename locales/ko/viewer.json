@@ -269,7 +269,9 @@
         "no-server-selected-description": "기준 서버를 선택하면 누적 순위와 비교 결과가 표시됩니다.",
         "start-playback": "재생",
         "pause-playback": "일시정지",
-        "ranking-range": "{{start}}위 ~ {{end}}위 표시"
+        "ranking-range": "{{start}}위 ~ {{end}}위 표시",
+        "export-video": "영상 내보내기",
+        "exporting-video": "영상 생성 중..."
     },
     "Developer": {
         "title": "탑워를 조금 더 편하게",
