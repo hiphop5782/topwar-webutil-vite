@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -60,6 +60,8 @@ const SERVER_COLORS = [
 
 const DEFAULT_BAR_COLOR = "rgba(108, 117, 125, 0.35)";
 const DEFAULT_BAR_BORDER = "rgba(108, 117, 125, 0.75)";
+const PLAYBACK_STEP_MS = 1800;
+const RANKING_ANIMATION_MS = 1500;
 
 const normalizeItem = (item) => ({
     ...item,
@@ -422,6 +424,216 @@ function ServerColorBadge({
     );
 }
 
+
+const easeInOutCubic = progress => {
+    return progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+};
+
+function RankingRaceChart({
+    ranking,
+    comparisonServers,
+    formatNumber,
+    fixedMaxPoint,
+    fixedVisibleCount,
+    t,
+}) {
+    const rowHeight = 42;
+    const frameRef = useRef(null);
+    const previousTargetRef = useRef([]);
+    const currentFrameRef = useRef([]);
+    const [animatedRows, setAnimatedRows] = useState(() => {
+        return ranking.map(item => ({
+            ...item,
+            visualRank: item.cumulativeRank,
+            visualPoint: item.cumulativePoint,
+            opacity: 1,
+        }));
+    });
+
+    const comparedMap = useMemo(() => {
+        return new Map(
+            comparisonServers.map((server, index) => [
+                Number(server),
+                SERVER_COLORS[index % SERVER_COLORS.length],
+            ])
+        );
+    }, [comparisonServers]);
+
+    useEffect(() => {
+        if (frameRef.current) {
+            cancelAnimationFrame(frameRef.current);
+        }
+
+        const previousRows = currentFrameRef.current.length > 0
+            ? currentFrameRef.current
+            : previousTargetRef.current;
+
+        const previousMap = new Map(
+            previousRows.map(item => [Number(item.sid), item])
+        );
+
+        const targetMap = new Map(
+            ranking.map(item => [Number(item.sid), item])
+        );
+
+        const serverIds = [...new Set([
+            ...previousMap.keys(),
+            ...targetMap.keys(),
+        ])];
+
+        const startRows = serverIds.map(serverId => {
+            const previous = previousMap.get(serverId);
+            const target = targetMap.get(serverId);
+
+            return {
+                sid: serverId,
+                serverFlag: target?.serverFlag ?? previous?.serverFlag ?? 0,
+                cumulativeRank: target?.cumulativeRank ?? previous?.cumulativeRank ?? fixedVisibleCount + 1,
+                cumulativePoint: target?.cumulativePoint ?? previous?.cumulativePoint ?? 0,
+                cumulativeHonor: target?.cumulativeHonor ?? previous?.cumulativeHonor ?? 0,
+                startRank: previous?.visualRank ?? previous?.cumulativeRank ?? fixedVisibleCount + 1,
+                targetRank: target?.cumulativeRank ?? fixedVisibleCount + 1,
+                startPoint: previous?.visualPoint ?? previous?.cumulativePoint ?? 0,
+                targetPoint: target?.cumulativePoint ?? previous?.cumulativePoint ?? 0,
+                startOpacity: previous?.opacity ?? (target ? 0 : 1),
+                targetOpacity: target ? 1 : 0,
+            };
+        });
+
+        const startTime = performance.now();
+
+        const animate = currentTime => {
+            const rawProgress = Math.min(
+                (currentTime - startTime) / RANKING_ANIMATION_MS,
+                1
+            );
+            const progress = easeInOutCubic(rawProgress);
+
+            const frameRows = startRows.map(item => ({
+                sid: item.sid,
+                serverFlag: item.serverFlag,
+                cumulativeRank: item.cumulativeRank,
+                cumulativePoint: item.cumulativePoint,
+                cumulativeHonor: item.cumulativeHonor,
+                visualRank:
+                    item.startRank +
+                    (item.targetRank - item.startRank) * progress,
+                visualPoint:
+                    item.startPoint +
+                    (item.targetPoint - item.startPoint) * progress,
+                opacity:
+                    item.startOpacity +
+                    (item.targetOpacity - item.startOpacity) * progress,
+            }));
+
+            currentFrameRef.current = frameRows;
+            setAnimatedRows(frameRows);
+
+            if (rawProgress < 1) {
+                frameRef.current = requestAnimationFrame(animate);
+            } else {
+                const completedRows = ranking.map(item => ({
+                    ...item,
+                    visualRank: item.cumulativeRank,
+                    visualPoint: item.cumulativePoint,
+                    opacity: 1,
+                }));
+
+                previousTargetRef.current = completedRows;
+                currentFrameRef.current = completedRows;
+                setAnimatedRows(completedRows);
+            }
+        };
+
+        frameRef.current = requestAnimationFrame(animate);
+
+        return () => {
+            if (frameRef.current) {
+                cancelAnimationFrame(frameRef.current);
+            }
+        };
+    }, [ranking, fixedVisibleCount]);
+
+    return (
+        <div
+            className="position-relative overflow-hidden bg-body"
+            style={{
+                height: `${Math.max(440, fixedVisibleCount * rowHeight)}px`,
+            }}
+        >
+            {animatedRows.map(item => {
+                const color = comparedMap.get(Number(item.sid));
+                const barColor = color?.bar ?? DEFAULT_BAR_COLOR;
+                const borderColor = color?.line ?? DEFAULT_BAR_BORDER;
+                const width = Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        (Number(item.visualPoint) / Math.max(1, fixedMaxPoint)) * 100
+                    )
+                );
+
+                return (
+                    <div
+                        key={item.sid}
+                        className="position-absolute start-0 w-100"
+                        style={{
+                            height: `${rowHeight - 4}px`,
+                            transform: `translateY(${(item.visualRank - 1) * rowHeight}px)`,
+                            opacity: item.opacity,
+                            willChange: "transform, opacity",
+                        }}
+                    >
+                        <div className="d-flex align-items-center h-100 gap-2">
+                            <div
+                                className="text-end fw-bold flex-shrink-0"
+                                style={{ width: "52px" }}
+                            >
+                                {Math.round(item.visualRank)}
+                                {t("SscDashboard.rank-suffix")}
+                            </div>
+
+                            <div
+                                className="fw-semibold text-truncate flex-shrink-0"
+                                style={{ width: "78px" }}
+                                title={`S${item.sid}`}
+                            >
+                                S{item.sid}
+                            </div>
+
+                            <div className="position-relative flex-grow-1 h-100">
+                                <div
+                                    className="position-absolute top-50 start-0 translate-middle-y rounded"
+                                    style={{
+                                        width: `${width}%`,
+                                        minWidth: width > 0 ? "4px" : "0",
+                                        height: "28px",
+                                        backgroundColor: barColor,
+                                        border: `1px solid ${borderColor}`,
+                                        willChange: "width",
+                                    }}
+                                />
+
+                                <div
+                                    className="position-absolute top-50 translate-middle-y fw-semibold small text-nowrap"
+                                    style={{
+                                        left: `min(calc(${width}% + 8px), calc(100% - 90px))`,
+                                        willChange: "left",
+                                    }}
+                                >
+                                    {formatNumber(Math.round(item.visualPoint))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
 function SscDashboardContent({ serverParams, setServerParams }) {
     const { t, i18n } = useTranslation("viewer");
 
@@ -492,7 +704,6 @@ function SscDashboardContent({ serverParams, setServerParams }) {
     const [topCount, setTopCount] = useState(15);
     const [isPlaying, setIsPlaying] = useState(false);
     const [playbackEndRound, setPlaybackEndRound] = useState(null);
-    const [playbackRankingStart, setPlaybackRankingStart] = useState(null);
 
     const effectiveSelectedRound = selectedRound ?? latestRound;
 
@@ -507,13 +718,12 @@ function SscDashboardContent({ serverParams, setServerParams }) {
 
                 if (nextRound === undefined || nextRound > playbackEndRound) {
                     setIsPlaying(false);
-                    setPlaybackRankingStart(null);
                     return currentRound;
                 }
 
                 return nextRound;
             });
-        }, 900);
+        }, PLAYBACK_STEP_MS);
 
         return () => window.clearInterval(timer);
     }, [isPlaying, playbackEndRound, rounds]);
@@ -524,29 +734,12 @@ function SscDashboardContent({ serverParams, setServerParams }) {
         const endRound = effectiveSelectedRound ?? latestRound;
         if (endRound === null) return;
 
-        const endRanking = cumulativeRankingByRound.get(endRound) ?? [];
-        const selectedIndex = endRanking.findIndex(
-            item => item.sid === Number(selectedServer)
-        );
-
-        let rankingStart = 0;
-
-        if (endRanking.length > topCount && selectedIndex >= topCount) {
-            const half = Math.floor(topCount / 2);
-            const maxStart = endRanking.length - topCount;
-            rankingStart = Math.max(0, Math.min(selectedIndex - half, maxStart));
-        }
-
         setPlaybackEndRound(endRound);
-        setPlaybackRankingStart(rankingStart);
         setSelectedRound(rounds[0]);
         setIsPlaying(true);
     };
 
-    const stopPlayback = () => {
-        setIsPlaying(false);
-        setPlaybackRankingStart(null);
-    };
+    const stopPlayback = () => setIsPlaying(false);
 
     const cumulativeRankingByRound =
         useMemo(() => {
@@ -882,35 +1075,65 @@ function SscDashboardContent({ serverParams, setServerParams }) {
             selectedServer,
         ]);
 
+    const rankingRangeEndRound = isPlaying && playbackEndRound !== null
+        ? playbackEndRound
+        : effectiveSelectedRound;
+
+    const fixedLowestComparisonRank = useMemo(() => {
+        if (rankingRangeEndRound === null) return topCount;
+
+        let lowestRank = topCount;
+
+        rounds
+            .filter(round => round <= rankingRangeEndRound)
+            .forEach(round => {
+                const ranking = cumulativeRankingByRound.get(round) ?? [];
+
+                comparisonServers.forEach(server => {
+                    const rank = ranking.find(item => item.sid === server)?.cumulativeRank;
+
+                    if (Number.isFinite(rank)) {
+                        lowestRank = Math.max(lowestRank, rank);
+                    }
+                });
+            });
+
+        return lowestRank;
+    }, [
+        rounds,
+        rankingRangeEndRound,
+        cumulativeRankingByRound,
+        comparisonServers,
+        topCount,
+    ]);
+
     const topServerRanking = useMemo(() => {
-        if (cumulativeRanking.length <= topCount) return cumulativeRanking;
+        if (cumulativeRanking.length === 0) return [];
 
-        if (isPlaying && playbackRankingStart !== null) {
-            return cumulativeRanking.slice(
-                playbackRankingStart,
-                playbackRankingStart + topCount
-            );
-        }
-
-        const selectedIndex = cumulativeRanking.findIndex(
-            item => item.sid === Number(selectedServer)
+        const visibleCount = Math.min(
+            cumulativeRanking.length,
+            fixedLowestComparisonRank
         );
 
-        if (selectedIndex < 0 || selectedIndex < topCount) {
-            return cumulativeRanking.slice(0, topCount);
-        }
+        return cumulativeRanking.slice(0, visibleCount);
+    }, [cumulativeRanking, fixedLowestComparisonRank]);
 
-        const half = Math.floor(topCount / 2);
-        const maxStart = cumulativeRanking.length - topCount;
-        const start = Math.max(0, Math.min(selectedIndex - half, maxStart));
+    const fixedRankingMaxPoint = useMemo(() => {
+        if (rankingRangeEndRound === null) return 1;
 
-        return cumulativeRanking.slice(start, start + topCount);
+        const endRanking =
+            cumulativeRankingByRound.get(rankingRangeEndRound) ?? [];
+
+        return Math.max(
+            1,
+            ...endRanking
+                .slice(0, fixedLowestComparisonRank)
+                .map(item => Number(item.cumulativePoint) || 0)
+        );
     }, [
-        cumulativeRanking,
-        selectedServer,
-        topCount,
-        isPlaying,
-        playbackRankingStart,
+        rankingRangeEndRound,
+        cumulativeRankingByRound,
+        fixedLowestComparisonRank,
     ]);
 
     const removeCompareServer = (server) => {
@@ -1628,7 +1851,7 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                             )}
                         </label>
 
-                        <div className="d-flex gap-2">
+                        <div>
                             <select
                                 id="ssc-round"
                                 className="form-select w-100"
@@ -1645,25 +1868,6 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                                     </option>
                                 ))}
                             </select>
-
-                            {isPlaying ? (
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-danger text-nowrap"
-                                    onClick={stopPlayback}
-                                >
-                                    {t("SscDashboard.pause-playback")}
-                                </button>
-                            ) : (
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-primary text-nowrap"
-                                    onClick={startPlayback}
-                                    disabled={rounds.length === 0}
-                                >
-                                    {t("SscDashboard.start-playback")}
-                                </button>
-                            )}
                         </div>
                     </div>
                 </div>
@@ -2448,78 +2652,68 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                             </p>
 
                             {topServerRanking.length > 0 && (
-                                <div className="small text-primary mt-1">
-                                    {t("SscDashboard.ranking-range", {
-                                        start: topServerRanking[0].cumulativeRank,
-                                        end: topServerRanking.at(-1).cumulativeRank,
-                                    })}
-                                </div>
+                                <div className="small text-primary mt-1"></div>
                             )}
                         </div>
 
-                        <div style={{ minWidth: "200px" }}>
-                            <label
-                                htmlFor="ssc-top-count"
-                                className="form-label small fw-semibold mb-1"
-                            >
-                                {t(
-                                    "SscDashboard.display-count-label"
-                                )}
-                            </label>
+                        <div className="d-flex flex-column flex-sm-row gap-2 align-items-sm-end">
+                            <div style={{ minWidth: "170px" }}>
+                                <label
+                                    htmlFor="ssc-top-count"
+                                    className="form-label small fw-semibold mb-1"
+                                >
+                                    {t("SscDashboard.display-count-label")}
+                                </label>
 
-                            <select
-                                id="ssc-top-count"
-                                className="form-select form-select-sm w-100"
-                                value={topCount}
-                                onChange={(event) =>
-                                    setTopCount(
-                                        Number(
-                                            event.target
-                                                .value
-                                        )
-                                    )
-                                }
-                            >
-                                {[10, 15, 20, 30, 50].map(
-                                    (count) => (
-                                        <option
-                                            key={
-                                                count
-                                            }
-                                            value={
-                                                count
-                                            }
-                                        >
-                                            {t(
-                                                "SscDashboard.top-count",
-                                                {
-                                                    count,
-                                                }
-                                            )}
+                                <select
+                                    id="ssc-top-count"
+                                    className="form-select form-select-sm"
+                                    value={topCount}
+                                    disabled={isPlaying}
+                                    onChange={event => setTopCount(Number(event.target.value))}
+                                >
+                                    {[10, 15, 20, 30, 50].map(count => (
+                                        <option key={count} value={count}>
+                                            {t("SscDashboard.top-count", { count })}
                                         </option>
-                                    )
-                                )}
-                            </select>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {isPlaying ? (
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-danger btn-sm text-nowrap"
+                                    onClick={stopPlayback}
+                                    
+                                >
+                                    {t("SscDashboard.pause-playback")}
+                                </button>
+                            ) : (
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-primary btn-sm text-nowrap"
+                                    onClick={startPlayback}
+                                    disabled={rounds.length === 0}
+                                >
+                                    {t("SscDashboard.start-playback")}
+                                </button>
+                            )}
+
+
                         </div>
                     </div>
                 </div>
 
                 <div className="card-body">
-                    <div
-                        style={{
-                            height: `${Math.max(
-                                440,
-                                topCount * 34
-                            )}px`,
-                        }}
-                    >
-                        <Bar
-                            data={rankingChartData}
-                            options={
-                                rankingChartOptions
-                            }
-                        />
-                    </div>
+                    <RankingRaceChart
+                        ranking={topServerRanking}
+                        comparisonServers={comparisonServers}
+                        formatNumber={formatNumber}
+                        fixedMaxPoint={fixedRankingMaxPoint}
+                        fixedVisibleCount={fixedLowestComparisonRank}
+                        t={t}
+                    />
                 </div>
             </div>
         </div>
