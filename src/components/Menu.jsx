@@ -20,6 +20,29 @@ function Menu() {
 
     const navbarRef = useRef(null);
     const collapseRef = useRef(null);
+    const collapseInstanceRef = useRef(null);
+
+    useEffect(() => {
+        if (!collapseRef.current) return;
+
+        collapseInstanceRef.current =
+            Collapse.getOrCreateInstance(collapseRef.current, {
+                toggle: false,
+            });
+
+        return () => {
+            collapseInstanceRef.current?.dispose();
+            collapseInstanceRef.current = null;
+        };
+    }, []);
+
+    const toggleMenu = () => {
+        collapseInstanceRef.current?.toggle();
+    };
+
+    const closeMenu = () => {
+        collapseInstanceRef.current?.hide();
+    };
     const closeMobileMenu = useCallback(() => {
         const collapseElement = collapseRef.current;
 
@@ -52,18 +75,13 @@ function Menu() {
     ]);
     useEffect(() => {
         const handleOutsideClick = (event) => {
-            const navbarElement = navbarRef.current;
+            if (!navbarRef.current) return;
 
-            if (!navbarElement) {
+            if (navbarRef.current.contains(event.target)) {
                 return;
             }
 
-            // 클릭한 곳이 navbar 내부라면 닫지 않음
-            if (navbarElement.contains(event.target)) {
-                return;
-            }
-
-            closeMobileMenu();
+            closeMenu();
         };
 
         document.addEventListener("mousedown", handleOutsideClick);
@@ -74,7 +92,7 @@ function Menu() {
                 handleOutsideClick
             );
         };
-    }, [closeMobileMenu]);
+    }, []);
 
     const { t, i18n } = useTranslation("menu");
     const { lang } = useParams();
@@ -86,62 +104,61 @@ function Menu() {
     }, [lang, i18n]);
 
     const changeLanguage = useCallback(
-    (newLang) => {
-        const supportedLngs =
-            i18n.options.supportedLngs || [];
+        (newLang) => {
+            const supportedLngs =
+                i18n.options.supportedLngs || [];
 
-        const languageCodes =
-            supportedLngs.filter(
-                (language) =>
-                    language !== "cimode"
+            const languageCodes =
+                supportedLngs.filter(
+                    (language) =>
+                        language !== "cimode"
+                );
+
+            const langRegex = new RegExp(
+                `^/(${languageCodes.join("|")})(?=/|$)`
             );
 
-        const langRegex = new RegExp(
-            `^/(${languageCodes.join("|")})(?=/|$)`
-        );
+            const pathWithoutLang =
+                location.pathname.replace(
+                    langRegex,
+                    ""
+                );
 
-        const pathWithoutLang =
-            location.pathname.replace(
-                langRegex,
-                ""
-            );
+            const normalizedPath =
+                pathWithoutLang === ""
+                    ? "/"
+                    : pathWithoutLang.startsWith("/")
+                        ? pathWithoutLang
+                        : `/${pathWithoutLang}`;
 
-        const normalizedPath =
-            pathWithoutLang === ""
-                ? "/"
-                : pathWithoutLang.startsWith("/")
-                ? pathWithoutLang
-                : `/${pathWithoutLang}`;
-
-        const targetPath =
-            `/${newLang}${
-                normalizedPath === "/"
+            const targetPath =
+                `/${newLang}${normalizedPath === "/"
                     ? ""
                     : normalizedPath
-            }`;
+                }`;
 
-        i18n
-            .changeLanguage(newLang)
-            .then(() => {
-                navigate({
-                    pathname: targetPath,
+            i18n
+                .changeLanguage(newLang)
+                .then(() => {
+                    navigate({
+                        pathname: targetPath,
 
-                    // 기존 server 등의 파라미터 유지
-                    search: location.search,
+                        // 기존 server 등의 파라미터 유지
+                        search: location.search,
 
-                    // 해시가 있다면 같이 유지
-                    hash: location.hash,
+                        // 해시가 있다면 같이 유지
+                        hash: location.hash,
+                    });
                 });
-            });
-    },
-    [
-        navigate,
-        i18n,
-        location.pathname,
-        location.search,
-        location.hash,
-    ]
-);
+        },
+        [
+            navigate,
+            i18n,
+            location.pathname,
+            location.search,
+            location.hash,
+        ]
+    );
 
     // 언어에 맞는 국기 코드를 반환하는 함수
     const getFlagCode = useCallback((lang) => {
@@ -149,11 +166,19 @@ function Menu() {
         return flags[lang] || 'kr'; // 기본값 kr
     }, []);
 
+
+
     return (
         <nav ref={navbarRef} className="navbar navbar-expand-lg app-navbar fixed-top">
             <div className="container-fluid">
                 <LanguageRouterLink className="navbar-brand" to="/">Topwar Helper</LanguageRouterLink>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    aria-controls="navbarColor01"
+                    aria-label="Toggle navigation"
+                    onClick={toggleMenu}
+                >
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div ref={collapseRef} className="collapse navbar-collapse" id="navbarColor01">
@@ -176,7 +201,6 @@ function Menu() {
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/realpower`}>
                                     {t(`menu:info.sub.realpower`)}
-                                    {/* 리얼파워(테스트중) */}
                                 </LanguageRouterLink>
                             </div>
                         </li>
