@@ -173,10 +173,34 @@ export const allowedPaths = [
         chatbot: true,
     },
     { 
-        path: "/developer", 
+        // path: "/developer", 
+        path: "/",
         label: "개발자",
         examples: ["제작자", "개발자", "만든사람"],
         chatbot: true,
+    },
+
+    { 
+        path: "/history/ssc2026", 
+        label: "봉인석의난",
+        examples: ["봉인석", "ssc", "봉인석의난 2026", "봉인석 2026"],
+        chatbot: true,
+        queryParams: {
+            server: {
+                type: "string",
+                required: false,
+                description: "조회하거나 비교할 서버 번호 목록. 여러 서버는 쉼표로 구분한다. 예: 3223 또는 3223,3224,3225",
+                pattern: "^[1-9][0-9]*(,[1-9][0-9]*)*$",
+                aliases: ["서버", "서버번호", "server", "serverNumber"]
+            },
+            round: {
+                type: "number",
+                required: false,
+                description: "라운드",
+                pattern: "^[0-9]*$",
+                aliases:["라운드", "round"]
+            }
+        },
     },
 ];
 

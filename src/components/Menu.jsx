@@ -1,7 +1,7 @@
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import { useTranslation } from "react-i18next";
-import { useCallback, useEffect } from "react";
-import { FaArrowUp } from "react-icons/fa6";
+import { useCallback, useEffect, useRef } from "react";
+import Collapse from "bootstrap/js/dist/collapse";
 import {
     useLocation,
     useNavigate,
@@ -17,6 +17,65 @@ const countryCodeMap = {
 function Menu() {
     const navigate = useNavigate();
     const location = useLocation();
+
+    const navbarRef = useRef(null);
+    const collapseRef = useRef(null);
+    const closeMobileMenu = useCallback(() => {
+        const collapseElement = collapseRef.current;
+
+        if (!collapseElement) {
+            return;
+        }
+
+        // PC 화면에서는 메뉴를 접지 않음
+        const isMobileMenu =
+            window.matchMedia("(max-width: 991.98px)").matches;
+
+        if (!isMobileMenu) {
+            return;
+        }
+
+        const collapse =
+            Collapse.getOrCreateInstance(collapseElement, {
+                toggle: false,
+            });
+
+        collapse.hide();
+    }, []);
+    useEffect(() => {
+        closeMobileMenu();
+    }, [
+        location.pathname,
+        location.search,
+        location.hash,
+        closeMobileMenu,
+    ]);
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            const navbarElement = navbarRef.current;
+
+            if (!navbarElement) {
+                return;
+            }
+
+            // 클릭한 곳이 navbar 내부라면 닫지 않음
+            if (navbarElement.contains(event.target)) {
+                return;
+            }
+
+            closeMobileMenu();
+        };
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                handleOutsideClick
+            );
+        };
+    }, [closeMobileMenu]);
+
     const { t, i18n } = useTranslation("menu");
     const { lang } = useParams();
 
@@ -91,13 +150,13 @@ function Menu() {
     }, []);
 
     return (
-        <nav className="navbar navbar-expand-lg app-navbar fixed-top">
+        <nav ref={navbarRef} className="navbar navbar-expand-lg app-navbar fixed-top">
             <div className="container-fluid">
                 <LanguageRouterLink className="navbar-brand" to="/">Topwar Helper</LanguageRouterLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarColor01">
+                <div ref={collapseRef} className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:info.label`)}</a>
@@ -212,12 +271,12 @@ function Menu() {
                     </ul>
 
                     {/* <button className="btn btn-primary mt-3 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true">메뉴 접기</button> */}
-                    <div className="navbar-toggler border border-0 mt-2 text-center" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true"
+                    {/* <div className="navbar-toggler border border-0 mt-2 text-center" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true"
                         style={{ cursor: "pointer" }}>
                         <FaArrowUp />
                         <span className="mx-2">메뉴 접기</span>
                         <FaArrowUp />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </nav>
