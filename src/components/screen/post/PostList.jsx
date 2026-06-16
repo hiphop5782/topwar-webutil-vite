@@ -4,6 +4,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import { ko, enUS, ja } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
+import SafeImage from "@src/components/template/SafeImage";
 
 const localeMap = { ko, en: enUS, ja };
 
@@ -18,41 +19,66 @@ export default function PostList() {
 
     const posts = useMemo(() => {
         return Object.keys(modules).sort((a, b) => b.localeCompare(a))
-        .filter(path=>{
-            const pathParts = path.split("/");
-            const folderName = pathParts[pathParts.length - 2];
-            console.log(folderName, folderName.startsWith("9999-99-99") === false);
-            return folderName.startsWith("9999-99-99") === false;
-        })
-        .map((path, index) => {
-            const pathParts = path.split("/");
-            const folderName = pathParts[pathParts.length - 2];
-            const rawContent = modules[path].default || "";
-            const { attributes, body } = fm(rawContent);
+            .filter(path => {
+                const pathParts = path.split("/");
+                const folderName = pathParts[pathParts.length - 2];
+                console.log(folderName, folderName.startsWith("9999-99-99") === false);
+                return folderName.startsWith("9999-99-99") === false;
+            })
+            .map((path, index) => {
+                const pathParts = path.split("/");
+                const folderName = pathParts[pathParts.length - 2];
+                const rawContent = modules[path].default || "";
+                const { attributes, body } = fm(rawContent);
 
-            // ✅ 본문에서 첫 번째 이미지 URL 추출 로직
-            const imgRegex = /!\[.*?\]\((.*?)\)/;
-            const match = body.match(imgRegex);
-            let thumbnailUrl = null;
+                // 본문에서 첫 번째 Markdown 이미지 추출
+                const imgRegex =
+                    /!\[[^\]]*]\(\s*(?:<([^>]+)>|([^)]+?))\s*\)/;
 
-            if (match && match[1]) {
-                const src = match[1];
-                // 상대 경로인 경우 처리 (상세페이지와 동일한 방식)
-                thumbnailUrl = src.startsWith('./')
-                    ? new URL(`/src/assets/md/${folderName}/${src.replace('./', '')}`, import.meta.url).href
-                    : src;
-            }
+                const match = body.match(imgRegex);
 
-            return {
-                no: index,
-                title: attributes.title || "제목이 없는 포스트",
-                folder: folderName,
-                date: attributes.date || "",
-                tags: attributes.tags || [],
-                summary: attributes.description || "",
-                thumbnail: thumbnailUrl,
-            }
-        });
+                let thumbnailUrl = null;
+
+                if (match) {
+                    // <경로> 형식이면 match[1]
+                    // 일반 경로 형식이면 match[2]
+                    let src = (match[1] ?? match[2] ?? "").trim();
+
+                    // 일반 경로 뒤에 Markdown title이 붙은 경우 제거
+                    // 예: ./image.png "이미지 설명"
+                    src = src.replace(
+                        /\s+(?:"[^"]*"|'[^']*')\s*$/,
+                        ""
+                    );
+
+                    if (src.startsWith("./")) {
+                        thumbnailUrl = new URL(
+                            `/src/assets/md/${folderName}/${src.slice(2)}`,
+                            import.meta.url
+                        ).href;
+                    } else {
+                        thumbnailUrl = src;
+                    }
+
+                    console.log({
+                        markdownImage: match[0],
+                        anglePath: match[1],
+                        normalPath: match[2],
+                        src,
+                        thumbnailUrl,
+                    });
+                }
+
+                return {
+                    no: index,
+                    title: attributes.title || "제목이 없는 포스트",
+                    folder: folderName,
+                    date: attributes.date || "",
+                    tags: attributes.tags || [],
+                    summary: attributes.description || "",
+                    thumbnail: thumbnailUrl,
+                }
+            });
     }, [modules]);
 
     return (
@@ -70,7 +96,7 @@ export default function PostList() {
                                 {post.thumbnail && (
                                     <div className="col-sm-2">
                                         <LanguageRouterLink to={`/post/${post.folder}`}>
-                                            <img
+                                            <SafeImage
                                                 src={post.thumbnail}
                                                 alt={post.title}
                                                 className="img-fluid img-thumbnail h-100 w-100"
