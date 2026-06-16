@@ -350,7 +350,7 @@ export default function Chatbot() {
                                     <div className="chatbot-message-box chatbot-loading-message">
                                         <FaSpinner className="fa-spin" />
 
-                                        <span>
+                                        <span className="ms-2">
                                             AI가 요청을 분석
                                             중입니다...
                                         </span>
