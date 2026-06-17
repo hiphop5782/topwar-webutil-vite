@@ -66,6 +66,24 @@
             "unit": "개",
             "icon": "/images/items/glass.png"
         }
+        ,{
+            "id": "full-defense-formation",
+            "name": "전면 방어 군진",
+            "unit": "레벨",
+            "icon": "/images/items/full-defense-formation.png"
+        }
+        ,{
+            "id": "formation101",
+            "name": "군진 통용 안내서",
+            "unit": "개",
+            "icon": "/images/items/formation101.png"
+        }
+        ,{
+            "id": "full-defense-formation-breakdown",
+            "name": "전면 방어 군진 분석도",
+            "unit": "개",
+            "icon": "/images/items/full-defense-formation-breakdown.png"
+        }
     ],
     "items": [
         {
@@ -1138,116 +1156,430 @@
             ]
         }
         ,{
-            "id": "remold-transmission-upgrade",
-            "name": "장비 개조 - 변속",
+            "id": "full-defense-formation-upgrade",
+            "name": "전면 방어 군진",
             "startLevel":0,
-            "icon":"/images/items/transmission-orange.png",
-            "description": "장비 개조(변속)  레벨업에 필요한 재료를 계산합니다.",
+            "icon":"/images/items/full-defense-formation.png",
+            "description": "전면 방어 군진  레벨업에 필요한 재료를 계산합니다.",
             "levels": [
                 {
                     "level": 1,
                     "costs": [
-                        { "materialId": "transistor", "amount": 1 },
-                        { "materialId": "rubber", "amount": 1 }
+                        { "materialId": "formation101", "amount": 30 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 40 }
                     ]
                 }
                 ,{
                     "level": 2,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 10 },
-                        { "materialId": "transistor", "amount": 1 },
-                        { "materialId": "rubber", "amount": 1 },
-                        { "materialId": "tungsten", "amount": 1 }
+                        { "materialId": "formation101", "amount": 30 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 40 }
                     ]
                 }
                 ,{
                     "level": 3,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 25 },
-                        { "materialId": "transistor", "amount": 1 },
-                        { "materialId": "rubber", "amount": 2 },
-                        { "materialId": "tungsten", "amount": 1 }
+                        { "materialId": "formation101", "amount": 40 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 40 }
                     ]
                 }
                 ,{
                     "level": 4,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 50 },
-                        { "materialId": "transistor", "amount": 1 },
-                        { "materialId": "rubber", "amount": 3 },
-                        { "materialId": "tungsten", "amount": 2 }
+                        { "materialId": "formation101", "amount": 40 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 40 }
                     ]
                 }
                 ,{
                     "level": 5,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 85 },
-                        { "materialId": "transistor", "amount": 3 },
-                        { "materialId": "rubber", "amount": 3 },
-                        { "materialId": "tungsten", "amount": 2 }
+                        { "materialId": "formation101", "amount": 40 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 50 }
                     ]
                 }
                 ,{
                     "level": 6,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 150 },
-                        { "materialId": "transistor", "amount": 3 },
-                        { "materialId": "rubber", "amount": 4 },
-                        { "materialId": "tungsten", "amount": 4 }
+                        { "materialId": "formation101", "amount": 50 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 50 }
                     ]
                 }
                 ,{
                     "level": 7,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 200 },
-                        { "materialId": "transistor", "amount": 3 },
-                        { "materialId": "rubber", "amount": 5 },
-                        { "materialId": "tungsten", "amount": 4 }
+                        { "materialId": "formation101", "amount": 50 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 50 }
                     ]
                 }
                 ,{
                     "level": 8,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 300 },
-                        { "materialId": "transistor", "amount": 5 },
-                        { "materialId": "rubber", "amount": 6 },
-                        { "materialId": "tungsten", "amount": 4 }
+                        { "materialId": "formation101", "amount": 50 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 60 }
                     ]
                 }
                 ,{
                     "level": 9,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 250 },
-                        { "materialId": "transistor", "amount": 3 },
-                        { "materialId": "rubber", "amount": 5 },
-                        { "materialId": "tungsten", "amount": 4 }
+                        { "materialId": "formation101", "amount": 50 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 60 }
                     ]
                 }
                 ,{
                     "level": 10,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 300 },
-                        { "materialId": "transistor", "amount": 5 },
-                        { "materialId": "rubber", "amount": 6 },
-                        { "materialId": "tungsten", "amount": 4 }
+                        { "materialId": "formation101", "amount": 60 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 70 }
                     ]
                 }
                 ,{
                     "level": 11,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 340 },
-                        { "materialId": "transistor", "amount": 5 },
-                        { "materialId": "rubber", "amount": 6 },
-                        { "materialId": "tungsten", "amount": 5 }
+                        { "materialId": "formation101", "amount": 60 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 70 }
                     ]
                 }
                 ,{
                     "level": 12,
                     "costs": [
-                        { "materialId": "remold-blueprint", "amount": 400 },
-                        { "materialId": "transistor", "amount": 6 },
-                        { "materialId": "rubber", "amount": 7 },
-                        { "materialId": "tungsten", "amount": 5 }
+                        { "materialId": "formation101", "amount": 60 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 70 }
+                    ]
+                }
+                ,{
+                    "level": 13,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 70 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 80 }
+                    ]
+                }
+                ,{
+                    "level": 14,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 70 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 80 }
+                    ]
+                }
+                ,{
+                    "level": 15,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 80 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 90 }
+                    ]
+                }
+                ,{
+                    "level": 16,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 80 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 90 }
+                    ]
+                }
+                ,{
+                    "level": 17,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 80 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 90 }
+                    ]
+                }
+                ,{
+                    "level": 18,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 90 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 100 }
+                    ]
+                }
+                ,{
+                    "level": 19,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 90 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 100 }
+                    ]
+                }
+                ,{
+                    "level": 20,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 100 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 110 }
+                    ]
+                }
+                ,{
+                    "level": 21,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 100 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 110 }
+                    ]
+                }
+                ,{
+                    "level": 22,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 100 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 120 }
+                    ]
+                }
+                ,{
+                    "level": 23,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 110 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 120 }
+                    ]
+                }
+                ,{
+                    "level": 24,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 110 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 130 }
+                    ]
+                }
+                ,{
+                    "level": 25,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 120 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 130 }
+                    ]
+                }
+                ,{
+                    "level": 26,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 120 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 140 }
+                    ]
+                }
+                ,{
+                    "level": 27,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 130 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 140 }
+                    ]
+                }
+                ,{
+                    "level": 28,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 130 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 150 }
+                    ]
+                }
+                ,{
+                    "level": 29,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 130 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 150 }
+                    ]
+                }
+                ,{
+                    "level": 30,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 140 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 160 }
+                    ]
+                }
+                ,{
+                    "level": 31,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 140 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 160 }
+                    ]
+                }
+                ,{
+                    "level": 32,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 150 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 170 }
+                    ]
+                }
+                ,{
+                    "level": 33,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 150 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 170 }
+                    ]
+                }
+                ,{
+                    "level": 34,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 160 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 180 }
+                    ]
+                }
+                ,{
+                    "level": 35,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 160 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 190 }
+                    ]
+                }
+                ,{
+                    "level": 36,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 170 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 190 }
+                    ]
+                }
+                ,{
+                    "level": 37,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 170 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 200 }
+                    ]
+                }
+                ,{
+                    "level": 38,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 180 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 200 }
+                    ]
+                }
+                ,{
+                    "level": 39,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 180 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 210 }
+                    ]
+                }
+                ,{
+                    "level": 40,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 190 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 210 }
+                    ]
+                }
+                ,{
+                    "level": 41,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 190 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 220 }
+                    ]
+                }
+                ,{
+                    "level": 42,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 200 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 230 }
+                    ]
+                }
+                ,{
+                    "level": 43,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 200 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 230 }
+                    ]
+                }
+                ,{
+                    "level": 44,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 210 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 240 }
+                    ]
+                }
+                ,{
+                    "level": 45,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 220 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 240 }
+                    ]
+                }
+                ,{
+                    "level": 46,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 220 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 250 }
+                    ]
+                }
+                ,{
+                    "level": 47,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 230 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 260 }
+                    ]
+                }
+                ,{
+                    "level": 48,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 230 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 260 }
+                    ]
+                }
+                ,{
+                    "level": 49,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 240 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 270 }
+                    ]
+                }
+                ,{
+                    "level": 50,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 240 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 280 }
+                    ]
+                }
+                ,{
+                    "level": 51,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 250 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 280 }
+                    ]
+                }
+                ,{
+                    "level": 52,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 250 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 290 }
+                    ]
+                }
+                ,{
+                    "level": 53,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 260 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 290 }
+                    ]
+                }
+                ,{
+                    "level": 54,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 270 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 300 }
+                    ]
+                }
+                ,{
+                    "level": 55,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 270 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 310 }
+                    ]
+                }
+                ,{
+                    "level": 56,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 280 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 310 }
+                    ]
+                }
+                ,{
+                    "level": 57,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 280 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 320 }
+                    ]
+                }
+                ,{
+                    "level": 58,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 290 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 330 }
+                    ]
+                }
+                ,{
+                    "level": 59,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 290 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 330 }
+                    ]
+                }
+                ,{
+                    "level": 60,
+                    "costs": [
+                        { "materialId": "formation101", "amount": 300 },
+                        { "materialId": "full-defense-formation-breakdown", "amount": 340 }
                     ]
                 }
             ]
