@@ -30,6 +30,7 @@
             "id": "awakening-skill-upgrade",
             "name": "영웅 각성 스킬 레벨업",
             "description": "영웅 각성 시 나타나는 각성 스킬 4종류의 레벨업에 필요한 재료를 계산합니다.",
+            "icon":"/images/items/awakening-stone.png",
             "levels": [
                 {
                     "level": 1,
@@ -121,6 +122,7 @@
         {
             "id": "awakening-level-upgrade",
             "name": "영웅 각성 레벨업",
+            "icon":"/images/heros/sera.png",
             "description": "영웅 각성 시 레벨업에 필요한 재료를 계산합니다.",
             "levels": [
                 {
@@ -603,6 +605,7 @@
         {
             "id": "skill-level-upgrade",
             "name": "전속 스킬 레벨업",
+            "icon":"/images/items/hero-skill-shard.png",
             "description": "전속 스킬  레벨업에 필요한 재료를 계산합니다.",
             "levels": [
                 {
