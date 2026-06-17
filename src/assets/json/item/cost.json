@@ -1,10 +1,10 @@
 {
     "materials": [
         {
-            "id": "core-blueprint",
-            "name": "핵심 건물 설계도",
+            "id": "remold-blueprint",
+            "name": "개조 도면",
             "unit": "개",
-            "icon": "/images/items/core-blueprint.png"
+            "icon": "/images/items/remold-blueprint.png"
         },
         {
             "id": "hero-skill-shard",
@@ -23,12 +23,55 @@
             "name": "각성석",
             "unit": "개",
             "icon": "/images/items/awakening-stone.png"
+        },
+        {
+            "id": "steel",
+            "name": "강철",
+            "unit": "개",
+            "icon": "/images/items/steel.png"
+        },
+        {
+            "id": "screws",
+            "name": "나사",
+            "unit": "개",
+            "icon": "/images/items/screws.png"
+        },
+        {
+            "id": "transistor",
+            "name": "트랜지스터",
+            "unit": "개",
+            "icon": "/images/items/transistor.png"
+        },
+        {
+            "id": "rubber",
+            "name": "고무",
+            "unit": "개",
+            "icon": "/images/items/rubber.png"
+        },
+        {
+            "id": "tungsten",
+            "name": "텅스텐",
+            "unit": "개",
+            "icon": "/images/items/tungsten.png"
+        },
+        {
+            "id": "battery",
+            "name": "배터리",
+            "unit": "개",
+            "icon": "/images/items/battery.png"
+        },
+        {
+            "id": "glass",
+            "name": "유리",
+            "unit": "개",
+            "icon": "/images/items/glass.png"
         }
     ],
     "items": [
         {
             "id": "awakening-skill-upgrade",
             "name": "영웅 각성 스킬 레벨업",
+            "startLevel":1,
             "description": "영웅 각성 시 나타나는 각성 스킬 4종류의 레벨업에 필요한 재료를 계산합니다.",
             "icon":"/images/items/awakening-stone.png",
             "levels": [
@@ -122,6 +165,7 @@
         {
             "id": "awakening-level-upgrade",
             "name": "영웅 각성 레벨업",
+            "startLevel":1,
             "icon":"/images/heros/sera.png",
             "description": "영웅 각성 시 레벨업에 필요한 재료를 계산합니다.",
             "levels": [
@@ -605,6 +649,7 @@
         {
             "id": "skill-level-upgrade",
             "name": "전속 스킬 레벨업",
+            "startLevel":0,
             "icon":"/images/items/hero-skill-shard.png",
             "description": "전속 스킬  레벨업에 필요한 재료를 계산합니다.",
             "levels": [
@@ -701,8 +746,9 @@
             ]
         },
         {
-            "id": "herp-upgrade",
+            "id": "hero-upgrade",
             "name": "영웅 성급 레벨업",
+            "startLevel":1,
             "icon":"/images/items/orange-universal-shard.png",
             "description": "영웅 성급  레벨업에 필요한 재료를 계산합니다.",
             "levels": [
@@ -744,6 +790,464 @@
                             "materialId": "orange-universal-shard",
                             "amount": 360
                         }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "remold-weapon-upgrade",
+            "name": "장비 개조 - 무기",
+            "startLevel":0,
+            "icon":"/images/items/weapon-orange.png",
+            "description": "장비 개조(무기)  레벨업에 필요한 재료를 계산합니다.",
+            "levels": [
+                {
+                    "level": 1,
+                    "costs": [
+                        { "materialId": "screws", "amount": 1 },
+                        { "materialId": "transistor", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 2,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 10 },
+                        { "materialId": "screws", "amount": 1 },
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "tungsten", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 3,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 25 },
+                        { "materialId": "screws", "amount": 2 },
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "tungsten", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 4,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 50 },
+                        { "materialId": "screws", "amount": 3 },
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "tungsten", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 5,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 85 },
+                        { "materialId": "screws", "amount": 3 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 6,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 150 },
+                        { "materialId": "screws", "amount": 3 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 7,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 200 },
+                        { "materialId": "screws", "amount": 6 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 3 }
+                    ]
+                }
+                ,{
+                    "level": 8,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "screws", "amount": 7 },
+                        { "materialId": "transistor", "amount": 4 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 9,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 250 },
+                        { "materialId": "screws", "amount": 6 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 3 }
+                    ]
+                }
+                ,{
+                    "level": 10,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "screws", "amount": 7 },
+                        { "materialId": "transistor", "amount": 4 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 11,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 340 },
+                        { "materialId": "screws", "amount": 6 },
+                        { "materialId": "transistor", "amount": 5 },
+                        { "materialId": "tungsten", "amount": 5 }
+                    ]
+                }
+                ,{
+                    "level": 12,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 400 },
+                        { "materialId": "screws", "amount": 8 },
+                        { "materialId": "transistor", "amount": 5 },
+                        { "materialId": "tungsten", "amount": 5 }
+                    ]
+                }
+            ]
+        }
+        ,{
+            "id": "remold-armor-upgrade",
+            "name": "장비 개조 - 갑옷",
+            "startLevel":0,
+            "icon":"/images/items/armor-orange.png",
+            "description": "장비 개조(갑옷)  레벨업에 필요한 재료를 계산합니다.",
+            "levels": [
+                {
+                    "level": 1,
+                    "costs": [
+                        { "materialId": "steel", "amount": 1 },
+                        { "materialId": "glass", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 2,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 10 },
+                        { "materialId": "steel", "amount": 1 },
+                        { "materialId": "glass", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 3,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 25 },
+                        { "materialId": "steel", "amount": 1 },
+                        { "materialId": "screws", "amount": 1 },
+                        { "materialId": "glass", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 4,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 50 },
+                        { "materialId": "steel", "amount": 2 },
+                        { "materialId": "screws", "amount": 1 },
+                        { "materialId": "glass", "amount": 3 }
+                    ]
+                }
+                ,{
+                    "level": 5,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 85 },
+                        { "materialId": "steel", "amount": 2 },
+                        { "materialId": "screws", "amount": 1 },
+                        { "materialId": "glass", "amount": 5 }
+                    ]
+                }
+                ,{
+                    "level": 6,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 150 },
+                        { "materialId": "steel", "amount": 3 },
+                        { "materialId": "screws", "amount": 2 },
+                        { "materialId": "glass", "amount": 5 }
+                    ]
+                }
+                ,{
+                    "level": 7,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 200 },
+                        { "materialId": "steel", "amount": 3 },
+                        { "materialId": "screws", "amount": 2 },
+                        { "materialId": "glass", "amount": 7 }
+                    ]
+                }
+                ,{
+                    "level": 8,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "steel", "amount": 4 },
+                        { "materialId": "screws", "amount": 2 },
+                        { "materialId": "glass", "amount": 9 }
+                    ]
+                }
+                ,{
+                    "level": 9,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 250 },
+                        { "materialId": "steel", "amount": 3 },
+                        { "materialId": "screws", "amount": 2 },
+                        { "materialId": "glass", "amount": 7 }
+                    ]
+                }
+                ,{
+                    "level": 10,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "screws", "amount": 4 },
+                        { "materialId": "transistor", "amount": 2 },
+                        { "materialId": "tungsten", "amount": 9 }
+                    ]
+                }
+                ,{
+                    "level": 11,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 340 },
+                        { "materialId": "screws", "amount": 5 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 8 }
+                    ]
+                }
+                ,{
+                    "level": 12,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 400 },
+                        { "materialId": "screws", "amount": 5 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 10 }
+                    ]
+                }
+            ]
+        }
+        ,{
+            "id": "remold-engine-upgrade",
+            "name": "장비 개조 - 엔진",
+            "startLevel":0,
+            "icon":"/images/items/engine-orange.png",
+            "description": "장비 개조(엔진)  레벨업에 필요한 재료를 계산합니다.",
+            "levels": [
+                {
+                    "level": 1,
+                    "costs": [
+                        { "materialId": "steel", "amount": 1 },
+                        { "materialId": "battery", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 2,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 10 },
+                        { "materialId": "steel", "amount": 1 },
+                        { "materialId": "battery", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 3,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 25 },
+                        { "materialId": "steel", "amount": 1 },
+                        { "materialId": "rubber", "amount": 1 },
+                        { "materialId": "battery", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 4,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 50 },
+                        { "materialId": "steel", "amount": 2 },
+                        { "materialId": "rubber", "amount": 1 },
+                        { "materialId": "battery", "amount": 3 }
+                    ]
+                }
+                ,{
+                    "level": 5,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 85 },
+                        { "materialId": "steel", "amount": 2 },
+                        { "materialId": "rubber", "amount": 1 },
+                        { "materialId": "battery", "amount": 5 }
+                    ]
+                }
+                ,{
+                    "level": 6,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 150 },
+                        { "materialId": "steel", "amount": 3 },
+                        { "materialId": "rubber", "amount": 2 },
+                        { "materialId": "battery", "amount": 5 }
+                    ]
+                }
+                ,{
+                    "level": 7,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 200 },
+                        { "materialId": "steel", "amount": 3 },
+                        { "materialId": "rubber", "amount": 2 },
+                        { "materialId": "battery", "amount": 7 }
+                    ]
+                }
+                ,{
+                    "level": 8,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "steel", "amount": 4 },
+                        { "materialId": "rubber", "amount": 2 },
+                        { "materialId": "battery", "amount": 9 }
+                    ]
+                }
+                ,{
+                    "level": 9,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 250 },
+                        { "materialId": "steel", "amount": 3 },
+                        { "materialId": "rubber", "amount": 2 },
+                        { "materialId": "battery", "amount": 7 }
+                    ]
+                }
+                ,{
+                    "level": 10,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "screws", "amount": 4 },
+                        { "materialId": "rubber", "amount": 2 },
+                        { "materialId": "battery", "amount": 9 }
+                    ]
+                }
+                ,{
+                    "level": 11,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 340 },
+                        { "materialId": "screws", "amount": 5 },
+                        { "materialId": "rubber", "amount": 5 },
+                        { "materialId": "battery", "amount": 8 }
+                    ]
+                }
+                ,{
+                    "level": 12,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 400 },
+                        { "materialId": "screws", "amount": 5 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 10 }
+                    ]
+                }
+            ]
+        }
+        ,{
+            "id": "remold-transmission-upgrade",
+            "name": "장비 개조 - 변속",
+            "startLevel":0,
+            "icon":"/images/items/transmission-orange.png",
+            "description": "장비 개조(변속)  레벨업에 필요한 재료를 계산합니다.",
+            "levels": [
+                {
+                    "level": 1,
+                    "costs": [
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "rubber", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 2,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 10 },
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "rubber", "amount": 1 },
+                        { "materialId": "tungsten", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 3,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 25 },
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "rubber", "amount": 2 },
+                        { "materialId": "tungsten", "amount": 1 }
+                    ]
+                }
+                ,{
+                    "level": 4,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 50 },
+                        { "materialId": "transistor", "amount": 1 },
+                        { "materialId": "rubber", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 5,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 85 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "rubber", "amount": 3 },
+                        { "materialId": "tungsten", "amount": 2 }
+                    ]
+                }
+                ,{
+                    "level": 6,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 150 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "rubber", "amount": 4 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 7,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 200 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "rubber", "amount": 5 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 8,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "transistor", "amount": 5 },
+                        { "materialId": "rubber", "amount": 6 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 9,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 250 },
+                        { "materialId": "transistor", "amount": 3 },
+                        { "materialId": "rubber", "amount": 5 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 10,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 300 },
+                        { "materialId": "transistor", "amount": 5 },
+                        { "materialId": "rubber", "amount": 6 },
+                        { "materialId": "tungsten", "amount": 4 }
+                    ]
+                }
+                ,{
+                    "level": 11,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 340 },
+                        { "materialId": "transistor", "amount": 5 },
+                        { "materialId": "rubber", "amount": 6 },
+                        { "materialId": "tungsten", "amount": 5 }
+                    ]
+                }
+                ,{
+                    "level": 12,
+                    "costs": [
+                        { "materialId": "remold-blueprint", "amount": 400 },
+                        { "materialId": "transistor", "amount": 6 },
+                        { "materialId": "rubber", "amount": 7 },
+                        { "materialId": "tungsten", "amount": 5 }
                     ]
                 }
             ]

@@ -156,28 +156,44 @@ export default function ItemLevelCostCalculator() {
             );
     }, [selectedItem]);
 
-    const availableLevels = useMemo(() => {
+    const targetLevels = useMemo(() => {
         return sortedLevels.map(levelInfo =>
             Number(levelInfo.level),
         );
     }, [sortedLevels]);
 
-    const minLevel = availableLevels[0] ?? 1;
+    const minTargetLevel = targetLevels[0] ?? 1;
+
+    const startLevel =
+        selectedItem?.startLevel != null
+            ? Number(selectedItem.startLevel)
+            : Math.max(0, minTargetLevel - 1);
 
     const maxLevel =
-        availableLevels[availableLevels.length - 1] ??
-        minLevel;
+        targetLevels[targetLevels.length - 1] ??
+        startLevel;
+
+    const currentLevels = useMemo(() => {
+        if (targetLevels.length === 0) {
+            return [startLevel];
+        }
+
+        return [
+            startLevel,
+            ...targetLevels.slice(0, -1),
+        ];
+    }, [startLevel, targetLevels]);
 
     const [currentLevel, setCurrentLevel] =
-        useState(minLevel);
+        useState(startLevel);
 
     const [targetLevel, setTargetLevel] =
         useState(maxLevel);
 
     useEffect(() => {
-        setCurrentLevel(minLevel);
+        setCurrentLevel(startLevel);
         setTargetLevel(maxLevel);
-    }, [selectedItemId, minLevel, maxLevel]);
+    }, [selectedItemId, startLevel, maxLevel]);
 
     const handleItemSelect = itemId => {
         setSelectedItemId(itemId);
@@ -425,7 +441,7 @@ export default function ItemLevelCostCalculator() {
                                                 handleCurrentLevelChange
                                             }
                                         >
-                                            {availableLevels.map(
+                                            {currentLevels.map(
                                                 level => (
                                                     <option
                                                         key={
@@ -459,7 +475,7 @@ export default function ItemLevelCostCalculator() {
                                                 handleTargetLevelChange
                                             }
                                         >
-                                            {availableLevels
+                                            {targetLevels
                                                 .filter(
                                                     level =>
                                                         level >=
@@ -560,7 +576,7 @@ export default function ItemLevelCostCalculator() {
                                 </div>
 
                                 {calculation.totals.length ===
-                                0 ? (
+                                    0 ? (
                                     <div className="alert alert-info mb-0">
                                         현재 레벨과 목표 레벨이
                                         같거나 추가로 필요한 재료가
@@ -612,14 +628,14 @@ export default function ItemLevelCostCalculator() {
                                                             {total
                                                                 .material
                                                                 .unit && (
-                                                                <small>
-                                                                    {
-                                                                        total
-                                                                            .material
-                                                                            .unit
-                                                                    }
-                                                                </small>
-                                                            )}
+                                                                    <small>
+                                                                        {
+                                                                            total
+                                                                                .material
+                                                                                .unit
+                                                                        }
+                                                                    </small>
+                                                                )}
                                                         </strong>
                                                     </div>
                                                 </article>
@@ -678,7 +694,7 @@ export default function ItemLevelCostCalculator() {
                                                                 {row
                                                                     .costs
                                                                     .length ===
-                                                                0 ? (
+                                                                    0 ? (
                                                                     <span className="text-body-secondary">
                                                                         없음
                                                                     </span>
