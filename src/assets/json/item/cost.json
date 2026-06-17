@@ -1,0 +1,397 @@
+{
+  "materials": [
+    {
+      "id": "core-blueprint",
+      "name": "핵심 건물 설계도",
+      "unit": "개",
+      "icon": "/images/items/core-blueprint.png"
+    },
+    {
+      "id": "hero-skill-shard",
+      "name": "전속 스킬 조각",
+      "unit": "개",
+      "icon": "/images/items/hero-skill-shard.png"
+    },
+    {
+      "id": "orange-universal-shard",
+      "name": "에픽 조각",
+      "unit": "개",
+      "icon": "/images/items/orange-universal-shard.png"
+    },
+    {
+      "id": "awakening-stone",
+      "name": "각성석",
+      "unit": "개",
+      "icon": "/images/items/awakening-stone.png"
+    }
+  ],
+  "items": [
+    {
+      "id": "awakening-skill-upgrade",
+      "name": "영웅 각성 스킬 레벨업",
+      "description": "영웅 각성 시 나타나는 각성 스킬 4종류의 레벨업에 필요한 재료를 계산합니다.",
+      "levels": [
+        {
+          "level": 1,
+          "costs": []
+        },
+        {
+          "level": 2,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 75
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 75
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 150
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 150
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 225
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 225
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 300
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 400
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "costs": [
+            {
+              "materialId": "awakening-stone",
+              "amount": 650
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "awakening-level-upgrade",
+      "name": "영웅 각성 레벨업",
+      "description": "영웅 각성 시 레벨업에 필요한 재료를 계산합니다.",
+      "levels": [
+        {
+          "level": 1,
+          "costs": []
+        },
+        {
+          "level": 2,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 3,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 4,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 5,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 6,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 7,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 8,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 9,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 10,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 10 }
+          ]
+        },
+        {
+          "level": 11,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 12,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 13,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 14,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 15,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 16,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 17,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 18,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 19,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 20,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 20 },
+            { "materialId": "hero-skill-shard", "amount": 250 }
+          ]
+        },
+        {
+          "level": 21,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 22,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 23,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 24,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 25,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 26,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 27,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 28,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 29,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 30,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 30 },
+            { "materialId": "hero-skill-shard", "amount": 500 }
+          ]
+        },
+        {
+          "level": 31,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 32,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 33,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 34,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 35,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 36,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 37,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 38,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 39,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        },
+        {
+          "level": 40,
+          "costs": [
+            { "materialId": "orange-universal-shard", "amount": 50 },
+            { "materialId": "hero-skill-shard", "amount": 1000 }
+          ]
+        }
+      ]
+    }
+  ]
+}
