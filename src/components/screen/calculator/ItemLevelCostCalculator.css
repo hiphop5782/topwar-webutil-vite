@@ -1,0 +1,555 @@
+.item-cost-calculator {
+    --calculator-radius: 16px;
+    --calculator-transition: 160ms ease;
+}
+
+/* =========================================================
+   아이템 종류 선택 영역
+   ========================================================= */
+
+.item-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(120px, 1fr)
+    );
+    gap: 12px;
+    align-items: stretch;
+}
+
+.item-selector-card {
+    position: relative;
+
+    display: grid;
+    grid-template-rows: 76px 50px;
+    align-items: center;
+    justify-items: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 150px;
+    height: 100%;
+
+    padding: 14px 10px;
+
+    border: 2px solid var(--bs-border-color);
+    border-radius: var(--calculator-radius);
+
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+
+    font: inherit;
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--calculator-transition),
+        border-color var(--calculator-transition),
+        background-color var(--calculator-transition),
+        box-shadow var(--calculator-transition);
+}
+
+.item-selector-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(
+        var(--bs-primary-rgb),
+        0.65
+    );
+
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.09);
+}
+
+.item-selector-card:focus-visible {
+    outline: 3px solid
+        rgba(var(--bs-primary-rgb), 0.3);
+
+    outline-offset: 3px;
+}
+
+.item-selector-card.is-selected {
+    border-color: var(--bs-primary);
+
+    background: rgba(
+        var(--bs-primary-rgb),
+        0.08
+    );
+
+    box-shadow:
+        0 0 0 3px
+            rgba(var(--bs-primary-rgb), 0.12),
+        0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+/* 선택 카드 아이콘 영역 */
+
+.item-selector-card__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 72px;
+    height: 72px;
+    margin: 0;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    background: var(--bs-tertiary-bg);
+}
+
+.item-selector-card__icon {
+    display: block;
+
+    width: 60px;
+    height: 60px;
+
+    object-fit: contain;
+}
+
+/* 선택 카드 제목 영역 */
+
+.item-selector-card__name {
+    display: -webkit-box;
+    align-self: start;
+
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 4px 0 0;
+
+    overflow: hidden;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.35;
+
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+/* 설명을 카드 안에 표시할 경우 */
+.item-selector-card__description {
+    display: none;
+}
+
+/* 선택 체크 표시 */
+
+.item-selector-card__check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+
+    background: var(--bs-primary);
+    color: #fff;
+
+    font-size: 0.8rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* =========================================================
+   레벨 선택 영역
+   ========================================================= */
+
+.level-selector-section {
+    padding: 18px;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--calculator-radius);
+
+    background: var(--bs-tertiary-bg);
+}
+
+.selected-range {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 62px;
+    padding: 8px 14px;
+
+    border-radius: 12px;
+
+    background: var(--bs-body-bg);
+}
+
+.selected-range__label {
+    color: var(--bs-secondary-color);
+
+    font-size: 0.78rem;
+}
+
+.selected-range__value {
+    margin-top: 2px;
+
+    font-size: 1.05rem;
+}
+
+/* =========================================================
+   요약 카드
+   ========================================================= */
+
+.summary-section {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.summary-card {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    padding: 16px;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 14px;
+
+    background: var(--bs-body-bg);
+}
+
+.summary-card__label {
+    color: var(--bs-secondary-color);
+
+    font-size: 0.8rem;
+}
+
+.summary-card__value {
+    margin-top: 4px;
+
+    overflow: hidden;
+
+    font-size: 1.15rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   총 필요 재료
+   ========================================================= */
+
+.total-material-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(210px, 1fr)
+    );
+    gap: 12px;
+}
+
+.total-material-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-width: 0;
+    padding: 16px;
+
+    border: 1px solid
+        rgba(var(--bs-primary-rgb), 0.45);
+
+    border-radius: var(--calculator-radius);
+
+    background: rgba(
+        var(--bs-primary-rgb),
+        0.045
+    );
+}
+
+.total-material-card__icon {
+    flex-shrink: 0;
+
+    width: 56px;
+    height: 56px;
+
+    object-fit: contain;
+}
+
+.total-material-card__content {
+    min-width: 0;
+}
+
+.total-material-card__name {
+    display: block;
+
+    overflow: hidden;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.82rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.total-material-card__value {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--bs-primary);
+
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+.total-material-card__value small {
+    margin-left: 4px;
+
+    font-size: 0.85rem;
+}
+
+/* =========================================================
+   레벨별 필요 재료 테이블
+   ========================================================= */
+
+.level-cost-table {
+    margin-bottom: 0;
+}
+
+.level-cost-table th:first-child {
+    width: 155px;
+}
+
+.level-cost-table td {
+    vertical-align: middle;
+}
+
+.level-material-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* =========================================================
+   개별 재료 표시
+   ========================================================= */
+
+.material-amount {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-width: 165px;
+    padding: 8px 10px;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 10px;
+
+    background: var(--bs-tertiary-bg);
+}
+
+.material-amount__icon {
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    object-fit: contain;
+}
+
+.material-amount__content {
+    min-width: 0;
+
+    line-height: 1.25;
+}
+
+.material-amount__name {
+    overflow: hidden;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.76rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.material-amount__value {
+    margin-top: 2px;
+
+    font-weight: 700;
+}
+
+.material-amount__unit {
+    margin-left: 2px;
+}
+
+.material-amount__cumulative {
+    margin-top: 2px;
+
+    color: var(--bs-primary);
+
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+/* =========================================================
+   이미지가 없거나 로드에 실패한 경우
+   ========================================================= */
+
+.image-placeholder {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: var(--bs-secondary-bg);
+    color: var(--bs-secondary-color);
+
+    font-weight: 700;
+}
+
+/* 카드 아이콘 placeholder 크기 보정 */
+
+.item-selector-card__image .image-placeholder {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+/* =========================================================
+   태블릿 이하
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+    .item-selector-grid {
+        grid-template-columns: repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+        gap: 10px;
+    }
+
+    .item-selector-card {
+        grid-template-rows: 68px 50px;
+
+        min-height: 140px;
+        padding: 12px 8px;
+    }
+
+    .item-selector-card__image {
+        width: 64px;
+        height: 64px;
+    }
+
+    .item-selector-card__icon {
+        width: 54px;
+        height: 54px;
+    }
+
+    .item-selector-card__image .image-placeholder {
+        width: 54px !important;
+        height: 54px !important;
+    }
+
+    .item-selector-card__name {
+        height: 50px;
+
+        font-size: 0.85rem;
+    }
+
+    .summary-section {
+        grid-template-columns: 1fr;
+    }
+
+    .level-cost-table th:first-child {
+        width: auto;
+    }
+}
+
+/* =========================================================
+   모바일
+   ========================================================= */
+
+@media (max-width: 575.98px) {
+    .item-selector-grid {
+        grid-template-columns: repeat(
+            2,
+            minmax(0, 1fr)
+        );
+    }
+
+    .item-selector-card {
+        grid-template-rows: 70px 52px;
+
+        min-height: 145px;
+    }
+
+    .item-selector-card__name {
+        height: 52px;
+
+        font-size: 0.88rem;
+    }
+
+    .level-selector-section {
+        padding: 14px;
+    }
+
+    .total-material-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .material-amount {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* =========================================================
+   매우 작은 화면
+   ========================================================= */
+
+@media (max-width: 360px) {
+    .item-selector-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .item-selector-card {
+        grid-template-columns: 72px 1fr;
+        grid-template-rows: 1fr;
+
+        min-height: 94px;
+
+        padding: 10px 38px 10px 10px;
+
+        text-align: left;
+    }
+
+    .item-selector-card__image {
+        width: 64px;
+        height: 64px;
+    }
+
+    .item-selector-card__name {
+        align-self: center;
+
+        height: auto;
+        padding: 0 0 0 10px;
+
+        text-align: left;
+
+        -webkit-line-clamp: 3;
+    }
+}

@@ -12,7 +12,7 @@ import KartzSpecInformation from '@src/components/screen/information/kartz/Kartz
 import TitanRefineSimulator from '@src/components/screen/simulator/TitanRefineSimulator';
 import TitanResearchSimulator from '@src/components/screen/simulator/TitanResearchSimulator';
 import SkillCalculator from '@src/components/screen/calculator/SkillCalculator';
-import ValuePackCalculator from '@src/components/screen/simulator/VapuePackCalculator';
+import ValuePackCalculator from '@src/components/screen/calculator/VapuePackCalculator';
 import RandomSimulator from '@src/components/screen/simulator/RandomSimulator';
 import Developer from '@src/components/screen/Developer';
 import EternalLand from "@src/components/screen/information/el/EternalLand";
@@ -52,6 +52,8 @@ import TopwarSscPointViewer from "@src/components/screen/information/server/Topw
 import TopwarRealPowerViewer from "@src/components/screen/information/server/TopwarRealPowerViewer";
 
 import SscDashboard from "@src/components/screen/history/SscDashboard";
+
+import ItemLevelCostCalculator from "@src/components/screen/calculator/ItemLevelCostCalculator";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -120,6 +122,8 @@ export default function MainContentView() {
                     <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>
                     <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
+                    <Route path="calculator/cost" element={<ItemLevelCostCalculator/>}></Route>
+
                     <Route path="simulator/random" element={<RandomSimulator/>}></Route>
                     {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
                     <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>

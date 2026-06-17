@@ -211,9 +211,11 @@ function Menu() {
                                 {/* <LanguageRouterLink className="dropdown-item" to="/calculator/gathering">채집 속도 계산기</LanguageRouterLink> */}
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/skill`}>{t(`menu:calculator.sub.skill-shard`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/value-pack`}>{t(`menu:calculator.sub.store`)}</LanguageRouterLink>
-                                {/* <div className="dropdown-divider"></div> */}
-                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/el-score`}>{t(`menu:calculator.sub.el-score`)}</LanguageRouterLink> */}
-                                {/* <div className="dropdown-divider"></div>/ */}
+                                <div className="dropdown-divider"></div>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/cost`}>
+                                    {/* {t(`menu:calculator.sub.cost`)} */}
+                                    비용(테스트)
+                                </LanguageRouterLink>
                                 {/* <a className="dropdown-item">Separated link</a> */}
                             </div>
                         </li>
