@@ -699,6 +699,54 @@
                     ]
                 }
             ]
+        },
+        {
+            "id": "herp-upgrade",
+            "name": "영웅 성급 레벨업",
+            "icon":"/images/items/orange-universal-shard.png",
+            "description": "영웅 성급  레벨업에 필요한 재료를 계산합니다.",
+            "levels": [
+                {
+                    "level": 1,
+                    "costs": []
+                },
+                {
+                    "level": 2,
+                    "costs": [
+                        {
+                            "materialId": "orange-universal-shard",
+                            "amount": 20
+                        }
+                    ]
+                },
+                {
+                    "level": 3,
+                    "costs": [
+                        {
+                            "materialId": "orange-universal-shard",
+                            "amount": 60
+                        }
+                    ]
+                },
+                {
+                    "level": 4,
+                    "costs": [
+                        {
+                            "materialId": "orange-universal-shard",
+                            "amount": 180
+                        }
+                    ]
+                },
+                {
+                    "level": 5,
+                    "costs": [
+                        {
+                            "materialId": "orange-universal-shard",
+                            "amount": 360
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
