@@ -22,11 +22,11 @@ function Home() {
             </div>
         </div>
         <hr />
-        <div className="row mt-4">
+        {/* <div className="row mt-4">
             <div className="col">
                 <UtterancesComments />
             </div>
-        </div>
+        </div> */}
     </>);
 }
 
