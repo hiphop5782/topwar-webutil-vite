@@ -279,11 +279,11 @@
         "badge": "탑워 유틸리티",
         "personal-project": "개인 프로젝트",
         "btn-profile": "개발자 소개",
-        "btn-comments": "문의 및 의견 남기기",
+        "btn-contact": "문의 및 응원",
         "notice-personal-title": "개인 운영 서비스",
         "notice-personal-description": "개인이 직접 개발하고 운영하는 페이지입니다. 일부 정보는 실제 게임의 최신 상태와 차이가 있을 수 있습니다.",
         "notice-feature-title": "기능 제안 환영",
-        "notice-feature-description": "필요한 기능이나 개선 의견이 있다면 페이지 하단의 댓글을 통해 알려주세요.",
+        "notice-feature-description": "필요한 기능이나 개선 의견이 있다면 카카오톡 또는 Discord로 알려주세요.",
         "notice-chat-title": "게임 내 문의",
         "notice-chat-description-prefix": "3223 서버의",
         "notice-chat-description-suffix": "에게 채팅을 보내도 됩니다.",
@@ -298,12 +298,18 @@
         "profile-interest-value": "데이터 분석 · 자동화",
         "profile-game-server-label": "게임 서버",
         "profile-nickname-label": "닉네임",
+        "contact-title": "문의",
+        "contact-description": "오류 제보나 기능 제안은 편한 채널로 보내주세요.",
         "btn-kakao": "카카오톡 문의",
-        "btn-comment": "댓글 남기기",
-        "github-required": "댓글 작성에는 GitHub 계정이 필요합니다.",
-        "feedback-label": "피드백",
-        "feedback-title": "문의 및 의견",
-        "feedback-description": "오류 제보, 기능 요청, 개선 의견을 자유롭게 남겨주세요.",
+        "btn-discord": "Discord 메시지",
+        "support-note": "이 도구가 계속 무료로 운영될 수 있도록 응원해 주세요.",
+        "btn-support": "☕ 후원하기",
         "image-alt": "KID 개발자 프로필"
+    },
+    "SupportBanner": {
+        "label": "무료 도구 운영",
+        "title": "이 도구가 도움이 되셨나요?",
+        "message": "이 도구가 계속 무료로 운영될 수 있도록 응원해 주세요.",
+        "button": "☕ 개발 응원하기"
     }
 }
