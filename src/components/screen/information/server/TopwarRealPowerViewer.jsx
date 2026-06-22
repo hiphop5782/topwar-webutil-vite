@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import "./TopwarRealPowerViewer.css";
 import { useParamState } from "@src/hooks/useParamState";
 
+import SupportBanner from "@src/components/template/SupportBanner";
+
 const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
 
 export default function TopwarRealPowerViewer() {
@@ -516,6 +518,8 @@ export default function TopwarRealPowerViewer() {
                     </div>
                 </dd>
             </div>
+
+            <SupportBanner className="mt-5 mb-4" />
             <hr />
 
             <h3>{t("TopwarRealPowerViewer.result-alliance-list-label")}</h3>
@@ -571,6 +575,8 @@ export default function TopwarRealPowerViewer() {
                     </div>
                 </div>
             ))}
+
+            <SupportBanner className="mt-5 mb-4" />
 
             <hr />
 
@@ -653,6 +659,8 @@ export default function TopwarRealPowerViewer() {
                     </table>
                 </div>
             </div>
+
+            <SupportBanner className="mt-5 mb-4" />
         </>)}
     </>);
 }

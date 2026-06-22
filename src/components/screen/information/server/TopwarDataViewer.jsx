@@ -3,6 +3,8 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 
+import SupportBanner from "@src/components/template/SupportBanner";
+
 export default function TopwarDataViewer() {
     const location = useLocation();
     const {t}= useTranslation("viewer");
@@ -31,6 +33,8 @@ export default function TopwarDataViewer() {
                 <LanguageRouterLink to={`/information/data/compare`} className={getBtnClass("/information/data/compare")}>{t(`TopwarDataViewer.btn-server-compare`)}</LanguageRouterLink>
             </div> */}
         </div>
+
+        <SupportBanner className="mb-4"></SupportBanner>
 
         <hr/>
 

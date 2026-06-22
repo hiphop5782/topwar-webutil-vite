@@ -1,8 +1,265 @@
-.badge {
-    cursor: pointer;
+.base-information {
+    --base-card-radius: 1rem;
+    padding-bottom: 2rem;
 }
 
-.highlight {
-    background-color: #ffeaa7;
-    font-weight: bold;
+/* 페이지 상단 */
+
+.base-page-header {
+    padding: 1.5rem 0 0.5rem;
+}
+
+.base-count-summary {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.8rem;
+    background: var(--bs-body-bg);
+    color: var(--bs-secondary-color);
+}
+
+.base-count-summary strong {
+    color: var(--bs-primary);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* 필터 */
+
+.base-filter-chip {
+    --filter-color: var(--bs-primary);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 34px;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--filter-color);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--filter-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background-color 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease;
+
+
+}
+
+.base-filter-chip:hover {
+    transform: translateY(-1px);
+    background: color-mix(in srgb,
+            var(--filter-color) 10%,
+            transparent);
+}
+
+.base-filter-chip:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb,
+            var(--filter-color) 25%,
+            transparent);
+}
+
+.base-filter-chip.active {
+    background: var(--filter-color);
+    color: #fff;
+}
+
+.base-filter-check {
+    font-size: 0.75rem;
+}
+
+/* 카드 */
+
+.base-card {
+    overflow: hidden;
+    border-radius: var(--base-card-radius);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.base-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--bs-box-shadow) !important;
+}
+
+.base-card-image {
+    position: relative;
+    height: 210px;
+    padding: 0.75rem;
+    overflow: hidden;
+    background:
+        linear-gradient(145deg,
+            rgba(13, 110, 253, 0.08),
+            rgba(111, 66, 193, 0.06));
+}
+
+.base-card-image img {
+    display: block;
+}
+
+.base-soldout-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.16);
+}
+
+/* 효과 */
+
+.base-effect-section {
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--bs-border-color);
+}
+
+.base-effect-section:first-of-type {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.base-effect-title {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+    color: var(--bs-secondary-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.base-effect-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 0.35rem;
+    background: rgba(108, 117, 125, 0.12);
+    font-size: 0.65rem;
+}
+
+.base-option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.base-option {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.25rem 0.35rem;
+    border-radius: 0.4rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.base-option-highlighted {
+    background: rgba(255, 193, 7, 0.17);
+    box-shadow: inset 3px 0 0 var(--bs-warning);
+}
+
+.base-option-name {
+    min-width: 0;
+    word-break: keep-all;
+}
+
+.base-option-value {
+    flex-shrink: 0;
+    color: var(--bs-danger);
+    text-align: right;
+}
+
+.base-option-empty {
+    color: var(--bs-secondary-color);
+    font-size: 0.8rem;
+}
+
+/* 스킬 및 메모 */
+
+.base-special-box {
+    padding: 0.75rem;
+    border-radius: 0.65rem;
+}
+
+.base-skill-box {
+    border: 1px solid rgba(13, 202, 240, 0.25);
+    background: rgba(13, 202, 240, 0.08);
+}
+
+.base-memo-box {
+    border: 1px solid rgba(220, 53, 69, 0.22);
+    background: rgba(220, 53, 69, 0.07);
+    color: var(--bs-danger);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.base-special-title {
+    margin-bottom: 0.35rem;
+    color: var(--bs-info-text-emphasis);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* 검색 결과 없음 */
+
+.base-empty-state {
+    padding: 4rem 1.5rem;
+    border: 1px dashed var(--bs-border-color);
+    border-radius: 1rem;
+    text-align: center;
+    background: var(--bs-tertiary-bg);
+}
+
+.base-empty-icon {
+    margin-bottom: 0.75rem;
+    font-size: 2.5rem;
+}
+
+/* 모바일 */
+
+@media (max-width: 575.98px) {
+    .base-page-header {
+        padding-top: 0.5rem;
+    }
+
+
+    .base-count-summary {
+        align-self: flex-start;
+    }
+
+    .base-card-image {
+        height: 230px;
+    }
+
+    .base-filter-chip {
+        padding-inline: 0.65rem;
+        font-size: 0.8rem;
+    }
+
+}
+
+/*
+
+* color-mix를 지원하지 않는 구형 브라우저용 기본 처리
+  */
+@supports not (background: color-mix(in srgb,
+        red 10%,
+        transparent)) {
+    .base-filter-chip:hover {
+        opacity: 0.82;
+    }
 }

@@ -3,6 +3,8 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 
+import SupportBanner from "@src/components/template/SupportBanner";
+
 export default function KartzDataViewer() {
 
     const location = useLocation();
@@ -34,6 +36,8 @@ export default function KartzDataViewer() {
                 <LanguageRouterLink to={`/information/kartz/user`} className={getBtnClass("/information/kartz/user")}>유저 히스토리(미구현)</LanguageRouterLink>
             </div> */}
         </div>
+
+        <SupportBanner className="mb-4" />
 
         <hr/>
 

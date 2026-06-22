@@ -2,11 +2,9 @@
     "AttendanceVoteReader": {
         "title": "投票する",
         "level": "レベル",
-        
         "id-label": "投票ID",
         "id-placeholder": "投票固有IDを入力",
         "id-load-btn": "読み込み",
-
         "myinfo-title": "マイ情報",
         "myinfo-nickname": "ニックネーム",
         "myinfo-nickname-placeholder": "ゲーム内のニックネームを入力",
@@ -17,10 +15,8 @@
         "myinfo-job-mm": "メカニック (MM)",
         "myinfo-morale": "気合",
         "myinfo-urgent": "応急施設",
-
         "btn-vote": "投票する",
         "btn-need-choice": "項目を選択すると投票できます",
-
         "message-notfound": "投票が見つかりません",
         "message-require-info": "投票するにはすべての情報を入力してください",
         "message-complete": "投票が完了しました！",
@@ -31,16 +27,15 @@
         "message-nolimit": "制限なし",
         "message-countview": "名が参加中"
     },
-
-    "TopwarSscPointViewer":{
+    "TopwarSscPointViewer": {
         "title": "封印石カオスー暴風覚醒・個人ランキング",
         "label-input": "サーバー",
-        "label-cutoff" : "最低点",
-        "result-count" : "結果数",
-        "result-total" : "ポイント合計",
-        "result-average" : "ポイント平均",
-        "result-iqr-total" : "IQRポイント合計",
-        "result-iqr-average" : "IQRポイント平均",
+        "label-cutoff": "最低点",
+        "result-count": "結果数",
+        "result-total": "ポイント合計",
+        "result-average": "ポイント平均",
+        "result-iqr-total": "IQRポイント合計",
+        "result-iqr-average": "IQRポイント平均",
         "no-result": "検索結果がありません"
     },
     "TopwarDataViewer": {
@@ -53,19 +48,15 @@
         "error-analyze-fail": "AI分析に失敗しました",
         "error-streaming-fail": "通信エラーが発生しました",
         "error-unknown": "不明なエラーが発生しました",
-
         "title": "🤖サーバー分析🌍",
         "server-label": "サーバー",
         "select-default-label": "選択してください",
-
         "ai-on-progress": "AIデータを分析中...",
-
         "result-server-label": "サーバー概要",
         "result-time-label": "調査日時",
         "result-player-label": "プレイヤー",
         "result-alliance-label": "連盟",
         "result-active-score-label": "アクティブ度",
-
         "result-alliance-list-label": "連盟リスト",
         "result-alliance-leader-label": "盟主",
         "result-alliance-power-label": "連盟総戦力",
@@ -74,7 +65,6 @@
         "result-alliance-top80count-label": "80%達成人数",
         "result-alliance-grade-label": "ランク",
         "result-alliance-score-label": "スコア",
-
         "result-player-list-label": "プレイヤーリスト",
         "result-player-all-button": "全連盟",
         "result-player-alliance-column": "所属",
@@ -85,7 +75,6 @@
         "result-player-rank-column": "順位",
         "result-player-login-column": "最終ログイン",
         "result-player-unknown": "不明",
-
         "result-notfound": "データが存在しないサーバーです。"
     },
     "AiEvaluationCard": {
@@ -94,13 +83,11 @@
         "activity-normal": "普通",
         "activity-low": "低下",
         "activity-disabled": "非アクティブ",
-
         "risk-veryhigh": "高リスク",
         "risk-high": "要注意",
         "risk-normal": "普通",
         "risk-low": "低リスク",
         "risk-disabled": "安定",
-        
         "card-title": "サーバー活動評価",
         "card-activity": "活動スコア",
         "card-risk": "リスクスコア",
@@ -111,7 +98,7 @@
     },
     "TopwarPlayerDataViewer": {
         "label-input": "サーバー",
-        "label-nickname" : "ニックネーム",
+        "label-nickname": "ニックネーム",
         "label-total": "総プレイヤー数",
         "label-active": "アクティブプレイヤー",
         "label-pause": "未ログイン(7日以上)",
@@ -149,7 +136,6 @@
         "people-suffix": " 名",
         "server-suffix": " サーバー",
         "server-leader": "指導者",
-
         "label-cutoff": "カウント基準となるCPを設定してください",
         "label-server": "サーバー",
         "label-user": "以上のユーザー数",
@@ -158,20 +144,16 @@
         "label-avgcp": "平均戦力",
         "label-avg": "平均",
         "label-total": "合計",
-
         "label-noserver": "存在しないか、すでに追加済みのサーバー番号です",
-
         "label-copy-ok": "URLをコピーしました",
         "label-copy-nok": "URLのコピーに失敗しました"
     },
-
     "KartzDataViewer": {
-        "monster" : "モンスター図鑑",
-        "rank" : "シーズン順位",
-        "server" : "サーバー履歴"
-    }
-
-    ,"KartzSpecInformation": {
+        "monster": "モンスター図鑑",
+        "rank": "シーズン順位",
+        "server": "サーバー履歴"
+    },
+    "KartzSpecInformation": {
         "title": "カルツの試練：ラウンド別モンスター情報",
         "boss-only": "ボスのみ表示",
         "table-round": "ラウンド",
@@ -183,8 +165,8 @@
         "table-critical": "会心ダメ",
         "table-def": "防御",
         "table-type": "兵種"
-    }
-    ,"KartzRankViewer": {
+    },
+    "KartzRankViewer": {
         "season": "回次",
         "server": "サーバー",
         "user-title-prefix": "ユーザー順位 (計 ",
@@ -197,15 +179,15 @@
         "table-round": "ラウンド",
         "table-alliance": "同盟名",
         "table-score": "スコア"
-    }
-    ,"KartzServerHistoryViewer": {
+    },
+    "KartzServerHistoryViewer": {
         "title-top500-count": "Top 500 人구 분포 (分布)",
         "title-top500-count-y": "人数",
         "title-top500-count-x": "回次",
         "title-top500-round": "Top 500 ラウンド分布 (点線 = 平均)",
         "title-top500-round-y": "ラウンド",
         "title-top500-round-x": "回次",
-        "title-top500-weight": "Top 500 平均対比 가중치 (ウェイト)", 
+        "title-top500-weight": "Top 500 平均対比 가중치 (ウェイト)",
         "title-top500-weight-y": "ウェイト",
         "title-top500-weight-x": "回次",
         "average-label": "全体平均",
@@ -214,12 +196,10 @@
         "recent-all": "全回次",
         "show-others": "他サーバーも表示",
         "error-load-fail": "データの読み込み에 실패했습니다"
-    }
-    
-    ,"SscDashboard": {
+    },
+    "SscDashboard": {
         "title": "サーバー累積ランキング",
         "description": "選択したラウンドまでに獲得したポイントと名誉を合算して累積順位を計算します。",
-
         "primary-server-label": "基準サーバー",
         "server-placeholder": "サーバー番号を入力",
         "compare-server-add-label": "比較サーバーを追加",
@@ -231,19 +211,15 @@
         "remove-compare-server": "サーバー{{server}}を比較から削除",
         "reset-server-button": "基準サーバーを解除",
         "select-server-button": "選択",
-
         "cumulative-round-label": "累積基準ラウンド",
         "round-range": "第1～{{round}}ラウンド",
-
         "compare-server-title": "比較サーバー",
         "compare-server-description": "基準サーバーを含め、必要な数だけサーバーを追加して累積推移を比較できます。",
-
         "cumulative-rank-title": "第1～{{round}}ラウンド累積順位",
         "rank-suffix": "位",
         "cumulative-point": "累積ポイント",
         "cumulative-honor": "累積名誉",
         "ranking-rule": "累積ポイントが同じ場合は、累積名誉が高いサーバーが上位になります。",
-
         "selected-round-rank-title": "第{{round}}ラウンド順位",
         "selected-round-point-title": "第{{round}}ラウンドポイント",
         "selected-round-honor-title": "第{{round}}ラウンド名誉",
@@ -252,109 +228,88 @@
         "round-honor-description": "選択したラウンドで獲得した名誉",
         "rounds-played": "参加ラウンド数",
         "round-basis": "第1～{{round}}ラウンド基準",
-
         "compare-summary-title": "サーバー比較概要",
         "compare-summary-description": "選択したラウンドまでの累積結果を一覧で比較します。",
-
         "server": "サーバー",
         "cumulative-rank": "累積順位",
         "round-rank-short": "ラウンド順位",
         "round-point": "ラウンドポイント",
         "round-honor": "ラウンド名誉",
-
         "round-point-compare-title": "ラウンド別ポイント状況",
         "round-point-compare-description": "第1ラウンドから選択した現在のラウンドまで、基準サーバーと比較サーバーのラウンド別獲得ポイントを表で比較します。",
         "round-point-tooltip-title": "第{{round}}ラウンドポイント",
         "round-number": "第{{round}}ラウンド",
         "total": "合計",
-
         "cumulative-rank-compare-title": "累積順位比較",
         "cumulative-rank-compare-description": "比較サーバーごとの累積順位の変化を表示します。",
-
         "cumulative-point-compare-title": "累積ポイント比較",
         "cumulative-point-compare-description": "ラウンド進行に伴う累積ポイントを比較します。",
-
         "cumulative-honor-compare-title": "累積名誉比較",
         "cumulative-honor-compare-description": "ポイント同点時に順位を決める累積名誉を比較します。",
-
         "round-earned-title": "サーバー{{server}}のラウンド別獲得量",
         "round-earned-description": "基準サーバーが各ラウンドで獲得したポイントと名誉です。",
-
         "cumulative-top-server-title": "第1～{{round}}ラウンド累積上位サーバー",
         "highlight-description": "比較対象として選択したサーバーは固有の色で強調表示されます。",
         "display-count-label": "表示件数",
         "top-count": "上位{{count}}件",
-
         "first-cumulative-rank": "初回の累積順位",
         "no-cumulative-data": "累積データがありません",
         "rank-no-change": "前ラウンドの累積順位と同じ",
         "rank-up": "{{count}}順位上昇",
         "rank-down": "{{count}}順位下降",
-
         "until-round": "第{{round}}ラウンドまで",
         "round-earned-tooltip": "第{{round}}ラウンド獲得量",
         "ranking-tooltip-title": "{{rank}}位・サーバー{{server}}",
         "tooltip-cumulative-point": "累積ポイント：{{value}}",
         "tooltip-cumulative-honor": "累積名誉：{{value}}",
-
         "point": "ポイント",
         "honor": "名誉",
         "round": "ラウンド",
-
         "no-server-selected-title": "サーバーを選択してください",
         "no-server-selected-description": "基準サーバーを選択すると、累積順位と比較結果が表示されます。",
-
         "start-playback": "再生",
         "pause-playback": "一時停止",
         "ranking-range": "{{start}}位～{{end}}位を表示",
-
         "export-gif": "Video を書き出す",
         "exporting-gif": "Video を作成中..."
-    }
-
-
-
-    ,"Developer": {
+    },
+    "Developer": {
         "title": "トップウォーをもう少し便利に",
-        "description": "ゲームデータの分析や繰り返し作業の軽減を目的として作られた個人運営のユーティリティページです。",
-
+        "description": "ゲームデータの分析と繰り返し作業の軽減を目的に作成した個人ユーティリティページです。",
         "badge": "トップウォー ユーティリティ",
         "personal-project": "個人プロジェクト",
-
         "btn-profile": "開発者紹介",
-        "btn-comments": "お問い合わせ・ご意見",
-
+        "btn-contact": "お問い合わせ・支援",
         "notice-personal-title": "個人運営サービス",
-        "notice-personal-description": "個人が開発・運営しているページです。一部の情報はゲーム内の最新情報と異なる場合があります。",
-
-        "notice-feature-title": "機能のご提案歓迎",
-        "notice-feature-description": "必要な機能や改善案がありましたら、ページ下部のコメント欄にお寄せください。",
-
+        "notice-personal-description": "個人が直接開発・運営しているページです。一部の情報はゲーム内の最新情報と異なる場合があります。",
+        "notice-feature-title": "機能提案を歓迎します",
+        "notice-feature-description": "必要な機能や改善案がありましたら、KakaoTalkまたはDiscordでお知らせください。",
         "notice-chat-title": "ゲーム内でのお問い合わせ",
         "notice-chat-description-prefix": "3223サーバーの",
-        "notice-chat-description-suffix": "にチャットを送っていただいても構いません。",
-
+        "notice-chat-description-suffix": "へゲーム内チャットを送ることもできます。",
         "profile-section-label": "開発者",
         "profile-title": "開発者紹介",
         "profile-name": "KID³²²³",
         "profile-server": "サーバー3223",
-        "profile-description": "トップウォーが好きで、シミュレーションや自動化ツールを作っている一般プレイヤーです。",
-
+        "profile-description": "トップウォーが好きで、シミュレーションや自動化ツールを作っている普通のプレイヤーです。",
         "profile-specialty-label": "得意分野",
         "profile-specialty-value": "シミュレーション制作",
         "profile-interest-label": "関心分野",
         "profile-interest-value": "データ分析・自動化",
         "profile-game-server-label": "ゲームサーバー",
         "profile-nickname-label": "ニックネーム",
-
+        "contact-title": "お問い合わせ",
+        "contact-description": "不具合報告や機能の提案は、使いやすい連絡方法からお送りください。",
         "btn-kakao": "KakaoTalkで問い合わせ",
-        "btn-comment": "コメントを残す",
-        "github-required": "コメントの投稿にはGitHubアカウントが必要です。",
-
-        "feedback-label": "フィードバック",
-        "feedback-title": "お問い合わせ・ご意見",
-        "feedback-description": "不具合報告、機能要望、改善案などを自由にお寄せください。",
-
+        "btn-discord": "Discordでメッセージ",
+        "support-note": "これらのツールをこれからも無料で提供できるよう、ご支援をお願いします。",
+        "btn-support": "☕ 支援する",
         "image-alt": "KID開発者プロフィール"
+    },
+    "SupportBanner": {
+        "label": "無料ツールの運営",
+        "title": "このツールは役に立ちましたか？",
+        "message": "このツールをこれからも無料で提供できるよう、ご支援をお願いします。",
+        "button": "☕ 開発を支援する"
     }
 }

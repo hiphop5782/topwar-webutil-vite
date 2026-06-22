@@ -2,11 +2,9 @@
     "AttendanceVoteReader": {
         "title": "Cast Your Vote",
         "level": "Level",
-        
         "id-label": "Vote ID",
         "id-placeholder": "Enter Unique Vote ID",
         "id-load-btn": "Load",
-
         "myinfo-title": "My Profile",
         "myinfo-nickname": "Nickname",
         "myinfo-nickname-placeholder": "Enter your in-game nickname",
@@ -17,10 +15,8 @@
         "myinfo-job-mm": "Mechanical Master (MM)",
         "myinfo-morale": "Morale",
         "myinfo-urgent": "Urgent Medical",
-
         "btn-vote": "Vote Now",
         "btn-need-choice": "Please select an option to vote",
-
         "message-notfound": "Vote not found",
         "message-require-info": "Please complete your profile to participate in the vote",
         "message-complete": "Vote submitted successfully!",
@@ -31,7 +27,6 @@
         "message-nolimit": "No Limit",
         "message-countview": "Participants"
     },
-
     "TopwarDataViewer": {
         "btn-player-data": "Player Data",
         "btn-server-data": "Server Data",
@@ -42,19 +37,15 @@
         "error-analyze-fail": "AI analysis failed.",
         "error-streaming-fail": "Streaming error.",
         "error-unknown": "Unknown error.",
-
         "title": "🤖Server AI🌍",
         "server-label": "Server",
         "select-default-label": "Select",
-
         "ai-on-progress": "AI analyzing server data...",
-
         "result-server-label": "Server Info",
         "result-time-label": "Scanned At",
         "result-player-label": "Players",
         "result-alliance-label": "Alliances",
         "result-active-score-label": "Activity Index",
-
         "result-alliance-list-label": "Alliances",
         "result-alliance-leader-label": "Leader",
         "result-alliance-power-label": "Alliance CP",
@@ -63,7 +54,6 @@
         "result-alliance-top80count-label": "80% Reach",
         "result-alliance-grade-label": "Grade",
         "result-alliance-score-label": "Score",
-
         "result-player-list-label": "Players",
         "result-player-all-button": "All Alliances",
         "result-player-alliance-column": "Alliance",
@@ -74,7 +64,6 @@
         "result-player-rank-column": "Rank",
         "result-player-login-column": "Last Login",
         "result-player-unknown": "Unknown",
-
         "result-notfound": "No data available for this server."
     },
     "AiEvaluationCard": {
@@ -83,13 +72,11 @@
         "activity-normal": "Normal",
         "activity-low": "Low",
         "activity-disabled": "Inactive",
-
         "risk-veryhigh": "High Risk",
         "risk-high": "Warning",
         "risk-normal": "Normal",
         "risk-low": "Low",
         "risk-disabled": "Stable",
-        
         "card-title": "Server Activity Report",
         "card-activity": "Activity Score",
         "card-risk": "Risk Score",
@@ -101,17 +88,17 @@
     "TopwarSscPointViewer": {
         "title": "Seal Stone Chaos Anlyzer",
         "label-input": "Server",
-        "label-cutoff" : "Minimum Score",
-        "result-count" : "Count",
-        "result-total" : "Total Points",
-        "result-average" : "Average Points",
-        "result-iqr-total" : "Total IQR Points",
-        "result-iqr-average" : "Average IQR Points",
+        "label-cutoff": "Minimum Score",
+        "result-count": "Count",
+        "result-total": "Total Points",
+        "result-average": "Average Points",
+        "result-iqr-total": "Total IQR Points",
+        "result-iqr-average": "Average IQR Points",
         "no-result": "No results found"
     },
     "TopwarPlayerDataViewer": {
         "label-input": "Server",
-        "label-nickname" : "Nickname",
+        "label-nickname": "Nickname",
         "label-total": "Total Players",
         "label-active": "Active Players",
         "label-pause": "Inactive (7d+)",
@@ -149,7 +136,6 @@
         "people-suffix": " Players",
         "server-suffix": " Server",
         "server-leader": "Leader",
-
         "label-cutoff": "Set minimum CP to count users",
         "label-server": "Server",
         "label-user": "Users Above Threshold",
@@ -158,20 +144,16 @@
         "label-avgcp": "Avg CP",
         "label-avg": "Average",
         "label-total": "Total",
-
         "label-noserver": "Server ID does not exist or has already been added",
-
         "label-copy-ok": "URL copied to clipboard",
         "label-copy-nok": "Failed to copy URL"
     },
-
     "KartzDataViewer": {
-        "monster" : "Monster Database",
-        "rank" : "Round Rankings",
-        "server" : "Server History"
-    }
-
-    ,"KartzSpecInformation": {
+        "monster": "Monster Database",
+        "rank": "Round Rankings",
+        "server": "Server History"
+    },
+    "KartzSpecInformation": {
         "title": "Kartz's Trial: Monster Info by Round",
         "boss-only": "Boss Rounds Only",
         "table-round": "Round",
@@ -183,8 +165,8 @@
         "table-critical": "Crit DMG",
         "table-def": "DEF",
         "table-type": "Type"
-    }
-    ,"KartzRankViewer": {
+    },
+    "KartzRankViewer": {
         "season": "Season",
         "server": "Server",
         "user-title-prefix": "User Rankings (Total: ",
@@ -197,16 +179,15 @@
         "table-round": "Round",
         "table-alliance": "Alliance",
         "table-score": "Score"
-    }
-
-    ,"KartzServerHistoryViewer": {
+    },
+    "KartzServerHistoryViewer": {
         "title-top500-count": "Top 500 Population Distribution",
         "title-top500-count-y": "Players",
         "title-top500-count-x": "Season",
         "title-top500-round": "Top 500 Round Distribution (Dashed = Avg.)",
         "title-top500-round-y": "Round",
         "title-top500-round-x": "Season",
-        "title-top500-weight": "Top 500 Weight vs. Average", 
+        "title-top500-weight": "Top 500 Weight vs. Average",
         "title-top500-weight-y": "Weight",
         "title-top500-weight-x": "Season",
         "average-label": "Global Average",
@@ -215,12 +196,10 @@
         "recent-all": "All Seasons",
         "show-others": "Show Other Servers",
         "error-load-fail": "Failed to load data"
-    }
-    
-    ,"SscDashboard": {
+    },
+    "SscDashboard": {
         "title": "Cumulative Server Ranking",
         "description": "Calculates cumulative rankings by adding points and honor earned through the selected round.",
-
         "primary-server-label": "Primary server",
         "server-placeholder": "Enter server number",
         "compare-server-add-label": "Add comparison server",
@@ -232,19 +211,15 @@
         "remove-compare-server": "Remove server {{server}} from comparison",
         "reset-server-button": "Clear primary server",
         "select-server-button": "Select",
-
         "cumulative-round-label": "Cumulative round",
         "round-range": "Rounds 1–{{round}}",
-
         "compare-server-title": "Comparison servers",
         "compare-server-description": "Add as many servers as needed, including the primary server, to compare cumulative trends.",
-
         "cumulative-rank-title": "Cumulative ranking through round {{round}}",
         "rank-suffix": "",
         "cumulative-point": "Cumulative points",
         "cumulative-honor": "Cumulative honor",
         "ranking-rule": "When cumulative points are tied, the server with more cumulative honor ranks higher.",
-
         "selected-round-rank-title": "Round {{round}} ranking",
         "selected-round-point-title": "Round {{round}} points",
         "selected-round-honor-title": "Round {{round}} honor",
@@ -253,108 +228,88 @@
         "round-honor-description": "Honor earned in the selected round",
         "rounds-played": "Rounds played",
         "round-basis": "Based on rounds 1–{{round}}",
-
         "compare-summary-title": "Server comparison summary",
         "compare-summary-description": "Compare cumulative results through the selected round at a glance.",
-
         "server": "Server",
         "cumulative-rank": "Cumulative rank",
         "round-rank-short": "Round rank",
         "round-point": "Round points",
         "round-honor": "Round honor",
-
         "round-point-compare-title": "Points by Round",
         "round-point-compare-description": "Compares the points earned by the primary and comparison servers in each round from round 1 through the selected round.",
         "round-point-tooltip-title": "Round {{round}} points",
         "round-number": "Round {{round}}",
         "total": "Total",
-
         "cumulative-rank-compare-title": "Cumulative rank comparison",
         "cumulative-rank-compare-description": "Shows changes in cumulative ranking for the selected servers.",
-
         "cumulative-point-compare-title": "Cumulative points comparison",
         "cumulative-point-compare-description": "Compares cumulative points as rounds progress.",
-
         "cumulative-honor-compare-title": "Cumulative honor comparison",
         "cumulative-honor-compare-description": "Compares cumulative honor, which breaks ties in points.",
-
         "round-earned-title": "Server {{server}} earnings by round",
         "round-earned-description": "Points and honor earned by the primary server in each round.",
-
         "cumulative-top-server-title": "Top cumulative servers through round {{round}}",
         "highlight-description": "Servers selected for comparison are highlighted with unique colors.",
         "display-count-label": "Number to display",
         "top-count": "Top {{count}}",
-
         "first-cumulative-rank": "First cumulative ranking",
         "no-cumulative-data": "No cumulative data",
         "rank-no-change": "No change from the previous cumulative ranking",
         "rank-up": "Up {{count}} places",
         "rank-down": "Down {{count}} places",
-
         "until-round": "Through round {{round}}",
         "round-earned-tooltip": "Round {{round}} earnings",
         "ranking-tooltip-title": "Rank {{rank}} · Server {{server}}",
         "tooltip-cumulative-point": "Cumulative points: {{value}}",
         "tooltip-cumulative-honor": "Cumulative honor: {{value}}",
-
         "point": "Points",
         "honor": "Honor",
         "round": "Round",
-
         "no-server-selected-title": "Select a server",
         "no-server-selected-description": "Select a primary server to view cumulative rankings and comparison results.",
-
         "start-playback": "Play",
         "pause-playback": "Pause",
         "ranking-range": "Showing ranks {{start}}–{{end}}",
-
         "export-video": "Export video",
         "exporting-video": "Creating video..."
-    }
-
-
-    ,"Developer": {
+    },
+    "Developer": {
         "title": "Making Top War a Little Easier",
-        "description": "A personal utility page built to analyze game data and reduce repetitive tasks.",
-
-        "badge": "Top War Utility",
-        "personal-project": "Personal project",
-
+        "description": "A personal utility page created to analyze game data and reduce repetitive tasks.",
+        "badge": "Top War Utilities",
+        "personal-project": "Personal Project",
         "btn-profile": "About the Developer",
-        "btn-comments": "Leave Feedback",
-
+        "btn-contact": "Contact & Support",
         "notice-personal-title": "Independently Operated",
-        "notice-personal-description": "This website is developed and operated by an individual. Some information may not always reflect the latest in-game data.",
-
+        "notice-personal-description": "This website is independently developed and maintained. Some information may differ from the latest in-game data.",
         "notice-feature-title": "Feature Suggestions Welcome",
-        "notice-feature-description": "Please leave a comment below if you have a feature request or improvement suggestion.",
-
-        "notice-chat-title": "In-game Contact",
-        "notice-chat-description-prefix": "You can also send a message to",
-        "notice-chat-description-suffix": "on server 3223.",
-
+        "notice-feature-description": "Send your feature requests or improvement suggestions through KakaoTalk or Discord.",
+        "notice-chat-title": "In-Game Contact",
+        "notice-chat-description-prefix": "You can also send an in-game message to",
+        "notice-chat-description-suffix": "on Server 3223.",
         "profile-section-label": "Developer",
         "profile-title": "About the Developer",
         "profile-name": "KID³²²³",
         "profile-server": "Server 3223",
-        "profile-description": "An ordinary Top War player who enjoys building simulations and automation tools.",
-
+        "profile-description": "Just a regular Top War player who enjoys building simulation and automation tools.",
         "profile-specialty-label": "Specialty",
         "profile-specialty-value": "Simulation Development",
-        "profile-interest-label": "Interests",
+        "profile-interest-label": "Areas of Interest",
         "profile-interest-value": "Data Analysis · Automation",
         "profile-game-server-label": "Game Server",
         "profile-nickname-label": "Nickname",
-
-        "btn-kakao": "Contact via KakaoTalk",
-        "btn-comment": "Leave a Comment",
-        "github-required": "A GitHub account is required to post a comment.",
-
-        "feedback-label": "Feedback",
-        "feedback-title": "Questions and Feedback",
-        "feedback-description": "Feel free to report errors, request features, or suggest improvements.",
-
+        "contact-title": "Contact",
+        "contact-description": "Send bug reports or feature suggestions through whichever channel is most convenient.",
+        "btn-kakao": "Contact on KakaoTalk",
+        "btn-discord": "Message on Discord",
+        "support-note": "Help keep these tools free for everyone.",
+        "btn-support": "☕ Support",
         "image-alt": "KID developer profile"
+    },
+    "SupportBanner": {
+        "label": "Supporting Free Tools",
+        "title": "Did this tool help you?",
+        "message": "Help keep this tool free for everyone.",
+        "button": "☕ Support Development"
     }
 }

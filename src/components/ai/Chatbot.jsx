@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { allowedPaths } from "../../ai/actionRegistry";
 
 import "./Chatbot.css";
+import SupportBanner from "@src/components/template/SupportBanner";
 
 export default function Chatbot() {
     const { runAction } = useChatActions();
@@ -321,7 +322,12 @@ export default function Chatbot() {
                             >
                                 <FaXmark />
                             </button>
+
+                                
                         </header>
+                        <div className="p-2">
+                            <SupportBanner/>
+                        </div>
 
                         <div
                             className="chatbot-body"
@@ -413,6 +419,7 @@ export default function Chatbot() {
                                 열기/닫기
                             </span>
                         </div>
+                        
                     </section>
                 </div>
             )}
