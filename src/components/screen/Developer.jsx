@@ -338,21 +338,21 @@ function Developer() {
                                             )}
                                         </a>
 
-                                        <a
+                                        {/* <a
                                             href="#developer-comments"
                                             className="btn btn-outline-secondary px-4"
                                         >
                                             {t(
                                                 "Developer.btn-comment"
                                             )}
-                                        </a>
+                                        </a> */}
                                     </div>
 
-                                    <p className="small text-secondary mt-3 mb-0">
+                                    {/* <p className="small text-secondary mt-3 mb-0">
                                         {t(
                                             "Developer.github-required"
                                         )}
-                                    </p>
+                                    </p> */}
                                 </div>
                             </div>
                         </div>
@@ -361,7 +361,7 @@ function Developer() {
             </section>
 
             {/* 댓글 영역 */}
-            <section
+            {/* <section
                 id="developer-comments"
                 className="pt-4 border-top"
             >
@@ -390,7 +390,7 @@ function Developer() {
                         <UtterancesComments />
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 }
