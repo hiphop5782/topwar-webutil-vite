@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+  # GitHub Actions 화면에서 수동 실행도 허용
+  workflow_dispatch:
+
 permissions:
   contents: write
 
@@ -17,30 +20,92 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 저장소 코드 가져오기
       - name: Checkout source
         uses: actions/checkout@v6
 
+      # Node.js 설치 및 npm 캐시 적용
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: npm
 
+      # Puppeteer가 설치한 Chrome 캐시 복원
+      - name: Restore Puppeteer browser cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            puppeteer-${{ runner.os }}-
+
+      # GitHub Secret에 저장한 운영 환경변수 파일 생성
       - name: Create .env.production file
         shell: bash
         run: |
           printf '%s' '${{ secrets.ENV_PRODUCTION }}' > .env.production
 
+      # package-lock.json 기준으로 의존성 설치
+      # 이 과정에서 Puppeteer용 Chrome도 설치됨
       - name: Install dependencies
+        env:
+          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
         run: npm ci
 
-      - name: Build project
+      # Vite 빌드 + Puppeteer 프리렌더
+      # package.json의 build 명령에 따라
+      # scripts/copy-default-page.mjs도 이어서 실행됨
+      - name: Build and prerender project
         env:
           CI: false
+          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
+        run: npm run build
+
+      # 기본 프리렌더 결과 검증
+      - name: Verify prerendered pages
+        shell: bash
         run: |
-          npm run build
+          set -e
+
+          echo "프리렌더 생성 파일을 확인합니다."
+
+          test -f dist/index.html
+          test -f dist/ko/index.html
+          test -f dist/en/index.html
+          test -f dist/ja/index.html
+
+          echo "루트 요소에 정적 콘텐츠가 포함됐는지 확인합니다."
+
+          grep -q '<div id="root"><div' dist/index.html
+          grep -q '<div id="root"><div' dist/ko/index.html
+          grep -q '<div id="root"><div' dist/en/index.html
+          grep -q '<div id="root"><div' dist/ja/index.html
+
+          echo "한국어 페이지에 번역 키가 남아 있는지 확인합니다."
+
+          if grep -E \
+            'Developer\.title|info\.label|calculator\.label' \
+            dist/ko/index.html
+          then
+            echo "한국어 프리렌더 결과에 번역되지 않은 키가 남아 있습니다."
+            exit 1
+          fi
+
+          echo "프리렌더 결과 검증 완료"
+
+      # GitHub Pages가 빈 폴더를 무시하지 않도록 설정
+      - name: Create nojekyll file
+        shell: bash
+        run: touch dist/.nojekyll
+
+      # 기존 강제 재배포용 주석 유지
+      - name: Force deployment update
+        shell: bash
+        run: |
           echo "<!-- force redeploy $(date -u) -->" >> dist/index.html
 
+      # dist 폴더를 gh-pages 브랜치로 배포
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -48,3 +113,4 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages
           cname: www.progamer.info
+
