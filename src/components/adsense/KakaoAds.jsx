@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function KakaoAds({ id , width , height }) {
+export default function KakaoAds({ id , width=160 , height=600 }) {
     //ref
     const adRef = useRef(null);
 
