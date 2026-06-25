@@ -213,8 +213,7 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/value-pack`}>{t(`menu:calculator.sub.store`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/cost`}>
-                                    {/* {t(`menu:calculator.sub.cost`)} */}
-                                    비용(테스트)
+                                    {t(`menu:calculator.sub.costs`)}
                                 </LanguageRouterLink>
                                 {/* <a className="dropdown-item">Separated link</a> */}
                             </div>
