@@ -18,6 +18,7 @@ import Developer from '@src/components/screen/Developer';
 import EternalLand from "@src/components/screen/information/el/EternalLand";
 import AccountViewer from "@src/components/screen/trade/AccountViewer";
 import AccountCreator from "@src/components/screen/trade/AccountCreator";
+import AccountProfilePage from "@src/components/screen/trade/account-profile/AccountProfilePage";
 import TopwarSlotMachine from "@src/components/screen/simulator/TopwarSlotMachine";
 import LuckyBox from "@src/components/screen/simulator/LuckyBox";
 import KartzStatistics from "@src/components/screen/information/KartzStatistics";
@@ -138,6 +139,7 @@ export default function MainContentView() {
                     <Route path="emoji/list" element={<LegacyEmoji />}></Route>
                     {/* <Route path="/blog" element={<Blog />}></Route> */}
                     <Route path="account/viewer" element={<AccountViewer/>}></Route>
+                    <Route path="account/profile" element={<AccountProfilePage/>}></Route>
                     <Route path="account/creator" element={
                         <RecoilRoot>
                             <AccountCreator/>
