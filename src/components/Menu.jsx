@@ -247,13 +247,14 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/history/ssc-2026`}>{t(`menu:history.sub.ssc2026`)}</LanguageRouterLink>
                             </div>
                         </li>
-                        {/* <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:account.label`)} (구현중)</a>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계정</a>
                             <div className="dropdown-menu">
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/profile`}>계정 프로필</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu:account.sub.viewer`)} (구현중)</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu:account.sub.creator`)} (구현중)</LanguageRouterLink>
                             </div>
-                        </li> */}
+                        </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:vote.label`)}</a>
                             <div className="dropdown-menu">
