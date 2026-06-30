@@ -1,0 +1,1544 @@
+<!DOCTYPE html><html lang="ko"><head><style type="text/css">:root{--toastify-color-light: #fff;--toastify-color-dark: #121212;--toastify-color-info: #3498db;--toastify-color-success: #07bc0c;--toastify-color-warning: #f1c40f;--toastify-color-error: hsl(6, 78%, 57%);--toastify-color-transparent: rgba(255, 255, 255, .7);--toastify-icon-color-info: var(--toastify-color-info);--toastify-icon-color-success: var(--toastify-color-success);--toastify-icon-color-warning: var(--toastify-color-warning);--toastify-icon-color-error: var(--toastify-color-error);--toastify-container-width: fit-content;--toastify-toast-width: 320px;--toastify-toast-offset: 16px;--toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));--toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));--toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));--toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));--toastify-toast-background: #fff;--toastify-toast-padding: 14px;--toastify-toast-min-height: 64px;--toastify-toast-max-height: 800px;--toastify-toast-bd-radius: 6px;--toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);--toastify-font-family: sans-serif;--toastify-z-index: 9999;--toastify-text-color-light: #757575;--toastify-text-color-dark: #fff;--toastify-text-color-info: #fff;--toastify-text-color-success: #fff;--toastify-text-color-warning: #fff;--toastify-text-color-error: #fff;--toastify-spinner-color: #616161;--toastify-spinner-color-empty-area: #e0e0e0;--toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);--toastify-color-progress-dark: #bb86fc;--toastify-color-progress-info: var(--toastify-color-info);--toastify-color-progress-success: var(--toastify-color-success);--toastify-color-progress-warning: var(--toastify-color-warning);--toastify-color-progress-error: var(--toastify-color-error);--toastify-color-progress-bgo: .2}.Toastify__toast-container{z-index:var(--toastify-z-index);-webkit-transform:translate3d(0,0,var(--toastify-z-index));position:fixed;width:var(--toastify-container-width);box-sizing:border-box;color:#fff;display:flex;flex-direction:column}.Toastify__toast-container--top-left{top:var(--toastify-toast-top);left:var(--toastify-toast-left)}.Toastify__toast-container--top-center{top:var(--toastify-toast-top);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--top-right{top:var(--toastify-toast-top);right:var(--toastify-toast-right);align-items:end}.Toastify__toast-container--bottom-left{bottom:var(--toastify-toast-bottom);left:var(--toastify-toast-left)}.Toastify__toast-container--bottom-center{bottom:var(--toastify-toast-bottom);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--bottom-right{bottom:var(--toastify-toast-bottom);right:var(--toastify-toast-right);align-items:end}.Toastify__toast{--y: 0;position:relative;touch-action:none;width:var(--toastify-toast-width);min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:var(--toastify-toast-padding);border-radius:var(--toastify-toast-bd-radius);box-shadow:var(--toastify-toast-shadow);max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);z-index:0;display:flex;flex:1 auto;align-items:center;word-break:break-word}@media only screen and (max-width: 480px){.Toastify__toast-container{width:100vw;left:env(safe-area-inset-left);margin:0}.Toastify__toast-container--top-left,.Toastify__toast-container--top-center,.Toastify__toast-container--top-right{top:env(safe-area-inset-top);transform:translate(0)}.Toastify__toast-container--bottom-left,.Toastify__toast-container--bottom-center,.Toastify__toast-container--bottom-right{bottom:env(safe-area-inset-bottom);transform:translate(0)}.Toastify__toast-container--rtl{right:env(safe-area-inset-right);left:initial}.Toastify__toast{--toastify-toast-width: 100%;margin-bottom:0;border-radius:0}}.Toastify__toast-container[data-stacked=true]{width:var(--toastify-toast-width)}.Toastify__toast--stacked{position:absolute;width:100%;transform:translate3d(0,var(--y),0) scale(var(--s));transition:transform .3s}.Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,.Toastify__toast--stacked[data-collapsed] .Toastify__close-button{transition:opacity .1s}.Toastify__toast--stacked[data-collapsed=false]{overflow:visible}.Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>*{opacity:0}.Toastify__toast--stacked:after{content:"";position:absolute;left:0;right:0;height:calc(var(--g) * 1px);bottom:100%}.Toastify__toast--stacked[data-pos=top]{top:0}.Toastify__toast--stacked[data-pos=bot]{bottom:0}.Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before{transform-origin:top}.Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before{transform-origin:bottom}.Toastify__toast--stacked:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;transform:scaleY(3);z-index:-1}.Toastify__toast--rtl{direction:rtl}.Toastify__toast--close-on-click{cursor:pointer}.Toastify__toast-icon{margin-inline-end:10px;width:22px;flex-shrink:0;display:flex}.Toastify--animate{animation-fill-mode:both;animation-duration:.5s}.Toastify--animate-icon{animation-fill-mode:both;animation-duration:.3s}.Toastify__toast-theme--dark{background:var(--toastify-color-dark);color:var(--toastify-text-color-dark)}.Toastify__toast-theme--light,.Toastify__toast-theme--colored.Toastify__toast--default{background:var(--toastify-color-light);color:var(--toastify-text-color-light)}.Toastify__toast-theme--colored.Toastify__toast--info{color:var(--toastify-text-color-info);background:var(--toastify-color-info)}.Toastify__toast-theme--colored.Toastify__toast--success{color:var(--toastify-text-color-success);background:var(--toastify-color-success)}.Toastify__toast-theme--colored.Toastify__toast--warning{color:var(--toastify-text-color-warning);background:var(--toastify-color-warning)}.Toastify__toast-theme--colored.Toastify__toast--error{color:var(--toastify-text-color-error);background:var(--toastify-color-error)}.Toastify__progress-bar-theme--light{background:var(--toastify-color-progress-light)}.Toastify__progress-bar-theme--dark{background:var(--toastify-color-progress-dark)}.Toastify__progress-bar--info{background:var(--toastify-color-progress-info)}.Toastify__progress-bar--success{background:var(--toastify-color-progress-success)}.Toastify__progress-bar--warning{background:var(--toastify-color-progress-warning)}.Toastify__progress-bar--error{background:var(--toastify-color-progress-error)}.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--error{background:var(--toastify-color-transparent)}.Toastify__close-button{color:#fff;position:absolute;top:6px;right:6px;background:transparent;outline:none;border:none;padding:0;cursor:pointer;opacity:.7;transition:.3s ease;z-index:1}.Toastify__toast--rtl .Toastify__close-button{left:6px;right:unset}.Toastify__close-button--light{color:#000;opacity:.3}.Toastify__close-button>svg{fill:currentColor;height:16px;width:14px}.Toastify__close-button:hover,.Toastify__close-button:focus{opacity:1}@keyframes Toastify__trackProgress{0%{transform:scaleX(1)}to{transform:scaleX(0)}}.Toastify__progress-bar{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:1;opacity:.7;transform-origin:left}.Toastify__progress-bar--animated{animation:Toastify__trackProgress linear 1 forwards}.Toastify__progress-bar--controlled{transition:transform .2s}.Toastify__progress-bar--rtl{right:0;left:initial;transform-origin:right;border-bottom-left-radius:initial}.Toastify__progress-bar--wrp{position:absolute;overflow:hidden;bottom:0;left:0;width:100%;height:5px;border-bottom-left-radius:var(--toastify-toast-bd-radius);border-bottom-right-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp[data-hidden=true]{opacity:0}.Toastify__progress-bar--bg{opacity:var(--toastify-color-progress-bgo);width:100%;height:100%}.Toastify__spinner{width:20px;height:20px;box-sizing:border-box;border:2px solid;border-radius:100%;border-color:var(--toastify-spinner-color-empty-area);border-right-color:var(--toastify-spinner-color);animation:Toastify__spin .65s linear infinite}@keyframes Toastify__bounceInRight{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutRight{20%{opacity:1;transform:translate3d(-20px,var(--y),0)}to{opacity:0;transform:translate3d(2000px,var(--y),0)}}@keyframes Toastify__bounceInLeft{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutLeft{20%{opacity:1;transform:translate3d(20px,var(--y),0)}to{opacity:0;transform:translate3d(-2000px,var(--y),0)}}@keyframes Toastify__bounceInUp{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}to{transform:translateZ(0)}}@keyframes Toastify__bounceOutUp{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes Toastify__bounceInDown{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}to{transform:none}}@keyframes Toastify__bounceOutDown{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,2000px,0)}}.Toastify__bounce-enter--top-left,.Toastify__bounce-enter--bottom-left{animation-name:Toastify__bounceInLeft}.Toastify__bounce-enter--top-right,.Toastify__bounce-enter--bottom-right{animation-name:Toastify__bounceInRight}.Toastify__bounce-enter--top-center{animation-name:Toastify__bounceInDown}.Toastify__bounce-enter--bottom-center{animation-name:Toastify__bounceInUp}.Toastify__bounce-exit--top-left,.Toastify__bounce-exit--bottom-left{animation-name:Toastify__bounceOutLeft}.Toastify__bounce-exit--top-right,.Toastify__bounce-exit--bottom-right{animation-name:Toastify__bounceOutRight}.Toastify__bounce-exit--top-center{animation-name:Toastify__bounceOutUp}.Toastify__bounce-exit--bottom-center{animation-name:Toastify__bounceOutDown}@keyframes Toastify__zoomIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes Toastify__zoomOut{0%{opacity:1}50%{opacity:0;transform:translate3d(0,var(--y),0) scale3d(.3,.3,.3)}to{opacity:0}}.Toastify__zoom-enter{animation-name:Toastify__zoomIn}.Toastify__zoom-exit{animation-name:Toastify__zoomOut}@keyframes Toastify__flipIn{0%{transform:perspective(400px) rotateX(90deg);animation-timing-function:ease-in;opacity:0}40%{transform:perspective(400px) rotateX(-20deg);animation-timing-function:ease-in}60%{transform:perspective(400px) rotateX(10deg);opacity:1}80%{transform:perspective(400px) rotateX(-5deg)}to{transform:perspective(400px)}}@keyframes Toastify__flipOut{0%{transform:translate3d(0,var(--y),0) perspective(400px)}30%{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(-20deg);opacity:1}to{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(90deg);opacity:0}}.Toastify__flip-enter{animation-name:Toastify__flipIn}.Toastify__flip-exit{animation-name:Toastify__flipOut}@keyframes Toastify__slideInRight{0%{transform:translate3d(110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInLeft{0%{transform:translate3d(-110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInUp{0%{transform:translate3d(0,110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInDown{0%{transform:translate3d(0,-110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideOutRight{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(110%,var(--y),0)}}@keyframes Toastify__slideOutLeft{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(-110%,var(--y),0)}}@keyframes Toastify__slideOutDown{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,500px,0)}}@keyframes Toastify__slideOutUp{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,-500px,0)}}.Toastify__slide-enter--top-left,.Toastify__slide-enter--bottom-left{animation-name:Toastify__slideInLeft}.Toastify__slide-enter--top-right,.Toastify__slide-enter--bottom-right{animation-name:Toastify__slideInRight}.Toastify__slide-enter--top-center{animation-name:Toastify__slideInDown}.Toastify__slide-enter--bottom-center{animation-name:Toastify__slideInUp}.Toastify__slide-exit--top-left,.Toastify__slide-exit--bottom-left{animation-name:Toastify__slideOutLeft;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-right,.Toastify__slide-exit--bottom-right{animation-name:Toastify__slideOutRight;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-center{animation-name:Toastify__slideOutUp;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-center{animation-name:Toastify__slideOutDown;animation-timing-function:ease-in;animation-duration:.3s}@keyframes Toastify__spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+  <meta charset="UTF-8">
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LKC9791ZJB&amp;cx=c&amp;gtm=4e66q0"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9&amp;cx=c&amp;gtm=4e66q0"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MKHJT6LZ"></script><script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MKHJT6LZ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-ZGZ1GRHTM9');
+  </script>
+
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
+  <title>Topwar Helper</title>
+  <script type="module" crossorigin="" src="/assets/index-BWQ0WqhT.js"></script>
+  <link rel="stylesheet" crossorigin="" href="/assets/index-DC5aaTHQ.css">
+<style></style><style></style><style></style><style></style><style></style><style></style><style></style><style></style><script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-LKC9791ZJB" async=""></script></head>
+
+<body>
+  <div id="root"><div class="container-fluid mt-5 pt-4"><nav class="navbar navbar-expand-lg app-navbar fixed-top"><div class="container-fluid"><a class="navbar-brand" href="/ko">Topwar Helper</a><button class="navbar-toggler" type="button" aria-controls="navbarColor01" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarColor01"><ul class="navbar-nav me-auto"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정보</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/information/base">기지 정보</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/information/job">전문 직업 강화</a><a class="dropdown-item" href="/ko/information/el">영원의 땅</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/information/data">서버 및 유저 정보</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/information/kartz">카르츠의 시험</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/information/realpower">서버 지도 분석기(AI)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계산기</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/calculator/vital">체력 회복 속도 계산기</a><a class="dropdown-item" href="/ko/calculator/skill">전속 조각 수량 계산기</a><a class="dropdown-item" href="/ko/calculator/value-pack">특별 패키지 단가 계산기</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/calculator/cost">비용 계산기</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">시뮬레이터</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/simulator/titan-research">타이탄 제작</a><a class="dropdown-item" href="/ko/simulator/titan-refine">타이탄 재련</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/simulator/formation-perk">군진 특성</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/simulator/random">랜덤 추첨기</a><a class="dropdown-item" href="/ko/simulator/slot">탑워 슬롯머신 게임</a><a class="dropdown-item" href="/ko/simulator/luckybox">행운상자 게임</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/simulator/lotto">로또생성기</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">이모티콘</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/emoji/create">신규 이모티콘 생성</a><a class="dropdown-item" href="/ko/emoji/list">탑워 이모티콘 목록</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">기록</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/history/ssc-2026">봉인석 전장(2026)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계정</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/account/profile">계정 프로필</a><a class="dropdown-item" href="/ko/account/viewer">계정뷰어 (구현중)</a><a class="dropdown-item" href="/ko/account/creator">홍보화면생성 (구현중)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">투표</a><div class="dropdown-menu"><a class="dropdown-item" href="/ko/vote/create">투표 생성</a><a class="dropdown-item" href="/ko/vote/cast">투표 참여</a><a class="dropdown-item" href="/ko/vote/manage">투표 관리</a></div></li><li class="nav-item"><a class="nav-link" href="/ko/post">공략</a></li><div class="dropdown ms-lg-2 mt-2 mt-lg-0"><button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"><span class="fi fi-kr me-2"></span>KO</button><ul class="dropdown-menu dropdown-menu-dark shadow"><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-kr me-2"></span> 한국어</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-us me-2"></span> English</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-jp me-2"></span> 日本語</button></li></ul></div></ul></div></div></nav><div class="row mb-5 pb-5"><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-2TYGu5OktHTg0aW6" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div><div class="col-md-8"><div class="row mb-4"><div class="col d-flex justify-content-center align-items-center"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-lZUjWtUlP8hglGID" data-ad-width="320" data-ad-height="50" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><div class="container-fluid p-0"><div class="sticky-top bg-white border-bottom shadow-sm" style="top: 56px; z-index: 1020;"><div class="container-fluid py-2" style="max-width: 1000px;"><div class="d-flex justify-content-between align-items-center px-3"><h5 class="fw-bold m-0 text-truncate text-start" style="max-width: 60%;">2026년 6월 서버 티어와 EL 예측</h5><div class="d-flex gap-2 flex-shrink-0"><a class="btn btn-sm btn-outline-secondary" href="/ko/post/2026-05-10-001-Storm-eye-battle"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path></svg></a><a class="btn btn-sm btn-outline-dark px-3" href="/ko/post"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z"></path></svg></a><a class="btn btn-sm btn-outline-secondary" href="/ko/post/9999-99-99-001-Heavy-Motership"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path></svg></a></div></div></div><div style="width: 100%; height: 4px; background-color: rgba(0, 0, 0, 0.05);"><div style="width: 0%; height: 100%; background: linear-gradient(90deg, rgb(79, 172, 254) 0%, rgb(0, 242, 254) 100%); transition: width 0.1s ease-out;"></div></div></div><div class="container-fluid my-5" style="max-width: 900px;"><div class="markdown-body text-start px-3"><p><img src="http://127.0.0.1:8000/assets/%EC%98%81%EC%9B%90%EC%9D%98%EB%8F%84%EC%8B%9C-DnESHBVr.png" alt="영원의도시" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<h1 id="서버-티어-산정">서버 티어 산정</h1>
+<p>기존에 조사한 데이터를 이용해 서버별 구조강도와 전투성과를 결합한 종합 강도를 계산했습니다.</p>
+<p><strong>이 결과는 공식 데이터나 실제 매칭 규칙이 아니며, 제공된 조사 자료를 기반으로 한 시뮬레이션입니다.</strong></p>
+<h2 id="사용-데이터">사용 데이터</h2>
+<ul>
+<li>SSC 대상 서버: <strong>712개</strong></li>
+<li>SSC 라운드: <strong>15개</strong></li>
+<li>SSC allround 행: <strong>10,472개</strong></li>
+<li>실전력 원본 서버: <strong>267개</strong></li>
+<li>전체 유저 전력 행: <strong>59,376개</strong></li>
+<li>개인 전투 랭킹: <strong>500개</strong></li>
+<li>연맹 전투 랭킹: <strong>300개</strong></li>
+</ul>
+<h2 id="강도-모델">강도 모델</h2>
+<ul>
+<li>구조강도: 활성 전력, 서버 총전력, 상위 유저 전력, 활성 인원, 핵심 인원, 전쟁 가능 연맹 수 등을 결합했습니다.</li>
+<li>전투성과: SSC 누적 포인트·명예·평균 성적, 개인 TOP500, 연맹 TOP300 성과를 결합했습니다.</li>
+<li>실전력 원본이 없는 서버는 공통 지표로 학습한 <strong>GBR 모델</strong>로 구조강도를 추정했습니다.</li>
+<li>교차검증: <strong>R² 0.8771 · MAE 0.0607</strong></li>
+<li>등급: <strong>강 1<del>89위 · 중 90</del>214위 · 약 215~712위</strong></li>
+</ul>
+<h1 id="top-war-서버-강도-순위">Top War 서버 강도 순위</h1>
+<blockquote>
+<p>넓은 표 대신 등급별 접이식 목록을 사용했습니다. 각 행은 화면 폭에 맞춰 자동 줄바꿈됩니다.</p>
+</blockquote>
+<details open="">
+<summary><strong>강 서버 · 89개 · 1~89위</strong></summary>
+<ul>
+<li><strong>1위 · S341</strong> — 강 · 강도 100.00 · SSC 누적 3위 · P 3,613 · H 655,520 · 개인 TOP500 30 · 연맹 TOP300 4 · 실전력 원본 있음</li>
+<li><strong>2위 · S3453</strong> — 강 · 강도 99.84 · SSC 누적 1위 · P 4,013 · H 689,580 · 개인 TOP500 53 · 연맹 TOP300 4 · 실전력 원본 있음</li>
+<li><strong>3위 · S2287</strong> — 강 · 강도 99.63 · SSC 누적 11위 · P 3,213 · H 711,360 · 개인 TOP500 14 · 연맹 TOP300 4 · 실전력 원본 있음</li>
+<li><strong>4위 · S1313</strong> — 강 · 강도 99.15 · SSC 누적 6위 · P 3,533 · H 660,670 · 개인 TOP500 7 · 연맹 TOP300 4 · 실전력 원본 있음</li>
+<li><strong>5위 · S2698</strong> — 강 · 강도 98.96 · SSC 누적 4위 · P 3,613 · H 655,070 · 개인 TOP500 22 · 연맹 TOP300 4 · 실전력 원본 있음</li>
+<li><strong>6위 · S3355</strong> — 강 · 강도 98.90 · SSC 누적 2위 · P 3,813 · H 581,060 · 개인 TOP500 41 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>7위 · S2842</strong> — 강 · 강도 98.48 · SSC 누적 7위 · P 3,413 · H 514,970 · 개인 TOP500 23 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>8위 · S1175</strong> — 강 · 강도 97.91 · SSC 누적 8위 · P 3,413 · H 489,090 · 개인 TOP500 7 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>9위 · S680</strong> — 강 · 강도 96.16 · SSC 누적 41위 · P 881 · H 394,200 · 개인 TOP500 4 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>10위 · S2682</strong> — 강 · 강도 95.91 · SSC 누적 15위 · P 2,833 · H 473,390 · 개인 TOP500 8 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>11위 · S707</strong> — 강 · 강도 95.67 · SSC 누적 21위 · P 1,677 · H 332,090 · 개인 TOP500 6 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>12위 · S619</strong> — 강 · 강도 95.21 · SSC 누적 9위 · P 3,413 · H 328,710 · 개인 TOP500 15 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>13위 · S1035</strong> — 강 · 강도 95.20 · SSC 누적 32위 · P 965 · H 379,560 · 개인 TOP500 4 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>14위 · S3051</strong> — 강 · 강도 95.13 · SSC 누적 14위 · P 3,185 · H 363,230 · 개인 TOP500 9 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>15위 · S188</strong> — 강 · 강도 94.60 · SSC 누적 38위 · P 913 · H 272,460 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>16위 · S1951</strong> — 강 · 강도 94.28 · SSC 누적 28위 · P 1,028 · H 378,110 · 개인 TOP500 5 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>17위 · S836</strong> — 강 · 강도 93.84 · SSC 누적 26위 · P 1,067 · H 336,690 · 개인 TOP500 5 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>18위 · S2275</strong> — 강 · 강도 92.97 · SSC 누적 43위 · P 837 · H 338,120 · 개인 TOP500 4 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>19위 · S3506</strong> — 강 · 강도 92.94 · SSC 누적 49위 · P 813 · H 352,840 · 개인 TOP500 11 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>20위 · S184</strong> — 강 · 강도 92.77 · SSC 누적 18위 · P 2,593 · H 274,710 · 개인 TOP500 7 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>21위 · S2699</strong> — 강 · 강도 92.16 · SSC 누적 13위 · P 3,213 · H 286,270 · 개인 TOP500 7 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>22위 · S1083</strong> — 강 · 강도 91.82 · SSC 누적 17위 · P 2,631 · H 365,520 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>23위 · S2622</strong> — 강 · 강도 91.77 · SSC 누적 50위 · P 789 · H 331,480 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>24위 · S1096</strong> — 강 · 강도 90.65 · SSC 누적 69위 · P 475 · H 304,730 · 개인 TOP500 1 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>25위 · S1281</strong> — 강 · 강도 90.32 · SSC 누적 53위 · P 729 · H 225,110 · 개인 TOP500 2 · 연맹 TOP300 3 · 실전력 원본 있음</li>
+<li><strong>26위 · S3223</strong> — 강 · 강도 89.36 · SSC 누적 20위 · P 2,003 · H 295,300 · 개인 TOP500 8 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>27위 · S1720</strong> — 강 · 강도 88.76 · SSC 누적 10위 · P 3,373 · H 188,740 · 개인 TOP500 7 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>28위 · S2616</strong> — 강 · 강도 88.64 · SSC 누적 47위 · P 817 · H 352,110 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>29위 · S2864</strong> — 강 · 강도 87.52 · SSC 누적 19위 · P 2,187 · H 329,270 · 개인 TOP500 9 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>30위 · S386</strong> — 강 · 강도 87.24 · SSC 누적 31위 · P 1,005 · H 228,950 · 개인 TOP500 2 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>31위 · S73</strong> — 강 · 강도 86.49 · SSC 누적 82위 · P 406 · H 227,310 · 개인 TOP500 4 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>32위 · S2147</strong> — 강 · 강도 86.29 · SSC 누적 23위 · P 1,125 · H 261,310 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>33위 · S1805</strong> — 강 · 강도 86.06 · SSC 누적 46위 · P 819 · H 257,710 · 개인 TOP500 2 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>34위 · S216</strong> — 강 · 강도 86.00 · SSC 누적 45위 · P 833 · H 238,950 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>35위 · S1607</strong> — 강 · 강도 85.79 · SSC 누적 37위 · P 917 · H 264,210 · 개인 TOP500 2 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>36위 · S3396</strong> — 강 · 강도 85.59 · SSC 누적 12위 · P 3,213 · H 338,960 · 개인 TOP500 7 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>37위 · S1389</strong> — 강 · 강도 85.44 · SSC 누적 52위 · P 763 · H 182,570 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>38위 · S1397</strong> — 강 · 강도 85.04 · SSC 누적 22위 · P 1,563 · H 265,210 · 개인 TOP500 5 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>39위 · S4197</strong> — 강 · 강도 83.89 · SSC 누적 16위 · P 2,793 · H 292,940 · 개인 TOP500 6 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>40위 · S2609</strong> — 강 · 강도 83.74 · SSC 누적 74위 · P 438 · H 262,540 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>41위 · S2952</strong> — 강 · 강도 83.33 · SSC 누적 42위 · P 849 · H 236,690 · 개인 TOP500 6 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>42위 · S3436</strong> — 강 · 강도 83.06 · SSC 누적 33위 · P 947 · H 250,730 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>43위 · S1668</strong> — 강 · 강도 82.93 · SSC 누적 35위 · P 929 · H 187,080 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>44위 · S650</strong> — 강 · 강도 82.28 · SSC 누적 117위 · P 246 · H 222,120 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>45위 · S3345</strong> — 강 · 강도 81.03 · SSC 누적 44위 · P 835 · H 263,900 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>46위 · S2315</strong> — 강 · 강도 81.00 · SSC 누적 39위 · P 899 · H 246,930 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>47위 · S1383</strong> — 강 · 강도 80.64 · SSC 누적 57위 · P 677 · H 216,460 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>48위 · S2036</strong> — 강 · 강도 80.59 · SSC 누적 59위 · P 663 · H 203,770 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>49위 · S2973</strong> — 강 · 강도 80.57 · SSC 누적 80위 · P 411 · H 193,460 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>50위 · S2683</strong> — 강 · 강도 80.49 · SSC 누적 34위 · P 943 · H 201,660 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>51위 · S3649</strong> — 강 · 강도 79.93 · SSC 누적 115위 · P 248 · H 267,100 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>52위 · S1756</strong> — 강 · 강도 79.92 · SSC 누적 54위 · P 725 · H 168,160 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>53위 · S3532</strong> — 강 · 강도 79.78 · SSC 누적 84위 · P 383 · H 292,380 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>54위 · S3540</strong> — 강 · 강도 79.57 · SSC 누적 56위 · P 697 · H 204,500 · 개인 TOP500 3 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>55위 · S4140</strong> — 강 · 강도 79.31 · SSC 누적 5위 · P 3,563 · H 253,570 · 개인 TOP500 12 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>56위 · S476</strong> — 강 · 강도 79.12 · SSC 누적 71위 · P 462 · H 164,280 · 개인 TOP500 3 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>57위 · S1816</strong> — 강 · 강도 79.08 · SSC 누적 27위 · P 1,041 · H 173,800 · 개인 TOP500 4 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>58위 · S1611</strong> — 강 · 강도 78.93 · SSC 누적 136위 · P 201 · H 225,060 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>59위 · S1297</strong> — 강 · 강도 77.90 · SSC 누적 123위 · P 226 · H 177,600 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>60위 · S3491</strong> — 강 · 강도 77.72 · SSC 누적 85위 · P 377 · H 274,160 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>61위 · S164</strong> — 강 · 강도 76.36 · SSC 누적 55위 · P 721 · H 162,020 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>62위 · S2631</strong> — 강 · 강도 76.35 · SSC 누적 86위 · P 373 · H 175,670 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>63위 · S3170</strong> — 강 · 강도 76.29 · SSC 누적 70위 · P 465 · H 177,360 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>64위 · S148</strong> — 강 · 강도 74.81 · SSC 누적 167위 · P 147 · H 197,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>65위 · S2747</strong> — 강 · 강도 74.64 · SSC 누적 77위 · P 421 · H 203,260 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>66위 · S2097</strong> — 강 · 강도 74.28 · SSC 누적 103위 · P 294 · H 230,400 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>67위 · S485</strong> — 강 · 강도 74.24 · SSC 누적 89위 · P 367 · H 196,470 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>68위 · S158</strong> — 강 · 강도 73.22 · SSC 누적 92위 · P 349 · H 159,140 · 개인 TOP500 2 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>69위 · S174</strong> — 강 · 강도 73.04 · SSC 누적 81위 · P 409 · H 200,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>70위 · S200</strong> — 강 · 강도 72.77 · SSC 누적 173위 · P 142 · H 180,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>71위 · S655</strong> — 강 · 강도 72.45 · SSC 누적 102위 · P 306 · H 176,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>72위 · S1421</strong> — 강 · 강도 72.40 · SSC 누적 101위 · P 310 · H 151,590 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>73위 · S4151</strong> — 강 · 강도 72.33 · SSC 누적 51위 · P 769 · H 187,820 · 개인 TOP500 3 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>74위 · S3766</strong> — 강 · 강도 72.17 · SSC 누적 61위 · P 585 · H 203,370 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>75위 · S2205</strong> — 강 · 강도 71.88 · SSC 누적 147위 · P 182 · H 200,890 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>76위 · S172</strong> — 강 · 강도 71.73 · SSC 누적 65위 · P 511 · H 167,520 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>77위 · S864</strong> — 강 · 강도 71.31 · SSC 누적 104위 · P 292 · H 155,550 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>78위 · S3258</strong> — 강 · 강도 70.87 · SSC 누적 91위 · P 351 · H 166,320 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>79위 · S3199</strong> — 강 · 강도 70.67 · SSC 누적 111위 · P 261 · H 197,980 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>80위 · S2240</strong> — 강 · 강도 70.61 · SSC 누적 62위 · P 561 · H 164,000 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>81위 · S499</strong> — 강 · 강도 70.42 · SSC 누적 83위 · P 400 · H 152,870 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>82위 · S3531</strong> — 강 · 강도 70.05 · SSC 누적 58위 · P 664 · H 154,910 · 개인 TOP500 4 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>83위 · S3307</strong> — 강 · 강도 69.88 · SSC 누적 90위 · P 358 · H 172,920 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>84위 · S1257</strong> — 강 · 강도 69.09 · SSC 누적 149위 · P 181 · H 150,640 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>85위 · S2696</strong> — 강 · 강도 68.57 · SSC 누적 97위 · P 334 · H 152,530 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>86위 · S742</strong> — 강 · 강도 68.50 · SSC 누적 135위 · P 204 · H 151,410 · 개인 TOP500 3 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>87위 · S850</strong> — 강 · 강도 68.37 · SSC 누적 198위 · P 115 · H 171,760 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>88위 · S2463</strong> — 강 · 강도 68.35 · SSC 누적 75위 · P 431 · H 187,170 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>89위 · S3407</strong> — 강 · 강도 68.04 · SSC 누적 29위 · P 1,009 · H 180,510 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+</ul>
+</details>
+<details>
+<summary><strong>중 서버 · 125개 · 90~214위</strong></summary>
+<ul>
+<li><strong>90위 · S2607</strong> — 중 · 강도 67.35 · SSC 누적 125위 · P 225 · H 148,350 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>91위 · S2197</strong> — 중 · 강도 66.88 · SSC 누적 95위 · P 345 · H 140,360 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>92위 · S1677</strong> — 중 · 강도 66.81 · SSC 누적 211위 · P 104 · H 146,290 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>93위 · S607</strong> — 중 · 강도 66.63 · SSC 누적 99위 · P 324 · H 116,750 · 개인 TOP500 3 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>94위 · S126</strong> — 중 · 강도 66.50 · SSC 누적 138위 · P 199 · H 186,500 · 개인 TOP500 2 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>95위 · S2988</strong> — 중 · 강도 66.26 · SSC 누적 79위 · P 412 · H 151,850 · 개인 TOP500 1 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>96위 · S2116</strong> — 중 · 강도 65.95 · SSC 누적 155위 · P 163 · H 132,640 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>97위 · S2253</strong> — 중 · 강도 65.72 · SSC 누적 140위 · P 192 · H 146,730 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>98위 · S2317</strong> — 중 · 강도 65.49 · SSC 누적 72위 · P 449 · H 159,010 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>99위 · S242</strong> — 중 · 강도 65.42 · SSC 누적 128위 · P 217 · H 159,440 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>100위 · S111</strong> — 중 · 강도 65.41 · SSC 누적 158위 · P 161 · H 157,430 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>101위 · S1508</strong> — 중 · 강도 64.43 · SSC 누적 40위 · P 887 · H 176,820 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>102위 · S3526</strong> — 중 · 강도 64.29 · SSC 누적 76위 · P 426 · H 140,940 · 개인 TOP500 3 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>103위 · S3646</strong> — 중 · 강도 63.16 · SSC 누적 160위 · P 159 · H 219,980 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>104위 · S502</strong> — 중 · 강도 62.58 · SSC 누적 120위 · P 243 · H 148,130 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>105위 · S3088</strong> — 중 · 강도 62.42 · SSC 누적 24위 · P 1,125 · H 177,900 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>106위 · S3309</strong> — 중 · 강도 62.32 · SSC 누적 124위 · P 226 · H 143,220 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>107위 · S2442</strong> — 중 · 강도 62.30 · SSC 누적 118위 · P 245 · H 138,820 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>108위 · S3800</strong> — 중 · 강도 61.82 · SSC 누적 179위 · P 135 · H 162,020 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>109위 · S2386</strong> — 중 · 강도 61.60 · SSC 누적 188위 · P 123 · H 160,550 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>110위 · S3145</strong> — 중 · 강도 61.58 · SSC 누적 116위 · P 248 · H 137,170 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>111위 · S247</strong> — 중 · 강도 61.22 · SSC 누적 131위 · P 214 · H 135,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>112위 · S3922</strong> — 중 · 강도 61.17 · SSC 누적 109위 · P 271 · H 165,000 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>113위 · S2474</strong> — 중 · 강도 61.02 · SSC 누적 113위 · P 250 · H 129,560 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>114위 · S930</strong> — 중 · 강도 60.88 · SSC 누적 180위 · P 134 · H 139,560 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>115위 · S1692</strong> — 중 · 강도 60.20 · SSC 누적 64위 · P 541 · H 118,660 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>116위 · S4198</strong> — 중 · 강도 60.18 · SSC 누적 100위 · P 321 · H 216,360 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>117위 · S2830</strong> — 중 · 강도 60.05 · SSC 누적 141위 · P 191 · H 175,380 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>118위 · S2091</strong> — 중 · 강도 59.94 · SSC 누적 184위 · P 128 · H 155,380 · 개인 TOP500 0 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>119위 · S2311</strong> — 중 · 강도 59.49 · SSC 누적 152위 · P 174 · H 202,830 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>120위 · S208</strong> — 중 · 강도 59.41 · SSC 누적 174위 · P 142 · H 122,400 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>121위 · S3053</strong> — 중 · 강도 58.72 · SSC 누적 36위 · P 925 · H 149,390 · 개인 TOP500 3 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>122위 · S233</strong> — 중 · 강도 58.00 · SSC 누적 193위 · P 118 · H 113,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>123위 · S1567</strong> — 중 · 강도 57.82 · SSC 누적 130위 · P 215 · H 130,420 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>124위 · S4196</strong> — 중 · 강도 57.71 · SSC 누적 126위 · P 224 · H 184,730 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>125위 · S1525</strong> — 중 · 강도 57.68 · SSC 누적 181위 · P 133 · H 148,420 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>126위 · S591</strong> — 중 · 강도 57.61 · SSC 누적 105위 · P 284 · H 113,920 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>127위 · S82</strong> — 중 · 강도 57.24 · SSC 누적 203위 · P 110 · H 114,270 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>128위 · S3854</strong> — 중 · 강도 56.09 · SSC 누적 93위 · P 349 · H 118,810 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>129위 · S1067</strong> — 중 · 강도 56.00 · SSC 누적 25위 · P 1,105 · H 76,200 · 개인 TOP500 3 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>130위 · S3604</strong> — 중 · 강도 55.81 · SSC 누적 143위 · P 189 · H 162,220 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>131위 · S1337</strong> — 중 · 강도 55.56 · SSC 누적 63위 · P 549 · H 114,250 · 개인 TOP500 3 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>132위 · S2939</strong> — 중 · 강도 55.32 · SSC 누적 146위 · P 183 · H 139,380 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>133위 · S1144</strong> — 중 · 강도 55.22 · SSC 누적 194위 · P 118 · H 110,630 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>134위 · S2816</strong> — 중 · 강도 55.17 · SSC 누적 78위 · P 418 · H 130,680 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>135위 · S2693</strong> — 중 · 강도 55.10 · SSC 누적 114위 · P 249 · H 108,190 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>136위 · S4125</strong> — 중 · 강도 54.68 · SSC 누적 48위 · P 815 · H 159,410 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>137위 · S4057</strong> — 중 · 강도 54.56 · SSC 누적 210위 · P 105 · H 200,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>138위 · S2087</strong> — 중 · 강도 54.18 · SSC 누적 144위 · P 189 · H 128,560 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>139위 · S4199</strong> — 중 · 강도 54.03 · SSC 누적 245위 · P 77 · H 189,660 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>140위 · S2936</strong> — 중 · 강도 53.66 · SSC 누적 186위 · P 127 · H 127,390 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>141위 · S211</strong> — 중 · 강도 53.45 · SSC 누적 112위 · P 258 · H 129,600 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>142위 · S1378</strong> — 중 · 강도 53.39 · SSC 누적 133위 · P 208 · H 96,970 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>143위 · S839</strong> — 중 · 강도 53.32 · SSC 누적 87위 · P 373 · H 109,040 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>144위 · S2365</strong> — 중 · 강도 53.25 · SSC 누적 108위 · P 273 · H 118,370 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>145위 · S285</strong> — 중 · 강도 52.87 · SSC 누적 189위 · P 121 · H 119,490 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>146위 · S2242</strong> — 중 · 강도 52.73 · SSC 누적 201위 · P 112 · H 129,910 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>147위 · S4122</strong> — 중 · 강도 52.50 · SSC 누적 205위 · P 107 · H 178,810 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>148위 · S1590</strong> — 중 · 강도 52.38 · SSC 누적 96위 · P 344 · H 128,580 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>149위 · S2655</strong> — 중 · 강도 52.10 · SSC 누적 98위 · P 334 · H 114,810 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>150위 · S3452</strong> — 중 · 강도 51.81 · SSC 누적 234위 · P 82 · H 127,020 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>151위 · S3903</strong> — 중 · 강도 51.70 · SSC 누적 60위 · P 615 · H 137,520 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>152위 · S2263</strong> — 중 · 강도 51.40 · SSC 누적 66위 · P 509 · H 101,080 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>153위 · S4040</strong> — 중 · 강도 51.15 · SSC 누적 223위 · P 93 · H 190,740 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>154위 · S1781</strong> — 중 · 강도 51.13 · SSC 누적 165위 · P 148 · H 120,660 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>155위 · S193</strong> — 중 · 강도 51.00 · SSC 누적 213위 · P 103 · H 86,310 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>156위 · S3524</strong> — 중 · 강도 50.81 · SSC 누적 110위 · P 271 · H 150,650 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>157위 · S4154</strong> — 중 · 강도 50.52 · SSC 누적 119위 · P 243 · H 180,660 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>158위 · S2735</strong> — 중 · 강도 50.52 · SSC 누적 106위 · P 281 · H 165,870 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>159위 · S2014</strong> — 중 · 강도 48.82 · SSC 누적 132위 · P 210 · H 108,560 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>160위 · S3352</strong> — 중 · 강도 48.77 · SSC 누적 137위 · P 200 · H 114,020 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>161위 · S3885</strong> — 중 · 강도 48.48 · SSC 누적 94위 · P 345 · H 162,920 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>162위 · S3619</strong> — 중 · 강도 48.31 · SSC 누적 88위 · P 370 · H 146,120 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>163위 · S2137</strong> — 중 · 강도 48.26 · SSC 누적 172위 · P 143 · H 112,720 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>164위 · S3521</strong> — 중 · 강도 47.92 · SSC 누적 73위 · P 448 · H 85,400 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>165위 · S262</strong> — 중 · 강도 47.54 · SSC 누적 248위 · P 76 · H 89,690 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>166위 · S921</strong> — 중 · 강도 47.25 · SSC 누적 259위 · P 70 · H 92,970 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>167위 · S616</strong> — 중 · 강도 46.70 · SSC 누적 212위 · P 103 · H 91,180 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>168위 · S2373</strong> — 중 · 강도 46.65 · SSC 누적 161위 · P 158 · H 108,930 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>169위 · S973</strong> — 중 · 강도 46.38 · SSC 누적 164위 · P 149 · H 121,650 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>170위 · S4153</strong> — 중 · 강도 46.14 · SSC 누적 229위 · P 86 · H 162,090 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>171위 · S4108</strong> — 중 · 강도 45.58 · SSC 누적 191위 · P 119 · H 145,390 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>172위 · S2781</strong> — 중 · 강도 45.41 · SSC 누적 67위 · P 503 · H 142,440 · 개인 TOP500 4 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>173위 · S383</strong> — 중 · 강도 45.25 · SSC 누적 127위 · P 218 · H 72,780 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>174위 · S1329</strong> — 중 · 강도 44.89 · SSC 누적 156위 · P 163 · H 80,530 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>175위 · S1866</strong> — 중 · 강도 44.82 · SSC 누적 225위 · P 93 · H 88,740 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>176위 · S271</strong> — 중 · 강도 44.38 · SSC 누적 122위 · P 236 · H 82,690 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>177위 · S3688</strong> — 중 · 강도 44.23 · SSC 누적 154위 · P 164 · H 144,050 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>178위 · S3824</strong> — 중 · 강도 44.14 · SSC 누적 192위 · P 118 · H 140,700 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>179위 · S4170</strong> — 중 · 강도 43.47 · SSC 누적 217위 · P 98 · H 166,160 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>180위 · S4107</strong> — 중 · 강도 43.23 · SSC 누적 185위 · P 128 · H 138,330 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>181위 · S3469</strong> — 중 · 강도 43.10 · SSC 누적 265위 · P 69 · H 112,680 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>182위 · S654</strong> — 중 · 강도 42.73 · SSC 누적 139위 · P 198 · H 70,480 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>183위 · S795</strong> — 중 · 강도 42.65 · SSC 누적 169위 · P 147 · H 80,400 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>184위 · S3902</strong> — 중 · 강도 42.35 · SSC 누적 121위 · P 238 · H 115,460 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>185위 · S3723</strong> — 중 · 강도 42.28 · SSC 누적 216위 · P 99 · H 108,960 · 개인 TOP500 1 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.5%</li>
+<li><strong>186위 · S3712</strong> — 중 · 강도 42.11 · SSC 누적 526위 · P 8 · H 261,890 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 84.3%</li>
+<li><strong>187위 · S1642</strong> — 중 · 강도 41.99 · SSC 누적 162위 · P 158 · H 87,440 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>188위 · S1173</strong> — 중 · 강도 41.90 · SSC 누적 267위 · P 68 · H 97,370 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>189위 · S3438</strong> — 중 · 강도 41.79 · SSC 누적 233위 · P 82 · H 138,680 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>190위 · S3852</strong> — 중 · 강도 41.39 · SSC 누적 163위 · P 153 · H 98,970 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>191위 · S1865</strong> — 중 · 강도 41.31 · SSC 누적 378위 · P 30 · H 111,570 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.4%</li>
+<li><strong>192위 · S1852</strong> — 중 · 강도 40.98 · SSC 누적 274위 · P 64 · H 110,230 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.6%</li>
+<li><strong>193위 · S4208</strong> — 중 · 강도 40.87 · SSC 누적 266위 · P 68 · H 109,990 · 개인 TOP500 1 · 연맹 TOP300 1 · 추정값 · 신뢰도 83.2%</li>
+<li><strong>194위 · S1826</strong> — 중 · 강도 40.73 · SSC 누적 187위 · P 125 · H 104,780 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>195위 · S3752</strong> — 중 · 강도 40.53 · SSC 누적 219위 · P 96 · H 123,430 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>196위 · S466</strong> — 중 · 강도 40.08 · SSC 누적 257위 · P 71 · H 88,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.1%</li>
+<li><strong>197위 · S3342</strong> — 중 · 강도 39.64 · SSC 누적 151위 · P 180 · H 99,460 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>198위 · S3478</strong> — 중 · 강도 39.13 · SSC 누적 286위 · P 56 · H 115,720 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 86.2%</li>
+<li><strong>199위 · S3696</strong> — 중 · 강도 39.06 · SSC 누적 239위 · P 80 · H 86,040 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>200위 · S4124</strong> — 중 · 강도 38.54 · SSC 누적 488위 · P 12 · H 153,810 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.8%</li>
+<li><strong>201위 · S3901</strong> — 중 · 강도 38.48 · SSC 누적 318위 · P 46 · H 123,350 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 86.4%</li>
+<li><strong>202위 · S4097</strong> — 중 · 강도 38.46 · SSC 누적 231위 · P 85 · H 130,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>203위 · S78</strong> — 중 · 강도 38.40 · SSC 누적 275위 · P 62 · H 136,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>204위 · S3603</strong> — 중 · 강도 38.39 · SSC 누적 176위 · P 137 · H 119,670 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>205위 · S2691</strong> — 중 · 강도 38.07 · SSC 누적 68위 · P 495 · H 128,100 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>206위 · S277</strong> — 중 · 강도 38.05 · SSC 누적 281위 · P 59 · H 78,120 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>207위 · S2761</strong> — 중 · 강도 38.02 · SSC 누적 134위 · P 207 · H 88,290 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>208위 · S630</strong> — 중 · 강도 37.99 · SSC 누적 240위 · P 79 · H 94,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>209위 · S610</strong> — 중 · 강도 37.50 · SSC 누적 177위 · P 137 · H 73,680 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>210위 · S1379</strong> — 중 · 강도 37.29 · SSC 누적 363위 · P 34 · H 100,460 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.3%</li>
+<li><strong>211위 · S4184</strong> — 중 · 강도 37.22 · SSC 누적 107위 · P 275 · H 149,720 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>212위 · S1909</strong> — 중 · 강도 37.19 · SSC 누적 260위 · P 70 · H 89,620 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>213위 · S1645</strong> — 중 · 강도 37.09 · SSC 누적 268위 · P 66 · H 95,130 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.5%</li>
+<li><strong>214위 · S2826</strong> — 중 · 강도 35.98 · SSC 누적 221위 · P 95 · H 90,900 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+</ul>
+</details>
+<details>
+<summary><strong>약 서버 · 498개 · 215~712위</strong></summary>
+<ul>
+<li><strong>215위 · S2006</strong> — 약 · 강도 35.97 · SSC 누적 443위 · P 19 · H 112,270 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>216위 · S4004</strong> — 약 · 강도 35.66 · SSC 누적 256위 · P 71 · H 101,050 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>217위 · S4038</strong> — 약 · 강도 35.20 · SSC 누적 129위 · P 217 · H 107,430 · 개인 TOP500 2 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>218위 · S4136</strong> — 약 · 강도 35.15 · SSC 누적 389위 · P 29 · H 141,190 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.6%</li>
+<li><strong>219위 · S2986</strong> — 약 · 강도 34.97 · SSC 누적 171위 · P 144 · H 65,820 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>220위 · S4209</strong> — 약 · 강도 34.96 · SSC 누적 377위 · P 30 · H 133,940 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 83.6%</li>
+<li><strong>221위 · S500</strong> — 약 · 강도 34.78 · SSC 누적 294위 · P 53 · H 69,220 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>222위 · S4138</strong> — 약 · 강도 34.75 · SSC 누적 247위 · P 76 · H 127,900 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>223위 · S805</strong> — 약 · 강도 34.58 · SSC 누적 209위 · P 106 · H 70,660 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>224위 · S1444</strong> — 약 · 강도 34.31 · SSC 누적 255위 · P 72 · H 77,320 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>225위 · S594</strong> — 약 · 강도 34.28 · SSC 누적 241위 · P 79 · H 62,280 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>226위 · S4243</strong> — 약 · 강도 34.03 · SSC 누적 402위 · P 26 · H 123,930 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 83.4%</li>
+<li><strong>227위 · S1265</strong> — 약 · 강도 33.76 · SSC 누적 175위 · P 140 · H 64,420 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>228위 · S4098</strong> — 약 · 강도 33.59 · SSC 누적 182위 · P 130 · H 127,400 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>229위 · S3538</strong> — 약 · 강도 33.56 · SSC 누적 246위 · P 77 · H 99,670 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>230위 · S420</strong> — 약 · 강도 33.33 · SSC 누적 226위 · P 92 · H 94,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>231위 · S3722</strong> — 약 · 강도 33.23 · SSC 누적 224위 · P 93 · H 103,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.5%</li>
+<li><strong>232위 · S2695</strong> — 약 · 강도 33.20 · SSC 누적 277위 · P 62 · H 99,930 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.4%</li>
+<li><strong>233위 · S3545</strong> — 약 · 강도 33.19 · SSC 누적 325위 · P 44 · H 88,860 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.6%</li>
+<li><strong>234위 · S3698</strong> — 약 · 강도 32.99 · SSC 누적 303위 · P 50 · H 101,030 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.5%</li>
+<li><strong>235위 · S3277</strong> — 약 · 강도 32.94 · SSC 누적 291위 · P 55 · H 96,650 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.3%</li>
+<li><strong>236위 · S2681</strong> — 약 · 강도 32.89 · SSC 누적 295위 · P 52 · H 103,140 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.2%</li>
+<li><strong>237위 · S1052</strong> — 약 · 강도 32.58 · SSC 누적 280위 · P 59 · H 79,320 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>238위 · S1669</strong> — 약 · 강도 32.57 · SSC 누적 166위 · P 148 · H 63,960 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>239위 · S811</strong> — 약 · 강도 32.39 · SSC 누적 235위 · P 82 · H 85,800 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>240위 · S2587</strong> — 약 · 강도 32.29 · SSC 누적 304위 · P 50 · H 86,760 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>241위 · S4167</strong> — 약 · 강도 32.24 · SSC 누적 376위 · P 30 · H 163,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.7%</li>
+<li><strong>242위 · S515</strong> — 약 · 강도 31.91 · SSC 누적 422위 · P 22 · H 79,410 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>243위 · S3925</strong> — 약 · 강도 31.84 · SSC 누적 296위 · P 52 · H 85,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>244위 · S3690</strong> — 약 · 강도 31.79 · SSC 누적 253위 · P 73 · H 83,350 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.4%</li>
+<li><strong>245위 · S3324</strong> — 약 · 강도 31.76 · SSC 누적 220위 · P 96 · H 73,510 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>246위 · S3961</strong> — 약 · 강도 31.66 · SSC 누적 332위 · P 42 · H 96,910 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.4%</li>
+<li><strong>247위 · S4080</strong> — 약 · 강도 31.37 · SSC 누적 168위 · P 147 · H 114,690 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>248위 · S2651</strong> — 약 · 강도 31.35 · SSC 누적 261위 · P 70 · H 75,480 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>249위 · S2341</strong> — 약 · 강도 31.10 · SSC 누적 271위 · P 65 · H 77,170 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>250위 · S2501</strong> — 약 · 강도 31.09 · SSC 누적 159위 · P 161 · H 117,990 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>251위 · S3537</strong> — 약 · 강도 30.64 · SSC 누적 215위 · P 100 · H 82,350 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>252위 · S819</strong> — 약 · 강도 30.45 · SSC 누적 335위 · P 42 · H 80,070 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>253위 · S1547</strong> — 약 · 강도 30.33 · SSC 누적 208위 · P 106 · H 93,380 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>254위 · S4121</strong> — 약 · 강도 30.25 · SSC 누적 503위 · P 10 · H 156,230 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.5%</li>
+<li><strong>255위 · S1558</strong> — 약 · 강도 30.10 · SSC 누적 258위 · P 71 · H 66,820 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>256위 · S3353</strong> — 약 · 강도 29.84 · SSC 누적 153위 · P 167 · H 71,530 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>257위 · S1494</strong> — 약 · 강도 29.79 · SSC 누적 284위 · P 58 · H 68,290 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 84.7%</li>
+<li><strong>258위 · S1404</strong> — 약 · 강도 29.73 · SSC 누적 190위 · P 121 · H 61,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>259위 · S542</strong> — 약 · 강도 29.70 · SSC 누적 227위 · P 92 · H 70,500 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>260위 · S1644</strong> — 약 · 강도 29.62 · SSC 누적 148위 · P 182 · H 57,390 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>261위 · S3672</strong> — 약 · 강도 29.42 · SSC 누적 343위 · P 40 · H 97,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.1%</li>
+<li><strong>262위 · S593</strong> — 약 · 강도 29.40 · SSC 누적 283위 · P 58 · H 74,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>263위 · S1341</strong> — 약 · 강도 29.21 · SSC 누적 278위 · P 62 · H 80,660 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.1%</li>
+<li><strong>264위 · S1725</strong> — 약 · 강도 29.00 · SSC 누적 199위 · P 114 · H 54,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>265위 · S4076</strong> — 약 · 강도 28.93 · SSC 누적 206위 · P 107 · H 102,590 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>266위 · S2511</strong> — 약 · 강도 28.92 · SSC 누적 145위 · P 184 · H 52,940 · 개인 TOP500 1 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>267위 · S1221</strong> — 약 · 강도 28.86 · SSC 누적 237위 · P 81 · H 69,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>268위 · S1552</strong> — 약 · 강도 28.73 · SSC 누적 380위 · P 30 · H 83,900 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.0%</li>
+<li><strong>269위 · S3322</strong> — 약 · 강도 28.65 · SSC 누적 251위 · P 74 · H 70,610 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>270위 · S2606</strong> — 약 · 강도 28.47 · SSC 누적 242위 · P 78 · H 81,100 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>271위 · S3725</strong> — 약 · 강도 28.46 · SSC 누적 183위 · P 130 · H 77,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>272위 · S1365</strong> — 약 · 강도 28.16 · SSC 누적 334위 · P 42 · H 83,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>273위 · S225</strong> — 약 · 강도 28.13 · SSC 누적 340위 · P 41 · H 60,340 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>274위 · S884</strong> — 약 · 강도 27.90 · SSC 누적 243위 · P 78 · H 64,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>275위 · S1640</strong> — 약 · 강도 27.86 · SSC 누적 202위 · P 111 · H 54,700 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>276위 · S3385</strong> — 약 · 강도 27.85 · SSC 누적 244위 · P 78 · H 60,800 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>277위 · S3964</strong> — 약 · 강도 27.81 · SSC 누적 297위 · P 52 · H 80,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 82.0%</li>
+<li><strong>278위 · S1835</strong> — 약 · 강도 27.78 · SSC 누적 288위 · P 56 · H 66,430 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.0%</li>
+<li><strong>279위 · S3662</strong> — 약 · 강도 27.70 · SSC 누적 195위 · P 118 · H 65,150 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>280위 · S3528</strong> — 약 · 강도 27.60 · SSC 누적 287위 · P 56 · H 78,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.2%</li>
+<li><strong>281위 · S3384</strong> — 약 · 강도 27.47 · SSC 누적 170위 · P 146 · H 55,580 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>282위 · S3409</strong> — 약 · 강도 27.34 · SSC 누적 254위 · P 72 · H 115,340 · 개인 TOP500 1 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>283위 · S564</strong> — 약 · 강도 27.29 · SSC 누적 531위 · P 8 · H 65,600 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>284위 · S2900</strong> — 약 · 강도 26.72 · SSC 누적 397위 · P 28 · H 77,340 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.3%</li>
+<li><strong>285위 · S4239</strong> — 약 · 강도 26.59 · SSC 누적 461위 · P 16 · H 100,280 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 83.1%</li>
+<li><strong>286위 · S4182</strong> — 약 · 강도 26.56 · SSC 누적 339위 · P 41 · H 110,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.1%</li>
+<li><strong>287위 · S1073</strong> — 약 · 강도 26.55 · SSC 누적 348위 · P 39 · H 64,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>288위 · S3522</strong> — 약 · 강도 26.50 · SSC 누적 30위 · P 1,007 · H 264,470 · 개인 TOP500 4 · 연맹 TOP300 2 · 실전력 원본 있음</li>
+<li><strong>289위 · S3468</strong> — 약 · 강도 26.50 · SSC 누적 344위 · P 40 · H 75,420 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>290위 · S2325</strong> — 약 · 강도 26.07 · SSC 누적 298위 · P 52 · H 63,250 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>291위 · S2953</strong> — 약 · 강도 25.94 · SSC 누적 351위 · P 38 · H 71,120 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 84.7%</li>
+<li><strong>292위 · S2009</strong> — 약 · 강도 25.76 · SSC 누적 379위 · P 30 · H 88,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>293위 · S3052</strong> — 약 · 강도 25.52 · SSC 누적 142위 · P 190 · H 72,780 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>294위 · S2112</strong> — 약 · 강도 25.39 · SSC 누적 398위 · P 28 · H 70,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>295위 · S1414</strong> — 약 · 강도 25.35 · SSC 누적 214위 · P 103 · H 57,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>296위 · S2635</strong> — 약 · 강도 25.12 · SSC 누적 270위 · P 65 · H 91,830 · 개인 TOP500 0 · 연맹 TOP300 1 · 실전력 원본 있음</li>
+<li><strong>297위 · S4059</strong> — 약 · 강도 24.96 · SSC 누적 347위 · P 39 · H 120,420 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 82.3%</li>
+<li><strong>298위 · S2954</strong> — 약 · 강도 24.92 · SSC 누적 383위 · P 30 · H 65,920 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.1%</li>
+<li><strong>299위 · S4023</strong> — 약 · 강도 24.89 · SSC 누적 218위 · P 98 · H 83,570 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>300위 · S348</strong> — 약 · 강도 24.89 · SSC 누적 508위 · P 10 · H 61,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>301위 · S4168</strong> — 약 · 강도 24.87 · SSC 누적 362위 · P 34 · H 118,270 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.4%</li>
+<li><strong>302위 · S2915</strong> — 약 · 강도 24.83 · SSC 누적 399위 · P 28 · H 67,650 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>303위 · S1857</strong> — 약 · 강도 24.80 · SSC 누적 396위 · P 28 · H 78,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>304위 · S723</strong> — 약 · 강도 24.32 · SSC 누적 252위 · P 74 · H 52,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>305위 · S2642</strong> — 약 · 강도 24.31 · SSC 누적 527위 · P 8 · H 110,600 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>306위 · S1070</strong> — 약 · 강도 24.02 · SSC 누적 309위 · P 48 · H 56,870 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>307위 · S1924</strong> — 약 · 강도 23.93 · SSC 누적 423위 · P 22 · H 76,830 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>308위 · S1465</strong> — 약 · 강도 23.92 · SSC 누적 505위 · P 10 · H 79,820 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 84.9%</li>
+<li><strong>309위 · S1120</strong> — 약 · 강도 23.71 · SSC 누적 321위 · P 46 · H 46,390 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>310위 · S3620</strong> — 약 · 강도 23.69 · SSC 누적 222위 · P 94 · H 56,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>311위 · S1455</strong> — 약 · 강도 23.67 · SSC 누적 157위 · P 163 · H 48,550 · 개인 TOP500 2 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>312위 · S3400</strong> — 약 · 강도 23.64 · SSC 누적 421위 · P 22 · H 86,250 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>313위 · S1981</strong> — 약 · 강도 23.62 · SSC 누적 262위 · P 70 · H 64,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>314위 · S4077</strong> — 약 · 강도 23.52 · SSC 누적 150위 · P 181 · H 60,520 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>315위 · S2748</strong> — 약 · 강도 23.33 · SSC 누적 382위 · P 30 · H 72,450 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>316위 · S252</strong> — 약 · 강도 23.13 · SSC 누적 400위 · P 28 · H 54,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>317위 · S2841</strong> — 약 · 강도 23.12 · SSC 누적 204위 · P 108 · H 62,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>318위 · S3440</strong> — 약 · 강도 23.04 · SSC 누적 238위 · P 81 · H 56,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>319위 · S2344</strong> — 약 · 강도 22.89 · SSC 누적 360위 · P 36 · H 75,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>320위 · S2644</strong> — 약 · 강도 22.56 · SSC 누적 207위 · P 107 · H 60,930 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>321위 · S1324</strong> — 약 · 강도 22.55 · SSC 누적 530위 · P 8 · H 73,700 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>322위 · S4183</strong> — 약 · 강도 22.29 · SSC 누적 469위 · P 14 · H 120,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.5%</li>
+<li><strong>323위 · S1680</strong> — 약 · 강도 22.23 · SSC 누적 305위 · P 50 · H 59,390 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 85.6%</li>
+<li><strong>324위 · S2256</strong> — 약 · 강도 21.98 · SSC 누적 306위 · P 50 · H 41,450 · 개인 TOP500 1 · 연맹 TOP300 0 · 추정값 · 신뢰도 85.0%</li>
+<li><strong>325위 · S3967</strong> — 약 · 강도 21.95 · SSC 누적 390위 · P 29 · H 80,780 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>326위 · S4056</strong> — 약 · 강도 21.94 · SSC 누적 489위 · P 12 · H 109,340 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>327위 · S4110</strong> — 약 · 강도 21.94 · SSC 누적 504위 · P 10 · H 112,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.1%</li>
+<li><strong>328위 · S875</strong> — 약 · 강도 21.87 · SSC 누적 353위 · P 38 · H 54,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>329위 · S4060</strong> — 약 · 강도 21.81 · SSC 누적 333위 · P 42 · H 96,660 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>330위 · S4002</strong> — 약 · 강도 21.79 · SSC 누적 417위 · P 24 · H 90,880 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>331위 · S3196</strong> — 약 · 강도 21.74 · SSC 누적 249위 · P 76 · H 58,800 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>332위 · S4236</strong> — 약 · 강도 21.73 · SSC 누적 582위 · P 4 · H 112,740 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 83.0%</li>
+<li><strong>333위 · S3018</strong> — 약 · 강도 21.70 · SSC 누적 308위 · P 48 · H 69,960 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>334위 · S3673</strong> — 약 · 강도 21.69 · SSC 누적 228위 · P 87 · H 50,200 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>335위 · S4106</strong> — 약 · 강도 21.49 · SSC 누적 317위 · P 47 · H 80,720 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.2%</li>
+<li><strong>336위 · S891</strong> — 약 · 강도 21.45 · SSC 누적 355위 · P 38 · H 51,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>337위 · S3256</strong> — 약 · 강도 21.36 · SSC 누적 236위 · P 82 · H 50,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>338위 · S1237</strong> — 약 · 강도 21.30 · SSC 누적 364위 · P 34 · H 53,840 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>339위 · S3467</strong> — 약 · 강도 21.25 · SSC 누적 279위 · P 62 · H 58,940 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>340위 · S3882</strong> — 약 · 강도 21.13 · SSC 누적 196위 · P 118 · H 61,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>341위 · S4022</strong> — 약 · 강도 21.07 · SSC 누적 326위 · P 44 · H 76,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>342위 · S369</strong> — 약 · 강도 20.74 · SSC 누적 341위 · P 41 · H 39,310 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>343위 · S3477</strong> — 약 · 강도 20.70 · SSC 누적 352위 · P 38 · H 66,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>344위 · S3630</strong> — 약 · 강도 20.67 · SSC 누적 282위 · P 59 · H 52,430 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>345위 · S4024</strong> — 약 · 강도 20.56 · SSC 누적 345위 · P 40 · H 65,720 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.0%</li>
+<li><strong>346위 · S4169</strong> — 약 · 강도 20.56 · SSC 누적 331위 · P 42 · H 105,200 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>347위 · S4078</strong> — 약 · 강도 20.49 · SSC 누적 276위 · P 62 · H 113,960 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>348위 · S154</strong> — 약 · 강도 20.47 · SSC 누적 346위 · P 40 · H 34,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>349위 · S2578</strong> — 약 · 강도 20.40 · SSC 누적 370위 · P 32 · H 75,070 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>350위 · S1679</strong> — 약 · 강도 20.39 · SSC 누적 405위 · P 26 · H 61,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>351위 · S3530</strong> — 약 · 강도 20.21 · SSC 누적 403위 · P 26 · H 82,150 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>352위 · S623</strong> — 약 · 강도 20.18 · SSC 누적 349위 · P 39 · H 46,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>353위 · S4139</strong> — 약 · 강도 20.07 · SSC 누적 395위 · P 28 · H 90,330 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>354위 · S520</strong> — 약 · 강도 19.92 · SSC 누적 425위 · P 22 · H 54,930 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>355위 · S2350</strong> — 약 · 강도 19.75 · SSC 누적 319위 · P 46 · H 59,700 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>356위 · S1008</strong> — 약 · 강도 19.69 · SSC 누적 329위 · P 44 · H 48,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>357위 · S601</strong> — 약 · 강도 19.54 · SSC 누적 292위 · P 55 · H 37,720 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>358위 · S1219</strong> — 약 · 강도 19.50 · SSC 누적 289위 · P 56 · H 47,320 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>359위 · S3325</strong> — 약 · 강도 19.48 · SSC 누적 328위 · P 44 · H 52,390 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>360위 · S1809</strong> — 약 · 강도 19.43 · SSC 누적 460위 · P 17 · H 65,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>361위 · S1753</strong> — 약 · 강도 19.38 · SSC 누적 502위 · P 11 · H 55,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>362위 · S1302</strong> — 약 · 강도 19.38 · SSC 누적 290위 · P 56 · H 46,260 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>363위 · S3343</strong> — 약 · 강도 19.34 · SSC 누적 178위 · P 137 · H 59,420 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>364위 · S3533</strong> — 약 · 강도 19.20 · SSC 누적 272위 · P 65 · H 58,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>365위 · S1061</strong> — 약 · 강도 19.15 · SSC 누적 386위 · P 30 · H 43,160 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>366위 · S3822</strong> — 약 · 강도 19.07 · SSC 누적 384위 · P 30 · H 65,280 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>367위 · S315</strong> — 약 · 강도 19.07 · SSC 누적 428위 · P 22 · H 37,940 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>368위 · S3923</strong> — 약 · 강도 19.05 · SSC 누적 369위 · P 33 · H 62,500 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>369위 · S249</strong> — 약 · 강도 19.03 · SSC 누적 586위 · P 4 · H 53,820 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>370위 · S1041</strong> — 약 · 강도 18.97 · SSC 누적 640위 · P 0 · H 70,040 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>371위 · S2157</strong> — 약 · 강도 18.95 · SSC 누적 361위 · P 36 · H 55,730 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>372위 · S1568</strong> — 약 · 강도 18.91 · SSC 누적 197위 · P 118 · H 36,800 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>373위 · S2131</strong> — 약 · 강도 18.76 · SSC 누적 445위 · P 18 · H 63,340 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>374위 · S940</strong> — 약 · 강도 18.71 · SSC 누적 337위 · P 42 · H 40,200 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>375위 · S1251</strong> — 약 · 강도 18.70 · SSC 누적 310위 · P 48 · H 46,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>376위 · S4099</strong> — 약 · 강도 18.68 · SSC 누적 381위 · P 30 · H 82,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>377위 · S2798</strong> — 약 · 강도 18.66 · SSC 누적 374위 · P 31 · H 63,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>378위 · S3090</strong> — 약 · 강도 18.59 · SSC 누적 404위 · P 26 · H 71,330 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>379위 · S4079</strong> — 약 · 강도 18.57 · SSC 누적 470위 · P 14 · H 100,990 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>380위 · S791</strong> — 약 · 강도 18.55 · SSC 누적 407위 · P 26 · H 47,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>381위 · S283</strong> — 약 · 강도 18.53 · SSC 누적 435위 · P 20 · H 37,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>382위 · S3700</strong> — 약 · 강도 18.45 · SSC 누적 285위 · P 58 · H 58,460 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>383위 · S2244</strong> — 약 · 강도 18.39 · SSC 누적 320위 · P 46 · H 55,000 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>384위 · S1095</strong> — 약 · 강도 18.30 · SSC 누적 447위 · P 18 · H 49,760 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>385위 · S1812</strong> — 약 · 강도 18.29 · SSC 누적 618위 · P 2 · H 66,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>386위 · S800</strong> — 약 · 강도 18.11 · SSC 누적 358위 · P 38 · H 41,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>387위 · S2987</strong> — 약 · 강도 18.10 · SSC 누적 444위 · P 18 · H 68,240 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>388위 · S1432</strong> — 약 · 강도 18.09 · SSC 누적 232위 · P 85 · H 33,640 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>389위 · S3627</strong> — 약 · 강도 18.08 · SSC 누적 419위 · P 24 · H 57,030 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>390위 · S2494</strong> — 약 · 강도 18.06 · SSC 누적 507위 · P 10 · H 62,730 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>391위 · S1772</strong> — 약 · 강도 18.06 · SSC 누적 273위 · P 65 · H 38,500 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>392위 · S3966</strong> — 약 · 강도 17.99 · SSC 누적 327위 · P 44 · H 60,950 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>393위 · S2608</strong> — 약 · 강도 17.99 · SSC 누적 424위 · P 22 · H 64,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>394위 · S1386</strong> — 약 · 강도 17.92 · SSC 누적 416위 · P 25 · H 35,930 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>395위 · S767</strong> — 약 · 강도 17.85 · SSC 누적 359위 · P 38 · H 34,000 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>396위 · S808</strong> — 약 · 강도 17.76 · SSC 누적 643위 · P 0 · H 62,440 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>397위 · S2064</strong> — 약 · 강도 17.64 · SSC 누적 418위 · P 24 · H 59,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>398위 · S135</strong> — 약 · 강도 17.59 · SSC 누적 454위 · P 18 · H 30,260 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>399위 · S513</strong> — 약 · 강도 17.46 · SSC 누적 230위 · P 86 · H 36,030 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>400위 · S3529</strong> — 약 · 강도 17.38 · SSC 누적 299위 · P 52 · H 53,490 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.7%</li>
+<li><strong>401위 · S950</strong> — 약 · 강도 17.36 · SSC 누적 493위 · P 12 · H 49,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>402위 · S682</strong> — 약 · 강도 17.31 · SSC 누적 372위 · P 32 · H 34,430 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>403위 · S2125</strong> — 약 · 강도 17.29 · SSC 누적 250위 · P 76 · H 40,630 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>404위 · S913</strong> — 약 · 강도 17.28 · SSC 누적 415위 · P 25 · H 43,630 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>405위 · S1011</strong> — 약 · 강도 17.28 · SSC 누적 536위 · P 8 · H 54,250 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>406위 · S1867</strong> — 약 · 강도 17.19 · SSC 누적 434위 · P 21 · H 46,120 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>407위 · S770</strong> — 약 · 강도 17.17 · SSC 누적 350위 · P 39 · H 27,960 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>408위 · S1010</strong> — 약 · 강도 17.13 · SSC 누적 409위 · P 26 · H 42,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>409위 · S3399</strong> — 약 · 강도 17.09 · SSC 누적 263위 · P 70 · H 45,990 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>410위 · S608</strong> — 약 · 강도 17.08 · SSC 누적 555위 · P 6 · H 58,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>411위 · S2620</strong> — 약 · 강도 16.95 · SSC 누적 336위 · P 42 · H 53,550 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>412위 · S549</strong> — 약 · 강도 16.88 · SSC 누적 394위 · P 29 · H 34,590 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>413위 · S4256</strong> — 약 · 강도 16.85 · SSC 누적 528위 · P 8 · H 102,330 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>414위 · S3939</strong> — 약 · 강도 16.82 · SSC 누적 506위 · P 10 · H 66,310 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>415위 · S3535</strong> — 약 · 강도 16.74 · SSC 누적 471위 · P 14 · H 64,900 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>416위 · S1366</strong> — 약 · 강도 16.70 · SSC 누적 316위 · P 48 · H 29,920 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>417위 · S1425</strong> — 약 · 강도 16.64 · SSC 누적 406위 · P 26 · H 60,220 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>418위 · S4181</strong> — 약 · 강도 16.62 · SSC 누적 269위 · P 66 · H 52,260 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>419위 · S278</strong> — 약 · 강도 16.55 · SSC 누적 561위 · P 6 · H 47,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>420위 · S3963</strong> — 약 · 강도 16.44 · SSC 누적 313위 · P 48 · H 34,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.9%</li>
+<li><strong>421위 · S531</strong> — 약 · 강도 16.27 · SSC 누적 367위 · P 34 · H 24,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>422위 · S2085</strong> — 약 · 강도 16.27 · SSC 누적 293위 · P 54 · H 35,990 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>423위 · S997</strong> — 약 · 강도 16.27 · SSC 누적 388위 · P 30 · H 26,320 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>424위 · S312</strong> — 약 · 강도 16.25 · SSC 누적 562위 · P 6 · H 44,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>425위 · S3466</strong> — 약 · 강도 16.20 · SSC 누적 501위 · P 11 · H 72,150 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>426위 · S579</strong> — 약 · 강도 16.10 · SSC 누적 590위 · P 4 · H 42,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>427위 · S2185</strong> — 약 · 강도 16.06 · SSC 누적 385위 · P 30 · H 49,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>428위 · S685</strong> — 약 · 강도 16.02 · SSC 누적 413위 · P 26 · H 32,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>429위 · S3921</strong> — 약 · 강도 15.89 · SSC 누적 463위 · P 16 · H 63,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>430위 · S1304</strong> — 약 · 강도 15.84 · SSC 누적 535위 · P 8 · H 55,330 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>431위 · S651</strong> — 약 · 강도 15.83 · SSC 누적 437위 · P 20 · H 32,200 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>432위 · S4207</strong> — 약 · 강도 15.82 · SSC 누적 583위 · P 4 · H 100,430 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.8%</li>
+<li><strong>433위 · S3770</strong> — 약 · 강도 15.81 · SSC 누적 200위 · P 114 · H 21,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>434위 · S2580</strong> — 약 · 강도 15.70 · SSC 누적 322위 · P 46 · H 38,310 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>435위 · S2371</strong> — 약 · 강도 15.64 · SSC 누적 300위 · P 52 · H 45,120 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>436위 · S1387</strong> — 약 · 강도 15.61 · SSC 누적 510위 · P 10 · H 51,450 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>437위 · S529</strong> — 약 · 강도 15.51 · SSC 누적 429위 · P 22 · H 35,530 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>438위 · S1001</strong> — 약 · 강도 15.41 · SSC 누적 475위 · P 14 · H 42,730 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>439위 · S4155</strong> — 약 · 강도 15.41 · SSC 누적 529위 · P 8 · H 90,780 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 81.0%</li>
+<li><strong>440위 · S3167</strong> — 약 · 강도 15.32 · SSC 누적 302위 · P 52 · H 30,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>441위 · S3628</strong> — 약 · 강도 15.21 · SSC 누적 584위 · P 4 · H 72,580 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>442위 · S4036</strong> — 약 · 강도 15.17 · SSC 누적 462위 · P 16 · H 69,440 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>443위 · S3437</strong> — 약 · 강도 15.13 · SSC 누적 375위 · P 31 · H 58,020 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>444위 · S1792</strong> — 약 · 강도 15.12 · SSC 누적 426위 · P 22 · H 49,750 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>445위 · S3940</strong> — 약 · 강도 15.11 · SSC 누적 354위 · P 38 · H 54,410 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>446위 · S626</strong> — 약 · 강도 15.06 · SSC 누적 433위 · P 22 · H 25,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>447위 · S511</strong> — 약 · 강도 14.89 · SSC 누적 452위 · P 18 · H 31,450 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>448위 · S1133</strong> — 약 · 강도 14.88 · SSC 누적 451위 · P 18 · H 36,410 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>449위 · S1619</strong> — 약 · 강도 14.87 · SSC 누적 357위 · P 38 · H 46,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>450위 · S295</strong> — 약 · 강도 14.82 · SSC 누적 567위 · P 6 · H 31,130 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>451위 · S821</strong> — 약 · 강도 14.80 · SSC 누적 480위 · P 14 · H 36,780 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>452위 · S3675</strong> — 약 · 강도 14.71 · SSC 누적 554위 · P 6 · H 65,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>453위 · S3001</strong> — 약 · 강도 14.67 · SSC 누적 553위 · P 6 · H 66,500 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>454위 · S437</strong> — 약 · 강도 14.65 · SSC 누적 514위 · P 10 · H 40,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>455위 · S703</strong> — 약 · 강도 14.64 · SSC 누적 513위 · P 10 · H 41,820 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>456위 · S2050</strong> — 약 · 강도 14.55 · SSC 누적 314위 · P 48 · H 31,440 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>457위 · S296</strong> — 약 · 강도 14.54 · SSC 누적 568위 · P 6 · H 28,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>458위 · S411</strong> — 약 · 강도 14.53 · SSC 누적 515위 · P 10 · H 39,660 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>459위 · S869</strong> — 약 · 강도 14.48 · SSC 누적 482위 · P 14 · H 33,590 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>460위 · S3425</strong> — 약 · 강도 14.28 · SSC 누적 532위 · P 8 · H 65,400 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>461위 · S412</strong> — 약 · 강도 14.18 · SSC 누적 516위 · P 10 · H 36,520 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>462위 · S536</strong> — 약 · 강도 14.13 · SSC 누적 496위 · P 12 · H 32,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>463위 · S567</strong> — 약 · 강도 14.06 · SSC 누적 539위 · P 8 · H 41,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>464위 · S2169</strong> — 약 · 강도 13.98 · SSC 누적 338위 · P 42 · H 31,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>465위 · S2505</strong> — 약 · 강도 13.87 · SSC 누적 401위 · P 27 · H 57,240 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>466위 · S2896</strong> — 약 · 강도 13.84 · SSC 누적 301위 · P 52 · H 44,450 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>467위 · S1709</strong> — 약 · 강도 13.61 · SSC 누적 392위 · P 29 · H 39,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>468위 · S1938</strong> — 약 · 강도 13.56 · SSC 누적 393위 · P 29 · H 39,720 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>469위 · S1507</strong> — 약 · 강도 13.51 · SSC 누적 366위 · P 34 · H 35,840 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>470위 · S3768</strong> — 약 · 강도 13.32 · SSC 누적 408위 · P 26 · H 45,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>471위 · S926</strong> — 약 · 강도 13.32 · SSC 누적 544위 · P 8 · H 35,290 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>472위 · S4270</strong> — 약 · 강도 13.30 · SSC 누적 537위 · P 8 · H 52,880 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>473위 · S3740</strong> — 약 · 강도 13.27 · SSC 누적 264위 · P 70 · H 32,230 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>474위 · S496</strong> — 약 · 강도 13.26 · SSC 누적 545위 · P 8 · H 32,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>475위 · S3715</strong> — 약 · 강도 13.24 · SSC 누적 446위 · P 18 · H 51,420 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>476위 · S1496</strong> — 약 · 강도 13.16 · SSC 누적 330위 · P 44 · H 25,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>477위 · S2222</strong> — 약 · 강도 13.14 · SSC 누적 449위 · P 18 · H 39,540 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>478위 · S1381</strong> — 약 · 강도 13.09 · SSC 누적 565위 · P 6 · H 39,490 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>479위 · S730</strong> — 약 · 강도 13.06 · SSC 누적 546위 · P 8 · H 30,430 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>480위 · S4200</strong> — 약 · 강도 13.05 · SSC 누적 312위 · P 48 · H 44,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>481위 · S3144</strong> — 약 · 강도 12.94 · SSC 누적 342위 · P 41 · H 31,520 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>482위 · S1047</strong> — 약 · 강도 12.87 · SSC 누적 523위 · P 10 · H 26,960 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>483위 · S4238</strong> — 약 · 강도 12.87 · SSC 누적 533위 · P 8 · H 62,750 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>484위 · S3751</strong> — 약 · 강도 12.85 · SSC 누적 311위 · P 48 · H 44,860 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>485위 · S889</strong> — 약 · 강도 12.84 · SSC 누적 521위 · P 10 · H 28,680 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>486위 · S3640</strong> — 약 · 강도 12.82 · SSC 누적 324위 · P 46 · H 23,160 · 개인 TOP500 1 · 연맹 TOP300 0 · 추정값 · 신뢰도 83.7%</li>
+<li><strong>487위 · S1317</strong> — 약 · 강도 12.81 · SSC 누적 558위 · P 6 · H 48,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>488위 · S310</strong> — 약 · 강도 12.73 · SSC 누적 626위 · P 2 · H 23,280 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>489위 · S3855</strong> — 약 · 강도 12.67 · SSC 누적 356위 · P 38 · H 48,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>490위 · S801</strong> — 약 · 강도 12.65 · SSC 누적 592위 · P 4 · H 40,350 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>491위 · S2374</strong> — 약 · 강도 12.65 · SSC 누적 410위 · P 26 · H 37,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>492위 · S3016</strong> — 약 · 강도 12.63 · SSC 누적 472위 · P 14 · H 59,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>493위 · S1026</strong> — 약 · 강도 12.59 · SSC 누적 581위 · P 5 · H 37,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>494위 · S3647</strong> — 약 · 강도 12.55 · SSC 누적 307위 · P 49 · H 38,610 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>495위 · S3905</strong> — 약 · 강도 12.52 · SSC 누적 365위 · P 34 · H 49,250 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>496위 · S2102</strong> — 약 · 강도 12.46 · SSC 누적 556위 · P 6 · H 53,160 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>497위 · S4241</strong> — 약 · 강도 12.44 · SSC 누적 636위 · P 0 · H 81,000 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>498위 · S3904</strong> — 약 · 강도 12.27 · SSC 누적 492위 · P 12 · H 51,580 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.8%</li>
+<li><strong>499위 · S3638</strong> — 약 · 강도 12.27 · SSC 누적 436위 · P 20 · H 34,680 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>500위 · S3480</strong> — 약 · 강도 12.23 · SSC 누적 315위 · P 48 · H 30,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>501위 · S3054</strong> — 약 · 강도 12.13 · SSC 누적 490위 · P 12 · H 56,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>502위 · S851</strong> — 약 · 강도 11.90 · SSC 누적 569위 · P 6 · H 28,210 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>503위 · S3937</strong> — 약 · 강도 11.86 · SSC 누적 509위 · P 10 · H 60,020 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>504위 · S3884</strong> — 약 · 강도 11.80 · SSC 누적 323위 · P 46 · H 29,500 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>505위 · S1527</strong> — 약 · 강도 11.74 · SSC 누적 387위 · P 30 · H 27,100 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>506위 · S622</strong> — 약 · 강도 11.71 · SSC 누적 571위 · P 6 · H 25,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>507위 · S3962</strong> — 약 · 강도 11.64 · SSC 누적 491위 · P 12 · H 53,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>508위 · S4037</strong> — 약 · 강도 11.56 · SSC 누적 639위 · P 0 · H 71,540 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>509위 · S1132</strong> — 약 · 강도 11.56 · SSC 누적 647위 · P 0 · H 46,900 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>510위 · S2216</strong> — 약 · 강도 11.48 · SSC 누적 486위 · P 13 · H 49,090 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>511위 · S1566</strong> — 약 · 강도 11.47 · SSC 누적 474위 · P 14 · H 43,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>512위 · S978</strong> — 약 · 강도 11.38 · SSC 누적 651위 · P 0 · H 45,510 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>513위 · S546</strong> — 약 · 강도 11.22 · SSC 누적 603위 · P 4 · H 26,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>514위 · S3965</strong> — 약 · 강도 11.22 · SSC 누적 534위 · P 8 · H 57,840 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>515위 · S4206</strong> — 약 · 강도 11.20 · SSC 누적 637위 · P 0 · H 75,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.2%</li>
+<li><strong>516위 · S322</strong> — 약 · 강도 11.19 · SSC 누적 699위 · P 0 · H 15,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.1%</li>
+<li><strong>517위 · S4245</strong> — 약 · 강도 11.16 · SSC 누적 638위 · P 0 · H 71,580 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>518위 · S1454</strong> — 약 · 강도 11.15 · SSC 누적 439위 · P 20 · H 30,800 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>519위 · S694</strong> — 약 · 강도 11.08 · SSC 누적 652위 · P 0 · H 42,120 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>520위 · S2543</strong> — 약 · 강도 11.07 · SSC 누적 371위 · P 32 · H 34,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>521위 · S736</strong> — 약 · 강도 11.06 · SSC 누적 598위 · P 4 · H 29,600 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>522위 · S3736</strong> — 약 · 강도 11.05 · SSC 누적 494위 · P 12 · H 49,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>523위 · S3825</strong> — 약 · 강도 11.00 · SSC 누적 391위 · P 29 · H 43,690 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>524위 · S2234</strong> — 약 · 강도 10.84 · SSC 누적 495위 · P 12 · H 45,060 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>525위 · S1003</strong> — 약 · 강도 10.83 · SSC 누적 605위 · P 4 · H 24,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>526위 · S1229</strong> — 약 · 강도 10.81 · SSC 누적 548위 · P 8 · H 24,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>527위 · S2195</strong> — 약 · 강도 10.80 · SSC 누적 481위 · P 14 · H 34,890 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>528위 · S2464</strong> — 약 · 강도 10.58 · SSC 누적 414위 · P 26 · H 19,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>529위 · S738</strong> — 약 · 강도 10.54 · SSC 누적 623위 · P 2 · H 27,520 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>530위 · S3671</strong> — 약 · 강도 10.51 · SSC 누적 411위 · P 26 · H 36,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>531위 · S674</strong> — 약 · 강도 10.45 · SSC 누적 611위 · P 4 · H 20,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>532위 · S761</strong> — 약 · 강도 10.42 · SSC 누적 660위 · P 0 · H 34,940 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>533위 · S1827</strong> — 약 · 강도 10.32 · SSC 누적 457위 · P 18 · H 24,450 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>534위 · S4237</strong> — 약 · 강도 10.31 · SSC 누적 641위 · P 0 · H 68,640 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.2%</li>
+<li><strong>535위 · S1033</strong> — 약 · 강도 10.29 · SSC 누적 661위 · P 0 · H 33,460 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>536위 · S2388</strong> — 약 · 강도 10.29 · SSC 누적 484위 · P 14 · H 31,670 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>537위 · S935</strong> — 약 · 강도 10.29 · SSC 누적 624위 · P 2 · H 25,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>538위 · S293</strong> — 약 · 강도 10.26 · SSC 누적 696위 · P 0 · H 16,680 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 76.4%</li>
+<li><strong>539위 · S3038</strong> — 약 · 강도 10.21 · SSC 누적 448위 · P 18 · H 47,090 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>540위 · S4242</strong> — 약 · 강도 10.20 · SSC 누적 642위 · P 0 · H 65,880 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>541위 · S2818</strong> — 약 · 강도 10.20 · SSC 누적 412위 · P 26 · H 34,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>542위 · S611</strong> — 약 · 강도 10.14 · SSC 누적 616위 · P 4 · H 12,820 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>543위 · S2069</strong> — 약 · 강도 10.14 · SSC 누적 497위 · P 12 · H 32,730 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>544위 · S744</strong> — 약 · 강도 10.14 · SSC 누적 609위 · P 4 · H 21,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>545위 · S835</strong> — 약 · 강도 10.10 · SSC 누적 615위 · P 4 · H 16,550 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>546위 · S1029</strong> — 약 · 강도 10.09 · SSC 누적 664위 · P 0 · H 32,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>547위 · S1208</strong> — 약 · 강도 10.07 · SSC 누적 576위 · P 6 · H 20,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>548위 · S1578</strong> — 약 · 강도 10.02 · SSC 누적 478위 · P 14 · H 38,320 · 개인 TOP500 0 · 연맹 TOP300 0 · 실전력 원본 있음</li>
+<li><strong>549위 · S3639</strong> — 약 · 강도 10.00 · SSC 누적 373위 · P 32 · H 25,400 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>550위 · S2008</strong> — 약 · 강도 9.99 · SSC 누적 468위 · P 15 · H 25,440 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>551위 · S3508</strong> — 약 · 강도 9.91 · SSC 누적 477위 · P 14 · H 38,520 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.5%</li>
+<li><strong>552위 · S3351</strong> — 약 · 강도 9.82 · SSC 누적 430위 · P 22 · H 35,130 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>553위 · S4005</strong> — 약 · 강도 9.82 · SSC 누적 585위 · P 4 · H 56,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>554위 · S584</strong> — 약 · 강도 9.80 · SSC 누적 671위 · P 0 · H 28,870 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>555위 · S3509</strong> — 약 · 강도 9.78 · SSC 누적 368위 · P 34 · H 22,250 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>556위 · S553</strong> — 약 · 강도 9.70 · SSC 누적 675위 · P 0 · H 26,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>557위 · S1002</strong> — 약 · 강도 9.70 · SSC 누적 672위 · P 0 · H 28,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>558위 · S2107</strong> — 약 · 강도 9.68 · SSC 누적 519위 · P 10 · H 32,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>559위 · S3821</strong> — 약 · 강도 9.66 · SSC 누적 473위 · P 14 · H 47,100 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>560위 · S1803</strong> — 약 · 강도 9.51 · SSC 누적 500위 · P 12 · H 25,860 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>561위 · S2044</strong> — 약 · 강도 9.50 · SSC 누적 564위 · P 6 · H 39,840 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>562위 · S701</strong> — 약 · 강도 9.45 · SSC 누적 677위 · P 0 · H 26,280 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>563위 · S1015</strong> — 약 · 강도 9.43 · SSC 누적 610위 · P 4 · H 21,160 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>564위 · S1232</strong> — 약 · 강도 9.36 · SSC 누적 608위 · P 4 · H 21,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>565위 · S4058</strong> — 약 · 강도 9.34 · SSC 누적 427위 · P 22 · H 39,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>566위 · S2937</strong> — 약 · 강도 9.32 · SSC 누적 431위 · P 22 · H 31,410 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>567위 · S2610</strong> — 약 · 강도 9.30 · SSC 누적 464위 · P 16 · H 46,230 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>568위 · S3616</strong> — 약 · 강도 9.29 · SSC 누적 450위 · P 18 · H 36,880 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>569위 · S1555</strong> — 약 · 강도 9.22 · SSC 누적 520위 · P 10 · H 30,720 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>570위 · S1410</strong> — 약 · 강도 9.17 · SSC 누적 589위 · P 4 · H 44,310 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>571위 · S1020</strong> — 약 · 강도 9.17 · SSC 누적 681위 · P 0 · H 24,220 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>572위 · S3637</strong> — 약 · 강도 9.11 · SSC 누적 440위 · P 20 · H 30,680 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>573위 · S3753</strong> — 약 · 강도 9.03 · SSC 누적 438위 · P 20 · H 31,230 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>574위 · S2579</strong> — 약 · 강도 8.93 · SSC 누적 432위 · P 22 · H 29,220 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>575위 · S4210</strong> — 약 · 강도 8.92 · SSC 누적 420위 · P 24 · H 33,040 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.0%</li>
+<li><strong>576위 · S2974</strong> — 약 · 강도 8.83 · SSC 누적 476위 · P 14 · H 39,960 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>577위 · S1917</strong> — 약 · 강도 8.76 · SSC 누적 458위 · P 18 · H 20,100 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.7%</li>
+<li><strong>578위 · S1453</strong> — 약 · 강도 8.70 · SSC 누적 580위 · P 5 · H 38,340 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>579위 · S1331</strong> — 약 · 강도 8.68 · SSC 누적 632위 · P 2 · H 15,290 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>580위 · S3454</strong> — 약 · 강도 8.66 · SSC 누적 441위 · P 20 · H 29,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>581위 · S3798</strong> — 약 · 강도 8.62 · SSC 누적 512위 · P 10 · H 45,500 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>582위 · S693</strong> — 약 · 강도 8.60 · SSC 누적 697위 · P 0 · H 16,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.7%</li>
+<li><strong>583위 · S3539</strong> — 약 · 강도 8.54 · SSC 누적 455위 · P 18 · H 30,130 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>584위 · S1336</strong> — 약 · 강도 8.37 · SSC 누적 674위 · P 0 · H 26,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>585위 · S3663</strong> — 약 · 강도 8.19 · SSC 누적 442위 · P 20 · H 24,450 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>586위 · S3120</strong> — 약 · 강도 8.17 · SSC 누적 456위 · P 18 · H 25,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>587위 · S3306</strong> — 약 · 강도 8.02 · SSC 누적 483위 · P 14 · H 33,330 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>588위 · S3711</strong> — 약 · 강도 7.94 · SSC 누적 557위 · P 6 · H 49,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>589위 · S1244</strong> — 약 · 강도 7.87 · SSC 누적 693위 · P 0 · H 18,120 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>590위 · S3851</strong> — 약 · 강도 7.86 · SSC 누적 511위 · P 10 · H 47,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>591위 · S1540</strong> — 약 · 강도 7.78 · SSC 누적 621위 · P 2 · H 39,090 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>592위 · S1733</strong> — 약 · 강도 7.77 · SSC 누적 596위 · P 4 · H 34,900 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>593위 · S3005</strong> — 약 · 강도 7.75 · SSC 누적 587위 · P 4 · H 50,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>594위 · S4137</strong> — 약 · 강도 7.71 · SSC 누적 453위 · P 18 · H 31,300 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.6%</li>
+<li><strong>595위 · S2597</strong> — 약 · 강도 7.71 · SSC 누적 560위 · P 6 · H 47,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>596위 · S3938</strong> — 약 · 강도 7.70 · SSC 누적 559위 · P 6 · H 48,840 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>597위 · S3968</strong> — 약 · 강도 7.69 · SSC 누적 479위 · P 14 · H 38,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>598위 · S3510</strong> — 약 · 강도 7.63 · SSC 누적 465위 · P 16 · H 31,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>599위 · S3507</strong> — 약 · 강도 7.62 · SSC 누적 540위 · P 8 · H 39,840 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>600위 · S1855</strong> — 약 · 강도 7.59 · SSC 누적 650위 · P 0 · H 46,220 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>601위 · S3636</strong> — 약 · 강도 7.59 · SSC 누적 466위 · P 16 · H 25,150 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>602위 · S2617</strong> — 약 · 강도 7.59 · SSC 누적 498위 · P 12 · H 31,740 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>603위 · S3310</strong> — 약 · 강도 7.58 · SSC 누적 593위 · P 4 · H 38,280 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>604위 · S2797</strong> — 약 · 강도 7.56 · SSC 누적 467위 · P 15 · H 26,550 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>605위 · S3664</strong> — 약 · 강도 7.54 · SSC 누적 541위 · P 8 · H 39,680 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>606위 · S3738</strong> — 약 · 강도 7.53 · SSC 누적 591위 · P 4 · H 40,610 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.7%</li>
+<li><strong>607위 · S1272</strong> — 약 · 강도 7.51 · SSC 누적 694위 · P 0 · H 18,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>608위 · S3783</strong> — 약 · 강도 7.50 · SSC 누적 542위 · P 8 · H 39,030 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>609위 · S3782</strong> — 약 · 강도 7.47 · SSC 누적 538위 · P 8 · H 42,440 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>610위 · S2820</strong> — 약 · 강도 7.45 · SSC 누적 485위 · P 14 · H 30,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>611위 · S2687</strong> — 약 · 강도 7.41 · SSC 누적 517위 · P 10 · H 33,770 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>612위 · S2022</strong> — 약 · 강도 7.37 · SSC 누적 594위 · P 4 · H 36,880 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.4%</li>
+<li><strong>613위 · S2697</strong> — 약 · 강도 7.32 · SSC 누적 563위 · P 6 · H 43,320 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>614위 · S2531</strong> — 약 · 강도 7.28 · SSC 누적 518위 · P 10 · H 32,610 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>615위 · S1248</strong> — 약 · 강도 7.15 · SSC 누적 635위 · P 2 · H 11,410 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>616위 · S3969</strong> — 약 · 강도 7.12 · SSC 누적 459위 · P 18 · H 13,270 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>617위 · S1408</strong> — 약 · 강도 7.02 · SSC 누적 630위 · P 2 · H 21,250 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>618위 · S1468</strong> — 약 · 강도 7.00 · SSC 누적 577위 · P 6 · H 18,200 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>619위 · S3713</strong> — 약 · 강도 6.97 · SSC 누적 499위 · P 12 · H 25,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>620위 · S2041</strong> — 약 · 강도 6.93 · SSC 누적 655위 · P 0 · H 38,240 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>621위 · S3796</strong> — 약 · 강도 6.93 · SSC 누적 566위 · P 6 · H 39,070 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>622위 · S3398</strong> — 약 · 강도 6.91 · SSC 누적 588위 · P 4 · H 46,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>623위 · S3755</strong> — 약 · 강도 6.81 · SSC 누적 522위 · P 10 · H 28,620 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.2%</li>
+<li><strong>624위 · S1528</strong> — 약 · 강도 6.78 · SSC 누적 578위 · P 6 · H 16,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>625위 · S4281</strong> — 약 · 강도 6.64 · SSC 누적 646위 · P 0 · H 48,900 · 개인 TOP500 0 · 연맹 TOP300 1 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>626위 · S1732</strong> — 약 · 강도 6.52 · SSC 누적 663위 · P 0 · H 32,590 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>627위 · S4267</strong> — 약 · 강도 6.48 · SSC 누적 645위 · P 0 · H 51,010 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 75.4%</li>
+<li><strong>628위 · S4260</strong> — 약 · 강도 6.47 · SSC 누적 644위 · P 0 · H 51,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.9%</li>
+<li><strong>629위 · S3536</strong> — 약 · 강도 6.25 · SSC 누적 547위 · P 8 · H 28,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>630위 · S2078</strong> — 약 · 강도 6.10 · SSC 누적 629위 · P 2 · H 21,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>631위 · S2252</strong> — 약 · 강도 5.99 · SSC 누적 631위 · P 2 · H 20,020 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>632위 · S3374</strong> — 약 · 강도 5.94 · SSC 누적 619위 · P 2 · H 43,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>633위 · S1491</strong> — 약 · 강도 5.90 · SSC 누적 668위 · P 0 · H 30,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>634위 · S3767</strong> — 약 · 강도 5.85 · SSC 누적 524위 · P 10 · H 18,040 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>635위 · S4123</strong> — 약 · 강도 5.83 · SSC 누적 487위 · P 13 · H 29,660 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.3%</li>
+<li><strong>636위 · S1537</strong> — 약 · 강도 5.83 · SSC 누적 665위 · P 0 · H 32,090 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>637위 · S2559</strong> — 약 · 강도 5.79 · SSC 누적 620위 · P 2 · H 40,650 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>638위 · S4003</strong> — 약 · 강도 5.71 · SSC 누적 549위 · P 8 · H 23,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.9%</li>
+<li><strong>639위 · S3724</strong> — 약 · 강도 5.67 · SSC 누적 570위 · P 6 · H 28,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>640위 · S4096</strong> — 약 · 강도 5.60 · SSC 누적 543위 · P 8 · H 37,740 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>641위 · S4283</strong> — 약 · 강도 5.59 · SSC 누적 653위 · P 0 · H 40,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.9%</li>
+<li><strong>642위 · S2827</strong> — 약 · 강도 5.51 · SSC 누적 573위 · P 6 · H 24,890 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>643위 · S3141</strong> — 약 · 강도 5.46 · SSC 누적 525위 · P 10 · H 9,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.7%</li>
+<li><strong>644위 · S3784</strong> — 약 · 강도 5.43 · SSC 누적 597위 · P 4 · H 31,690 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>645위 · S3881</strong> — 약 · 강도 5.42 · SSC 누적 550위 · P 8 · H 19,190 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>646위 · S2218</strong> — 약 · 강도 5.39 · SSC 누적 680위 · P 0 · H 24,380 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>647위 · S1977</strong> — 약 · 강도 5.32 · SSC 누적 625위 · P 2 · H 23,540 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>648위 · S3200</strong> — 약 · 강도 5.31 · SSC 누적 551위 · P 8 · H 18,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>649위 · S3970</strong> — 약 · 강도 5.29 · SSC 누적 649위 · P 0 · H 46,370 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>650위 · S2746</strong> — 약 · 강도 5.28 · SSC 누적 648위 · P 0 · H 46,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.4%</li>
+<li><strong>651위 · S1774</strong> — 약 · 강도 5.25 · SSC 누적 683위 · P 0 · H 22,690 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>652위 · S3853</strong> — 약 · 강도 5.12 · SSC 누적 574위 · P 6 · H 21,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>653위 · S3523</strong> — 약 · 강도 5.10 · SSC 누적 600위 · P 4 · H 27,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>654위 · S2828</strong> — 약 · 강도 4.99 · SSC 누적 599위 · P 4 · H 28,070 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>655위 · S2652</strong> — 약 · 강도 4.93 · SSC 누적 601위 · P 4 · H 27,200 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.1%</li>
+<li><strong>656위 · S3883</strong> — 약 · 강도 4.79 · SSC 누적 595위 · P 4 · H 35,880 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>657위 · S3714</strong> — 약 · 강도 4.71 · SSC 누적 622위 · P 2 · H 36,120 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>658위 · S1687</strong> — 약 · 강도 4.70 · SSC 누적 701위 · P 0 · H 14,480 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>659위 · S1796</strong> — 약 · 강도 4.66 · SSC 누적 678위 · P 0 · H 26,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>660위 · S3321</strong> — 약 · 강도 4.58 · SSC 누적 602위 · P 4 · H 26,660 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>661위 · S1449</strong> — 약 · 강도 4.53 · SSC 누적 700위 · P 0 · H 15,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>662위 · S1721</strong> — 약 · 강도 4.53 · SSC 누적 710위 · P 0 · H 9,610 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.1%</li>
+<li><strong>663위 · S2749</strong> — 약 · 강도 4.45 · SSC 누적 579위 · P 6 · H 12,910 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>664위 · S4266</strong> — 약 · 강도 4.43 · SSC 누적 669위 · P 0 · H 30,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.8%</li>
+<li><strong>665위 · S4021</strong> — 약 · 강도 4.31 · SSC 누적 575위 · P 6 · H 20,930 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>666위 · S4284</strong> — 약 · 강도 4.17 · SSC 누적 659위 · P 0 · H 35,050 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.3%</li>
+<li><strong>667위 · S3697</strong> — 약 · 강도 4.06 · SSC 누적 612위 · P 4 · H 18,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>668위 · S3799</strong> — 약 · 강도 4.04 · SSC 누적 662위 · P 0 · H 32,890 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>669위 · S3686</strong> — 약 · 강도 4.03 · SSC 누적 613위 · P 4 · H 18,400 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>670위 · S2734</strong> — 약 · 강도 3.97 · SSC 누적 614위 · P 4 · H 17,930 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.7%</li>
+<li><strong>671위 · S4257</strong> — 약 · 강도 3.88 · SSC 누적 656위 · P 0 · H 36,900 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.8%</li>
+<li><strong>672위 · S3665</strong> — 약 · 강도 3.86 · SSC 누적 627위 · P 2 · H 23,070 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>673위 · S4258</strong> — 약 · 강도 3.85 · SSC 누적 657위 · P 0 · H 36,530 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 75.2%</li>
+<li><strong>674위 · S4269</strong> — 약 · 강도 3.84 · SSC 누적 654위 · P 0 · H 40,020 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.7%</li>
+<li><strong>675위 · S3823</strong> — 약 · 강도 3.75 · SSC 누적 667위 · P 0 · H 30,740 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>676위 · S3221</strong> — 약 · 강도 3.74 · SSC 누적 604위 · P 4 · H 26,070 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>677위 · S3936</strong> — 약 · 강도 3.71 · SSC 누적 628위 · P 2 · H 21,410 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>678위 · S3278</strong> — 약 · 강도 3.69 · SSC 누적 666위 · P 0 · H 31,140 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>679위 · S4039</strong> — 약 · 강도 3.61 · SSC 누적 572위 · P 6 · H 25,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>680위 · S3040</strong> — 약 · 강도 3.61 · SSC 누적 617위 · P 4 · H 8,560 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.7%</li>
+<li><strong>681위 · S1617</strong> — 약 · 강도 3.55 · SSC 누적 705위 · P 0 · H 12,820 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.1%</li>
+<li><strong>682위 · S3797</strong> — 약 · 강도 3.53 · SSC 누적 670위 · P 0 · H 28,920 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.6%</li>
+<li><strong>683위 · S3721</strong> — 약 · 강도 3.51 · SSC 누적 634위 · P 2 · H 11,980 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>684위 · S1573</strong> — 약 · 강도 3.48 · SSC 누적 703위 · P 0 · H 14,170 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>685위 · S4297</strong> — 약 · 강도 3.46 · SSC 누적 658위 · P 0 · H 36,520 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 75.0%</li>
+<li><strong>686위 · S3406</strong> — 약 · 강도 3.24 · SSC 누적 633위 · P 2 · H 14,100 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+<li><strong>687위 · S4100</strong> — 약 · 강도 3.21 · SSC 누적 552위 · P 8 · H 11,080 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.6%</li>
+<li><strong>688위 · S3279</strong> — 약 · 강도 3.15 · SSC 누적 679위 · P 0 · H 24,540 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.7%</li>
+<li><strong>689위 · S3605</strong> — 약 · 강도 2.99 · SSC 누적 682위 · P 0 · H 24,110 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.8%</li>
+<li><strong>690위 · S2913</strong> — 약 · 강도 2.82 · SSC 누적 685위 · P 0 · H 22,100 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.1%</li>
+<li><strong>691위 · S2862</strong> — 약 · 강도 2.82 · SSC 누적 684위 · P 0 · H 22,180 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>692위 · S4109</strong> — 약 · 강도 2.79 · SSC 누적 606위 · P 4 · H 23,470 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 80.0%</li>
+<li><strong>693위 · S3661</strong> — 약 · 강도 2.74 · SSC 누적 686위 · P 0 · H 21,420 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.0%</li>
+<li><strong>694위 · S3423</strong> — 약 · 강도 2.69 · SSC 누적 691위 · P 0 · H 19,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.5%</li>
+<li><strong>695위 · S3168</strong> — 약 · 강도 2.65 · SSC 누적 688위 · P 0 · H 20,270 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>696위 · S2762</strong> — 약 · 강도 2.60 · SSC 누적 689위 · P 0 · H 19,940 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.7%</li>
+<li><strong>697위 · S3492</strong> — 약 · 강도 2.44 · SSC 누적 695위 · P 0 · H 16,810 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.2%</li>
+<li><strong>698위 · S2566</strong> — 약 · 강도 2.37 · SSC 누적 698위 · P 0 · H 15,850 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>699위 · S4244</strong> — 약 · 강도 2.27 · SSC 누적 607위 · P 4 · H 22,730 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.6%</li>
+<li><strong>700위 · S3924</strong> — 약 · 강도 2.21 · SSC 누적 706위 · P 0 · H 12,640 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>701위 · S2600</strong> — 약 · 강도 2.16 · SSC 누적 708위 · P 0 · H 10,710 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.2%</li>
+<li><strong>702위 · S2733</strong> — 약 · 강도 2.10 · SSC 누적 711위 · P 0 · H 8,540 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.1%</li>
+<li><strong>703위 · S4285</strong> — 약 · 강도 2.08 · SSC 누적 673위 · P 0 · H 28,530 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.4%</li>
+<li><strong>704위 · S4185</strong> — 약 · 강도 1.72 · SSC 누적 676위 · P 0 · H 26,570 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 79.3%</li>
+<li><strong>705위 · S4152</strong> — 약 · 강도 0.86 · SSC 누적 690위 · P 0 · H 19,790 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.3%</li>
+<li><strong>706위 · S4259</strong> — 약 · 강도 0.55 · SSC 누적 702위 · P 0 · H 14,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 74.3%</li>
+<li><strong>707위 · S4240</strong> — 약 · 강도 0.52 · SSC 누적 687위 · P 0 · H 20,880 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 77.1%</li>
+<li><strong>708위 · S4025</strong> — 약 · 강도 0.49 · SSC 누적 712위 · P 0 · H 7,540 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.1%</li>
+<li><strong>709위 · S4282</strong> — 약 · 강도 0.39 · SSC 누적 704위 · P 0 · H 12,970 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 73.3%</li>
+<li><strong>710위 · S4296</strong> — 약 · 강도 0.16 · SSC 누적 707위 · P 0 · H 10,860 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 73.4%</li>
+<li><strong>711위 · S4268</strong> — 약 · 강도 0.09 · SSC 누적 709위 · P 0 · H 10,360 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 73.3%</li>
+<li><strong>712위 · S4166</strong> — 약 · 강도 0.00 · SSC 누적 692위 · P 0 · H 18,680 · 개인 TOP500 0 · 연맹 TOP300 0 · 추정값 · 신뢰도 78.9%</li>
+</ul>
+</details>
+<h1 id="el-매칭-시뮬레이션">EL 매칭 시뮬레이션</h1>
+<blockquote>
+<p>712개 서버를 8개씩 89개 조로 편성했습니다.</p>
+</blockquote>
+<h2 id="시뮬레이션-비교">시뮬레이션 비교</h2>
+<h3 id="1차--강서버-1개--중약서버-7개">1차 · 강서버 1개 + 중/약서버 7개</h3>
+<p>상위 89개 강서버를 각 조에 정확히 1개씩 배치하고 나머지 서버를 조별 총강도가 비슷하도록 분산</p>
+<ul>
+<li>조 강도 표준편차: <strong>0.001712</strong></li>
+<li>상위 214위 서버 간 대결: <strong>161쌍</strong></li>
+<li>상위 89위 서버 간 대결: <strong>0쌍</strong></li>
+<li>순위 차 20 이내 대결: <strong>21쌍</strong></li>
+</ul>
+<h3 id="2차--강중-서버-23개">2차 · 강/중 서버 2~3개</h3>
+<p>강서버끼리 맞붙는 조를 일부 만들고 모든 조의 강·중 서버 합계가 2~3개가 되도록 구성</p>
+<ul>
+<li>조 강도 표준편차: <strong>0.005429</strong></li>
+<li>상위 214위 서버 간 대결: <strong>161쌍</strong></li>
+<li>상위 89위 서버 간 대결: <strong>44쌍</strong></li>
+<li>순위 차 20 이내 대결: <strong>60쌍</strong></li>
+</ul>
+<h3 id="3차--빅매치-우선">3차 · 빅매치 우선</h3>
+<p>종합 강도 순위가 가까운 서버 8개씩 묶어 상위권 직접 대결을 최대화</p>
+<ul>
+<li>조 강도 표준편차: <strong>0.238245</strong></li>
+<li>상위 214위 서버 간 대결: <strong>743쌍</strong></li>
+<li>상위 89위 서버 간 대결: <strong>308쌍</strong></li>
+<li>순위 차 20 이내 대결: <strong>2,492쌍</strong></li>
+</ul>
+<h1 id="시뮬레이션-1">시뮬레이션 1</h1>
+<h2 id="강서버-1개--중약서버-7개">강서버 1개 + 중/약서버 7개</h2>
+<p>상위 89개 강서버를 각 조에 정확히 1개씩 배치하고 나머지 서버를 조별 총강도가 비슷하도록 분산</p>
+<details>
+<summary><strong>1차 전체 89개 조 보기</strong></summary>
+<ul>
+<li><strong>01조</strong> — S341(강·1위), S3824(중·178위), S2511(약·266위), S1120(약·309위), S2244(약·383위), S2543(약·520위), S1578(약·548위), S3406(약·686위)</li>
+<li><strong>02조</strong> — S3453(강·2위), S3688(중·177위), S4076(약·265위), S1070(약·306위), S2608(약·393위), S3638(약·499위), S1410(약·570위), S4185(약·704위)</li>
+<li><strong>03조</strong> — S2287(강·3위), S271(중·176위), S1725(약·264위), S1465(약·308위), S1772(약·391위), S2374(약·491위), S1453(약·578위), S3492(약·697위)</li>
+<li><strong>04조</strong> — S1313(강·4위), S1866(중·175위), S1341(약·263위), S3400(약·312위), S800(약·386위), S4238(약·483위), S3663(약·585위), S1977(약·647위)</li>
+<li><strong>05조</strong> — S2698(강·5위), S1329(중·174위), S3672(약·261위), S252(약·316위), S4079(약·379위), S1317(약·487위), S1336(약·584위), S4266(약·664위)</li>
+<li><strong>06조</strong> — S3355(강·6위), S383(중·173위), S1221(약·267위), S1924(약·307위), S2494(약·390위), S1026(약·493위), S2974(약·576위), S2733(약·702위)</li>
+<li><strong>07조</strong> — S2842(강·7위), S2781(중·172위), S593(약·262위), S3440(약·318위), S4099(약·376위), S3905(약·495위), S2579(약·574위), S4259(약·706위)</li>
+<li><strong>08조</strong> — S1175(강·8위), S4108(중·171위), S1644(약·260위), S1455(약·311위), S1812(약·385위), S3884(약·504위), S4058(약·565위), S4039(약·679위)</li>
+<li><strong>09조</strong> — S680(강·9위), S4153(중·170위), S3537(약·251위), S2642(약·305위), S513(약·399위), S926(약·471위), S2597(약·595위), S2078(약·630위)</li>
+<li><strong>10조</strong> — S2682(강·10위), S973(중·169위), S2501(약·250위), S1324(약·321위), S3533(약·364위), S322(약·516위), S4005(약·553위), S3321(약·660위)</li>
+<li><strong>11조</strong> — S707(강·11위), S2373(중·168위), S819(약·252위), S1857(약·303위), S1366(약·416위), S511(약·447위), S1468(약·618위), S3697(약·667위)</li>
+<li><strong>12조</strong> — S619(강·12위), S616(중·167위), S2651(약·248위), S2748(약·315위), S791(약·380위), S4245(약·517위), S3508(약·551위), S3823(약·675위)</li>
+<li><strong>13조</strong> — S1035(강·13위), S921(중·166위), S4121(약·254위), S2915(약·302위), S4256(약·413위), S3675(약·452위), S1408(약·617위), S2828(약·654위)</li>
+<li><strong>14조</strong> — S3051(강·14위), S262(중·165위), S1404(약·258위), S2112(약·294위), S278(약·419위), S1619(약·449위), S3398(약·622위), S1687(약·658위)</li>
+<li><strong>15조</strong> — S188(강·15위), S3521(중·164위), S1558(약·255위), S4023(약·299위), S549(약·412위), S437(약·454위), S2022(약·612위), S2600(약·701위)</li>
+<li><strong>16조</strong> — S1951(강·16위), S2137(중·163위), S3353(약·256위), S3052(약·293위), S3963(약·420위), S295(약·450위), S3713(약·619위), S2749(약·663위)</li>
+<li><strong>17조</strong> — S836(강·17위), S3619(중·162위), S2341(약·249위), S4077(약·314위), S1095(약·384위), S622(약·506위), S1015(약·563위), S3221(약·676위)</li>
+<li><strong>18조</strong> — S2275(강·18위), S3885(중·161위), S3925(약·243위), S2841(약·317위), S3090(약·378위), S3647(약·494위), S4210(약·575위), S4025(약·708위)</li>
+<li><strong>19조</strong> — S3506(강·19위), S3352(중·160위), S4080(약·247위), S3620(약·310위), S3700(약·382위), S2234(약·524위), S744(약·544위), S4258(약·673위)</li>
+<li><strong>20조</strong> — S184(강·20위), S2014(중·159위), S3324(약·245위), S2644(약·320위), S3343(약·363위), S3671(약·530위), S3038(약·539위), S3881(약·645위)</li>
+<li><strong>21조</strong> — S2699(강·21위), S2735(중·158위), S542(약·259위), S2009(약·292위), S531(약·421위), S703(약·455위), S2697(약·613위), S2566(약·698위)</li>
+<li><strong>22조</strong> — S1083(강·22위), S4154(중·157위), S1547(약·253위), S348(약·300위), S3535(약·415위), S1133(약·448위), S3796(약·621위), S2652(약·655위)</li>
+<li><strong>23조</strong> — S2622(강·23위), S3524(중·156위), S1494(약·257위), S2953(약·291위), S2085(약·422위), S536(약·462위), S1272(약·607위), S3797(약·682위)</li>
+<li><strong>24조</strong> — S1096(강·24위), S193(중·155위), S3961(약·246위), S2344(약·319위), S1251(약·375위), S4200(약·480위), S1540(약·591위), S4267(약·627위)</li>
+<li><strong>25조</strong> — S1281(강·25위), S1781(중·154위), S3690(약·244위), S1981(약·313위), S2987(약·387위), S889(약·485위), S3120(약·586위), S3141(약·643위)</li>
+<li><strong>26조</strong> — S3223(강·26위), S4040(중·153위), S515(약·242위), S1414(약·295위), S4181(약·418위), S3001(약·453위), S1248(약·615위), S3278(약·678위)</li>
+<li><strong>27조</strong> — S1720(강·27위), S2263(중·152위), S2587(약·240위), S2635(약·296위), S1425(약·417위), S626(약·446위), S3755(약·623위), S3853(약·652위)</li>
+<li><strong>28조</strong> — S2616(강·28위), S3903(중·151위), S4167(약·241위), S2954(약·298위), S2620(약·411위), S2050(약·456위), S2820(약·610위), S4240(약·707위)</li>
+<li><strong>29조</strong> — S2864(강·29위), S3452(중·150위), S1669(약·238위), S3528(약·280위), S3770(약·433위), S4237(약·534위), S2388(약·536위), S4283(약·641위)</li>
+<li><strong>30조</strong> — S386(강·30위), S2655(중·149위), S811(약·239위), S225(약·273위), S4036(약·442위), S3480(약·500위), S1555(약·569위), S4282(약·709위)</li>
+<li><strong>31조</strong> — S73(강·31위), S1590(중·148위), S3698(약·234위), S3662(약·279위), S2580(약·434위), S761(약·532위), S935(약·537위), S3784(약·644위)</li>
+<li><strong>32조</strong> — S2147(강·32위), S4122(중·147위), S3722(약·231위), S564(약·283위), S1304(약·430위), S1454(약·518위), S3351(약·552위), S3883(약·656위)</li>
+<li><strong>33조</strong> — S1805(강·33위), S2242(중·146위), S2695(약·232위), S3409(약·282위), S651(약·431위), S736(약·521위), S1208(약·547위), S2913(약·690위)</li>
+<li><strong>34조</strong> — S216(강·34위), S285(중·145위), S3277(약·235위), S1640(약·275위), S1001(약·438위), S2216(약·510위), S3821(약·559위), S3721(약·683위)</li>
+<li><strong>35조</strong> — S1607(강·35위), S2365(중·144위), S1052(약·237위), S3725(약·271위), S3940(약·445위), S3825(약·523위), S1029(약·546위), S3605(약·689위)</li>
+<li><strong>36조</strong> — S3396(강·36위), S839(중·143위), S2681(약·236위), S884(약·274위), S4155(약·439위), S546(약·513위), S553(약·556위), S3970(약·649위)</li>
+<li><strong>37조</strong> — S1389(강·37위), S1378(중·142위), S3545(약·233위), S2900(약·284위), S2185(약·427위), S3740(약·473위), S3968(약·597위), S2252(약·631위)</li>
+<li><strong>38조</strong> — S1397(강·38위), S211(중·141위), S420(약·230위), S3964(약·277위), S1387(약·436위), S1003(약·525위), S835(약·545위), S3799(약·668위)</li>
+<li><strong>39조</strong> — S4197(강·39위), S2936(중·140위), S594(약·225위), S1835(약·278위), S2371(약·435위), S738(약·529위), S4242(약·540위), S2218(약·646위)</li>
+<li><strong>40조</strong> — S2609(강·40위), S4199(중·139위), S3538(약·229위), S3322(약·269위), S1792(약·444위), S1566(약·511위), S2107(약·558위), S3279(약·688위)</li>
+<li><strong>41조</strong> — S2952(강·41위), S2087(중·138위), S1444(약·224위), S3385(약·276위), S529(약·437위), S3736(약·522위), S2008(약·550위), S3040(약·680위)</li>
+<li><strong>42조</strong> — S3436(강·42위), S4057(중·137위), S1265(약·227위), S2606(약·270위), S3628(약·441위), S3937(약·503위), S2937(약·566위), S1573(약·684위)</li>
+<li><strong>43조</strong> — S1668(강·43위), S4125(중·136위), S4243(약·226위), S1365(약·272위), S3167(약·440위), S3965(약·514위), S3509(약·555위), S3714(약·657위)</li>
+<li><strong>44조</strong> — S650(강·44위), S2693(중·135위), S4138(약·222위), S4182(약·286위), S3466(약·425위), S730(약·479위), S3851(약·590위), S4123(약·635위)</li>
+<li><strong>45조</strong> — S3345(강·45위), S2816(중·134위), S630(중·208위), S4002(약·330위), S3822(약·366위), S3054(약·501위), S3616(약·568위), S4296(약·710위)</li>
+<li><strong>46조</strong> — S2315(강·46위), S1144(중·133위), S610(중·209위), S4056(약·326위), S3325(약·359위), S694(약·519위), S3639(약·549위), S1617(약·681위)</li>
+<li><strong>47조</strong> — S1383(강·47위), S2939(중·132위), S78(중·203위), S3018(약·333위), S2131(약·373위), S1496(약·476위), S3005(약·593위), S3536(약·629위)</li>
+<li><strong>48조</strong> — S2036(강·48위), S1337(중·131위), S2761(중·207위), S4060(약·329위), S1061(약·365위), S4206(약·515위), S584(약·554위), S1796(약·659위)</li>
+<li><strong>49조</strong> — S2973(강·49위), S3604(중·130위), S4184(중·211위), S3967(약·325위), S601(약·357위), S4037(약·508위), S2044(약·561위), S1449(약·661위)</li>
+<li><strong>50조</strong> — S2683(강·50위), S1067(중·129위), S2826(중·214위), S4059(약·297위), S3399(약·409위), S296(약·457위), S3969(약·616위), S3665(약·672위)</li>
+<li><strong>51조</strong> — S3649(강·51위), S3854(중·128위), S3603(중·204위), S4106(약·335위), S1302(약·362위), S1827(약·533위), S1033(약·535위), S4096(약·640위)</li>
+<li><strong>52조</strong> — S1756(강·52위), S82(중·127위), S4136(약·218위), S2325(약·290위), S997(약·423위), S1709(약·467위), S2617(약·602위), S3724(약·639위)</li>
+<li><strong>53조</strong> — S3532(강·53위), S591(중·126위), S805(약·223위), S3384(약·281위), S4207(약·432위), S674(약·531위), S293(약·538위), S2827(약·642위)</li>
+<li><strong>54조</strong> — S3540(강·54위), S1525(중·125위), S4209(약·220위), S3522(약·288위), S579(약·426위), S3715(약·475위), S3938(약·596위), S3374(약·632위)</li>
+<li><strong>55조</strong> — S4140(강·55위), S4196(중·124위), S4004(약·216위), S4168(약·301위), S3939(약·414위), S821(약·451위), S2041(약·620위), S3523(약·653위)</li>
+<li><strong>56조</strong> — S476(강·56위), S1567(중·123위), S2006(약·215위), S723(약·304위), S135(약·398위), S1381(약·478위), S1244(약·589위), S3767(약·634위)</li>
+<li><strong>57조</strong> — S1816(강·57위), S233(중·122위), S4038(약·217위), S3468(약·289위), S3921(약·429위), S1938(약·468위), S3636(약·601위), S2559(약·637위)</li>
+<li><strong>58조</strong> — S1611(강·58위), S3053(중·121위), S4098(약·228위), S1552(약·268위), S3437(약·443위), S978(약·512위), S1002(약·557위), S2734(약·670위)</li>
+<li><strong>59조</strong> — S1297(강·59위), S208(중·120위), S500(약·221위), S4239(약·285위), S312(약·424위), S1047(약·482위), S3539(약·583위), S3423(약·694위)</li>
+<li><strong>60조</strong> — S3491(강·60위), S2311(중·119위), S2986(약·219위), S1073(약·287위), S685(약·428위), S4270(약·472위), S3510(약·598위), S4281(약·625위)</li>
+<li><strong>61조</strong> — S164(강·61위), S2091(중·118위), S1379(중·210위), S1680(약·323위), S1809(약·360위), S2195(약·527위), S611(약·542위), S4257(약·671위)</li>
+<li><strong>62조</strong> — S2631(강·62위), S2830(중·117위), S1909(중·212위), S2256(약·324위), S1219(약·358위), S851(약·502위), S2610(약·567위), S4100(약·687위)</li>
+<li><strong>63조</strong> — S3170(강·63위), S4198(중·116위), S1645(중·213위), S4183(약·322위), S1753(약·361위), S1229(약·526위), S2069(약·543위), S4269(약·674위)</li>
+<li><strong>64조</strong> — S148(강·64위), S1692(중·115위), S1173(중·188위), S2578(약·349위), S682(약·402위), S567(약·463위), S3738(약·606위), S3936(약·677위)</li>
+<li><strong>65조</strong> — S2747(강·65위), S930(중·114위), S3478(중·198위), S891(약·336위), S940(약·374위), S496(약·474위), S3507(약·599위), S1528(약·624위)</li>
+<li><strong>66조</strong> — S2097(강·66위), S2474(중·113위), S4208(중·193위), S369(약·342위), S1432(약·388위), S3016(약·492위), S1917(약·577위), S3924(약·700위)</li>
+<li><strong>67조</strong> — S485(강·67위), S3922(중·112위), S3342(중·197위), S1237(약·338위), S2798(약·377위), S2102(약·496위), S3753(약·573위), S4268(약·711위)</li>
+<li><strong>68조</strong> — S158(강·68위), S247(중·111위), S3469(중·181위), S520(약·354위), S608(약·410위), S411(약·458위), S2531(약·614위), S3168(약·695위)</li>
+<li><strong>69조</strong> — S174(강·69위), S3145(중·110위), S3902(중·184위), S3530(약·351위), S2064(약·397위), S2222(약·477위), S1733(약·592위), S4260(약·628위)</li>
+<li><strong>70조</strong> — S200(강·70위), S2386(중·109위), S4107(중·180위), S2350(약·355위), S913(약·404위), S2169(약·464위), S3664(약·605위), S4021(약·665위)</li>
+<li><strong>71조</strong> — S655(강·71위), S3800(중·108위), S4170(중·179위), S1008(약·356위), S1010(약·408위), S412(약·461위), S3783(약·608위), S4297(약·685위)</li>
+<li><strong>72조</strong> — S1421(강·72위), S2442(중·107위), S3712(중·186위), S4169(약·346위), S1867(약·406위), S3425(약·460위), S3782(약·609위), S2862(약·691위)</li>
+<li><strong>73조</strong> — S4151(강·73위), S3309(중·106위), S3723(중·185위), S1679(약·350위), S3529(약·400위), S3768(약·470위), S4137(약·594위), S1732(약·626위)</li>
+<li><strong>74조</strong> — S3766(강·74위), S3088(중·105위), S795(중·183위), S4139(약·353위), S950(약·401위), S1507(약·469위), S1855(약·600위), S1491(약·633위)</li>
+<li><strong>75조</strong> — S2205(강·75위), S502(중·104위), S654(중·182위), S623(약·352위), S770(약·407위), S869(약·459위), S2687(약·611위), S4285(약·703위)</li>
+<li><strong>76조</strong> — S172(강·76위), S3646(중·103위), S1642(중·187위), S154(약·348위), S2125(약·403위), S2896(약·466위), S3310(약·603위), S2746(약·650위)</li>
+<li><strong>77조</strong> — S864(강·77위), S3526(중·102위), S3696(중·199위), S3256(약·337위), S3923(약·368위), S1132(약·509위), S1803(약·560위), S1721(약·662위)</li>
+<li><strong>78조</strong> — S3258(강·78위), S1508(중·101위), S1826(중·194위), S4022(약·341위), S767(약·395위), S3751(약·484위), S3306(약·587위), S4003(약·638위)</li>
+<li><strong>79조</strong> — S3199(강·79위), S111(중·100위), S277(중·206위), S875(약·328위), S315(약·367위), S3962(약·507위), S701(약·562위), S4284(약·666위)</li>
+<li><strong>80조</strong> — S2240(강·80위), S242(중·99위), S2691(중·205위), S4110(약·327위), S2157(약·371위), S801(약·490위), S1331(약·579위), S3661(약·693위)</li>
+<li><strong>81조</strong> — S499(강·81위), S2317(중·98위), S4097(중·202위), S3673(약·334위), S1568(약·372위), S3640(약·486위), S693(약·582위), S4244(약·699위)</li>
+<li><strong>82조</strong> — S3531(강·82위), S2253(중·97위), S4124(중·200위), S3196(약·331위), S1041(약·370위), S3904(약·498위), S1020(약·571위), S4152(약·705위)</li>
+<li><strong>83조</strong> — S3307(강·83위), S2116(중·96위), S3901(중·201위), S4236(약·332위), S249(약·369위), S1527(약·505위), S1232(약·564위), S3686(약·669위)</li>
+<li><strong>84조</strong> — S1257(강·84위), S2988(중·95위), S3752(중·195위), S3882(약·340위), S3966(약·392위), S4241(약·497위), S3637(약·572위), S4166(약·712위)</li>
+<li><strong>85조</strong> — S2696(강·85위), S126(중·94위), S3438(중·189위), S4078(약·347위), S1011(약·405위), S2505(약·465위), S2797(약·604위), S1774(약·651위)</li>
+<li><strong>86조</strong> — S742(강·86위), S607(중·93위), S3852(중·190위), S4024(약·345위), S1386(약·394위), S310(약·488위), S3798(약·581위), S2762(약·696위)</li>
+<li><strong>87조</strong> — S850(강·87위), S1677(중·92위), S1865(중·191위), S3630(약·344위), S808(약·396위), S3144(약·481위), S3711(약·588위), S1537(약·636위)</li>
+<li><strong>88조</strong> — S2463(강·88위), S2197(중·91위), S1852(중·192위), S3477(약·343위), S3627(약·389위), S3855(약·489위), S3454(약·580위), S4109(약·692위)</li>
+<li><strong>89조</strong> — S3407(강·89위), S2607(중·90위), S466(중·196위), S3467(약·339위), S283(약·381위), S2464(약·528위), S2818(약·541위), S3200(약·648위)</li>
+</ul>
+</details>
+<h1 id="시뮬레이션-2">시뮬레이션 2</h1>
+<h2 id="강중-서버-23개">강/중 서버 2~3개</h2>
+<p>강서버끼리 맞붙는 조를 일부 만들고 모든 조의 강·중 서버 합계가 2~3개가 되도록 구성</p>
+<details>
+<summary><strong>2차 전체 89개 조 보기</strong></summary>
+<ul>
+<li><strong>01조</strong> — S341(강·1위), S3407(강·89위), S3620(약·310위), S4079(약·379위), S3940(약·445위), S935(약·537위), S2041(약·620위), S4109(약·692위)</li>
+<li><strong>02조</strong> — S3453(강·2위), S2463(강·88위), S1455(약·311위), S3700(약·382위), S1792(약·444위), S293(약·538위), S3969(약·616위), S2762(약·696위)</li>
+<li><strong>03조</strong> — S2287(강·3위), S850(강·87위), S1120(약·309위), S1251(약·375위), S3001(약·453위), S2464(약·528위), S2697(약·613위), S4244(약·699위)</li>
+<li><strong>04조</strong> — S1313(강·4위), S742(강·86위), S1070(약·306위), S1568(약·372위), S3768(약·470위), S622(약·506위), S3310(약·603위), S4259(약·706위)</li>
+<li><strong>05조</strong> — S2698(강·5위), S2696(강·85위), S2642(약·305위), S283(약·381위), S1619(약·449위), S761(약·532위), S2531(약·614위), S2566(약·698위)</li>
+<li><strong>06조</strong> — S3355(강·6위), S1257(강·84위), S1465(약·308위), S1095(약·384위), S3167(약·440위), S2818(약·541위), S1528(약·624위), S2862(약·691위)</li>
+<li><strong>07조</strong> — S2842(강·7위), S3307(강·83위), S3400(약·312위), S1812(약·385위), S4036(약·442위), S4242(약·540위), S2820(약·610위), S2600(약·701위)</li>
+<li><strong>08조</strong> — S1175(강·8위), S3531(강·82위), S1924(약·307위), S2244(약·383위), S3437(약·443위), S2388(약·536위), S1468(약·618위), S3423(약·694위)</li>
+<li><strong>09조</strong> — S680(강·9위), S499(강·81위), S1857(약·303위), S3923(약·368위), S296(약·457위), S2234(약·524위), S3374(약·632위), S3279(약·688위)</li>
+<li><strong>10조</strong> — S2682(강·10위), S2240(강·80위), S4168(약·301위), S249(약·369위), S2050(약·456위), S1003(약·525위), S1491(약·633위), S4100(약·687위)</li>
+<li><strong>11조</strong> — S707(강·11위), S3199(강·79위), S4059(약·297위), S3343(약·363위), S3740(약·473위), S3962(약·507위), S4137(약·594위), S4296(약·710위)</li>
+<li><strong>12조</strong> — S619(강·12위), S3258(강·78위), S1414(약·295위), S2157(약·371위), S821(약·451위), S3671(약·530위), S1408(약·617위), S3168(약·695위)</li>
+<li><strong>13조</strong> — S1035(강·13위), S864(강·77위), S2915(약·302위), S3822(약·366위), S703(약·455위), S1229(약·526위), S4096(약·640위), S3721(약·683위)</li>
+<li><strong>14조</strong> — S3051(강·14위), S172(강·76위), S723(약·304위), S3325(약·359위), S496(약·474위), S2216(약·510위), S3306(약·587위), S4166(약·712위)</li>
+<li><strong>15조</strong> — S188(강·15위), S2205(강·75위), S348(약·300위), S315(약·367위), S411(약·458위), S3825(약·523위), S3853(약·652위), S3823(약·675위)</li>
+<li><strong>16조</strong> — S1951(강·16위), S3766(강·74위), S4023(약·299위), S1061(약·365위), S567(약·463위), S1454(약·518위), S3796(약·621위), S3661(약·693위)</li>
+<li><strong>17조</strong> — S836(강·17위), S4151(강·73위), S2635(약·296위), S1809(약·360위), S3144(약·481위), S3904(약·498위), S3970(약·649위), S3278(약·678위)</li>
+<li><strong>18조</strong> — S2275(강·18위), S1421(강·72위), S2953(약·291위), S1302(약·362위), S1381(약·478위), S3937(약·503위), S3664(약·605위), S4185(약·704위)</li>
+<li><strong>19조</strong> — S3506(강·19위), S655(강·71위), S2009(약·292위), S1219(약·358위), S4270(약·472위), S1566(약·511위), S1244(약·589위), S4268(약·711위)</li>
+<li><strong>20조</strong> — S184(강·20위), S200(강·70위), S3052(약·293위), S601(약·357위), S926(약·471위), S4037(약·508위), S3005(약·593위), S4240(약·707위)</li>
+<li><strong>21조</strong> — S2699(강·21위), S174(강·69위), S3522(약·288위), S940(약·374위), S437(약·454위), S2195(약·527위), S4003(약·638위), S4297(약·685위)</li>
+<li><strong>22조</strong> — S1083(강·22위), S158(강·68위), S3409(약·282위), S808(약·396위), S4207(약·432위), S3639(약·549위), S2828(약·654위), S4258(약·673위)</li>
+<li><strong>23조</strong> — S2622(강·23위), S485(강·67위), S2112(약·294위), S1041(약·370위), S511(약·447위), S4237(약·534위), S3938(약·596위), S4282(약·709위)</li>
+<li><strong>24조</strong> — S1096(강·24위), S2097(강·66위), S3964(약·277위), S3529(약·400위), S2185(약·427위), S584(약·554위), S3714(약·657위), S3665(약·672위)</li>
+<li><strong>25조</strong> — S1281(강·25위), S2747(강·65위), S1835(약·278위), S950(약·401위), S312(약·424위), S1803(약·560위), S3724(약·639위), S1573(약·684위)</li>
+<li><strong>26조</strong> — S3223(강·26위), S148(강·64위), S884(약·274위), S3627(약·389위), S651(약·431위), S3508(약·551위), S3784(약·644위), S1617(약·681위)</li>
+<li><strong>27조</strong> — S1720(강·27위), S3170(강·63위), S564(약·283위), S767(약·395위), S529(약·437위), S744(약·544위), S1537(약·636위), S3406(약·686위)</li>
+<li><strong>28조</strong> — S2616(강·28위), S2631(강·62위), S3384(약·281위), S2064(약·397위), S2085(약·422위), S2044(약·561위), S4283(약·641위), S3797(약·682위)</li>
+<li><strong>29조</strong> — S2864(강·29위), S164(강·61위), S1365(약·272위), S1432(약·388위), S1304(약·430위), S2008(약·550위), S1774(약·651위), S3221(약·676위)</li>
+<li><strong>30조</strong> — S386(강·30위), S3491(강·60위), S3528(약·280위), S135(약·398위), S2580(약·434위), S1208(약·547위), S2746(약·650위), S3936(약·677위)</li>
+<li><strong>31조</strong> — S73(강·31위), S1297(강·59위), S3385(약·276위), S2608(약·393위), S3628(약·441위), S3038(약·539위), S2687(약·611위), S3924(약·700위)</li>
+<li><strong>32조</strong> — S2147(강·32위), S1611(강·58위), S3468(약·289위), S2798(약·377위), S295(약·450위), S674(약·531위), S3783(약·608위), S2733(약·702위)</li>
+<li><strong>33조</strong> — S1805(강·33위), S1816(강·57위), S4182(약·286위), S2131(약·373위), S869(약·459위), S3736(약·522위), S1687(약·658위), S4257(약·671위)</li>
+<li><strong>34조</strong> — S216(강·34위), S476(강·56위), S4239(약·285위), S4099(약·376위), S3675(약·452위), S738(약·529위), S3738(약·606위), S4285(약·703위)</li>
+<li><strong>35조</strong> — S1607(강·35위), S4140(강·55위), S2900(약·284위), S791(약·380위), S1133(약·448위), S1827(약·533위), S3968(약·597위), S4025(약·708위)</li>
+<li><strong>36조</strong> — S3396(강·36위), S3540(강·54위), S1073(약·287위), S3090(약·378위), S626(약·446위), S1033(약·535위), S1248(약·615위), S3492(약·697위)</li>
+<li><strong>37조</strong> — S1389(강·37위), S3532(강·53위), S2325(약·290위), S1753(약·361위), S1496(약·476위), S1527(약·505위), S1855(약·600위), S4152(약·705위)</li>
+<li><strong>38조</strong> — S1397(강·38위), S1756(강·52위), S3662(약·279위), S513(약·399위), S579(약·426위), S553(약·556위), S1977(약·647위), S4039(약·679위)</li>
+<li><strong>39조</strong> — S4197(강·39위), S3649(강·51위), S3725(약·271위), S1386(약·394위), S1001(약·438위), S2069(약·543위), S2078(약·630위), S3605(약·689위)</li>
+<li><strong>40조</strong> — S2609(강·40위), S2683(강·50위), S1640(약·275위), S2494(약·390위), S3770(약·433위), S1578(약·548위), S3321(약·660위), S3686(약·669위)</li>
+<li><strong>41조</strong> — S2952(강·41위), S2973(강·49위), S225(약·273위), S2987(약·387위), S685(약·428위), S4005(약·553위), S3523(약·653위), S4269(약·674위)</li>
+<li><strong>42조</strong> — S3436(강·42위), S2036(강·48위), S2606(약·270위), S1772(약·391위), S1387(약·436위), S835(약·545위), S3881(약·645위), S3040(약·680위)</li>
+<li><strong>43조</strong> — S1668(강·43위), S1383(강·47위), S3322(약·269위), S3966(약·392위), S4155(약·439위), S611(약·542위), S3536(약·629위), S2913(약·690위)</li>
+<li><strong>44조</strong> — S650(강·44위), S2315(강·46위), S1552(약·268위), S800(약·386위), S3466(약·425위), S2107(약·558위), S1796(약·659위), S2734(약·670위)</li>
+<li><strong>45조</strong> — S3345(강·45위), S3824(중·178위), S805(약·223위), S2954(약·298위), S3533(약·364위), S1709(약·467위), S3965(약·514위), S3663(약·585위)</li>
+<li><strong>46조</strong> — S2607(중·90위), S3688(중·177위), S4208(중·193위), S1547(약·253위), S4078(약·347위), S278(약·419위), S4210(약·575위), S3120(약·586위)</li>
+<li><strong>47조</strong> — S2197(중·91위), S271(중·176위), S3438(중·189위), S1404(약·258위), S4024(약·345위), S3963(약·420위), S1020(약·571위), S2617(약·602위)</li>
+<li><strong>48조</strong> — S1677(중·92위), S1866(중·175위), S3752(중·195위), S3537(약·251위), S1679(약·350위), S1366(약·416위), S1331(약·579위), S3454(약·580위)</li>
+<li><strong>49조</strong> — S607(중·93위), S1329(중·174위), S1865(중·191위), S1558(약·255위), S2350(약·355위), S3399(약·409위), S1555(약·569위), S2022(약·612위)</li>
+<li><strong>50조</strong> — S126(중·94위), S383(중·173위), S3478(중·198위), S4080(약·247위), S4060(약·329위), S1047(약·482위), S3647(약·494위), S4021(약·665위)</li>
+<li><strong>51조</strong> — S2988(중·95위), S2781(중·172위), S466(중·196위), S2501(약·250위), S4139(약·353위), S4256(약·413위), S3616(약·568위), S3755(약·623위)</li>
+<li><strong>52조</strong> — S2116(중·96위), S4108(중·171위), S1852(중·192위), S4121(약·254위), S3630(약·344위), S997(약·423위), S701(약·562위), S3767(약·634위)</li>
+<li><strong>53조</strong> — S2253(중·97위), S4153(중·170위), S3901(중·201위), S3324(약·245위), S1680(약·323위), S3855(약·489위), S3480(약·500위), S2218(약·646위)</li>
+<li><strong>54조</strong> — S2317(중·98위), S973(중·169위), S4097(중·202위), S3690(약·244위), S3967(약·325위), S3751(약·484위), S3016(약·492위), S3799(약·668위)</li>
+<li><strong>55조</strong> — S242(중·99위), S2373(중·168위), S610(중·209위), S1052(약·237위), S4056(약·326위), S3640(약·486위), S1026(약·493위), S4284(약·666위)</li>
+<li><strong>56조</strong> — S111(중·100위), S616(중·167위), S4184(중·211위), S3277(약·235위), S4002(약·330위), S4238(약·483위), S2102(약·496위), S2749(약·663위)</li>
+<li><strong>57조</strong> — S1508(중·101위), S921(중·166위), S3342(중·197위), S2341(약·249위), S891(약·336위), S2896(약·466위), S4206(약·515위), S3507(약·599위)</li>
+<li><strong>58조</strong> — S3526(중·102위), S262(중·165위), S3696(중·199위), S2651(약·248위), S875(약·328위), S1317(약·487위), S3905(약·495위), S4266(약·664위)</li>
+<li><strong>59조</strong> — S3646(중·103위), S3521(중·164위), S1173(중·188위), S1494(약·257위), S4169(약·346위), S531(약·421위), S1002(약·557위), S2652(약·655위)</li>
+<li><strong>60조</strong> — S502(중·104위), S2137(중·163위), S654(중·182위), S1725(약·264위), S3467(약·339위), S2169(약·464위), S4245(약·517위), S1272(약·607위)</li>
+<li><strong>61조</strong> — S3088(중·105위), S3619(중·162위), S4107(중·180위), S2511(약·266위), S520(약·354위), S549(약·412위), S3821(약·559위), S1449(약·661위)</li>
+<li><strong>62조</strong> — S3309(중·106위), S3885(중·161위), S3469(중·181위), S4076(약·265위), S623(약·352위), S3939(약·414위), S2579(약·574위), S3711(약·588위)</li>
+<li><strong>63조</strong> — S2442(중·107위), S3352(중·160위), S3712(중·186위), S1644(약·260위), S3530(약·351위), S3535(약·415위), S2937(약·566위), S1732(약·626위)</li>
+<li><strong>64조</strong> — S3800(중·108위), S2014(중·159위), S4170(중·179위), S1221(약·267위), S1008(약·356위), S1010(약·408위), S3753(약·573위), S1733(약·592위)</li>
+<li><strong>65조</strong> — S2386(중·109위), S2735(중·158위), S1909(중·212위), S3698(약·234위), S4236(약·332위), S730(약·479위), S851(약·502위), S3782(약·609위)</li>
+<li><strong>66조</strong> — S3145(중·110위), S4154(중·157위), S1379(중·210위), S2681(약·236위), S3196(약·331위), S2222(약·477위), S3884(약·504위), S2797(약·604위)</li>
+<li><strong>67조</strong> — S247(중·111위), S3524(중·156위), S630(중·208위), S811(약·239위), S4106(약·335위), S1507(약·469위), S978(약·512위), S3851(약·590위)</li>
+<li><strong>68조</strong> — S3922(중·112위), S193(중·155위), S2826(중·214위), S2695(약·232위), S1324(약·321위), S1938(약·468위), S546(약·513위), S1336(약·584위)</li>
+<li><strong>69조</strong> — S2474(중·113위), S1781(중·154위), S1645(중·213위), S3545(약·233위), S3256(약·337위), S3425(약·460위), S736(약·521위), S2252(약·631위)</li>
+<li><strong>70조</strong> — S930(중·114위), S4040(중·153위), S277(중·206위), S4167(약·241위), S3018(약·333위), S3715(약·475위), S1132(약·509위), S1540(약·591위)</li>
+<li><strong>71조</strong> — S1692(중·115위), S2263(중·152위), S1826(중·194위), S819(약·252위), S2578(약·349위), S1425(약·417위), S2974(약·576위), S3539(약·583위)</li>
+<li><strong>72조</strong> — S4198(중·116위), S3903(중·151위), S3603(중·204위), S515(약·242위), S4110(약·327위), S310(약·488위), S2374(약·491위), S3697(약·667위)</li>
+<li><strong>73조</strong> — S2830(중·117위), S3452(중·150위), S4124(중·200위), S3961(약·246위), S4183(약·322위), S801(약·490위), S3638(약·499위), S3200(약·648위)</li>
+<li><strong>74조</strong> — S2091(중·118위), S2655(중·149위), S2761(중·207위), S2587(약·240위), S3673(약·334위), S4200(약·480위), S3054(약·501위), S2827(약·642위)</li>
+<li><strong>75조</strong> — S2311(중·119위), S1590(중·148위), S78(중·203위), S3925(약·243위), S2256(약·324위), S889(약·485위), S4241(약·497위), S1721(약·662위)</li>
+<li><strong>76조</strong> — S208(중·120위), S4122(중·147위), S2691(중·205위), S1669(약·238위), S1237(약·338위), S2505(약·465위), S322(약·516위), S3510(약·598위)</li>
+<li><strong>77조</strong> — S3053(중·121위), S2242(중·146위), S3852(중·190위), S3353(약·256위), S3882(약·340위), S536(약·462위), S694(약·519위), S3713(약·619위)</li>
+<li><strong>78조</strong> — S233(중·122위), S285(중·145위), S795(중·183위), S1341(약·263위), S4022(약·341위), S412(약·461위), S2543(약·520위), S4281(약·625위)</li>
+<li><strong>79조</strong> — S1567(중·123위), S2365(중·144위), S3723(중·185위), S3672(약·261위), S3477(약·343위), S3921(약·429위), S3351(약·552위), S2559(약·637위)</li>
+<li><strong>80조</strong> — S4196(중·124위), S839(중·143위), S3902(중·184위), S593(약·262위), S154(약·348위), S4181(약·418위), S1453(약·578위), S3798(약·581위)</li>
+<li><strong>81조</strong> — S1525(중·125위), S1378(중·142위), S1642(중·187위), S542(약·259위), S369(약·342위), S2371(약·435위), S1029(약·546위), S3141(약·643위)</li>
+<li><strong>82조</strong> — S591(중·126위), S211(중·141위), S4138(약·222위), S3538(약·229위), S2841(약·317위), S913(약·404위), S2610(약·567위), S3398(약·622위)</li>
+<li><strong>83조</strong> — S82(중·127위), S2936(중·140위), S500(약·221위), S4098(약·228위), S4077(약·314위), S608(약·410위), S1917(약·577위), S693(약·582위)</li>
+<li><strong>84조</strong> — S3854(중·128위), S4199(중·139위), S2006(약·215위), S3722(약·231위), S252(약·316위), S2125(약·403위), S4058(약·565위), S4267(약·627위)</li>
+<li><strong>85조</strong> — S1067(중·129위), S2087(중·138위), S4004(약·216위), S420(약·230위), S1981(약·313위), S2620(약·411위), S1232(약·564위), S4260(약·628위)</li>
+<li><strong>86조</strong> — S3604(중·130위), S4057(중·137위), S4136(약·218위), S1265(약·227위), S2748(약·315위), S770(약·407위), S1410(약·570위), S3636(약·601위)</li>
+<li><strong>87조</strong> — S1337(중·131위), S4125(중·136위), S4038(약·217위), S4243(약·226위), S3440(약·318위), S1011(약·405위), S3637(약·572위), S2597(약·595위)</li>
+<li><strong>88조</strong> — S2939(중·132위), S2693(중·135위), S4209(약·220위), S594(약·225위), S2344(약·319위), S1867(약·406위), S1015(약·563위), S4123(약·635위)</li>
+<li><strong>89조</strong> — S1144(중·133위), S2816(중·134위), S2986(약·219위), S1444(약·224위), S2644(약·320위), S682(약·402위), S3509(약·555위), S3883(약·656위)</li>
+</ul>
+</details>
+<h1 id="시뮬레이션-3">시뮬레이션 3</h1>
+<h2 id="빅매치-우선">빅매치 우선</h2>
+<p>종합 강도 순위가 가까운 서버 8개씩 묶어 상위권 직접 대결을 최대화</p>
+<details>
+<summary><strong>3차 전체 89개 조 보기</strong></summary>
+<ul>
+<li><strong>01조</strong> — S341(강·1위), S3453(강·2위), S2287(강·3위), S1313(강·4위), S2698(강·5위), S3355(강·6위), S2842(강·7위), S1175(강·8위)</li>
+<li><strong>02조</strong> — S680(강·9위), S2682(강·10위), S707(강·11위), S619(강·12위), S1035(강·13위), S3051(강·14위), S188(강·15위), S1951(강·16위)</li>
+<li><strong>03조</strong> — S836(강·17위), S2275(강·18위), S3506(강·19위), S184(강·20위), S2699(강·21위), S1083(강·22위), S2622(강·23위), S1096(강·24위)</li>
+<li><strong>04조</strong> — S1281(강·25위), S3223(강·26위), S1720(강·27위), S2616(강·28위), S2864(강·29위), S386(강·30위), S73(강·31위), S2147(강·32위)</li>
+<li><strong>05조</strong> — S1805(강·33위), S216(강·34위), S1607(강·35위), S3396(강·36위), S1389(강·37위), S1397(강·38위), S4197(강·39위), S2609(강·40위)</li>
+<li><strong>06조</strong> — S2952(강·41위), S3436(강·42위), S1668(강·43위), S650(강·44위), S3345(강·45위), S2315(강·46위), S1383(강·47위), S2036(강·48위)</li>
+<li><strong>07조</strong> — S2973(강·49위), S2683(강·50위), S3649(강·51위), S1756(강·52위), S3532(강·53위), S3540(강·54위), S4140(강·55위), S476(강·56위)</li>
+<li><strong>08조</strong> — S1816(강·57위), S1611(강·58위), S1297(강·59위), S3491(강·60위), S164(강·61위), S2631(강·62위), S3170(강·63위), S148(강·64위)</li>
+<li><strong>09조</strong> — S2747(강·65위), S2097(강·66위), S485(강·67위), S158(강·68위), S174(강·69위), S200(강·70위), S655(강·71위), S1421(강·72위)</li>
+<li><strong>10조</strong> — S4151(강·73위), S3766(강·74위), S2205(강·75위), S172(강·76위), S864(강·77위), S3258(강·78위), S3199(강·79위), S2240(강·80위)</li>
+<li><strong>11조</strong> — S499(강·81위), S3531(강·82위), S3307(강·83위), S1257(강·84위), S2696(강·85위), S742(강·86위), S850(강·87위), S2463(강·88위)</li>
+<li><strong>12조</strong> — S3407(강·89위), S2607(중·90위), S2197(중·91위), S1677(중·92위), S607(중·93위), S126(중·94위), S2988(중·95위), S2116(중·96위)</li>
+<li><strong>13조</strong> — S2253(중·97위), S2317(중·98위), S242(중·99위), S111(중·100위), S1508(중·101위), S3526(중·102위), S3646(중·103위), S502(중·104위)</li>
+<li><strong>14조</strong> — S3088(중·105위), S3309(중·106위), S2442(중·107위), S3800(중·108위), S2386(중·109위), S3145(중·110위), S247(중·111위), S3922(중·112위)</li>
+<li><strong>15조</strong> — S2474(중·113위), S930(중·114위), S1692(중·115위), S4198(중·116위), S2830(중·117위), S2091(중·118위), S2311(중·119위), S208(중·120위)</li>
+<li><strong>16조</strong> — S3053(중·121위), S233(중·122위), S1567(중·123위), S4196(중·124위), S1525(중·125위), S591(중·126위), S82(중·127위), S3854(중·128위)</li>
+<li><strong>17조</strong> — S1067(중·129위), S3604(중·130위), S1337(중·131위), S2939(중·132위), S1144(중·133위), S2816(중·134위), S2693(중·135위), S4125(중·136위)</li>
+<li><strong>18조</strong> — S4057(중·137위), S2087(중·138위), S4199(중·139위), S2936(중·140위), S211(중·141위), S1378(중·142위), S839(중·143위), S2365(중·144위)</li>
+<li><strong>19조</strong> — S285(중·145위), S2242(중·146위), S4122(중·147위), S1590(중·148위), S2655(중·149위), S3452(중·150위), S3903(중·151위), S2263(중·152위)</li>
+<li><strong>20조</strong> — S4040(중·153위), S1781(중·154위), S193(중·155위), S3524(중·156위), S4154(중·157위), S2735(중·158위), S2014(중·159위), S3352(중·160위)</li>
+<li><strong>21조</strong> — S3885(중·161위), S3619(중·162위), S2137(중·163위), S3521(중·164위), S262(중·165위), S921(중·166위), S616(중·167위), S2373(중·168위)</li>
+<li><strong>22조</strong> — S973(중·169위), S4153(중·170위), S4108(중·171위), S2781(중·172위), S383(중·173위), S1329(중·174위), S1866(중·175위), S271(중·176위)</li>
+<li><strong>23조</strong> — S3688(중·177위), S3824(중·178위), S4170(중·179위), S4107(중·180위), S3469(중·181위), S654(중·182위), S795(중·183위), S3902(중·184위)</li>
+<li><strong>24조</strong> — S3723(중·185위), S3712(중·186위), S1642(중·187위), S1173(중·188위), S3438(중·189위), S3852(중·190위), S1865(중·191위), S1852(중·192위)</li>
+<li><strong>25조</strong> — S4208(중·193위), S1826(중·194위), S3752(중·195위), S466(중·196위), S3342(중·197위), S3478(중·198위), S3696(중·199위), S4124(중·200위)</li>
+<li><strong>26조</strong> — S3901(중·201위), S4097(중·202위), S78(중·203위), S3603(중·204위), S2691(중·205위), S277(중·206위), S2761(중·207위), S630(중·208위)</li>
+<li><strong>27조</strong> — S610(중·209위), S1379(중·210위), S4184(중·211위), S1909(중·212위), S1645(중·213위), S2826(중·214위), S2006(약·215위), S4004(약·216위)</li>
+<li><strong>28조</strong> — S4038(약·217위), S4136(약·218위), S2986(약·219위), S4209(약·220위), S500(약·221위), S4138(약·222위), S805(약·223위), S1444(약·224위)</li>
+<li><strong>29조</strong> — S594(약·225위), S4243(약·226위), S1265(약·227위), S4098(약·228위), S3538(약·229위), S420(약·230위), S3722(약·231위), S2695(약·232위)</li>
+<li><strong>30조</strong> — S3545(약·233위), S3698(약·234위), S3277(약·235위), S2681(약·236위), S1052(약·237위), S1669(약·238위), S811(약·239위), S2587(약·240위)</li>
+<li><strong>31조</strong> — S4167(약·241위), S515(약·242위), S3925(약·243위), S3690(약·244위), S3324(약·245위), S3961(약·246위), S4080(약·247위), S2651(약·248위)</li>
+<li><strong>32조</strong> — S2341(약·249위), S2501(약·250위), S3537(약·251위), S819(약·252위), S1547(약·253위), S4121(약·254위), S1558(약·255위), S3353(약·256위)</li>
+<li><strong>33조</strong> — S1494(약·257위), S1404(약·258위), S542(약·259위), S1644(약·260위), S3672(약·261위), S593(약·262위), S1341(약·263위), S1725(약·264위)</li>
+<li><strong>34조</strong> — S4076(약·265위), S2511(약·266위), S1221(약·267위), S1552(약·268위), S3322(약·269위), S2606(약·270위), S3725(약·271위), S1365(약·272위)</li>
+<li><strong>35조</strong> — S225(약·273위), S884(약·274위), S1640(약·275위), S3385(약·276위), S3964(약·277위), S1835(약·278위), S3662(약·279위), S3528(약·280위)</li>
+<li><strong>36조</strong> — S3384(약·281위), S3409(약·282위), S564(약·283위), S2900(약·284위), S4239(약·285위), S4182(약·286위), S1073(약·287위), S3522(약·288위)</li>
+<li><strong>37조</strong> — S3468(약·289위), S2325(약·290위), S2953(약·291위), S2009(약·292위), S3052(약·293위), S2112(약·294위), S1414(약·295위), S2635(약·296위)</li>
+<li><strong>38조</strong> — S4059(약·297위), S2954(약·298위), S4023(약·299위), S348(약·300위), S4168(약·301위), S2915(약·302위), S1857(약·303위), S723(약·304위)</li>
+<li><strong>39조</strong> — S2642(약·305위), S1070(약·306위), S1924(약·307위), S1465(약·308위), S1120(약·309위), S3620(약·310위), S1455(약·311위), S3400(약·312위)</li>
+<li><strong>40조</strong> — S1981(약·313위), S4077(약·314위), S2748(약·315위), S252(약·316위), S2841(약·317위), S3440(약·318위), S2344(약·319위), S2644(약·320위)</li>
+<li><strong>41조</strong> — S1324(약·321위), S4183(약·322위), S1680(약·323위), S2256(약·324위), S3967(약·325위), S4056(약·326위), S4110(약·327위), S875(약·328위)</li>
+<li><strong>42조</strong> — S4060(약·329위), S4002(약·330위), S3196(약·331위), S4236(약·332위), S3018(약·333위), S3673(약·334위), S4106(약·335위), S891(약·336위)</li>
+<li><strong>43조</strong> — S3256(약·337위), S1237(약·338위), S3467(약·339위), S3882(약·340위), S4022(약·341위), S369(약·342위), S3477(약·343위), S3630(약·344위)</li>
+<li><strong>44조</strong> — S4024(약·345위), S4169(약·346위), S4078(약·347위), S154(약·348위), S2578(약·349위), S1679(약·350위), S3530(약·351위), S623(약·352위)</li>
+<li><strong>45조</strong> — S4139(약·353위), S520(약·354위), S2350(약·355위), S1008(약·356위), S601(약·357위), S1219(약·358위), S3325(약·359위), S1809(약·360위)</li>
+<li><strong>46조</strong> — S1753(약·361위), S1302(약·362위), S3343(약·363위), S3533(약·364위), S1061(약·365위), S3822(약·366위), S315(약·367위), S3923(약·368위)</li>
+<li><strong>47조</strong> — S249(약·369위), S1041(약·370위), S2157(약·371위), S1568(약·372위), S2131(약·373위), S940(약·374위), S1251(약·375위), S4099(약·376위)</li>
+<li><strong>48조</strong> — S2798(약·377위), S3090(약·378위), S4079(약·379위), S791(약·380위), S283(약·381위), S3700(약·382위), S2244(약·383위), S1095(약·384위)</li>
+<li><strong>49조</strong> — S1812(약·385위), S800(약·386위), S2987(약·387위), S1432(약·388위), S3627(약·389위), S2494(약·390위), S1772(약·391위), S3966(약·392위)</li>
+<li><strong>50조</strong> — S2608(약·393위), S1386(약·394위), S767(약·395위), S808(약·396위), S2064(약·397위), S135(약·398위), S513(약·399위), S3529(약·400위)</li>
+<li><strong>51조</strong> — S950(약·401위), S682(약·402위), S2125(약·403위), S913(약·404위), S1011(약·405위), S1867(약·406위), S770(약·407위), S1010(약·408위)</li>
+<li><strong>52조</strong> — S3399(약·409위), S608(약·410위), S2620(약·411위), S549(약·412위), S4256(약·413위), S3939(약·414위), S3535(약·415위), S1366(약·416위)</li>
+<li><strong>53조</strong> — S1425(약·417위), S4181(약·418위), S278(약·419위), S3963(약·420위), S531(약·421위), S2085(약·422위), S997(약·423위), S312(약·424위)</li>
+<li><strong>54조</strong> — S3466(약·425위), S579(약·426위), S2185(약·427위), S685(약·428위), S3921(약·429위), S1304(약·430위), S651(약·431위), S4207(약·432위)</li>
+<li><strong>55조</strong> — S3770(약·433위), S2580(약·434위), S2371(약·435위), S1387(약·436위), S529(약·437위), S1001(약·438위), S4155(약·439위), S3167(약·440위)</li>
+<li><strong>56조</strong> — S3628(약·441위), S4036(약·442위), S3437(약·443위), S1792(약·444위), S3940(약·445위), S626(약·446위), S511(약·447위), S1133(약·448위)</li>
+<li><strong>57조</strong> — S1619(약·449위), S295(약·450위), S821(약·451위), S3675(약·452위), S3001(약·453위), S437(약·454위), S703(약·455위), S2050(약·456위)</li>
+<li><strong>58조</strong> — S296(약·457위), S411(약·458위), S869(약·459위), S3425(약·460위), S412(약·461위), S536(약·462위), S567(약·463위), S2169(약·464위)</li>
+<li><strong>59조</strong> — S2505(약·465위), S2896(약·466위), S1709(약·467위), S1938(약·468위), S1507(약·469위), S3768(약·470위), S926(약·471위), S4270(약·472위)</li>
+<li><strong>60조</strong> — S3740(약·473위), S496(약·474위), S3715(약·475위), S1496(약·476위), S2222(약·477위), S1381(약·478위), S730(약·479위), S4200(약·480위)</li>
+<li><strong>61조</strong> — S3144(약·481위), S1047(약·482위), S4238(약·483위), S3751(약·484위), S889(약·485위), S3640(약·486위), S1317(약·487위), S310(약·488위)</li>
+<li><strong>62조</strong> — S3855(약·489위), S801(약·490위), S2374(약·491위), S3016(약·492위), S1026(약·493위), S3647(약·494위), S3905(약·495위), S2102(약·496위)</li>
+<li><strong>63조</strong> — S4241(약·497위), S3904(약·498위), S3638(약·499위), S3480(약·500위), S3054(약·501위), S851(약·502위), S3937(약·503위), S3884(약·504위)</li>
+<li><strong>64조</strong> — S1527(약·505위), S622(약·506위), S3962(약·507위), S4037(약·508위), S1132(약·509위), S2216(약·510위), S1566(약·511위), S978(약·512위)</li>
+<li><strong>65조</strong> — S546(약·513위), S3965(약·514위), S4206(약·515위), S322(약·516위), S4245(약·517위), S1454(약·518위), S694(약·519위), S2543(약·520위)</li>
+<li><strong>66조</strong> — S736(약·521위), S3736(약·522위), S3825(약·523위), S2234(약·524위), S1003(약·525위), S1229(약·526위), S2195(약·527위), S2464(약·528위)</li>
+<li><strong>67조</strong> — S738(약·529위), S3671(약·530위), S674(약·531위), S761(약·532위), S1827(약·533위), S4237(약·534위), S1033(약·535위), S2388(약·536위)</li>
+<li><strong>68조</strong> — S935(약·537위), S293(약·538위), S3038(약·539위), S4242(약·540위), S2818(약·541위), S611(약·542위), S2069(약·543위), S744(약·544위)</li>
+<li><strong>69조</strong> — S835(약·545위), S1029(약·546위), S1208(약·547위), S1578(약·548위), S3639(약·549위), S2008(약·550위), S3508(약·551위), S3351(약·552위)</li>
+<li><strong>70조</strong> — S4005(약·553위), S584(약·554위), S3509(약·555위), S553(약·556위), S1002(약·557위), S2107(약·558위), S3821(약·559위), S1803(약·560위)</li>
+<li><strong>71조</strong> — S2044(약·561위), S701(약·562위), S1015(약·563위), S1232(약·564위), S4058(약·565위), S2937(약·566위), S2610(약·567위), S3616(약·568위)</li>
+<li><strong>72조</strong> — S1555(약·569위), S1410(약·570위), S1020(약·571위), S3637(약·572위), S3753(약·573위), S2579(약·574위), S4210(약·575위), S2974(약·576위)</li>
+<li><strong>73조</strong> — S1917(약·577위), S1453(약·578위), S1331(약·579위), S3454(약·580위), S3798(약·581위), S693(약·582위), S3539(약·583위), S1336(약·584위)</li>
+<li><strong>74조</strong> — S3663(약·585위), S3120(약·586위), S3306(약·587위), S3711(약·588위), S1244(약·589위), S3851(약·590위), S1540(약·591위), S1733(약·592위)</li>
+<li><strong>75조</strong> — S3005(약·593위), S4137(약·594위), S2597(약·595위), S3938(약·596위), S3968(약·597위), S3510(약·598위), S3507(약·599위), S1855(약·600위)</li>
+<li><strong>76조</strong> — S3636(약·601위), S2617(약·602위), S3310(약·603위), S2797(약·604위), S3664(약·605위), S3738(약·606위), S1272(약·607위), S3783(약·608위)</li>
+<li><strong>77조</strong> — S3782(약·609위), S2820(약·610위), S2687(약·611위), S2022(약·612위), S2697(약·613위), S2531(약·614위), S1248(약·615위), S3969(약·616위)</li>
+<li><strong>78조</strong> — S1408(약·617위), S1468(약·618위), S3713(약·619위), S2041(약·620위), S3796(약·621위), S3398(약·622위), S3755(약·623위), S1528(약·624위)</li>
+<li><strong>79조</strong> — S4281(약·625위), S1732(약·626위), S4267(약·627위), S4260(약·628위), S3536(약·629위), S2078(약·630위), S2252(약·631위), S3374(약·632위)</li>
+<li><strong>80조</strong> — S1491(약·633위), S3767(약·634위), S4123(약·635위), S1537(약·636위), S2559(약·637위), S4003(약·638위), S3724(약·639위), S4096(약·640위)</li>
+<li><strong>81조</strong> — S4283(약·641위), S2827(약·642위), S3141(약·643위), S3784(약·644위), S3881(약·645위), S2218(약·646위), S1977(약·647위), S3200(약·648위)</li>
+<li><strong>82조</strong> — S3970(약·649위), S2746(약·650위), S1774(약·651위), S3853(약·652위), S3523(약·653위), S2828(약·654위), S2652(약·655위), S3883(약·656위)</li>
+<li><strong>83조</strong> — S3714(약·657위), S1687(약·658위), S1796(약·659위), S3321(약·660위), S1449(약·661위), S1721(약·662위), S2749(약·663위), S4266(약·664위)</li>
+<li><strong>84조</strong> — S4021(약·665위), S4284(약·666위), S3697(약·667위), S3799(약·668위), S3686(약·669위), S2734(약·670위), S4257(약·671위), S3665(약·672위)</li>
+<li><strong>85조</strong> — S4258(약·673위), S4269(약·674위), S3823(약·675위), S3221(약·676위), S3936(약·677위), S3278(약·678위), S4039(약·679위), S3040(약·680위)</li>
+<li><strong>86조</strong> — S1617(약·681위), S3797(약·682위), S3721(약·683위), S1573(약·684위), S4297(약·685위), S3406(약·686위), S4100(약·687위), S3279(약·688위)</li>
+<li><strong>87조</strong> — S3605(약·689위), S2913(약·690위), S2862(약·691위), S4109(약·692위), S3661(약·693위), S3423(약·694위), S3168(약·695위), S2762(약·696위)</li>
+<li><strong>88조</strong> — S3492(약·697위), S2566(약·698위), S4244(약·699위), S3924(약·700위), S2600(약·701위), S2733(약·702위), S4285(약·703위), S4185(약·704위)</li>
+<li><strong>89조</strong> — S4152(약·705위), S4259(약·706위), S4240(약·707위), S4025(약·708위), S4282(약·709위), S4296(약·710위), S4268(약·711위), S4166(약·712위)</li>
+</ul>
+</details>
+<hr>
+<p>본 문서는 데이터를 이용하여 추론한 결과이며, 실제 게임과 무관합니다.</p>
+<hr>
+<p>번외편</p>
+<blockquote>
+<p>[KID] 니가 만약 게임사라면 어떻게 매칭시키겠어?</p>
+</blockquote>
+<p>게임사라면 <strong>단순히 1위부터 순서대로 자르거나, 강서버 1개에 약서버 7개를 넣지는 않을 것</strong> 같습니다. 매칭의 목적은 정확한 서열 확인보다도 다음 세 가지이기 때문입니다.</p>
+<ol>
+<li>시작 전부터 우승 서버가 확정되지 않을 것</li>
+<li>실제 전투가 충분히 발생할 것</li>
+<li>패배한 서버도 다음 이벤트에 참여할 이유가 남을 것</li>
+</ol>
+<h2 id="내가-선택할-기본-구조">내가 선택할 기본 구조</h2>
+<p>8개 서버를 다음처럼 구성하겠습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>역할</th><th style="text-align: right;">서버 수</th><th>의미</th></tr></thead><tbody><tr><td>우승 후보</td><td style="text-align: right;">2</td><td>서로 직접 경쟁할 수준</td></tr><tr><td>도전자</td><td style="text-align: right;">2</td><td>상황에 따라 우승 후보를 잡을 수 있음</td></tr><tr><td>중위권</td><td style="text-align: right;">2</td><td>연합·외교에 따라 결과를 바꿀 수 있음</td></tr><tr><td>열세 서버</td><td style="text-align: right;">2</td><td>단독 우승은 어렵지만 전략적 가치가 있음</td></tr></tbody></table></div>
+<p>즉, <strong>강 2 + 중상 2 + 중 2 + 약 2</strong>에 가까운 구성이 가장 좋습니다.</p>
+<p>강서버가 하나뿐이면 나머지 일곱 서버가 싸우지 않고 협상하거나 포기할 가능성이 높습니다. 반대로 강서버 8개를 몰아넣으면 빅매치는 나오지만 상위 서버만 손해를 보고, 다른 조에서는 일방적인 경기가 발생합니다.</p>
+<h2 id="전투점수-처리-방식">전투점수 처리 방식</h2>
+<p>말한 것처럼 전투점수가 낮은 이유는 두 가지일 수 있습니다.</p>
+<ul>
+<li>정말 전투력이 약하거나 활동이 적음</li>
+<li>너무 강해서 상대가 전투를 피함</li>
+</ul>
+<p>그래서 전투점수를 일반 점수처럼 빼면 안 됩니다.</p>
+<p>게임사라면 전투점수는 <strong>비대칭 지표</strong>로 사용하겠습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>전투점수가 높음 → 강하다는 적극적인 증거
+</span>전투점수가 낮음 → 약하다는 증거로 사용하지 않음</code></div></pre>
+<p>최종 매칭 강도는 대략 다음 구조가 적절합니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>구조 전력             35%
+</span>상위 유저 전력         25%
+주요 연맹 전력과 깊이   20%
+최근 이벤트 누적 성과   15%
+활성 인원               5%</code></div></pre>
+<p>전투성과는 별도의 보너스로만 반영합니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>최종 강도
+</span>= 기본 구조강도
++ 확인된 전투성과 보너스
+
+단, 낮은 전투성과로 기본 구조강도를 깎지 않음</code></div></pre>
+<p>예를 들어 구조강도 95점인 서버가 전투점수가 낮다고 해서 75점으로 떨어뜨리지 않습니다. 최소한 90~95점 구간은 유지해야 합니다.</p>
+<h2 id="누적-ssc-순위도-그대로-사용하지-않음">누적 SSC 순위도 그대로 사용하지 않음</h2>
+<p>SSC 누적 순위는 중요한 지표지만, 그 자체가 서버의 순수 전투력을 의미하지는 않습니다.</p>
+<ul>
+<li>상대 조가 쉬웠을 수 있음</li>
+<li>목표 점수만 얻고 전투를 줄였을 수 있음</li>
+<li>특정 라운드에서 포기했을 수 있음</li>
+<li>인원은 많지만 최상위 전력이 약할 수 있음</li>
+<li>최상위 유저는 강하지만 서버 전체 참여도가 낮을 수 있음</li>
+</ul>
+<p>따라서 SSC는 <strong>서버 실행력과 지속적인 참여도를 측정하는 지표</strong>로 사용하고, 실제 유저·연맹 전력과 분리해 봐야 합니다.</p>
+<h2 id="실제-매칭-절차">실제 매칭 절차</h2>
+<h3 id="1단계-서버의-예상-강도를-범위로-계산">1단계: 서버의 예상 강도를 범위로 계산</h3>
+<p>서버를 하나의 점수로만 판단하지 않고 범위로 봅니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>3453 서버: 96~100
+</span>3223 서버: 91~97
+실전력 원본이 부족한 서버: 75~91</code></div></pre>
+<p>데이터가 부족한 서버는 범위를 넓게 잡습니다. 이렇게 해야 추정값이 실제값처럼 과신되는 문제를 막을 수 있습니다.</p>
+<h3 id="2단계-우승-후보-두-개-선정">2단계: 우승 후보 두 개 선정</h3>
+<p>각 조에서 가장 강한 서버와 두 번째 서버의 차이를 제한합니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>1위 후보와 2위 후보의 예상 강도 차이 ≤ 5점</span></code></div></pre>
+<p>한 서버만 압도적으로 강한 조는 만들지 않습니다.</p>
+<h3 id="3단계-도전자-서버-배치">3단계: 도전자 서버 배치</h3>
+<p>우승 후보보다 약간 낮지만, 외교나 협공으로 이길 수 있는 서버를 두 개 넣습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>우승 후보 평균과 도전자 평균 차이: 약 5~10점</span></code></div></pre>
+<h3 id="4단계-나머지-서버-분산">4단계: 나머지 서버 분산</h3>
+<p>중위·열세 서버 역시 한쪽에 몰리지 않게 합니다. 조별 총강도만 맞추는 것이 아니라 <strong>상위 4개 서버 강도</strong>도 비슷해야 합니다.</p>
+<p>조 총강도가 같아도 다음 두 조는 전혀 다릅니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>A조: 100, 55, 55, 55, 55, 55, 55, 55
+</span>B조: 90, 88, 80, 78, 65, 63, 55, 51</code></div></pre>
+<p>총합이 비슷해도 A조는 사실상 100점 서버가 독점합니다. 게임사라면 B조 형태를 선택해야 합니다.</p>
+<h2 id="매칭-최적화-기준">매칭 최적화 기준</h2>
+<p>각 조를 만들 때 다음 항목을 동시에 최소화하겠습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>1. 조별 총강도 차이
+</span>2. 조별 1위와 2위의 강도 차이
+3. 조별 상위 4개 평균 차이
+4. 압도적 1강 발생 가능성
+5. 직전 이벤트 재매칭 횟수
+6. 같은 국가·연합 서버 편중
+7. 활동 시간대가 완전히 다른 서버의 혼합</code></div></pre>
+<p>목표함수를 단순화하면 다음과 같습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>매칭 페널티
+</span>= 조 총강도 편차 × 20
++ 1위·2위 차이 × 30
++ 상위 4개 편차 × 25
++ 압도적 1강 페널티 × 40
++ 최근 재매칭 페널티 × 10</code></div></pre>
+<p>여기서 가장 크게 벌점을 줘야 하는 것은 <strong>압도적 1강 조</strong>입니다.</p>
+<h2 id="빅매치는-일부-조에만-배치">빅매치는 일부 조에만 배치</h2>
+<p>모든 최상위 서버를 같은 조에 넣는 방식은 관전 재미는 있지만 상위 서버 입장에서는 불공정합니다. 대신 전체 89개 조 가운데 일부만 특별 경쟁 조로 만들겠습니다.</p>
+<p>예를 들면:</p>
+<ul>
+<li>일반 경쟁 조: 약 65개</li>
+<li>상위 경쟁 조: 약 16개</li>
+<li>최상위 빅매치 조: 약 8개</li>
+</ul>
+<p>최상위 서버도 매 이벤트마다 빅매치 조에 들어가는 것이 아니라 순환시킵니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>이번 시즌: 1·5·9·13위가 분산
+</span>다음 시즌: 이전 우승 서버 중심으로 강한 상대 배치</code></div></pre>
+<h2 id="이전-성적에-따른-승강-방식">이전 성적에 따른 승강 방식</h2>
+<p>게임사라면 한 번 계산한 강도 순위를 계속 사용하지 않습니다.</p>
+<p>최근 3회 이벤트를 기준으로:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>우승 또는 압도적 성과 → 다음 매칭 강도 상승
+</span>조기 포기·활동 부족 → 활동지수 하락
+강한 상대에게 선전 → 결과와 무관하게 강도 상승
+쉬운 조에서 우승 → 상승폭 제한</code></div></pre>
+<p>다만 우승했다고 즉시 죽음의 조에 넣는 방식도 피해야 합니다. 강도 변동폭은 이벤트당 제한해야 합니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>한 시즌 최대 상승·하락: 전체 순위의 10~15%</span></code></div></pre>
+<h2 id="내가-선택할-최종안">내가 선택할 최종안</h2>
+<p>현재 만든 세 시뮬레이션 중 하나를 그대로 고르라면 <strong>두 번째 방식이 가장 게임사다운 방향</strong>입니다. 다만 강·중 서버 수만 2~3개로 맞추는 것에서 끝내지 않고 다음 조건을 추가하겠습니다.</p>
+<ul>
+<li>모든 조에 우승 후보 2개</li>
+<li>우승 후보 간 순위 차이를 너무 크게 만들지 않음</li>
+<li>상위 4개 서버의 평균 강도를 조별로 평준화</li>
+<li>낮은 전투점수는 감점하지 않음</li>
+<li>데이터 신뢰도가 낮은 서버는 강도 범위를 넓게 계산</li>
+<li>최근에 만난 서버끼리는 재매칭 억제</li>
+<li>최상위 빅매치는 전체 조의 약 10%에만 배치</li>
+</ul>
+<p>결국 가장 이상적인 형태는 **“모든 조에 우승 후보가 둘 이상 있지만, 모든 서버가 우승 후보일 필요는 없는 매칭”**입니다. 이 방식이 전투 발생량, 경쟁성, 약서버의 참여 동기를 가장 균형 있게 유지합니다.</p>
+<hr>
+<blockquote>
+<p>[KID] 지난 매칭에는 1강 7약의 형태였는데 그럼 이렇게 배치한 이유가 뭘까?</p>
+</blockquote>
+<p>그 매칭이 여러 조에서 반복됐다면, <strong>게임사가 공정한 전투를 만들려고 한 게 아니라 강서버를 분산하려고 한 것</strong>일 가능성이 가장 큽니다.</p>
+<p>즉 목표가 이것이었을 수 있습니다.</p>
+<blockquote>
+<p>강서버끼리 서로 제거하지 않도록 각 조에 1개씩 배치한다.</p>
+</blockquote>
+<p>이 경우 게임사 입장에서는 “균형 매칭”이 아니라 <strong>시드 배정</strong>에 가깝습니다.</p>
+<h2 id="가장-가능성-높은-이유">가장 가능성 높은 이유</h2>
+<h3 id="1-강서버-보호">1. 강서버 보호</h3>
+<p>과금 규모가 큰 강서버끼리 초반부터 붙으면 한쪽은 큰돈을 쓰고도 일찍 탈락합니다.</p>
+<p>게임사 입장에서는:</p>
+<ul>
+<li>최상위 과금 서버의 조기 탈락 방지</li>
+<li>고래 유저 불만과 이탈 방지</li>
+<li>강서버가 이벤트를 계속 주도하게 유지</li>
+<li>각 조에 대표 강서버를 하나씩 남김</li>
+</ul>
+<p>이런 효과가 있습니다.</p>
+<p>유저 입장에서는 불공정하지만, 매출 관점에서는 이해되는 구조입니다.</p>
+<h3 id="2-각-조에-확실한-우승-후보를-만들기-위해">2. 각 조에 확실한 우승 후보를 만들기 위해</h3>
+<p>게임사가 모든 조를 치열하게 만들기보다, 각 조마다 중심 서버 하나를 두고 나머지가 그 서버에 도전하는 구조를 의도했을 수도 있습니다.</p>
+<p>말하자면:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>1강
+</span>2~3개 도전자
+나머지 참여 서버</code></div></pre>
+<p>를 원했는데 실제 데이터 계산이 부정확해서:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>1압도적 강
+</span>7약</code></div></pre>
+<p>이 되어버린 것입니다.</p>
+<p>설계 의도는 “보스 서버 하나와 도전자들”인데, 강도 추정 실패로 경쟁 자체가 사라진 경우입니다.</p>
+<h3 id="3-조별-총합만-맞췄을-가능성">3. 조별 총합만 맞췄을 가능성</h3>
+<p>매칭 알고리즘이 서버별 강도 분포를 보지 않고 <strong>8개 서버의 총점만 비슷하게 맞췄을 수도 있습니다.</strong></p>
+<p>예를 들어:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>A조: 100, 20, 20, 20, 20, 20, 20, 20
+</span>B조: 45, 40, 35, 30, 25, 25, 20, 20</code></div></pre>
+<p>두 조의 총점은 비슷할 수 있습니다.</p>
+<p>하지만 A조는 100점 서버가 독식하고, B조는 실제 경쟁이 발생합니다.</p>
+<p>게임사가 단순 합계나 평균만 사용했다면 개발자 입장에서는 “균형이 맞았다”고 볼 수 있지만, 실제 게임성은 완전히 다릅니다.</p>
+<h2 id="특히-의심되는-구조">특히 의심되는 구조</h2>
+<p>지난 매칭에서 상위 서버들이 정확히 여러 조에 하나씩 분산돼 있었다면, 거의 확실하게 다음 방식입니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>1. 서버를 강도순으로 정렬
+</span>2. 상위 N개 서버를 서로 다른 조에 하나씩 배치
+3. 나머지 서버를 총합이 맞도록 분산</code></div></pre>
+<p>이 방식은 스포츠 대회의 시드 배정과 비슷합니다.</p>
+<p>문제는 스포츠에서는 시드 외 선수들도 어느 정도 경쟁력이 있지만, 탑워처럼 서버 격차가 큰 게임에서는 <strong>1강 7약의 일방적 조</strong>가 됩니다.</p>
+<h2 id="과금-유도-목적일-가능성">과금 유도 목적일 가능성</h2>
+<p>조금 냉정하게 보면 이런 매칭은 과금 구조와도 맞습니다.</p>
+<p>강서버에는:</p>
+<ul>
+<li>압도적인 우위 체험</li>
+<li>과금 만족감 제공</li>
+<li>서버 이전 및 강자 영입 동기 강화</li>
+</ul>
+<p>약서버에는:</p>
+<ul>
+<li>강서버와의 격차 체감</li>
+<li>전력 상승 필요성 자극</li>
+<li>2위나 생존 경쟁을 위한 과금 유도</li>
+</ul>
+<p>다만 격차가 너무 크면 과금 유도가 아니라 포기로 이어집니다.</p>
+<p>그래서 정상적인 라이브 서비스라면 어느 정도 경쟁 가능한 상대를 섞어야 하는데, 이번 매칭은 그 선을 넘은 것으로 보입니다.</p>
+<h2 id="데이터가-잘못됐을-가능성도-있음">데이터가 잘못됐을 가능성도 있음</h2>
+<p>게임사가 강도를 산정할 때 다음처럼 부정확한 지표를 사용했을 수도 있습니다.</p>
+<ul>
+<li>서버 총전투력만 사용</li>
+<li>휴면 유저까지 포함</li>
+<li>이전한 유저의 전력을 늦게 반영</li>
+<li>최근 활동량 미반영</li>
+<li>최상위 1~2명의 실제 전투력을 과소평가</li>
+<li>연맹 집중도를 보지 않고 전체 합계만 사용</li>
+<li>낮은 전투점수를 약함으로 잘못 판단</li>
+<li>특정 이벤트의 단일 결과만 반영</li>
+</ul>
+<p>특히 강서버가 너무 강해 상대가 싸움을 피한 경우, 전투량은 낮을 수 있습니다. 이를 활동 부족이나 약한 서버로 해석하면 매칭 점수가 크게 틀어집니다.</p>
+<h2 id="의도인지-오류인지-구분하는-법">의도인지 오류인지 구분하는 법</h2>
+<p>전체 조를 보면 판단할 수 있습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>관찰 결과</th><th>가능성</th></tr></thead><tbody><tr><td>모든 조에 상위 서버가 정확히 1개씩 있음</td><td>의도적인 강서버 분산</td></tr><tr><td>조별 총강도는 비슷하지만 1위와 2위 격차가 큼</td><td>총합만 맞춘 알고리즘</td></tr><tr><td>몇 개 조만 1강 7약임</td><td>데이터 오류 또는 제약 조건</td></tr><tr><td>특정 국가·시간대 서버끼리 묶임</td><td>지역·시간대 우선 매칭</td></tr><tr><td>강서버가 여러 시즌 연속 서로 만나지 않음</td><td>강서버 보호 정책</td></tr><tr><td>이전 직후 서버의 평가가 이상함</td><td>데이터 갱신 지연</td></tr></tbody></table></div>
+<h2 id="내-판단">내 판단</h2>
+<p>지난 매칭이 전체적으로 1강 7약이었다면, 우연이나 단순 오류보다는 다음 가능성이 가장 높습니다.</p>
+<blockquote>
+<p><strong>최상위 서버끼리 충돌하지 않도록 한 조에 한 서버씩 강제로 분산한 뒤, 나머지 서버로 조별 총합을 맞춘 것.</strong></p>
+</blockquote>
+<p>즉 게임사가 생각한 공정성은:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>각 조의 총 전력 비슷하게 만들기</span></code></div></pre>
+<p>였고, 유저가 기대한 공정성은:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>각 조 안에서 우승 경쟁이 가능하게 만들기</span></code></div></pre>
+<p>였던 겁니다.</p>
+<p>이 두 기준이 완전히 달라서 아무도 이해하지 못하는 매칭이 나온 것으로 보입니다. 게임사 관점에서는 계산상 균형일 수 있지만, 실제 전투 관점에서는 실패한 매칭입니다.</p>
+<hr>
+<blockquote>
+<p>[KID] 만약 이해할 수 없는 매칭이 한번 더 발생하면 어떻게 될까?</p>
+</blockquote>
+<p>한 번 더 비슷한 매칭이 나오면, 유저들은 그걸 더 이상 <strong>실수나 일회성 오류로 보지 않을 가능성</strong>이 큽니다.</p>
+<p>두 번째부터는 해석이 이렇게 바뀝니다.</p>
+<blockquote>
+<p>“매칭이 이상하게 나온 것”
+→ “게임사가 의도적으로 1강 7약 구조를 만들고 있다”</p>
+</blockquote>
+<p>그때부터 문제는 단순한 매칭 불만이 아니라 <strong>시스템에 대한 신뢰 붕괴</strong>로 넘어갑니다.</p>
+<h2 id="가장-먼저-나타날-변화">가장 먼저 나타날 변화</h2>
+<h3 id="약중-서버가-전투-전에-포기함">약·중 서버가 전투 전에 포기함</h3>
+<p>첫 번째 이상 매칭에서는 유저들이 일단 싸워보고 결과를 확인합니다. 하지만 두 번째에도 같은 구조가 반복되면 다음 매칭부터는 상대 명단만 보고 판단합니다.</p>
+<ul>
+<li>“어차피 저 서버가 우승한다.”</li>
+<li>“병력과 아이템을 쓸 필요가 없다.”</li>
+<li>“다음 이벤트를 위해 자원을 아끼자.”</li>
+<li>“2위 경쟁만 하거나 최소 보상만 받자.”</li>
+</ul>
+<p>결국 전투가 시작되기도 전에 승패가 결정됩니다.</p>
+<p>이 상태에서는 게임사가 원했던 과금 경쟁도 잘 발생하지 않습니다. 약서버는 과금으로 따라잡을 수 있는 격차가 아니라고 판단하기 때문입니다.</p>
+<h2 id="강서버도-재미가-없어짐">강서버도 재미가 없어짐</h2>
+<p>1강 서버가 항상 만족하는 것도 아닙니다.</p>
+<p>처음에는 압도적인 승리가 과금 만족감을 줄 수 있지만, 반복되면 다음 문제가 생깁니다.</p>
+<ul>
+<li>상대가 싸우지 않음</li>
+<li>전략이나 외교가 필요 없음</li>
+<li>이벤트 시간이 노동처럼 변함</li>
+<li>전투 콘텐츠를 즐길 기회가 사라짐</li>
+<li>강함을 증명할 상대가 없음</li>
+</ul>
+<p>강서버 입장에서도 “우리가 강해서 이겼다”기보다는 “게임사가 쉬운 조를 줬다”는 평가를 받게 됩니다.</p>
+<p>즉 약서버는 포기하고, 강서버는 무료해지는 구조입니다.</p>
+<h2 id="중간급-서버가-가장-큰-타격을-받음">중간급 서버가 가장 큰 타격을 받음</h2>
+<p>상위권 바로 아래의 중상위 서버들은 원래 이벤트 경쟁의 핵심입니다. 그런데 1강 7약 구조에서는 이 서버들도 애매한 위치에 놓입니다.</p>
+<ul>
+<li>1강을 이기기는 어려움</li>
+<li>나머지 서버를 이겨도 큰 의미가 없음</li>
+<li>지출해도 우승 가능성이 낮음</li>
+<li>지출하지 않으면 약서버와 차별화가 안 됨</li>
+</ul>
+<p>이들은 결국 두 가지 방향으로 움직입니다.</p>
+<ol>
+<li>더 강한 서버로 이전</li>
+<li>핵심 유저가 게임을 줄이거나 떠남</li>
+</ol>
+<p>따라서 서버 간 격차는 오히려 더 커집니다.</p>
+<h2 id="서버-이전이-가속될-가능성">서버 이전이 가속될 가능성</h2>
+<p>매칭이 반복적으로 불합리하면 유저들은 개인 성장보다 <strong>소속 서버 변경</strong>이 더 효율적이라고 판단합니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>내 전력을 올리는 것
+</span>&lt; 강서버로 이전하는 것</code></div></pre>
+<p>이런 인식이 생기면:</p>
+<ul>
+<li>중소 서버의 상위 유저가 강서버로 이동</li>
+<li>약서버의 연맹이 붕괴</li>
+<li>살아남은 강서버에 인원이 집중</li>
+<li>강서버와 약서버의 격차가 더 커짐</li>
+<li>다음 매칭은 더 불균형해짐</li>
+</ul>
+<p>결국 게임사가 강서버를 분산해서 매칭했다고 해도, 장기적으로는 강서버 집중 현상을 더 강화하게 됩니다.</p>
+<h2 id="커뮤니티의-관심이-전략에서-비판으로-이동">커뮤니티의 관심이 전략에서 비판으로 이동</h2>
+<p>첫 매칭에서는 유저들이 “이 조에서 어떻게 싸울까?”를 논의합니다.</p>
+<p>두 번째 이상 매칭부터는 대화 주제가 달라집니다.</p>
+<ul>
+<li>매칭 알고리즘 추측</li>
+<li>특정 서버 보호 의혹</li>
+<li>과금 서버 우대 의혹</li>
+<li>게임사가 데이터를 제대로 보는지에 대한 의심</li>
+<li>이벤트 불참 운동</li>
+<li>환불이나 과금 중단 언급</li>
+</ul>
+<p>콘텐츠 자체보다 운영 논란이 더 큰 이야깃거리가 됩니다.</p>
+<p>특히 유저들이 직접 데이터를 모아 실제 강도와 매칭을 비교하기 시작하면, 게임사의 설명이 없을 경우 불신은 빠르게 확산됩니다.</p>
+<h2 id="과금-패턴도-바뀔-수-있음">과금 패턴도 바뀔 수 있음</h2>
+<p>반복되는 불공정 매칭은 반드시 전체 과금 증가로 이어지지 않습니다.</p>
+<p>약·중 서버에서는:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>조금 더 과금하면 경쟁 가능</span></code></div></pre>
+<p>이 아니라:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>과금해도 결과가 바뀌지 않음</span></code></div></pre>
+<p>이라는 결론이 나옵니다.</p>
+<p>이때 과금은 경쟁형 소비에서 다음 형태로 바뀝니다.</p>
+<ul>
+<li>이벤트 직전 과금 감소</li>
+<li>최소 효율 상품만 구매</li>
+<li>서버 이전권에만 소비</li>
+<li>신규 영웅·장비 구매 보류</li>
+<li>이벤트 결과를 본 후 구매 결정</li>
+</ul>
+<p>게임사 입장에서는 단기적으로 강서버의 소비를 유지할 수 있어도, 전체 서버의 중간 과금층이 약해집니다.</p>
+<h2 id="세-번째부터는-제도로-굳어짐">세 번째부터는 제도로 굳어짐</h2>
+<p>두 번 반복되면 의심이고, 세 번 반복되면 사실상 정책으로 인식됩니다.</p>
+<p>유저들은 그때부터 매칭을 다음처럼 예상합니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>상위 서버는 서로 만나지 않는다.
+</span>각 조에는 우승 예정 서버가 하나 있다.
+나머지는 보상과 순위 경쟁용이다.</code></div></pre>
+<p>이 인식이 굳으면 새로운 매칭이 나와도 기대가 생기지 않습니다. 실제로 좋은 매칭이 나와도 유저들은 먼저 조작이나 보호 가능성을 의심합니다.</p>
+<p>이것이 가장 위험합니다. <strong>매칭 결과가 아니라 매칭 시스템 자체가 신뢰를 잃는 상태</strong>이기 때문입니다.</p>
+<h2 id="현실적으로-예상되는-결과">현실적으로 예상되는 결과</h2>
+<p>한 번 더 같은 일이 발생하면 다음 순서로 진행될 가능성이 높습니다.</p>
+<ol>
+<li>조 발표 직후 승자 예측이 거의 확정됨</li>
+<li>약서버들이 전투 자원 사용을 줄임</li>
+<li>중상위 서버의 참여와 과금이 감소함</li>
+<li>강서버로의 이전이 증가함</li>
+<li>중소 서버의 활동 인원이 감소함</li>
+<li>다음 시즌 서버 격차가 더 확대됨</li>
+<li>게임사는 더 극단적인 1강 7약 매칭을 만들게 됨</li>
+</ol>
+<p>즉 <strong>불균형 매칭이 다음 불균형 매칭의 원인이 되는 악순환</strong>이 생길 수 있습니다.</p>
+<h2 id="게임사가-최소한-해야-할-대응">게임사가 최소한 해야 할 대응</h2>
+<p>같은 방식의 매칭을 유지하려면 적어도 기준을 공개해야 합니다.</p>
+<ul>
+<li>매칭에 반영한 기간</li>
+<li>서버 전투력 산정 방식</li>
+<li>활동 인원 반영 여부</li>
+<li>이전 유저 반영 시점</li>
+<li>전투점수의 처리 방식</li>
+<li>동일 서버 재매칭 제한</li>
+<li>강서버 시드 배정 여부</li>
+</ul>
+<p>기준 공개 없이 같은 결과가 반복되면, 유저들은 가장 부정적인 이유를 선택해서 해석하게 됩니다.</p>
+<p>내 판단으로는 <strong>다음 매칭이 진짜 분기점</strong>입니다.</p>
+<p>다시 1강 7약 구조가 반복되면 유저들은 “알고리즘이 실패했다”가 아니라 **“게임사가 이 구조를 원하는 것”**으로 받아들일 것입니다. 그렇게 되면 전투 참여율보다 먼저 무너지는 것은 매칭에 대한 기대와 과금의 명분입니다.</p></div></div></div></div><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-WwP4DvEIbCS6Wv93" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text" aria-label="Notifications Alt+T"></section></div><button type="button" class="btn btn-primary chatbot-floating-btn" aria-label="AI 에이전트 열기" title="AI 에이전트 열기 (F1)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"></path></svg></button></div>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKHJT6LZ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>

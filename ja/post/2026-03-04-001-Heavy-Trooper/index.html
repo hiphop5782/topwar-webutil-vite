@@ -1,0 +1,569 @@
+<!DOCTYPE html><html lang="ko"><head><style type="text/css">:root{--toastify-color-light: #fff;--toastify-color-dark: #121212;--toastify-color-info: #3498db;--toastify-color-success: #07bc0c;--toastify-color-warning: #f1c40f;--toastify-color-error: hsl(6, 78%, 57%);--toastify-color-transparent: rgba(255, 255, 255, .7);--toastify-icon-color-info: var(--toastify-color-info);--toastify-icon-color-success: var(--toastify-color-success);--toastify-icon-color-warning: var(--toastify-color-warning);--toastify-icon-color-error: var(--toastify-color-error);--toastify-container-width: fit-content;--toastify-toast-width: 320px;--toastify-toast-offset: 16px;--toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));--toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));--toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));--toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));--toastify-toast-background: #fff;--toastify-toast-padding: 14px;--toastify-toast-min-height: 64px;--toastify-toast-max-height: 800px;--toastify-toast-bd-radius: 6px;--toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);--toastify-font-family: sans-serif;--toastify-z-index: 9999;--toastify-text-color-light: #757575;--toastify-text-color-dark: #fff;--toastify-text-color-info: #fff;--toastify-text-color-success: #fff;--toastify-text-color-warning: #fff;--toastify-text-color-error: #fff;--toastify-spinner-color: #616161;--toastify-spinner-color-empty-area: #e0e0e0;--toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);--toastify-color-progress-dark: #bb86fc;--toastify-color-progress-info: var(--toastify-color-info);--toastify-color-progress-success: var(--toastify-color-success);--toastify-color-progress-warning: var(--toastify-color-warning);--toastify-color-progress-error: var(--toastify-color-error);--toastify-color-progress-bgo: .2}.Toastify__toast-container{z-index:var(--toastify-z-index);-webkit-transform:translate3d(0,0,var(--toastify-z-index));position:fixed;width:var(--toastify-container-width);box-sizing:border-box;color:#fff;display:flex;flex-direction:column}.Toastify__toast-container--top-left{top:var(--toastify-toast-top);left:var(--toastify-toast-left)}.Toastify__toast-container--top-center{top:var(--toastify-toast-top);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--top-right{top:var(--toastify-toast-top);right:var(--toastify-toast-right);align-items:end}.Toastify__toast-container--bottom-left{bottom:var(--toastify-toast-bottom);left:var(--toastify-toast-left)}.Toastify__toast-container--bottom-center{bottom:var(--toastify-toast-bottom);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--bottom-right{bottom:var(--toastify-toast-bottom);right:var(--toastify-toast-right);align-items:end}.Toastify__toast{--y: 0;position:relative;touch-action:none;width:var(--toastify-toast-width);min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:var(--toastify-toast-padding);border-radius:var(--toastify-toast-bd-radius);box-shadow:var(--toastify-toast-shadow);max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);z-index:0;display:flex;flex:1 auto;align-items:center;word-break:break-word}@media only screen and (max-width: 480px){.Toastify__toast-container{width:100vw;left:env(safe-area-inset-left);margin:0}.Toastify__toast-container--top-left,.Toastify__toast-container--top-center,.Toastify__toast-container--top-right{top:env(safe-area-inset-top);transform:translate(0)}.Toastify__toast-container--bottom-left,.Toastify__toast-container--bottom-center,.Toastify__toast-container--bottom-right{bottom:env(safe-area-inset-bottom);transform:translate(0)}.Toastify__toast-container--rtl{right:env(safe-area-inset-right);left:initial}.Toastify__toast{--toastify-toast-width: 100%;margin-bottom:0;border-radius:0}}.Toastify__toast-container[data-stacked=true]{width:var(--toastify-toast-width)}.Toastify__toast--stacked{position:absolute;width:100%;transform:translate3d(0,var(--y),0) scale(var(--s));transition:transform .3s}.Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,.Toastify__toast--stacked[data-collapsed] .Toastify__close-button{transition:opacity .1s}.Toastify__toast--stacked[data-collapsed=false]{overflow:visible}.Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>*{opacity:0}.Toastify__toast--stacked:after{content:"";position:absolute;left:0;right:0;height:calc(var(--g) * 1px);bottom:100%}.Toastify__toast--stacked[data-pos=top]{top:0}.Toastify__toast--stacked[data-pos=bot]{bottom:0}.Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before{transform-origin:top}.Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before{transform-origin:bottom}.Toastify__toast--stacked:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;transform:scaleY(3);z-index:-1}.Toastify__toast--rtl{direction:rtl}.Toastify__toast--close-on-click{cursor:pointer}.Toastify__toast-icon{margin-inline-end:10px;width:22px;flex-shrink:0;display:flex}.Toastify--animate{animation-fill-mode:both;animation-duration:.5s}.Toastify--animate-icon{animation-fill-mode:both;animation-duration:.3s}.Toastify__toast-theme--dark{background:var(--toastify-color-dark);color:var(--toastify-text-color-dark)}.Toastify__toast-theme--light,.Toastify__toast-theme--colored.Toastify__toast--default{background:var(--toastify-color-light);color:var(--toastify-text-color-light)}.Toastify__toast-theme--colored.Toastify__toast--info{color:var(--toastify-text-color-info);background:var(--toastify-color-info)}.Toastify__toast-theme--colored.Toastify__toast--success{color:var(--toastify-text-color-success);background:var(--toastify-color-success)}.Toastify__toast-theme--colored.Toastify__toast--warning{color:var(--toastify-text-color-warning);background:var(--toastify-color-warning)}.Toastify__toast-theme--colored.Toastify__toast--error{color:var(--toastify-text-color-error);background:var(--toastify-color-error)}.Toastify__progress-bar-theme--light{background:var(--toastify-color-progress-light)}.Toastify__progress-bar-theme--dark{background:var(--toastify-color-progress-dark)}.Toastify__progress-bar--info{background:var(--toastify-color-progress-info)}.Toastify__progress-bar--success{background:var(--toastify-color-progress-success)}.Toastify__progress-bar--warning{background:var(--toastify-color-progress-warning)}.Toastify__progress-bar--error{background:var(--toastify-color-progress-error)}.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--error{background:var(--toastify-color-transparent)}.Toastify__close-button{color:#fff;position:absolute;top:6px;right:6px;background:transparent;outline:none;border:none;padding:0;cursor:pointer;opacity:.7;transition:.3s ease;z-index:1}.Toastify__toast--rtl .Toastify__close-button{left:6px;right:unset}.Toastify__close-button--light{color:#000;opacity:.3}.Toastify__close-button>svg{fill:currentColor;height:16px;width:14px}.Toastify__close-button:hover,.Toastify__close-button:focus{opacity:1}@keyframes Toastify__trackProgress{0%{transform:scaleX(1)}to{transform:scaleX(0)}}.Toastify__progress-bar{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:1;opacity:.7;transform-origin:left}.Toastify__progress-bar--animated{animation:Toastify__trackProgress linear 1 forwards}.Toastify__progress-bar--controlled{transition:transform .2s}.Toastify__progress-bar--rtl{right:0;left:initial;transform-origin:right;border-bottom-left-radius:initial}.Toastify__progress-bar--wrp{position:absolute;overflow:hidden;bottom:0;left:0;width:100%;height:5px;border-bottom-left-radius:var(--toastify-toast-bd-radius);border-bottom-right-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp[data-hidden=true]{opacity:0}.Toastify__progress-bar--bg{opacity:var(--toastify-color-progress-bgo);width:100%;height:100%}.Toastify__spinner{width:20px;height:20px;box-sizing:border-box;border:2px solid;border-radius:100%;border-color:var(--toastify-spinner-color-empty-area);border-right-color:var(--toastify-spinner-color);animation:Toastify__spin .65s linear infinite}@keyframes Toastify__bounceInRight{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutRight{20%{opacity:1;transform:translate3d(-20px,var(--y),0)}to{opacity:0;transform:translate3d(2000px,var(--y),0)}}@keyframes Toastify__bounceInLeft{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutLeft{20%{opacity:1;transform:translate3d(20px,var(--y),0)}to{opacity:0;transform:translate3d(-2000px,var(--y),0)}}@keyframes Toastify__bounceInUp{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}to{transform:translateZ(0)}}@keyframes Toastify__bounceOutUp{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes Toastify__bounceInDown{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}to{transform:none}}@keyframes Toastify__bounceOutDown{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,2000px,0)}}.Toastify__bounce-enter--top-left,.Toastify__bounce-enter--bottom-left{animation-name:Toastify__bounceInLeft}.Toastify__bounce-enter--top-right,.Toastify__bounce-enter--bottom-right{animation-name:Toastify__bounceInRight}.Toastify__bounce-enter--top-center{animation-name:Toastify__bounceInDown}.Toastify__bounce-enter--bottom-center{animation-name:Toastify__bounceInUp}.Toastify__bounce-exit--top-left,.Toastify__bounce-exit--bottom-left{animation-name:Toastify__bounceOutLeft}.Toastify__bounce-exit--top-right,.Toastify__bounce-exit--bottom-right{animation-name:Toastify__bounceOutRight}.Toastify__bounce-exit--top-center{animation-name:Toastify__bounceOutUp}.Toastify__bounce-exit--bottom-center{animation-name:Toastify__bounceOutDown}@keyframes Toastify__zoomIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes Toastify__zoomOut{0%{opacity:1}50%{opacity:0;transform:translate3d(0,var(--y),0) scale3d(.3,.3,.3)}to{opacity:0}}.Toastify__zoom-enter{animation-name:Toastify__zoomIn}.Toastify__zoom-exit{animation-name:Toastify__zoomOut}@keyframes Toastify__flipIn{0%{transform:perspective(400px) rotateX(90deg);animation-timing-function:ease-in;opacity:0}40%{transform:perspective(400px) rotateX(-20deg);animation-timing-function:ease-in}60%{transform:perspective(400px) rotateX(10deg);opacity:1}80%{transform:perspective(400px) rotateX(-5deg)}to{transform:perspective(400px)}}@keyframes Toastify__flipOut{0%{transform:translate3d(0,var(--y),0) perspective(400px)}30%{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(-20deg);opacity:1}to{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(90deg);opacity:0}}.Toastify__flip-enter{animation-name:Toastify__flipIn}.Toastify__flip-exit{animation-name:Toastify__flipOut}@keyframes Toastify__slideInRight{0%{transform:translate3d(110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInLeft{0%{transform:translate3d(-110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInUp{0%{transform:translate3d(0,110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInDown{0%{transform:translate3d(0,-110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideOutRight{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(110%,var(--y),0)}}@keyframes Toastify__slideOutLeft{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(-110%,var(--y),0)}}@keyframes Toastify__slideOutDown{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,500px,0)}}@keyframes Toastify__slideOutUp{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,-500px,0)}}.Toastify__slide-enter--top-left,.Toastify__slide-enter--bottom-left{animation-name:Toastify__slideInLeft}.Toastify__slide-enter--top-right,.Toastify__slide-enter--bottom-right{animation-name:Toastify__slideInRight}.Toastify__slide-enter--top-center{animation-name:Toastify__slideInDown}.Toastify__slide-enter--bottom-center{animation-name:Toastify__slideInUp}.Toastify__slide-exit--top-left,.Toastify__slide-exit--bottom-left{animation-name:Toastify__slideOutLeft;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-right,.Toastify__slide-exit--bottom-right{animation-name:Toastify__slideOutRight;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-center{animation-name:Toastify__slideOutUp;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-center{animation-name:Toastify__slideOutDown;animation-timing-function:ease-in;animation-duration:.3s}@keyframes Toastify__spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+  <meta charset="UTF-8">
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LKC9791ZJB&amp;cx=c&amp;gtm=4e66q0"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9&amp;cx=c&amp;gtm=4e66q0"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MKHJT6LZ"></script><script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MKHJT6LZ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-ZGZ1GRHTM9');
+  </script>
+
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
+  <title>Topwar Helper</title>
+  <script type="module" crossorigin="" src="/assets/index-BWQ0WqhT.js"></script>
+  <link rel="stylesheet" crossorigin="" href="/assets/index-DC5aaTHQ.css">
+<style></style><style></style><style></style><style></style><style></style><style></style><style></style><style></style><script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-LKC9791ZJB" async=""></script></head>
+
+<body>
+  <div id="root"><div class="container-fluid mt-5 pt-4"><nav class="navbar navbar-expand-lg app-navbar fixed-top"><div class="container-fluid"><a class="navbar-brand" href="/ja">Topwar Helper</a><button class="navbar-toggler" type="button" aria-controls="navbarColor01" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarColor01"><ul class="navbar-nav me-auto"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">情報</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/information/base">基地情報</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/information/job">専門職強化</a><a class="dropdown-item" href="/ja/information/el">悠久の地</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/information/data">サーバー・プレイヤー情報</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/information/kartz">カルツの試練</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/information/realpower">サーバー分析 (AI)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">計算機</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/calculator/vital">体力回復速度計算機</a><a class="dropdown-item" href="/ja/calculator/skill">専用スキル破片計算機</a><a class="dropdown-item" href="/ja/calculator/value-pack">特別ギフト単価計算機</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/calculator/cost">コスト計算機</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">シミュレーター</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/simulator/titan-research">タイタン製造</a><a class="dropdown-item" href="/ja/simulator/titan-refine">タイタン洗練</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/simulator/formation-perk">軍陣特性</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/simulator/random">ランダム抽選機</a><a class="dropdown-item" href="/ja/simulator/slot">スロットゲーム</a><a class="dropdown-item" href="/ja/simulator/luckybox">ラッキー宝箱</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/simulator/lotto">ロト生成機</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">絵文字</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/emoji/create">新規絵文字作成</a><a class="dropdown-item" href="/ja/emoji/list">絵文字一覧</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">기록</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/history/ssc-2026">封印石カオス(2026)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계정</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/account/profile">계정 프로필</a><a class="dropdown-item" href="/ja/account/viewer">アカウントビューアー (구현중)</a><a class="dropdown-item" href="/ja/account/creator">宣伝画面作成 (구현중)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">投票</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/vote/create">投票作成</a><a class="dropdown-item" href="/ja/vote/cast">投票参加</a><a class="dropdown-item" href="/ja/vote/manage">投票管理</a></div></li><li class="nav-item"><a class="nav-link" href="/ja/post">攻略</a></li><div class="dropdown ms-lg-2 mt-2 mt-lg-0"><button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"><span class="fi fi-jp me-2"></span>JA</button><ul class="dropdown-menu dropdown-menu-dark shadow"><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-kr me-2"></span> 한국어</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-us me-2"></span> English</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-jp me-2"></span> 日本語</button></li></ul></div></ul></div></div></nav><div class="row mb-5 pb-5"><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-2TYGu5OktHTg0aW6" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div><div class="col-md-8"><div class="row mb-4"><div class="col d-flex justify-content-center align-items-center"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-lZUjWtUlP8hglGID" data-ad-width="320" data-ad-height="50" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><div class="container-fluid p-0"><div class="sticky-top bg-white border-bottom shadow-sm" style="top: 56px; z-index: 1020;"><div class="container-fluid py-2" style="max-width: 1000px;"><div class="d-flex justify-content-between align-items-center px-3"><h5 class="fw-bold m-0 text-truncate text-start" style="max-width: 60%;">메카(Heavy Trooper)</h5><div class="d-flex gap-2 flex-shrink-0"><a class="btn btn-sm btn-light disabled" href="/ja/post/2026-03-04-001-Heavy-Trooper"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path></svg></a><a class="btn btn-sm btn-outline-dark px-3" href="/ja/post"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z"></path></svg></a><a class="btn btn-sm btn-outline-secondary" href="/ja/post/2026-03-06-001-HT-Chips"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path></svg></a></div></div></div><div style="width: 100%; height: 4px; background-color: rgba(0, 0, 0, 0.05);"><div style="width: 0%; height: 100%; background: linear-gradient(90deg, rgb(79, 172, 254) 0%, rgb(0, 242, 254) 100%); transition: width 0.1s ease-out;"></div></div></div><div class="container-fluid my-5" style="max-width: 900px;"><div class="markdown-body text-start px-3"><p>메카는 부대 출전 시 유닛 슬롯 한 칸을 차지하며 부대에게 각종 효과를 부여하고 스킬을 사용합니다.<br>
+탑워는 메카 출시 이후부터 과금 유저와 일반 유저의 격차가 벌어지기 시작했습니다.</p>
+<p><img src="http://127.0.0.1:8000/assets/thumbnail-CKpyNNu2.gif" alt="블레이드 엔젤 메카" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>메카는 일일 임무 중 <strong>미지의 작전</strong> 메뉴에서 확인할 수 있습니다.</p>
+<p><img src="http://127.0.0.1:8000/assets/%EB%AF%B8%EC%A7%80%EC%9D%98%EC%9E%91%EC%A0%84-001-8J7MGpV9.png" alt="미지의 작전 메뉴" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p><img src="http://127.0.0.1:8000/assets/%EB%AF%B8%EC%A7%80%EC%9D%98%EC%9E%91%EC%A0%84-002-CjxqAp0Z.png" alt="미지의 작전 화면" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p><code>60레벨</code> 이상이 되면 메카 메뉴가 활성화 되며, 미지의 작전을 클리어 해나가면서 메카를 잠금 해제할 수 있습니다.<br>
+메카 1기 당 총 9개의 모듈이 있으며, 이 중 기본 제공 모듈을 4개 이상 활성화해야 출전이 가능합니다.<br>
+출전 시 활성화한 모듈 개수에 따라 스킬이 제공되며 상황에 따라 해당 스킬을 사용합니다.<br>
+메카의 레벨은 <code>101</code>입니다.</p>
+<h1 id="메카-종류">메카 종류</h1>
+<p>메카는 작성 시점(2026-03-05) 기준 총 <code>7</code>종류가 출시되었습니다.</p>
+<ul>
+<li>사막 정찰자 E-100</li>
+<li>질풍의 불꽃 Rx</li>
+<li>파도 분쇄자 BW-3</li>
+<li>파멸의 톱날 D-4</li>
+<li>광휘의 기사 LP-4</li>
+<li>블레이드 엔젤 BA-6</li>
+<li>메카 모함 HC-9999</li>
+</ul>
+<blockquote>
+<p>💡 TIP
+메카 모함은 출전 불가이기 때문에 다른 포스트에서 별도로 다룹니다</p>
+</blockquote>
+<p>각 메카별 특징은 다음과 같습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>사막 정찰자 E-100</td><td>방어형</td><td>면역 스킬</td></tr><tr><td>질풍의 불꽃 Rx</td><td>공격형</td><td><code>펄스 발신기</code>의 영향을 받지 않음</td></tr><tr><td>파도 분쇄자 BW-3</td><td>밸런스형</td><td>기절 및 후방 데미지 증가/감면</td></tr><tr><td>파멸의 톱날 D-4</td><td>밸런스형</td><td>자기장 및 중장갑</td></tr><tr><td>광휘의 기사 LP-4</td><td>공격형</td><td>크리스 칩과 시너지 효과</td></tr><tr><td>블레이드 엔젤 BA-6</td><td>공격형</td><td>메카 수리 1회 및 중/경장갑 특화 <span style="color: red;">(과금으로만 획득 가능)</span></td></tr></tbody></table></div>
+<h1 id="사막-정찰자-e-100">사막 정찰자 E-100</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>사막 정찰자 E-100</td><td>방어형</td><td>면역 스킬</td></tr></tbody></table></div>
+<p><img src="http://127.0.0.1:8000/assets/%EC%82%AC%EB%A7%89%EC%A0%95%EC%B0%B0%EC%9E%90-001-DksJonN3.png" alt="사막 정찰자 E-100" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>최초로 만날 수 있는 메카입니다.<br>
+<code>방어형</code>이며, 스킬 역시 버티는데 특화되어 있습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>주요 스킬</th><th>적용 대상</th><th>스킬 설명</th></tr></thead><tbody><tr><td>활성화</td><td>메카 자신</td><td>생명력 증가 <code>50%</code></td></tr><tr><td>역장 Ⅰ</td><td>메카 자신</td><td>첫 라운드 데미지 감면 <code>30%</code></td></tr><tr><td>역장 Ⅱ</td><td>메카 좌우 유닛</td><td><code>역장Ⅰ</code>의 효과를 자신의 좌우 유닛에게도 부여</td></tr><tr><td>불사불멸 Ⅰ</td><td>메카 자신</td><td>생명력 <code>30%</code> 미만일 경우 <strong>면역</strong> <code>2</code>스택 부여</td></tr><tr><td>불사불멸 Ⅱ</td><td>메카 자신</td><td><code>불사불멸 Ⅰ</code>의 효과를 <code>4</code>스택으로 증가</td></tr></tbody></table></div>
+<p>면역의 경우 1스택당 1회의 모든 데미지를 막아주기 때문에 버티는데 매우 좋습니다.<br>
+반격 육군의 면역과 효과가 같습니다.</p>
+<p><code>역장 Ⅱ</code>의 효과로 인해 이 메카의 위치는 9개 슬롯 중 가운데 열(<code>2</code>, <code>5</code>, <code>8</code>)이 좋다는 것이 정석입니다. 하지만 게임이 후반부로 가면서 데미지 감면 30%, 그것도 첫 라운드만 해당됩니다는 점 때문에 군진 슬롯이 5레벨이 아닌 곳에 놓는 편입니다.</p>
+<blockquote>
+<p>💡 TIP
+샤크, 스콜피온, 이글 군진의 5레벨 슬롯 스킬은 메카가 위치한 칸에서는 발동하지 않습니다</p>
+</blockquote>
+<h1 id="질풍의-불꽃-rx">질풍의 불꽃 Rx</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>질풍의 불꽃 Rx</td><td>공격형</td><td><code>펄스 발신기</code>의 영향을 받지 않음</td></tr></tbody></table></div>
+<p><img src="http://127.0.0.1:8000/assets/%EC%A7%88%ED%92%8D%EC%9D%98%EB%B6%88%EA%BD%83-001-DYYtSCpz.png" alt="질풍의 불꽃 Rx" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>월드보스 등 데미지를 많이 발생시켜야 하는 경우 자주 사용되는 메카입니다.<br>
+대부분의 스킬들이 공격과 관련이 있습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>주요 스킬</th><th>적용 대상</th><th>스킬 설명</th></tr></thead><tbody><tr><td>돌진 발동</td><td>메카 자신</td><td>공격력 증가 <code>50%</code></td></tr><tr><td>일반 윙 장착</td><td>메카 자신</td><td>공격력 증가 <code>10%</code> 및 생명력 감소 <code>10%</code></td></tr><tr><td>파워 윙 장착</td><td>자신 및 동일 병종</td><td>자신 공격력 증가 <code>80%</code> , 동일 병종 유닛 명중 <code>15%</code> 증가</td></tr><tr><td>팬텀 스피드</td><td>적군</td><td>일반 공격 대상에게 <code>80%</code> 확률로 <code>15% 취약</code> 효과 추가</td></tr><tr><td>완벽한 사냥</td><td>메카 자신</td><td>생명력 60% 이상인 경우 <code>무장해제 면역</code> , 일반공격 데미지 <code>50%</code> 증가</td></tr></tbody></table></div>
+<p>장비 중 <code>펄스 발신기</code>로 발생하는 <code>무장해제</code> 스킬의 영향을 받으면 일반 공격을 못하게 되는데, 질풍의 불꽃 메카는 이 효과를 받지 않습니다. 특히 1라운드에 침묵과 무장해제가 세트로 걸리면 턴이 그냥 넘어가게 되는데 이 상황을 방지할 수 있습니다.</p>
+<p>메카의 위치는 크게 상관없기 때문에 군진 5레벨을 피해서 배치합니다.</p>
+<h1 id="파도-분쇄자-bw-3">파도 분쇄자 BW-3</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>파도 분쇄자 BW-3</td><td>밸런스형</td><td>기절 및 후방 데미지 증가/감면</td></tr></tbody></table></div>
+<p><img src="http://127.0.0.1:8000/assets/%ED%8C%8C%EB%8F%84%EB%B6%84%EC%87%84%EC%9E%90-001-DZqhkD43.png" alt="파도 분쇄자 BW-3" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>쇠약과 시너지가 발생하는 밸런스형 메카입니다.<br>
+장기전으로 갈수록 유리해지는 특성을 가지고 있습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>주요 스킬</th><th>적용 대상</th><th>스킬 설명</th></tr></thead><tbody><tr><td>탄성 골격</td><td>메카 자신</td><td>데미지 감면 <code>10%</code> , 공격력 감소 <code>10%</code></td></tr><tr><td>타이달 웨이브 쇼크</td><td>메카 자신</td><td>턴 종료시 적용되며 데미지 감면 <code>25%</code><br>중복시 랜덤 적 공격</td></tr><tr><td>생체 모방체</td><td>메카 자신</td><td>생명력 증가 <code>80%</code></td></tr><tr><td>아쿠아 스매시</td><td>적군</td><td>타이달 웨이브 쇼크 데미지 증가<br>쇠약 상태 적 1턴 <strong>기절</strong></td></tr><tr><td>하이드로 웨이크</td><td>아군</td><td>타이달 웨이브 상태일 때 같은열 후방 유닛 데미지증가 <code>10%</code>, 데미지감면 <code>32%</code></td></tr></tbody></table></div>
+<p>파도 분쇄자는 후방 유닛에게 효과가 있기 때문에 맨 앞열에 배치하는것이 좋습니다.<br>
+특히 초반부에는 데미지증가 <code>10%</code>, 데미지감면 <code>32%</code>는 무시할 수 없는 수치이기 때문에 2번 슬롯에 배치하여 군진의 슬롯 효과와 시너지를 노리기도 합니다. 하지만 후반으로 갈 수록 군진 슬롯 5레벨 스킬 때문에 다른 위치에 배치하게 됩니다.</p>
+<h1 id="파멸의-톱날-d-4">파멸의 톱날 D-4</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>파멸의 톱날 D-4</td><td>밸런스형</td><td>자기장 및 중장갑</td></tr></tbody></table></div>
+<p><img src="http://127.0.0.1:8000/assets/%ED%8C%8C%EB%A9%B8%EC%9D%98%ED%86%B1%EB%82%A0-001-BDhfbHg0.png" alt="파멸의 톱날 D-4" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>공격과 방어 스킬을 모두 가지고 있는 메카입니다.<br>
+<code>자기장</code>과 <code>중장갑</code>이라는 스킬을 라운드 끝나면 사용하기 때문에 해군, 육군과 시너지가 발생할 것으로 예상되지만 사실상 육군의 전용 메카로 취급됩니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>주요 스킬</th><th>적용 대상</th><th>스킬 설명</th></tr></thead><tbody><tr><td>전쟁의 신</td><td>적군</td><td>공격 대상이 <strong>1행 전체</strong>로 변경</td></tr><tr><td>돔형 장벽</td><td>자신</td><td>치명타 면역, 데미지감면 <code>15%</code>, 회피 상실</td></tr><tr><td>평행 가르기</td><td>적군</td><td>매 라운드 이후 랜덤 유닛 2개에게 `15% 데미지</td></tr><tr><td>에너지 버스터 흉갑</td><td>메카 자신, 아군</td><td>생명력 증가 <code>80%</code><br>방어 시 같은 행 아군에도 적용</td></tr><tr><td>호버링 실드</td><td>메카 자신</td><td>매 라운드 종료시 1턴간 <code>중장갑</code> 획득</td></tr><tr><td>EMP 폭발</td><td>적군</td><td>평행 가르기 공격 대상 1개 증가<br>공격당한 적군에게 15% 자기장 폭풍 추가(방어시 2스 택)</td></tr></tbody></table></div>
+<p>아무 위치에 둬도 무난하기 때문에 군진 슬롯 5레벨을 피해서 배치합니다.</p>
+<h1 id="광휘의-기사-lp-4">광휘의 기사 LP-4</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>광휘의 기사 LP-4</td><td>공격형</td><td>크리스 칩과 시너지 효과</td></tr></tbody></table></div>
+<p><img src="http://127.0.0.1:8000/assets/%EA%B4%91%ED%9C%98%EC%9D%98%EA%B8%B0%EC%82%AC-001-CxyOrdpP.png" alt="광휘의 기사 LP-4" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>스킬 중 <code>점화</code>가 있기 때문에 점화 공군에서 많이 사용합니다.<br>
+메카 손상 시 회복 시간도 다른 메카는 10분인데 비해 6분으로 짧기 때문에 활용도가 높습니다.<br>
+질풍의 불꽃처럼 공격 중심의 메카입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>주요 스킬</th><th>적용 대상</th><th>스킬 설명</th></tr></thead><tbody><tr><td>전광석화</td><td>메카 자신</td><td>일반 공격이 4회 랜덤공격에 1라운드 지속 추격 부여로 바뀜</td></tr><tr><td>빛과 그림자</td><td>메카 자신</td><td>데미지 <code>16%</code> 증가, 라운드마다 <code>4%</code> 감소</td></tr><tr><td>드리프트 추격</td><td>적군</td><td>메카 공격 종료 시 랜덤 대상에게 <code>15%</code> 데미지 (추격 보유시 <code>30%</code>)</td></tr><tr><td>쉴드 가드</td><td>메카 자신</td><td>생명력 증가 <code>80%</code></td></tr><tr><td>필살 추격</td><td>적군</td><td>메카 공격 종료 시 랜덤 대상 3개에게 <code>25%</code> 데미지 (추격 보유시 <code>20%</code> 점화 1스택 추가)</td></tr><tr><td>울부짖는 충격</td><td>메카 자신 및 적군</td><td>드리프트 추격 공격 대상 +1 및 대상에게 <code>15%</code> 점화 1스택 추가<br>메카 회복시간 6분으로 감소</td></tr></tbody></table></div>
+<p>크리스 칩의 옵션에 일반 공격 1회당 <code>8%</code> 데미지 증가가 있기 때문에 같이 사용할 경우 <code>32%</code> 최대 효과를 얻을 수 있어서 시너지가 좋습니다.</p>
+<h1 id="블레이드-엔젤-ba-6">블레이드 엔젤 BA-6</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>메카</th><th>분류</th><th>특징</th></tr></thead><tbody><tr><td>블레이드 엔젤 BA-6</td><td>공격형</td><td>메카 수리 1회 및 중/경장갑 특화 <span style="color: red;">(과금으로만 획득 가능)</span></td></tr></tbody></table></div>
+<p><img src="http://127.0.0.1:8000/assets/%EB%B8%94%EB%A0%88%EC%9D%B4%EB%93%9C%EC%97%94%EC%A0%A4-001-BP4A862d.png" alt="블레이드 엔젤 BA-6" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>가장 최근에 등장한 메카입니다.<br>
+오직 과금을 통해서 모듈을 입수할 수 있기 때문에 무과금 유저들은 아직 사용하기 어렵습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>주요 스킬</th><th>적용 대상</th><th>스킬 설명</th></tr></thead><tbody><tr><td>공허 심판</td><td>적군</td><td>일반 공격을 세로 일렬 공격으로 변경</td></tr><tr><td>투지 향상</td><td>메카 자신</td><td>데미지를 매 라운드 <code>5%</code> 증가 (최대 <code>20%</code>)</td></tr><tr><td>강철 날개</td><td>메카 자신</td><td>발동 시작마다 1라운드 지속되는 <code>60%</code> 중장갑 1스택 획득<br>방어 시 <code>60%</code> 경장갑 1스택 획득</td></tr><tr><td>천하무적</td><td>메카 자신 및 아군</td><td>공격력 <code>80%</code> 증가, 방어 시 같은 행 유닛에도 적용</td></tr><tr><td>공허 판결</td><td>적군</td><td>일반 공격이 좌우 2칸에도 <code>30%</code> 적용</td></tr><tr><td>자동 점검</td><td>패시브</td><td>일일 메카 수리 횟수 1회 증가</td></tr></tbody></table></div>
+<p>과금 메카 답게 좋은 스킬들을 많이 가지고 있습니다.<br>
+특히 메카 수리 1회는 각종 전투 이벤트에서 탁월한 효과를 발휘합니다.<br>
+공허 심판과 공허 판결의 효과로 중앙에 배치하면 9슬롯을 모두 공격하기 때문에 2, 5, 8번 슬롯에 배치하는 것을 권장합니다.</p>
+<h1 id="군종별-메카-활용-추천">군종별 메카 활용 추천</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>군종</th><th>메카</th><th>조합</th><th>슬롯</th></tr></thead><tbody><tr><td>육군</td><td>사막 정찰자 E-100</td><td>반격</td><td>2, 5, 8번 슬롯 추천</td></tr><tr><td></td><td>파멸의 톱날 D-4</td><td>자기장</td><td>슬롯 위치 무관</td></tr><tr><td></td><td>블레이드 엔젤 BA-6</td><td>무관</td><td>2, 5, 8번 슬롯 추천</td></tr><tr><td>해군</td><td>파도 분쇄자 BW-3</td><td>무관</td><td>1, 2, 3번 슬롯 추천</td></tr><tr><td></td><td>블레이드 엔젤 BA-6</td><td>무관</td><td>2, 5, 8번 슬롯 추천</td></tr><tr><td>공군</td><td>질풍의 기사 Rx</td><td>무관</td><td>슬롯 위치 무관</td></tr><tr><td></td><td>광휘의 기사 LP-4</td><td>점화</td><td>슬롯 위치 무관</td></tr><tr><td></td><td>블레이드 엔젤 BA-6</td><td>무관</td><td>2, 5, 8번 슬롯 추천</td></tr></tbody></table></div></div></div></div></div><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-WwP4DvEIbCS6Wv93" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text" aria-label="Notifications Alt+T"></section></div><button type="button" class="btn btn-primary chatbot-floating-btn" aria-label="AI 에이전트 열기" title="AI 에이전트 열기 (F1)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"></path></svg></button></div>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKHJT6LZ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>
