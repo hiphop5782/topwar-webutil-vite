@@ -11,6 +11,9 @@ import { format } from "date-fns";
 // import { ko, enUS, ja } from "date-fns/locale";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import { FaChevronLeft, FaChevronRight, FaList } from "react-icons/fa6";
+import rehypeSlug from "rehype-slug";
+
+import "./MarkdownRenderer.css";
 
 const ALL_MODULES = import.meta.glob("/src/assets/md/*/readme.md", { query: "?raw" });
 // const localeMap = { ko, en: enUS, ja };
@@ -114,7 +117,7 @@ export default function Post() {
                 <div className="markdown-body text-start px-3">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeRaw]}
+                        rehypePlugins={[rehypeRaw, rehypeSlug]}
                         components={{
                             code({ node, inline, className, children, ...props }) {
                                 const match = /language-(\w+)/.exec(className || "");
