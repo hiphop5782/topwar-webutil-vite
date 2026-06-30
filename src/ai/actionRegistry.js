@@ -88,24 +88,7 @@ export const allowedPaths = [
             },
         },
     },
-    { 
-        path: "/information/ssc", 
-        label: "봉인석",
-        examples: ["봉인석", "SSC", "Seal Stone Chaos", "봉인된 성소", "봉인석 랭킹", "봉인석 전장 랭킹"],
-        chatbot: true,
-        queryParams: {
-            server: {
-                type: "number",
-                required: false,
-                description: "조회할 서버 번호"
-            },
-            min: {
-                type: "number",
-                required: false,
-                description: "조회할 최소 점수"
-            },
-        },
-    },
+    
     { 
         path: "/information/realpower", 
         label: "서버 분석",
@@ -181,9 +164,9 @@ export const allowedPaths = [
     },
 
     { 
-        path: "/history/ssc2026", 
-        label: "봉인석의난",
-        examples: ["봉인석", "ssc", "봉인석의난 2026", "봉인석 2026"],
+        path: "/history/ssc-2026", 
+        label: "봉인석의 난",
+        examples: ["봉인석", "ssc", "봉인석의난 2026", "봉인석 2026", "Seal Stone Chaos"],
         chatbot: true,
         queryParams: {
             server: {
@@ -200,6 +183,25 @@ export const allowedPaths = [
                 pattern: "^[0-9]*$",
                 aliases:["라운드", "round"]
             }
+        },
+    },
+
+    { 
+        path: "/history/ssc-2026/users", 
+        label: "봉인석의난 개인랭킹",
+        examples: ["봉인석 개인", "봉인석 랭킹", "봉인석 유저", "봉인석 점수", "ssc rank", "ssc user", "ssc player", "ssc point"],
+        chatbot: true,
+        queryParams: {
+            server: {
+                type: "number",
+                required: false,
+                description: "조회할 서버 번호"
+            },
+            min: {
+                type: "number",
+                required: false,
+                description: "조회할 최소 점수"
+            },
         },
     },
 ];

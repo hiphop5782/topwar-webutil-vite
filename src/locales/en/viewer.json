@@ -197,6 +197,12 @@
         "show-others": "Show Other Servers",
         "error-load-fail": "Failed to load data"
     },
+    "SscMain": {
+        "title": "Seal Stone Chaos (2026)",
+        "detail": "A cross-server event held from March 13, 2026, to July 3, 2026",
+        "servers": "Server Rankings",
+        "users": "Player Rankings"
+    },
     "SscDashboard": {
         "title": "Cumulative Server Ranking",
         "description": "Calculates cumulative rankings by adding points and honor earned through the selected round.",

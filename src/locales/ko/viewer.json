@@ -197,6 +197,12 @@
         "show-others": "다른 서버 같이 보기",
         "error-load-fail": "데이터 로드 실패"
     },
+    "SscMain": {
+        "title": "봉인석의 난(2026)",
+        "detail" : "2026년 3월 13일부터 2026년 7월 3일까지 진행된 전체 서버 이벤트",
+        "servers" : "서버 랭킹",
+        "users" : "유저 랭킹"
+    },
     "SscDashboard": {
         "title": "누적 서버 랭킹",
         "description": "선택한 라운드까지의 포인트와 명예를 합산해 누적 순위를 계산합니다.",

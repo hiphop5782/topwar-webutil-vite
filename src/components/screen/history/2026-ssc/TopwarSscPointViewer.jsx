@@ -2,12 +2,12 @@ import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import "flag-icons/sass/flag-icons.scss";
-import "./TopwarData.css";
+import "@src/components/screen/information/server/TopwarData.css";
 import { FaArrowRight, FaArrowRightLong, FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader"
 import { useParams, useSearchParams } from "react-router-dom";
-import { useParamState } from "../../../../hooks/useParamState";
+import { useParamState } from "@src/hooks/useParamState";
 
 export default function TopwarSscPointViewer() {
     const [mainData, setMainData] = useState(null);
@@ -134,12 +134,11 @@ export default function TopwarSscPointViewer() {
     }, [filteredPlayersConsiderIQR, filteredPlayerTotalScoreWithIQR]);
 
     return (
-        <>
-            <h1>{t("TopwarSscPointViewer.title")}</h1>
-            <div className="row mb-1 mt-4">
+        <div className="container fluid py-4">
+            <div className="row mb-1">
                 {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
                 {/* 검색 입력창 추가 */}
-                <div className="col-md-6 d-flex align-items-center">
+                <div className="col-12 d-flex align-items-center">
                     <span style={{ width: 75, whiteSpace: "nowrap" }}>{t(`TopwarSscPointViewer.label-input`)}</span>
                     <input
                         type="text"
@@ -153,7 +152,7 @@ export default function TopwarSscPointViewer() {
                         }}
                     />
                 </div>
-                <div className="col-md-6 d-flex align-items-center mt-2 mt-md-0">
+                <div className="col-12 d-flex align-items-center mt-2">
                     <span style={{ width: 75, whiteSpace: "nowrap" }}>{t("TopwarSscPointViewer.label-cutoff")}</span>
                     <input
                         type="text"
@@ -303,6 +302,6 @@ export default function TopwarSscPointViewer() {
                     )}
                 </div>
             </div>
-        </>
+        </div>
     );
 }

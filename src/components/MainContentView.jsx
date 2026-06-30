@@ -24,7 +24,7 @@ import LuckyBox from "@src/components/screen/simulator/LuckyBox";
 import KartzStatistics from "@src/components/screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "@src/components/screen/information/el/ELScoreCalculator";
-import KakaoAds from "./adsense/KakaoAds";
+import KakaoAds from "@src/components/adsense/KakaoAds";
 import { useIsMobile } from "@src/hooks/useIsMobile";
 import EternalLandScore from "@src/components/screen/information/el/EternalLandScore";
 import EternalLandHowto from "@src/components/screen/information/el/EternalLandHowto";
@@ -49,12 +49,13 @@ import KartzServerHistoryViewer from "@src/components/screen/information/kartz/K
 import KartzUserHistoryViewer from "@src/components/screen/information/kartz/KartzUserHistoryViewer";
 import PostList from "@src/components/screen/post/PostList";
 import Post from "@src/components/screen/post/Post";
-import TopwarSscPointViewer from "@src/components/screen/information/server/TopwarSscPointViewer";
+import TopwarSscPointViewer from "@src/components/screen/history/2026-ssc/TopwarSscPointViewer";
 import TopwarRealPowerViewer from "@src/components/screen/information/server/TopwarRealPowerViewer";
 
-import SscDashboard from "@src/components/screen/history/SscDashboard";
+import SscDashboard from "@src/components/screen/history/2026-ssc/SscDashboard";
 
 import ItemLevelCostCalculator from "@src/components/screen/calculator/ItemLevelCostCalculator";
+import SealStoneChaos from "@src/components/screen/history/2026-ssc/SealStoncChaos";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -151,7 +152,10 @@ export default function MainContentView() {
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
                     
-                    <Route path="history/ssc-2026" element={<SscDashboard/>}></Route>
+                    <Route path="history/ssc-2026" element={<SealStoneChaos/>}>
+                        <Route index element={<SscDashboard/>}/>
+                        <Route path="users" element={<TopwarSscPointViewer/>}/>
+                    </Route>
 
                     {/* 404 not found */}
                     <Route path="*" element={<PangeNotFound />}></Route>

@@ -197,8 +197,6 @@ function Menu() {
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/kartz`}>{t(`menu:info.sub.kartz`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/ssc`}>{t(`menu:info.sub.ssc`)}</LanguageRouterLink>
-                                <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/realpower`}>
                                     {t(`menu:info.sub.realpower`)}
                                 </LanguageRouterLink>
