@@ -1,0 +1,562 @@
+<!DOCTYPE html><html lang="ko"><head><style type="text/css">:root{--toastify-color-light: #fff;--toastify-color-dark: #121212;--toastify-color-info: #3498db;--toastify-color-success: #07bc0c;--toastify-color-warning: #f1c40f;--toastify-color-error: hsl(6, 78%, 57%);--toastify-color-transparent: rgba(255, 255, 255, .7);--toastify-icon-color-info: var(--toastify-color-info);--toastify-icon-color-success: var(--toastify-color-success);--toastify-icon-color-warning: var(--toastify-color-warning);--toastify-icon-color-error: var(--toastify-color-error);--toastify-container-width: fit-content;--toastify-toast-width: 320px;--toastify-toast-offset: 16px;--toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));--toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));--toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));--toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));--toastify-toast-background: #fff;--toastify-toast-padding: 14px;--toastify-toast-min-height: 64px;--toastify-toast-max-height: 800px;--toastify-toast-bd-radius: 6px;--toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);--toastify-font-family: sans-serif;--toastify-z-index: 9999;--toastify-text-color-light: #757575;--toastify-text-color-dark: #fff;--toastify-text-color-info: #fff;--toastify-text-color-success: #fff;--toastify-text-color-warning: #fff;--toastify-text-color-error: #fff;--toastify-spinner-color: #616161;--toastify-spinner-color-empty-area: #e0e0e0;--toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);--toastify-color-progress-dark: #bb86fc;--toastify-color-progress-info: var(--toastify-color-info);--toastify-color-progress-success: var(--toastify-color-success);--toastify-color-progress-warning: var(--toastify-color-warning);--toastify-color-progress-error: var(--toastify-color-error);--toastify-color-progress-bgo: .2}.Toastify__toast-container{z-index:var(--toastify-z-index);-webkit-transform:translate3d(0,0,var(--toastify-z-index));position:fixed;width:var(--toastify-container-width);box-sizing:border-box;color:#fff;display:flex;flex-direction:column}.Toastify__toast-container--top-left{top:var(--toastify-toast-top);left:var(--toastify-toast-left)}.Toastify__toast-container--top-center{top:var(--toastify-toast-top);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--top-right{top:var(--toastify-toast-top);right:var(--toastify-toast-right);align-items:end}.Toastify__toast-container--bottom-left{bottom:var(--toastify-toast-bottom);left:var(--toastify-toast-left)}.Toastify__toast-container--bottom-center{bottom:var(--toastify-toast-bottom);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--bottom-right{bottom:var(--toastify-toast-bottom);right:var(--toastify-toast-right);align-items:end}.Toastify__toast{--y: 0;position:relative;touch-action:none;width:var(--toastify-toast-width);min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:var(--toastify-toast-padding);border-radius:var(--toastify-toast-bd-radius);box-shadow:var(--toastify-toast-shadow);max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);z-index:0;display:flex;flex:1 auto;align-items:center;word-break:break-word}@media only screen and (max-width: 480px){.Toastify__toast-container{width:100vw;left:env(safe-area-inset-left);margin:0}.Toastify__toast-container--top-left,.Toastify__toast-container--top-center,.Toastify__toast-container--top-right{top:env(safe-area-inset-top);transform:translate(0)}.Toastify__toast-container--bottom-left,.Toastify__toast-container--bottom-center,.Toastify__toast-container--bottom-right{bottom:env(safe-area-inset-bottom);transform:translate(0)}.Toastify__toast-container--rtl{right:env(safe-area-inset-right);left:initial}.Toastify__toast{--toastify-toast-width: 100%;margin-bottom:0;border-radius:0}}.Toastify__toast-container[data-stacked=true]{width:var(--toastify-toast-width)}.Toastify__toast--stacked{position:absolute;width:100%;transform:translate3d(0,var(--y),0) scale(var(--s));transition:transform .3s}.Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,.Toastify__toast--stacked[data-collapsed] .Toastify__close-button{transition:opacity .1s}.Toastify__toast--stacked[data-collapsed=false]{overflow:visible}.Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>*{opacity:0}.Toastify__toast--stacked:after{content:"";position:absolute;left:0;right:0;height:calc(var(--g) * 1px);bottom:100%}.Toastify__toast--stacked[data-pos=top]{top:0}.Toastify__toast--stacked[data-pos=bot]{bottom:0}.Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before{transform-origin:top}.Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before{transform-origin:bottom}.Toastify__toast--stacked:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;transform:scaleY(3);z-index:-1}.Toastify__toast--rtl{direction:rtl}.Toastify__toast--close-on-click{cursor:pointer}.Toastify__toast-icon{margin-inline-end:10px;width:22px;flex-shrink:0;display:flex}.Toastify--animate{animation-fill-mode:both;animation-duration:.5s}.Toastify--animate-icon{animation-fill-mode:both;animation-duration:.3s}.Toastify__toast-theme--dark{background:var(--toastify-color-dark);color:var(--toastify-text-color-dark)}.Toastify__toast-theme--light,.Toastify__toast-theme--colored.Toastify__toast--default{background:var(--toastify-color-light);color:var(--toastify-text-color-light)}.Toastify__toast-theme--colored.Toastify__toast--info{color:var(--toastify-text-color-info);background:var(--toastify-color-info)}.Toastify__toast-theme--colored.Toastify__toast--success{color:var(--toastify-text-color-success);background:var(--toastify-color-success)}.Toastify__toast-theme--colored.Toastify__toast--warning{color:var(--toastify-text-color-warning);background:var(--toastify-color-warning)}.Toastify__toast-theme--colored.Toastify__toast--error{color:var(--toastify-text-color-error);background:var(--toastify-color-error)}.Toastify__progress-bar-theme--light{background:var(--toastify-color-progress-light)}.Toastify__progress-bar-theme--dark{background:var(--toastify-color-progress-dark)}.Toastify__progress-bar--info{background:var(--toastify-color-progress-info)}.Toastify__progress-bar--success{background:var(--toastify-color-progress-success)}.Toastify__progress-bar--warning{background:var(--toastify-color-progress-warning)}.Toastify__progress-bar--error{background:var(--toastify-color-progress-error)}.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--error{background:var(--toastify-color-transparent)}.Toastify__close-button{color:#fff;position:absolute;top:6px;right:6px;background:transparent;outline:none;border:none;padding:0;cursor:pointer;opacity:.7;transition:.3s ease;z-index:1}.Toastify__toast--rtl .Toastify__close-button{left:6px;right:unset}.Toastify__close-button--light{color:#000;opacity:.3}.Toastify__close-button>svg{fill:currentColor;height:16px;width:14px}.Toastify__close-button:hover,.Toastify__close-button:focus{opacity:1}@keyframes Toastify__trackProgress{0%{transform:scaleX(1)}to{transform:scaleX(0)}}.Toastify__progress-bar{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:1;opacity:.7;transform-origin:left}.Toastify__progress-bar--animated{animation:Toastify__trackProgress linear 1 forwards}.Toastify__progress-bar--controlled{transition:transform .2s}.Toastify__progress-bar--rtl{right:0;left:initial;transform-origin:right;border-bottom-left-radius:initial}.Toastify__progress-bar--wrp{position:absolute;overflow:hidden;bottom:0;left:0;width:100%;height:5px;border-bottom-left-radius:var(--toastify-toast-bd-radius);border-bottom-right-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp[data-hidden=true]{opacity:0}.Toastify__progress-bar--bg{opacity:var(--toastify-color-progress-bgo);width:100%;height:100%}.Toastify__spinner{width:20px;height:20px;box-sizing:border-box;border:2px solid;border-radius:100%;border-color:var(--toastify-spinner-color-empty-area);border-right-color:var(--toastify-spinner-color);animation:Toastify__spin .65s linear infinite}@keyframes Toastify__bounceInRight{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutRight{20%{opacity:1;transform:translate3d(-20px,var(--y),0)}to{opacity:0;transform:translate3d(2000px,var(--y),0)}}@keyframes Toastify__bounceInLeft{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutLeft{20%{opacity:1;transform:translate3d(20px,var(--y),0)}to{opacity:0;transform:translate3d(-2000px,var(--y),0)}}@keyframes Toastify__bounceInUp{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}to{transform:translateZ(0)}}@keyframes Toastify__bounceOutUp{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes Toastify__bounceInDown{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}to{transform:none}}@keyframes Toastify__bounceOutDown{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,2000px,0)}}.Toastify__bounce-enter--top-left,.Toastify__bounce-enter--bottom-left{animation-name:Toastify__bounceInLeft}.Toastify__bounce-enter--top-right,.Toastify__bounce-enter--bottom-right{animation-name:Toastify__bounceInRight}.Toastify__bounce-enter--top-center{animation-name:Toastify__bounceInDown}.Toastify__bounce-enter--bottom-center{animation-name:Toastify__bounceInUp}.Toastify__bounce-exit--top-left,.Toastify__bounce-exit--bottom-left{animation-name:Toastify__bounceOutLeft}.Toastify__bounce-exit--top-right,.Toastify__bounce-exit--bottom-right{animation-name:Toastify__bounceOutRight}.Toastify__bounce-exit--top-center{animation-name:Toastify__bounceOutUp}.Toastify__bounce-exit--bottom-center{animation-name:Toastify__bounceOutDown}@keyframes Toastify__zoomIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes Toastify__zoomOut{0%{opacity:1}50%{opacity:0;transform:translate3d(0,var(--y),0) scale3d(.3,.3,.3)}to{opacity:0}}.Toastify__zoom-enter{animation-name:Toastify__zoomIn}.Toastify__zoom-exit{animation-name:Toastify__zoomOut}@keyframes Toastify__flipIn{0%{transform:perspective(400px) rotateX(90deg);animation-timing-function:ease-in;opacity:0}40%{transform:perspective(400px) rotateX(-20deg);animation-timing-function:ease-in}60%{transform:perspective(400px) rotateX(10deg);opacity:1}80%{transform:perspective(400px) rotateX(-5deg)}to{transform:perspective(400px)}}@keyframes Toastify__flipOut{0%{transform:translate3d(0,var(--y),0) perspective(400px)}30%{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(-20deg);opacity:1}to{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(90deg);opacity:0}}.Toastify__flip-enter{animation-name:Toastify__flipIn}.Toastify__flip-exit{animation-name:Toastify__flipOut}@keyframes Toastify__slideInRight{0%{transform:translate3d(110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInLeft{0%{transform:translate3d(-110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInUp{0%{transform:translate3d(0,110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInDown{0%{transform:translate3d(0,-110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideOutRight{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(110%,var(--y),0)}}@keyframes Toastify__slideOutLeft{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(-110%,var(--y),0)}}@keyframes Toastify__slideOutDown{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,500px,0)}}@keyframes Toastify__slideOutUp{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,-500px,0)}}.Toastify__slide-enter--top-left,.Toastify__slide-enter--bottom-left{animation-name:Toastify__slideInLeft}.Toastify__slide-enter--top-right,.Toastify__slide-enter--bottom-right{animation-name:Toastify__slideInRight}.Toastify__slide-enter--top-center{animation-name:Toastify__slideInDown}.Toastify__slide-enter--bottom-center{animation-name:Toastify__slideInUp}.Toastify__slide-exit--top-left,.Toastify__slide-exit--bottom-left{animation-name:Toastify__slideOutLeft;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-right,.Toastify__slide-exit--bottom-right{animation-name:Toastify__slideOutRight;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-center{animation-name:Toastify__slideOutUp;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-center{animation-name:Toastify__slideOutDown;animation-timing-function:ease-in;animation-duration:.3s}@keyframes Toastify__spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+  <meta charset="UTF-8">
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LKC9791ZJB&amp;cx=c&amp;gtm=4e66u1"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9&amp;cx=c&amp;gtm=4e66u1"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MKHJT6LZ"></script><script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MKHJT6LZ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-ZGZ1GRHTM9');
+  </script>
+
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
+  <title>Topwar Helper</title>
+  <script type="module" crossorigin="" src="/assets/index-D0qB6G8L.js"></script>
+  <link rel="stylesheet" crossorigin="" href="/assets/index-DC5aaTHQ.css">
+<style></style><style></style><style></style><style></style><style></style><style></style><style></style><style></style><script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-LKC9791ZJB" async=""></script></head>
+
+<body>
+  <div id="root"><div class="container-fluid mt-5 pt-4"><nav class="navbar navbar-expand-lg app-navbar fixed-top"><div class="container-fluid"><a class="navbar-brand" href="/en">Topwar Helper</a><button class="navbar-toggler" type="button" aria-controls="navbarColor01" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarColor01"><ul class="navbar-nav me-auto"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Information</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/information/base">Base Info</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/job">Specialization Upgrade</a><a class="dropdown-item" href="/en/information/el">Eternal Land</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/data">Server &amp; User Data</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/kartz">Kartz's Trial</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/realpower">AI Analysis</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Calculators</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/calculator/vital">Stamina Recovery Calculator</a><a class="dropdown-item" href="/en/calculator/skill">Exclusive Fragment Calculator</a><a class="dropdown-item" href="/en/calculator/value-pack">Special Package Value Calculator</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/calculator/cost">Cost Calculator</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Simulators</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/simulator/titan-research">Titan Crafting</a><a class="dropdown-item" href="/en/simulator/titan-refine">Titan Refinement</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/simulator/formation-perk">Formation Perks</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/simulator/random">Random Draw Simulator</a><a class="dropdown-item" href="/en/simulator/slot">Topwar Slot Machine Game</a><a class="dropdown-item" href="/en/simulator/luckybox">Lucky Box Game</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/simulator/lotto">Lotto Generator</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Emojis</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/emoji/create">Creator</a><a class="dropdown-item" href="/en/emoji/list">Legacy Emoji</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">History</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/history/ssc-2026">Seal Stone Chaos(2026)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계정</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/account/profile">계정 프로필</a><a class="dropdown-item" href="/en/account/viewer">Viewer (구현중)</a><a class="dropdown-item" href="/en/account/creator">Creator (구현중)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vote</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/vote/create">Create Vote</a><a class="dropdown-item" href="/en/vote/cast">Cast Vote</a><a class="dropdown-item" href="/en/vote/manage">Manage Vote</a></div></li><li class="nav-item"><a class="nav-link" href="/en/post">Tips</a></li><div class="dropdown ms-lg-2 mt-2 mt-lg-0"><button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"><span class="fi fi-us me-2"></span>EN</button><ul class="dropdown-menu dropdown-menu-dark shadow"><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-kr me-2"></span> 한국어</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-us me-2"></span> English</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-jp me-2"></span> 日本語</button></li></ul></div></ul></div></div></nav><div class="row mb-5 pb-5"><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-2TYGu5OktHTg0aW6" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div><div class="col-md-8"><div class="row mb-4"><div class="col d-flex justify-content-center align-items-center"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-lZUjWtUlP8hglGID" data-ad-width="320" data-ad-height="50" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><div class="container-fluid p-0"><div class="sticky-top bg-white border-bottom shadow-sm" style="top: 56px; z-index: 1020;"><div class="container-fluid py-2" style="max-width: 1000px;"><div class="d-flex justify-content-between align-items-center px-3"><h5 class="fw-bold m-0 text-truncate text-start" style="max-width: 60%;">공격력 수치에 따른 데미지 변화 분석</h5><div class="d-flex gap-2 flex-shrink-0"><a class="btn btn-sm btn-outline-secondary" href="/en/post/2026-06-30-001-Server-Tier"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path></svg></a><a class="btn btn-sm btn-outline-dark px-3" href="/en/post"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z"></path></svg></a><a class="btn btn-sm btn-outline-secondary" href="/en/post/9999-99-99-001-Heavy-Motership"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path></svg></a></div></div></div><div style="width: 100%; height: 4px; background-color: rgba(0, 0, 0, 0.05);"><div style="width: 0%; height: 100%; background: linear-gradient(90deg, rgb(79, 172, 254) 0%, rgb(0, 242, 254) 100%); transition: width 0.1s ease-out;"></div></div></div><div class="container-fluid my-5" style="max-width: 900px;"><div class="markdown-body text-start px-3"><h1 id="top-war-공격력과-영웅-스킬-공격력-관계-분석">Top War 공격력과 영웅 스킬 공격력 관계 분석</h1>
+<h2 id="1-분석-목적">1. 분석 목적</h2>
+<p>이번 실험의 목적은 Top War에서 다음 두 공격력 계열이 어떻게 적용되는지 확인하는 것이었다.</p>
+<ol>
+<li>장비, 장식, 파츠, 일반 스킬 등으로 증가하는 <strong>일반 공격력</strong></li>
+<li>영웅의 전투 스킬에 적힌 <strong>영웅 스킬 공격력</strong></li>
+</ol>
+<p>핵심 질문은 다음과 같다.</p>
+<blockquote>
+<p>일반 공격력과 영웅 스킬 공격력이 같은 공격력 수치에 합산되는가,<br>
+아니면 서로 다른 계산 블록에서 곱연산되는가?</p>
+</blockquote>
+<hr>
+<h2 id="2-용어-정의">2. 용어 정의</h2>
+<h3 id="일반-공격력">일반 공격력</h3>
+<p>게임 화면의 공격력 수치에 직접 반영되는 공격력이다.</p>
+<p>현재까지 같은 계열로 확인한 항목:</p>
+<ul>
+<li>전체 공격력</li>
+<li>군종 공격력</li>
+<li>개조 장비 공격력</li>
+<li>파츠 공격력</li>
+<li>장식 공격력</li>
+<li>일반 스킬로 증가하는 공격력</li>
+<li>기타 화면 공격력 수치에 합산되는 효과</li>
+</ul>
+<p>현재 실험 결과상 이러한 항목은 출처와 관계없이 같은 공격력 합산 풀에 들어가는 것으로 보인다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>일반 공격력 합계
+</span>=
+전체 공격력
++ 군종 공격력
++ 개조 장비 공격력
++ 파츠 공격력
++ 장식 공격력
++ 일반 스킬 공격력
++ 기타 표시 공격력</code></div></pre>
+<hr>
+<h3 id="영웅-스킬-공격력">영웅 스킬 공격력</h3>
+<p>영웅의 전투 스킬 설명에 적힌 공격력 증가 효과다.</p>
+<p>이번 테스트에 사용한 예:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>엘라 준비 스킬
+</span>전투 시작 시 육군 공격력 115.3% 증가</code></div></pre>
+<p>이 수치는 화면의 일반 공격력 합계에 포함되지 않는다.</p>
+<p>또한 전속 스킬의 <code>스킬 효과 3% 향상</code>, <code>6% 향상</code>을 적용해도 UI에 표시되는 <code>115.3%</code>는 변하지 않았다.<br>
+변화는 실제 전투 피해량에서만 관측됐다.</p>
+<hr>
+<h2 id="3-초기-일반-공격력-변화-실험">3. 초기 일반 공격력 변화 실험</h2>
+<p>유닛 레벨은 100으로 고정하고 일반 공격력 수치만 변경했다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">실험</th><th style="text-align: right;">일반 공격력</th><th style="text-align: right;">피해량</th></tr></thead><tbody><tr><td style="text-align: right;">1</td><td style="text-align: right;">1372.1%</td><td style="text-align: right;">154B</td></tr><tr><td style="text-align: right;">2</td><td style="text-align: right;">1376.1%</td><td style="text-align: right;">154B</td></tr><tr><td style="text-align: right;">3</td><td style="text-align: right;">1382.1%</td><td style="text-align: right;">155B</td></tr></tbody></table></div>
+<p>일반 공격력이 증가할수록 피해량도 증가했다.</p>
+<p>다만 피해량이 정수 <code>B</code> 단위로 표시되기 때문에 4%p 정도의 작은 변화는 반올림에 묻혔다.</p>
+<p>이 실험만으로는 일반 공격력과 영웅 스킬 공격력의 관계를 판별할 수 없었다.</p>
+<hr>
+<h2 id="4-영웅-스킬-효과-향상-실험">4. 영웅 스킬 효과 향상 실험</h2>
+<p>엘라의 준비 스킬 공격력은 UI상 항상 <code>115.3%</code>로 표시됐다.</p>
+<p>전속 스킬 효과 향상만 다음과 같이 변경했다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>전속 스킬 상태</th><th style="text-align: right;">스킬 효과 향상</th><th style="text-align: right;">첫 타격 피해량</th></tr></thead><tbody><tr><td>미착용</td><td style="text-align: right;">0%</td><td style="text-align: right;">452B</td></tr><tr><td>1레벨</td><td style="text-align: right;">3%</td><td style="text-align: right;">459B</td></tr><tr><td>2레벨</td><td style="text-align: right;">6%</td><td style="text-align: right;">466B</td></tr></tbody></table></div>
+<h3 id="관측-피해-배율">관측 피해 배율</h3>
+<p>3% 향상:</p>
+<p>[
+\frac{459}{452}
+\approx 1.01549
+]</p>
+<p>6% 향상:</p>
+<p>[
+\frac{466}{452}
+\approx 1.03097
+]</p>
+<p>즉 <code>스킬 효과 3% 향상</code>이 최종 피해를 직접 3% 증가시키는 것은 아니었다.</p>
+<hr>
+<h2 id="5-영웅-스킬-공격력-계산-가설">5. 영웅 스킬 공격력 계산 가설</h2>
+<p>엘라의 영웅 스킬 공격력을 다음처럼 둔다.</p>
+<p>[
+S = 115.3% = 1.153
+]</p>
+<p>스킬 효과 향상률을 (E)라고 하면 현재 가장 잘 맞는 영웅 스킬 계수는 다음과 같다.</p>
+<h1 id="heroskillatkblock">[
+HeroSkillATKBlock</h1>
+<p>1 + S(1+E)
+]</p>
+<h3 id="3-향상-예상">3% 향상 예상</h3>
+<p>[
+\frac{1+1.153\times1.03}{1+1.153}
+\approx 1.01607
+]</p>
+<p>[
+452B\times1.01607
+\approx459.26B
+]</p>
+<p>실제:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>459B</span></code></div></pre>
+<h3 id="6-향상-예상">6% 향상 예상</h3>
+<p>[
+\frac{1+1.153\times1.06}{1+1.153}
+\approx1.03213
+]</p>
+<p>[
+452B\times1.03213
+\approx466.52B
+]</p>
+<p>실제:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>466B</span></code></div></pre>
+<p>정수 <code>B</code> 단위 표시 오차를 고려하면 실측값과 매우 잘 맞는다.</p>
+<p>단, 이 계산 방식은 엘라의 해당 스킬을 기준으로 확인한 것이다.<br>
+다른 영웅의 스킬은 기본 수치와 작동 방식이 다를 수 있다.</p>
+<hr>
+<h2 id="6-일반-공격력과-영웅-스킬-공격력-교차-실험">6. 일반 공격력과 영웅 스킬 공격력 교차 실험</h2>
+<p>일반 공격력을 장식으로 변경하면서 영웅 스킬 효과를 각각 <code>0%</code>, <code>3%</code>, <code>6%</code>로 테스트했다.</p>
+<h3 id="61-기준-상태">6.1 기준 상태</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">스킬 효과 향상</th><th style="text-align: right;">피해량</th></tr></thead><tbody><tr><td style="text-align: right;">0%</td><td style="text-align: right;">452B</td></tr><tr><td style="text-align: right;">3%</td><td style="text-align: right;">459B</td></tr><tr><td style="text-align: right;">6%</td><td style="text-align: right;">466B</td></tr></tbody></table></div>
+<h3 id="62-전체-공격력-4-제거">6.2 전체 공격력 4% 제거</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">스킬 효과 향상</th><th style="text-align: right;">예상 피해</th><th style="text-align: right;">실제 피해</th></tr></thead><tbody><tr><td style="text-align: right;">0%</td><td style="text-align: right;">451B</td><td style="text-align: right;">451B</td></tr><tr><td style="text-align: right;">3%</td><td style="text-align: right;">458B</td><td style="text-align: right;">458B</td></tr><tr><td style="text-align: right;">6%</td><td style="text-align: right;">465B</td><td style="text-align: right;">465B</td></tr></tbody></table></div>
+<h3 id="63-전체-공격력-총-10-제거">6.3 전체 공격력 총 10% 제거</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">스킬 효과 향상</th><th style="text-align: right;">예상 피해</th><th style="text-align: right;">실제 피해</th></tr></thead><tbody><tr><td style="text-align: right;">0%</td><td style="text-align: right;">약 449~450B</td><td style="text-align: right;">450B</td></tr><tr><td style="text-align: right;">3%</td><td style="text-align: right;">456B</td><td style="text-align: right;">457B</td></tr><tr><td style="text-align: right;">6%</td><td style="text-align: right;">463B</td><td style="text-align: right;">464B</td></tr></tbody></table></div>
+<p>작은 오차는 정수 <code>B</code> 단위 표시와 반올림으로 설명할 수 있다.</p>
+<hr>
+<h2 id="7-일반-공격력-300-제거-실험">7. 일반 공격력 300% 제거 실험</h2>
+<p>일반 공격력을 크게 변경해 구조를 더 명확하게 확인했다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>전체 공격력 300% 제거
+</span>제거 후 일반 공격력: 1365.7%</code></div></pre>
+<h3 id="측정값">측정값</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">스킬 효과 향상</th><th style="text-align: right;">제거 전</th><th style="text-align: right;">300% 제거 후</th></tr></thead><tbody><tr><td style="text-align: right;">0%</td><td style="text-align: right;">452B</td><td style="text-align: right;">353B</td></tr><tr><td style="text-align: right;">3%</td><td style="text-align: right;">459B</td><td style="text-align: right;">359B</td></tr><tr><td style="text-align: right;">6%</td><td style="text-align: right;">466B</td><td style="text-align: right;">365B</td></tr></tbody></table></div>
+<h3 id="일반-공격력-감소-배율">일반 공격력 감소 배율</h3>
+<p>스킬 미착용:</p>
+<p>[
+\frac{353}{452}
+\approx0.78097
+]</p>
+<p>스킬 효과 3%:</p>
+<p>[
+\frac{359}{459}
+\approx0.78214
+]</p>
+<p>스킬 효과 6%:</p>
+<p>[
+\frac{365}{466}
+\approx0.78326
+]</p>
+<p>세 값은 표시 반올림을 고려하면 사실상 같은 배율이다.</p>
+<p>즉 일반 공격력의 변화 효과가 영웅 스킬 효과 향상 상태와 거의 무관하게 유지됐다.</p>
+<hr>
+<h2 id="8-영웅-스킬-효과-배율-비교">8. 영웅 스킬 효과 배율 비교</h2>
+<p>일반 공격력 상태가 달라져도 영웅 스킬 효과 향상의 피해 배율은 거의 유지됐다.</p>
+<h3 id="기준-공격력-상태">기준 공격력 상태</h3>
+<p>3% 향상:</p>
+<p>[
+\frac{459}{452}
+\approx1.01549
+]</p>
+<p>6% 향상:</p>
+<p>[
+\frac{466}{452}
+\approx1.03097
+]</p>
+<h3 id="전체-공격력-4-제거-상태">전체 공격력 4% 제거 상태</h3>
+<p>3% 향상:</p>
+<p>[
+\frac{458}{451}
+\approx1.01552
+]</p>
+<p>6% 향상:</p>
+<p>[
+\frac{465}{451}
+\approx1.03104
+]</p>
+<h3 id="전체-공격력-10-제거-상태">전체 공격력 10% 제거 상태</h3>
+<p>3% 향상:</p>
+<p>[
+\frac{457}{450}
+\approx1.01556
+]</p>
+<p>6% 향상:</p>
+<p>[
+\frac{464}{450}
+\approx1.03111
+]</p>
+<h3 id="전체-공격력-300-제거-상태">전체 공격력 300% 제거 상태</h3>
+<p>3% 향상:</p>
+<p>[
+\frac{359}{353}
+\approx1.01700
+]</p>
+<p>6% 향상:</p>
+<p>[
+\frac{365}{353}
+\approx1.03399
+]</p>
+<p>300% 제거 상태의 오차가 조금 더 크지만, 피해량이 정수 <code>B</code> 단위로 표시되는 점을 고려하면 같은 패턴으로 볼 수 있다.</p>
+<hr>
+<h2 id="9-기각된-가설">9. 기각된 가설</h2>
+<h3 id="91-일반-공격력과-영웅-스킬-공격력이-같은-합산-풀이라는-가설">9.1 일반 공격력과 영웅 스킬 공격력이 같은 합산 풀이라는 가설</h3>
+<p>같은 공격력 풀에 합산된다면 일반 공격력이 크게 바뀔 때 영웅 스킬 효과 향상의 상대 효율도 눈에 띄게 변해야 한다.</p>
+<p>하지만 실제로는 일반 공격력을 변경해도 스킬 효과 3%와 6%의 피해 배율이 거의 일정했다.</p>
+<p>따라서 다음 구조는 현재 실험과 맞지 않는다.</p>
+<p>[
+Damage
+\propto
+1 + GeneralATK + HeroSkillATK
+]</p>
+<hr>
+<h3 id="92-화면-일반-공격력을-그대로-단순-배율로-사용하는-가설">9.2 화면 일반 공격력을 그대로 단순 배율로 사용하는 가설</h3>
+<p>초기에는 다음 식을 후보로 두었다.</p>
+<h1 id="generalatkblock">[
+GeneralATKBlock</h1>
+<p>1+\frac{DisplayedATK}{100}
+]</p>
+<p>하지만 일반 공격력 300% 제거 실험에서 이 식은 실제 피해 감소량을 정확하게 설명하지 못했다.</p>
+<p>제거 전 공격력을 <code>1665.7%</code>, 제거 후를 <code>1365.7%</code>로 보면 단순 공식의 예상 피해 배율은:</p>
+<p>[
+\frac{1+13.657}{1+16.657}
+\approx0.83010
+]</p>
+<p>미착용 피해 예상:</p>
+<p>[
+452B\times0.83010
+\approx375B
+]</p>
+<p>실제:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>353B</span></code></div></pre>
+<p>따라서 화면에 표시되는 일반 공격력 수치를 그대로 <code>1 + ATK/100</code>에 넣는 방식은 현재 데이터와 맞지 않는다.</p>
+<p>다만 이것은 일반 공격력 항목들이 서로 다른 블록이라는 뜻은 아니다.<br>
+현재까지의 테스트에서는 장비, 장식, 파츠, 군종 공격력, 전체 공격력 등 화면 수치에 반영되는 항목들이 같은 일반 공격력 풀에서 동일하게 작동하는 것으로 보인다.</p>
+<p>정확한 화면 공격력 수치와 내부 공격력 계수의 변환 방식은 추가 검증이 필요하다.</p>
+<hr>
+<h2 id="10-현재-가장-유력한-구조">10. 현재 가장 유력한 구조</h2>
+<p>현재 실험 결과를 가장 잘 설명하는 구조는 다음과 같다.</p>
+<h1 id="boxeddamage">[
+\boxed{
+Damage</h1>
+<p>K
+\times GeneralATKBlock
+\times HeroSkillATKBlock
+}
+]</p>
+<p>여기서:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>GeneralATKBlock
+</span>= 화면 공격력 수치에 합산되는 일반 공격력 계열</code></div></pre>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>HeroSkillATKBlock
+</span>= 화면 공격력에 포함되지 않는 영웅 전투 스킬 공격력 계열</code></div></pre>
+<p>보다 구체적으로는:</p>
+<h1 id="boxeddamage-1">[
+\boxed{
+Damage</h1>
+<p>K
+\times f(TotalDisplayedATK)
+\times \left[1+S(1+E)\right]
+}
+]</p>
+<ul>
+<li>(K): Base ATK, 스택, 데미지 증가, 방어력 등 이번 실험에서 고정된 나머지 계수</li>
+<li>(f(TotalDisplayedATK)): 화면 일반 공격력 합계를 실제 피해 계수로 변환하는 함수</li>
+<li>(S): 영웅 스킬의 기본 공격력 증가율</li>
+<li>(E): 영웅 스킬 효과 향상률</li>
+</ul>
+<p>현재 (f)의 정확한 형태는 미확정이다.</p>
+<hr>
+<h2 id="11-현재까지의-결론">11. 현재까지의 결론</h2>
+<h3 id="확정도가-높은-내용">확정도가 높은 내용</h3>
+<ol>
+<li>장비, 장식, 파츠, 군종 공격력, 전체 공격력, 일반 스킬 등 화면 공격력에 반영되는 항목은 같은 일반 공격력 합산 풀에서 작동한다.</li>
+<li>같은 수치만큼 공격력이 오르면 출처가 달라도 피해 증가 효과는 동일한 것으로 관측됐다.</li>
+<li>영웅 스킬 공격력은 화면 일반 공격력 수치에 합산되지 않는다.</li>
+<li>일반 공격력과 영웅 스킬 공격력은 서로 다른 계산 블록에서 곱연산되는 것으로 보인다.</li>
+<li>엘라의 <code>스킬 효과 3%/6% 향상</code>은 최종 피해를 직접 3%/6% 올리는 것이 아니라, 기본 영웅 스킬 공격력 효과를 증폭한다.</li>
+<li>일반 공격력을 변경해도 영웅 스킬 효과 향상의 피해 배율이 거의 일정하게 유지됐다.</li>
+</ol>
+<hr>
+<h3 id="아직-미확정인-내용">아직 미확정인 내용</h3>
+<ol>
+<li>화면에 표시되는 일반 공격력 합계가 내부 피해 계수로 변환되는 정확한 공식</li>
+<li>화면 공격력에 포함된 모든 세부 항목이 정말 완전히 동일한 내부 가중치를 갖는지</li>
+<li>다른 영웅의 공격력 증가 스킬도 엘라와 같은 방식으로 계산되는지</li>
+<li>피해량의 정수 <code>B</code> 표시 과정에서 사용하는 반올림 또는 버림 규칙</li>
+<li>원본 정수 피해량 기준의 정밀 오차</li>
+</ol>
+<hr>
+<h2 id="12-공격력-1의-의미">12. 공격력 1%의 의미</h2>
+<p>현재 실험상 일반 공격력 <code>+1%</code>는 최종 피해 <code>+1%</code>를 의미하지 않는다.</p>
+<p>정확한 의미는 다음과 같다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>일반 공격력 합산 풀에 1%p를 추가</span></code></div></pre>
+<p>기존 공격력 합계가 높을수록 일반 공격력 <code>+1%p</code>의 최종 피해 효율은 낮아진다.</p>
+<p>반면 영웅 스킬 공격력은 일반 공격력과 별도 블록에 있으므로, 같은 <code>1%</code>라도 일반 공격력과 효율 계산 방식이 다르다.</p>
+<hr>
+<h2 id="13-향후-검증-방향">13. 향후 검증 방향</h2>
+<p>다음 단계에서는 각 능력치를 <code>1%p</code> 올렸을 때 최종 피해가 얼마나 증가하는지 비교한다.</p>
+<p>우선 검증 대상:</p>
+<ol>
+<li>일반 공격력 1%p</li>
+<li>일반 데미지 증가 1%p</li>
+<li>영웅 데미지 증가 1%p</li>
+<li>취약 1%p</li>
+<li>상성 데미지 증가 1%p</li>
+<li>방어력 감소 1%p</li>
+</ol>
+<p>최종 목표는 다음과 같은 실전 효율표를 만드는 것이다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>능력치</th><th style="text-align: right;">현재 합계</th><th style="text-align: right;">1%p당 최종 피해 증가율</th></tr></thead><tbody><tr><td>일반 공격력</td><td style="text-align: right;">측정값</td><td style="text-align: right;">계산 예정</td></tr><tr><td>데미지 증가</td><td style="text-align: right;">측정값</td><td style="text-align: right;">계산 예정</td></tr><tr><td>영웅 데미지 증가</td><td style="text-align: right;">측정값</td><td style="text-align: right;">계산 예정</td></tr><tr><td>취약</td><td style="text-align: right;">측정값</td><td style="text-align: right;">계산 예정</td></tr><tr><td>상성 데미지 증가</td><td style="text-align: right;">측정값</td><td style="text-align: right;">계산 예정</td></tr></tbody></table></div>
+<hr>
+<h2 id="14-요약">14. 요약</h2>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>화면 공격력에 반영되는 모든 일반 공격력
+</span>→ 하나의 합산 블록
+
+영웅 전투 스킬 공격력
+→ 화면 공격력에 미포함
+→ 일반 공격력 블록과 별도 곱연산
+
+현재 후보 구조
+Damage = K × GeneralATKBlock × HeroSkillATKBlock</code></div></pre>
+<p>이번 실험으로 일반 공격력과 영웅 스킬 공격력이 같은 수치처럼 보여도 실제 계산에서는 서로 다른 종류의 계수라는 점이 강하게 확인됐다.</p></div></div></div></div><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-WwP4DvEIbCS6Wv93" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text" aria-label="Notifications Alt+T"></section></div><button type="button" class="btn btn-primary chatbot-floating-btn" aria-label="AI 에이전트 열기" title="AI 에이전트 열기 (F1)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"></path></svg></button></div>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKHJT6LZ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>
