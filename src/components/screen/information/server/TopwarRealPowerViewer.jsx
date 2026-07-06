@@ -43,7 +43,7 @@ export default function TopwarRealPowerViewer() {
 
     const [loading, setLoading] = useState(false);
     const handiveFileSelect = useCallback(async () => {
-        const path = fileNames.filter(file=>file.fileName == selectedServer)[0].path;
+        const path = fileNames.filter(file => file.fileName == selectedServer)[0].path;
         if (!jsonModules[path]) {
             setJson(null);
             return;
@@ -64,12 +64,12 @@ export default function TopwarRealPowerViewer() {
 
     const [playerList, setPlayerList] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const loadData = useCallback(async ()=>{
+    const loadData = useCallback(async () => {
         const data = await import("@src/assets/json/power/playerData.json");
         setPlayerList(data.default);
         setDataLoading(false);
     }, []);
-    useEffect(()=>{ loadData(); }, []);
+    useEffect(() => { loadData(); }, []);
 
     // useEffect(() => {
     //     if (!selectedServer) {
@@ -79,10 +79,10 @@ export default function TopwarRealPowerViewer() {
 
     //     handiveFileSelect();
     // }, [selectedServer, handiveFileSelect]);
-    const search = useCallback(()=>{
-        if(selectedServer.length === 0) return;
-        if(fileNames === null) return;
-        if(!fileNames.some(file=>file.fileName == selectedServer)) {
+    const search = useCallback(() => {
+        if (selectedServer.length === 0) return;
+        if (fileNames === null) return;
+        if (!fileNames.some(file => file.fileName == selectedServer)) {
             toast.error(t("TopwarRealPowerViewer.result-notfound"));
             return;
         }
@@ -158,36 +158,36 @@ export default function TopwarRealPowerViewer() {
     }, [json]);
 
     //탑100에 나오는 플레이어 목록 필터링
-    const filteredPlayersOnRank = useMemo(()=>{
-        if(playerList.length === 0) return [];
-        if(json === null) return [];
+    const filteredPlayersOnRank = useMemo(() => {
+        if (playerList.length === 0) return [];
+        if (json === null) return [];
 
         return playerList
-                    .filter((player, index)=>{
-                        const sameServer = player.server === json.serverId;
-                        const sameAlliance = selectedAlliance === "all" || player.allianceTag === selectedAlliance;
-                        return sameServer && sameAlliance;
-                    })
-                    .sort((p1, p2) => p2.cp - p1.cp);
+            .filter((player, index) => {
+                const sameServer = player.server === json.serverId;
+                const sameAlliance = selectedAlliance === "all" || player.allianceTag === selectedAlliance;
+                return sameServer && sameAlliance;
+            })
+            .sort((p1, p2) => p2.cp - p1.cp);
     }, [json, selectedAlliance, playerList]);
 
-    const filteredPlayersOnMap = useMemo(()=>{
+    const filteredPlayersOnMap = useMemo(() => {
         if (json === null) return [];
 
         const selected = selectedAlliance?.toLowerCase();
-        return json.players.filter((player,index) => {
+        return json.players.filter((player, index) => {
             if (selected === "all") return true;
             return player.allianceTag === selectedAlliance;
         }).sort((a, b) => b.power - a.power);
     }, [json, selectedAlliance, playerList]);
 
-    const filteredPlayersOnMapKeyValue = useMemo(()=>{
-        return new Map(filteredPlayersOnMap.map(player=>[String(player.uid), player]));
+    const filteredPlayersOnMapKeyValue = useMemo(() => {
+        return new Map(filteredPlayersOnMap.map(player => [String(player.uid), player]));
     }, [filteredPlayersOnMap]);
 
     const filteredPlayers = useMemo(() => {
         const uidSet = new Set();
-        const top100list = filteredPlayersOnRank.map(player=>{
+        const top100list = filteredPlayersOnRank.map(player => {
 
             const playerInfoOnMap = filteredPlayersOnMapKeyValue.get(String(player.uid));
 
@@ -207,7 +207,7 @@ export default function TopwarRealPowerViewer() {
                 username: player.nickname
             };
             uidSet.add(result.uid);
-            if(playerInfoOnMap === undefined) {
+            if (playerInfoOnMap === undefined) {
                 return {
                     ...result,
                     source: { rank: true, map: false }
@@ -222,10 +222,10 @@ export default function TopwarRealPowerViewer() {
         });
 
         const mapOnlyList = filteredPlayersOnMap
-            .filter(player=>!uidSet.has(String(player.uid)))
-            .map(player=>({
+            .filter(player => !uidSet.has(String(player.uid)))
+            .map(player => ({
                 ...player,
-                source: { ...(player.source ?? {}) , rank:false, map:true }
+                source: { ...(player.source ?? {}), rank: false, map: true }
             }));
 
         return [...top100list, ...mapOnlyList];
@@ -372,47 +372,47 @@ export default function TopwarRealPowerViewer() {
         };
     }, [json, requestToAgent]);
 
-    const coreAllianceCount = useMemo(()=>{
-        return alliances.reduce((s, c)=>c.activeAllianceGrade === 'CORE' ? s + 1 : s , 0);
+    const coreAllianceCount = useMemo(() => {
+        return alliances.reduce((s, c) => c.activeAllianceGrade === 'CORE' ? s + 1 : s, 0);
     }, [alliances]);
 
-    const calculateUserGrade = useCallback((lastLogin, exportedTime)=>{//최종로그인, 조사시각
-        if(!lastLogin) return "unknown";
+    const calculateUserGrade = useCallback((lastLogin, exportedTime) => {//최종로그인, 조사시각
+        if (!lastLogin) return "unknown";
         const diff = dayjs.unix(lastLogin).diff(exportedTime, 'day');
-        if(diff < 3) return "";
-        if(diff < 7) return "sleepy";
-        if(diff < 14) return "inactive";
-        if(diff < 30) return "quit";
+        if (diff < 3) return "";
+        if (diff < 7) return "sleepy";
+        if (diff < 14) return "inactive";
+        if (diff < 30) return "quit";
         return "unknown";
     }, []);
 
-    const filteredPlayersCountByGrade = useMemo(()=>{
-        if(json === null) return {};
+    const filteredPlayersCountByGrade = useMemo(() => {
+        if (json === null) return {};
 
-        return filteredPlayers.reduce((obj, player)=>{
+        return filteredPlayers.reduce((obj, player) => {
             const grade = calculateUserGrade(player.lastLogin, json.exportedAt);
-            switch(grade){
+            switch (grade) {
                 default:
-                    return {...obj, active: obj.active+1, total: obj.total + 1};
+                    return { ...obj, active: obj.active + 1, total: obj.total + 1 };
                 case "sleepy":
-                    return {...obj, sleepy: obj.sleepy+1, total: obj.total + 1};
+                    return { ...obj, sleepy: obj.sleepy + 1, total: obj.total + 1 };
                 case "inactive":
-                    return {...obj, inactive: obj.inactive+1, total: obj.total + 1};
+                    return { ...obj, inactive: obj.inactive + 1, total: obj.total + 1 };
                 case "quit":
-                    return {...obj, quit: obj.quit+1, total: obj.total + 1};
+                    return { ...obj, quit: obj.quit + 1, total: obj.total + 1 };
                 case "unknown":
-                    return {...obj, unknown: obj.unknown+1, total: obj.total + 1};
+                    return { ...obj, unknown: obj.unknown + 1, total: obj.total + 1 };
             };
-        }, {active:0, sleepy:0, inactive:0, quit:0, unknown:0, total:0});
+        }, { active: 0, sleepy: 0, inactive: 0, quit: 0, unknown: 0, total: 0 });
     }, [json, filteredPlayers]);
 
     //최초 1회 로딩 처리 여부 판정
     const init = useRef(false);
     const touch = useRef(false);
-    useEffect(()=>{
-        if(init.current === true) return;
-        if(touch.current === true) return;
-        if(selectedServer.length === 0) return;
+    useEffect(() => {
+        if (init.current === true) return;
+        if (touch.current === true) return;
+        if (selectedServer.length === 0) return;
 
         init.current = true;
         touch.current = true;
@@ -432,17 +432,17 @@ export default function TopwarRealPowerViewer() {
                 ))}
             </select> */}
             <input type="text" className="form-control w-auto ms-2" value={selectedServer}
-                    placeholder="e.g., 3223"
-                    onChange={e=>{
-                        setSelectedServer(e.target.value.replace(/[^0-9]/g, ''))
-                    }}
-                    onKeyUp={e=>{
-                        if(e.key === 'Enter') search();
-                    }}
-                    onFocus={e=>touch.current = true}
-                    />
+                placeholder="e.g., 3223"
+                onChange={e => {
+                    setSelectedServer(e.target.value.replace(/[^0-9]/g, ''))
+                }}
+                onKeyUp={e => {
+                    if (e.key === 'Enter') search();
+                }}
+                onFocus={e => touch.current = true}
+            />
             <button className="btn btn-success ms-2" onClick={search}>
-                <FaMagnifyingGlass/>
+                <FaMagnifyingGlass />
             </button>
         </div>
 
@@ -568,9 +568,9 @@ export default function TopwarRealPowerViewer() {
                         <div className="d-flex">
                             <dt className="w-25 text-primary">{t("TopwarRealPowerViewer.result-alliance-grade-label")}</dt>
                             <dd className="w-75">
-                                {alliance.activeAllianceGrade} 
+                                {alliance.activeAllianceGrade}
                                 ({t("TopwarRealPowerViewer.result-alliance-score-label")} : {alliance.activeAllianceScore})
-                                </dd>
+                            </dd>
                         </div>
                     </div>
                 </div>
@@ -595,14 +595,14 @@ export default function TopwarRealPowerViewer() {
             </div>
 
             <div className="d-flex mt-4">
-                <span className="fs-4 badge rounded w-100" style={{backgroundColor:"var(--bs-green)"}}>active : {filteredPlayersCountByGrade.active}</span>
-                <span className="fs-4 badge rounded w-100 ms-2" style={{backgroundColor:"var(--bs-yellow)"}}>sleepy : {filteredPlayersCountByGrade.sleepy}</span>
-                <span className="fs-4 badge rounded w-100 ms-2" style={{backgroundColor:"var(--bs-orange)"}}>inactive : {filteredPlayersCountByGrade.inactive}</span>
+                <span className="fs-4 badge rounded w-100" style={{ backgroundColor: "var(--bs-green)" }}>active : {filteredPlayersCountByGrade.active}</span>
+                <span className="fs-4 badge rounded w-100 ms-2" style={{ backgroundColor: "var(--bs-yellow)" }}>sleepy : {filteredPlayersCountByGrade.sleepy}</span>
+                <span className="fs-4 badge rounded w-100 ms-2" style={{ backgroundColor: "var(--bs-orange)" }}>inactive : {filteredPlayersCountByGrade.inactive}</span>
             </div>
             <div className="d-flex mt-2">
-                <span className="fs-4 badge rounded w-100" style={{backgroundColor:"var(--bs-red)"}}>quit : {filteredPlayersCountByGrade.quit}</span>
-                <span className="fs-4 badge rounded w-100 ms-2" style={{backgroundColor:"var(--bs-gray)"}}>unknown : {filteredPlayersCountByGrade.unknown}</span>
-                <span className="fs-4 badge rounded w-100 ms-2" style={{backgroundColor:"var(--bs-black)"}}>total : {filteredPlayersCountByGrade.total}</span>
+                <span className="fs-4 badge rounded w-100" style={{ backgroundColor: "var(--bs-red)" }}>quit : {filteredPlayersCountByGrade.quit}</span>
+                <span className="fs-4 badge rounded w-100 ms-2" style={{ backgroundColor: "var(--bs-gray)" }}>unknown : {filteredPlayersCountByGrade.unknown}</span>
+                <span className="fs-4 badge rounded w-100 ms-2" style={{ backgroundColor: "var(--bs-black)" }}>total : {filteredPlayersCountByGrade.total}</span>
             </div>
 
             <div className="mt-4">
@@ -624,15 +624,19 @@ export default function TopwarRealPowerViewer() {
                                 const idx = alliances.findIndex(alliance => alliance.allianceTag === player.allianceTag);
                                 const lastLoginTime = dayjs.unix(player.lastLogin).utc();
                                 const exportedTime = dayjs.utc(json.exportedAt);
-                                //const diff = lastLoginTime.from(exportedTime);
-                                const diff = player.lastLogin
+                                const hasLastLogin =
+                                    typeof player.lastLogin === "number" &&
+                                    Number.isFinite(player.lastLogin) &&
+                                    player.lastLogin > 0;
+
+                                const diff = hasLastLogin
                                     ? dayjs.unix(player.lastLogin).utc().from(exportedTime)
                                     : "정보 없음";
                                 return (
                                     <tr className={`player-info ${calculateUserGrade(player.lastLogin, json.exportedAt)}`} key={index}>
                                         <td>
                                             {player.allianceTag && (
-                                            <span className={`badge bg-${calculateType(idx)}`}>{player.allianceTag}</span>
+                                                <span className={`badge bg-${calculateType(idx)}`}>{player.allianceTag}</span>
                                             )}
                                         </td>
                                         <td>
