@@ -57,6 +57,7 @@ import SscDashboard from "@src/components/screen/history/2026-ssc/SscDashboard";
 import ItemLevelCostCalculator from "@src/components/screen/calculator/ItemLevelCostCalculator";
 import SealStoneChaos from "@src/components/screen/history/2026-ssc/SealStoncChaos";
 import Privacy from "@src/components/screen/etc/Privacy";
+import Contact from "@src/components/screen/etc/Contact";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -159,6 +160,7 @@ export default function MainContentView() {
                     </Route>
 
                     <Route path="privacy" element={<Privacy/>}/>
+                    <Route path="contact" element={<Contact/>}/>
 
                     {/* 404 not found */}
                     <Route path="*" element={<PangeNotFound />}></Route>

@@ -386,7 +386,7 @@
                 "value": "hwang8243@gmail.com",
                 "url": "mailto:hwang8243@gmail.com",
                 "button": "メールを送る",
-                "icon": "fa-solid fa-envelope"
+                "icon": "email"
             },
             {
                 "title": "運営者",
@@ -394,7 +394,7 @@
                 "value": "KID",
                 "url": "",
                 "button": "",
-                "icon": "fa-solid fa-user"
+                "icon": "operator"
             }
         ],
         "notes": {
