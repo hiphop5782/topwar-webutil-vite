@@ -624,7 +624,10 @@ export default function TopwarRealPowerViewer() {
                                 const idx = alliances.findIndex(alliance => alliance.allianceTag === player.allianceTag);
                                 const lastLoginTime = dayjs.unix(player.lastLogin).utc();
                                 const exportedTime = dayjs.utc(json.exportedAt);
-                                const diff = lastLoginTime.from(exportedTime);
+                                //const diff = lastLoginTime.from(exportedTime);
+                                const diff = player.lastLogin
+                                    ? dayjs.unix(player.lastLogin).utc().from(exportedTime)
+                                    : "정보 없음";
                                 return (
                                     <tr className={`player-info ${calculateUserGrade(player.lastLogin, json.exportedAt)}`} key={index}>
                                         <td>
