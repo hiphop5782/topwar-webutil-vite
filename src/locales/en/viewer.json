@@ -317,5 +317,101 @@
         "title": "Did this tool help you?",
         "message": "Help keep this tool free for everyone.",
         "button": "☕ Support Development"
+    },
+    "privacy": {
+        "badge": "Privacy Policy",
+        "title": "Privacy Policy",
+        "subtitle": "Progamer.info is a personally operated game data analysis and utility website.",
+        "lastUpdated": "Last updated: July 6, 2026",
+        "notice": {
+            "title": "Unofficial Fan Website Notice",
+            "body": "This website is not an official Top War website. It is an unofficial fan utility website operated personally."
+        },
+        "summary": {
+            "title": "Summary",
+            "items": [
+                "This website does not provide a membership registration feature.",
+                "This website does not directly collect personal information such as names, addresses, or phone numbers.",
+                "Cookies may be used for analytics and advertising.",
+                "Privacy practices on external websites are governed by the policies of those websites."
+            ]
+        },
+        "sections": [
+            {
+                "title": "1. General Information",
+                "body": "Progamer.info values user privacy. This website does not provide a membership registration feature and does not directly collect personal information such as names, addresses, or phone numbers."
+            },
+            {
+                "title": "2. Analytics",
+                "body": "This website may use third-party analytics tools such as Google Analytics to improve the service and analyze usage. During this process, information such as visited pages, device environment, browser information, and approximate location may be collected through cookies or similar technologies."
+            },
+            {
+                "title": "3. Advertising and Cookies",
+                "body": "This website may use third-party advertising services such as Google AdSense. Third-party vendors, including Google, may use cookies to serve personalized ads based on a user's prior visits."
+            },
+            {
+                "title": "4. Cookie Management",
+                "body": "Users can refuse cookie storage or delete existing cookies through their browser settings. However, blocking cookies may cause some features or advertisements to not function properly."
+            },
+            {
+                "title": "5. External Links",
+                "body": "This website may contain links to external websites such as Discord, KakaoTalk, GitHub, YouTube, or other services. Privacy practices on external websites are governed by the policies of those websites."
+            },
+            {
+                "title": "6. Game-related Data",
+                "body": "Game-related calculations, rankings, simulations, and information provided on this website are for reference only. Game names, images, data, trademarks, and related materials belong to their respective rights holders."
+            },
+            {
+                "title": "7. Contact",
+                "body": "For inquiries related to this Privacy Policy or the use of this website, please contact us through the contact page."
+            }
+        ],
+        "contactButton": "Go to Contact",
+        "disclaimerButton": "View Disclaimer"
+    },
+    "contact": {
+        "badge": "Contact",
+        "title": "Contact",
+        "subtitle": "You can contact us by email for site errors, data correction requests, or feature suggestions.",
+        "lastUpdated": "Last updated: July 6, 2026",
+        "notice": {
+            "title": "Please read before contacting",
+            "body": "Progamer.info is an unofficial fan utility website operated personally. For game accounts, payments, or official support issues, please contact the game operator directly."
+        },
+        "methodsTitle": "Contact Method",
+        "methods": [
+            {
+                "title": "Email",
+                "description": "For site operation, privacy, advertising, and error reports",
+                "value": "hwang8243@gmail.com",
+                "url": "mailto:hwang8243@gmail.com",
+                "button": "Send Email",
+                "icon": "fa-solid fa-envelope"
+            },
+            {
+                "title": "Operator",
+                "description": "Website operator information",
+                "value": "KID",
+                "url": "",
+                "button": "",
+                "icon": "fa-solid fa-user"
+            }
+        ],
+        "notes": {
+            "title": "Helpful information to include",
+            "items": [
+                "The page URL where the issue occurred",
+                "Your selected language and device environment",
+                "The situation or input values that caused the issue",
+                "Screenshots or steps to reproduce the issue",
+                "For data correction requests, the related server number and reference date"
+            ]
+        },
+        "footer": {
+            "title": "Operation Notice",
+            "body": "This website is operated as a personal project, and responses may not be immediate. However, reports about site errors, incorrect data, or usability issues will be reviewed when possible."
+        },
+        "privacyButton": "Privacy Policy",
+        "disclaimerButton": "Disclaimer"
     }
 }
