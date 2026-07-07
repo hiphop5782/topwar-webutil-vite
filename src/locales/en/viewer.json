@@ -465,5 +465,10 @@
         },
         "privacyButton": "Privacy Policy",
         "contactButton": "Contact"
+    },
+    "footer": {
+        "privacy": "Privacy Policy",
+        "contact": "Contact",
+        "disclaimer": "Disclaimer"
     }
 }

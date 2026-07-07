@@ -21,6 +21,7 @@ import i18n, {
     namespaces,
     supportedLngs,
 } from "@src/i18n";
+import Footer from "@src/components/template/Footer";
 
 /*
  * React가 번역 변경 결과를 DOM에 반영한 뒤
@@ -123,6 +124,8 @@ function WithLanguageRouter() {
             <Menu />
 
             <MainContentView />
+
+            <Footer/>
 
             <ToastContainer
                 position="bottom-right"

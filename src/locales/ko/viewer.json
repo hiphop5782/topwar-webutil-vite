@@ -465,5 +465,10 @@
         },
         "privacyButton": "개인정보처리방침",
         "contactButton": "문의하기"
+    },
+    "footer": {
+        "privacy": "개인정보처리방침",
+        "contact": "문의",
+        "disclaimer": "면책 고지"
     }
 }

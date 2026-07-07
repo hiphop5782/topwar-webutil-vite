@@ -465,5 +465,10 @@
         },
         "privacyButton": "プライバシーポリシー",
         "contactButton": "お問い合わせ"
+    },
+    "footer": {
+        "privacy": "プライバシーポリシー",
+        "contact": "お問い合わせ",
+        "disclaimer": "免責事項"
     }
 }
