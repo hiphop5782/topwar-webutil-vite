@@ -58,6 +58,7 @@ import ItemLevelCostCalculator from "@src/components/screen/calculator/ItemLevel
 import SealStoneChaos from "@src/components/screen/history/2026-ssc/SealStoncChaos";
 import Privacy from "@src/components/screen/etc/Privacy";
 import Contact from "@src/components/screen/etc/Contact";
+import Disclaimer from "@src/components/screen/etc/Disclaimer";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -161,6 +162,7 @@ export default function MainContentView() {
 
                     <Route path="privacy" element={<Privacy/>}/>
                     <Route path="contact" element={<Contact/>}/>
+                    <Route path="disclaimer" element={<Disclaimer/>}/>
 
                     {/* 404 not found */}
                     <Route path="*" element={<PangeNotFound />}></Route>
