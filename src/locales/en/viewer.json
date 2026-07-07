@@ -386,7 +386,7 @@
                 "value": "hwang8243@gmail.com",
                 "url": "mailto:hwang8243@gmail.com",
                 "button": "Send Email",
-                "icon": "fa-solid fa-envelope"
+                "icon": "email"
             },
             {
                 "title": "Operator",
@@ -394,7 +394,7 @@
                 "value": "KID",
                 "url": "",
                 "button": "",
-                "icon": "fa-solid fa-user"
+                "icon": "operator"
             }
         ],
         "notes": {
@@ -413,5 +413,62 @@
         },
         "privacyButton": "Privacy Policy",
         "disclaimerButton": "Disclaimer"
+    },
+    "disclaimer": {
+        "badge": "Disclaimer",
+        "title": "Disclaimer",
+        "subtitle": "This page explains the scope and limitations of the information and features provided by Progamer.info.",
+        "lastUpdated": "Last updated: July 6, 2026",
+        "notice": {
+            "title": "Unofficial Fan Website Notice",
+            "body": "Progamer.info is not an official Top War website and is operated personally without direct affiliation with the game operator."
+        },
+        "summary": {
+            "title": "Summary",
+            "items": [
+                "This website is not an official Top War website.",
+                "Calculations, rankings, and simulation results are provided for reference only.",
+                "Game names, images, data, trademarks, and related materials belong to their respective rights holders.",
+                "Users are responsible for their own decisions and actions based on information from this website."
+            ]
+        },
+        "sections": [
+            {
+                "icon": "unofficial",
+                "title": "1. Unofficial Website Notice",
+                "body": "Progamer.info is an unofficial fan utility website operated personally. This website is not an official Top War website and is not affiliated with, sponsored by, or approved by the game operator or related companies."
+            },
+            {
+                "icon": "game",
+                "title": "2. Game-related Information",
+                "body": "Calculators, simulators, rankings, guides, and data analysis materials provided on this website are intended as reference information to support gameplay. Actual in-game values, results, policies, and event details may change according to updates by the game operator."
+            },
+            {
+                "icon": "accuracy",
+                "title": "3. Accuracy of Information",
+                "body": "Progamer.info strives to provide accurate information, but does not guarantee the completeness, accuracy, or timeliness of all information. Calculation or simulation results may differ from actual in-game results."
+            },
+            {
+                "icon": "rights",
+                "title": "4. Ownership of Rights",
+                "body": "Game names, images, icons, data, trademarks, and other related materials, including those related to Top War, belong to their respective rights holders. This website does not officially own or represent those materials."
+            },
+            {
+                "icon": "responsibility",
+                "title": "5. User Responsibility",
+                "body": "In-game decisions, purchases, account management, server transfers, event participation, and other actions based on information from this website are made at the user's own discretion and responsibility. This website is not responsible for any loss or disadvantage resulting from such actions."
+            }
+        ],
+        "footer": {
+            "title": "Contact and Correction Requests",
+            "body": "If you find incorrect information, have concerns about rights infringement, or want to request a data correction, please contact us through the contact page. We will review and respond within a reasonable scope."
+        },
+        "privacyButton": "Privacy Policy",
+        "contactButton": "Contact"
+    },
+    "footer": {
+        "privacy": "Privacy Policy",
+        "contact": "Contact",
+        "disclaimer": "Disclaimer"
     }
 }
