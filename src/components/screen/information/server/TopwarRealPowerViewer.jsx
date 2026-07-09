@@ -378,7 +378,7 @@ export default function TopwarRealPowerViewer() {
 
     const calculateUserGrade = useCallback((lastLogin, exportedTime) => {//최종로그인, 조사시각
         if (!lastLogin) return "unknown";
-        const diff = dayjs.unix(lastLogin).diff(exportedTime, 'day');
+        const diff = Math.abs(dayjs.unix(lastLogin).diff(exportedTime, 'day'));
         if (diff < 3) return "";
         if (diff < 7) return "sleepy";
         if (diff < 14) return "inactive";
