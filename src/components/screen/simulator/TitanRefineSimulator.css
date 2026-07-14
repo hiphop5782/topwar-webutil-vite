@@ -1,30 +1,384 @@
-.select-effect {
-    /* animation: blingbling 3s infinite alternate; */
-    animation: flash 1s;
-    color: #ff0;
+.titan-refine-simulator {
+    max-width: 1320px;
 }
 
-@keyframes blingbling {
+.titan-refine-header {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.titan-refine-card {
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.refine-part-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 0.75rem;
+}
+
+.refine-part-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 112px;
+    padding: 0.85rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+.refine-part-button:hover:not(:disabled) {
+    border-color: rgba(var(--bs-primary-rgb), 0.6);
+    background: rgba(var(--bs-primary-rgb), 0.06);
+    transform: translateY(-1px);
+}
+
+.refine-part-button:focus-visible {
+    outline: 3px solid rgba(var(--bs-primary-rgb), 0.25);
+    outline-offset: 2px;
+}
+
+.refine-part-button.active {
+    border-color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), 0.11);
+    box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb), 0.12);
+}
+
+.refine-part-button:disabled {
+    cursor: default;
+    opacity: 0.65;
+}
+
+.refine-part-image {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    opacity: 0.6;
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease;
+}
+
+.refine-part-button.active .refine-part-image,
+.refine-part-button:hover:not(:disabled) .refine-part-image {
+    opacity: 1;
+}
+
+.refine-part-button:hover:not(:disabled) .refine-part-image {
+    transform: scale(1.04);
+}
+
+.refine-gear-card,
+.refine-material-card {
+    display: flex;
+    min-height: 260px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    background: #191d22;
+    color: #f8f9fa;
+}
+
+.refine-gear-image-panel,
+.refine-material-image-panel {
+    display: flex;
+    flex: 0 0 31%;
+    justify-content: center;
+    align-items: center;
+    min-width: 170px;
+    padding: 1rem;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.13),
+            transparent 68%
+        );
+}
+
+.refine-gear-image,
+.refine-material-image {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+}
+
+.refine-gear-content,
+.refine-material-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 1.25rem;
+}
+
+.refine-option-list {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.refine-option-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    min-height: 48px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.06);
+    transition:
+        border-color 0.12s ease,
+        box-shadow 0.12s ease,
+        background-color 0.12s ease,
+        transform 0.12s ease;
+}
+
+.refine-option-row.is-empty {
+    border-style: dashed;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.refine-option-row.is-scanning {
+    border-color: #ffe066;
+    background: rgba(255, 224, 102, 0.13);
+    box-shadow:
+        0 0 0 2px rgba(255, 224, 102, 0.2),
+        0 0 18px rgba(255, 224, 102, 0.35);
+    transform: translateX(2px);
+}
+
+.refine-option-row.is-selected {
+    animation: refine-result-flash 0.75s ease;
+    border-color: #ffe066;
+    box-shadow: 0 0 12px rgba(255, 224, 102, 0.45);
+}
+
+.refine-option-display {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content max-content;
+    gap: 0.65rem;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0.65rem 0.75rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.refine-option-display:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.refine-option-display:focus-visible {
+    outline: 3px solid rgba(var(--bs-primary-rgb), 0.35);
+    outline-offset: -3px;
+}
+
+.refine-option-display:disabled {
+    cursor: default;
+}
+
+.refine-option-name {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.refine-option-value {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-weight: 700;
+    text-align: right;
+}
+
+.refine-max-badge {
+    flex-shrink: 0;
+}
+
+.refine-empty-option {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.refine-option-editor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(120px, 145px) auto;
+    gap: 0.55rem;
+    align-items: center;
+    width: 100%;
+    padding: 0.55rem;
+}
+
+.refine-editor-actions {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.refine-editor-actions .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 34px;
+    min-height: 31px;
+}
+
+.refine-option-limit {
+    grid-column: 1 / -1;
+    padding-left: 0.15rem;
+}
+
+.refine-material-card {
+    min-height: 220px;
+}
+
+.refine-material-image-panel {
+    flex-basis: 35%;
+    min-width: 145px;
+}
+
+.refine-material-option {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.refine-submit-button {
+    min-width: 190px;
+}
+
+.refine-stat-card {
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+    background: var(--bs-tertiary-bg);
+}
+
+.refine-history-list {
+    display: grid;
+    gap: 0.75rem;
+    max-height: 520px;
+    padding-right: 0.25rem;
+    overflow-y: auto;
+}
+
+.refine-history-item {
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.75rem;
+    background: var(--bs-tertiary-bg);
+}
+
+@keyframes refine-result-flash {
     0% {
-        text-shadow: 0 0 5px #fff, 0 0 7px #ff0, 0 0 10px #ff0;
+        background: rgba(255, 224, 102, 0.28);
+        transform: scale(1);
     }
 
-    50% {
-        text-shadow: 0 0 10px #fff, 0 0 14px #ff0, 0 0 18px #ff0;
+    45% {
+        background: rgba(255, 224, 102, 0.08);
+        transform: scale(1.015);
     }
 
     100% {
-        text-shadow: 0 0 5px #fff, 0 0 7px #ff0, 0 0 10px #ff0;
+        background: rgba(255, 255, 255, 0.06);
+        transform: scale(1);
     }
 }
 
-.option-mapper {
-    position: relative;
+@media (max-width: 991.98px) {
+    .refine-gear-card,
+    .refine-material-card {
+        min-height: 230px;
+    }
+
+    .refine-submit-button {
+        width: 100%;
+    }
 }
-.option-highlighter {
-    position: absolute;
-    top:0;
-    left:-2px;
-    right: -2px;
-    box-shadow: 0 0 5px 2px #ff0;
+
+@media (max-width: 767.98px) {
+    .refine-part-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .refine-gear-card,
+    .refine-material-card {
+        flex-direction: column;
+    }
+
+    .refine-gear-image-panel,
+    .refine-material-image-panel {
+        flex-basis: auto;
+        min-width: 0;
+        min-height: 190px;
+    }
+
+    .refine-gear-image,
+    .refine-material-image {
+        max-height: 180px;
+    }
+
+    .refine-option-editor {
+        grid-template-columns: minmax(0, 1fr) minmax(105px, 130px);
+    }
+
+    .refine-editor-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 399.98px) {
+    .refine-part-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .refine-option-display {
+        grid-template-columns: minmax(0, 1fr) max-content;
+    }
+
+    .refine-max-badge {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+
+    .refine-option-editor {
+        grid-template-columns: 1fr;
+    }
+
+    .refine-editor-actions,
+    .refine-option-limit {
+        grid-column: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .refine-part-button,
+    .refine-part-image,
+    .refine-option-row {
+        transition: none;
+    }
+
+    .refine-option-row.is-selected {
+        animation: none;
+    }
 }

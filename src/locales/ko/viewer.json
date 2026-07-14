@@ -996,5 +996,128 @@
         "format": {
             "percent": "{{value}}%"
         }
+    },
+    "TitanRefineSimulator": {
+        "header": {
+            "badge": "TOP WAR 시뮬레이터",
+            "title": "타이탄 재련 시뮬레이터",
+            "description": "타이탄 장비와 재료 옵션을 직접 설정하고, 재련 시 옵션 추가·수치 상승·덮어쓰기 결과를 시뮬레이션할 수 있습니다."
+        },
+        "settings": {
+            "partTitle": "재련 부위 선택",
+            "partDescription": "부위를 변경하면 장비, 재료, 기록이 해당 부위의 기본값으로 초기화됩니다.",
+            "useAnimation": "재련 애니메이션 사용"
+        },
+        "gear": {
+            "title": "타이탄 장비 설정",
+            "description": "옵션은 1개부터 3개까지 설정할 수 있으며, 각 옵션을 눌러 종류와 수치를 변경할 수 있습니다.",
+            "imageAlt": "황금 등급 {{gear}} 장비 이미지",
+            "emptySlot": "{{slot}}번 빈 옵션 슬롯",
+            "max": "MAX"
+        },
+        "material": {
+            "title": "재련 재료 설정",
+            "description": "재료 장비가 제공할 옵션 종류와 수치를 설정합니다.",
+            "imageAlt": "재련 재료로 사용하는 황금 등급 {{gear}} 이미지",
+            "rule": "재련 시 가능한 옵션 슬롯 중 하나가 무작위로 선택됩니다. 같은 옵션이면 수치가 상승하고, 다른 옵션이면 재료 옵션으로 교체됩니다."
+        },
+        "editor": {
+            "optionLabel": "옵션 종류",
+            "valueLabel": "옵션 수치",
+            "allowedRange": "입력 가능 범위: {{min}}% ~ {{max}}%"
+        },
+        "buttons": {
+            "addOption": "옵션 추가",
+            "removeOption": "옵션 제거",
+            "refine": "재련하기",
+            "refining": "재련 중...",
+            "reset": "현재 부위 초기화",
+            "clearHistory": "기록 지우기",
+            "confirm": "변경 적용",
+            "cancel": "변경 취소"
+        },
+        "status": {
+            "eligible": "현재 선택 가능한 재련 대상 슬롯: {{count}}개",
+            "noEligible": "현재 재련 가능한 옵션 슬롯이 없습니다.",
+            "finishEditing": "옵션 편집을 적용하거나 취소한 뒤 재련할 수 있습니다.",
+            "allMax": "세 옵션이 모두 같은 종류의 최대 수치라 재련할 수 없습니다. 재료 옵션을 변경하거나 장비 옵션을 수정하세요."
+        },
+        "statistics": {
+            "title": "재련 통계",
+            "description": "현재 부위에서 진행한 재련 결과를 유형별로 집계합니다.",
+            "total": "전체",
+            "added": "신규 추가",
+            "upgraded": "수치 상승",
+            "replaced": "옵션 교체",
+            "capped": "최대 수치"
+        },
+        "history": {
+            "title": "재련 기록",
+            "empty": "아직 재련 기록이 없습니다.",
+            "slot": "{{slot}}번 옵션",
+            "added": "{{option}} {{value}}% 옵션이 새로 추가되었습니다.",
+            "upgraded": "{{option}} 수치가 {{before}}%에서 {{after}}%로 상승했습니다. (+{{increase}}%)",
+            "replaced": "{{beforeOption}} 옵션이 {{afterOption}} {{value}}% 옵션으로 교체되었습니다."
+        },
+        "guide": {
+            "introductionTitle": "타이탄 재련 시뮬레이터란?",
+            "introduction1": "타이탄 장비의 일반 옵션과 재련 재료 옵션을 직접 구성한 뒤, 재련 결과가 어떤 방식으로 적용되는지 확인하는 도구입니다.",
+            "introduction2": "기존 코드의 재련 규칙과 JSON 데이터에 등록된 옵션 최대치·재련 상승 범위를 사용하며, 결과와 기록은 브라우저에서만 계산됩니다.",
+            "rulesTitle": "재련 규칙",
+            "rule1": "장비에 빈 슬롯이 있으면 빈 슬롯도 재련 대상에 포함될 수 있습니다.",
+            "rule2": "선택된 슬롯의 옵션과 재료 옵션이 같으면 JSON에 등록된 상승 범위만큼 수치가 증가합니다.",
+            "rule3": "선택된 슬롯의 옵션과 재료 옵션이 다르면 기존 옵션이 재료 옵션으로 교체됩니다.",
+            "rule4": "같은 종류의 옵션이 이미 최대 수치인 슬롯은 재련 대상에서 제외됩니다.",
+            "rangeTitle": "옵션 유형별 1회 재련 상승 범위",
+            "optionType": "옵션 유형",
+            "minimumIncrease": "최소 상승",
+            "maximumIncrease": "최대 상승",
+            "noticeTitle": "이용 안내",
+            "notice": "이 도구는 참고용 시뮬레이터입니다. 실제 게임의 서버 내부 알고리즘, 업데이트된 수치 또는 개별 결과를 보장하지 않습니다.",
+            "source": "재련 상승 수치 출처: THAODIEN - s348"
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "최대 수치 옵션은 왜 선택되지 않나요?",
+            "answer1": "재료 옵션과 같은 종류이면서 이미 최대 수치인 슬롯은 더 이상 상승할 수 없으므로 재련 대상에서 제외됩니다.",
+            "question2": "다른 종류의 옵션이 선택되면 어떻게 되나요?",
+            "answer2": "기존 옵션은 유지되지 않고 재료 장비의 옵션 종류와 수치로 교체됩니다.",
+            "question3": "실제 게임 결과와 완전히 같은가요?",
+            "answer3": "등록된 옵션 범위와 재련 상승 데이터를 기반으로 하지만 실제 게임의 내부 난수와 규칙이 변경될 수 있으므로 참고용으로 사용해야 합니다."
+        },
+        "parts": {
+            "pistol": "돌격 권총",
+            "backarmor": "택티컬 아머",
+            "addon": "시야 확장기",
+            "headset": "레이시온 헤드셋",
+            "gps": "위치 추적기",
+            "boots": "파워 부츠"
+        },
+        "options": {
+            "armyAttack": "육군 공격력 증가",
+            "navyAttack": "해군 공격력 증가",
+            "airAttack": "공군 공격력 증가",
+            "armyDamageIncrease": "육군 데미지 증가",
+            "navyDamageIncrease": "해군 데미지 증가",
+            "airDamageIncrease": "공군 데미지 증가",
+            "armyHp": "육군 생명력 증가",
+            "navyHp": "해군 생명력 증가",
+            "airHp": "공군 생명력 증가",
+            "armyDefense": "육군 방어도 증가",
+            "navyDefense": "해군 방어도 증가",
+            "airDefense": "공군 방어도 증가",
+            "armyDamageReduction": "육군 데미지 감면",
+            "navyDamageReduction": "해군 데미지 감면",
+            "airDamageReduction": "공군 데미지 감면"
+        },
+        "rangeTypes": {
+            "damage": "데미지",
+            "attack": "공격력",
+            "hp": "생명력",
+            "defense": "방어도"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }

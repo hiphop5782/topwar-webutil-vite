@@ -996,5 +996,128 @@
         "format": {
             "percent": "{{value}}%"
         }
+    },
+    "TitanRefineSimulator": {
+        "header": {
+            "badge": "TOP WAR シミュレーター",
+            "title": "タイタン装備精錬シミュレーター",
+            "description": "タイタン装備と素材オプションを設定し、精錬によるオプション追加・数値上昇・置き換えをシミュレーションできます。"
+        },
+        "settings": {
+            "partTitle": "精錬部位を選択",
+            "partDescription": "部位を変更すると、装備・素材・履歴がその部位の初期値にリセットされます。",
+            "useAnimation": "精錬アニメーションを使用"
+        },
+        "gear": {
+            "title": "タイタン装備設定",
+            "description": "オプションは1～3個まで設定でき、各オプションを押すと種類と数値を変更できます。",
+            "imageAlt": "金等級の{{gear}}画像",
+            "emptySlot": "空のオプションスロット{{slot}}",
+            "max": "MAX"
+        },
+        "material": {
+            "title": "精錬素材設定",
+            "description": "素材装備が提供するオプションの種類と数値を設定します。",
+            "imageAlt": "精錬素材として使用する金等級の{{gear}}画像",
+            "rule": "精錬可能なスロットから1つがランダムに選択されます。同じオプションなら数値が上昇し、異なるオプションなら素材オプションに置き換わります。"
+        },
+        "editor": {
+            "optionLabel": "オプション種類",
+            "valueLabel": "オプション数値",
+            "allowedRange": "入力可能範囲：{{min}}%～{{max}}%"
+        },
+        "buttons": {
+            "addOption": "オプション追加",
+            "removeOption": "オプション削除",
+            "refine": "精錬する",
+            "refining": "精錬中...",
+            "reset": "現在の部位をリセット",
+            "clearHistory": "履歴を消去",
+            "confirm": "変更を適用",
+            "cancel": "変更を取消"
+        },
+        "status": {
+            "eligible": "現在選択可能な精錬対象スロット：{{count}}個",
+            "noEligible": "現在精錬できるオプションスロットがありません。",
+            "finishEditing": "オプション編集を適用または取消してから精錬してください。",
+            "allMax": "3つの同種オプションがすべて最大値です。素材オプションを変更するか、装備オプションを編集してください。"
+        },
+        "statistics": {
+            "title": "精錬統計",
+            "description": "現在の部位で実行した精錬結果を種類別に集計します。",
+            "total": "合計",
+            "added": "新規追加",
+            "upgraded": "数値上昇",
+            "replaced": "オプション交換",
+            "capped": "最大値到達"
+        },
+        "history": {
+            "title": "精錬履歴",
+            "empty": "まだ精錬履歴がありません。",
+            "slot": "オプションスロット{{slot}}",
+            "added": "{{option}} {{value}}%が新しいオプションとして追加されました。",
+            "upgraded": "{{option}}が{{before}}%から{{after}}%に上昇しました。（+{{increase}}%）",
+            "replaced": "{{beforeOption}}が{{afterOption}} {{value}}%に置き換わりました。"
+        },
+        "guide": {
+            "introductionTitle": "タイタン装備精錬シミュレーターとは？",
+            "introduction1": "タイタン装備の通常オプションと素材オプションを設定し、精錬結果がどのように適用されるか確認するツールです。",
+            "introduction2": "既存コードの精錬ルールとJSONデータに登録された最大値・上昇範囲を使用し、結果はブラウザ内で計算されます。",
+            "rulesTitle": "精錬ルール",
+            "rule1": "装備に空きスロットがある場合、次の空きスロットも精錬対象になります。",
+            "rule2": "選択されたオプションが素材オプションと同じ場合、設定された範囲だけ数値が上昇します。",
+            "rule3": "選択されたオプションが素材オプションと異なる場合、素材オプションに置き換わります。",
+            "rule4": "同じ種類ですでに最大値のオプションスロットは選択対象から除外されます。",
+            "rangeTitle": "1回の精錬による上昇範囲",
+            "optionType": "オプション種類",
+            "minimumIncrease": "最小上昇",
+            "maximumIncrease": "最大上昇",
+            "noticeTitle": "利用案内",
+            "notice": "本ツールは参考用シミュレーターです。実際のゲーム内部アルゴリズム、更新後の数値、個別結果を保証しません。",
+            "source": "精錬上昇データ出典：THAODIEN - s348"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "最大値のオプションが選択されないのはなぜですか？",
+            "answer1": "素材と同じ種類ですでに最大値のスロットは、それ以上上昇できないため精錬対象から除外されます。",
+            "question2": "異なる種類のオプションが選択されるとどうなりますか？",
+            "answer2": "既存オプションは維持されず、素材装備のオプション種類と数値に置き換わります。",
+            "question3": "実際のゲーム結果と完全に同じですか？",
+            "answer3": "登録されたオプション範囲と上昇データを使用していますが、ゲーム内部の乱数やルールが変更される可能性があるため参考用として利用してください。"
+        },
+        "parts": {
+            "pistol": "アサルトピストル",
+            "backarmor": "タクティカルアーマー",
+            "addon": "視野拡張器",
+            "headset": "レイシオンヘッドセット",
+            "gps": "位置追跡機",
+            "boots": "パワーブーツ"
+        },
+        "options": {
+            "armyAttack": "陸軍攻撃力増加",
+            "navyAttack": "海軍攻撃力増加",
+            "airAttack": "空軍攻撃力増加",
+            "armyDamageIncrease": "陸軍ダメージ増加",
+            "navyDamageIncrease": "海軍ダメージ増加",
+            "airDamageIncrease": "空軍ダメージ増加",
+            "armyHp": "陸軍生命増加",
+            "navyHp": "海軍生命増加",
+            "airHp": "空軍生命増加",
+            "armyDefense": "陸軍防御力増加",
+            "navyDefense": "海軍防御力増加",
+            "airDefense": "空軍防御力増加",
+            "armyDamageReduction": "陸軍ダメージ軽減",
+            "navyDamageReduction": "海軍ダメージ軽減",
+            "airDamageReduction": "空軍ダメージ軽減"
+        },
+        "rangeTypes": {
+            "damage": "ダメージ",
+            "attack": "攻撃力",
+            "hp": "生命",
+            "defense": "防御力"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }

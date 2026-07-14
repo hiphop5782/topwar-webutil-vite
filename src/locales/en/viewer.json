@@ -996,5 +996,128 @@
         "format": {
             "percent": "{{value}}%"
         }
+    },
+    "TitanRefineSimulator": {
+        "header": {
+            "badge": "TOP WAR SIMULATOR",
+            "title": "Titan Gear Refinement Simulator",
+            "description": "Configure Titan gear and material options, then simulate option additions, upgrades, and replacements during refinement."
+        },
+        "settings": {
+            "partTitle": "Select a Gear Part",
+            "partDescription": "Changing the part resets the gear, material, and history to that part's default values.",
+            "useAnimation": "Use refinement animation"
+        },
+        "gear": {
+            "title": "Titan Gear Settings",
+            "description": "Configure between one and three options. Select an option to change its type and value.",
+            "imageAlt": "Gold-grade {{gear}} image",
+            "emptySlot": "Empty option slot {{slot}}",
+            "max": "MAX"
+        },
+        "material": {
+            "title": "Refinement Material Settings",
+            "description": "Set the option type and value supplied by the material gear.",
+            "imageAlt": "Gold-grade {{gear}} used as refinement material",
+            "rule": "One eligible option slot is selected at random. A matching option is upgraded, while a different option is replaced by the material option."
+        },
+        "editor": {
+            "optionLabel": "Option type",
+            "valueLabel": "Option value",
+            "allowedRange": "Allowed range: {{min}}%–{{max}}%"
+        },
+        "buttons": {
+            "addOption": "Add Option",
+            "removeOption": "Remove Option",
+            "refine": "Refine",
+            "refining": "Refining...",
+            "reset": "Reset Current Part",
+            "clearHistory": "Clear History",
+            "confirm": "Apply change",
+            "cancel": "Cancel change"
+        },
+        "status": {
+            "eligible": "Eligible refinement slots: {{count}}",
+            "noEligible": "No option slot is currently eligible for refinement.",
+            "finishEditing": "Apply or cancel the current edit before refining.",
+            "allMax": "All three matching options are already at their maximum values. Change the material option or edit the gear options."
+        },
+        "statistics": {
+            "title": "Refinement Statistics",
+            "description": "Summary of refinement outcomes for the current part.",
+            "total": "Total",
+            "added": "Added",
+            "upgraded": "Upgraded",
+            "replaced": "Replaced",
+            "capped": "Reached Max"
+        },
+        "history": {
+            "title": "Refinement History",
+            "empty": "No refinement history yet.",
+            "slot": "Option Slot {{slot}}",
+            "added": "{{option}} {{value}}% was added as a new option.",
+            "upgraded": "{{option}} increased from {{before}}% to {{after}}%. (+{{increase}}%)",
+            "replaced": "{{beforeOption}} was replaced with {{afterOption}} {{value}}%."
+        },
+        "guide": {
+            "introductionTitle": "What Is the Titan Gear Refinement Simulator?",
+            "introduction1": "This tool lets you configure standard Titan gear options and a material option, then inspect how a refinement result is applied.",
+            "introduction2": "It uses the refinement rules from the existing code together with the option caps and increase ranges stored in the JSON data. All results are calculated locally in the browser.",
+            "rulesTitle": "Refinement Rules",
+            "rule1": "When the gear has an empty slot, that next empty slot can be selected as a refinement target.",
+            "rule2": "When the selected option matches the material option, its value increases by the configured range.",
+            "rule3": "When the selected option differs from the material option, it is replaced by the material option.",
+            "rule4": "A slot with the same option already at its maximum value is excluded from selection.",
+            "rangeTitle": "Increase Range per Refinement",
+            "optionType": "Option Type",
+            "minimumIncrease": "Minimum",
+            "maximumIncrease": "Maximum",
+            "noticeTitle": "Notice",
+            "notice": "This is a reference simulator. It does not guarantee the live game's internal algorithm, updated values, or individual outcomes.",
+            "source": "Refinement increase data source: THAODIEN - s348"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Why is a maximum-value option not selected?",
+            "answer1": "A slot containing the same option at its maximum value cannot be upgraded further, so it is excluded from eligible targets.",
+            "question2": "What happens when a different option is selected?",
+            "answer2": "The existing option is replaced by the material gear's option type and value.",
+            "question3": "Are the results exactly the same as the live game?",
+            "answer3": "The simulator uses the registered option ranges and refinement increments, but the game's internal random algorithm and rules may change. Use it as a reference."
+        },
+        "parts": {
+            "pistol": "Assault Pistol",
+            "backarmor": "Tactical Armor",
+            "addon": "Vision Expander",
+            "headset": "Raysion Headset",
+            "gps": "Position Tracker",
+            "boots": "Power Boots"
+        },
+        "options": {
+            "armyAttack": "Army ATK Increase",
+            "navyAttack": "Navy ATK Increase",
+            "airAttack": "Air Force ATK Increase",
+            "armyDamageIncrease": "Army Damage Increase",
+            "navyDamageIncrease": "Navy Damage Increase",
+            "airDamageIncrease": "Air Force Damage Increase",
+            "armyHp": "Army HP Increase",
+            "navyHp": "Navy HP Increase",
+            "airHp": "Air Force HP Increase",
+            "armyDefense": "Army DEF Increase",
+            "navyDefense": "Navy DEF Increase",
+            "airDefense": "Air Force DEF Increase",
+            "armyDamageReduction": "Army Damage Reduction",
+            "navyDamageReduction": "Navy Damage Reduction",
+            "airDamageReduction": "Air Force Damage Reduction"
+        },
+        "rangeTypes": {
+            "damage": "Damage",
+            "attack": "Attack",
+            "hp": "HP",
+            "defense": "Defense"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }
