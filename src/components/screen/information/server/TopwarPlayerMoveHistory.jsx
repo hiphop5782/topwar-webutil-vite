@@ -1,20 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+
+import { useParamState } from "@src/hooks/useParamState";
 import "./TopwarPlayerMoveHistory.css";
 
-/*
- * /src/assets/json/power/movement
- *
- * 2026-07-13.json
- * 2026-07-14.json
- * ...
- */
 const movementJsonModules = import.meta.glob(
     "/src/assets/json/power/movement/*.json",
 );
 
 const movementFiles = Object.entries(movementJsonModules)
     .map(([path, loader]) => {
-        const match = path.match(/(\d{4}-\d{2}-\d{2})\.json$/);
+        const match = path.match(
+            /(\d{4}-\d{2}-\d{2})\.json$/,
+        );
 
         if (!match) {
             return null;
@@ -30,6 +33,8 @@ const movementFiles = Object.entries(movementJsonModules)
     .sort((a, b) => a.date.localeCompare(b.date));
 
 const countFormatter = new Intl.NumberFormat("ko-KR");
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const SERVER_PATTERN = /^\d+$/;
 
 function formatCount(value) {
     const number = Number(value);
@@ -63,60 +68,57 @@ function formatCp(value) {
         return `${Math.round(million)}M`;
     }
 
-    /*
-     * 반올림으로 99.95M가 100.0M이 되는 것을 막기 위해
-     * 소수점 한 자리에서 버림 처리한다.
-     */
-    const truncated = Math.floor(million * 10) / 10;
+    const truncated =
+        Math.floor(million * 10) / 10;
 
     return `${truncated.toFixed(1)}M`;
 }
 
-function formatDetectedTime(value) {
-    if (!value) {
-        return "-";
+function isValidDateString(value) {
+    if (!DATE_PATTERN.test(value)) {
+        return false;
     }
 
-    const date = new Date(value);
-
-    if (Number.isNaN(date.getTime())) {
-        return "-";
-    }
-
-    return date.toLocaleTimeString("ko-KR", {
-        timeZone: "Asia/Seoul",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-    });
-}
-
-function formatDateLabel(dateString) {
-    if (!dateString) {
-        return "-";
-    }
-
-    const [year, month, day] = dateString
+    const [year, month, day] = value
         .split("-")
         .map(Number);
 
     const date = new Date(year, month - 1, day);
 
-    return date.toLocaleDateString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "short",
-    });
+    return (
+        date.getFullYear() === year
+        && date.getMonth() === month - 1
+        && date.getDate() === day
+    );
+}
+
+/*
+ * useParamState는 validate를 빈 값 삭제보다 먼저 실행하므로
+ * 빈 문자열도 허용해야 파라미터 삭제가 가능하다.
+ */
+function validateDateParam(value) {
+    return value === "" || isValidDateString(value);
+}
+
+function validateServerParam(value) {
+    return value === "" || SERVER_PATTERN.test(value);
+}
+
+function parseServerParam(value) {
+    return String(value ?? "").replace(/\D/g, "");
 }
 
 function getTodayString() {
     const date = new Date();
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(
+        date.getMonth() + 1,
+    ).padStart(2, "0");
+
+    const day = String(
+        date.getDate(),
+    ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
 }
@@ -142,29 +144,80 @@ function shiftDate(dateString, amount) {
     return `${shiftedYear}-${shiftedMonth}-${shiftedDay}`;
 }
 
+function getLocale(language) {
+    if (language?.startsWith("ja")) {
+        return "ja-JP";
+    }
+
+    if (language?.startsWith("en")) {
+        return "en-US";
+    }
+
+    return "ko-KR";
+}
+
+function formatDetectedTime(value, locale) {
+    if (!value) {
+        return "-";
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "-";
+    }
+
+    return date.toLocaleTimeString(locale, {
+        timeZone: "Asia/Seoul",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    });
+}
+
+function formatDateLabel(dateString, locale) {
+    if (!isValidDateString(dateString)) {
+        return "-";
+    }
+
+    const [year, month, day] = dateString
+        .split("-")
+        .map(Number);
+
+    const date = new Date(year, month - 1, day);
+
+    return date.toLocaleDateString(locale, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "short",
+    });
+}
+
 function getNickname(row) {
     return (
         row.nickname
         || row.to?.nickname
         || row.from?.nickname
-        || "닉네임 없음"
+        || ""
     );
 }
 
 function getFromServer(row) {
-    return row.fromServer ?? row.from?.server ?? "-";
+    return row.fromServer ?? row.from?.server ?? "";
 }
 
 function getToServer(row) {
-    return row.toServer ?? row.to?.server ?? "-";
+    return row.toServer ?? row.to?.server ?? "";
 }
 
-function getAllianceLabel(player) {
+function getAllianceLabel(player, noneLabel) {
     const tag = player?.allianceTag?.trim();
     const name = player?.allianceName?.trim();
 
     if (!tag && !name) {
-        return "무소속";
+        return noneLabel;
     }
 
     if (tag && name) {
@@ -179,54 +232,127 @@ function getAllianceLabel(player) {
 }
 
 export default function TopwarPlayerMoveHistory({
-    initialStartDate,
-    initialEndDate,
     defaultDays = 7,
 }) {
-    const today = getTodayString();
+    const { t, i18n } = useTranslation("viewer");
+
+    const locale = getLocale(
+        i18n.resolvedLanguage ?? i18n.language,
+    );
+
+    const today = useMemo(
+        () => getTodayString(),
+        [],
+    );
 
     const firstAvailableDate =
         movementFiles[0]?.date ?? today;
 
-    const lastAvailableDate =
-        movementFiles.at(-1)?.date ?? today;
-
-    const calculatedStartDate = shiftDate(
-        lastAvailableDate,
-        -(defaultDays - 1),
+    const calculatedDefaultBegin = useMemo(
+        () => shiftDate(today, -(defaultDays - 1)),
+        [today, defaultDays],
     );
 
-    const defaultStartDate =
-        calculatedStartDate < firstAvailableDate
+    /*
+     * 기본 시작일이 보유한 첫 파일보다 이전이라면
+     * 실제 첫 데이터 날짜로 제한한다.
+     */
+    const defaultBeginDate =
+        calculatedDefaultBegin < firstAvailableDate
             ? firstAvailableDate
-            : calculatedStartDate;
+            : calculatedDefaultBegin;
 
-    const [startDate, setStartDate] = useState(
-        initialStartDate ?? defaultStartDate,
+    const parseBeginDate = useCallback(
+        (value) => (
+            isValidDateString(value)
+                ? value
+                : defaultBeginDate
+        ),
+        [defaultBeginDate],
     );
 
-    const [endDate, setEndDate] = useState(
-        initialEndDate ?? lastAvailableDate,
+    const parseEndDate = useCallback(
+        (value) => (
+            isValidDateString(value)
+                ? value
+                : today
+        ),
+        [today],
+    );
+
+    /*
+     * URL query parameter
+     *
+     * ?in=3715
+     * &out=3423
+     * &nickname=player
+     * &begin=2026-07-01
+     * &end=2026-07-14
+     */
+    const [inServer, setInServer] = useParamState(
+        "in",
+        "",
+        {
+            validate: validateServerParam,
+            parse: parseServerParam,
+        },
+    );
+
+    const [outServer, setOutServer] = useParamState(
+        "out",
+        "",
+        {
+            validate: validateServerParam,
+            parse: parseServerParam,
+        },
     );
 
     const [nicknameKeyword, setNicknameKeyword] =
-        useState("");
+        useParamState("nickname", "");
 
-    const [serverKeyword, setServerKeyword] =
-        useState("");
+    const [beginDate, setBeginDate] = useParamState(
+        "begin",
+        defaultBeginDate,
+        {
+            validate: validateDateParam,
+            parse: parseBeginDate,
+        },
+    );
+
+    const [endDate, setEndDate] = useParamState(
+        "end",
+        today,
+        {
+            validate: validateDateParam,
+            parse: parseEndDate,
+        },
+    );
 
     const [dailyData, setDailyData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
+    /*
+     * URL에 begin > end가 직접 입력된 경우 보정한다.
+     */
+    useEffect(() => {
+        if (beginDate > endDate) {
+            setEndDate(beginDate);
+        }
+    }, [
+        beginDate,
+        endDate,
+        setEndDate,
+    ]);
+
     const selectedFiles = useMemo(() => {
         return movementFiles.filter((file) => {
             return (
-                file.date >= startDate
+                file.date >= beginDate
                 && file.date <= endDate
             );
         });
-    }, [startDate, endDate]);
+    }, [beginDate, endDate]);
 
     useEffect(() => {
         let cancelled = false;
@@ -255,9 +381,6 @@ export default function TopwarPlayerMoveHistory({
                     return;
                 }
 
-                /*
-                 * 최신 일자가 위로 오도록 정렬
-                 */
                 results.sort((a, b) =>
                     b.date.localeCompare(a.date),
                 );
@@ -270,7 +393,9 @@ export default function TopwarPlayerMoveHistory({
                     setDailyData([]);
 
                     setError(
-                        "이동 기록 JSON 파일을 불러오지 못했습니다.",
+                        t(
+                            "TopwarPlayerMoveHistory.messages.loadError",
+                        ),
                     );
                 }
             } finally {
@@ -285,15 +410,15 @@ export default function TopwarPlayerMoveHistory({
         return () => {
             cancelled = true;
         };
-    }, [selectedFiles]);
+    }, [selectedFiles, t]);
 
     const filteredDailyData = useMemo(() => {
         const normalizedNickname = nicknameKeyword
             .trim()
             .toLocaleLowerCase();
 
-        const normalizedServer =
-            serverKeyword.trim();
+        const normalizedInServer = inServer.trim();
+        const normalizedOutServer = outServer.trim();
 
         return dailyData.map((day) => {
             const filteredRows = day.rows.filter((row) => {
@@ -312,12 +437,27 @@ export default function TopwarPlayerMoveHistory({
                     normalizedNickname === ""
                     || nickname.includes(normalizedNickname);
 
-                const serverMatched =
-                    normalizedServer === ""
-                    || fromServer.includes(normalizedServer)
-                    || toServer.includes(normalizedServer);
+                /*
+                 * in:
+                 * 사용자가 이동한 대상 서버
+                 */
+                const inServerMatched =
+                    normalizedInServer === ""
+                    || toServer === normalizedInServer;
 
-                return nicknameMatched && serverMatched;
+                /*
+                 * out:
+                 * 사용자가 이동하기 전에 있던 서버
+                 */
+                const outServerMatched =
+                    normalizedOutServer === ""
+                    || fromServer === normalizedOutServer;
+
+                return (
+                    nicknameMatched
+                    && inServerMatched
+                    && outServerMatched
+                );
             });
 
             return {
@@ -328,7 +468,8 @@ export default function TopwarPlayerMoveHistory({
     }, [
         dailyData,
         nicknameKeyword,
-        serverKeyword,
+        inServer,
+        outServer,
     ]);
 
     const totalCount = useMemo(() => {
@@ -340,22 +481,29 @@ export default function TopwarPlayerMoveHistory({
 
     const filteredCount = useMemo(() => {
         return filteredDailyData.reduce(
-            (sum, day) => sum + day.filteredRows.length,
+            (sum, day) =>
+                sum + day.filteredRows.length,
             0,
         );
     }, [filteredDailyData]);
 
-    const hasFilter =
+    const hasCustomCondition =
         nicknameKeyword.trim() !== ""
-        || serverKeyword.trim() !== "";
+        || inServer.trim() !== ""
+        || outServer.trim() !== ""
+        || beginDate !== defaultBeginDate
+        || endDate !== today;
 
-    function handleStartDateChange(event) {
-        const nextStartDate = event.target.value;
+    function handleBeginDateChange(event) {
+        const nextBeginDate = event.target.value;
 
-        setStartDate(nextStartDate);
+        setBeginDate(nextBeginDate);
 
-        if (nextStartDate > endDate) {
-            setEndDate(nextStartDate);
+        if (
+            nextBeginDate !== ""
+            && nextBeginDate > endDate
+        ) {
+            setEndDate(nextBeginDate);
         }
     }
 
@@ -364,49 +512,97 @@ export default function TopwarPlayerMoveHistory({
 
         setEndDate(nextEndDate);
 
-        if (nextEndDate < startDate) {
-            setStartDate(nextEndDate);
+        if (
+            nextEndDate !== ""
+            && nextEndDate < beginDate
+        ) {
+            setBeginDate(nextEndDate);
         }
     }
 
-    function resetFilters() {
-        setNicknameKeyword("");
-        setServerKeyword("");
+    function handleInServerChange(event) {
+        setInServer(
+            event.target.value.replace(/\D/g, ""),
+        );
     }
+
+    function handleOutServerChange(event) {
+        setOutServer(
+            event.target.value.replace(/\D/g, ""),
+        );
+    }
+
+    /*
+     * 빈 문자열을 전달하면 useParamState가
+     * 해당 query parameter를 삭제한다.
+     */
+    function resetFilters() {
+        setInServer("");
+        setOutServer("");
+        setNicknameKeyword("");
+        setBeginDate("");
+        setEndDate("");
+    }
+
+    const noneAllianceLabel = t(
+        "TopwarPlayerMoveHistory.alliance.none",
+    );
 
     return (
         <section className="topwar-move-history">
             <header className="move-history-header">
                 <div className="move-history-title">
                     <span className="move-history-eyebrow">
-                        PLAYER MOVEMENT
+                        {t(
+                            "TopwarPlayerMoveHistory.eyebrow",
+                        )}
                     </span>
 
-                    <h2>서버 이동 기록</h2>
+                    <h2>
+                        {t(
+                            "TopwarPlayerMoveHistory.title",
+                        )}
+                    </h2>
 
                     <p>
-                        날짜별 플레이어 서버 이전 내역을
-                        확인할 수 있습니다.
+                        {t(
+                            "TopwarPlayerMoveHistory.description",
+                        )}
                     </p>
                 </div>
 
                 <div className="move-history-summary">
                     <div className="move-summary-item">
-                        <span>조회 일수</span>
+                        <span>
+                            {t(
+                                "TopwarPlayerMoveHistory.summary.days",
+                            )}
+                        </span>
+
                         <strong>
                             {selectedFiles.length}
                         </strong>
                     </div>
 
                     <div className="move-summary-item">
-                        <span>전체 이동</span>
+                        <span>
+                            {t(
+                                "TopwarPlayerMoveHistory.summary.total",
+                            )}
+                        </span>
+
                         <strong>
                             {formatCount(totalCount)}
                         </strong>
                     </div>
 
                     <div className="move-summary-item is-primary">
-                        <span>검색 결과</span>
+                        <span>
+                            {t(
+                                "TopwarPlayerMoveHistory.summary.results",
+                            )}
+                        </span>
+
                         <strong>
                             {formatCount(filteredCount)}
                         </strong>
@@ -415,98 +611,130 @@ export default function TopwarPlayerMoveHistory({
             </header>
 
             <div className="move-history-filter">
-                <div className="move-filter-dates">
-                    <div className="move-filter-field">
-                        <label htmlFor="move-start-date">
-                            시작일
+                <div className="move-filter-row move-filter-date-row">
+                    <div className="move-filter-dates">
+                        <div className="move-filter-field">
+                            <label htmlFor="move-begin-date">
+                                {t(
+                                    "TopwarPlayerMoveHistory.filters.begin",
+                                )}
+                            </label>
+
+                            <input
+                                id="move-begin-date"
+                                type="date"
+                                value={beginDate}
+                                min={firstAvailableDate}
+                                max={today}
+                                onChange={handleBeginDateChange}
+                            />
+                        </div>
+
+                        <span className="move-date-separator">
+                            ~
+                        </span>
+
+                        <div className="move-filter-field">
+                            <label htmlFor="move-end-date">
+                                {t(
+                                    "TopwarPlayerMoveHistory.filters.end",
+                                )}
+                            </label>
+
+                            <input
+                                id="move-end-date"
+                                type="date"
+                                value={endDate}
+                                min={firstAvailableDate}
+                                max={today}
+                                onChange={handleEndDateChange}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="move-filter-row move-filter-search-row">
+                    <div className="move-filter-field move-nickname-filter">
+                        <label htmlFor="move-nickname">
+                            {t(
+                                "TopwarPlayerMoveHistory.filters.nickname",
+                            )}
                         </label>
 
                         <input
-                            id="move-start-date"
-                            type="date"
-                            value={startDate}
-                            min={firstAvailableDate}
-                            max={lastAvailableDate}
-                            onChange={handleStartDateChange}
+                            id="move-nickname"
+                            type="search"
+                            value={nicknameKeyword}
+                            placeholder={t(
+                                "TopwarPlayerMoveHistory.filters.nicknamePlaceholder",
+                            )}
+                            autoComplete="off"
+                            onChange={(event) =>
+                                setNicknameKeyword(event.target.value)
+                            }
                         />
                     </div>
 
-                    <span className="move-date-separator">
-                        ~
-                    </span>
-
-                    <div className="move-filter-field">
-                        <label htmlFor="move-end-date">
-                            종료일
+                    <div className="move-filter-field move-server-filter">
+                        <label htmlFor="move-out-server">
+                            {t(
+                                "TopwarPlayerMoveHistory.filters.outServer",
+                            )}
                         </label>
 
                         <input
-                            id="move-end-date"
-                            type="date"
-                            value={endDate}
-                            min={firstAvailableDate}
-                            max={lastAvailableDate}
-                            onChange={handleEndDateChange}
+                            id="move-out-server"
+                            type="search"
+                            inputMode="numeric"
+                            value={outServer}
+                            placeholder={t(
+                                "TopwarPlayerMoveHistory.filters.outServerPlaceholder",
+                            )}
+                            autoComplete="off"
+                            onChange={handleOutServerChange}
                         />
                     </div>
+
+                    <div className="move-filter-field move-server-filter">
+                        <label htmlFor="move-in-server">
+                            {t(
+                                "TopwarPlayerMoveHistory.filters.inServer",
+                            )}
+                        </label>
+
+                        <input
+                            id="move-in-server"
+                            type="search"
+                            inputMode="numeric"
+                            value={inServer}
+                            placeholder={t(
+                                "TopwarPlayerMoveHistory.filters.inServerPlaceholder",
+                            )}
+                            autoComplete="off"
+                            onChange={handleInServerChange}
+                        />
+                    </div>
+
+                    <button
+                        type="button"
+                        className="move-filter-reset"
+                        onClick={resetFilters}
+                        disabled={!hasCustomCondition}
+                    >
+                        {t(
+                            "TopwarPlayerMoveHistory.filters.reset",
+                        )}
+                    </button>
                 </div>
-
-                <div className="move-filter-field move-filter-grow">
-                    <label htmlFor="move-nickname">
-                        닉네임
-                    </label>
-
-                    <input
-                        id="move-nickname"
-                        type="search"
-                        value={nicknameKeyword}
-                        placeholder="플레이어 닉네임"
-                        autoComplete="off"
-                        onChange={(event) =>
-                            setNicknameKeyword(
-                                event.target.value,
-                            )
-                        }
-                    />
-                </div>
-
-                <div className="move-filter-field move-server-filter">
-                    <label htmlFor="move-server">
-                        서버
-                    </label>
-
-                    <input
-                        id="move-server"
-                        type="search"
-                        inputMode="numeric"
-                        value={serverKeyword}
-                        placeholder="예: 3423"
-                        autoComplete="off"
-                        onChange={(event) =>
-                            setServerKeyword(
-                                event.target.value.replace(
-                                    /\D/g,
-                                    "",
-                                ),
-                            )
-                        }
-                    />
-                </div>
-
-                <button
-                    type="button"
-                    className="move-filter-reset"
-                    onClick={resetFilters}
-                    disabled={!hasFilter}
-                >
-                    초기화
-                </button>
             </div>
 
             {loading && (
                 <div className="move-history-message">
                     <span className="move-loading-spinner" />
-                    이동 기록을 불러오는 중입니다.
+
+                    {t(
+                        "TopwarPlayerMoveHistory.messages.loading",
+                    )}
                 </div>
             )}
 
@@ -520,8 +748,9 @@ export default function TopwarPlayerMoveHistory({
                 && !error
                 && selectedFiles.length === 0 && (
                     <div className="move-history-message">
-                        선택한 기간에 해당하는 JSON 파일이
-                        없습니다.
+                        {t(
+                            "TopwarPlayerMoveHistory.messages.noFiles",
+                        )}
                     </div>
                 )}
 
@@ -535,7 +764,10 @@ export default function TopwarPlayerMoveHistory({
                         <header className="move-day-header">
                             <div className="move-day-title">
                                 <time dateTime={day.date}>
-                                    {formatDateLabel(day.date)}
+                                    {formatDateLabel(
+                                        day.date,
+                                        locale,
+                                    )}
                                 </time>
 
                                 <span>
@@ -544,35 +776,57 @@ export default function TopwarPlayerMoveHistory({
                             </div>
 
                             <div className="move-day-count">
-                                {hasFilter && (
-                                    <span>
-                                        검색 결과
-                                    </span>
+                                {hasCustomCondition ? (
+                                    <>
+                                        <span>
+                                            {t(
+                                                "TopwarPlayerMoveHistory.day.searchResult",
+                                            )}
+                                        </span>
+
+                                        <strong>
+                                            {formatCount(
+                                                day.filteredRows
+                                                    .length,
+                                            )}
+                                        </strong>
+
+                                        <small>
+                                            /{" "}
+                                            {formatCount(
+                                                day.rows.length,
+                                            )}
+                                        </small>
+
+                                        <em>
+                                            {t(
+                                                "TopwarPlayerMoveHistory.day.people",
+                                            )}
+                                        </em>
+                                    </>
+                                ) : (
+                                    <>
+                                        <strong>
+                                            {formatCount(
+                                                day.rows.length,
+                                            )}
+                                        </strong>
+
+                                        <em>
+                                            {t(
+                                                "TopwarPlayerMoveHistory.day.people",
+                                            )}
+                                        </em>
+                                    </>
                                 )}
-
-                                <strong>
-                                    {formatCount(
-                                        day.filteredRows.length,
-                                    )}
-                                </strong>
-
-                                {hasFilter && (
-                                    <small>
-                                        /{" "}
-                                        {formatCount(
-                                            day.rows.length,
-                                        )}
-                                    </small>
-                                )}
-
-                                <em>명</em>
                             </div>
                         </header>
 
                         {day.filteredRows.length === 0 ? (
                             <div className="move-day-empty">
-                                이 날짜에는 검색 조건에 해당하는
-                                이동 기록이 없습니다.
+                                {t(
+                                    "TopwarPlayerMoveHistory.messages.noResults",
+                                )}
                             </div>
                         ) : (
                             <div className="move-table-wrapper">
@@ -580,23 +834,33 @@ export default function TopwarPlayerMoveHistory({
                                     <thead>
                                         <tr>
                                             <th className="move-time-column">
-                                                감지 시각
+                                                {t(
+                                                    "TopwarPlayerMoveHistory.table.detectedAt",
+                                                )}
                                             </th>
 
                                             <th>
-                                                플레이어
+                                                {t(
+                                                    "TopwarPlayerMoveHistory.table.player",
+                                                )}
                                             </th>
 
                                             <th>
-                                                서버 이동
+                                                {t(
+                                                    "TopwarPlayerMoveHistory.table.serverMove",
+                                                )}
                                             </th>
 
                                             <th>
-                                                이전 연맹
+                                                {t(
+                                                    "TopwarPlayerMoveHistory.table.previousAlliance",
+                                                )}
                                             </th>
 
                                             <th>
-                                                이동 후 연맹
+                                                {t(
+                                                    "TopwarPlayerMoveHistory.table.currentAlliance",
+                                                )}
                                             </th>
                                         </tr>
                                     </thead>
@@ -605,7 +869,10 @@ export default function TopwarPlayerMoveHistory({
                                         {day.filteredRows.map(
                                             (row, index) => {
                                                 const nickname =
-                                                    getNickname(row);
+                                                    getNickname(row)
+                                                    || t(
+                                                        "TopwarPlayerMoveHistory.player.unknown",
+                                                    );
 
                                                 const fromServer =
                                                     getFromServer(row);
@@ -616,11 +883,13 @@ export default function TopwarPlayerMoveHistory({
                                                 const previousAlliance =
                                                     getAllianceLabel(
                                                         row.from,
+                                                        noneAllianceLabel,
                                                     );
 
                                                 const currentAlliance =
                                                     getAllianceLabel(
                                                         row.to,
+                                                        noneAllianceLabel,
                                                     );
 
                                                 return (
@@ -635,6 +904,7 @@ export default function TopwarPlayerMoveHistory({
                                                         <td className="move-detected-time">
                                                             {formatDetectedTime(
                                                                 row.detectedAt,
+                                                                locale,
                                                             )}
                                                         </td>
 
@@ -653,7 +923,9 @@ export default function TopwarPlayerMoveHistory({
 
                                                                 <span className="move-player-cp">
                                                                     <small>
-                                                                        CP
+                                                                        {t(
+                                                                            "TopwarPlayerMoveHistory.player.cp",
+                                                                        )}
                                                                     </small>
 
                                                                     <strong>
@@ -671,7 +943,9 @@ export default function TopwarPlayerMoveHistory({
                                                             <div className="move-server-route">
                                                                 <span className="move-server is-from">
                                                                     <small>
-                                                                        FROM
+                                                                        {t(
+                                                                            "TopwarPlayerMoveHistory.server.from",
+                                                                        )}
                                                                     </small>
 
                                                                     <strong>
@@ -691,7 +965,9 @@ export default function TopwarPlayerMoveHistory({
 
                                                                 <span className="move-server is-to">
                                                                     <small>
-                                                                        TO
+                                                                        {t(
+                                                                            "TopwarPlayerMoveHistory.server.to",
+                                                                        )}
                                                                     </small>
 
                                                                     <strong>
@@ -708,7 +984,7 @@ export default function TopwarPlayerMoveHistory({
                                                             <span
                                                                 className={
                                                                     previousAlliance
-                                                                    === "무소속"
+                                                                        === noneAllianceLabel
                                                                         ? "move-alliance is-empty"
                                                                         : "move-alliance"
                                                                 }
@@ -726,7 +1002,7 @@ export default function TopwarPlayerMoveHistory({
                                                             <span
                                                                 className={
                                                                     currentAlliance
-                                                                    === "무소속"
+                                                                        === noneAllianceLabel
                                                                         ? "move-alliance is-empty"
                                                                         : "move-alliance"
                                                                 }

@@ -470,5 +470,54 @@
         "privacy": "개인정보처리방침",
         "contact": "문의",
         "disclaimer": "면책 고지"
+    },
+    "TopwarPlayerMoveHistory": {
+        "eyebrow": "PLAYER MOVEMENT",
+        "title": "서버 이동 기록",
+        "description": "날짜별 플레이어 서버 이전 내역을 확인할 수 있습니다.",
+        "summary": {
+            "days": "조회 일자",
+            "total": "전체 이동",
+            "results": "검색 결과"
+        },
+        "filters": {
+            "begin": "시작일",
+            "end": "종료일",
+            "nickname": "닉네임",
+            "nicknamePlaceholder": "플레이어 닉네임",
+            "outServer": "출발 서버",
+            "outServerPlaceholder": "이동 전 서버",
+            "inServer": "도착 서버",
+            "inServerPlaceholder": "이동 대상 서버",
+            "reset": "초기화"
+        },
+        "messages": {
+            "loading": "이동 기록을 불러오는 중입니다.",
+            "loadError": "이동 기록 JSON 파일을 불러오지 못했습니다.",
+            "noFiles": "선택한 기간에 해당하는 이동 기록 파일이 없습니다.",
+            "noResults": "이 날짜에는 검색 조건에 해당하는 이동 기록이 없습니다."
+        },
+        "day": {
+            "searchResult": "검색 결과",
+            "people": "명"
+        },
+        "table": {
+            "detectedAt": "감지 시각",
+            "player": "플레이어",
+            "serverMove": "서버 이동",
+            "previousAlliance": "이전 연맹",
+            "currentAlliance": "이동 후 연맹"
+        },
+        "player": {
+            "unknown": "닉네임 없음",
+            "cp": "CP"
+        },
+        "server": {
+            "from": "FROM",
+            "to": "TO"
+        },
+        "alliance": {
+            "none": "무소속"
+        }
     }
 }

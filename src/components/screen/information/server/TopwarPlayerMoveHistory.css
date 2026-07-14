@@ -101,14 +101,31 @@
 
 .move-history-filter {
     display: flex;
-    align-items: flex-end;
-    gap: 12px;
+    flex-direction: column;
+    gap: 14px;
     margin-bottom: 24px;
     padding: 16px;
     border: 1px solid var(--move-border);
     border-radius: 14px;
     background: var(--move-card);
     box-shadow: 0 4px 18px rgb(30 45 70 / 5%);
+}
+
+.move-filter-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+}
+
+.move-filter-date-row {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--move-border);
+}
+
+.move-filter-search-row {
+    justify-content: flex-start;
 }
 
 .move-filter-dates {
@@ -120,6 +137,7 @@
 .move-date-separator {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 42px;
     color: var(--move-muted);
 }
@@ -128,6 +146,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    min-width: 0;
 }
 
 .move-filter-field label {
@@ -138,6 +157,7 @@
 
 .move-filter-field input {
     box-sizing: border-box;
+    width: 100%;
     height: 42px;
     padding: 0 12px;
     border: 1px solid var(--move-border-strong);
@@ -161,16 +181,31 @@
     box-shadow: 0 0 0 3px rgb(40 120 255 / 12%);
 }
 
-.move-filter-grow {
-    flex: 1;
-    min-width: 180px;
+/* 날짜 */
+
+.move-filter-dates .move-filter-field {
+    width: 165px;
 }
+
+/* 닉네임: 지나치게 늘어나지 않도록 제한 */
+
+.move-nickname-filter {
+    flex: 0 1 300px;
+    width: 300px;
+    max-width: 100%;
+}
+
+/* 출발·도착 서버 */
 
 .move-server-filter {
-    width: 145px;
+    flex: 0 0 150px;
+    width: 150px;
 }
 
+/* 초기화 */
+
 .move-filter-reset {
+    flex: 0 0 auto;
     height: 42px;
     padding: 0 17px;
     border: 1px solid var(--move-border-strong);
@@ -180,6 +215,7 @@
     font: inherit;
     font-size: 13px;
     font-weight: 700;
+    white-space: nowrap;
     cursor: pointer;
     transition:
         background-color 0.15s ease,
@@ -483,7 +519,7 @@
 }
 
 /* ========================================
-   연맹 정보
+   연맹
 ======================================== */
 
 .move-alliance {
@@ -501,7 +537,7 @@
 
 /* ========================================
    1200px 미만
-   연맹 정보 숨김
+   연맹 열 숨김
 ======================================== */
 
 @media (max-width: 1199px) {
@@ -517,35 +553,6 @@
         flex: 1;
     }
 
-    .move-history-filter {
-        flex-wrap: wrap;
-    }
-
-    .move-filter-dates {
-        width: 100%;
-    }
-
-    .move-filter-dates .move-filter-field {
-        flex: 1;
-    }
-
-    .move-filter-dates input {
-        width: 100%;
-    }
-
-    .move-filter-grow {
-        flex: 1 1 250px;
-    }
-
-    .move-server-filter {
-        flex: 1 1 150px;
-        width: auto;
-    }
-
-    /*
-     * 4번째, 5번째 열:
-     * 이전 연맹 / 이동 후 연맹
-     */
     .move-history-table th:nth-child(4),
     .move-history-table th:nth-child(5),
     .move-history-table td:nth-child(4),
@@ -563,6 +570,31 @@
 
     .move-history-table th:nth-child(3) {
         width: 235px;
+    }
+}
+
+/* ========================================
+   900px 미만
+======================================== */
+
+@media (max-width: 900px) {
+    .move-filter-search-row {
+        flex-wrap: wrap;
+    }
+
+    .move-nickname-filter {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .move-server-filter {
+        flex: 1 1 calc(50% - 6px);
+        width: auto;
+    }
+
+    .move-filter-reset {
+        flex: 1 1 100%;
+        width: 100%;
     }
 }
 
@@ -594,18 +626,37 @@
         padding: 13px;
     }
 
+    .move-filter-date-row {
+        padding-bottom: 12px;
+    }
+
     .move-filter-dates {
         display: grid;
         grid-template-columns: 1fr 18px 1fr;
         align-items: end;
+        width: 100%;
     }
 
-    .move-filter-grow,
+    .move-filter-dates .move-filter-field {
+        width: 100%;
+    }
+
+    .move-filter-search-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .move-nickname-filter {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
     .move-server-filter {
-        flex-basis: 100%;
+        width: 100%;
     }
 
     .move-filter-reset {
+        grid-column: 1 / -1;
         width: 100%;
     }
 
@@ -686,10 +737,17 @@
         display: none;
     }
 
-    /*
-     * 첫 번째 열:
-     * 감지 시각
-     */
+    .move-filter-search-row {
+        grid-template-columns: 1fr;
+    }
+
+    .move-nickname-filter,
+    .move-server-filter,
+    .move-filter-reset {
+        grid-column: auto;
+        width: 100%;
+    }
+
     .move-history-table th:nth-child(1),
     .move-history-table td:nth-child(1) {
         display: none;

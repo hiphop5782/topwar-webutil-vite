@@ -103,6 +103,41 @@ export const allowedPaths = [
         },
     },
     { 
+        path: "/information/move", 
+        label: "서버 이동",
+        examples: ["서버 이전", "서버 이동", "move server", "server transfer"],
+        chatbot: true,
+        queryParams: {
+            in: {
+                type: "number",
+                required: false,
+                description: "이동한 서버 번호"
+            },
+            out: {
+                type: "number",
+                required: false,
+                description: "이동하기 전 서버 번호"
+            },
+            nickname: {
+                type: "string",
+                required: false,
+                description: "유저 닉네임"
+            },
+            begin: {
+                type: "string",
+                required: false,
+                description: "검색 시작일"
+            },
+            end: {
+                type: "string",
+                required: false,
+                description: "검색 종료일"
+            }
+        },
+    },
+
+
+    { 
         path: "/simulator/titan-research", 
         label: "타이탄제작",
         examples: ["타이탄만들기", "타이탄생성"],

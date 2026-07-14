@@ -470,5 +470,54 @@
         "privacy": "プライバシーポリシー",
         "contact": "お問い合わせ",
         "disclaimer": "免責事項"
+    },
+    "TopwarPlayerMoveHistory": {
+        "eyebrow": "PLAYER MOVEMENT",
+        "title": "サーバー移転履歴",
+        "description": "プレイヤーのサーバー移転履歴を日付別に確認できます。",
+        "summary": {
+            "days": "データ日数",
+            "total": "移転総数",
+            "results": "検索結果"
+        },
+        "filters": {
+            "begin": "開始日",
+            "end": "終了日",
+            "nickname": "ニックネーム",
+            "nicknamePlaceholder": "プレイヤー名",
+            "outServer": "移転元サーバー",
+            "outServerPlaceholder": "移転前のサーバー",
+            "inServer": "移転先サーバー",
+            "inServerPlaceholder": "移転先のサーバー",
+            "reset": "リセット"
+        },
+        "messages": {
+            "loading": "移転履歴を読み込んでいます。",
+            "loadError": "移転履歴のJSONファイルを読み込めませんでした。",
+            "noFiles": "選択した期間に該当する移転履歴ファイルがありません。",
+            "noResults": "この日付には検索条件に該当する移転履歴がありません。"
+        },
+        "day": {
+            "searchResult": "検索結果",
+            "people": "人"
+        },
+        "table": {
+            "detectedAt": "検出時刻",
+            "player": "プレイヤー",
+            "serverMove": "サーバー移転",
+            "previousAlliance": "移転前の連盟",
+            "currentAlliance": "移転後の連盟"
+        },
+        "player": {
+            "unknown": "名前なし",
+            "cp": "CP"
+        },
+        "server": {
+            "from": "FROM",
+            "to": "TO"
+        },
+        "alliance": {
+            "none": "無所属"
+        }
     }
 }

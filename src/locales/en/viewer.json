@@ -470,5 +470,54 @@
         "privacy": "Privacy Policy",
         "contact": "Contact",
         "disclaimer": "Disclaimer"
+    },
+    "TopwarPlayerMoveHistory": {
+        "eyebrow": "PLAYER MOVEMENT",
+        "title": "Server Move History",
+        "description": "View player server transfers grouped by date.",
+        "summary": {
+            "days": "Data days",
+            "total": "Total moves",
+            "results": "Results"
+        },
+        "filters": {
+            "begin": "Start date",
+            "end": "End date",
+            "nickname": "Nickname",
+            "nicknamePlaceholder": "Player nickname",
+            "outServer": "Source server",
+            "outServerPlaceholder": "Server moved from",
+            "inServer": "Destination server",
+            "inServerPlaceholder": "Server moved to",
+            "reset": "Reset"
+        },
+        "messages": {
+            "loading": "Loading player move history.",
+            "loadError": "Failed to load the movement history JSON files.",
+            "noFiles": "No movement history files exist for the selected period.",
+            "noResults": "No player moves match the search conditions for this date."
+        },
+        "day": {
+            "searchResult": "Results",
+            "people": "players"
+        },
+        "table": {
+            "detectedAt": "Detected at",
+            "player": "Player",
+            "serverMove": "Server move",
+            "previousAlliance": "Previous alliance",
+            "currentAlliance": "New alliance"
+        },
+        "player": {
+            "unknown": "Unknown player",
+            "cp": "CP"
+        },
+        "server": {
+            "from": "FROM",
+            "to": "TO"
+        },
+        "alliance": {
+            "none": "No alliance"
+        }
     }
 }
