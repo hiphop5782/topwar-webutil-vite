@@ -723,5 +723,85 @@
             "question3": "What should I do if the result differs from the game?",
             "answer3": "First verify the selected purchase price and owned quantities. The calculation may differ if the game's crafting rules or prices have changed."
         }
+    },
+    "VitalCalculator": {
+        "header": {
+            "title": "Vitality Recovery Speed Calculator",
+            "description": "Calculate your current vitality recovery interval and compare how much a new decoration reduces the recovery time."
+        },
+        "buttons": {
+            "reset": "Reset"
+        },
+        "current": {
+            "title": "Enter Current Base Information",
+            "description": "Open the Base Information screen in the game and enter the displayed Vitality Recovery Speed and Base Vitality Recovery Speed.",
+            "imageAlt": "Location of vitality recovery speed values on the Base Information screen",
+            "totalSpeedLabel": "Vitality Recovery Speed",
+            "totalSpeedPlaceholder": "Example: 111.0",
+            "baseSpeedLabel": "Base Vitality Recovery Speed",
+            "baseSpeedPlaceholder": "Example: 91.0",
+            "resultLabel": "Current time to recover 1 vitality",
+            "resultDescription": "The estimated interval required to recover 1 vitality with the current settings."
+        },
+        "decoration": {
+            "title": "Enter Decoration Information",
+            "description": "Enter the Base Vitality Recovery Speed bonus of the decoration you plan to purchase or place.",
+            "imageAlt": "Location of the base vitality recovery speed bonus on the decoration information screen",
+            "addSpeedLabel": "Decoration's Base Vitality Recovery Speed Bonus",
+            "addSpeedPlaceholder": "Example: 8.0",
+            "resultLabel": "Time to recover 1 vitality after applying the decoration",
+            "resultDescription": "The estimated interval required to recover 1 vitality after applying the entered decoration."
+        },
+        "comparison": {
+            "title": "Effect Comparison",
+            "currentInterval": "Current recovery interval",
+            "futureInterval": "Recovery interval after decoration",
+            "reducedTime": "Time reduced per recovery",
+            "improvement": "Recovery improvement",
+            "currentPerHour": "Current recovery per hour",
+            "futurePerHour": "Recovery per hour after decoration",
+            "currentPerDay": "Current recovery per day",
+            "futurePerDay": "Recovery per day after decoration",
+            "theoreticalNotice": "Hourly and daily recovery values are theoretical estimates that assume vitality is continuously consumed and recovery never stops."
+        },
+        "validation": {
+            "invalid": "Enter a valid number of 0 or greater in every field."
+        },
+        "format": {
+            "duration": "{{minutes}}m {{seconds}}s",
+            "seconds": "{{value}}s",
+            "percent": "{{value}}%",
+            "recoveryCount": "{{value}}"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Vitality Recovery Speed Calculator?",
+            "introduction1": "This tool calculates the actual time required to recover 1 vitality using the Vitality Recovery Speed and Base Vitality Recovery Speed shown in Base Information.",
+            "introduction2": "Enter a decoration's Base Vitality Recovery Speed bonus to compare the recovery interval, time reduction, improvement percentage, and estimated recovery amount before and after applying it.",
+            "usageTitle": "How to Use the Calculator",
+            "usage1": "Open Base Information in the game and locate Vitality Recovery Speed and Base Vitality Recovery Speed.",
+            "usage2": "Enter both values exactly as displayed in the first input section.",
+            "usage3": "Enter the Base Vitality Recovery Speed bonus of the decoration you plan to purchase or place.",
+            "usage4": "Review the recovery time and estimated hourly and daily recovery before and after applying the decoration.",
+            "formulaTitle": "Calculation Method",
+            "formulaDescription": "The calculation starts from a base recovery time of 360 seconds and applies the relationship between total recovery speed and base recovery speed.",
+            "currentFormulaTitle": "Current Recovery Time",
+            "currentFormula": "((100 - Vitality Recovery Speed + Base Vitality Recovery Speed) ÷ (100 + Base Vitality Recovery Speed)) × 360 seconds",
+            "futureFormulaTitle": "Recovery Time After Decoration",
+            "futureFormula": "((100 - (Vitality Recovery Speed + Decoration Bonus) + (Base Vitality Recovery Speed + Decoration Bonus)) ÷ (100 + Base Vitality Recovery Speed + Decoration Bonus)) × 360 seconds",
+            "cautionTitle": "Important Notes",
+            "caution1": "Enter the percentage values exactly as displayed in the game.",
+            "caution2": "For better accuracy, do not round values that include decimal places.",
+            "caution3": "Hourly and daily recovery amounts assume that vitality never reaches its maximum capacity.",
+            "caution4": "Actual results may differ if the recovery formula changes in a future game update."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "What is the difference between Vitality Recovery Speed and Base Vitality Recovery Speed?",
+            "answer1": "Vitality Recovery Speed includes the currently applied total bonuses, while Base Vitality Recovery Speed is a separate value used by the formula. Both values are required for an accurate result.",
+            "question2": "Which decoration value should I enter?",
+            "answer2": "Enter the Base Vitality Recovery Speed percentage shown in the decoration details. Do not confuse it with a general Vitality Recovery Speed bonus.",
+            "question3": "Why should I enter decimal values?",
+            "answer3": "Even a small difference in the percentage can change the recovery interval by several seconds. Enter the displayed decimal value whenever available."
+        }
     }
 }
