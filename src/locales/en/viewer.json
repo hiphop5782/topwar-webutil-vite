@@ -519,5 +519,209 @@
         "alliance": {
             "none": "No alliance"
         }
+    },
+    "ValuePackCalculator": {
+        "header": {
+            "badge": "TOP WAR CALCULATOR",
+            "title": "Special Package Shop Calculator",
+            "description": "Select the skill shard packages you plan to purchase and calculate the total payment, final shard amount, and effective cost per shard after applying double coupons."
+        },
+        "package": {
+            "title": "Skill Shard Packages",
+            "description": "Selecting the final package tier automatically selects all preceding tiers."
+        },
+        "buttons": {
+            "selectAll": "Select All",
+            "applyDoubleAll": "Double All Selected",
+            "reset": "Reset",
+            "removeDoubleAll": "Remove All Double Coupons"
+        },
+        "table": {
+            "stage": "Tier",
+            "price": "Price",
+            "baseCount": "Base Shards",
+            "appliedCount": "Final Shards",
+            "unitPrice": "Effective Cost",
+            "buy": "Purchase",
+            "doubleCoupon": "Double Coupon",
+            "total": "Total"
+        },
+        "summary": {
+            "title": "Purchase Summary",
+            "emptyTitle": "No packages selected.",
+            "emptyDescription": "Select a package to display the calculation results.",
+            "expectedPayment": "Estimated Payment",
+            "purchasePackages": "Packages Selected",
+            "baseShards": "Base Skill Shards",
+            "bonusShards": "Bonus Shards",
+            "finalShards": "Total Shards",
+            "usedCoupons": "Double Coupons Used",
+            "averageUnitPrice": "Average Cost per Shard",
+            "discountMessage": "Double coupons reduced the effective unit cost by {{percent}}%.",
+            "bonusMessage": "You receive {{count}} additional skill shards for the same payment."
+        },
+        "guide": {
+            "introductionTitle": "What Is the Special Package Shop Calculator?",
+            "introduction1": "This tool calculates the total purchase price and number of skill shards obtained from Special Package Shop offers. When you select a package tier, all preceding tiers are included automatically. You can also apply a double coupon to individual packages and compare the resulting cost per shard.",
+            "introduction2": "Higher-tier packages may appear more expensive when comparing only their prices. Because each package provides a different number of shards, the cost per shard is a more useful measure of actual value.",
+            "usageTitle": "How to Use the Calculator",
+            "usage1": "Select the purchase checkbox for the highest package tier you plan to buy.",
+            "usage2": "All preceding package tiers are automatically included.",
+            "usage3": "Select the double-coupon checkbox for each package where a coupon will be used.",
+            "usage4": "Review the total payment, final shard amount, and average cost per shard in the summary.",
+            "calculationTitle": "How Package Efficiency Is Calculated",
+            "basicFormulaTitle": "Base Cost per Shard",
+            "basicFormula": "Package price ÷ Base shard amount",
+            "doubleFormulaTitle": "Shard Amount with Double Coupon",
+            "doubleFormula": "Base shard amount × 2",
+            "averageFormulaTitle": "Final Average Cost",
+            "averageFormula": "Total payment ÷ Total shards received",
+            "exampleTitle": "Calculation Example",
+            "exampleDescription": "The tier 1 package provides 40 skill shards for 7,000 KRW, resulting in a base cost of 175 KRW per shard. With a double coupon, the same payment provides 80 shards, reducing the cost to 87.5 KRW per shard.",
+            "cautionTitle": "Important Notes",
+            "caution1": "This calculator assumes that packages must be purchased sequentially from the lowest tier.",
+            "caution2": "A double coupon does not reduce the package price. It doubles the number of skill shards received.",
+            "caution3": "Actual prices may vary depending on the device, app store, country, exchange rate, or game policy.",
+            "caution4": "The results may differ if package prices or shard amounts are changed in a future game update."
+        },
+        "example": {
+            "type": "Purchase Type",
+            "price": "Payment",
+            "count": "Shards Received",
+            "unitPrice": "Cost per Shard",
+            "normalPurchase": "Standard Purchase",
+            "doublePurchase": "Double Coupon Applied"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Can I purchase only a package from the middle of the sequence?",
+            "answer1": "This calculator follows a sequential purchase system in which earlier tiers must be purchased before later tiers are unlocked. Selecting a tier automatically includes all preceding tiers.",
+            "question2": "Does using a double coupon also double the price?",
+            "answer2": "No. The payment remains the same, while only the number of skill shards received is doubled.",
+            "question3": "Which package is the best one for a double coupon?",
+            "answer3": "A double coupon provides a larger bonus when used on a package with more base shards. Coupon eligibility and the number of coupons available should also be considered."
+        },
+        "format": {
+            "price": "{{value}} KRW",
+            "count": "{{value}} shards",
+            "unitPrice": "{{value}} KRW",
+            "packageCount": "{{value}} packages",
+            "couponCount": "{{value}} coupons",
+            "stage": "Tier {{value}}"
+        },
+        "aria": {
+            "buy": "Purchase tier {{stage}} package",
+            "doubleCoupon": "Apply a double coupon to tier {{stage}} package"
+        }
+    },
+    "SkillCalculator": {
+        "header": {
+            "title": "Exclusive Skill Calculator",
+            "description": "Calculate the exclusive skill shards required for your target level and include your currently owned shards and lower-level exclusive skills to see the remaining shortage."
+        },
+        "form": {
+            "title": "Calculation Settings",
+            "price": {
+                "label": "1. Price of a Level 1 Exclusive Skill",
+                "description": "Select the number of exclusive skill shards required to purchase the hero's Level 1 exclusive skill.",
+                "option": "{{count}} shards - {{description}}"
+            },
+            "target": {
+                "label": "2. Target Exclusive Skill Level",
+                "description": "Select the final exclusive skill level you want to create.",
+                "required": "You need <strong>{{count}} shards</strong> to reach the target level."
+            },
+            "ownedShard": {
+                "title": "3. Exclusive Skill Shards You Own",
+                "toggle": "I currently have exclusive skill shards.",
+                "countLabel": "Owned exclusive skill shards"
+            },
+            "ownedSkill": {
+                "title": "4. Exclusive Skills You Own",
+                "toggle": "I already have lower-level exclusive skills.",
+                "noLowerLevel": "There are no lower-level exclusive skills to enter because the target is Level 1.",
+                "levelLabel": "Level {{level}} exclusive skill",
+                "convertedValue": "Shard value: {{count}}",
+                "convertedTotal": "Your owned exclusive skills are worth <strong>{{count}} shards</strong>."
+            }
+        },
+        "priceOptions": {
+            "dianaCrusoe": "Diana / Crusoe, etc.",
+            "tsuruBessel": "Tsuru / Bessel, etc.",
+            "violet": "Violet",
+            "mostCombatHeroes": "Most combat heroes",
+            "villiersSilenceAmalia": "Villiers / Silence / Amalia"
+        },
+        "result": {
+            "title": "Calculation Result",
+            "targetLevel": "Target level",
+            "requiredTotal": "Required total",
+            "ownedShards": "Owned shards",
+            "skillValue": "Converted skill value",
+            "totalOwnedValue": "Total owned value",
+            "progress": "{{percent}}% of target",
+            "successTitle": "You can create the target level.",
+            "successRemaining": "After crafting, <strong>{{count}} shards</strong> of value will remain.",
+            "shortageTitle": "You need more exclusive skill shards.",
+            "shortageAmount": "Shortage: <strong>{{count}} shards</strong>"
+        },
+        "buttons": {
+            "reset": "Reset"
+        },
+        "units": {
+            "shard": "shards",
+            "skill": "skills"
+        },
+        "format": {
+            "count": "{{value}} shards",
+            "level": "Exclusive Skill Lv. {{value}}"
+        },
+        "aria": {
+            "progress": "Target completion rate"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Exclusive Skill Calculator?",
+            "introduction1": "This calculator shows the total number of exclusive skill shards required to create a target exclusive skill level. It includes both loose shards and lower-level exclusive skills by converting them into their shard value.",
+            "introduction2": "The base purchase price differs by hero, so select the correct hero price before checking the result.",
+            "usageTitle": "How to Use the Calculator",
+            "usage1": "Select the exclusive skill purchase price for the hero.",
+            "usage2": "Select the exclusive skill level you want to create.",
+            "usage3": "Enter the number of loose exclusive skill shards you currently own.",
+            "usage4": "Enter the number of lower-level exclusive skills you already own for each level.",
+            "usage5": "Check the additional shards required or the amount remaining after crafting.",
+            "calculationTitle": "How the Calculation Works",
+            "calculationDescription": "The required value triples each time the exclusive skill level increases by one.",
+            "targetFormulaTitle": "Shards Required for the Target Level",
+            "targetFormulaBase": "Purchase price × 3",
+            "targetFormulaExponent": "target level - 1",
+            "ownedFormulaTitle": "Shard Value of Owned Skills",
+            "ownedFormulaBase": "Owned quantity × purchase price × 3",
+            "ownedFormulaExponent": "owned skill level - 1",
+            "exampleTitle": "Calculation Example",
+            "exampleDescription": "The following example creates a Level 7 exclusive skill with a base price of 25 shards.",
+            "cautionTitle": "Important Notes",
+            "caution1": "Select the correct exclusive skill purchase price for the hero.",
+            "caution2": "The actual result may differ if crafting rules or prices change after a game update.",
+            "caution3": "Only skills below the selected target level can be entered as owned skills.",
+            "caution4": "The result is based on shard value and does not include any other in-game crafting requirements."
+        },
+        "example": {
+            "item": "Item",
+            "calculation": "Calculation",
+            "result": "Result",
+            "requiredLevel7": "Shards required for Level 7",
+            "ownedLevel5": "Value of one owned Level 5 skill",
+            "withExtraShards": "With 1,000 additional loose shards",
+            "shortageResult": "{{count}} shards short"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Are owned exclusive skills converted into shards?",
+            "answer1": "Yes. Each owned exclusive skill is converted into the shard value required to craft that level and included in your total owned value.",
+            "question2": "Why are the purchase prices different?",
+            "answer2": "The base price of a Level 1 exclusive skill differs by hero. Check the hero's price before calculating.",
+            "question3": "What should I do if the result differs from the game?",
+            "answer3": "First verify the selected purchase price and owned quantities. The calculation may differ if the game's crafting rules or prices have changed."
+        }
     }
 }

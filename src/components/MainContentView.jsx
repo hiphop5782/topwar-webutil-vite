@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import PangeNotFound from "./error/PageNotFound";
-import GatheringCalculator from '@src/components/screen/calculator/GatheringCalculator';
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
 import LegacyEmoji from '@src/components/screen/emoji/LegacyEmoji';
 import Home from '@src/components/screen/Home';
@@ -127,7 +126,6 @@ export default function MainContentView() {
                     <Route path="information/realpower" element={<TopwarRealPowerViewer/>}></Route>
                     
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
-                    <Route path="calculator/gathering" element={<GatheringCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>
                     <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
                     <Route path="calculator/cost" element={<ItemLevelCostCalculator/>}></Route>

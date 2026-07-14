@@ -519,5 +519,209 @@
         "alliance": {
             "none": "無所属"
         }
+    },
+    "ValuePackCalculator": {
+        "header": {
+            "badge": "TOP WAR 計算機",
+            "title": "特別パッケージショップ計算機",
+            "description": "購入するスキル破片パッケージを選択し、2倍クーポン適用後の合計決済金額、獲得数、破片1個あたりの実質価格を計算できます。"
+        },
+        "package": {
+            "title": "スキル破片パッケージ",
+            "description": "最後に購入する段階を選択すると、それ以前の段階も自動的に選択されます。"
+        },
+        "buttons": {
+            "selectAll": "すべて購入",
+            "applyDoubleAll": "購入項目をすべて2倍",
+            "reset": "リセット",
+            "removeDoubleAll": "2倍クーポンをすべて解除"
+        },
+        "table": {
+            "stage": "段階",
+            "price": "価格",
+            "baseCount": "基本破片",
+            "appliedCount": "獲得破片",
+            "unitPrice": "実質単価",
+            "buy": "購入",
+            "doubleCoupon": "2倍クーポン",
+            "total": "合計"
+        },
+        "summary": {
+            "title": "購入結果",
+            "emptyTitle": "パッケージが選択されていません。",
+            "emptyDescription": "購入するパッケージを選択すると計算結果が表示されます。",
+            "expectedPayment": "予想決済金額",
+            "purchasePackages": "購入パッケージ",
+            "baseShards": "基本スキル破片",
+            "bonusShards": "2倍追加破片",
+            "finalShards": "最終獲得破片",
+            "usedCoupons": "使用する2倍クーポン",
+            "averageUnitPrice": "破片1個あたりの平均価格",
+            "discountMessage": "2倍クーポンの適用により、実質単価が{{percent}}%下がりました。",
+            "bonusMessage": "同じ決済金額でスキル破片を{{count}}個追加獲得できます。"
+        },
+        "guide": {
+            "introductionTitle": "特別パッケージショップ計算機とは？",
+            "introduction1": "特別パッケージショップで販売されるスキル破片パッケージの合計購入金額と獲得数を計算するツールです。購入する段階を選択すると、それ以前のパッケージも自動的に反映されます。また、各パッケージに2倍クーポンを適用した場合の追加獲得数と実質単価も確認できます。",
+            "introduction2": "価格だけを見ると上位パッケージは高く見えますが、パッケージごとに獲得できる破片数が異なるため、実際の効率は破片1個あたりの価格で比較することをおすすめします。",
+            "usageTitle": "計算機の使用方法",
+            "usage1": "購入する最後のパッケージ段階のチェックボックスを選択します。",
+            "usage2": "選択した段階までのパッケージが自動的に購入項目へ追加されます。",
+            "usage3": "2倍クーポンを使用するパッケージのクーポン欄を選択します。",
+            "usage4": "計算結果から合計決済金額、最終獲得破片数、平均単価を確認します。",
+            "calculationTitle": "スキル破片の効率計算方法",
+            "basicFormulaTitle": "基本の破片単価",
+            "basicFormula": "パッケージ価格 ÷ 基本獲得破片数",
+            "doubleFormulaTitle": "2倍クーポン適用後の獲得数",
+            "doubleFormula": "基本獲得破片数 × 2",
+            "averageFormulaTitle": "最終平均単価",
+            "averageFormula": "合計決済金額 ÷ 最終獲得破片数",
+            "exampleTitle": "計算例",
+            "exampleDescription": "第1段階のパッケージは7,000ウォンでスキル破片を40個獲得できるため、基本単価は1個あたり175ウォンです。2倍クーポンを適用すると、同じ金額で80個獲得でき、単価は87.5ウォンになります。",
+            "cautionTitle": "注意事項",
+            "caution1": "この計算機は、パッケージを低い段階から順番に購入する方式を基準にしています。",
+            "caution2": "2倍クーポンはパッケージ価格を割引するものではなく、獲得するスキル破片数を2倍にします。",
+            "caution3": "実際の決済価格は、端末、ストア、国、為替レート、ゲームの運営方針によって異なる場合があります。",
+            "caution4": "ゲームのアップデートによって価格や獲得数が変更された場合、計算結果と異なることがあります。"
+        },
+        "example": {
+            "type": "区分",
+            "price": "決済金額",
+            "count": "獲得破片",
+            "unitPrice": "破片単価",
+            "normalPurchase": "通常購入",
+            "doublePurchase": "2倍クーポン適用"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "途中の段階のパッケージだけを購入できますか？",
+            "answer1": "この計算機は、前の段階を購入すると次の段階が開放される順次購入方式を基準にしています。特定の段階を選択すると、それ以前の段階も自動的に選択されます。",
+            "question2": "2倍クーポンを使用すると価格も2倍になりますか？",
+            "answer2": "いいえ。決済価格は変わらず、獲得できるスキル破片数だけが2倍になります。",
+            "question3": "どのパッケージにクーポンを使うのが良いですか？",
+            "answer3": "基本獲得破片数が多いパッケージに使用するほど、2倍クーポンによる追加獲得数が多くなります。ただし、クーポンの使用条件と保有数も考慮してください。"
+        },
+        "format": {
+            "price": "{{value}}ウォン",
+            "count": "{{value}}個",
+            "unitPrice": "{{value}}ウォン",
+            "packageCount": "{{value}}パッケージ",
+            "couponCount": "{{value}}枚",
+            "stage": "第{{value}}段階"
+        },
+        "aria": {
+            "buy": "第{{stage}}段階のパッケージを購入",
+            "doubleCoupon": "第{{stage}}段階のパッケージに2倍クーポンを適用"
+        }
+    },
+    "SkillCalculator": {
+        "header": {
+            "title": "専用スキル計算機",
+            "description": "目標とする専用スキルレベルに必要な専用破片数を計算し、現在所持している専用破片と下位レベルの専用スキルを反映して不足数を確認できます。"
+        },
+        "form": {
+            "title": "計算条件の入力",
+            "price": {
+                "label": "1. 専用スキル1個あたりの販売価格",
+                "description": "対象英雄の専用スキルLv.1を購入するために必要な専用破片数を選択してください。",
+                "option": "{{count}}個 - {{description}}"
+            },
+            "target": {
+                "label": "2. 目標専用スキルレベル",
+                "description": "最終的に作成したい専用スキルレベルを選択してください。",
+                "required": "目標レベルまでに必要な専用破片は合計<strong>{{count}}個</strong>です。"
+            },
+            "ownedShard": {
+                "title": "3. 現在所持している専用破片",
+                "toggle": "専用破片を所持しています。",
+                "countLabel": "所持している専用破片数"
+            },
+            "ownedSkill": {
+                "title": "4. 現在所持している専用スキル",
+                "toggle": "下位レベルの専用スキルを所持しています。",
+                "noLowerLevel": "目標がLv.1のため、入力できる下位レベルの専用スキルはありません。",
+                "levelLabel": "専用スキルLv.{{level}}",
+                "convertedValue": "破片換算価値：{{count}}個",
+                "convertedTotal": "所持している専用スキルの換算価値は<strong>{{count}}個</strong>です。"
+            }
+        },
+        "priceOptions": {
+            "dianaCrusoe": "ダイアナ / クルーゾーなど",
+            "tsuruBessel": "ツル / ベッセルなど",
+            "violet": "バイオレット",
+            "mostCombatHeroes": "ほとんどの戦闘英雄",
+            "villiersSilenceAmalia": "ヴィリアーズ / サイレンス / アマリア"
+        },
+        "result": {
+            "title": "計算結果",
+            "targetLevel": "目標レベル",
+            "requiredTotal": "必要総数",
+            "ownedShards": "所持破片",
+            "skillValue": "スキル換算",
+            "totalOwnedValue": "所持価値合計",
+            "progress": "目標の{{percent}}%",
+            "successTitle": "目標レベルを作成できます。",
+            "successRemaining": "作成後、専用破片換算で<strong>{{count}}個</strong>残ります。",
+            "shortageTitle": "専用破片がさらに必要です。",
+            "shortageAmount": "不足数：<strong>{{count}}個</strong>"
+        },
+        "buttons": {
+            "reset": "リセット"
+        },
+        "units": {
+            "shard": "個",
+            "skill": "個"
+        },
+        "format": {
+            "count": "{{value}}個",
+            "level": "専用スキル Lv.{{value}}"
+        },
+        "aria": {
+            "progress": "目標達成率"
+        },
+        "guide": {
+            "introductionTitle": "専用スキル計算機とは？",
+            "introduction1": "目標とする専用スキルレベルを作成するために必要な専用破片の総数を確認する計算機です。所持している専用破片だけでなく、すでに作成済みの下位レベル専用スキルも破片価値に換算して計算します。",
+            "introduction2": "英雄ごとに専用スキルの基本販売価格が異なるため、正確な結果を得るには先に対象英雄の価格を選択してください。",
+            "usageTitle": "計算機の使い方",
+            "usage1": "対象英雄の専用スキル販売価格を選択します。",
+            "usage2": "最終的に作成したい専用スキルレベルを選択します。",
+            "usage3": "現在所持している専用破片がある場合は数量を入力します。",
+            "usage4": "下位レベルの専用スキルを所持している場合は、レベルごとの数量を入力します。",
+            "usage5": "計算結果で追加必要数、または作成後に残る数量を確認します。",
+            "calculationTitle": "専用スキルの計算方式",
+            "calculationDescription": "この計算機では、専用スキルのレベルが1段階上がるごとに必要価値が3倍になる基準で計算します。",
+            "targetFormulaTitle": "目標レベルに必要な破片",
+            "targetFormulaBase": "販売価格 × 3",
+            "targetFormulaExponent": "目標レベル - 1",
+            "ownedFormulaTitle": "所持スキルの破片換算価値",
+            "ownedFormulaBase": "所持数 × 販売価格 × 3",
+            "ownedFormulaExponent": "所持スキルレベル - 1",
+            "exampleTitle": "計算例",
+            "exampleDescription": "販売価格が25個の専用スキルをLv.7まで作成する場合は、次のように計算します。",
+            "cautionTitle": "注意事項",
+            "caution1": "英雄ごとの専用スキル販売価格を正確に選択してください。",
+            "caution2": "ゲームアップデートで作成ルールや販売価格が変更された場合、実際の結果と異なることがあります。",
+            "caution3": "所持スキルには目標レベルより低いレベルのみ入力できます。",
+            "caution4": "計算結果は専用破片の換算価値を基準としており、ゲーム内のその他の作成条件は含みません。"
+        },
+        "example": {
+            "item": "項目",
+            "calculation": "計算",
+            "result": "結果",
+            "requiredLevel7": "Lv.7に必要な破片",
+            "ownedLevel5": "所持しているLv.5スキル1個の価値",
+            "withExtraShards": "追加で1,000個の破片を所持している場合",
+            "shortageResult": "{{count}}個不足"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "所持している専用スキルも破片として計算されますか？",
+            "answer1": "はい。所持している専用スキルを、そのレベルの作成に必要な破片価値へ換算し、所持総量に含めます。",
+            "question2": "販売価格が異なるのはなぜですか？",
+            "answer2": "英雄ごとに専用スキルLv.1の基本販売価格が異なるためです。計算前に対象英雄の価格を確認してください。",
+            "question3": "ゲーム画面の結果と異なる場合はどうすればよいですか？",
+            "answer3": "まず販売価格と所持数を確認してください。ゲームアップデート後に作成ルールや価格が変更された場合、計算結果に差が生じることがあります。"
+        }
     }
 }

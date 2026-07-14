@@ -519,5 +519,209 @@
         "alliance": {
             "none": "무소속"
         }
+    },
+    "ValuePackCalculator": {
+        "header": {
+            "badge": "TOP WAR 계산기",
+            "title": "특별 패키지 상점 계산기",
+            "description": "특별 패키지 상점에서 구매할 스킬 조각 패키지를 선택하고, 2배 쿠폰 적용 여부에 따른 총 결제 금액과 실제 조각당 가격을 계산할 수 있습니다."
+        },
+        "package": {
+            "title": "스킬 조각 패키지",
+            "description": "구매할 마지막 단계를 선택하면 이전 단계가 자동으로 함께 선택됩니다."
+        },
+        "buttons": {
+            "selectAll": "전체 구매",
+            "applyDoubleAll": "구매 항목 모두 2배",
+            "reset": "초기화",
+            "removeDoubleAll": "2배 쿠폰 전체 해제"
+        },
+        "table": {
+            "stage": "단계",
+            "price": "가격",
+            "baseCount": "기본 조각",
+            "appliedCount": "적용 조각",
+            "unitPrice": "실효 단가",
+            "buy": "구매",
+            "doubleCoupon": "2배 쿠폰",
+            "total": "합계"
+        },
+        "summary": {
+            "title": "구매 결과",
+            "emptyTitle": "선택한 패키지가 없습니다.",
+            "emptyDescription": "구매 항목을 선택하면 계산 결과가 표시됩니다.",
+            "expectedPayment": "예상 결제 금액",
+            "purchasePackages": "구매 패키지",
+            "baseShards": "기본 스킬 조각",
+            "bonusShards": "2배 추가 조각",
+            "finalShards": "최종 획득 조각",
+            "usedCoupons": "2배 쿠폰 사용",
+            "averageUnitPrice": "평균 조각당 가격",
+            "discountMessage": "2배 쿠폰 적용으로 단가가 {{percent}}% 낮아졌습니다.",
+            "bonusMessage": "동일한 결제 금액으로 스킬 조각 {{count}}개를 추가 획득합니다."
+        },
+        "guide": {
+            "introductionTitle": "특별 패키지 상점 계산기란?",
+            "introduction1": "특별 패키지 상점에서 판매되는 스킬 조각 패키지의 총 구매 금액과 획득 수량을 계산하는 도구입니다. 구매하려는 패키지 단계를 선택하면 이전 단계의 패키지가 함께 반영되며, 각 패키지에 2배 쿠폰을 적용했을 때의 추가 획득 수량과 실제 조각당 가격도 확인할 수 있습니다.",
+            "introduction2": "패키지 가격만 비교하면 높은 단계가 비싸 보일 수 있지만, 패키지마다 지급되는 스킬 조각 수가 다르기 때문에 실제 효율은 조각당 가격을 기준으로 비교하는 것이 좋습니다.",
+            "usageTitle": "계산기 사용 방법",
+            "usage1": "구매하려는 마지막 패키지 단계의 구매 체크박스를 선택합니다.",
+            "usage2": "선택한 단계까지의 이전 패키지가 자동으로 구매 항목에 포함됩니다.",
+            "usage3": "2배 쿠폰을 사용할 패키지의 쿠폰 체크박스를 선택합니다.",
+            "usage4": "계산 결과에서 총 결제 금액, 최종 스킬 조각 수와 평균 조각당 가격을 확인합니다.",
+            "calculationTitle": "스킬 조각 효율 계산 방식",
+            "basicFormulaTitle": "기본 조각당 가격",
+            "basicFormula": "패키지 가격 ÷ 기본 지급 조각",
+            "doubleFormulaTitle": "2배 쿠폰 적용 수량",
+            "doubleFormula": "기본 지급 조각 × 2",
+            "averageFormulaTitle": "최종 평균 단가",
+            "averageFormula": "총 결제 금액 ÷ 최종 획득 조각",
+            "exampleTitle": "계산 예시",
+            "exampleDescription": "1단계 패키지는 7,000원에 스킬 조각 40개를 지급하므로 기본 조각당 가격은 175원입니다. 해당 패키지에 2배 쿠폰을 적용하면 같은 금액으로 80개를 획득하므로 조각당 가격은 87.5원이 됩니다.",
+            "cautionTitle": "주의사항",
+            "caution1": "이 계산기는 패키지를 낮은 단계부터 순서대로 구매하는 구조를 기준으로 계산합니다.",
+            "caution2": "2배 쿠폰은 패키지 가격을 할인하는 것이 아니라 지급되는 스킬 조각 수를 2배로 계산합니다.",
+            "caution3": "실제 결제 가격은 사용 기기, 스토어, 국가, 환율 또는 게임 정책에 따라 달라질 수 있습니다.",
+            "caution4": "게임 업데이트로 패키지 가격이나 지급 수량이 변경되면 계산 결과와 차이가 발생할 수 있습니다."
+        },
+        "example": {
+            "type": "구분",
+            "price": "결제 금액",
+            "count": "획득 조각",
+            "unitPrice": "조각당 가격",
+            "normalPurchase": "일반 구매",
+            "doublePurchase": "2배 쿠폰 적용"
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "중간 단계의 패키지만 별도로 구매할 수 있나요?",
+            "answer1": "이 계산기는 이전 단계를 구매해야 다음 단계가 열리는 순차 구매 방식을 기준으로 합니다. 특정 단계를 선택하면 그 이전 단계가 자동으로 함께 선택됩니다.",
+            "question2": "2배 쿠폰을 사용하면 가격도 2배가 되나요?",
+            "answer2": "아닙니다. 결제 가격은 동일하게 유지되고 지급되는 스킬 조각 수만 2배로 계산됩니다.",
+            "question3": "어떤 패키지에 쿠폰을 사용하는 것이 좋은가요?",
+            "answer3": "2배 쿠폰은 기본 지급 조각이 많은 패키지에 사용할수록 추가 획득량이 커집니다. 다만 쿠폰 사용 가능 조건과 보유 수량을 함께 고려해야 합니다."
+        },
+        "format": {
+            "price": "{{value}}원",
+            "count": "{{value}}개",
+            "unitPrice": "{{value}}원",
+            "packageCount": "{{value}}개 패키지",
+            "couponCount": "{{value}}장",
+            "stage": "{{value}}단계"
+        },
+        "aria": {
+            "buy": "{{stage}}단계 패키지 구매",
+            "doubleCoupon": "{{stage}}단계 패키지에 2배 쿠폰 적용"
+        }
+    },
+    "SkillCalculator": {
+        "header": {
+            "title": "전속 스킬 계산기",
+            "description": "목표 전속 스킬 레벨을 만들기 위해 필요한 전속 조각 수를 계산하고, 현재 보유한 전속 스킬과 조각을 반영하여 부족한 수량을 확인할 수 있습니다."
+        },
+        "form": {
+            "title": "계산 조건 입력",
+            "price": {
+                "label": "1. 전속 스킬의 개당 판매 가격",
+                "description": "해당 영웅의 전속 스킬 1레벨 구매에 필요한 전속 조각 가격을 선택하세요.",
+                "option": "{{count}}개 - {{description}}"
+            },
+            "target": {
+                "label": "2. 목표 전속 스킬 레벨",
+                "description": "최종적으로 만들고 싶은 전속 스킬 레벨을 선택하세요.",
+                "required": "목표 레벨까지 필요한 총 전속 조각은 <strong>{{count}}개</strong>입니다."
+            },
+            "ownedShard": {
+                "title": "3. 현재 보유 중인 전속 조각",
+                "toggle": "보유한 전속 조각이 있습니다.",
+                "countLabel": "보유 전속 조각 수"
+            },
+            "ownedSkill": {
+                "title": "4. 현재 보유 중인 전속 스킬",
+                "toggle": "이미 보유한 하위 레벨 전속 스킬이 있습니다.",
+                "noLowerLevel": "목표 레벨이 1레벨이므로 입력할 하위 레벨 전속 스킬이 없습니다.",
+                "levelLabel": "{{level}}레벨 전속 스킬",
+                "convertedValue": "조각 가치 {{count}}개",
+                "convertedTotal": "보유 전속 스킬의 환산 가치는 <strong>{{count}}개</strong>입니다."
+            }
+        },
+        "priceOptions": {
+            "dianaCrusoe": "다이애나 / 크루조 등",
+            "tsuruBessel": "츠루 / 베셀 등",
+            "violet": "바이올렛",
+            "mostCombatHeroes": "대부분의 전투 영웅",
+            "villiersSilenceAmalia": "빌리어스 / 사일런스 / 아말리아"
+        },
+        "result": {
+            "title": "계산 결과",
+            "targetLevel": "목표 레벨",
+            "requiredTotal": "필요 총량",
+            "ownedShards": "보유 조각",
+            "skillValue": "스킬 환산",
+            "totalOwnedValue": "보유 총 가치",
+            "progress": "목표 대비 {{percent}}%",
+            "successTitle": "목표 레벨을 만들 수 있습니다.",
+            "successRemaining": "제작 후 전속 조각 가치가 <strong>{{count}}개</strong> 남습니다.",
+            "shortageTitle": "전속 조각이 더 필요합니다.",
+            "shortageAmount": "부족 수량 <strong>{{count}}개</strong>"
+        },
+        "buttons": {
+            "reset": "초기화"
+        },
+        "units": {
+            "shard": "개",
+            "skill": "개"
+        },
+        "format": {
+            "count": "{{value}}개",
+            "level": "전속 스킬 {{value}}레벨"
+        },
+        "aria": {
+            "progress": "목표 달성률"
+        },
+        "guide": {
+            "introductionTitle": "전속 스킬 계산기란?",
+            "introduction1": "전속 스킬의 목표 레벨을 만들기 위해 필요한 전속 조각 총량을 확인하는 계산기입니다. 현재 보유한 전속 조각뿐 아니라 이미 제작해 둔 하위 레벨 전속 스킬도 조각 가치로 환산하여 계산합니다.",
+            "introduction2": "영웅마다 전속 스킬의 기본 판매 가격이 다르므로, 먼저 해당 영웅의 가격을 선택해야 정확한 결과를 확인할 수 있습니다.",
+            "usageTitle": "계산기 사용 방법",
+            "usage1": "해당 영웅의 전속 스킬 판매 가격을 선택합니다.",
+            "usage2": "최종적으로 만들고 싶은 전속 스킬 레벨을 선택합니다.",
+            "usage3": "현재 보유한 전속 조각이 있다면 수량을 입력합니다.",
+            "usage4": "하위 레벨 전속 스킬을 보유하고 있다면 레벨별 개수를 입력합니다.",
+            "usage5": "계산 결과에서 추가로 필요한 전속 조각 또는 제작 후 남는 수량을 확인합니다.",
+            "calculationTitle": "전속 스킬 계산 방식",
+            "calculationDescription": "이 계산기는 전속 스킬 레벨이 한 단계 상승할 때마다 필요한 가치가 3배가 되는 기준으로 계산합니다.",
+            "targetFormulaTitle": "목표 레벨 필요 조각",
+            "targetFormulaBase": "판매 가격 × 3",
+            "targetFormulaExponent": "목표 레벨 - 1",
+            "ownedFormulaTitle": "보유 스킬의 조각 환산 가치",
+            "ownedFormulaBase": "보유 개수 × 판매 가격 × 3",
+            "ownedFormulaExponent": "보유 스킬 레벨 - 1",
+            "exampleTitle": "계산 예시",
+            "exampleDescription": "판매 가격이 25개인 전속 스킬의 7레벨을 만들려면 다음과 같이 계산합니다.",
+            "cautionTitle": "주의사항",
+            "caution1": "영웅별 전속 스킬 판매 가격을 정확하게 선택해야 합니다.",
+            "caution2": "게임 업데이트로 제작 규칙이나 판매 가격이 변경되면 실제 결과와 차이가 발생할 수 있습니다.",
+            "caution3": "보유 스킬은 목표 레벨보다 낮은 레벨만 입력할 수 있습니다.",
+            "caution4": "계산 결과는 전속 조각 가치 기준이며, 게임 내 별도의 제작 조건은 포함하지 않습니다."
+        },
+        "example": {
+            "item": "항목",
+            "calculation": "계산",
+            "result": "결과",
+            "requiredLevel7": "7레벨 필요 조각",
+            "ownedLevel5": "보유한 5레벨 스킬 1개의 가치",
+            "withExtraShards": "추가 보유 조각이 1,000개인 경우",
+            "shortageResult": "{{count}}개 부족"
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "보유한 전속 스킬도 조각으로 계산되나요?",
+            "answer1": "네. 보유한 전속 스킬을 해당 레벨 제작에 사용된 조각 가치로 환산하여 전체 보유량에 포함합니다.",
+            "question2": "판매 가격이 다른 이유는 무엇인가요?",
+            "answer2": "영웅마다 전속 스킬 1레벨의 기본 판매 가격이 다르기 때문입니다. 계산 전에 해당 영웅의 가격을 확인해 주세요.",
+            "question3": "결과가 게임 화면과 다르면 어떻게 하나요?",
+            "answer3": "먼저 판매 가격과 보유 수량을 확인해 주세요. 게임 업데이트 이후 제작 규칙이나 가격이 변경된 경우 계산 결과에 차이가 생길 수 있습니다."
+        }
     }
 }
