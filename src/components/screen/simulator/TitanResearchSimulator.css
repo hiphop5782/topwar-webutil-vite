@@ -1,19 +1,221 @@
+.titan-research-simulator {
+    max-width: 1320px;
+}
+
+.titan-research-header {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.titan-research-card {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.titan-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 0.75rem;
+}
+
+.titan-selector-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 112px;
+    padding: 0.85rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+.titan-selector-button:hover {
+    border-color: rgba(var(--bs-primary-rgb), 0.6);
+    background: rgba(var(--bs-primary-rgb), 0.05);
+    transform: translateY(-1px);
+}
+
+.titan-selector-button:focus-visible {
+    outline: 3px solid rgba(var(--bs-primary-rgb), 0.3);
+    outline-offset: 2px;
+}
+
+.titan-selector-button.active {
+    border-color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb), 0.12);
+}
+
 .catalyst-img {
-    font-size: calc(1.325rem + .9vw) !important;
-    width: 1em;
-    height: 1em;
-    opacity: 0.5;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    opacity: 0.55;
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease;
 }
 
-.catalyst-img:hover {
-    box-shadow: 0 0 2px 2px darkgrey;
-}
-
+.titan-selector-button:hover .catalyst-img,
+.titan-selector-button.active .catalyst-img,
 .catalyst-img.active {
     opacity: 1;
+}
+
+.titan-selector-button:hover .catalyst-img {
+    transform: scale(1.04);
+}
+
+.titan-selector-button--none {
+    min-height: 112px;
+}
+
+.titan-none-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 58px;
+    height: 58px;
+    border: 2px dashed var(--bs-border-color);
+    border-radius: 50%;
+    color: var(--bs-secondary-color);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.titan-selector-button.active .titan-none-icon {
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+.titan-grade-rate .progress {
+    height: 10px;
+    background: var(--bs-secondary-bg);
+}
+
+.titan-stat-card {
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+    background: var(--bs-tertiary-bg);
+}
+
+.titan-result-card {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    flex-direction: row;
+}
+
+.titan-gear-image-panel {
+    flex: 0 0 34%;
+    min-width: 190px;
+    padding: 1rem;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.11),
+            transparent 68%
+        );
+}
+
+.titan-gear-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 220px;
+    object-fit: contain;
+}
+
+.titan-result-number {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+}
+
+.titan-special-effect-icon {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 56px;
+    height: 56px;
+}
+
+.titan-special-effect-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.titan-result-body {
+    min-width: 0;
+}
+
+.titan-option-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.55rem 0.7rem;
+    border-radius: 0.55rem;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.titan-option-row span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.titan-special-effect-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.titan-guide-box {
+    padding: 1.25rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+    background: var(--bs-tertiary-bg);
+    line-height: 1.7;
 }
 
 .pointer-field {
     cursor: pointer;
 }
 
+@media (max-width: 767.98px) {
+    .titan-selector-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .titan-result-card {
+        flex-direction: column;
+    }
+
+    .titan-gear-image-panel {
+        flex-basis: auto;
+        min-width: 0;
+        min-height: 220px;
+    }
+
+    .titan-gear-image {
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 399.98px) {
+    .titan-selector-grid {
+        grid-template-columns: 1fr;
+    }
+}

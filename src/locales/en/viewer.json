@@ -859,5 +859,142 @@
             "question3": "Does this use the same reward rates as the actual game?",
             "answer3": "No. This is a simple entertainment simulator and does not reproduce the actual game's probability table."
         }
+    },
+    "TitanResearchSimulator": {
+        "header": {
+            "badge": "TOP WAR SIMULATOR",
+            "title": "Titan Gear Crafting Simulator",
+            "description": "Choose a gear part and catalyst, then simulate Titan gear grades, options, and special effects using the configured probability data."
+        },
+        "settings": {
+            "title": "Crafting Settings",
+            "partTitle": "1. Select a Gear Part",
+            "catalystTitle": "2. Select a Catalyst",
+            "countLabel": "3. Number of Crafts",
+            "presetCount": "{{count}} times"
+        },
+        "buttons": {
+            "create": "Craft {{count}} Times",
+            "clear": "Clear Results"
+        },
+        "units": {
+            "times": "times"
+        },
+        "rate": {
+            "title": "Expected Crafting Rates",
+            "description": "Gear grade rates when using {{catalyst}}.",
+            "gradeAria": "{{grade}} grade probability",
+            "expectedCount": "About {{count}} at the current count",
+            "goldSpecialConditional": "Special-effect total on gold gear",
+            "overallSpecial": "Special-effect rate across all crafts",
+            "notice": "Expected counts are averages calculated from probability × craft count and may differ from a single simulation run."
+        },
+        "statistics": {
+            "title": "Current Run Statistics",
+            "description": "A summary of the generated results by grade and special effect.",
+            "total": "{{count}} total",
+            "empty": "Run the simulator to display result statistics.",
+            "specialEffects": "Special effects",
+            "averageOptions": "Average options"
+        },
+        "results": {
+            "title": "Crafting Results",
+            "description": "Review each gear's grade, option values, and special effect.",
+            "empty": "No results yet. Choose the crafting settings and run the simulator.",
+            "gearImageAlt": "{{grade}} {{gear}} image",
+            "specialEffect": "Special effect"
+        },
+        "parts": {
+            "pistol": "Assault Pistol",
+            "backarmor": "Tactical Armor",
+            "addon": "Vision Expander",
+            "headset": "Raysion Headset",
+            "gps": "Position Tracker",
+            "boots": "Power Boots"
+        },
+        "catalysts": {
+            "top": "Top Catalyst",
+            "advanced": "Advanced Catalyst",
+            "mid": "Intermediate Catalyst",
+            "none": "No Catalyst"
+        },
+        "grades": {
+            "green": "Green",
+            "blue": "Blue",
+            "purple": "Purple",
+            "gold": "Gold"
+        },
+        "options": {
+            "armyAttack": "Army ATK Increase",
+            "navyAttack": "Navy ATK Increase",
+            "airAttack": "Air Force ATK Increase",
+            "armyDamageIncrease": "Army Damage Increase",
+            "navyDamageIncrease": "Navy Damage Increase",
+            "airDamageIncrease": "Air Force Damage Increase",
+            "armyHp": "Army HP Increase",
+            "navyHp": "Navy HP Increase",
+            "airHp": "Air Force HP Increase",
+            "armyDefense": "Army DEF Increase",
+            "navyDefense": "Navy DEF Increase",
+            "airDefense": "Air Force DEF Increase",
+            "armyDamageReduction": "Army Damage Reduction",
+            "navyDamageReduction": "Navy Damage Reduction",
+            "airDamageReduction": "Air Force Damage Reduction"
+        },
+        "specialEffects": {
+            "storm": "Explosive Hurricane",
+            "surge": "All-Out Assault",
+            "steel": "Flow of Steel",
+            "unbreakable": "Unbreakable",
+            "awareness": "Battlefield Insight",
+            "searing": "Ignition",
+            "breaking": "Vulnerability",
+            "impact": "Weakening",
+            "magnetic": "Magnetic Field",
+            "hologram": "Stealth Hologram",
+            "flammable": "Flammable",
+            "heavyblow": "Heavy Smash",
+            "debilitate": "Shock",
+            "magnetize": "Magnetization"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Titan Gear Crafting Simulator?",
+            "introduction1": "This tool generates possible Titan gear grades, standard options, and special effects using probability-based simulation.",
+            "introduction2": "The selected part, catalyst, and craft count are stored in the URL, making it easy to share or revisit the same settings.",
+            "usageTitle": "How to Use the Simulator",
+            "usage1": "Select the Titan gear part you want to craft.",
+            "usage2": "Choose a catalyst or select No Catalyst.",
+            "usage3": "Enter a craft count between 1 and 100.",
+            "usage4": "Run the simulator and review the grade distribution, option values, and special effects.",
+            "methodTitle": "Simulation Method",
+            "gradeMethodTitle": "Gear Grade",
+            "gradeMethod": "One grade is selected from Green, Blue, Purple, and Gold using the rate table for the selected catalyst.",
+            "optionMethodTitle": "Standard Options",
+            "optionMethod": "Each gear receives one or two options at a 40% chance each, or three options at a 20% chance. Option values use a normal distribution so values near the midpoint occur more often.",
+            "specialMethodTitle": "Special Effects",
+            "specialMethod": "Special effects are rolled only for Gold gear and use the rate table assigned to the selected gear part.",
+            "specialRateTitle": "Special-Effect Rates for the Selected Part",
+            "specialRateDescription": "Conditional rates for each special effect on Gold {{part}} gear.",
+            "effect": "Special Effect",
+            "goldConditionalRate": "Rate on Gold Gear",
+            "total": "Total",
+            "cautionTitle": "Important Notes",
+            "caution1": "Results are generated locally in the browser and do not guarantee actual in-game crafting outcomes.",
+            "caution2": "The option-value distribution uses this simulator's normal-distribution model and may differ from the game's internal algorithm.",
+            "caution3": "Results may become outdated if a game update changes probability tables or option ranges.",
+            "caution4": "Small samples can differ greatly from the configured rates; larger samples tend to approach the expected distribution."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Can the same standard option appear more than once on one gear item?",
+            "answer1": "Yes. The current simulator selects each option independently, so duplicate options are possible. This preserves the behavior of the original simulator.",
+            "question2": "Does every Gold gear item receive a special effect?",
+            "answer2": "No. After Gold gear is selected, it must pass a separate special-effect probability roll.",
+            "question3": "Are the rates exactly the same as the live game?",
+            "answer3": "The simulator uses the supplied probability data and option ranges, but the game's internal random and option-distribution algorithms may not be public. Treat the results as estimates."
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }

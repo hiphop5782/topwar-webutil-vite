@@ -859,5 +859,142 @@
             "question3": "実際のゲームと同じ報酬確率ですか？",
             "answer3": "いいえ。このツールは単純な娯楽用ランダムシミュレーターであり、実際のゲームの確率表を再現していません。"
         }
+    },
+    "TitanResearchSimulator": {
+        "header": {
+            "badge": "TOP WAR シミュレーター",
+            "title": "タイタン装備製作シミュレーター",
+            "description": "製作部位と触媒を選択し、設定された確率データに基づいてタイタン装備の等級・オプション・特殊効果を仮想製作できます。"
+        },
+        "settings": {
+            "title": "製作条件",
+            "partTitle": "1. 製作部位を選択",
+            "catalystTitle": "2. 触媒を選択",
+            "countLabel": "3. 製作回数",
+            "presetCount": "{{count}}回"
+        },
+        "buttons": {
+            "create": "{{count}}回製作する",
+            "clear": "結果を消去"
+        },
+        "units": {
+            "times": "回"
+        },
+        "rate": {
+            "title": "予想製作確率",
+            "description": "{{catalyst}}使用時の装備等級確率です。",
+            "gradeAria": "{{grade}}等級の確率",
+            "expectedCount": "現在の回数では約{{count}}個",
+            "goldSpecialConditional": "金装備内の特殊効果合計",
+            "overallSpecial": "全製作に対する特殊効果率",
+            "notice": "予想個数は確率×製作回数で求めた平均値であり、1回のシミュレーション結果とは異なる場合があります。"
+        },
+        "statistics": {
+            "title": "今回の製作統計",
+            "description": "生成された結果を等級と特殊効果ごとに要約します。",
+            "total": "合計{{count}}個",
+            "empty": "製作ボタンを押すと結果統計が表示されます。",
+            "specialEffects": "特殊効果",
+            "averageOptions": "平均オプション数"
+        },
+        "results": {
+            "title": "製作結果",
+            "description": "各装備の等級、オプション数値、特殊効果を確認してください。",
+            "empty": "まだ製作結果がありません。製作条件を選択して製作ボタンを押してください。",
+            "gearImageAlt": "{{grade}}等級の{{gear}}画像",
+            "specialEffect": "特殊効果"
+        },
+        "parts": {
+            "pistol": "アサルトピストル",
+            "backarmor": "タクティカルアーマー",
+            "addon": "視野拡張器",
+            "headset": "レイシオンヘッドセット",
+            "gps": "位置追跡機",
+            "boots": "パワーブーツ"
+        },
+        "catalysts": {
+            "top": "最高級触媒",
+            "advanced": "高級触媒",
+            "mid": "中級触媒",
+            "none": "触媒なし"
+        },
+        "grades": {
+            "green": "緑",
+            "blue": "青",
+            "purple": "紫",
+            "gold": "金"
+        },
+        "options": {
+            "armyAttack": "陸軍攻撃力増加",
+            "navyAttack": "海軍攻撃力増加",
+            "airAttack": "空軍攻撃力増加",
+            "armyDamageIncrease": "陸軍ダメージ増加",
+            "navyDamageIncrease": "海軍ダメージ増加",
+            "airDamageIncrease": "空軍ダメージ増加",
+            "armyHp": "陸軍生命増加",
+            "navyHp": "海軍生命増加",
+            "airHp": "空軍生命増加",
+            "armyDefense": "陸軍防御力増加",
+            "navyDefense": "海軍防御力増加",
+            "airDefense": "空軍防御力増加",
+            "armyDamageReduction": "陸軍ダメージ軽減",
+            "navyDamageReduction": "海軍ダメージ軽減",
+            "airDamageReduction": "空軍ダメージ軽減"
+        },
+        "specialEffects": {
+            "storm": "爆発のハリケーン",
+            "surge": "全軍突撃",
+            "steel": "鋼鉄の流れ",
+            "unbreakable": "不屈",
+            "awareness": "戦場洞察",
+            "searing": "点火",
+            "breaking": "脆弱",
+            "impact": "衰弱",
+            "magnetic": "磁場",
+            "hologram": "ステルスホログラム",
+            "flammable": "引火",
+            "heavyblow": "ヘビースマッシュ",
+            "debilitate": "振動",
+            "magnetize": "磁化"
+        },
+        "guide": {
+            "introductionTitle": "タイタン装備製作シミュレーターとは？",
+            "introduction1": "タイタン装備製作で出現する可能性のある等級、通常オプション、特殊効果を確率に基づいて仮想生成するツールです。",
+            "introduction2": "選択した部位、触媒、製作回数はURLに保存されるため、同じ設定を共有したり後で再確認したりできます。",
+            "usageTitle": "使い方",
+            "usage1": "製作するタイタン装備の部位を選択します。",
+            "usage2": "使用する触媒、または触媒なしを選択します。",
+            "usage3": "1回から100回までの製作回数を入力します。",
+            "usage4": "製作ボタンを押し、等級分布、オプション、特殊効果の結果を確認します。",
+            "methodTitle": "シミュレーション方式",
+            "gradeMethodTitle": "装備等級",
+            "gradeMethod": "選択した触媒の等級確率表を基準に、緑・青・紫・金のいずれかを選択します。",
+            "optionMethodTitle": "通常オプション",
+            "optionMethod": "装備ごとにオプション1個と2個がそれぞれ40%、3個が20%の確率で生成されます。数値は範囲の中央付近が出やすい正規分布を使用します。",
+            "specialMethodTitle": "特殊効果",
+            "specialMethod": "特殊効果は金等級装備でのみ判定され、選択した製作部位の特殊効果確率表に従います。",
+            "specialRateTitle": "選択部位の特殊効果確率",
+            "specialRateDescription": "金等級の{{part}}装備で各特殊効果が出現する条件付き確率です。",
+            "effect": "特殊効果",
+            "goldConditionalRate": "金装備内の確率",
+            "total": "合計",
+            "cautionTitle": "注意事項",
+            "caution1": "結果はブラウザ内で生成される仮想シミュレーションであり、実際のゲーム製作結果を保証しません。",
+            "caution2": "オプション数値の分布は本シミュレーターの正規分布モデルを使用しており、ゲーム内部のアルゴリズムと異なる場合があります。",
+            "caution3": "ゲームアップデートで確率表やオプション範囲が変更された場合、実際の値と差が生じることがあります。",
+            "caution4": "少ない回数の結果は設定確率と大きく異なることがあり、回数が増えるほど平均的に期待分布へ近づきます。"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "同じ通常オプションが1つの装備に複数付くことはありますか？",
+            "answer1": "はい。現在のシミュレーターでは各オプションを独立して選ぶため、同じオプションが重複する場合があります。元のシミュレーターの動作を維持しています。",
+            "question2": "金装備には必ず特殊効果が付きますか？",
+            "answer2": "いいえ。金装備が選ばれた後、別の特殊効果確率判定に成功した場合のみ追加されます。",
+            "question3": "実際のゲームと完全に同じ確率ですか？",
+            "answer3": "登録された確率データとオプション範囲を使用していますが、ゲーム内部の乱数やオプション分布方式が公開されていない可能性があるため、参考値として利用してください。"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }

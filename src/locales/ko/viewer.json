@@ -859,5 +859,142 @@
             "question3": "실제 게임의 보상 확률과 같은가요?",
             "answer3": "아닙니다. 이 도구는 단순한 오락용 무작위 시뮬레이터이며 실제 게임의 확률표를 재현하지 않습니다."
         }
+    },
+    "TitanResearchSimulator": {
+        "header": {
+            "badge": "TOP WAR 시뮬레이터",
+            "title": "타이탄 제작 시뮬레이터",
+            "description": "제작 부위와 촉매제를 선택하고, 설정된 확률에 따라 타이탄 장비의 등급·옵션·특수 효과를 가상으로 제작해 볼 수 있습니다."
+        },
+        "settings": {
+            "title": "제작 조건",
+            "partTitle": "1. 제작 부위 선택",
+            "catalystTitle": "2. 촉매제 선택",
+            "countLabel": "3. 제작 횟수",
+            "presetCount": "{{count}}회"
+        },
+        "buttons": {
+            "create": "{{count}}회 제작하기",
+            "clear": "결과 지우기"
+        },
+        "units": {
+            "times": "회"
+        },
+        "rate": {
+            "title": "예상 제작 확률",
+            "description": "{{catalyst}} 기준의 장비 등급 확률입니다.",
+            "gradeAria": "{{grade}} 등급 확률",
+            "expectedCount": "현재 횟수 기준 약 {{count}}개",
+            "goldSpecialConditional": "황금 장비 특수 효과 합계",
+            "overallSpecial": "전체 제작 기준 특수 효과",
+            "notice": "예상 개수는 확률에 제작 횟수를 곱한 평균값이며, 실제 한 번의 시뮬레이션 결과와 다를 수 있습니다."
+        },
+        "statistics": {
+            "title": "이번 제작 통계",
+            "description": "방금 생성된 장비 결과를 등급과 특수 효과 기준으로 요약합니다.",
+            "total": "총 {{count}}개",
+            "empty": "제작하기 버튼을 누르면 결과 통계가 표시됩니다.",
+            "specialEffects": "특수 효과",
+            "averageOptions": "평균 옵션 수"
+        },
+        "results": {
+            "title": "제작 결과",
+            "description": "각 장비의 등급, 옵션 수치와 특수 효과를 확인하세요.",
+            "empty": "아직 제작 결과가 없습니다. 제작 조건을 선택한 뒤 제작하기 버튼을 눌러주세요.",
+            "gearImageAlt": "{{grade}} 등급 {{gear}} 이미지",
+            "specialEffect": "특수 효과"
+        },
+        "parts": {
+            "pistol": "돌격 권총",
+            "backarmor": "택티컬 아머",
+            "addon": "시야 확장기",
+            "headset": "레이시온 헤드셋",
+            "gps": "위치 추적기",
+            "boots": "파워 부츠"
+        },
+        "catalysts": {
+            "top": "최고급 촉매제",
+            "advanced": "고급 촉매제",
+            "mid": "중급 촉매제",
+            "none": "촉매제 없음"
+        },
+        "grades": {
+            "green": "초록",
+            "blue": "파랑",
+            "purple": "보라",
+            "gold": "황금"
+        },
+        "options": {
+            "armyAttack": "육군 공격력 증가",
+            "navyAttack": "해군 공격력 증가",
+            "airAttack": "공군 공격력 증가",
+            "armyDamageIncrease": "육군 데미지 증가",
+            "navyDamageIncrease": "해군 데미지 증가",
+            "airDamageIncrease": "공군 데미지 증가",
+            "armyHp": "육군 생명력 증가",
+            "navyHp": "해군 생명력 증가",
+            "airHp": "공군 생명력 증가",
+            "armyDefense": "육군 방어도 증가",
+            "navyDefense": "해군 방어도 증가",
+            "airDefense": "공군 방어도 증가",
+            "armyDamageReduction": "육군 데미지 감면",
+            "navyDamageReduction": "해군 데미지 감면",
+            "airDamageReduction": "공군 데미지 감면"
+        },
+        "specialEffects": {
+            "storm": "폭발의 허리케인",
+            "surge": "전군 돌격",
+            "steel": "강철의 흐름",
+            "unbreakable": "불굴",
+            "awareness": "전장 통찰",
+            "searing": "점화",
+            "breaking": "취약",
+            "impact": "쇠약",
+            "magnetic": "자기장",
+            "hologram": "스텔스 홀로그램",
+            "flammable": "인화",
+            "heavyblow": "헤비 스매시",
+            "debilitate": "진동",
+            "magnetize": "자석화"
+        },
+        "guide": {
+            "introductionTitle": "타이탄 제작 시뮬레이터란?",
+            "introduction1": "타이탄 장비 제작 시 나타날 수 있는 등급, 일반 옵션과 특수 효과를 확률에 따라 가상으로 생성하는 도구입니다.",
+            "introduction2": "URL에 제작 부위, 촉매제와 제작 횟수가 함께 저장되므로 같은 설정을 다른 사용자에게 공유하거나 다시 확인하기 쉽습니다.",
+            "usageTitle": "사용 방법",
+            "usage1": "제작할 타이탄 장비 부위를 선택합니다.",
+            "usage2": "사용할 촉매제를 선택하거나 촉매제 없음을 선택합니다.",
+            "usage3": "1회부터 100회 사이의 제작 횟수를 입력합니다.",
+            "usage4": "제작하기 버튼을 누르고 등급 분포, 옵션과 특수 효과 결과를 확인합니다.",
+            "methodTitle": "시뮬레이션 방식",
+            "gradeMethodTitle": "장비 등급",
+            "gradeMethod": "촉매제별 등급 확률표를 기준으로 초록·파랑·보라·황금 등급 중 하나를 선택합니다.",
+            "optionMethodTitle": "일반 옵션",
+            "optionMethod": "장비마다 옵션 1개 또는 2개가 각각 40%, 3개가 20% 확률로 생성되며, 수치는 허용 범위의 중앙값에 가까운 결과가 더 자주 나오도록 정규분포를 사용합니다.",
+            "specialMethodTitle": "특수 효과",
+            "specialMethod": "특수 효과는 황금 등급 장비에서만 판정되며, 제작 부위별 특수 효과 확률표를 따릅니다.",
+            "specialRateTitle": "선택 부위의 특수 효과 확률",
+            "specialRateDescription": "{{part}} 황금 등급 장비에서 각 특수 효과가 등장할 조건부 확률입니다.",
+            "effect": "특수 효과",
+            "goldConditionalRate": "황금 장비 내 확률",
+            "total": "합계",
+            "cautionTitle": "주의사항",
+            "caution1": "이 결과는 브라우저에서 생성되는 가상 시뮬레이션이며 실제 게임 제작 결과를 보장하지 않습니다.",
+            "caution2": "옵션 수치 분포는 현재 시뮬레이터의 정규분포 모델을 사용하므로 게임 내부 알고리즘과 다를 수 있습니다.",
+            "caution3": "확률표나 옵션 범위가 게임 업데이트로 변경되면 실제 값과 차이가 발생할 수 있습니다.",
+            "caution4": "적은 횟수의 결과는 확률표와 크게 다를 수 있으며, 횟수가 많아질수록 평균적으로 설정 확률에 가까워집니다."
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "같은 일반 옵션이 한 장비에 여러 번 나올 수 있나요?",
+            "answer1": "현재 시뮬레이터는 각 옵션을 독립적으로 선택하므로 동일한 옵션이 중복될 수 있습니다. 이는 기존 시뮬레이터의 동작을 유지한 것입니다.",
+            "question2": "황금 장비가 나오면 특수 효과가 반드시 붙나요?",
+            "answer2": "아닙니다. 황금 장비가 나온 뒤 별도의 특수 효과 확률 판정을 통과해야 특수 효과가 추가됩니다.",
+            "question3": "실제 게임 제작 확률과 완전히 동일한가요?",
+            "answer3": "등록된 확률 데이터와 옵션 범위를 기반으로 하지만, 게임 서버의 내부 난수와 옵션 분포 방식은 공개되지 않았을 수 있으므로 참고용으로 사용해야 합니다."
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }
