@@ -94,23 +94,29 @@ export default function TopwarPlayerDataViewer() {
 
     return (
         <>
-            <div className="d-flex align-items-center mb-1">
-                {/* <h3>{searchTerm.length === 0 ? "서버별" : searchTerm} Top 100 (총 {filteredPlayers.length.toLocaleString()}명)</h3> */}
-                    {/* 검색 입력창 추가 */}
-                    <span>{t(`TopwarPlayerDataViewer.label-input`)}</span>
-                    <input 
-                        type="text" 
-                        className="form-control w-auto ms-4" 
-                        placeholder="e.g., 3223" 
-                        value={searchTerm}
-                        onChange={(e) => {
-                            const regex = /[0-9]*/;
-                            if(!regex.test(e.target.value)) return;
-                            setSearchTerm(e.target.value);
-                        }}
-                    />
-                    <span className="ms-4">{t(`TopwarPlayerDataViewer.label-nickname`)}</span>
-                    <input type="text" className="form-control w-auto ms-4" placeholder="e.g., ＫＩＤ" value={searchNickname} onChange={e=>setSearchNickname(e.target.value)}/>
+            <div className="mb-1">
+                {/* 검색 입력창 추가 */}
+                <div className="row">
+                    <label className="col-form-label col-sm-3">{t(`TopwarPlayerDataViewer.label-input`)}</label>
+                    <div className="col-sm-9">
+                        <input type="text" 
+                            className="form-control" 
+                            placeholder="e.g., 3223" 
+                            value={searchTerm}
+                            onChange={(e) => {
+                                const regex = /[0-9]*/;
+                                if(!regex.test(e.target.value)) return;
+                                setSearchTerm(e.target.value);
+                            }}
+                        />                        
+                    </div>
+                </div>
+                <div className="row mt-2">
+                    <label className="col-form-label col-sm-3">{t(`TopwarPlayerDataViewer.label-nickname`)}</label>
+                    <div className="col-sm-9">
+                        <input type="text" className="form-control" placeholder="e.g., ＫＩＤ" value={searchNickname} onChange={e=>setSearchNickname(e.target.value)}/>
+                    </div>
+                </div>                
             </div>
             <div className="row mb-3">
                 <div className="col-6 col-lg-3 p-2">
