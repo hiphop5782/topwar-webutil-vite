@@ -46,6 +46,10 @@ const fixedRoutes = [
     "/vote/create",
     "/vote/cast",
     "/vote/manage",
+
+    "/privacy",
+    "/contact",
+    "/disclaimer",
 ];
 
 const postRoutes = readdirSync(markdownDirectory, {
