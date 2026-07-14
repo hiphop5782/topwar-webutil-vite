@@ -6,7 +6,7 @@ import "./TopwarData.css";
 import { FaChevronDown, FaChevronUp, FaMars, FaVenus } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader"
-import { useParamState } from "../../../../hooks/useParamState";
+import { useParamState } from "@src/hooks/useParamState";
 
 export default function TopwarPlayerDataViewer() {
     const [playerList, setPlayerList] = useState([]);
@@ -192,6 +192,7 @@ export default function TopwarPlayerDataViewer() {
                         useWindowScroll
                         itemContent={(index, player) => {
                             const foldDays = calculateDays(player);
+                            console.log(player);
                             return (
                             <div className={`user-panel position-relative d-flex align-items-center border-bottom bg-white`}
                                 style={{ height: '35px', boxShadow: "0 0 0 0 lightgray" }}>
