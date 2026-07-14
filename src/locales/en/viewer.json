@@ -31,7 +31,7 @@
         "btn-player-data": "Player Data",
         "btn-server-data": "Server Data",
         "btn-alliance-data": "Alliance Data",
-        "btn-server-compare": "Server Comparison"
+        "btn-server-move": "Server Transfer History"
     },
     "TopwarRealPowerViewer": {
         "error-analyze-fail": "AI analysis failed.",

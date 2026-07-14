@@ -38,6 +38,7 @@ import EmojiCreator from "@src/components/screen/emoji/EmojiCreator";
 import LottoGenerator from "@src/components/screen/simulator/LottoGenerator";
 import TopwarDataViewer from "@src/components/screen/information/server/TopwarDataViewer";
 import TopwarPlayerDataViewer from "@src/components/screen/information/server/TopwarPlayerDataViewer";
+import TopwarPlayerMoveHistory from "@src/components/screen/information/server/TopwarPlayerMoveHistory";
 import TopwarServerDataViewer from "@src/components/screen/information/server/TopwarServerDataViewer";
 import TopwarAllianceDataViewer from "@src/components/screen/information/server/TopwarAllianceDataViewer";
 import TopwarCompareViewer from "@src/components/screen/information/server/TopwarCompareViewer";
@@ -110,6 +111,7 @@ export default function MainContentView() {
                         <Route index element={<TopwarPlayerDataViewer/>}></Route>
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
+                        <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7}/>}></Route>
                         {/* <Route path="compare" element={<TopwarCompareViewer/>}></Route> */}
                         {/* <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route> */}
                     </Route>
@@ -120,7 +122,7 @@ export default function MainContentView() {
                         <Route path="server" element={<KartzServerHistoryViewer/>}></Route>
                     </Route>
 
-                    <Route path="information/ssc" element={<TopwarSscPointViewer/>}></Route>
+                    {/* <Route path="information/ssc" element={<TopwarSscPointViewer/>}></Route> */}
                     
                     <Route path="information/realpower" element={<TopwarRealPowerViewer/>}></Route>
                     

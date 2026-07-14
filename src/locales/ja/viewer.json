@@ -42,7 +42,7 @@
         "btn-player-data": "プレイヤーデータ",
         "btn-server-data": "サーバーデータ",
         "btn-alliance-data": "連盟データ",
-        "btn-server-compare": "サーバー間比較"
+        "btn-server-move": "サーバー移動履歴"
     },
     "TopwarRealPowerViewer": {
         "error-analyze-fail": "AI分析に失敗しました",
