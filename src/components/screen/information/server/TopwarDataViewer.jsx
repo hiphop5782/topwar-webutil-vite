@@ -29,9 +29,9 @@ export default function TopwarDataViewer() {
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink to={`/information/data/alliance`} className={getBtnClass("/information/data/alliance")}>{t(`TopwarDataViewer.btn-alliance-data`)}</LanguageRouterLink>
             </div>
-            {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/compare`} className={getBtnClass("/information/data/compare")}>{t(`TopwarDataViewer.btn-server-compare`)}</LanguageRouterLink>
-            </div> */}
+            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <LanguageRouterLink to={`/information/data/move`} className={getBtnClass("/information/data/compare")}>{t(`TopwarDataViewer.btn-server-move`)}</LanguageRouterLink>
+            </div>
         </div>
 
         <SupportBanner className="mb-4"></SupportBanner>

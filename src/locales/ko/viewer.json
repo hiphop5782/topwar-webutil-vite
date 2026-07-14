@@ -94,7 +94,7 @@
         "btn-player-data": "유저 데이터",
         "btn-server-data": "서버 데이터",
         "btn-alliance-data": "길드 데이터",
-        "btn-server-compare": "서버 간 비교"
+        "btn-server-move": "서버 이동 내역"
     },
     "TopwarPlayerDataViewer": {
         "label-input": "서버",
