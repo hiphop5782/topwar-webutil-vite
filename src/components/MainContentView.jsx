@@ -91,8 +91,6 @@ export default function MainContentView() {
                     <Route path="post/:folder" element={<Post/>}></Route>
 
                     <Route path="information/base" element={<BaseInformation />}></Route>
-                    {/* <Route path="information/hero" element={<HeroInformation/>}></Route> */}
-                    {/* <Route path="information/decor" element={<DecorInformation/>}></Route> */}
                     <Route path="information/job" element={<JobInformation />}></Route>
                     {/* <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route> */}
                     {/* <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route> */}
@@ -131,7 +129,6 @@ export default function MainContentView() {
                     <Route path="calculator/cost" element={<ItemLevelCostCalculator/>}></Route>
 
                     <Route path="simulator/random" element={<RandomSimulator/>}></Route>
-                    {/* <Route path="simulator/hero" element={<HeroSimulator/>}></Route> */}
                     <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
                     <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
                     <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>

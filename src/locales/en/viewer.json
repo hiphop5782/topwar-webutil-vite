@@ -803,5 +803,61 @@
             "question3": "Why should I enter decimal values?",
             "answer3": "Even a small difference in the percentage can change the recovery interval by several seconds. Enter the displayed decimal value whenever available."
         }
+    },
+    "LuckyBox": {
+        "header": {
+            "badge": "TOP WAR MINI GAME",
+            "title": "Lucky Box",
+            "description": "Open a box to randomly reveal 1 to 3 unique rewards from a set of 28 reward images."
+        },
+        "game": {
+            "title": "Open the Lucky Box",
+            "description": "Click the box image or the open button to determine the rewards for this draw.",
+            "closedBoxAlt": "Closed Lucky Box before drawing rewards",
+            "openBoxAlt": "Opened Lucky Box after the reward draw"
+        },
+        "buttons": {
+            "open": "Open Lucky Box",
+            "opening": "Opening...",
+            "retry": "Draw Again"
+        },
+        "result": {
+            "empty": "Your rewards will appear here after opening the box.",
+            "ready": "Click the box to start the draw.",
+            "drawing": "The Lucky Box is opening.",
+            "completed": "{{count}} rewards were selected."
+        },
+        "reward": {
+            "alt": "Lucky Box reward image number {{number}}",
+            "label": "Reward {{number}}"
+        },
+        "aria": {
+            "open": "Open the Lucky Box",
+            "opened": "Lucky Box already opened"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Lucky Box Simulator?",
+            "introduction1": "This random reward tool recreates the feeling of opening a Lucky Box during a game event.",
+            "introduction2": "Rewards do not repeat within the same draw. After viewing the result, you can reset the box and draw again.",
+            "usageTitle": "How to Use It",
+            "usage1": "Click the closed box image or the Open Lucky Box button.",
+            "usage2": "After the short opening animation, the selected reward images will appear.",
+            "usage3": "Click Draw Again to reset the box and generate a new result.",
+            "ruleTitle": "Draw Rules",
+            "rule1": "Each draw selects between {{min}} and {{max}} rewards.",
+            "rule2": "Reward numbers range from 1 to {{limit}}, with no duplicates in the same draw.",
+            "rule3": "When supported by the browser, random numbers are generated with the Web Crypto API.",
+            "noticeTitle": "Important Notice",
+            "notice": "This page is an entertainment-only simulator. It does not award real items or monetary value and does not guarantee actual in-game reward rates or results."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "How many rewards appear in one draw?",
+            "answer1": "Each draw randomly selects between 1 and 3 rewards.",
+            "question2": "Can the same reward appear twice in one draw?",
+            "answer2": "No. Every reward selected in a single draw has a unique number.",
+            "question3": "Does this use the same reward rates as the actual game?",
+            "answer3": "No. This is a simple entertainment simulator and does not reproduce the actual game's probability table."
+        }
     }
 }
