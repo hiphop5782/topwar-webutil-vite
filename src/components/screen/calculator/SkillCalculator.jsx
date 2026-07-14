@@ -248,6 +248,7 @@ function SkillCalculator() {
 
                                 <div className="alert alert-light border mt-3 mb-0">
                                     <Trans
+                                        ns="viewer"
                                         i18nKey="SkillCalculator.form.target.required"
                                         values={{
                                             count: numberFormatter.format(
@@ -459,6 +460,7 @@ function SkillCalculator() {
                                 {hasSkill && (
                                     <div className="alert alert-light border mt-3 mb-0">
                                         <Trans
+                                            ns="viewer"
                                             i18nKey="SkillCalculator.form.ownedSkill.convertedTotal"
                                             values={{
                                                 count: numberFormatter.format(
@@ -586,6 +588,7 @@ function SkillCalculator() {
 
                                     <div>
                                         <Trans
+                                            ns="viewer"
                                             i18nKey="SkillCalculator.result.successRemaining"
                                             values={{
                                                 count: numberFormatter.format(
@@ -611,6 +614,7 @@ function SkillCalculator() {
 
                                     <div className="fs-5">
                                         <Trans
+                                            ns="viewer"
                                             i18nKey="SkillCalculator.result.shortageAmount"
                                             values={{
                                                 count: numberFormatter.format(
