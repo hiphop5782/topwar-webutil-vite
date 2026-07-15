@@ -1,0 +1,1599 @@
+<!DOCTYPE html><html lang="ko"><head><style type="text/css">:root{--toastify-color-light: #fff;--toastify-color-dark: #121212;--toastify-color-info: #3498db;--toastify-color-success: #07bc0c;--toastify-color-warning: #f1c40f;--toastify-color-error: hsl(6, 78%, 57%);--toastify-color-transparent: rgba(255, 255, 255, .7);--toastify-icon-color-info: var(--toastify-color-info);--toastify-icon-color-success: var(--toastify-color-success);--toastify-icon-color-warning: var(--toastify-color-warning);--toastify-icon-color-error: var(--toastify-color-error);--toastify-container-width: fit-content;--toastify-toast-width: 320px;--toastify-toast-offset: 16px;--toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));--toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));--toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));--toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));--toastify-toast-background: #fff;--toastify-toast-padding: 14px;--toastify-toast-min-height: 64px;--toastify-toast-max-height: 800px;--toastify-toast-bd-radius: 6px;--toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);--toastify-font-family: sans-serif;--toastify-z-index: 9999;--toastify-text-color-light: #757575;--toastify-text-color-dark: #fff;--toastify-text-color-info: #fff;--toastify-text-color-success: #fff;--toastify-text-color-warning: #fff;--toastify-text-color-error: #fff;--toastify-spinner-color: #616161;--toastify-spinner-color-empty-area: #e0e0e0;--toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);--toastify-color-progress-dark: #bb86fc;--toastify-color-progress-info: var(--toastify-color-info);--toastify-color-progress-success: var(--toastify-color-success);--toastify-color-progress-warning: var(--toastify-color-warning);--toastify-color-progress-error: var(--toastify-color-error);--toastify-color-progress-bgo: .2}.Toastify__toast-container{z-index:var(--toastify-z-index);-webkit-transform:translate3d(0,0,var(--toastify-z-index));position:fixed;width:var(--toastify-container-width);box-sizing:border-box;color:#fff;display:flex;flex-direction:column}.Toastify__toast-container--top-left{top:var(--toastify-toast-top);left:var(--toastify-toast-left)}.Toastify__toast-container--top-center{top:var(--toastify-toast-top);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--top-right{top:var(--toastify-toast-top);right:var(--toastify-toast-right);align-items:end}.Toastify__toast-container--bottom-left{bottom:var(--toastify-toast-bottom);left:var(--toastify-toast-left)}.Toastify__toast-container--bottom-center{bottom:var(--toastify-toast-bottom);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--bottom-right{bottom:var(--toastify-toast-bottom);right:var(--toastify-toast-right);align-items:end}.Toastify__toast{--y: 0;position:relative;touch-action:none;width:var(--toastify-toast-width);min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:var(--toastify-toast-padding);border-radius:var(--toastify-toast-bd-radius);box-shadow:var(--toastify-toast-shadow);max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);z-index:0;display:flex;flex:1 auto;align-items:center;word-break:break-word}@media only screen and (max-width: 480px){.Toastify__toast-container{width:100vw;left:env(safe-area-inset-left);margin:0}.Toastify__toast-container--top-left,.Toastify__toast-container--top-center,.Toastify__toast-container--top-right{top:env(safe-area-inset-top);transform:translate(0)}.Toastify__toast-container--bottom-left,.Toastify__toast-container--bottom-center,.Toastify__toast-container--bottom-right{bottom:env(safe-area-inset-bottom);transform:translate(0)}.Toastify__toast-container--rtl{right:env(safe-area-inset-right);left:initial}.Toastify__toast{--toastify-toast-width: 100%;margin-bottom:0;border-radius:0}}.Toastify__toast-container[data-stacked=true]{width:var(--toastify-toast-width)}.Toastify__toast--stacked{position:absolute;width:100%;transform:translate3d(0,var(--y),0) scale(var(--s));transition:transform .3s}.Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,.Toastify__toast--stacked[data-collapsed] .Toastify__close-button{transition:opacity .1s}.Toastify__toast--stacked[data-collapsed=false]{overflow:visible}.Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>*{opacity:0}.Toastify__toast--stacked:after{content:"";position:absolute;left:0;right:0;height:calc(var(--g) * 1px);bottom:100%}.Toastify__toast--stacked[data-pos=top]{top:0}.Toastify__toast--stacked[data-pos=bot]{bottom:0}.Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before{transform-origin:top}.Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before{transform-origin:bottom}.Toastify__toast--stacked:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;transform:scaleY(3);z-index:-1}.Toastify__toast--rtl{direction:rtl}.Toastify__toast--close-on-click{cursor:pointer}.Toastify__toast-icon{margin-inline-end:10px;width:22px;flex-shrink:0;display:flex}.Toastify--animate{animation-fill-mode:both;animation-duration:.5s}.Toastify--animate-icon{animation-fill-mode:both;animation-duration:.3s}.Toastify__toast-theme--dark{background:var(--toastify-color-dark);color:var(--toastify-text-color-dark)}.Toastify__toast-theme--light,.Toastify__toast-theme--colored.Toastify__toast--default{background:var(--toastify-color-light);color:var(--toastify-text-color-light)}.Toastify__toast-theme--colored.Toastify__toast--info{color:var(--toastify-text-color-info);background:var(--toastify-color-info)}.Toastify__toast-theme--colored.Toastify__toast--success{color:var(--toastify-text-color-success);background:var(--toastify-color-success)}.Toastify__toast-theme--colored.Toastify__toast--warning{color:var(--toastify-text-color-warning);background:var(--toastify-color-warning)}.Toastify__toast-theme--colored.Toastify__toast--error{color:var(--toastify-text-color-error);background:var(--toastify-color-error)}.Toastify__progress-bar-theme--light{background:var(--toastify-color-progress-light)}.Toastify__progress-bar-theme--dark{background:var(--toastify-color-progress-dark)}.Toastify__progress-bar--info{background:var(--toastify-color-progress-info)}.Toastify__progress-bar--success{background:var(--toastify-color-progress-success)}.Toastify__progress-bar--warning{background:var(--toastify-color-progress-warning)}.Toastify__progress-bar--error{background:var(--toastify-color-progress-error)}.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--error{background:var(--toastify-color-transparent)}.Toastify__close-button{color:#fff;position:absolute;top:6px;right:6px;background:transparent;outline:none;border:none;padding:0;cursor:pointer;opacity:.7;transition:.3s ease;z-index:1}.Toastify__toast--rtl .Toastify__close-button{left:6px;right:unset}.Toastify__close-button--light{color:#000;opacity:.3}.Toastify__close-button>svg{fill:currentColor;height:16px;width:14px}.Toastify__close-button:hover,.Toastify__close-button:focus{opacity:1}@keyframes Toastify__trackProgress{0%{transform:scaleX(1)}to{transform:scaleX(0)}}.Toastify__progress-bar{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:1;opacity:.7;transform-origin:left}.Toastify__progress-bar--animated{animation:Toastify__trackProgress linear 1 forwards}.Toastify__progress-bar--controlled{transition:transform .2s}.Toastify__progress-bar--rtl{right:0;left:initial;transform-origin:right;border-bottom-left-radius:initial}.Toastify__progress-bar--wrp{position:absolute;overflow:hidden;bottom:0;left:0;width:100%;height:5px;border-bottom-left-radius:var(--toastify-toast-bd-radius);border-bottom-right-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp[data-hidden=true]{opacity:0}.Toastify__progress-bar--bg{opacity:var(--toastify-color-progress-bgo);width:100%;height:100%}.Toastify__spinner{width:20px;height:20px;box-sizing:border-box;border:2px solid;border-radius:100%;border-color:var(--toastify-spinner-color-empty-area);border-right-color:var(--toastify-spinner-color);animation:Toastify__spin .65s linear infinite}@keyframes Toastify__bounceInRight{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutRight{20%{opacity:1;transform:translate3d(-20px,var(--y),0)}to{opacity:0;transform:translate3d(2000px,var(--y),0)}}@keyframes Toastify__bounceInLeft{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutLeft{20%{opacity:1;transform:translate3d(20px,var(--y),0)}to{opacity:0;transform:translate3d(-2000px,var(--y),0)}}@keyframes Toastify__bounceInUp{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}to{transform:translateZ(0)}}@keyframes Toastify__bounceOutUp{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes Toastify__bounceInDown{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}to{transform:none}}@keyframes Toastify__bounceOutDown{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,2000px,0)}}.Toastify__bounce-enter--top-left,.Toastify__bounce-enter--bottom-left{animation-name:Toastify__bounceInLeft}.Toastify__bounce-enter--top-right,.Toastify__bounce-enter--bottom-right{animation-name:Toastify__bounceInRight}.Toastify__bounce-enter--top-center{animation-name:Toastify__bounceInDown}.Toastify__bounce-enter--bottom-center{animation-name:Toastify__bounceInUp}.Toastify__bounce-exit--top-left,.Toastify__bounce-exit--bottom-left{animation-name:Toastify__bounceOutLeft}.Toastify__bounce-exit--top-right,.Toastify__bounce-exit--bottom-right{animation-name:Toastify__bounceOutRight}.Toastify__bounce-exit--top-center{animation-name:Toastify__bounceOutUp}.Toastify__bounce-exit--bottom-center{animation-name:Toastify__bounceOutDown}@keyframes Toastify__zoomIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes Toastify__zoomOut{0%{opacity:1}50%{opacity:0;transform:translate3d(0,var(--y),0) scale3d(.3,.3,.3)}to{opacity:0}}.Toastify__zoom-enter{animation-name:Toastify__zoomIn}.Toastify__zoom-exit{animation-name:Toastify__zoomOut}@keyframes Toastify__flipIn{0%{transform:perspective(400px) rotateX(90deg);animation-timing-function:ease-in;opacity:0}40%{transform:perspective(400px) rotateX(-20deg);animation-timing-function:ease-in}60%{transform:perspective(400px) rotateX(10deg);opacity:1}80%{transform:perspective(400px) rotateX(-5deg)}to{transform:perspective(400px)}}@keyframes Toastify__flipOut{0%{transform:translate3d(0,var(--y),0) perspective(400px)}30%{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(-20deg);opacity:1}to{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(90deg);opacity:0}}.Toastify__flip-enter{animation-name:Toastify__flipIn}.Toastify__flip-exit{animation-name:Toastify__flipOut}@keyframes Toastify__slideInRight{0%{transform:translate3d(110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInLeft{0%{transform:translate3d(-110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInUp{0%{transform:translate3d(0,110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInDown{0%{transform:translate3d(0,-110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideOutRight{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(110%,var(--y),0)}}@keyframes Toastify__slideOutLeft{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(-110%,var(--y),0)}}@keyframes Toastify__slideOutDown{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,500px,0)}}@keyframes Toastify__slideOutUp{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,-500px,0)}}.Toastify__slide-enter--top-left,.Toastify__slide-enter--bottom-left{animation-name:Toastify__slideInLeft}.Toastify__slide-enter--top-right,.Toastify__slide-enter--bottom-right{animation-name:Toastify__slideInRight}.Toastify__slide-enter--top-center{animation-name:Toastify__slideInDown}.Toastify__slide-enter--bottom-center{animation-name:Toastify__slideInUp}.Toastify__slide-exit--top-left,.Toastify__slide-exit--bottom-left{animation-name:Toastify__slideOutLeft;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-right,.Toastify__slide-exit--bottom-right{animation-name:Toastify__slideOutRight;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-center{animation-name:Toastify__slideOutUp;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-center{animation-name:Toastify__slideOutDown;animation-timing-function:ease-in;animation-duration:.3s}@keyframes Toastify__spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+  <meta charset="UTF-8">
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LKC9791ZJB&amp;cx=c&amp;gtm=4e67d0h1"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9&amp;cx=c&amp;gtm=4e67d0h1"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MKHJT6LZ"></script><script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MKHJT6LZ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-ZGZ1GRHTM9');
+  </script>
+
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
+  <title>Topwar Helper</title>
+  <script type="module" crossorigin="" src="/assets/index-CTHliGxj.js"></script>
+  <link rel="stylesheet" crossorigin="" href="/assets/index-D-uFeApl.css">
+<style></style><style></style><style></style><style></style><style></style><style></style><style></style><style></style><script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-LKC9791ZJB" async=""></script></head>
+
+<body>
+  <div id="root"><div class="container-fluid mt-5 pt-4"><nav class="navbar navbar-expand-lg app-navbar fixed-top"><div class="container-fluid"><a class="navbar-brand" href="/en">Topwar Helper</a><button class="navbar-toggler" type="button" aria-controls="navbarColor01" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarColor01"><ul class="navbar-nav me-auto"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Information</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/information/base">Base Info</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/job">Specialization Upgrade</a><a class="dropdown-item" href="/en/information/el">Eternal Land</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/data">Server &amp; User Data</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/kartz">Kartz's Trial</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/information/realpower">AI Analysis</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Calculators</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/calculator/vital">Stamina Recovery Calculator</a><a class="dropdown-item" href="/en/calculator/skill">Exclusive Fragment Calculator</a><a class="dropdown-item" href="/en/calculator/value-pack">Special Package Value Calculator</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/calculator/cost">Cost Calculator</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Simulators</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/simulator/titan-research">Titan Crafting</a><a class="dropdown-item" href="/en/simulator/titan-refine">Titan Refinement</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/simulator/formation-perk">Formation Perks</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/simulator/random">Random Draw Simulator</a><a class="dropdown-item" href="/en/simulator/slot">Topwar Slot Machine Game</a><a class="dropdown-item" href="/en/simulator/luckybox">Lucky Box Game</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/en/simulator/lotto">Lotto Generator</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Emojis</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/emoji/create">Creator</a><a class="dropdown-item" href="/en/emoji/list">Legacy Emoji</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">History</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/history/ssc-2026">Seal Stone Chaos(2026)</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vote</a><div class="dropdown-menu"><a class="dropdown-item" href="/en/vote/create">Create Vote</a><a class="dropdown-item" href="/en/vote/cast">Cast Vote</a><a class="dropdown-item" href="/en/vote/manage">Manage Vote</a></div></li><li class="nav-item"><a class="nav-link" href="/en/post">Tips</a></li><div class="dropdown ms-lg-2 mt-2 mt-lg-0"><button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"><span class="fi fi-us me-2"></span>EN</button><ul class="dropdown-menu dropdown-menu-dark shadow"><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-kr me-2"></span> 한국어</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-us me-2"></span> English</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-jp me-2"></span> 日本語</button></li></ul></div></ul></div></div></nav><div class="row mb-5 pb-5"><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-2TYGu5OktHTg0aW6" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div><div class="col-md-8"><div class="row mb-4"><div class="col d-flex justify-content-center align-items-center"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-lZUjWtUlP8hglGID" data-ad-width="320" data-ad-height="50" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><div class="container-fluid p-0"><div class="sticky-top bg-white border-bottom shadow-sm" style="top: 56px; z-index: 1020;"><div class="container-fluid py-2" style="max-width: 1000px;"><div class="d-flex justify-content-between align-items-center px-3"><h5 class="fw-bold m-0 text-truncate text-start" style="max-width: 60%;">Top War 전투 공식 실측 분석 총정리</h5><div class="d-flex gap-2 flex-shrink-0"><a class="btn btn-sm btn-outline-secondary" href="/en/post/2026-07-02-003-Damage3"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path></svg></a><a class="btn btn-sm btn-outline-dark px-3" href="/en/post"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z"></path></svg></a><a class="btn btn-sm btn-outline-secondary" href="/en/post/9999-99-99-001-Heavy-Motership"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path></svg></a></div></div></div><div style="width: 100%; height: 4px; background-color: rgba(0, 0, 0, 0.05);"><div style="width: 0%; height: 100%; background: linear-gradient(90deg, rgb(79, 172, 254) 0%, rgb(0, 242, 254) 100%); transition: width 0.1s ease-out;"></div></div></div><div class="container-fluid my-5" style="max-width: 900px;"><div class="markdown-body text-start px-3"><h1 id="top-war-전투-공식-실측-분석-총정리">Top War 전투 공식 실측 분석 총정리</h1>
+<blockquote>
+<p>이 문서는 게임사가 공개한 공식이 아니라, 동일 조건에서 능력치 하나만 바꾸는 방식으로 수집한 실측 자료를 기반으로 한 역산 결과입니다.<br>
+화면의 <code>B</code>, <code>T</code> 축약값보다 리플레이의 원본 정수 피해량을 우선하며, 서로 충돌하는 과거 결과가 있을 때는 최신 원본 정수 실험을 우선합니다.</p>
+</blockquote>
+<hr>
+<h2 id="1-가장-먼저-보는-결론">1. 가장 먼저 보는 결론</h2>
+<h3 id="현재-기준-전투의-핵심-값">현재 기준 전투의 핵심 값</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>항목</th><th style="text-align: right;">값</th></tr></thead><tbody><tr><td>기준 일반타</td><td style="text-align: right;">340,994,470,531</td></tr><tr><td>기준 치명타</td><td style="text-align: right;">654,709,383,420</td></tr><tr><td>일반 공격력 유효 블록</td><td style="text-align: right;">66.64791866</td></tr><tr><td>유효 공격력 합계 환산</td><td style="text-align: right;">6564.791866%</td></tr><tr><td>데미지 증가 유효 블록</td><td style="text-align: right;">12.40225393</td></tr><tr><td>유효 DMG+ 합계 환산</td><td style="text-align: right;">1140.225393%</td></tr><tr><td>방어자 DEF</td><td style="text-align: right;">60.2%</td></tr><tr><td>방어자 DMG-</td><td style="text-align: right;">114.7%</td></tr><tr><td>DEF 유효 블록</td><td style="text-align: right;">1.75374831</td></tr><tr><td>DMG- 유효 블록</td><td style="text-align: right;">2.71987864</td></tr></tbody></table></div>
+<p>현재 조건에서 관측된 1%p의 가치:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>능력치</th><th style="text-align: right;">1%p당 최종 효과</th></tr></thead><tbody><tr><td>장식 전체 공격력</td><td style="text-align: right;">피해 약 51,163,558.8 증가 / 약 0.015004%</td></tr><tr><td>파츠 공격력</td><td style="text-align: right;">피해 약 102,327,117.6 증가 / 약 0.030008%</td></tr><tr><td>데미지 증가</td><td style="text-align: right;">피해 약 274,945,564.3 증가 / 약 0.080631%</td></tr><tr><td>DEF</td><td style="text-align: right;">유효 내구 약 0.570207% 증가</td></tr><tr><td>DMG-</td><td style="text-align: right;">유효 내구 약 0.367663% 증가</td></tr></tbody></table></div>
+<p>따라서 현재 구간에서는:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>DMG+ 1%p
+</span>≈ 장식 전체 공격력 5.374%p
+≈ 파츠 공격력 2.687%p</code></div></pre>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>DEF 1%p
+</span>≈ DMG- 1.551%p</code></div></pre>
+<hr>
+<h2 id="2-실험-방법과-원본-피해-추출">2. 실험 방법과 원본 피해 추출</h2>
+<p>화면 피해는 <code>19.3B</code>, <code>340B</code>처럼 축약되므로 정밀 역산에 부적합합니다.<br>
+리플레이의 <code>onFMessage_NBattle_UnitAction</code> 이벤트에서 다음 조건을 사용했습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-js" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">action</span><span> </span><span class="token" style="color: rgb(212, 212, 212);">===</span><span> </span><span class="token" style="color: rgb(181, 206, 168);">3</span><span>
+</span><span>data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">lifeBarAnimIsDamage</span><span> </span><span class="token" style="color: rgb(212, 212, 212);">===</span><span> </span><span class="token" style="color: rgb(86, 156, 214);">true</span></code></div></pre>
+<p>핵심 필드:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-js" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span class="token" style="color: rgb(86, 156, 214);">const</span><span> damage </span><span class="token" style="color: rgb(212, 212, 212);">=</span><span> </span><span class="token known-class-name" style="color: rgb(78, 201, 176);">Math</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token method property-access" style="color: rgb(220, 220, 170);">abs</span><span class="token" style="color: rgb(212, 212, 212);">(</span><span>data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">args</span><span class="token" style="color: rgb(212, 212, 212);">[</span><span class="token" style="color: rgb(181, 206, 168);">1</span><span class="token" style="color: rgb(212, 212, 212);">]</span><span class="token" style="color: rgb(212, 212, 212);">)</span><span class="token" style="color: rgb(212, 212, 212);">;</span><span>
+</span><span></span><span class="token" style="color: rgb(86, 156, 214);">const</span><span> hitType </span><span class="token" style="color: rgb(212, 212, 212);">=</span><span> data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">args</span><span class="token" style="color: rgb(212, 212, 212);">[</span><span class="token" style="color: rgb(181, 206, 168);">2</span><span class="token" style="color: rgb(212, 212, 212);">]</span><span class="token" style="color: rgb(212, 212, 212);">;</span><span>
+</span><span></span><span class="token" style="color: rgb(86, 156, 214);">const</span><span> referenceValue </span><span class="token" style="color: rgb(212, 212, 212);">=</span><span> data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">args</span><span class="token" style="color: rgb(212, 212, 212);">[</span><span class="token" style="color: rgb(181, 206, 168);">11</span><span class="token" style="color: rgb(212, 212, 212);">]</span><span class="token" style="color: rgb(212, 212, 212);">;</span><span>
+</span><span></span><span class="token" style="color: rgb(86, 156, 214);">const</span><span> skillId </span><span class="token" style="color: rgb(212, 212, 212);">=</span><span> data</span><span class="token" style="color: rgb(212, 212, 212);">.</span><span class="token property-access">skillConfig</span><span class="token" style="color: rgb(212, 212, 212);">?.</span><span>id</span><span class="token" style="color: rgb(212, 212, 212);">;</span></code></div></pre>
+<p>현재 관측:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>필드</th><th>의미</th></tr></thead><tbody><tr><td><code>args[1]</code></td><td>최종 피해량의 음수 표현</td></tr><tr><td><code>args[2] = 1</code></td><td>일반타</td></tr><tr><td><code>args[2] = 4</code></td><td>치명타</td></tr><tr><td><code>args[11]</code></td><td>공격력·DMG+ 변경에는 고정된 참조값. 치명타에서는 1.92배가 되었으나 정확한 내부 명칭은 미확정</td></tr><tr><td><code>skillId = 1011022</code></td><td>이번 정밀 비교에 사용한 동일 공격 스킬</td></tr><tr><td><code>fromPos = 0</code>, <code>toPos = 0</code></td><td>동일 슬롯 간 비교</td></tr></tbody></table></div>
+<p>정밀 실험에서는 다음을 고정했습니다.</p>
+<ul>
+<li>같은 공격자와 방어자</li>
+<li>같은 유닛 레벨과 출전 수</li>
+<li>같은 영웅 및 스킬</li>
+<li>같은 공격 슬롯과 피격 슬롯</li>
+<li>같은 <code>skillId</code></li>
+<li>같은 일반타 또는 같은 치명타끼리 비교</li>
+<li>새 스펙 적용 후 새 전투의 리플레이 사용</li>
+</ul>
+<hr>
+<h2 id="3-현재까지의-통합-공식">3. 현재까지의 통합 공식</h2>
+<p>현재까지 검증된 구조를 합치면 다음과 같습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>최종 피해
+</span>=
+BaseATK[유닛 레벨]
+× 출전 유닛 수
+× 일반 공격력 블록
+× 영웅 전투 스킬 공격력 블록
+× 데미지 증가 블록
+× 타격·상성·취약·스킬 계수
+÷ DEF 블록
+÷ DMG- 블록
+× 치명타 계수</code></div></pre>
+<p>수식으로 표현하면:</p>
+<p>$$
+D =
+B_L
+\times N
+\times A
+\times H_A
+\times G
+\times K
+\div F_{\mathrm{DEF}}
+\div F_{\mathrm{DMG-}}
+\times C
+$$</p>
+<ul>
+<li>$B_L$: 레벨별 Base ATK</li>
+<li>$N$: 출전 유닛 수</li>
+<li>$A$: 일반 공격력 블록</li>
+<li>$H_A$: 영웅 전투 스킬 공격력 블록</li>
+<li>$G$: 데미지 증가 블록</li>
+<li>$K$: 이번 문서에서 생략한 타격·상성·취약·특수 스킬 계수</li>
+<li>$F_{\mathrm{DEF}}$: DEF 방어 블록</li>
+<li>$F_{\mathrm{DMG-}}$: 데미지 감면 블록</li>
+<li>$C$: 치명타 계수</li>
+</ul>
+<h3 id="현재-정밀-실험-기준의-변화식">현재 정밀 실험 기준의 변화식</h3>
+<p>현재 기준 피해를 $D_0=340,994,470,531$로 두면:</p>
+<h1 id="d_new">$$
+D_{new}</h1>
+<p>D_0
+\times
+\frac{B_{L,new}}{B_{L,0}}
+\times
+\frac{N_{new}}{N_0}
+\times
+\frac{A_{new}}{66.64791866}
+\times
+\frac{H_{A,new}}{H_{A,0}}
+\times
+\frac{G_{new}}{12.40225393}
+\times
+\frac{F_{\mathrm{DEF},0}}{F_{\mathrm{DEF},new}}
+\times
+\frac{F_{\mathrm{DMG-},0}}{F_{\mathrm{DMG-},new}}
+\times
+\frac{C_{new}}{C_0}
+$$</p>
+<p>이 비율식은 서로 다른 전투의 절대 상수를 억지로 추측하지 않고, 한 항목만 바꿨을 때의 피해량을 계산하는 데 가장 안전합니다.</p>
+<hr>
+<h1 id="4-레벨별-base-atk-실험">4. 레벨별 Base ATK 실험</h1>
+<h2 id="41-실험-조건">4.1 실험 조건</h2>
+<p>유닛 레벨만 변경하고 공격자, 방어자, 영웅, 장비, 부품, 스킬, 출전 수와 버프를 고정했습니다.</p>
+<p>결과:</p>
+<p>$$
+\boxed{Damage \propto BaseATK[Level]}
+$$</p>
+<p>즉 레벨이 최종 피해에 별도 보정 계수로 곱해지는 것이 아니라, 레벨이 <code>BaseATK</code> 테이블 값을 결정합니다.</p>
+<h2 id="42-측정값과-역산값">4.2 측정값과 역산값</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">레벨</th><th style="text-align: right;">측정 피해</th><th style="text-align: right;">Base ATK</th><th>구분</th></tr></thead><tbody><tr><td style="text-align: right;">73</td><td style="text-align: right;">15B</td><td style="text-align: right;">225M (표 값)</td><td>확인</td></tr><tr><td style="text-align: right;">79</td><td style="text-align: right;">36.5B</td><td style="text-align: right;">550M (표 값)</td><td>확인</td></tr><tr><td style="text-align: right;">80</td><td style="text-align: right;">43.2B</td><td style="text-align: right;">650M (표 값)</td><td>확인</td></tr><tr><td style="text-align: right;">81</td><td style="text-align: right;">49.8B</td><td style="text-align: right;">약 750M</td><td>역산</td></tr><tr><td style="text-align: right;">82</td><td style="text-align: right;">58.1B</td><td style="text-align: right;">약 875M</td><td>역산</td></tr><tr><td style="text-align: right;">83</td><td style="text-align: right;">63.1B</td><td style="text-align: right;">약 950M</td><td>역산</td></tr><tr><td style="text-align: right;">84</td><td style="text-align: right;">66.2B</td><td style="text-align: right;">약 997M</td><td>역산</td></tr><tr><td style="text-align: right;">85</td><td style="text-align: right;">69.6B</td><td style="text-align: right;">약 1.048B</td><td>역산</td></tr><tr><td style="text-align: right;">86</td><td style="text-align: right;">73.1B</td><td style="text-align: right;">약 1.101B</td><td>역산</td></tr><tr><td style="text-align: right;">87</td><td style="text-align: right;">76.7B</td><td style="text-align: right;">약 1.155B</td><td>역산</td></tr><tr><td style="text-align: right;">88</td><td style="text-align: right;">82.5B</td><td style="text-align: right;">약 1.242B</td><td>역산</td></tr><tr><td style="text-align: right;">89</td><td style="text-align: right;">86.6B</td><td style="text-align: right;">약 1.304B</td><td>역산</td></tr><tr><td style="text-align: right;">90</td><td style="text-align: right;">91B</td><td style="text-align: right;">약 1.370B</td><td>역산</td></tr><tr><td style="text-align: right;">91</td><td style="text-align: right;">95.5B</td><td style="text-align: right;">약 1.438B</td><td>역산</td></tr><tr><td style="text-align: right;">92</td><td style="text-align: right;">100B</td><td style="text-align: right;">약 1.506B</td><td>역산</td></tr><tr><td style="text-align: right;">93</td><td style="text-align: right;">107B</td><td style="text-align: right;">약 1.611B</td><td>역산</td></tr><tr><td style="text-align: right;">94</td><td style="text-align: right;">113B</td><td style="text-align: right;">약 1.702B</td><td>역산</td></tr><tr><td style="text-align: right;">95</td><td style="text-align: right;">118B</td><td style="text-align: right;">약 1.777B</td><td>역산</td></tr><tr><td style="text-align: right;">96</td><td style="text-align: right;">125B</td><td style="text-align: right;">약 1.883B</td><td>역산</td></tr><tr><td style="text-align: right;">97</td><td style="text-align: right;">131B</td><td style="text-align: right;">약 1.973B</td><td>역산</td></tr><tr><td style="text-align: right;">98</td><td style="text-align: right;">140B</td><td style="text-align: right;">약 2.108B</td><td>역산</td></tr><tr><td style="text-align: right;">99</td><td style="text-align: right;">147B</td><td style="text-align: right;">약 2.214B</td><td>역산</td></tr><tr><td style="text-align: right;">100</td><td style="text-align: right;">156B</td><td style="text-align: right;">약 2.349B</td><td>역산</td></tr><tr><td style="text-align: right;">101</td><td style="text-align: right;">164B</td><td style="text-align: right;">약 2.470B</td><td>역산</td></tr></tbody></table></div>
+<p>73, 79, 80레벨은 알려진 Base ATK와 실측 피해가 같은 합성 배율 약 <code>66.4</code> 안에서 일치했습니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>73레벨: 225M × 66.4 = 14.94B → 실측 15B
+</span>79레벨: 550M × 66.4 = 36.52B → 실측 36.5B
+80레벨: 650M × 66.4 = 43.16B → 실측 43.2B</code></div></pre>
+<p>81레벨 이후 Base ATK는 당시 화면의 축약 피해량으로 역산했으므로 근삿값입니다.<br>
+현재처럼 리플레이 원본 정수 피해량을 확보하면 이 표도 더 정밀하게 갱신할 수 있습니다.</p>
+<hr>
+<h1 id="5-출전-유닛-수">5. 출전 유닛 수</h1>
+<p>동일 조건에서 출전 유닛 수는 피해량과 총 생명력에 정확히 선형 적용됩니다.</p>
+<p>$$
+\boxed{Damage \propto N}
+$$</p>
+<p>$$
+\boxed{TotalHP \propto N}
+$$</p>
+<p>따라서 현재 출전 수가 $N$일 때 출정 <code>+1</code>의 공격 및 총 생명력 증가율은 각각:</p>
+<p>$$
+\boxed{\frac{1}{N}\times100%}
+$$</p>
+<p>입니다.</p>
+<p>예를 들어 출전이 400이라면:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>출정 +1
+</span>→ 피해 +0.25%
+→ 총 생명력 +0.25%</code></div></pre>
+<p>공격과 총 생명력이 동시에 증가한다는 점이 중요합니다.</p>
+<hr>
+<h1 id="6-일반-공격력-정밀-실험">6. 일반 공격력 정밀 실험</h1>
+<h2 id="61-원본-정수-실험-결과">6.1 원본 정수 실험 결과</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>변경 항목</th><th style="text-align: right;">변경량</th><th style="text-align: right;">일반/치명 피해</th><th style="text-align: right;">args[11]</th><th style="text-align: right;">args[2]</th></tr></thead><tbody><tr><td>기준</td><td style="text-align: right;">없음</td><td style="text-align: right;">340,994,470,531</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>DMG+</td><td style="text-align: right;">50%p 제거</td><td style="text-align: right;">327,247,192,316</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>장식 전체 공격력</td><td style="text-align: right;">60%p 제거</td><td style="text-align: right;">337,924,657,003</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>장식 전체 공격력</td><td style="text-align: right;">102%p 제거</td><td style="text-align: right;">335,775,787,534</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>장식 원상복구</td><td style="text-align: right;">복구</td><td style="text-align: right;">340,994,470,531</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>파츠 공격력</td><td style="text-align: right;">100%p 제거</td><td style="text-align: right;">330,761,758,771</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>파츠 공격력</td><td style="text-align: right;">180%p 제거</td><td style="text-align: right;">322,575,589,364</td><td style="text-align: right;">134,144,010</td><td style="text-align: right;">1</td></tr><tr><td>치명타</td><td style="text-align: right;">기준 상태</td><td style="text-align: right;">654,709,383,420</td><td style="text-align: right;">257,556,500</td><td style="text-align: right;">4</td></tr></tbody></table></div>
+<p>기준 공격자 화면에서 확인한 주요 값:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>육군 공격력 증가: 5143.7%
+</span>육군 데미지 증가: 846.8%
+대공군 육군 데미지 증가: 175.0%
+치명타 확률: 101.0%
+치명타 데미지: 42.0%</code></div></pre>
+<p>방어자 기준:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>DEF: 60.2%
+</span>DMG-: 114.7%</code></div></pre>
+<h2 id="62-장식-전체-공격력">6.2 장식 전체 공격력</h2>
+<p>장식 전체 공격력 60%p 제거:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>340,994,470,531
+</span>→ 337,924,657,003
+감소량: 3,069,813,528</code></div></pre>
+<p>장식 전체 공격력 102%p 제거:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>340,994,470,531
+</span>→ 335,775,787,534
+감소량: 5,218,682,997</code></div></pre>
+<p>1%p당 감소량:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>60% 실험: 3,069,813,528 ÷ 60 = 51,163,558.800
+</span>102% 실험: 5,218,682,997 ÷ 102 = 51,163,558.794</code></div></pre>
+<p>두 값이 정수 오차 수준에서 일치합니다.</p>
+<p>$$
+\boxed{\Delta D_{\mathrm{ornament\ ATK},,1%p}\approx51{,}163{,}558.8}
+$$</p>
+<p>현재 공격력 블록은:</p>
+<h1 id="a_0">$$
+A_0</h1>
+<h1 id="fracd_0times001text장식-atk-1p당-피해">\frac{D_0\times0.01}{\text{장식 ATK 1%p당 피해}}</h1>
+<p>\boxed{66.64791866}
+$$</p>
+<p>즉 현재 전투의 유효 일반 공격력 합계는 블록 표현으로 약:</p>
+<h1 id="a_0-1times100">$$
+(A_0-1)\times100</h1>
+<p>\boxed{6564.791866%}
+$$</p>
+<p>입니다.</p>
+<p>이 수치는 화면의 <code>5143.7%</code>를 그대로 복사한 값이 아닙니다.<br>
+파츠처럼 내부 가중치가 2배인 항목을 포함해 피해 변화로 역산한 <strong>유효 공격력 합계</strong>입니다.</p>
+<h2 id="63-파츠-공격력">6.3 파츠 공격력</h2>
+<p>파츠 공격력 100%p 제거:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>340,994,470,531
+</span>→ 330,761,758,771
+감소량: 10,232,711,760</code></div></pre>
+<p>파츠 공격력 180%p 제거:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>340,994,470,531
+</span>→ 322,575,589,364
+감소량: 18,418,881,167</code></div></pre>
+<p>1%p당 감소량:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>100% 실험: 102,327,117.600
+</span>180% 실험: 102,327,117.594</code></div></pre>
+<p>장식 1%p당 피해의 정확히 2배입니다.</p>
+<p>$$
+\boxed{1%p\ \mathrm{PartsATK}=2%p\ \mathrm{OrnamentATK}}
+$$</p>
+<p>여기서 2배는 최종 피해가 두 배가 된다는 뜻이 아닙니다.<br>
+일반 공격력 블록에 들어갈 때 파츠 수치가 2배 가중된다는 뜻입니다.</p>
+<p>현재 확인된 부분만 적으면:</p>
+<h1 id="a">$$
+A</h1>
+<p>1+
+\frac{ATK_{\mathrm{general}}+2ATK_{\mathrm{parts}}+\cdots}{100}
+$$</p>
+<h2 id="64-장식-복구-검증">6.4 장식 복구 검증</h2>
+<p>장식 제거 후 다시 착용했을 때:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>damage: 340,994,470,531
+</span>args[11]: 134,144,010
+args[2]: 1</code></div></pre>
+<p>기준값과 정수 단위까지 완전히 일치했습니다.<br>
+따라서 장식 60%와 102% 제거 결과는 재현 가능한 실험입니다.</p>
+<h2 id="65-제외한-300-실험">6.5 제외한 300% 실험</h2>
+<p>파츠 공격력 300% 제거라고 기록된 초기 실험에서는 피해가 <code>274,767,418,867</code>로 나왔습니다.</p>
+<p>그러나 이후 정밀 실험으로 확인한 파츠 계수에 따르면 예상값은 약:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>310,296,335,251</span></code></div></pre>
+<p>이어야 합니다.</p>
+<p>따라서 해당 초기 전투는 파츠 공격력 이외의 조건이 함께 바뀐 오염된 데이터로 판단하며, 정밀 공식의 근거에서는 제외합니다.</p>
+<hr>
+<h1 id="7-영웅-전투-스킬-공격력">7. 영웅 전투 스킬 공격력</h1>
+<h2 id="71-엘라-스킬-실험">7.1 엘라 스킬 실험</h2>
+<p>테스트한 준비 스킬:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>전투 시작 시 육군 공격력 115.3% 증가</span></code></div></pre>
+<p>전속 스킬 효과 향상 상태:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">스킬 효과 향상</th><th style="text-align: right;">첫 타격 피해</th></tr></thead><tbody><tr><td style="text-align: right;">0%</td><td style="text-align: right;">452B</td></tr><tr><td style="text-align: right;">3%</td><td style="text-align: right;">459B</td></tr><tr><td style="text-align: right;">6%</td><td style="text-align: right;">466B</td></tr></tbody></table></div>
+<p>관측 배율:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>3% 향상: 459 / 452 ≈ 1.01549
+</span>6% 향상: 466 / 452 ≈ 1.03097</code></div></pre>
+<p>스킬 효과 향상 3%가 최종 피해를 그대로 3% 올리는 것은 아닙니다.</p>
+<p>기본 스킬 공격력 증가율을 $S$, 스킬 효과 향상을 $E$라고 하면 실측에 잘 맞는 구조는:</p>
+<p>$$
+\boxed{H_A=1+S(1+E)}
+$$</p>
+<p>엘라의 경우:</p>
+<p>$$
+S=1.153
+$$</p>
+<p>3% 향상 예상:</p>
+<p>$$
+\frac{1+1.153\times1.03}{1+1.153}
+\approx1.01607
+$$</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>452B × 1.01607 ≈ 459.26B
+</span>실측: 459B</code></div></pre>
+<p>6% 향상 예상:</p>
+<p>$$
+\frac{1+1.153\times1.06}{1+1.153}
+\approx1.03213
+$$</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>452B × 1.03213 ≈ 466.52B
+</span>실측: 466B</code></div></pre>
+<h2 id="72-일반-공격력과-별도-블록-검증">7.2 일반 공격력과 별도 블록 검증</h2>
+<p>일반 공격력을 변경하면서 스킬 효과 0%, 3%, 6%를 교차 테스트했습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>일반 공격력 상태</th><th style="text-align: right;">0%</th><th style="text-align: right;">3%</th><th style="text-align: right;">6%</th></tr></thead><tbody><tr><td>기준</td><td style="text-align: right;">452B</td><td style="text-align: right;">459B</td><td style="text-align: right;">466B</td></tr><tr><td>전체 공격력 4% 제거</td><td style="text-align: right;">451B</td><td style="text-align: right;">458B</td><td style="text-align: right;">465B</td></tr><tr><td>전체 공격력 10% 제거</td><td style="text-align: right;">450B</td><td style="text-align: right;">457B</td><td style="text-align: right;">464B</td></tr><tr><td>과거 300% 제거 기록</td><td style="text-align: right;">353B</td><td style="text-align: right;">359B</td><td style="text-align: right;">365B</td></tr></tbody></table></div>
+<p>일반 공격력이 달라져도 스킬 효과 향상의 상대 배율은 거의 유지됐습니다.</p>
+<p>따라서:</p>
+<p>$$
+\boxed{Damage\propto GeneralATKBlock\times HeroSkillATKBlock}
+$$</p>
+<p>영웅 전투 스킬 공격력은 화면 일반 공격력 합계에 더해지는 항목이 아니라, 별도 곱연산 블록으로 보는 것이 실측에 맞습니다.</p>
+<blockquote>
+<p>이 스킬식은 엘라의 해당 준비 스킬에서 검증한 식입니다. 다른 영웅의 특수한 스킬이 모두 동일하다고 단정하지는 않습니다.</p>
+</blockquote>
+<hr>
+<h1 id="8-데미지-증가">8. 데미지 증가</h1>
+<h2 id="81-초기-화면-축약값-실험">8.1 초기 화면 축약값 실험</h2>
+<p>다른 조건을 모두 고정하고 일반 데미지 증가만 바꿨습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">DMG+</th><th style="text-align: right;">측정 피해</th></tr></thead><tbody><tr><td style="text-align: right;">773.8%</td><td style="text-align: right;">1.56T</td></tr><tr><td style="text-align: right;">793.8%</td><td style="text-align: right;">1.59T</td></tr><tr><td style="text-align: right;">843.8%</td><td style="text-align: right;">1.68T</td></tr></tbody></table></div>
+<p>각 피해를 <code>1 + DMG+/100</code>으로 나누면 약 <code>0.178T</code> 부근으로 모였습니다.</p>
+<p>따라서 초기 실험에서도:</p>
+<p>$$
+\boxed{Damage\propto1+\frac{DMG+}{100}}
+$$</p>
+<p>구조를 확인했습니다.</p>
+<h2 id="82-리플레이-정수-정밀-실험">8.2 리플레이 정수 정밀 실험</h2>
+<p>DMG+ 50%p 제거 전후:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>기준:       340,994,470,531
+</span>50%p 제거: 327,247,192,316</code></div></pre>
+<p>비율:</p>
+<h1 id="r">$$
+r</h1>
+<h1 id="frac327247192316340994470531">\frac{327247192316}{340994470531}</h1>
+<p>0.9596847474
+$$</p>
+<p>데미지 증가 블록을 $G$라고 하면:</p>
+<p>$$
+\frac{G-0.5}{G}=r
+$$</p>
+<p>따라서:</p>
+<p>$$
+\boxed{G_0=12.40225393}
+$$</p>
+<p>유효 DMG+ 합계:</p>
+<h1 id="g_0-1times100">$$
+(G_0-1)\times100</h1>
+<p>\boxed{1140.225393%}
+$$</p>
+<p>화면에서 직접 확인한:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>육군 DMG+ 846.8%
+</span>대공군 육군 DMG+ 175.0%
+합계 1021.8%</code></div></pre>
+<p>보다 약 <code>118.425%p</code> 높습니다.<br>
+이는 화면의 두 줄 이외에 영웅·스킬·전투 중 효과 등 같은 DMG+ 블록에 들어간 항목이 존재한다는 뜻으로 해석할 수 있습니다.</p>
+<p>DMG+를 제거해도 <code>args[11]</code>은 <code>134,144,010</code>으로 고정됐으므로, 이 참조값에는 일반 DMG+가 포함되지 않았습니다.</p>
+<hr>
+<h1 id="9-치명타">9. 치명타</h1>
+<p>일반타:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>damage: 340,994,470,531
+</span>args[2]: 1
+args[11]: 134,144,010</code></div></pre>
+<p>치명타:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>damage: 654,709,383,420
+</span>args[2]: 4
+args[11]: 257,556,500</code></div></pre>
+<p>비율:</p>
+<h1 id="frac654709383420340994470531">$$
+\frac{654709383420}{340994470531}</h1>
+<p>\boxed{1.92}
+$$</p>
+<p>공격자 화면의 치명타 데미지가 42%였으므로, 관측 결과는:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>기본 치명타 150%
+</span>+ 추가 치명타 데미지 42%
+= 총 192%</code></div></pre>
+<p>와 정확히 일치합니다.</p>
+<p>$$
+\boxed{C=1.5+\frac{\mathrm{CriticalDamageBonus}}{100}}
+$$</p>
+<p>현재 사례에서는 $C=1.92$입니다.</p>
+<hr>
+<h1 id="10-def와-데미지-감면">10. DEF와 데미지 감면</h1>
+<h2 id="101-원본-정수-실험값">10.1 원본 정수 실험값</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">DEF</th><th style="text-align: right;">DMG-</th><th style="text-align: right;">실측 피해</th><th style="text-align: right;">적합식 계산</th><th style="text-align: right;">오차율</th></tr></thead><tbody><tr><td style="text-align: right;">60.2%</td><td style="text-align: right;">114.7%</td><td style="text-align: right;">19,350,215,824</td><td style="text-align: right;">19,350,204,228</td><td style="text-align: right;">-0.000060%</td></tr><tr><td style="text-align: right;">64.2%</td><td style="text-align: right;">114.7%</td><td style="text-align: right;">18,918,712,346</td><td style="text-align: right;">18,918,728,675</td><td style="text-align: right;">0.000086%</td></tr><tr><td style="text-align: right;">74.2%</td><td style="text-align: right;">105.2%</td><td style="text-align: right;">18,568,341,235</td><td style="text-align: right;">18,568,339,742</td><td style="text-align: right;">-0.000008%</td></tr><tr><td style="text-align: right;">74.2%</td><td style="text-align: right;">109.7%</td><td style="text-align: right;">18,255,370,796</td><td style="text-align: right;">18,255,373,731</td><td style="text-align: right;">0.000016%</td></tr><tr><td style="text-align: right;">74.2%</td><td style="text-align: right;">114.7%</td><td style="text-align: right;">17,919,785,673</td><td style="text-align: right;">17,919,779,677</td><td style="text-align: right;">-0.000033%</td></tr></tbody></table></div>
+<p>DEF와 DMG-가 같은 단일 합산 풀이라면 위 변화 패턴을 설명하기 어렵습니다.<br>
+두 항목을 독립된 분모 블록으로 두면 모든 실측을 매우 정밀하게 설명할 수 있습니다.</p>
+<p>현재 데이터에 대한 최적 적합식:</p>
+<p>$$
+Damage
+\approx
+\frac{92,305,541,467}
+{\left(1.15186332+\frac{DEF}{100}\right)
+\left(1.57285953+\frac{DMG-}{100}\right)}
+$$</p>
+<p>최대 상대 오차는 약 <code>0.000086%</code>입니다.</p>
+<p>따라서:</p>
+<p>$$
+\boxed{F_{\mathrm{DEF}}\text{ and }F_{\mathrm{DMG-}}\text{ are independent multiplicative blocks}}
+$$</p>
+<p>으로 보는 것이 타당합니다.</p>
+<h3 id="상수의-의미">상수의 의미</h3>
+<p><code>1.15186</code>, <code>1.57286</code>을 모든 계정과 모든 전투에서 고정되는 게임 상수로 단정해서는 안 됩니다.<br>
+현재 방어자에게 표시되지 않은 기본값, 영웅 효과 또는 같은 계열의 누락 항목이 포함된 <strong>유효 시작 블록</strong>일 수 있습니다.</p>
+<p>현재 비교에 사용할 실용 블록은:</p>
+<p>$$
+F_{\mathrm{DEF}}
+\approx
+1.15174831+\frac{DEF}{100}
+$$</p>
+<p>$$
+F_{\mathrm{DMG-}}
+\approx
+1.57287864+\frac{DMG-}{100}
+$$</p>
+<p>현재 <code>DEF 60.2%</code>, <code>DMG- 114.7%</code>에서는:</p>
+<p>$$
+F_{\mathrm{DEF}}=1.75374831
+$$</p>
+<p>$$
+F_{\mathrm{DMG-}}=2.71987864
+$$</p>
+<hr>
+<h1 id="11-생명력과-영웅-스킬-생명력">11. 생명력과 영웅 스킬 생명력</h1>
+<h2 id="111-일반-생명력-블록">11.1 일반 생명력 블록</h2>
+<p>영웅을 제외한 상태에서:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>전체 생명력 6278%
+</span>→ 전체 생명력 300%p 제거
+→ 5978%</code></div></pre>
+<p>일반 생명력 블록은:</p>
+<p>$$
+\boxed{H_{\mathrm{general}}=1+\frac{\mathrm{HP%}}{100}}
+$$</p>
+<p>따라서 제거 전후 비율은:</p>
+<h1 id="frac1597816278">$$
+\frac{1+59.78}{1+62.78}</h1>
+<p>\frac{60.78}{63.78}
+\approx0.952963
+$$</p>
+<p>입니다.</p>
+<h2 id="112-영웅-스킬-생명력은-별도-블록">11.2 영웅 스킬 생명력은 별도 블록</h2>
+<p>제트 스킬 비교에서 기록된 두 대응 상태:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>상태</th><th style="text-align: right;">화면 전체 생명력</th><th style="text-align: right;">HP 기록</th></tr></thead><tbody><tr><td>스킬 제외</td><td style="text-align: right;">6188%</td><td style="text-align: right;">3.24T / 3.36T</td></tr><tr><td>스킬 적용</td><td style="text-align: right;">6198%</td><td style="text-align: right;">3.69T / 3.83T</td></tr></tbody></table></div>
+<p>실제 HP 배율:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>3.69 / 3.24 ≈ 1.1389
+</span>3.83 / 3.36 ≈ 1.1399</code></div></pre>
+<p>화면 전체 생명력 10%p 차이만으로 예상되는 배율은:</p>
+<p>$$
+\frac{62.98}{62.88}
+\approx1.00159
+$$</p>
+<p>에 불과하므로 실제 약 1.139배를 설명하지 못합니다.</p>
+<p>따라서:</p>
+<h1 id="boxedtotalhp">$$
+\boxed{TotalHP</h1>
+<p>BaseHP
+\times N
+\times GeneralHPBlock
+\times HeroSkillHPBlock}
+$$</p>
+<p>일반 생명력과 영웅 전투 스킬 생명력은 별도 곱연산 블록입니다.</p>
+<p>영웅 스킬 기본 생명력 증가율을 $S_H$, 스킬 효과 향상을 $E$라고 하면 당시 실측과 맞춘 구조는:</p>
+<p>$$
+\boxed{HeroSkillHPBlock=1+S_H(1+E)}
+$$</p>
+<p>입니다.</p>
+<h2 id="113-스킬-생명력-강화-화면-기록">11.3 스킬 생명력 강화 화면 기록</h2>
+<p>생명력 스킬 강화 전후로 기록한 축약 HP 값:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">강화 전</th><th style="text-align: right;">강화 후</th><th style="text-align: right;">증가율</th></tr></thead><tbody><tr><td style="text-align: right;">4.34T</td><td style="text-align: right;">4.58T</td><td style="text-align: right;">약 5.53%</td></tr><tr><td style="text-align: right;">4.48T</td><td style="text-align: right;">4.72T</td><td style="text-align: right;">약 5.36%</td></tr><tr><td style="text-align: right;">6.71T</td><td style="text-align: right;">7.10T</td><td style="text-align: right;">약 5.81%</td></tr></tbody></table></div>
+<p>축약 표시 오차가 있지만 모두 비슷한 범위로 증가했습니다.<br>
+이 값들은 원본 정수 HP가 아니라 화면 축약값이므로, 공격력 정밀 실험만큼의 소수점 정확도를 주장하지 않습니다.</p>
+<p>과거 분석 중 제기됐던 <code>숨은 생명력 23~24%</code> 추정은 근거가 부족하여 폐기했습니다.<br>
+현재 유지하는 결론은 <strong>일반 생명력과 스킬 생명력이 별도 곱연산 블록</strong>이라는 점입니다.</p>
+<hr>
+<h1 id="12-질문-1-dmg-1는-공격력-몇-와-같은가">12. 질문 1: DMG+ 1%는 공격력 몇 %와 같은가?</h1>
+<h2 id="121-일반식">12.1 일반식</h2>
+<p>일반 공격력 블록:</p>
+<p>$$
+A=1+\frac{ATK_{\mathrm{effective}}}{100}
+$$</p>
+<p>데미지 증가 블록:</p>
+<p>$$
+G=1+\frac{\mathrm{DMG+}_{\mathrm{effective}}}{100}
+$$</p>
+<p>장식 전체 공격력 1%p의 최종 피해 증가율:</p>
+<p>$$
+\frac{1}{A}%
+$$</p>
+<p>파츠 공격력 1%p의 최종 피해 증가율:</p>
+<p>$$
+\frac{2}{A}%
+$$</p>
+<p>DMG+ 1%p의 최종 피해 증가율:</p>
+<p>$$
+\frac{1}{G}%
+$$</p>
+<p>따라서:</p>
+<h1 id="boxed1p-mathrmdmg">$$
+\boxed{1%p\ \mathrm{DMG+}</h1>
+<p>\frac{A}{G}%p\ \mathrm{OrnamentATK}}
+$$</p>
+<h1 id="boxed1p-mathrmdmg-1">$$
+\boxed{1%p\ \mathrm{DMG+}</h1>
+<p>\frac{A}{2G}%p\ \mathrm{PartsATK}}
+$$</p>
+<h2 id="122-현재-구간">12.2 현재 구간</h2>
+<p>현재:</p>
+<p>$$
+A=66.64791866,\qquad G=12.40225393
+$$</p>
+<p>따라서:</p>
+<p>$$
+\boxed{1%p\ \mathrm{DMG+}
+\approx5.374%p\ \mathrm{OrnamentATK}}
+$$</p>
+<p>$$
+\boxed{1%p\ \mathrm{DMG+}
+\approx2.687%p\ \mathrm{PartsATK}}
+$$</p>
+<h2 id="123-dmg-구간별-비교">12.3 DMG+ 구간별 비교</h2>
+<p>아래 표는 현재 공격력 블록 $A=66.6479$을 유지한 경우입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">유효 DMG+ 합계</th><th style="text-align: right;">DMG+ 1%p의 피해 증가</th><th style="text-align: right;">동일 가치 장식 ATK</th><th style="text-align: right;">동일 가치 파츠 ATK</th></tr></thead><tbody><tr><td style="text-align: right;">500.0%</td><td style="text-align: right;">0.1667%</td><td style="text-align: right;">11.108%p</td><td style="text-align: right;">5.554%p</td></tr><tr><td style="text-align: right;">800.0%</td><td style="text-align: right;">0.1111%</td><td style="text-align: right;">7.405%p</td><td style="text-align: right;">3.703%p</td></tr><tr><td style="text-align: right;">1000.0%</td><td style="text-align: right;">0.0909%</td><td style="text-align: right;">6.059%p</td><td style="text-align: right;">3.029%p</td></tr><tr><td style="text-align: right;">1140.2%</td><td style="text-align: right;">0.0806%</td><td style="text-align: right;">5.374%p</td><td style="text-align: right;">2.687%p</td></tr><tr><td style="text-align: right;">1200.0%</td><td style="text-align: right;">0.0769%</td><td style="text-align: right;">5.127%p</td><td style="text-align: right;">2.563%p</td></tr><tr><td style="text-align: right;">1500.0%</td><td style="text-align: right;">0.0625%</td><td style="text-align: right;">4.165%p</td><td style="text-align: right;">2.083%p</td></tr></tbody></table></div>
+<p>해석:</p>
+<ul>
+<li>DMG+가 낮을수록 DMG+ 1%p의 가치가 큽니다.</li>
+<li>DMG+가 높아질수록 같은 블록 안에서 누적되므로 추가 1%p의 체감 효율이 낮아집니다.</li>
+<li>공격력이 높을수록 공격력 1%p의 효율은 낮아지므로, 상대적으로 DMG+ 가치가 커집니다.</li>
+<li>장식 공격력과 파츠 공격력은 같은 숫자로 비교하면 안 됩니다. 파츠는 현재 실측상 2배 가중됩니다.</li>
+</ul>
+<hr>
+<h1 id="13-질문-2-def-1는-dmg--몇-와-같은가">13. 질문 2: DEF 1%는 DMG- 몇 %와 같은가?</h1>
+<h2 id="131-일반식">13.1 일반식</h2>
+<p>현재 유효 방어 블록을:</p>
+<p>$$
+F_D=a+\frac{DEF}{100}
+$$</p>
+<p>$$
+F_R=b+\frac{DMG-}{100}
+$$</p>
+<p>라고 하면 DEF 1%p와 같은 DMG- 수치는:</p>
+<h1 id="boxeddef-1p">$$
+\boxed{DEF\ 1%p</h1>
+<p>DMG-\ \frac{F_R}{F_D}%p}
+$$</p>
+<p>현재:</p>
+<p>$$
+F_D=1.75374831,\qquad F_R=2.71987864
+$$</p>
+<p>따라서:</p>
+<p>$$
+\boxed{DEF\ 1%p
+\approx DMG-\ 1.551%p}
+$$</p>
+<h2 id="132-def-구간별-비교">13.2 DEF 구간별 비교</h2>
+<p>아래 표는 DMG-를 114.7%로 고정한 경우입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">DEF</th><th style="text-align: right;">DEF 1%p의 유효 내구 증가</th><th style="text-align: right;">동일 가치 DMG- (DMG- 114.7% 기준)</th></tr></thead><tbody><tr><td style="text-align: right;">0.0%</td><td style="text-align: right;">0.8682%</td><td style="text-align: right;">2.362%p</td></tr><tr><td style="text-align: right;">50.0%</td><td style="text-align: right;">0.6054%</td><td style="text-align: right;">1.647%p</td></tr><tr><td style="text-align: right;">60.2%</td><td style="text-align: right;">0.5702%</td><td style="text-align: right;">1.551%p</td></tr><tr><td style="text-align: right;">75.0%</td><td style="text-align: right;">0.5258%</td><td style="text-align: right;">1.430%p</td></tr><tr><td style="text-align: right;">100.0%</td><td style="text-align: right;">0.4647%</td><td style="text-align: right;">1.264%p</td></tr><tr><td style="text-align: right;">150.0%</td><td style="text-align: right;">0.3771%</td><td style="text-align: right;">1.026%p</td></tr><tr><td style="text-align: right;">200.0%</td><td style="text-align: right;">0.3173%</td><td style="text-align: right;">0.863%p</td></tr></tbody></table></div>
+<h2 id="133-dmg--구간별-비교">13.3 DMG- 구간별 비교</h2>
+<p>아래 표는 DEF를 60.2%로 고정한 경우입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">DMG-</th><th style="text-align: right;">DMG- 1%p의 유효 내구 증가</th><th style="text-align: right;">DEF 1%p와 같은 DMG- (DEF 60.2% 기준)</th></tr></thead><tbody><tr><td style="text-align: right;">0.0%</td><td style="text-align: right;">0.6358%</td><td style="text-align: right;">0.897%p</td></tr><tr><td style="text-align: right;">50.0%</td><td style="text-align: right;">0.4824%</td><td style="text-align: right;">1.182%p</td></tr><tr><td style="text-align: right;">75.0%</td><td style="text-align: right;">0.4305%</td><td style="text-align: right;">1.325%p</td></tr><tr><td style="text-align: right;">100.0%</td><td style="text-align: right;">0.3887%</td><td style="text-align: right;">1.467%p</td></tr><tr><td style="text-align: right;">114.7%</td><td style="text-align: right;">0.3677%</td><td style="text-align: right;">1.551%p</td></tr><tr><td style="text-align: right;">150.0%</td><td style="text-align: right;">0.3254%</td><td style="text-align: right;">1.752%p</td></tr><tr><td style="text-align: right;">200.0%</td><td style="text-align: right;">0.2799%</td><td style="text-align: right;">2.037%p</td></tr></tbody></table></div>
+<p>해석:</p>
+<ul>
+<li>DEF가 낮을수록 DEF 1%p의 가치가 큽니다.</li>
+<li>DMG-가 높을수록 DMG- 1%p의 자체 체감은 낮아지며, 상대적으로 DEF가 더 가치 있어집니다.</li>
+<li>반대로 DEF가 매우 높고 DMG-가 낮다면 DMG- 1%p가 더 좋아질 수 있습니다.</li>
+<li>어느 한 능력치가 항상 우월한 것이 아니라 현재 두 블록의 크기에 따라 달라집니다.</li>
+</ul>
+<hr>
+<h1 id="14-질문-3-def-장식-100개와-dmg--장식-83333개는-합리적인가">14. 질문 3: DEF 장식 100개와 DMG- 장식 83.333개는 합리적인가?</h1>
+<blockquote>
+<p>전제: 두 장식 모두 레벨업 시 표시 능력치가 동일하게 <code>1%p</code> 오른다고 가정합니다.<br>
+<code>83.333개</code>는 계산 편의를 위해 정확한 반복소수인 <code>83⅓개 = 250/3개</code>로 취급합니다.</p>
+</blockquote>
+<p>현재 구간에서:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>DEF 1%p ≈ DMG- 1.5509%p</span></code></div></pre>
+<p>DMG- 장식 <code>1%p</code>의 비용이 <code>83⅓개</code>라면, 같은 방어 가치를 내는 DEF <code>1%p</code>의 공정 비용은:</p>
+<p>$$
+\frac{250}{3}\times1.550894518
+\approx
+\boxed{129.24\text{개}}
+$$</p>
+<p>입니다.</p>
+<p>실제 DEF 장식 비용은 100개이므로 현재 구간에서는:</p>
+<ul>
+<li>DEF 장식의 실제 비용은 계산상 공정 비용보다 약 <code>22.6%</code> 낮음</li>
+<li>재료 1개당 방어 효율은 DMG- 장식보다 약 <code>29.2%</code> 높음</li>
+</ul>
+<p>즉 현재 <code>DEF 60.2% / DMG- 114.7%</code> 기준에서는:</p>
+<p>$$
+\boxed{\text{DEF 장식 100개가 더 유리}}
+$$</p>
+<p>입니다.</p>
+<h2 id="141-구간별-공정-비용">14.1 구간별 공정 비용</h2>
+<p>DMG-를 <code>114.7%</code>, DMG- 장식 비용을 <code>83⅓개</code>로 고정해 계산했습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">DEF</th><th style="text-align: right;">DEF 1%p = DMG- 몇 %p</th><th style="text-align: right;">DEF 장식의 공정 비용</th><th>실제 비용 비교</th></tr></thead><tbody><tr><td style="text-align: right;">0.0%</td><td style="text-align: right;">2.362</td><td style="text-align: right;">196.8개</td><td>DEF 장식 우세</td></tr><tr><td style="text-align: right;">50.0%</td><td style="text-align: right;">1.647</td><td style="text-align: right;">137.2개</td><td>DEF 장식 우세</td></tr><tr><td style="text-align: right;">60.2%</td><td style="text-align: right;">1.551</td><td style="text-align: right;">129.2개</td><td>DEF 장식 우세</td></tr><tr><td style="text-align: right;">75.0%</td><td style="text-align: right;">1.430</td><td style="text-align: right;">119.2개</td><td>DEF 장식 우세</td></tr><tr><td style="text-align: right;">100.0%</td><td style="text-align: right;">1.264</td><td style="text-align: right;">105.3개</td><td>DEF 장식 근소 우세</td></tr><tr><td style="text-align: right;">111.5%</td><td style="text-align: right;">1.200</td><td style="text-align: right;">100.0개</td><td>거의 동일</td></tr><tr><td style="text-align: right;">150.0%</td><td style="text-align: right;">1.026</td><td style="text-align: right;">85.5개</td><td>DMG- 장식 우세</td></tr><tr><td style="text-align: right;">200.0%</td><td style="text-align: right;">0.863</td><td style="text-align: right;">71.9개</td><td>DMG- 장식 우세</td></tr></tbody></table></div>
+<p>손익분기 조건은 비용 비율과 능력치 가치 비율이 같아지는 지점입니다.</p>
+<h1 id="fracf_rf_d">$$
+\frac{F_R}{F_D}</h1>
+<h1 id="frac1002503">\frac{100}{250/3}</h1>
+<p>1.2
+$$</p>
+<p>현재 DMG- <code>114.7%</code>를 고정하면 손익분기 DEF는 약:</p>
+<p>$$
+\boxed{DEF_{\mathrm{break-even}}\approx111.5%}
+$$</p>
+<p>입니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>DEF가 약 111.5%보다 낮음
+</span>→ DEF 장식 100개가 상대적으로 유리
+
+DEF가 약 111.5%보다 높음
+→ DMG- 장식 83.333개가 상대적으로 유리</code></div></pre>
+<p>현재 DEF <code>60.2%</code>를 고정하면 손익분기 DMG-는 약:</p>
+<p>$$
+\boxed{\mathrm{DMG-}_{\mathrm{break-even}}\approx53.2%}
+$$</p>
+<p>입니다.</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>DMG-가 약 53.2%보다 높음
+</span>→ DEF 장식이 상대적으로 유리
+
+DMG-가 약 53.2%보다 낮음
+→ DMG- 장식이 상대적으로 유리</code></div></pre>
+<p>따라서 <code>DEF 100개 : DMG- 83.333개</code>라는 가격 책정은 모든 구간에서 동일한 효율을 주지는 않습니다.</p>
+<p>현재 실험자의 <code>DEF 60.2% / DMG- 114.7%</code> 구간에서는 DEF 장식이 명확하게 우세합니다. 반대로 DEF가 약 <code>111.5%</code>를 넘고 DMG-가 현재 수준에 머문다면 DMG- 장식 쪽이 더 효율적이 됩니다.</p>
+<hr>
+<h1 id="15-질문-4-출정-1은-어느-정도의-스펙-가치인가">15. 질문 4: 출정 +1은 어느 정도의 스펙 가치인가?</h1>
+<p>현재 출전 수를 $N$이라고 하면:</p>
+<h1 id="mathrmdamagegain_n1">$$
+\mathrm{DamageGain}_{N+1}</h1>
+<h1 id="mathrmhpgain_n1">\mathrm{HPGain}_{N+1}</h1>
+<p>\frac{100}{N}%
+$$</p>
+<p>출정 +1과 같은 공격 옵션:</p>
+<p>$$
+\boxed{\mathrm{Equivalent\ DMG+}=\frac{100G}{N}%p}
+$$</p>
+<p>$$
+\boxed{\mathrm{Equivalent\ OrnamentATK}=\frac{100A}{N}%p}
+$$</p>
+<p>$$
+\boxed{\mathrm{Equivalent\ PartsATK}=\frac{50A}{N}%p}
+$$</p>
+<p>출정 +1과 같은 방어 옵션:</p>
+<p>$$
+\boxed{\mathrm{Equivalent\ DEF}=\frac{100F_D}{N}%p}
+$$</p>
+<p>$$
+\boxed{\mathrm{Equivalent\ DMG-}=\frac{100F_R}{N}%p}
+$$</p>
+<p>현재 공격·방어 블록을 기준으로 한 예시:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th style="text-align: right;">현재 출정 N</th><th style="text-align: right;">출정 +1 공격/HP 증가</th><th style="text-align: right;">DMG+ 환산</th><th style="text-align: right;">장식 ATK 환산</th><th style="text-align: right;">파츠 ATK 환산</th><th style="text-align: right;">DEF 환산</th><th style="text-align: right;">DMG- 환산</th></tr></thead><tbody><tr><td style="text-align: right;">350</td><td style="text-align: right;">0.2857%</td><td style="text-align: right;">3.544%p</td><td style="text-align: right;">19.042%p</td><td style="text-align: right;">9.521%p</td><td style="text-align: right;">0.501%p</td><td style="text-align: right;">0.777%p</td></tr><tr><td style="text-align: right;">370</td><td style="text-align: right;">0.2703%</td><td style="text-align: right;">3.352%p</td><td style="text-align: right;">18.013%p</td><td style="text-align: right;">9.006%p</td><td style="text-align: right;">0.474%p</td><td style="text-align: right;">0.735%p</td></tr><tr><td style="text-align: right;">383</td><td style="text-align: right;">0.2611%</td><td style="text-align: right;">3.238%p</td><td style="text-align: right;">17.402%p</td><td style="text-align: right;">8.701%p</td><td style="text-align: right;">0.458%p</td><td style="text-align: right;">0.710%p</td></tr><tr><td style="text-align: right;">400</td><td style="text-align: right;">0.2500%</td><td style="text-align: right;">3.101%p</td><td style="text-align: right;">16.662%p</td><td style="text-align: right;">8.331%p</td><td style="text-align: right;">0.438%p</td><td style="text-align: right;">0.680%p</td></tr><tr><td style="text-align: right;">450</td><td style="text-align: right;">0.2222%</td><td style="text-align: right;">2.756%p</td><td style="text-align: right;">14.811%p</td><td style="text-align: right;">7.405%p</td><td style="text-align: right;">0.390%p</td><td style="text-align: right;">0.604%p</td></tr></tbody></table></div>
+<p>예를 들어 출전 383일 때:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>출정 +1
+</span>→ 피해 +0.2611%
+→ 총 생명력 +0.2611%
+→ DMG+ 약 3.238%p와 같은 공격 증가
+→ 장식 전체 공격력 약 17.402%p와 같은 공격 증가
+→ 파츠 공격력 약 8.701%p와 같은 공격 증가
+→ DEF 약 0.458%p와 같은 내구 증가
+→ DMG- 약 0.710%p와 같은 내구 증가</code></div></pre>
+<p>중요한 점은 출정 +1이 위 옵션 중 하나만 제공하는 것이 아니라:</p>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>공격력 증가 효과
+</span>+
+총 생명력 증가 효과</code></div></pre>
+<p>를 동시에 제공한다는 것입니다.</p>
+<p>피해와 총 HP의 단순 곱을 전투력 지표로 사용한다면:</p>
+<p>$$
+\left(\frac{N+1}{N}\right)^2-1
+$$</p>
+<p>만큼 증가하지만, 실제 전투 승률은 선공, 스킬 발동, 오버킬, 병력 손실 순서 등에 영향을 받으므로 이 곱을 공식 전투력으로 단정해서는 안 됩니다.</p>
+<hr>
+<h1 id="16-현재-실전-계산기용-식">16. 현재 실전 계산기용 식</h1>
+<p>기준 전투에서 다음 변화량을 입력한다고 가정합니다.</p>
+<ul>
+<li>$\Delta J$: 장식 전체 공격력 변화량(%p)</li>
+<li>$\Delta P$: 파츠 공격력 변화량(%p)</li>
+<li>$\Delta M$: 유효 DMG+ 변화량(%p)</li>
+<li>$DEF_{new}$: 변경 후 DEF</li>
+<li>$R_{new}$: 변경 후 DMG-</li>
+<li>$N_{new}/N_0$: 출전 수 비율</li>
+<li>$B_{new}/B_0$: Base ATK 비율</li>
+<li>$H_{new}/H_0$: 영웅 공격력 스킬 블록 비율</li>
+</ul>
+<p>일반 공격력 블록:</p>
+<h1 id="a_new">$$
+A_{new}</h1>
+<p>66.64791866
++
+0.01\Delta J
++
+0.02\Delta P
+$$</p>
+<p>데미지 증가 블록:</p>
+<h1 id="g_new">$$
+G_{new}</h1>
+<p>12.40225393
++
+0.01\Delta M
+$$</p>
+<p>방어 블록:</p>
+<h1 id="f_mathrmdefnew">$$
+F_{\mathrm{DEF},new}</h1>
+<p>1.15174831
++
+\frac{DEF_{new}}{100}
+$$</p>
+<h1 id="f_mathrmdmg-new">$$
+F_{\mathrm{DMG-},new}</h1>
+<p>1.57287864
++
+\frac{R_{new}}{100}
+$$</p>
+<p>최종 변화식:</p>
+<h1 id="boxedd_new">$$
+\boxed{
+D_{new}</h1>
+<p>340,994,470,531
+\times
+\frac{B_{new}}{B_0}
+\times
+\frac{N_{new}}{N_0}
+\times
+\frac{A_{new}}{66.64791866}
+\times
+\frac{H_{new}}{H_0}
+\times
+\frac{G_{new}}{12.40225393}
+\times
+\frac{1.75374831}{F_{\mathrm{DEF},new}}
+\times
+\frac{2.71987864}{F_{\mathrm{DMG-},new}}
+}
+$$</p>
+<p>치명타라면 현재 사례에서 마지막에 <code>× 1.92</code>를 적용합니다.</p>
+<hr>
+<h1 id="17-데이터-품질과-확정-수준">17. 데이터 품질과 확정 수준</h1>
+<h2 id="높은-확정도">높은 확정도</h2>
+<ul>
+<li>출전 수는 피해와 총 HP에 선형 적용</li>
+<li>피해는 레벨별 Base ATK에 정비례</li>
+<li>장식 전체 공격력은 일반 공격력 블록에 1배 가중</li>
+<li>파츠 공격력은 같은 블록에 2배 가중</li>
+<li>DMG+는 <code>1 + 합계/100</code> 블록</li>
+<li>DEF와 DMG-는 서로 다른 곱연산 방어 블록</li>
+<li>일반 공격력과 영웅 전투 스킬 공격력은 별도 곱연산</li>
+<li>일반 생명력과 영웅 전투 스킬 생명력은 별도 곱연산</li>
+<li>현재 치명타 계수는 1.92</li>
+</ul>
+<h2 id="조건부-확정">조건부 확정</h2>
+<ul>
+<li>DEF와 DMG-의 시작 상수 <code>1.1517</code>, <code>1.5729</code>는 현재 방어자 기준 유효값</li>
+<li>유효 일반 공격력 합계 <code>6564.79%</code>와 유효 DMG+ 합계 <code>1140.23%</code>는 현재 공격자·상대·첫 타격 기준</li>
+<li>엘라와 제트에서 확인한 영웅 스킬 증폭식이 모든 영웅에게 동일한지는 별도 확인 필요</li>
+<li>81레벨 이상 Base ATK 역산값은 화면 축약 피해를 사용해 근삿값</li>
+</ul>
+<h2 id="공식에서-의도적으로-제외한-항목">공식에서 의도적으로 제외한 항목</h2>
+<p>이 문서의 가치 비교에는 다음을 고정 계수로 두었습니다.</p>
+<ul>
+<li>취약</li>
+<li>상성</li>
+<li>타격 배율</li>
+<li>스킬별 고유 배율</li>
+<li>suppression</li>
+<li>직접 피해 감소</li>
+<li>공격 순서 및 발동 조건</li>
+</ul>
+<p>이 항목을 무시한다는 뜻이 아니라, 이번 질문의 능력치 교환 가치에서는 같은 조건으로 고정했다는 뜻입니다.</p>
+<hr>
+<h1 id="18-최종-요약">18. 최종 요약</h1>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>[공격]
+</span>
+Base ATK는 레벨 테이블 값이며 피해에 정비례
+출전 수는 피해에 정확히 선형 적용
+
+장식 전체 공격력 1%p
+→ 일반 공격력 블록 +0.01
+
+파츠 공격력 1%p
+→ 일반 공격력 블록 +0.02
+→ 장식 공격력의 정확히 2배 가치
+
+DMG+ 1%p
+→ DMG 블록 +0.01
+
+현재 구간:
+DMG+ 1%p
+≈ 장식 ATK 5.374%p
+≈ 파츠 ATK 2.687%p</code></div></pre>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>[방어]
+</span>
+DEF와 DMG-는 별도 곱연산 블록
+
+현재 DEF 60.2%, DMG- 114.7%:
+DEF 1%p
+≈ DMG- 1.551%p
+
+장식 비용:
+DEF 100개 vs DMG- 83.333개
+→ 현재 구간에서는 DEF 장식이 약 29.2% 더 높은 재료 효율</code></div></pre>
+<pre><div style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: 0.5em 0px; overflow: auto; background: rgb(30, 30, 30);"><code class="language-text" style="white-space: pre; color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"><span>[출정]
+</span>
+출정 +1의 피해 증가율 = 100/N %
+출정 +1의 총 HP 증가율 = 100/N %
+
+출정 383 예시:
+피해 +0.2611%
+총 HP +0.2611%
+DMG+ 약 3.238%p 상당의 공격 효과
+DEF 약 0.458%p 상당의 방어 효과
+두 효과를 동시에 제공</code></div></pre>
+<hr>
+<h2 id="부록-사용한-주요-원본-기록">부록: 사용한 주요 원본 기록</h2>
+<ul>
+<li>레벨별 Base ATK 분석 기록</li>
+<li>일반 공격력과 엘라 영웅 스킬 공격력 교차 실험</li>
+<li>DMG+ 773.8% / 793.8% / 843.8% 화면 실험</li>
+<li>리플레이 원본 정수 피해 캡처</li>
+<li>장식 전체 공격력 60% / 102% 제거 실험</li>
+<li>파츠 공격력 100% / 180% 제거 실험</li>
+<li>DMG+ 50% 제거 실험</li>
+<li>DEF·DMG- 5개 원본 정수 조합 실험</li>
+<li>전체 생명력 6278% → 5978% 실험</li>
+<li>제트 영웅 스킬 생명력 적용·제외 비교</li>
+</ul></div></div></div></div><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-WwP4DvEIbCS6Wv93" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><footer class="border-top bg-body py-4 mt-5"><div class="container"><div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"><div class="small text-secondary">© 2026 Progamer.info</div><div class="d-flex flex-wrap justify-content-center gap-3 small"><a class="text-secondary text-decoration-none" href="/en/privacy">Privacy Policy</a><a class="text-secondary text-decoration-none" href="/en/contact">Contact</a><a class="text-secondary text-decoration-none" href="/en/disclaimer">Disclaimer</a></div></div></div></footer><section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text" aria-label="Notifications Alt+T"></section></div><button type="button" class="btn btn-primary chatbot-floating-btn" aria-label="AI 에이전트 열기" title="AI 에이전트 열기 (F1)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"></path></svg></button></div>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKHJT6LZ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>
