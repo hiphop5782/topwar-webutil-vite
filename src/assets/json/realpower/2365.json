@@ -1,20 +1,20 @@
 {
-  "exportedAt": "2026-07-13T17:30:58.115Z",
+  "exportedAt": "2026-07-15T06:29:44.895Z",
   "serverId": 2365,
   "summary": {
-    "players": 122,
-    "mapPlayers": 122,
+    "players": 123,
+    "mapPlayers": 123,
     "allianceMemberMergedPlayers": 56,
-    "mapOnlyPlayers": 66,
-    "noAlliancePlayers": 5,
+    "mapOnlyPlayers": 67,
+    "noAlliancePlayers": 4,
     "alliances": 6,
     "allianceDetails": 5,
     "activity": {
       "coreCount": 47,
-      "activeCount": 54,
-      "watchCount": 16,
+      "activeCount": 55,
+      "watchCount": 17,
       "lowCount": 0,
-      "activeTotalCount": 101
+      "activeTotalCount": 102
     },
     "allianceActivitySummary": {
       "coreAllianceCount": 1,
@@ -52,18 +52,18 @@
         "power_concentrated_top1_alliance",
         "power_concentrated_top3_alliances"
       ],
-      "totalMapPlayers": 122,
+      "totalMapPlayers": 123,
       "coreUsers": 47,
-      "activeGradeUsers": 54,
-      "watchGradeUsers": 16,
+      "activeGradeUsers": 55,
+      "watchGradeUsers": 17,
       "lowGradeUsers": 0,
       "activeUsers": 56,
-      "recentUsers": 3,
-      "sleepyUsers": 4,
+      "recentUsers": 2,
+      "sleepyUsers": 5,
       "inactiveUsers": 0,
       "quitLikelyUsers": 0,
-      "unknownStatusUsers": 66,
-      "activeUserRate": 0.459016,
+      "unknownStatusUsers": 67,
+      "activeUserRate": 0.455285,
       "quitLikelyRate": 0,
       "activeAllianceCountForWar": 1,
       "meaningfulAllianceCount": 1,
@@ -72,20 +72,20 @@
       "watchAllianceCount": 0,
       "lowAllianceCount": 5,
       "insufficientAllianceCount": 0,
-      "serverPowerTotal": 7432565873,
-      "activePowerTotal": 3420536447,
-      "activePowerRate": 0.460209,
-      "topAlliancePowerRate": 0.961488,
-      "top3AlliancePowerRate": 0.981021
+      "serverPowerTotal": 7532948071,
+      "activePowerTotal": 3444265965,
+      "activePowerRate": 0.457227,
+      "topAlliancePowerRate": 0.968009,
+      "top3AlliancePowerRate": 0.987307
     },
     "userStatus": {
       "activeUsers": 56,
-      "recentUsers": 3,
-      "sleepyUsers": 4,
+      "recentUsers": 2,
+      "sleepyUsers": 5,
       "inactiveUsers": 0,
       "quitLikelyUsers": 0,
-      "unknownStatusUsers": 66,
-      "activeUserRate": 0.459016,
+      "unknownStatusUsers": 67,
+      "activeUserRate": 0.455285,
       "quitLikelyRate": 0
     },
     "activeAllianceCountForWar": 1,
@@ -141,7 +141,7 @@
       "pointId": 239798,
       "pointType": 1,
       "level": 100,
-      "power": 107105999,
+      "power": 107110669,
       "armyPower": "6,303,639,738,863,359,000,000,000,000,000,000,000",
       "armyPowerText": "6.3hh",
       "allianceId": "400373334",
@@ -154,9 +154,9 @@
         "map": true
       },
       "powerRankInAlliance": 1,
-      "powerPercentileInAlliance": 0.0092,
-      "powerContributionRate": 0.014988,
-      "cumulativePowerContributionRate": 0.014988,
+      "powerPercentileInAlliance": 0.009,
+      "powerContributionRate": 0.014689,
+      "cumulativePowerContributionRate": 0.014689,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -182,7 +182,7 @@
       "pointId": 224443,
       "pointType": 1,
       "level": 100,
-      "power": 99583655,
+      "power": 99613786,
       "armyPower": "4,192,196,236,494,161,500,000,000,000,000,000,000",
       "armyPowerText": "4.19hh",
       "allianceId": "400373334",
@@ -192,8 +192,8 @@
       "rank": 8,
       "isOnline": 0,
       "joinTime": 1717949075,
-      "lastShowTime": 1783960958,
-      "lastLogin": 1783960958,
+      "lastShowTime": 1784095958,
+      "lastLogin": 1784095958,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -204,9 +204,9 @@
         "allianceMember": true
       },
       "powerRankInAlliance": 2,
-      "powerPercentileInAlliance": 0.0183,
-      "powerContributionRate": 0.013935,
-      "cumulativePowerContributionRate": 0.028923,
+      "powerPercentileInAlliance": 0.018,
+      "powerContributionRate": 0.013661,
+      "cumulativePowerContributionRate": 0.02835,
       "activityScore": 115,
       "activityReasons": [
         "map_found",
@@ -221,7 +221,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.01
     },
     {
       "uid": "531705901968",
@@ -234,7 +234,7 @@
       "pointId": 232633,
       "pointType": 1,
       "level": 100,
-      "power": 94646850,
+      "power": 94655280,
       "armyPower": "7,930,577,076,544,193,000,000,000,000,000,000,000",
       "armyPowerText": "7.93hh",
       "allianceId": "400373334",
@@ -242,10 +242,10 @@
       "allianceName": "Vietnamese Brothers",
       "allianceRole": 6,
       "rank": 6,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1711471757,
-      "lastShowTime": 1783962143,
-      "lastLogin": 1783962143,
+      "lastShowTime": 1784094771,
+      "lastLogin": 1784094771,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -256,14 +256,15 @@
         "allianceMember": true
       },
       "powerRankInAlliance": 3,
-      "powerPercentileInAlliance": 0.0275,
-      "powerContributionRate": 0.013244,
-      "cumulativePowerContributionRate": 0.042167,
-      "activityScore": 115,
+      "powerPercentileInAlliance": 0.027,
+      "powerContributionRate": 0.012981,
+      "cumulativePowerContributionRate": 0.04133,
+      "activityScore": 145,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
+        "online",
         "recent_login_1d",
         "alliance_member_confirmed"
       ],
@@ -271,9 +272,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "online"
       ],
-      "lastLoginDaysAgo": 0.02
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "460508045971",
@@ -286,8 +287,8 @@
       "pointId": 229562,
       "pointType": 1,
       "level": 100,
-      "power": 94384957,
-      "armyPower": "5,864,102,271,558,650,000,000,000,000,000,000,000",
+      "power": 94390527,
+      "armyPower": "5,864,782,780,778,991,000,000,000,000,000,000,000",
       "armyPowerText": "5.86hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -296,8 +297,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1714606878,
-      "lastShowTime": 1783956171,
-      "lastLogin": 1783956171,
+      "lastShowTime": 1784094941,
+      "lastLogin": 1784094941,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -308,9 +309,62 @@
         "allianceMember": true
       },
       "powerRankInAlliance": 4,
-      "powerPercentileInAlliance": 0.0367,
-      "powerContributionRate": 0.013207,
-      "cumulativePowerContributionRate": 0.055374,
+      "powerPercentileInAlliance": 0.036,
+      "powerContributionRate": 0.012944,
+      "cumulativePowerContributionRate": 0.054275,
+      "activityScore": 125,
+      "activityReasons": [
+        "map_found",
+        "top_20_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.02
+    },
+    {
+      "uid": "540572488641",
+      "username": "TAMI",
+      "nickname": "TAMI",
+      "serverId": 2365,
+      "worldId": 18,
+      "x": 372,
+      "y": 458,
+      "pointId": 234683,
+      "pointType": 1,
+      "level": 100,
+      "power": 91815944,
+      "armyPower": "5,314,670,588,056,140,000,000,000,000,000,000,000",
+      "armyPowerText": "5.31hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "allianceName": "Vietnamese Brothers",
+      "allianceRole": 4,
+      "rank": 4,
+      "isOnline": 0,
+      "joinTime": 1711470711,
+      "lastShowTime": 1784088834,
+      "lastLogin": 1784088834,
+      "language": "jp",
+      "nationalflag": 114,
+      "gender": 0,
+      "usergender": 2,
+      "headFrameId": 159,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 5,
+      "powerPercentileInAlliance": 0.045,
+      "powerContributionRate": 0.012591,
+      "cumulativePowerContributionRate": 0.066866,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -329,41 +383,41 @@
       "lastLoginDaysAgo": 0.09
     },
     {
-      "uid": "540572488641",
-      "username": "TAMI",
-      "nickname": "TAMI",
+      "uid": "293117121049",
+      "username": "💥ToFu💥",
+      "nickname": "💥ToFu💥",
       "serverId": 2365,
-      "worldId": 18,
-      "x": 372,
-      "y": 458,
-      "pointId": 234683,
+      "worldId": 8,
+      "x": 376,
+      "y": 450,
+      "pointId": 230589,
       "pointType": 1,
       "level": 100,
-      "power": 91815054,
-      "armyPower": "5,314,670,588,056,140,000,000,000,000,000,000,000",
-      "armyPowerText": "5.31hh",
+      "power": 90131702,
+      "armyPower": "5,322,784,593,154,655,000,000,000,000,000,000,000",
+      "armyPowerText": "5.32hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
       "allianceRole": 4,
       "rank": 4,
       "isOnline": 0,
-      "joinTime": 1711470711,
-      "lastShowTime": 1783953456,
-      "lastLogin": 1783953456,
-      "language": "jp",
-      "nationalflag": 114,
+      "joinTime": 1733632008,
+      "lastShowTime": 1784044993,
+      "lastLogin": 1784044993,
+      "language": "en",
+      "nationalflag": 233,
       "gender": 0,
-      "usergender": 2,
-      "headFrameId": 159,
+      "usergender": 0,
+      "headFrameId": 0,
       "source": {
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 5,
-      "powerPercentileInAlliance": 0.0459,
-      "powerContributionRate": 0.012848,
-      "cumulativePowerContributionRate": 0.068222,
+      "powerRankInAlliance": 6,
+      "powerPercentileInAlliance": 0.0541,
+      "powerContributionRate": 0.01236,
+      "cumulativePowerContributionRate": 0.079227,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -379,7 +433,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.6
     },
     {
       "uid": "347813299086",
@@ -391,7 +445,7 @@
       "pointId": 237750,
       "pointType": 1,
       "level": 100,
-      "power": 88155864,
+      "power": 88210554,
       "armyPower": "5,006,615,286,648,906,500,000,000,000,000,000,000",
       "armyPowerText": "5.01hh",
       "allianceId": "400373334",
@@ -403,10 +457,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 6,
-      "powerPercentileInAlliance": 0.055,
-      "powerContributionRate": 0.012336,
-      "cumulativePowerContributionRate": 0.080558,
+      "powerRankInAlliance": 7,
+      "powerPercentileInAlliance": 0.0631,
+      "powerContributionRate": 0.012097,
+      "cumulativePowerContributionRate": 0.091324,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -432,7 +486,7 @@
       "pointId": 235708,
       "pointType": 1,
       "level": 100,
-      "power": 86333438,
+      "power": 86333458,
       "armyPower": "4,214,640,422,275,968,000,000,000,000,000,000,000",
       "armyPowerText": "4.21hh",
       "allianceId": "400373334",
@@ -442,8 +496,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1748618008,
-      "lastShowTime": 1783959278,
-      "lastLogin": 1783959278,
+      "lastShowTime": 1784044917,
+      "lastLogin": 1784044917,
       "language": "jp",
       "nationalflag": 185,
       "gender": 0,
@@ -453,10 +507,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 7,
-      "powerPercentileInAlliance": 0.0642,
-      "powerContributionRate": 0.012081,
-      "cumulativePowerContributionRate": 0.092639,
+      "powerRankInAlliance": 8,
+      "powerPercentileInAlliance": 0.0721,
+      "powerContributionRate": 0.01184,
+      "cumulativePowerContributionRate": 0.103163,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -472,7 +526,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.05
+      "lastLoginDaysAgo": 0.6
     },
     {
       "uid": "511139824403",
@@ -484,7 +538,7 @@
       "pointId": 242867,
       "pointType": 1,
       "level": 100,
-      "power": 86221319,
+      "power": 86240295,
       "armyPower": "3,903,101,337,353,291,300,000,000,000,000,000,000",
       "armyPowerText": "3.9hh",
       "allianceId": "400373334",
@@ -496,10 +550,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 8,
-      "powerPercentileInAlliance": 0.0734,
-      "powerContributionRate": 0.012065,
-      "cumulativePowerContributionRate": 0.104704,
+      "powerRankInAlliance": 9,
+      "powerPercentileInAlliance": 0.0811,
+      "powerContributionRate": 0.011827,
+      "cumulativePowerContributionRate": 0.11499,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -525,8 +579,8 @@
       "pointId": 219332,
       "pointType": 1,
       "level": 100,
-      "power": 86058732,
-      "armyPower": "3,111,849,555,741,451,700,000,000,000,000,000,000",
+      "power": 86058772,
+      "armyPower": "3,112,165,704,043,584,000,000,000,000,000,000,000",
       "armyPowerText": "3.11hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -535,8 +589,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1711472629,
-      "lastShowTime": 1783952003,
-      "lastLogin": 1783952003,
+      "lastShowTime": 1784039162,
+      "lastLogin": 1784039162,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -546,10 +600,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 9,
-      "powerPercentileInAlliance": 0.0826,
-      "powerContributionRate": 0.012042,
-      "cumulativePowerContributionRate": 0.116746,
+      "powerRankInAlliance": 10,
+      "powerPercentileInAlliance": 0.0901,
+      "powerContributionRate": 0.011802,
+      "cumulativePowerContributionRate": 0.126792,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -565,7 +619,47 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.14
+      "lastLoginDaysAgo": 0.67
+    },
+    {
+      "uid": "341042987877",
+      "username": "KHANHDX",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 360,
+      "y": 470,
+      "pointId": 240821,
+      "pointType": 1,
+      "level": 100,
+      "power": 85149340,
+      "armyPower": "3,227,221,691,543,869,000,000,000,000,000,000,000",
+      "armyPowerText": "3.23hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "source": {
+        "map": true
+      },
+      "powerRankInAlliance": 11,
+      "powerPercentileInAlliance": 0.0991,
+      "powerContributionRate": 0.011677,
+      "cumulativePowerContributionRate": 0.138469,
+      "activityScore": 85,
+      "activityReasons": [
+        "map_found",
+        "top_20_power",
+        "cumulative_power_80"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
     },
     {
       "uid": "590391403735",
@@ -578,8 +672,8 @@
       "pointId": 229566,
       "pointType": 1,
       "level": 100,
-      "power": 84710883,
-      "armyPower": "3,727,281,206,553,070,000,000,000,000,000,000,000",
+      "power": 84711953,
+      "armyPower": "3,734,140,162,523,444,000,000,000,000,000,000,000",
       "armyPowerText": "3.73hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -588,8 +682,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1711499980,
-      "lastShowTime": 1783945109,
-      "lastLogin": 1783945109,
+      "lastShowTime": 1784068765,
+      "lastLogin": 1784068765,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -599,10 +693,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 10,
-      "powerPercentileInAlliance": 0.0917,
-      "powerContributionRate": 0.011854,
-      "cumulativePowerContributionRate": 0.1286,
+      "powerRankInAlliance": 12,
+      "powerPercentileInAlliance": 0.1081,
+      "powerContributionRate": 0.011617,
+      "cumulativePowerContributionRate": 0.150086,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -618,7 +712,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.22
+      "lastLoginDaysAgo": 0.33
     },
     {
       "uid": "618885965139",
@@ -630,7 +724,7 @@
       "pointId": 233654,
       "pointType": 1,
       "level": 100,
-      "power": 84605095,
+      "power": 84617800,
       "armyPower": "4,615,181,324,737,131,000,000,000,000,000,000,000",
       "armyPowerText": "4.62hh",
       "allianceId": "400373334",
@@ -642,10 +736,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 11,
-      "powerPercentileInAlliance": 0.1009,
-      "powerContributionRate": 0.011839,
-      "cumulativePowerContributionRate": 0.140439,
+      "powerRankInAlliance": 13,
+      "powerPercentileInAlliance": 0.1171,
+      "powerContributionRate": 0.011604,
+      "cumulativePowerContributionRate": 0.16169,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -670,8 +764,8 @@
       "pointId": 240823,
       "pointType": 1,
       "level": 100,
-      "power": 83229624,
-      "armyPower": "1,887,635,100,078,441,000,000,000,000,000,000,000",
+      "power": 83237904,
+      "armyPower": "1,888,267,396,682,705,400,000,000,000,000,000,000",
       "armyPowerText": "1.89hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -682,50 +776,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 12,
-      "powerPercentileInAlliance": 0.1101,
-      "powerContributionRate": 0.011646,
-      "cumulativePowerContributionRate": 0.152085,
-      "activityScore": 85,
-      "activityReasons": [
-        "map_found",
-        "top_20_power",
-        "cumulative_power_80"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
-    },
-    {
-      "uid": "341042987877",
-      "username": "KHANHDX",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 360,
-      "y": 470,
-      "pointId": 240821,
-      "pointType": 1,
-      "level": 100,
-      "power": 82879438,
-      "armyPower": "3,226,905,543,241,737,000,000,000,000,000,000,000",
-      "armyPowerText": "3.23hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "source": {
-        "map": true
-      },
-      "powerRankInAlliance": 13,
-      "powerPercentileInAlliance": 0.1193,
-      "powerContributionRate": 0.011597,
-      "cumulativePowerContributionRate": 0.163683,
+      "powerRankInAlliance": 14,
+      "powerPercentileInAlliance": 0.1261,
+      "powerContributionRate": 0.011415,
+      "cumulativePowerContributionRate": 0.173105,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -750,8 +804,8 @@
       "pointId": 239800,
       "pointType": 1,
       "level": 100,
-      "power": 82107224,
-      "armyPower": "5,049,511,473,838,349,400,000,000,000,000,000,000",
+      "power": 82128336,
+      "armyPower": "5,049,195,325,536,217,000,000,000,000,000,000,000",
       "armyPowerText": "5.05hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -762,10 +816,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 14,
-      "powerPercentileInAlliance": 0.1284,
-      "powerContributionRate": 0.011489,
-      "cumulativePowerContributionRate": 0.175172,
+      "powerRankInAlliance": 15,
+      "powerPercentileInAlliance": 0.1351,
+      "powerContributionRate": 0.011263,
+      "cumulativePowerContributionRate": 0.184368,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -791,8 +845,8 @@
       "pointId": 227516,
       "pointType": 1,
       "level": 100,
-      "power": 82006519,
-      "armyPower": "2,521,198,062,847,508,700,000,000,000,000,000,000",
+      "power": 82062939,
+      "armyPower": "2,521,514,211,149,641,000,000,000,000,000,000,000",
       "armyPowerText": "2.52hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -801,8 +855,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1720696851,
-      "lastShowTime": 1783876177,
-      "lastLogin": 1783876177,
+      "lastShowTime": 1784044584,
+      "lastLogin": 1784044584,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -812,26 +866,26 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 15,
-      "powerPercentileInAlliance": 0.1376,
-      "powerContributionRate": 0.011475,
-      "cumulativePowerContributionRate": 0.186648,
-      "activityScore": 120,
+      "powerRankInAlliance": 16,
+      "powerPercentileInAlliance": 0.1441,
+      "powerContributionRate": 0.011254,
+      "cumulativePowerContributionRate": 0.195622,
+      "activityScore": 125,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
-        "recent_login_3d",
+        "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "CORE",
-      "userStatus": "RECENT",
-      "inactiveScore": 10,
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin3Days"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 1.01
+      "lastLoginDaysAgo": 0.61
     },
     {
       "uid": "640015386030",
@@ -844,8 +898,8 @@
       "pointId": 221880,
       "pointType": 1,
       "level": 100,
-      "power": 81784296,
-      "armyPower": "5,049,082,578,172,802,000,000,000,000,000,000,000",
+      "power": 81786916,
+      "armyPower": "5,051,107,508,047,960,000,000,000,000,000,000,000",
       "armyPowerText": "5.05hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -854,8 +908,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1746067333,
-      "lastShowTime": 1783959401,
-      "lastLogin": 1783959401,
+      "lastShowTime": 1784093046,
+      "lastLogin": 1784093046,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -865,10 +919,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 16,
-      "powerPercentileInAlliance": 0.1468,
-      "powerContributionRate": 0.011444,
-      "cumulativePowerContributionRate": 0.198092,
+      "powerRankInAlliance": 17,
+      "powerPercentileInAlliance": 0.1532,
+      "powerContributionRate": 0.011216,
+      "cumulativePowerContributionRate": 0.206838,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -897,7 +951,7 @@
       "pointId": 231610,
       "pointType": 1,
       "level": 100,
-      "power": 81174886,
+      "power": 81177442,
       "armyPower": "3,589,142,125,102,021,500,000,000,000,000,000,000",
       "armyPowerText": "3.59hh",
       "allianceId": "400373334",
@@ -905,10 +959,10 @@
       "allianceName": "Vietnamese Brothers",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1711471904,
-      "lastShowTime": 1783962109,
-      "lastLogin": 1783962109,
+      "lastShowTime": 1784094774,
+      "lastLogin": 1784094774,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -918,15 +972,16 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 17,
-      "powerPercentileInAlliance": 0.156,
-      "powerContributionRate": 0.011359,
-      "cumulativePowerContributionRate": 0.209451,
-      "activityScore": 125,
+      "powerRankInAlliance": 18,
+      "powerPercentileInAlliance": 0.1622,
+      "powerContributionRate": 0.011132,
+      "cumulativePowerContributionRate": 0.217971,
+      "activityScore": 155,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
+        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -935,9 +990,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "online"
       ],
-      "lastLoginDaysAgo": 0.02
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "516228277035",
@@ -971,10 +1026,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 18,
-      "powerPercentileInAlliance": 0.1651,
-      "powerContributionRate": 0.010734,
-      "cumulativePowerContributionRate": 0.220185,
+      "powerRankInAlliance": 19,
+      "powerPercentileInAlliance": 0.1712,
+      "powerContributionRate": 0.01052,
+      "cumulativePowerContributionRate": 0.228491,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -990,7 +1045,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 3.07
+      "lastLoginDaysAgo": 4.61
     },
     {
       "uid": "544817722326",
@@ -1002,7 +1057,7 @@
       "pointId": 231606,
       "pointType": 1,
       "level": 100,
-      "power": 76615122,
+      "power": 76633622,
       "armyPower": "3,703,942,212,720,514,400,000,000,000,000,000,000",
       "armyPowerText": "3.7hh",
       "allianceId": "400373334",
@@ -1014,10 +1069,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 19,
-      "powerPercentileInAlliance": 0.1743,
-      "powerContributionRate": 0.010721,
-      "cumulativePowerContributionRate": 0.230906,
+      "powerRankInAlliance": 20,
+      "powerPercentileInAlliance": 0.1802,
+      "powerContributionRate": 0.010509,
+      "cumulativePowerContributionRate": 0.239,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -1042,9 +1097,9 @@
       "pointId": 230581,
       "pointType": 1,
       "level": 100,
-      "power": 76398346,
-      "armyPower": "3,725,739,635,980,385,500,000,000,000,000,000,000",
-      "armyPowerText": "3.73hh",
+      "power": 76394059,
+      "armyPower": "3,743,609,484,054,500,000,000,000,000,000,000,000",
+      "armyPowerText": "3.74hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -1054,10 +1109,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 20,
-      "powerPercentileInAlliance": 0.1835,
-      "powerContributionRate": 0.010691,
-      "cumulativePowerContributionRate": 0.241597,
+      "powerRankInAlliance": 21,
+      "powerPercentileInAlliance": 0.1892,
+      "powerContributionRate": 0.010476,
+      "cumulativePowerContributionRate": 0.249476,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -1082,7 +1137,7 @@
       "pointId": 230567,
       "pointType": 1,
       "level": 100,
-      "power": 75516384,
+      "power": 75517524,
       "armyPower": "2,909,836,560,385,374,300,000,000,000,000,000,000",
       "armyPowerText": "2.91hh",
       "allianceId": "400373334",
@@ -1094,10 +1149,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 21,
-      "powerPercentileInAlliance": 0.1927,
-      "powerContributionRate": 0.010567,
-      "cumulativePowerContributionRate": 0.252164,
+      "powerRankInAlliance": 22,
+      "powerPercentileInAlliance": 0.1982,
+      "powerContributionRate": 0.010356,
+      "cumulativePowerContributionRate": 0.259833,
       "activityScore": 85,
       "activityReasons": [
         "map_found",
@@ -1144,10 +1199,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 22,
-      "powerPercentileInAlliance": 0.2018,
-      "powerContributionRate": 0.010527,
-      "cumulativePowerContributionRate": 0.262691,
+      "powerRankInAlliance": 23,
+      "powerPercentileInAlliance": 0.2072,
+      "powerContributionRate": 0.010317,
+      "cumulativePowerContributionRate": 0.270149,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -1163,7 +1218,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 5.06
+      "lastLoginDaysAgo": 6.6
     },
     {
       "uid": "545915511766",
@@ -1175,7 +1230,7 @@
       "pointId": 239796,
       "pointType": 1,
       "level": 100,
-      "power": 74788321,
+      "power": 74788391,
       "armyPower": "2,498,018,286,920,061,600,000,000,000,000,000,000",
       "armyPowerText": "2.5hh",
       "allianceId": "400373334",
@@ -1187,10 +1242,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 23,
-      "powerPercentileInAlliance": 0.211,
-      "powerContributionRate": 0.010465,
-      "cumulativePowerContributionRate": 0.273156,
+      "powerRankInAlliance": 24,
+      "powerPercentileInAlliance": 0.2162,
+      "powerContributionRate": 0.010256,
+      "cumulativePowerContributionRate": 0.280406,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1237,26 +1292,26 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 24,
-      "powerPercentileInAlliance": 0.2202,
-      "powerContributionRate": 0.010283,
-      "cumulativePowerContributionRate": 0.283439,
-      "activityScore": 110,
+      "powerRankInAlliance": 25,
+      "powerPercentileInAlliance": 0.2252,
+      "powerContributionRate": 0.010077,
+      "cumulativePowerContributionRate": 0.290483,
+      "activityScore": 105,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
-        "recent_login_1d",
+        "recent_login_3d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
+      "userStatus": "RECENT",
+      "inactiveScore": 10,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 0.22
+      "lastLoginDaysAgo": 1.77
     },
     {
       "uid": "516454834988",
@@ -1269,7 +1324,7 @@
       "pointId": 237754,
       "pointType": 1,
       "level": 100,
-      "power": 72615536,
+      "power": 72643658,
       "armyPower": "2,396,511,820,858,633,000,000,000,000,000,000,000",
       "armyPowerText": "2.4hh",
       "allianceId": "400373334",
@@ -1277,10 +1332,10 @@
       "allianceName": "Vietnamese Brothers",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1753273487,
-      "lastShowTime": 1783963630,
-      "lastLogin": 1783963630,
+      "lastShowTime": 1784094391,
+      "lastLogin": 1784094391,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -1290,16 +1345,15 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 25,
-      "powerPercentileInAlliance": 0.2294,
-      "powerContributionRate": 0.010161,
-      "cumulativePowerContributionRate": 0.2936,
-      "activityScore": 140,
+      "powerRankInAlliance": 26,
+      "powerPercentileInAlliance": 0.2342,
+      "powerContributionRate": 0.009962,
+      "cumulativePowerContributionRate": 0.300445,
+      "activityScore": 110,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -1308,9 +1362,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.03
     },
     {
       "uid": "465256441355",
@@ -1323,9 +1377,9 @@
       "pointId": 232635,
       "pointType": 1,
       "level": 100,
-      "power": 71095554,
-      "armyPower": "1,224,104,801,989,574,500,000,000,000,000,000,000",
-      "armyPowerText": "1.22hh",
+      "power": 71095594,
+      "armyPower": "1,226,728,832,897,272,600,000,000,000,000,000,000",
+      "armyPowerText": "1.23hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -1333,8 +1387,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1773764761,
-      "lastShowTime": 1783953355,
-      "lastLogin": 1783953355,
+      "lastShowTime": 1784092929,
+      "lastLogin": 1784092929,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -1344,10 +1398,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 26,
-      "powerPercentileInAlliance": 0.2385,
-      "powerContributionRate": 0.009949,
-      "cumulativePowerContributionRate": 0.303549,
+      "powerRankInAlliance": 27,
+      "powerPercentileInAlliance": 0.2432,
+      "powerContributionRate": 0.00975,
+      "cumulativePowerContributionRate": 0.310195,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1363,7 +1417,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.05
     },
     {
       "uid": "643028321757",
@@ -1376,7 +1430,7 @@
       "pointId": 236731,
       "pointType": 1,
       "level": 100,
-      "power": 71092973,
+      "power": 71061584,
       "armyPower": "3,129,792,038,887,956,400,000,000,000,000,000,000",
       "armyPowerText": "3.13hh",
       "allianceId": "400373334",
@@ -1386,8 +1440,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1753272426,
-      "lastShowTime": 1783958747,
-      "lastLogin": 1783958747,
+      "lastShowTime": 1784092358,
+      "lastLogin": 1784092358,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -1397,10 +1451,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 27,
-      "powerPercentileInAlliance": 0.2477,
-      "powerContributionRate": 0.009948,
-      "cumulativePowerContributionRate": 0.313497,
+      "powerRankInAlliance": 28,
+      "powerPercentileInAlliance": 0.2523,
+      "powerContributionRate": 0.009745,
+      "cumulativePowerContributionRate": 0.31994,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1416,7 +1470,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.05
     },
     {
       "uid": "447314494926",
@@ -1428,8 +1482,8 @@
       "pointId": 240817,
       "pointType": 1,
       "level": 100,
-      "power": 70838561,
-      "armyPower": "2,109,466,982,702,951,800,000,000,000,000,000,000",
+      "power": 70853034,
+      "armyPower": "2,109,466,982,702,951,600,000,000,000,000,000,000",
       "armyPowerText": "2.11hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1440,10 +1494,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 28,
-      "powerPercentileInAlliance": 0.2569,
-      "powerContributionRate": 0.009913,
-      "cumulativePowerContributionRate": 0.323409,
+      "powerRankInAlliance": 29,
+      "powerPercentileInAlliance": 0.2613,
+      "powerContributionRate": 0.009717,
+      "cumulativePowerContributionRate": 0.329657,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1469,8 +1523,8 @@
       "pointId": 233658,
       "pointType": 1,
       "level": 100,
-      "power": 70542793,
-      "armyPower": "2,517,053,317,038,144,400,000,000,000,000,000,000",
+      "power": 70542813,
+      "armyPower": "2,517,053,317,038,144,000,000,000,000,000,000,000",
       "armyPowerText": "2.52hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1479,8 +1533,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1765972885,
-      "lastShowTime": 1783962145,
-      "lastLogin": 1783962145,
+      "lastShowTime": 1784096175,
+      "lastLogin": 1784096175,
       "language": "vi",
       "nationalflag": -1,
       "gender": 0,
@@ -1490,10 +1544,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 29,
-      "powerPercentileInAlliance": 0.2661,
-      "powerContributionRate": 0.009871,
-      "cumulativePowerContributionRate": 0.333281,
+      "powerRankInAlliance": 30,
+      "powerPercentileInAlliance": 0.2703,
+      "powerContributionRate": 0.009674,
+      "cumulativePowerContributionRate": 0.339331,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1509,7 +1563,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.02
+      "lastLoginDaysAgo": 0.01
     },
     {
       "uid": "613967709499",
@@ -1521,8 +1575,8 @@
       "pointId": 243892,
       "pointType": 1,
       "level": 100,
-      "power": 70302078,
-      "armyPower": "2,310,144,488,593,712,300,000,000,000,000,000,000",
+      "power": 70302118,
+      "armyPower": "2,310,144,488,593,712,500,000,000,000,000,000,000",
       "armyPowerText": "2.31hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1533,10 +1587,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 30,
-      "powerPercentileInAlliance": 0.2752,
-      "powerContributionRate": 0.009838,
-      "cumulativePowerContributionRate": 0.343118,
+      "powerRankInAlliance": 31,
+      "powerPercentileInAlliance": 0.2793,
+      "powerContributionRate": 0.009641,
+      "cumulativePowerContributionRate": 0.348972,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1561,8 +1615,8 @@
       "pointId": 239792,
       "pointType": 1,
       "level": 100,
-      "power": 69936124,
-      "armyPower": "2,754,531,394,223,435,400,000,000,000,000,000,000",
+      "power": 69950413,
+      "armyPower": "2,754,863,349,940,674,500,000,000,000,000,000,000",
       "armyPowerText": "2.75hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1573,10 +1627,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 31,
-      "powerPercentileInAlliance": 0.2844,
-      "powerContributionRate": 0.009786,
-      "cumulativePowerContributionRate": 0.352904,
+      "powerRankInAlliance": 32,
+      "powerPercentileInAlliance": 0.2883,
+      "powerContributionRate": 0.009593,
+      "cumulativePowerContributionRate": 0.358565,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1601,8 +1655,8 @@
       "pointId": 234675,
       "pointType": 1,
       "level": 100,
-      "power": 69929759,
-      "armyPower": "2,538,975,435,493,362,400,000,000,000,000,000,000",
+      "power": 69894485,
+      "armyPower": "2,539,955,495,229,973,000,000,000,000,000,000,000",
       "armyPowerText": "2.54hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1613,10 +1667,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 32,
-      "powerPercentileInAlliance": 0.2936,
-      "powerContributionRate": 0.009785,
-      "cumulativePowerContributionRate": 0.36269,
+      "powerRankInAlliance": 33,
+      "powerPercentileInAlliance": 0.2973,
+      "powerContributionRate": 0.009585,
+      "cumulativePowerContributionRate": 0.36815,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1642,18 +1696,18 @@
       "pointId": 230591,
       "pointType": 1,
       "level": 100,
-      "power": 69742371,
-      "armyPower": "2,004,425,737,801,773,000,000,000,000,000,000,000",
+      "power": 69746991,
+      "armyPower": "2,004,741,886,103,905,200,000,000,000,000,000,000",
       "armyPowerText": "2hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1768703254,
-      "lastShowTime": 1783963342,
-      "lastLogin": 1783963342,
+      "lastShowTime": 1784094242,
+      "lastLogin": 1784094242,
       "language": "vi",
       "nationalflag": 114,
       "gender": 0,
@@ -1663,16 +1717,15 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 33,
-      "powerPercentileInAlliance": 0.3028,
-      "powerContributionRate": 0.009759,
-      "cumulativePowerContributionRate": 0.372449,
-      "activityScore": 140,
+      "powerRankInAlliance": 34,
+      "powerPercentileInAlliance": 0.3063,
+      "powerContributionRate": 0.009565,
+      "cumulativePowerContributionRate": 0.377715,
+      "activityScore": 110,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -1681,9 +1734,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.03
     },
     {
       "uid": "601540379918",
@@ -1695,9 +1748,9 @@
       "pointId": 231602,
       "pointType": 1,
       "level": 100,
-      "power": 69494066,
-      "armyPower": "2,491,976,038,527,531,000,000,000,000,000,000,000",
-      "armyPowerText": "2.49hh",
+      "power": 69497086,
+      "armyPower": "2,533,012,878,515,069,700,000,000,000,000,000,000",
+      "armyPowerText": "2.53hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -1707,10 +1760,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 34,
-      "powerPercentileInAlliance": 0.3119,
-      "powerContributionRate": 0.009724,
-      "cumulativePowerContributionRate": 0.382173,
+      "powerRankInAlliance": 35,
+      "powerPercentileInAlliance": 0.3153,
+      "powerContributionRate": 0.009531,
+      "cumulativePowerContributionRate": 0.387245,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1736,8 +1789,8 @@
       "pointId": 238777,
       "pointType": 1,
       "level": 100,
-      "power": 69382049,
-      "armyPower": "1,968,515,528,539,798,700,000,000,000,000,000,000",
+      "power": 69382229,
+      "armyPower": "1,968,831,676,841,931,000,000,000,000,000,000,000",
       "armyPowerText": "1.97hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1746,8 +1799,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1746928917,
-      "lastShowTime": 1783961862,
-      "lastLogin": 1783961862,
+      "lastShowTime": 1784080092,
+      "lastLogin": 1784080092,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -1757,63 +1810,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 35,
-      "powerPercentileInAlliance": 0.3211,
-      "powerContributionRate": 0.009709,
-      "cumulativePowerContributionRate": 0.391882,
-      "activityScore": 110,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.02
-    },
-    {
-      "uid": "544516649942",
-      "username": "Bí_Thơ",
-      "nickname": "Bí_Thơ",
-      "serverId": 2365,
-      "worldId": 1,
-      "x": 374,
-      "y": 436,
-      "pointId": 223420,
-      "pointType": 1,
-      "level": 100,
-      "power": 68456090,
-      "armyPower": "2,710,300,112,754,093,700,000,000,000,000,000,000",
-      "armyPowerText": "2.71hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "allianceName": "Vietnamese Brothers",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1732445909,
-      "lastShowTime": 1783937362,
-      "lastLogin": 1783937362,
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 159,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 36,
-      "powerPercentileInAlliance": 0.3303,
-      "powerContributionRate": 0.009579,
-      "cumulativePowerContributionRate": 0.401461,
+      "powerPercentileInAlliance": 0.3243,
+      "powerContributionRate": 0.009515,
+      "cumulativePowerContributionRate": 0.39676,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1829,7 +1829,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.31
+      "lastLoginDaysAgo": 0.2
     },
     {
       "uid": "472511387163",
@@ -1841,8 +1841,8 @@
       "pointId": 229560,
       "pointType": 1,
       "level": 100,
-      "power": 67658519,
-      "armyPower": "1,313,443,450,009,095,900,000,000,000,000,000,000",
+      "power": 67710159,
+      "armyPower": "1,314,091,554,028,467,100,000,000,000,000,000,000",
       "armyPowerText": "1.31hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1854,49 +1854,9 @@
         "map": true
       },
       "powerRankInAlliance": 37,
-      "powerPercentileInAlliance": 0.3394,
-      "powerContributionRate": 0.009468,
-      "cumulativePowerContributionRate": 0.410929,
-      "activityScore": 70,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
-    },
-    {
-      "uid": "423886599585",
-      "username": "capheni",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 339,
-      "y": 453,
-      "pointId": 232106,
-      "pointType": 1,
-      "level": 100,
-      "power": 67568945,
-      "armyPower": "1,679,733,313,765,860,800,000,000,000,000,000,000",
-      "armyPowerText": "1.68hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 2,
-      "source": {
-        "map": true
-      },
-      "powerRankInAlliance": 38,
-      "powerPercentileInAlliance": 0.3486,
-      "powerContributionRate": 0.009455,
-      "cumulativePowerContributionRate": 0.420384,
+      "powerPercentileInAlliance": 0.3333,
+      "powerContributionRate": 0.009286,
+      "cumulativePowerContributionRate": 0.406046,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1921,8 +1881,8 @@
       "pointId": 238775,
       "pointType": 1,
       "level": 100,
-      "power": 67453672,
-      "armyPower": "2,118,736,490,439,989,500,000,000,000,000,000,000",
+      "power": 67684646,
+      "armyPower": "2,119,052,638,742,122,000,000,000,000,000,000,000",
       "armyPowerText": "2.12hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1933,10 +1893,50 @@
       "source": {
         "map": true
       },
+      "powerRankInAlliance": 38,
+      "powerPercentileInAlliance": 0.3423,
+      "powerContributionRate": 0.009282,
+      "cumulativePowerContributionRate": 0.415328,
+      "activityScore": 70,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
+    },
+    {
+      "uid": "423886599585",
+      "username": "capheni",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 339,
+      "y": 453,
+      "pointId": 232106,
+      "pointType": 1,
+      "level": 100,
+      "power": 67572355,
+      "armyPower": "1,675,844,689,649,632,800,000,000,000,000,000,000",
+      "armyPowerText": "1.68hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 2,
+      "source": {
+        "map": true
+      },
       "powerRankInAlliance": 39,
-      "powerPercentileInAlliance": 0.3578,
-      "powerContributionRate": 0.009439,
-      "cumulativePowerContributionRate": 0.429823,
+      "powerPercentileInAlliance": 0.3514,
+      "powerContributionRate": 0.009267,
+      "cumulativePowerContributionRate": 0.424595,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1961,8 +1961,8 @@
       "pointId": 237752,
       "pointType": 1,
       "level": 100,
-      "power": 67142166,
-      "armyPower": "1,378,262,268,668,241,000,000,000,000,000,000,000",
+      "power": 67194986,
+      "armyPower": "1,380,854,684,745,726,000,000,000,000,000,000,000",
       "armyPowerText": "1.38hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -1974,9 +1974,9 @@
         "map": true
       },
       "powerRankInAlliance": 40,
-      "powerPercentileInAlliance": 0.367,
-      "powerContributionRate": 0.009395,
-      "cumulativePowerContributionRate": 0.439218,
+      "powerPercentileInAlliance": 0.3604,
+      "powerContributionRate": 0.009215,
+      "cumulativePowerContributionRate": 0.43381,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -1992,6 +1992,59 @@
       "lastLoginDaysAgo": null
     },
     {
+      "uid": "544516649942",
+      "username": "Bí_Thơ",
+      "nickname": "Bí_Thơ",
+      "serverId": 2365,
+      "worldId": 1,
+      "x": 374,
+      "y": 436,
+      "pointId": 223420,
+      "pointType": 1,
+      "level": 100,
+      "power": 66314894,
+      "armyPower": "2,746,548,768,150,219,000,000,000,000,000,000,000",
+      "armyPowerText": "2.75hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "allianceName": "Vietnamese Brothers",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1732445909,
+      "lastShowTime": 1784092938,
+      "lastLogin": 1784092938,
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 159,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 41,
+      "powerPercentileInAlliance": 0.3694,
+      "powerContributionRate": 0.009094,
+      "cumulativePowerContributionRate": 0.442904,
+      "activityScore": 110,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.05
+    },
+    {
       "uid": "465980196366",
       "username": "ABùm",
       "serverId": 2365,
@@ -2001,8 +2054,8 @@
       "pointId": 232631,
       "pointType": 1,
       "level": 100,
-      "power": 66144291,
-      "armyPower": "3,347,773,210,762,259,300,000,000,000,000,000,000",
+      "power": 66159541,
+      "armyPower": "3,348,421,314,781,631,000,000,000,000,000,000,000",
       "armyPowerText": "3.35hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2013,10 +2066,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 41,
-      "powerPercentileInAlliance": 0.3761,
-      "powerContributionRate": 0.009256,
-      "cumulativePowerContributionRate": 0.448474,
+      "powerRankInAlliance": 42,
+      "powerPercentileInAlliance": 0.3784,
+      "powerContributionRate": 0.009073,
+      "cumulativePowerContributionRate": 0.451977,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2042,8 +2095,8 @@
       "pointId": 228541,
       "pointType": 1,
       "level": 100,
-      "power": 66135005,
-      "armyPower": "2,012,489,577,823,208,600,000,000,000,000,000,000",
+      "power": 66135785,
+      "armyPower": "2,013,121,874,427,473,000,000,000,000,000,000,000",
       "armyPowerText": "2.01hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2052,8 +2105,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1711472461,
-      "lastShowTime": 1783944893,
-      "lastLogin": 1783944893,
+      "lastShowTime": 1784068674,
+      "lastLogin": 1784068674,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -2063,10 +2116,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 42,
-      "powerPercentileInAlliance": 0.3853,
-      "powerContributionRate": 0.009254,
-      "cumulativePowerContributionRate": 0.457729,
+      "powerRankInAlliance": 43,
+      "powerPercentileInAlliance": 0.3874,
+      "powerContributionRate": 0.00907,
+      "cumulativePowerContributionRate": 0.461046,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2082,7 +2135,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.22
+      "lastLoginDaysAgo": 0.33
     },
     {
       "uid": "435495847346",
@@ -2095,8 +2148,8 @@
       "pointId": 218307,
       "pointType": 1,
       "level": 100,
-      "power": 65942000,
-      "armyPower": "1,440,906,764,384,787,500,000,000,000,000,000,000",
+      "power": 65942020,
+      "armyPower": "1,441,222,912,686,919,700,000,000,000,000,000,000",
       "armyPowerText": "1.44hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2105,8 +2158,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1717950258,
-      "lastShowTime": 1783955221,
-      "lastLogin": 1783955221,
+      "lastShowTime": 1784074401,
+      "lastLogin": 1784074401,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -2116,10 +2169,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 43,
-      "powerPercentileInAlliance": 0.3945,
-      "powerContributionRate": 0.009227,
-      "cumulativePowerContributionRate": 0.466956,
+      "powerRankInAlliance": 44,
+      "powerPercentileInAlliance": 0.3964,
+      "powerContributionRate": 0.009043,
+      "cumulativePowerContributionRate": 0.47009,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2135,7 +2188,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.1
+      "lastLoginDaysAgo": 0.26
     },
     {
       "uid": "440576599485",
@@ -2147,9 +2200,9 @@
       "pointId": 229546,
       "pointType": 1,
       "level": 100,
-      "power": 65817991,
-      "armyPower": "2,780,522,651,682,823,700,000,000,000,000,000,000",
-      "armyPowerText": "2.78hh",
+      "power": 65829056,
+      "armyPower": "2,832,387,175,833,014,500,000,000,000,000,000,000",
+      "armyPowerText": "2.83hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -2159,10 +2212,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 44,
-      "powerPercentileInAlliance": 0.4037,
-      "powerContributionRate": 0.00921,
-      "cumulativePowerContributionRate": 0.476166,
+      "powerRankInAlliance": 45,
+      "powerPercentileInAlliance": 0.4054,
+      "powerContributionRate": 0.009028,
+      "cumulativePowerContributionRate": 0.479117,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2187,8 +2240,8 @@
       "pointId": 230067,
       "pointType": 1,
       "level": 100,
-      "power": 65632366,
-      "armyPower": "1,988,320,336,474,659,800,000,000,000,000,000,000",
+      "power": 65632406,
+      "armyPower": "1,988,320,336,474,659,500,000,000,000,000,000,000",
       "armyPowerText": "1.99hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2199,10 +2252,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 45,
-      "powerPercentileInAlliance": 0.4128,
-      "powerContributionRate": 0.009184,
-      "cumulativePowerContributionRate": 0.48535,
+      "powerRankInAlliance": 46,
+      "powerPercentileInAlliance": 0.4144,
+      "powerContributionRate": 0.009001,
+      "cumulativePowerContributionRate": 0.488118,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2227,9 +2280,9 @@
       "pointId": 234154,
       "pointType": 1,
       "level": 100,
-      "power": 65484500,
-      "armyPower": "1,804,488,067,946,068,000,000,000,000,000,000,000",
-      "armyPowerText": "1.8hh",
+      "power": 65527884,
+      "armyPower": "1,805,120,364,550,333,000,000,000,000,000,000,000",
+      "armyPowerText": "1.81hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -2239,10 +2292,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 46,
-      "powerPercentileInAlliance": 0.422,
-      "powerContributionRate": 0.009163,
-      "cumulativePowerContributionRate": 0.494513,
+      "powerRankInAlliance": 47,
+      "powerPercentileInAlliance": 0.4234,
+      "powerContributionRate": 0.008986,
+      "cumulativePowerContributionRate": 0.497104,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2279,10 +2332,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 47,
-      "powerPercentileInAlliance": 0.4312,
-      "powerContributionRate": 0.009155,
-      "cumulativePowerContributionRate": 0.503669,
+      "powerRankInAlliance": 48,
+      "powerPercentileInAlliance": 0.4324,
+      "powerContributionRate": 0.008972,
+      "cumulativePowerContributionRate": 0.506077,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2307,8 +2360,8 @@
       "pointId": 231592,
       "pointType": 1,
       "level": 100,
-      "power": 65319343,
-      "armyPower": "3,199,036,344,405,413,600,000,000,000,000,000,000",
+      "power": 65319383,
+      "armyPower": "3,198,720,196,103,281,400,000,000,000,000,000,000",
       "armyPowerText": "3.2hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2319,10 +2372,50 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 48,
-      "powerPercentileInAlliance": 0.4404,
-      "powerContributionRate": 0.00914,
-      "cumulativePowerContributionRate": 0.512809,
+      "powerRankInAlliance": 49,
+      "powerPercentileInAlliance": 0.4414,
+      "powerContributionRate": 0.008958,
+      "cumulativePowerContributionRate": 0.515034,
+      "activityScore": 70,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
+    },
+    {
+      "uid": "464415327755",
+      "username": "🎋DREAM",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 360,
+      "y": 458,
+      "pointId": 234677,
+      "pointType": 1,
+      "level": 100,
+      "power": 65291191,
+      "armyPower": "2,354,265,246,243,455,800,000,000,000,000,000,000",
+      "armyPowerText": "2.35hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "source": {
+        "map": true
+      },
+      "powerRankInAlliance": 50,
+      "powerPercentileInAlliance": 0.4505,
+      "powerContributionRate": 0.008954,
+      "cumulativePowerContributionRate": 0.523988,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2359,10 +2452,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 49,
-      "powerPercentileInAlliance": 0.4495,
-      "powerContributionRate": 0.00911,
-      "cumulativePowerContributionRate": 0.521919,
+      "powerRankInAlliance": 51,
+      "powerPercentileInAlliance": 0.4595,
+      "powerContributionRate": 0.008928,
+      "cumulativePowerContributionRate": 0.532916,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2387,8 +2480,8 @@
       "pointId": 237746,
       "pointType": 1,
       "level": 100,
-      "power": 64923449,
-      "armyPower": "1,711,536,568,367,155,800,000,000,000,000,000,000",
+      "power": 64930699,
+      "armyPower": "1,711,852,716,669,288,000,000,000,000,000,000,000",
       "armyPowerText": "1.71hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2399,10 +2492,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 50,
-      "powerPercentileInAlliance": 0.4587,
-      "powerContributionRate": 0.009085,
-      "cumulativePowerContributionRate": 0.531003,
+      "powerRankInAlliance": 52,
+      "powerPercentileInAlliance": 0.4685,
+      "powerContributionRate": 0.008904,
+      "cumulativePowerContributionRate": 0.54182,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2427,8 +2520,8 @@
       "pointId": 228011,
       "pointType": 1,
       "level": 100,
-      "power": 64697488,
-      "armyPower": "2,016,352,416,053,960,000,000,000,000,000,000,000",
+      "power": 64786094,
+      "armyPower": "2,019,260,980,433,578,000,000,000,000,000,000,000",
       "armyPowerText": "2.02hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2439,10 +2532,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 51,
-      "powerPercentileInAlliance": 0.4679,
-      "powerContributionRate": 0.009053,
-      "cumulativePowerContributionRate": 0.540057,
+      "powerRankInAlliance": 53,
+      "powerPercentileInAlliance": 0.4775,
+      "powerContributionRate": 0.008885,
+      "cumulativePowerContributionRate": 0.550705,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2467,9 +2560,9 @@
       "pointId": 230577,
       "pointType": 1,
       "level": 100,
-      "power": 64238216,
-      "armyPower": "1,983,749,385,285,344,000,000,000,000,000,000,000",
-      "armyPowerText": "1.98hh",
+      "power": 64270213,
+      "armyPower": "1,968,194,888,820,430,800,000,000,000,000,000,000",
+      "armyPowerText": "1.97hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -2479,10 +2572,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 52,
-      "powerPercentileInAlliance": 0.4771,
-      "powerContributionRate": 0.008989,
-      "cumulativePowerContributionRate": 0.549046,
+      "powerRankInAlliance": 54,
+      "powerPercentileInAlliance": 0.4865,
+      "powerContributionRate": 0.008814,
+      "cumulativePowerContributionRate": 0.559519,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -2500,55 +2593,42 @@
     {
       "uid": "623416022360",
       "username": "vũ",
-      "nickname": "vũ",
       "serverId": 2365,
-      "worldId": 1,
-      "x": 377,
-      "y": 443,
-      "pointId": 227005,
+      "worldId": 2365,
+      "x": 360,
+      "y": 446,
+      "pointId": 228533,
       "pointType": 1,
       "level": 100,
-      "power": 64032791,
+      "power": 64052051,
       "armyPower": "1,830,382,588,004,726,200,000,000,000,000,000,000",
       "armyPowerText": "1.83hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
-      "allianceName": "Vietnamese Brothers",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1764048826,
-      "lastShowTime": 1783936769,
-      "lastLogin": 1783936769,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
       "usergender": 2,
-      "headFrameId": 49,
       "source": {
-        "map": true,
-        "allianceMember": true
+        "map": true
       },
-      "powerRankInAlliance": 53,
-      "powerPercentileInAlliance": 0.4862,
-      "powerContributionRate": 0.00896,
-      "cumulativePowerContributionRate": 0.558006,
-      "activityScore": 110,
+      "powerRankInAlliance": 55,
+      "powerPercentileInAlliance": 0.4955,
+      "powerContributionRate": 0.008784,
+      "cumulativePowerContributionRate": 0.568303,
+      "activityScore": 70,
       "activityReasons": [
         "map_found",
         "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
+        "cumulative_power_80"
       ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
+      "activityGrade": "ACTIVE",
+      "userStatus": "UNKNOWN",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "lastLogin_unknown"
       ],
-      "lastLoginDaysAgo": 0.31
+      "lastLoginDaysAgo": null
     },
     {
       "uid": "624273397093",
@@ -2571,8 +2651,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1731512884,
-      "lastShowTime": 1783958978,
-      "lastLogin": 1783958978,
+      "lastShowTime": 1784071515,
+      "lastLogin": 1784071515,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -2582,14 +2662,13 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 54,
-      "powerPercentileInAlliance": 0.4954,
-      "powerContributionRate": 0.00892,
-      "cumulativePowerContributionRate": 0.566926,
-      "activityScore": 110,
+      "powerRankInAlliance": 56,
+      "powerPercentileInAlliance": 0.5045,
+      "powerContributionRate": 0.008741,
+      "cumulativePowerContributionRate": 0.577044,
+      "activityScore": 95,
       "activityReasons": [
         "map_found",
-        "top_50_power",
         "cumulative_power_80",
         "recent_login_1d",
         "high_role",
@@ -2601,7 +2680,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.29
     },
     {
       "uid": "548351738856",
@@ -2613,9 +2692,9 @@
       "pointId": 236727,
       "pointType": 1,
       "level": 100,
-      "power": 63671877,
-      "armyPower": "1,554,626,751,979,175,800,000,000,000,000,000,000",
-      "armyPowerText": "1.55hh",
+      "power": 63671917,
+      "armyPower": "1,594,324,743,425,721,400,000,000,000,000,000,000",
+      "armyPowerText": "1.59hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -2625,10 +2704,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 55,
-      "powerPercentileInAlliance": 0.5046,
-      "powerContributionRate": 0.00891,
-      "cumulativePowerContributionRate": 0.575835,
+      "powerRankInAlliance": 57,
+      "powerPercentileInAlliance": 0.5135,
+      "powerContributionRate": 0.008732,
+      "cumulativePowerContributionRate": 0.585776,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -2653,9 +2732,9 @@
       "pointId": 219318,
       "pointType": 1,
       "level": 100,
-      "power": 63402498,
-      "armyPower": "900,846,764,065,556,600,000,000,000,000,000,000",
-      "armyPowerText": "901gg",
+      "power": 63402518,
+      "armyPower": "923,284,125,216,188,800,000,000,000,000,000,000",
+      "armyPowerText": "923gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -2663,8 +2742,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1711471588,
-      "lastShowTime": 1783945298,
-      "lastLogin": 1783945298,
+      "lastShowTime": 1784096763,
+      "lastLogin": 1784096763,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -2674,10 +2753,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 56,
-      "powerPercentileInAlliance": 0.5138,
-      "powerContributionRate": 0.008872,
-      "cumulativePowerContributionRate": 0.584707,
+      "powerRankInAlliance": 58,
+      "powerPercentileInAlliance": 0.5225,
+      "powerContributionRate": 0.008695,
+      "cumulativePowerContributionRate": 0.594471,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -2692,7 +2771,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.21
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "586661255121",
@@ -2705,9 +2784,9 @@
       "pointId": 235706,
       "pointType": 1,
       "level": 100,
-      "power": 63313261,
-      "armyPower": "2,633,028,782,356,504,200,000,000,000,000,000,000",
-      "armyPowerText": "2.63hh",
+      "power": 63314161,
+      "armyPower": "2,674,855,993,099,368,400,000,000,000,000,000,000",
+      "armyPowerText": "2.67hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -2715,8 +2794,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1783223782,
-      "lastShowTime": 1783959214,
-      "lastLogin": 1783959214,
+      "lastShowTime": 1784092678,
+      "lastLogin": 1784092678,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -2726,10 +2805,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 57,
-      "powerPercentileInAlliance": 0.5229,
-      "powerContributionRate": 0.00886,
-      "cumulativePowerContributionRate": 0.593567,
+      "powerRankInAlliance": 59,
+      "powerPercentileInAlliance": 0.5315,
+      "powerContributionRate": 0.008683,
+      "cumulativePowerContributionRate": 0.603154,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -2756,8 +2835,8 @@
       "pointId": 232627,
       "pointType": 1,
       "level": 100,
-      "power": 62982752,
-      "armyPower": "1,592,297,462,534,400,600,000,000,000,000,000,000",
+      "power": 62996570,
+      "armyPower": "1,594,373,015,656,437,500,000,000,000,000,000,000",
       "armyPowerText": "1.59hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2768,10 +2847,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 58,
-      "powerPercentileInAlliance": 0.5321,
-      "powerContributionRate": 0.008813,
-      "cumulativePowerContributionRate": 0.60238,
+      "powerRankInAlliance": 60,
+      "powerPercentileInAlliance": 0.5405,
+      "powerContributionRate": 0.008639,
+      "cumulativePowerContributionRate": 0.611793,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -2807,10 +2886,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 59,
-      "powerPercentileInAlliance": 0.5413,
-      "powerContributionRate": 0.008798,
-      "cumulativePowerContributionRate": 0.611178,
+      "powerRankInAlliance": 61,
+      "powerPercentileInAlliance": 0.5495,
+      "powerContributionRate": 0.008622,
+      "cumulativePowerContributionRate": 0.620415,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -2835,7 +2914,7 @@
       "pointId": 227514,
       "pointType": 1,
       "level": 100,
-      "power": 62731428,
+      "power": 62834471,
       "armyPower": "1,136,053,631,848,356,200,000,000,000,000,000,000",
       "armyPowerText": "1.14hh",
       "allianceId": "400373334",
@@ -2845,8 +2924,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1731594226,
-      "lastShowTime": 1783944167,
-      "lastLogin": 1783944167,
+      "lastShowTime": 1784030438,
+      "lastLogin": 1784030438,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -2856,10 +2935,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 60,
-      "powerPercentileInAlliance": 0.5505,
-      "powerContributionRate": 0.008778,
-      "cumulativePowerContributionRate": 0.619957,
+      "powerRankInAlliance": 62,
+      "powerPercentileInAlliance": 0.5586,
+      "powerContributionRate": 0.008617,
+      "cumulativePowerContributionRate": 0.629032,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -2874,7 +2953,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.23
+      "lastLoginDaysAgo": 0.77
     },
     {
       "uid": "432074515886",
@@ -2886,8 +2965,8 @@
       "pointId": 235696,
       "pointType": 1,
       "level": 100,
-      "power": 62616849,
-      "armyPower": "2,159,856,113,204,833,600,000,000,000,000,000,000",
+      "power": 62623069,
+      "armyPower": "2,160,567,446,884,632,200,000,000,000,000,000,000",
       "armyPowerText": "2.16hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -2898,49 +2977,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 61,
-      "powerPercentileInAlliance": 0.5596,
-      "powerContributionRate": 0.008762,
-      "cumulativePowerContributionRate": 0.628719,
-      "activityScore": 55,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
-    },
-    {
-      "uid": "464415327755",
-      "username": "🎋DREAM",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 360,
-      "y": 458,
-      "pointId": 234677,
-      "pointType": 1,
-      "level": 100,
-      "power": 62440335,
-      "armyPower": "2,353,285,186,506,845,300,000,000,000,000,000,000",
-      "armyPowerText": "2.35hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "source": {
-        "map": true
-      },
-      "powerRankInAlliance": 62,
-      "powerPercentileInAlliance": 0.5688,
-      "powerContributionRate": 0.008737,
-      "cumulativePowerContributionRate": 0.637456,
+      "powerRankInAlliance": 63,
+      "powerPercentileInAlliance": 0.5676,
+      "powerContributionRate": 0.008588,
+      "cumulativePowerContributionRate": 0.63762,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -2964,9 +3004,9 @@
       "pointId": 242869,
       "pointType": 1,
       "level": 100,
-      "power": 62056688,
-      "armyPower": "998,329,709,879,245,200,000,000,000,000,000,000",
-      "armyPowerText": "998gg",
+      "power": 62066298,
+      "armyPower": "1,002,866,438,014,844,100,000,000,000,000,000,000",
+      "armyPowerText": "1hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -2976,10 +3016,49 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 63,
-      "powerPercentileInAlliance": 0.578,
-      "powerContributionRate": 0.008684,
-      "cumulativePowerContributionRate": 0.64614,
+      "powerRankInAlliance": 64,
+      "powerPercentileInAlliance": 0.5766,
+      "powerContributionRate": 0.008512,
+      "cumulativePowerContributionRate": 0.646132,
+      "activityScore": 55,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
+    },
+    {
+      "uid": "497022576225",
+      "username": "DũngGà🐣",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 360,
+      "y": 462,
+      "pointId": 236725,
+      "pointType": 1,
+      "level": 100,
+      "power": 61993550,
+      "armyPower": "1,719,445,556,814,671,000,000,000,000,000,000,000",
+      "armyPowerText": "1.72hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "source": {
+        "map": true
+      },
+      "powerRankInAlliance": 65,
+      "powerPercentileInAlliance": 0.5856,
+      "powerContributionRate": 0.008502,
+      "cumulativePowerContributionRate": 0.654633,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3004,7 +3083,7 @@
       "pointType": 1,
       "level": 100,
       "power": 61984840,
-      "armyPower": "1,897,240,952,351,705,000,000,000,000,000,000,000",
+      "armyPower": "1,897,889,056,371,076,000,000,000,000,000,000,000",
       "armyPowerText": "1.9hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3015,49 +3094,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 64,
-      "powerPercentileInAlliance": 0.5872,
-      "powerContributionRate": 0.008674,
-      "cumulativePowerContributionRate": 0.654813,
-      "activityScore": 55,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
-    },
-    {
-      "uid": "497022576225",
-      "username": "DũngGà🐣",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 354,
-      "y": 460,
-      "pointId": 235698,
-      "pointType": 1,
-      "level": 100,
-      "power": 61979156,
-      "armyPower": "1,716,853,140,737,185,400,000,000,000,000,000,000",
-      "armyPowerText": "1.72hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "source": {
-        "map": true
-      },
-      "powerRankInAlliance": 65,
-      "powerPercentileInAlliance": 0.5963,
-      "powerContributionRate": 0.008673,
-      "cumulativePowerContributionRate": 0.663486,
+      "powerRankInAlliance": 66,
+      "powerPercentileInAlliance": 0.5946,
+      "powerContributionRate": 0.0085,
+      "cumulativePowerContributionRate": 0.663134,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3082,8 +3122,8 @@
       "pointId": 225468,
       "pointType": 1,
       "level": 100,
-      "power": 61723875,
-      "armyPower": "1,283,131,632,044,670,900,000,000,000,000,000,000",
+      "power": 61724515,
+      "armyPower": "1,283,447,780,346,803,200,000,000,000,000,000,000",
       "armyPowerText": "1.28hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3092,8 +3132,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1727023095,
-      "lastShowTime": 1783960992,
-      "lastLogin": 1783960992,
+      "lastShowTime": 1784048248,
+      "lastLogin": 1784048248,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3103,10 +3143,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 66,
-      "powerPercentileInAlliance": 0.6055,
-      "powerContributionRate": 0.008637,
-      "cumulativePowerContributionRate": 0.672123,
+      "powerRankInAlliance": 67,
+      "powerPercentileInAlliance": 0.6036,
+      "powerContributionRate": 0.008465,
+      "cumulativePowerContributionRate": 0.671598,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3121,7 +3161,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.56
     },
     {
       "uid": "531356013456",
@@ -3135,8 +3175,8 @@
       "pointType": 1,
       "level": 100,
       "power": 61243699,
-      "armyPower": "903,550,649,236,597,800,000,000,000,000,000,000",
-      "armyPowerText": "904gg",
+      "armyPower": "913,272,209,527,166,400,000,000,000,000,000,000",
+      "armyPowerText": "913gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -3144,8 +3184,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1711470566,
-      "lastShowTime": 1783953818,
-      "lastLogin": 1783953818,
+      "lastShowTime": 1784069798,
+      "lastLogin": 1784069798,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3155,10 +3195,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 67,
-      "powerPercentileInAlliance": 0.6147,
-      "powerContributionRate": 0.00857,
-      "cumulativePowerContributionRate": 0.680693,
+      "powerRankInAlliance": 68,
+      "powerPercentileInAlliance": 0.6126,
+      "powerContributionRate": 0.008399,
+      "cumulativePowerContributionRate": 0.679997,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3173,7 +3213,59 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.31
+    },
+    {
+      "uid": "472969692699",
+      "username": "VN•CuBin",
+      "nickname": "VN•CuBin",
+      "serverId": 2365,
+      "worldId": 1,
+      "x": 386,
+      "y": 430,
+      "pointId": 220354,
+      "pointType": 1,
+      "level": 100,
+      "power": 60655336,
+      "armyPower": "1,045,116,913,402,507,900,000,000,000,000,000,000",
+      "armyPowerText": "1.05hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "allianceName": "Vietnamese Brothers",
+      "allianceRole": 2,
+      "rank": 2,
+      "isOnline": 0,
+      "joinTime": 1717949660,
+      "lastShowTime": 1784076369,
+      "lastLogin": 1784076369,
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 63,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 69,
+      "powerPercentileInAlliance": 0.6216,
+      "powerContributionRate": 0.008318,
+      "cumulativePowerContributionRate": 0.688315,
+      "activityScore": 95,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.24
     },
     {
       "uid": "441840743869",
@@ -3196,8 +3288,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1731474913,
-      "lastShowTime": 1783962341,
-      "lastLogin": 1783962341,
+      "lastShowTime": 1784034954,
+      "lastLogin": 1784034954,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3207,10 +3299,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 68,
-      "powerPercentileInAlliance": 0.6239,
-      "powerContributionRate": 0.008487,
-      "cumulativePowerContributionRate": 0.689181,
+      "powerRankInAlliance": 70,
+      "powerPercentileInAlliance": 0.6306,
+      "powerContributionRate": 0.008318,
+      "cumulativePowerContributionRate": 0.696633,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3225,59 +3317,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.02
-    },
-    {
-      "uid": "472969692699",
-      "username": "VN•CuBin",
-      "nickname": "VN•CuBin",
-      "serverId": 2365,
-      "worldId": 1,
-      "x": 386,
-      "y": 430,
-      "pointId": 220354,
-      "pointType": 1,
-      "level": 100,
-      "power": 60605280,
-      "armyPower": "1,045,116,913,402,507,900,000,000,000,000,000,000",
-      "armyPowerText": "1.05hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "allianceName": "Vietnamese Brothers",
-      "allianceRole": 2,
-      "rank": 2,
-      "isOnline": 0,
-      "joinTime": 1717949660,
-      "lastShowTime": 1783960178,
-      "lastLogin": 1783960178,
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 63,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 69,
-      "powerPercentileInAlliance": 0.633,
-      "powerContributionRate": 0.008481,
-      "cumulativePowerContributionRate": 0.697661,
-      "activityScore": 95,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.04
+      "lastLoginDaysAgo": 0.72
     },
     {
       "uid": "468870809104",
@@ -3289,8 +3329,8 @@
       "pointId": 232629,
       "pointType": 1,
       "level": 100,
-      "power": 60324291,
-      "armyPower": "1,287,855,795,785,595,400,000,000,000,000,000,000",
+      "power": 60324381,
+      "armyPower": "1,288,171,944,087,727,800,000,000,000,000,000,000",
       "armyPowerText": "1.29hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3301,10 +3341,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 70,
-      "powerPercentileInAlliance": 0.6422,
-      "powerContributionRate": 0.008441,
-      "cumulativePowerContributionRate": 0.706103,
+      "powerRankInAlliance": 71,
+      "powerPercentileInAlliance": 0.6396,
+      "powerContributionRate": 0.008273,
+      "cumulativePowerContributionRate": 0.704906,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3340,10 +3380,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 71,
-      "powerPercentileInAlliance": 0.6514,
-      "powerContributionRate": 0.008426,
-      "cumulativePowerContributionRate": 0.714529,
+      "powerRankInAlliance": 72,
+      "powerPercentileInAlliance": 0.6486,
+      "powerContributionRate": 0.008258,
+      "cumulativePowerContributionRate": 0.713164,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3368,8 +3408,8 @@
       "pointId": 233150,
       "pointType": 1,
       "level": 100,
-      "power": 60139737,
-      "armyPower": "1,170,806,391,017,242,800,000,000,000,000,000,000",
+      "power": 60153012,
+      "armyPower": "1,174,378,866,831,338,000,000,000,000,000,000,000",
       "armyPowerText": "1.17hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3378,8 +3418,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1738050567,
-      "lastShowTime": 1783953467,
-      "lastLogin": 1783953467,
+      "lastShowTime": 1784045318,
+      "lastLogin": 1784045318,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3389,10 +3429,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 72,
-      "powerPercentileInAlliance": 0.6606,
-      "powerContributionRate": 0.008415,
-      "cumulativePowerContributionRate": 0.722945,
+      "powerRankInAlliance": 73,
+      "powerPercentileInAlliance": 0.6577,
+      "powerContributionRate": 0.008249,
+      "cumulativePowerContributionRate": 0.721413,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3407,7 +3447,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.6
     },
     {
       "uid": "516070978347",
@@ -3421,7 +3461,7 @@
       "pointType": 1,
       "level": 100,
       "power": 59795068,
-      "armyPower": "1,151,217,843,392,460,200,000,000,000,000,000,000",
+      "armyPower": "1,151,533,991,694,592,600,000,000,000,000,000,000",
       "armyPowerText": "1.15hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3430,8 +3470,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1713841247,
-      "lastShowTime": 1783958706,
-      "lastLogin": 1783958706,
+      "lastShowTime": 1784080685,
+      "lastLogin": 1784080685,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3441,10 +3481,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 73,
-      "powerPercentileInAlliance": 0.6697,
-      "powerContributionRate": 0.008367,
-      "cumulativePowerContributionRate": 0.731312,
+      "powerRankInAlliance": 74,
+      "powerPercentileInAlliance": 0.6667,
+      "powerContributionRate": 0.0082,
+      "cumulativePowerContributionRate": 0.729613,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3459,7 +3499,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.19
     },
     {
       "uid": "618968614227",
@@ -3471,8 +3511,8 @@
       "pointId": 238773,
       "pointType": 1,
       "level": 100,
-      "power": 59717658,
-      "armyPower": "1,212,219,908,054,351,700,000,000,000,000,000,000",
+      "power": 59724168,
+      "armyPower": "1,212,551,863,771,590,600,000,000,000,000,000,000",
       "armyPowerText": "1.21hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3483,10 +3523,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 74,
-      "powerPercentileInAlliance": 0.6789,
-      "powerContributionRate": 0.008356,
-      "cumulativePowerContributionRate": 0.739668,
+      "powerRankInAlliance": 75,
+      "powerPercentileInAlliance": 0.6757,
+      "powerContributionRate": 0.00819,
+      "cumulativePowerContributionRate": 0.737804,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3510,9 +3550,9 @@
       "pointId": 226485,
       "pointType": 1,
       "level": 100,
-      "power": 59587683,
-      "armyPower": "2,025,388,645,862,587,700,000,000,000,000,000,000",
-      "armyPowerText": "2.03hh",
+      "power": 59591143,
+      "armyPower": "2,022,148,125,765,730,700,000,000,000,000,000,000",
+      "armyPowerText": "2.02hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -3522,49 +3562,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 75,
-      "powerPercentileInAlliance": 0.6881,
-      "powerContributionRate": 0.008338,
-      "cumulativePowerContributionRate": 0.748007,
-      "activityScore": 55,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
-    },
-    {
-      "uid": "544902907668",
-      "username": "Kinggen",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 348,
-      "y": 448,
-      "pointId": 229551,
-      "pointType": 1,
-      "level": 100,
-      "power": 59529771,
-      "armyPower": "1,199,333,085,632,416,600,000,000,000,000,000,000",
-      "armyPowerText": "1.2hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "source": {
-        "map": true
-      },
       "powerRankInAlliance": 76,
-      "powerPercentileInAlliance": 0.6972,
-      "powerContributionRate": 0.00833,
-      "cumulativePowerContributionRate": 0.756337,
+      "powerPercentileInAlliance": 0.6847,
+      "powerContributionRate": 0.008172,
+      "cumulativePowerContributionRate": 0.745976,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3589,9 +3590,9 @@
       "pointId": 230585,
       "pointType": 1,
       "level": 100,
-      "power": 59480987,
-      "armyPower": "1,421,998,090,989,508,000,000,000,000,000,000,000",
-      "armyPowerText": "1.42hh",
+      "power": 59551958,
+      "armyPower": "1,449,141,793,839,837,000,000,000,000,000,000,000",
+      "armyPowerText": "1.45hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -3599,8 +3600,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1733737673,
-      "lastShowTime": 1783941332,
-      "lastLogin": 1783941332,
+      "lastShowTime": 1784093009,
+      "lastLogin": 1784093009,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3611,9 +3612,9 @@
         "allianceMember": true
       },
       "powerRankInAlliance": 77,
-      "powerPercentileInAlliance": 0.7064,
-      "powerContributionRate": 0.008323,
-      "cumulativePowerContributionRate": 0.76466,
+      "powerPercentileInAlliance": 0.6937,
+      "powerContributionRate": 0.008167,
+      "cumulativePowerContributionRate": 0.754143,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3628,7 +3629,46 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.26
+      "lastLoginDaysAgo": 0.05
+    },
+    {
+      "uid": "544902907668",
+      "username": "Kinggen",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 348,
+      "y": 448,
+      "pointId": 229551,
+      "pointType": 1,
+      "level": 100,
+      "power": 59538051,
+      "armyPower": "1,199,333,085,632,416,600,000,000,000,000,000,000",
+      "armyPowerText": "1.2hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "source": {
+        "map": true
+      },
+      "powerRankInAlliance": 78,
+      "powerPercentileInAlliance": 0.7027,
+      "powerContributionRate": 0.008165,
+      "cumulativePowerContributionRate": 0.762308,
+      "activityScore": 55,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
     },
     {
       "uid": "444197610950",
@@ -3641,7 +3681,7 @@
       "pointType": 1,
       "level": 100,
       "power": 59081379,
-      "armyPower": "2,357,297,040,541,090,400,000,000,000,000,000,000",
+      "armyPower": "2,357,613,188,843,222,700,000,000,000,000,000,000",
       "armyPowerText": "2.36hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3652,10 +3692,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 78,
-      "powerPercentileInAlliance": 0.7156,
-      "powerContributionRate": 0.008267,
-      "cumulativePowerContributionRate": 0.772927,
+      "powerRankInAlliance": 79,
+      "powerPercentileInAlliance": 0.7117,
+      "powerContributionRate": 0.008102,
+      "cumulativePowerContributionRate": 0.77041,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3679,9 +3719,9 @@
       "pointId": 232617,
       "pointType": 1,
       "level": 100,
-      "power": 58770229,
-      "armyPower": "2,966,553,763,380,585,300,000,000,000,000,000,000",
-      "armyPowerText": "2.97hh",
+      "power": 58780659,
+      "armyPower": "2,988,026,872,209,717,000,000,000,000,000,000,000",
+      "armyPowerText": "2.99hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -3691,10 +3731,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 79,
-      "powerPercentileInAlliance": 0.7248,
-      "powerContributionRate": 0.008224,
-      "cumulativePowerContributionRate": 0.781151,
+      "powerRankInAlliance": 80,
+      "powerPercentileInAlliance": 0.7207,
+      "powerContributionRate": 0.008061,
+      "cumulativePowerContributionRate": 0.778471,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3720,7 +3760,7 @@
       "pointType": 1,
       "level": 100,
       "power": 58699414,
-      "armyPower": "1,340,301,017,743,342,300,000,000,000,000,000,000",
+      "armyPower": "1,340,632,973,460,581,400,000,000,000,000,000,000",
       "armyPowerText": "1.34hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3729,8 +3769,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1711465883,
-      "lastShowTime": 1783959663,
-      "lastLogin": 1783959663,
+      "lastShowTime": 1784093902,
+      "lastLogin": 1784093902,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3740,10 +3780,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 80,
-      "powerPercentileInAlliance": 0.7339,
-      "powerContributionRate": 0.008214,
-      "cumulativePowerContributionRate": 0.789365,
+      "powerRankInAlliance": 81,
+      "powerPercentileInAlliance": 0.7297,
+      "powerContributionRate": 0.00805,
+      "cumulativePowerContributionRate": 0.786521,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3758,7 +3798,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.05
+      "lastLoginDaysAgo": 0.04
     },
     {
       "uid": "433237575086",
@@ -3770,8 +3810,8 @@
       "pointId": 235700,
       "pointType": 1,
       "level": 100,
-      "power": 58668385,
-      "armyPower": "1,442,535,055,953,261,300,000,000,000,000,000,000",
+      "power": 58669045,
+      "armyPower": "1,442,851,204,255,394,000,000,000,000,000,000,000",
       "armyPowerText": "1.44hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -3782,10 +3822,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 81,
-      "powerPercentileInAlliance": 0.7431,
-      "powerContributionRate": 0.00821,
-      "cumulativePowerContributionRate": 0.797575,
+      "powerRankInAlliance": 82,
+      "powerPercentileInAlliance": 0.7387,
+      "powerContributionRate": 0.008046,
+      "cumulativePowerContributionRate": 0.794567,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -3810,8 +3850,8 @@
       "pointType": 1,
       "level": 100,
       "power": 58212357,
-      "armyPower": "2,595,844,799,523,617,000,000,000,000,000,000,000",
-      "armyPowerText": "2.6hh",
+      "armyPower": "2,653,041,599,493,187,600,000,000,000,000,000,000",
+      "armyPowerText": "2.65hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -3821,10 +3861,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 82,
-      "powerPercentileInAlliance": 0.7523,
-      "powerContributionRate": 0.008146,
-      "cumulativePowerContributionRate": 0.80572,
+      "powerRankInAlliance": 83,
+      "powerPercentileInAlliance": 0.7477,
+      "powerContributionRate": 0.007983,
+      "cumulativePowerContributionRate": 0.80255,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -3848,7 +3888,7 @@
       "pointId": 233660,
       "pointType": 1,
       "level": 100,
-      "power": 58179037,
+      "power": 58197136,
       "armyPower": "1,287,529,925,923,180,000,000,000,000,000,000,000",
       "armyPowerText": "1.29hh",
       "allianceId": "400373334",
@@ -3858,8 +3898,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1711543015,
-      "lastShowTime": 1783944725,
-      "lastLogin": 1783944725,
+      "lastShowTime": 1784090795,
+      "lastLogin": 1784090795,
       "language": "jp",
       "nationalflag": 114,
       "gender": 0,
@@ -3869,10 +3909,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 83,
-      "powerPercentileInAlliance": 0.7615,
-      "powerContributionRate": 0.008141,
-      "cumulativePowerContributionRate": 0.813862,
+      "powerRankInAlliance": 84,
+      "powerPercentileInAlliance": 0.7568,
+      "powerContributionRate": 0.007981,
+      "cumulativePowerContributionRate": 0.810531,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -3886,7 +3926,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.22
+      "lastLoginDaysAgo": 0.07
     },
     {
       "uid": "580390483897",
@@ -3899,8 +3939,8 @@
       "pointType": 1,
       "level": 100,
       "power": 58128566,
-      "armyPower": "520,172,893,971,522,200,000,000,000,000,000,000",
-      "armyPowerText": "520gg",
+      "armyPower": "520,805,190,575,786,940,000,000,000,000,000,000",
+      "armyPowerText": "521gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -3910,10 +3950,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 84,
-      "powerPercentileInAlliance": 0.7706,
-      "powerContributionRate": 0.008134,
-      "cumulativePowerContributionRate": 0.821996,
+      "powerRankInAlliance": 85,
+      "powerPercentileInAlliance": 0.7658,
+      "powerContributionRate": 0.007972,
+      "cumulativePowerContributionRate": 0.818502,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -3948,10 +3988,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 85,
-      "powerPercentileInAlliance": 0.7798,
-      "powerContributionRate": 0.008125,
-      "cumulativePowerContributionRate": 0.830121,
+      "powerRankInAlliance": 86,
+      "powerPercentileInAlliance": 0.7748,
+      "powerContributionRate": 0.007963,
+      "cumulativePowerContributionRate": 0.826465,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -3975,9 +4015,9 @@
       "pointId": 220343,
       "pointType": 1,
       "level": 100,
-      "power": 58057972,
-      "armyPower": "717,848,705,933,959,000,000,000,000,000,000,000",
-      "armyPowerText": "718gg",
+      "power": 58064412,
+      "armyPower": "719,793,017,992,072,700,000,000,000,000,000,000",
+      "armyPowerText": "720gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -3985,8 +4025,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1734441453,
-      "lastShowTime": 1783960472,
-      "lastLogin": 1783960472,
+      "lastShowTime": 1784092340,
+      "lastLogin": 1784092340,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -3996,10 +4036,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 86,
-      "powerPercentileInAlliance": 0.789,
-      "powerContributionRate": 0.008124,
-      "cumulativePowerContributionRate": 0.838245,
+      "powerRankInAlliance": 87,
+      "powerPercentileInAlliance": 0.7838,
+      "powerContributionRate": 0.007963,
+      "cumulativePowerContributionRate": 0.834428,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4013,7 +4053,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.04
+      "lastLoginDaysAgo": 0.05
     },
     {
       "uid": "658580977263",
@@ -4026,7 +4066,7 @@
       "pointType": 1,
       "level": 100,
       "power": 57595445,
-      "armyPower": "1,656,897,131,534,281,400,000,000,000,000,000,000",
+      "armyPower": "1,656,944,553,779,601,600,000,000,000,000,000,000",
       "armyPowerText": "1.66hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -4037,10 +4077,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 87,
-      "powerPercentileInAlliance": 0.7982,
-      "powerContributionRate": 0.008059,
-      "cumulativePowerContributionRate": 0.846305,
+      "powerRankInAlliance": 88,
+      "powerPercentileInAlliance": 0.7928,
+      "powerContributionRate": 0.007898,
+      "cumulativePowerContributionRate": 0.842327,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4064,9 +4104,9 @@
       "pointId": 231614,
       "pointType": 1,
       "level": 100,
-      "power": 57206485,
-      "armyPower": "300,072,160,968,912,000,000,000,000,000,000,000",
-      "armyPowerText": "300gg",
+      "power": 57258295,
+      "armyPower": "613,349,441,332,512,260,000,000,000,000,000,000",
+      "armyPowerText": "613gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -4074,8 +4114,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1730822153,
-      "lastShowTime": 1783948238,
-      "lastLogin": 1783948238,
+      "lastShowTime": 1784093738,
+      "lastLogin": 1784093738,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4085,112 +4125,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 88,
-      "powerPercentileInAlliance": 0.8073,
-      "powerContributionRate": 0.008005,
-      "cumulativePowerContributionRate": 0.85431,
-      "activityScore": 70,
-      "activityReasons": [
-        "map_found",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.18
-    },
-    {
-      "uid": "497683048033",
-      "username": "VietJet",
-      "nickname": "VietJet",
-      "serverId": 2365,
-      "worldId": 1,
-      "x": 362,
-      "y": 440,
-      "pointId": 225462,
-      "pointType": 1,
-      "level": 100,
-      "power": 56391502,
-      "armyPower": "1,514,747,782,979,282,000,000,000,000,000,000,000",
-      "armyPowerText": "1.51hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "allianceName": "Vietnamese Brothers",
-      "allianceRole": 2,
-      "rank": 2,
-      "isOnline": 0,
-      "joinTime": 1774761912,
-      "lastShowTime": 1783939923,
-      "lastLogin": 1783939923,
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 114,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 89,
-      "powerPercentileInAlliance": 0.8165,
-      "powerContributionRate": 0.007891,
-      "cumulativePowerContributionRate": 0.862201,
-      "activityScore": 70,
-      "activityReasons": [
-        "map_found",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.28
-    },
-    {
-      "uid": "660062410355",
-      "username": "NHÔM✌🏼",
-      "nickname": "NHÔM✌🏼",
-      "serverId": 2365,
-      "worldId": 1,
-      "x": 372,
-      "y": 442,
-      "pointId": 226491,
-      "pointType": 1,
-      "level": 100,
-      "power": 55702868,
-      "armyPower": "1,656,019,582,882,423,200,000,000,000,000,000,000",
-      "armyPowerText": "1.66hh",
-      "allianceId": "400373334",
-      "allianceTag": "VBRO",
-      "allianceName": "Vietnamese Brothers",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1718203020,
-      "lastShowTime": 1783960455,
-      "lastLogin": 1783960455,
-      "language": "vi",
-      "nationalflag": 241,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 0,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 90,
-      "powerPercentileInAlliance": 0.8257,
-      "powerContributionRate": 0.007795,
-      "cumulativePowerContributionRate": 0.869995,
+      "powerPercentileInAlliance": 0.8018,
+      "powerContributionRate": 0.007852,
+      "cumulativePowerContributionRate": 0.850179,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4207,6 +4145,108 @@
       "lastLoginDaysAgo": 0.04
     },
     {
+      "uid": "497683048033",
+      "username": "VietJet",
+      "nickname": "VietJet",
+      "serverId": 2365,
+      "worldId": 1,
+      "x": 362,
+      "y": 440,
+      "pointId": 225462,
+      "pointType": 1,
+      "level": 100,
+      "power": 56408113,
+      "armyPower": "1,514,747,782,979,282,000,000,000,000,000,000,000",
+      "armyPowerText": "1.51hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "allianceName": "Vietnamese Brothers",
+      "allianceRole": 2,
+      "rank": 2,
+      "isOnline": 0,
+      "joinTime": 1774761912,
+      "lastShowTime": 1784085542,
+      "lastLogin": 1784085542,
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 114,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 90,
+      "powerPercentileInAlliance": 0.8108,
+      "powerContributionRate": 0.007736,
+      "cumulativePowerContributionRate": 0.857914,
+      "activityScore": 70,
+      "activityReasons": [
+        "map_found",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.13
+    },
+    {
+      "uid": "660062410355",
+      "username": "NHÔM✌🏼",
+      "nickname": "NHÔM✌🏼",
+      "serverId": 2365,
+      "worldId": 1,
+      "x": 372,
+      "y": 442,
+      "pointId": 226491,
+      "pointType": 1,
+      "level": 100,
+      "power": 55702958,
+      "armyPower": "1,656,335,731,184,555,700,000,000,000,000,000,000",
+      "armyPowerText": "1.66hh",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "allianceName": "Vietnamese Brothers",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1718203020,
+      "lastShowTime": 1784094225,
+      "lastLogin": 1784094225,
+      "language": "vi",
+      "nationalflag": 241,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 0,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 91,
+      "powerPercentileInAlliance": 0.8198,
+      "powerContributionRate": 0.007639,
+      "cumulativePowerContributionRate": 0.865553,
+      "activityScore": 70,
+      "activityReasons": [
+        "map_found",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.03
+    },
+    {
       "uid": "545755571158",
       "username": "Lee",
       "serverId": 2365,
@@ -4216,7 +4256,7 @@
       "pointId": 231608,
       "pointType": 1,
       "level": 100,
-      "power": 55591593,
+      "power": 55636613,
       "armyPower": "1,554,565,379,690,145,000,000,000,000,000,000,000",
       "armyPowerText": "1.55hh",
       "allianceId": "400373334",
@@ -4228,10 +4268,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 91,
-      "powerPercentileInAlliance": 0.8349,
-      "powerContributionRate": 0.007779,
-      "cumulativePowerContributionRate": 0.877774,
+      "powerRankInAlliance": 92,
+      "powerPercentileInAlliance": 0.8288,
+      "powerContributionRate": 0.00763,
+      "cumulativePowerContributionRate": 0.873183,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4254,8 +4294,8 @@
       "pointId": 233652,
       "pointType": 1,
       "level": 100,
-      "power": 55322435,
-      "armyPower": "1,479,838,311,712,194,400,000,000,000,000,000,000",
+      "power": 55322455,
+      "armyPower": "1,480,170,267,429,433,200,000,000,000,000,000,000",
       "armyPowerText": "1.48hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -4266,10 +4306,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 92,
-      "powerPercentileInAlliance": 0.844,
-      "powerContributionRate": 0.007741,
-      "cumulativePowerContributionRate": 0.885516,
+      "powerRankInAlliance": 93,
+      "powerPercentileInAlliance": 0.8378,
+      "powerContributionRate": 0.007587,
+      "cumulativePowerContributionRate": 0.88077,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4314,24 +4354,24 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 93,
-      "powerPercentileInAlliance": 0.8532,
-      "powerContributionRate": 0.007741,
-      "cumulativePowerContributionRate": 0.893256,
-      "activityScore": 65,
+      "powerRankInAlliance": 94,
+      "powerPercentileInAlliance": 0.8468,
+      "powerContributionRate": 0.007586,
+      "cumulativePowerContributionRate": 0.888356,
+      "activityScore": 55,
       "activityReasons": [
         "map_found",
-        "recent_login_3d",
+        "recent_login_7d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "ACTIVE",
-      "userStatus": "RECENT",
-      "inactiveScore": 10,
+      "userStatus": "SLEEPY",
+      "inactiveScore": 35,
       "inactiveReasons": [
-        "lastLoginWithin3Days"
+        "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 2.27
+      "lastLoginDaysAgo": 3.82
     },
     {
       "uid": "579314377890",
@@ -4344,8 +4384,8 @@
       "pointId": 228537,
       "pointType": 1,
       "level": 100,
-      "power": 54991009,
-      "armyPower": "1,154,579,882,834,790,200,000,000,000,000,000,000",
+      "power": 54991029,
+      "armyPower": "1,154,911,838,552,029,200,000,000,000,000,000,000",
       "armyPowerText": "1.15hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -4354,8 +4394,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1711470591,
-      "lastShowTime": 1783959743,
-      "lastLogin": 1783959743,
+      "lastShowTime": 1784092757,
+      "lastLogin": 1784092757,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4365,10 +4405,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 94,
-      "powerPercentileInAlliance": 0.8624,
-      "powerContributionRate": 0.007695,
-      "cumulativePowerContributionRate": 0.900951,
+      "powerRankInAlliance": 95,
+      "powerPercentileInAlliance": 0.8559,
+      "powerContributionRate": 0.007541,
+      "cumulativePowerContributionRate": 0.895897,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4406,10 +4446,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 95,
-      "powerPercentileInAlliance": 0.8716,
-      "powerContributionRate": 0.007689,
-      "cumulativePowerContributionRate": 0.90864,
+      "powerRankInAlliance": 96,
+      "powerPercentileInAlliance": 0.8649,
+      "powerContributionRate": 0.007536,
+      "cumulativePowerContributionRate": 0.903433,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4443,8 +4483,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1759422735,
-      "lastShowTime": 1783958177,
-      "lastLogin": 1783958177,
+      "lastShowTime": 1784093171,
+      "lastLogin": 1784093171,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4454,10 +4494,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 96,
-      "powerPercentileInAlliance": 0.8807,
-      "powerContributionRate": 0.007539,
-      "cumulativePowerContributionRate": 0.916179,
+      "powerRankInAlliance": 97,
+      "powerPercentileInAlliance": 0.8739,
+      "powerContributionRate": 0.007388,
+      "cumulativePowerContributionRate": 0.910821,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4471,7 +4511,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.07
+      "lastLoginDaysAgo": 0.04
     },
     {
       "uid": "664699151717",
@@ -4485,8 +4525,8 @@
       "pointType": 1,
       "level": 100,
       "power": 53665365,
-      "armyPower": "694,301,171,871,272,400,000,000,000,000,000,000",
-      "armyPowerText": "694gg",
+      "armyPower": "699,359,544,705,389,700,000,000,000,000,000,000",
+      "armyPowerText": "699gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -4494,8 +4534,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1766290787,
-      "lastShowTime": 1783958289,
-      "lastLogin": 1783958289,
+      "lastShowTime": 1784040111,
+      "lastLogin": 1784040111,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4505,10 +4545,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 97,
-      "powerPercentileInAlliance": 0.8899,
-      "powerContributionRate": 0.00751,
-      "cumulativePowerContributionRate": 0.923689,
+      "powerRankInAlliance": 98,
+      "powerPercentileInAlliance": 0.8829,
+      "powerContributionRate": 0.00736,
+      "cumulativePowerContributionRate": 0.918181,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4522,7 +4562,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.66
     },
     {
       "uid": "517104620334",
@@ -4534,9 +4574,9 @@
       "pointId": 231604,
       "pointType": 1,
       "level": 100,
-      "power": 53473783,
-      "armyPower": "777,075,358,325,616,600,000,000,000,000,000,000",
-      "armyPowerText": "777gg",
+      "power": 53477063,
+      "armyPower": "779,335,818,685,862,600,000,000,000,000,000,000",
+      "armyPowerText": "779gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "vi",
@@ -4546,10 +4586,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 98,
-      "powerPercentileInAlliance": 0.8991,
-      "powerContributionRate": 0.007483,
-      "cumulativePowerContributionRate": 0.931172,
+      "powerRankInAlliance": 99,
+      "powerPercentileInAlliance": 0.8919,
+      "powerContributionRate": 0.007334,
+      "cumulativePowerContributionRate": 0.925515,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4573,9 +4613,9 @@
       "pointId": 229564,
       "pointType": 1,
       "level": 100,
-      "power": 53338518,
-      "armyPower": "1,536,133,589,902,394,600,000,000,000,000,000,000",
-      "armyPowerText": "1.54hh",
+      "power": 53345338,
+      "armyPower": "1,547,467,506,533,840,300,000,000,000,000,000,000",
+      "armyPowerText": "1.55hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -4583,8 +4623,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1782815537,
-      "lastShowTime": 1783955532,
-      "lastLogin": 1783955532,
+      "lastShowTime": 1784092071,
+      "lastLogin": 1784092071,
       "language": "vi",
       "nationalflag": 233,
       "gender": 0,
@@ -4594,10 +4634,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 99,
-      "powerPercentileInAlliance": 0.9083,
-      "powerContributionRate": 0.007464,
-      "cumulativePowerContributionRate": 0.938635,
+      "powerRankInAlliance": 100,
+      "powerPercentileInAlliance": 0.9009,
+      "powerContributionRate": 0.007316,
+      "cumulativePowerContributionRate": 0.93283,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4611,7 +4651,45 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.1
+      "lastLoginDaysAgo": 0.06
+    },
+    {
+      "uid": "517365576493",
+      "username": "AK🔥",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 336,
+      "y": 446,
+      "pointId": 228521,
+      "pointType": 1,
+      "level": 100,
+      "power": 51692821,
+      "armyPower": "166,309,861,779,145,660,000,000,000,000,000,000",
+      "armyPowerText": "166gg",
+      "allianceId": "400373334",
+      "allianceTag": "VBRO",
+      "language": "vi",
+      "nationalflag": 114,
+      "gender": 0,
+      "usergender": 1,
+      "source": {
+        "map": true
+      },
+      "powerRankInAlliance": 101,
+      "powerPercentileInAlliance": 0.9099,
+      "powerContributionRate": 0.007089,
+      "cumulativePowerContributionRate": 0.939919,
+      "activityScore": 30,
+      "activityReasons": [
+        "map_found"
+      ],
+      "activityGrade": "WATCH",
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
     },
     {
       "uid": "544322933718",
@@ -4635,10 +4713,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 100,
-      "powerPercentileInAlliance": 0.9174,
-      "powerContributionRate": 0.007193,
-      "cumulativePowerContributionRate": 0.945828,
+      "powerRankInAlliance": 102,
+      "powerPercentileInAlliance": 0.9189,
+      "powerContributionRate": 0.007049,
+      "cumulativePowerContributionRate": 0.946968,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4661,8 +4739,8 @@
       "pointId": 229544,
       "pointType": 1,
       "level": 100,
-      "power": 51354411,
-      "armyPower": "565,779,001,496,041,800,000,000,000,000,000,000",
+      "power": 51354451,
+      "armyPower": "566,427,105,515,413,100,000,000,000,000,000,000",
       "armyPowerText": "566gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -4673,10 +4751,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 101,
-      "powerPercentileInAlliance": 0.9266,
-      "powerContributionRate": 0.007186,
-      "cumulativePowerContributionRate": 0.953014,
+      "powerRankInAlliance": 103,
+      "powerPercentileInAlliance": 0.9279,
+      "powerContributionRate": 0.007043,
+      "cumulativePowerContributionRate": 0.954011,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4711,10 +4789,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 102,
-      "powerPercentileInAlliance": 0.9358,
-      "powerContributionRate": 0.007144,
-      "cumulativePowerContributionRate": 0.960158,
+      "powerRankInAlliance": 104,
+      "powerPercentileInAlliance": 0.9369,
+      "powerContributionRate": 0.007001,
+      "cumulativePowerContributionRate": 0.961012,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4738,8 +4816,8 @@
       "pointId": 223917,
       "pointType": 1,
       "level": 100,
-      "power": 50670534,
-      "armyPower": "1,367,572,392,575,597,000,000,000,000,000,000,000",
+      "power": 50670574,
+      "armyPower": "1,371,413,594,446,505,000,000,000,000,000,000,000",
       "armyPowerText": "1.37hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -4748,8 +4826,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1733501559,
-      "lastShowTime": 1783956531,
-      "lastLogin": 1783956531,
+      "lastShowTime": 1784077846,
+      "lastLogin": 1784077846,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4759,10 +4837,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 103,
-      "powerPercentileInAlliance": 0.945,
-      "powerContributionRate": 0.00709,
-      "cumulativePowerContributionRate": 0.967249,
+      "powerRankInAlliance": 105,
+      "powerPercentileInAlliance": 0.9459,
+      "powerContributionRate": 0.006949,
+      "cumulativePowerContributionRate": 0.967961,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4776,7 +4854,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0.22
     },
     {
       "uid": "666806433377",
@@ -4788,7 +4866,7 @@
       "pointId": 241842,
       "pointType": 1,
       "level": 100,
-      "power": 49939095,
+      "power": 49942745,
       "armyPower": "365,713,337,446,289,300,000,000,000,000,000,000",
       "armyPowerText": "366gg",
       "allianceId": "400373334",
@@ -4800,10 +4878,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 104,
-      "powerPercentileInAlliance": 0.9541,
-      "powerContributionRate": 0.006988,
-      "cumulativePowerContributionRate": 0.974237,
+      "powerRankInAlliance": 106,
+      "powerPercentileInAlliance": 0.955,
+      "powerContributionRate": 0.006849,
+      "cumulativePowerContributionRate": 0.97481,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -4827,9 +4905,9 @@
       "pointId": 236201,
       "pointType": 1,
       "level": 100,
-      "power": 46379143,
-      "armyPower": "529,430,087,260,153,460,000,000,000,000,000,000",
-      "armyPowerText": "529gg",
+      "power": 46379213,
+      "armyPower": "529,746,235,562,285,800,000,000,000,000,000,000",
+      "armyPowerText": "530gg",
       "allianceId": "400379920",
       "allianceTag": "VND[",
       "allianceName": "Unity Is Strength",
@@ -4837,8 +4915,8 @@
       "rank": 5,
       "isOnline": 0,
       "joinTime": 1747396783,
-      "lastShowTime": 1783947723,
-      "lastLogin": 1783947723,
+      "lastShowTime": 1784034176,
+      "lastLogin": 1784034176,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4866,34 +4944,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.19
-    },
-    {
-      "uid": "520751313732",
-      "username": "Assssssa",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 516,
-      "y": 730,
-      "pointId": 374019,
-      "pointType": 1,
-      "level": 100,
-      "power": 45142774,
-      "armyPower": "314,245,394,314,580,650,000,000,000,000,000,000",
-      "armyPowerText": "314gg",
-      "language": "vi",
-      "nationalflag": 212,
-      "gender": 0,
-      "usergender": 1,
-      "source": {
-        "map": true
-      },
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
+      "lastLoginDaysAgo": 0.73
     },
     {
       "uid": "847580768573",
@@ -4905,9 +4956,9 @@
       "pointId": 189077,
       "pointType": 1,
       "level": 100,
-      "power": 43612322,
-      "armyPower": "570,396,795,028,387,200,000,000,000,000,000,000",
-      "armyPowerText": "570gg",
+      "power": 43615422,
+      "armyPower": "584,979,333,056,930,300,000,000,000,000,000,000",
+      "armyPowerText": "585gg",
       "language": "en",
       "nationalflag": 218,
       "gender": 0,
@@ -4933,9 +4984,9 @@
       "pointId": 222905,
       "pointType": 1,
       "level": 100,
-      "power": 43259165,
-      "armyPower": "1,810,038,232,917,417,600,000,000,000,000,000,000",
-      "armyPowerText": "1.81hh",
+      "power": 42318105,
+      "armyPower": "1,857,096,235,874,678,000,000,000,000,000,000,000",
+      "armyPowerText": "1.86hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -4943,8 +4994,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1767453148,
-      "lastShowTime": 1783951505,
-      "lastLogin": 1783951505,
+      "lastShowTime": 1784086524,
+      "lastLogin": 1784086524,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -4954,10 +5005,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 105,
-      "powerPercentileInAlliance": 0.9633,
-      "powerContributionRate": 0.006053,
-      "cumulativePowerContributionRate": 0.98029,
+      "powerRankInAlliance": 107,
+      "powerPercentileInAlliance": 0.964,
+      "powerContributionRate": 0.005803,
+      "cumulativePowerContributionRate": 0.980613,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4971,7 +5022,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.14
+      "lastLoginDaysAgo": 0.12
     },
     {
       "uid": "934555510286",
@@ -4984,9 +5035,9 @@
       "pointId": 228539,
       "pointType": 1,
       "level": 100,
-      "power": 40123794,
-      "armyPower": "654,081,185,924,076,600,000,000,000,000,000,000",
-      "armyPowerText": "654gg",
+      "power": 40194315,
+      "armyPower": "667,214,223,505,880,100,000,000,000,000,000,000",
+      "armyPowerText": "667gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceName": "Vietnamese Brothers",
@@ -4994,8 +5045,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1735983358,
-      "lastShowTime": 1783951935,
-      "lastLogin": 1783951935,
+      "lastShowTime": 1784090383,
+      "lastLogin": 1784090383,
       "language": "vi",
       "nationalflag": 241,
       "gender": 0,
@@ -5005,10 +5056,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 106,
-      "powerPercentileInAlliance": 0.9725,
-      "powerContributionRate": 0.005615,
-      "cumulativePowerContributionRate": 0.985905,
+      "powerRankInAlliance": 108,
+      "powerPercentileInAlliance": 0.973,
+      "powerContributionRate": 0.005512,
+      "cumulativePowerContributionRate": 0.986126,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5022,7 +5073,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.14
+      "lastLoginDaysAgo": 0.08
     },
     {
       "uid": "847810005309",
@@ -5034,9 +5085,9 @@
       "pointId": 234158,
       "pointType": 1,
       "level": 100,
-      "power": 37082271,
-      "armyPower": "119,124,680,243,465,390,000,000,000,000,000,000",
-      "armyPowerText": "119gg",
+      "power": 37083091,
+      "armyPower": "112,801,714,200,818,630,000,000,000,000,000,000",
+      "armyPowerText": "113gg",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "language": "en",
@@ -5046,10 +5097,10 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 107,
-      "powerPercentileInAlliance": 0.9817,
-      "powerContributionRate": 0.005189,
-      "cumulativePowerContributionRate": 0.991094,
+      "powerRankInAlliance": 109,
+      "powerPercentileInAlliance": 0.982,
+      "powerContributionRate": 0.005085,
+      "cumulativePowerContributionRate": 0.991211,
       "activityScore": 30,
       "activityReasons": [
         "map_found"
@@ -5083,8 +5134,8 @@
       "rank": 6,
       "isOnline": 0,
       "joinTime": 1663544896,
-      "lastShowTime": 1783899844,
-      "lastLogin": 1783899844,
+      "lastShowTime": 1784070850,
+      "lastLogin": 1784070850,
       "language": "zh_tw",
       "nationalflag": 95,
       "gender": 0,
@@ -5096,8 +5147,8 @@
       },
       "powerRankInAlliance": 1,
       "powerPercentileInAlliance": 0.5,
-      "powerContributionRate": 0.689823,
-      "cumulativePowerContributionRate": 0.689823,
+      "powerContributionRate": 0.687254,
+      "cumulativePowerContributionRate": 0.687254,
       "activityScore": 100,
       "activityReasons": [
         "map_found",
@@ -5112,7 +5163,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.74
+      "lastLoginDaysAgo": 0.3
     },
     {
       "uid": "848647625021",
@@ -5135,8 +5186,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1688624155,
-      "lastShowTime": 1783955169,
-      "lastLogin": 1783955169,
+      "lastShowTime": 1784076273,
+      "lastLogin": 1784076273,
       "language": "ar",
       "nationalflag": 107,
       "gender": 0,
@@ -5146,10 +5197,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 108,
-      "powerPercentileInAlliance": 0.9908,
-      "powerContributionRate": 0.004702,
-      "cumulativePowerContributionRate": 0.995795,
+      "powerRankInAlliance": 110,
+      "powerPercentileInAlliance": 0.991,
+      "powerContributionRate": 0.004608,
+      "cumulativePowerContributionRate": 0.995819,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5163,7 +5214,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.1
+      "lastLoginDaysAgo": 0.24
     },
     {
       "uid": "847428147517",
@@ -5175,9 +5226,9 @@
       "pointId": 33517,
       "pointType": 1,
       "level": 100,
-      "power": 32943006,
-      "armyPower": "335,408,056,698,241,500,000,000,000,000,000,000",
-      "armyPowerText": "335gg",
+      "power": 33091368,
+      "armyPower": "354,008,642,054,197,800,000,000,000,000,000,000",
+      "armyPowerText": "354gg",
       "language": "jp",
       "nationalflag": 114,
       "gender": 0,
@@ -5227,7 +5278,7 @@
       "powerRankInAlliance": 2,
       "powerPercentileInAlliance": 0.6667,
       "powerContributionRate": 0.350412,
-      "cumulativePowerContributionRate": 0.844158,
+      "cumulativePowerContributionRate": 0.844159,
       "activityScore": 45,
       "activityReasons": [
         "map_found",
@@ -5240,7 +5291,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 3.97
+      "lastLoginDaysAgo": 5.51
     },
     {
       "uid": "847741233469",
@@ -5252,8 +5303,8 @@
       "pointId": 238769,
       "pointType": 1,
       "level": 100,
-      "power": 30047704,
-      "armyPower": "1,572,138,324,989,934,800,000,000,000,000,000,000",
+      "power": 30488424,
+      "armyPower": "1,573,783,086,531,778,300,000,000,000,000,000,000",
       "armyPowerText": "1.57hh",
       "allianceId": "400373334",
       "allianceTag": "VBRO",
@@ -5264,9 +5315,9 @@
       "source": {
         "map": true
       },
-      "powerRankInAlliance": 109,
+      "powerRankInAlliance": 111,
       "powerPercentileInAlliance": 1,
-      "powerContributionRate": 0.004205,
+      "powerContributionRate": 0.004181,
       "cumulativePowerContributionRate": 1,
       "activityScore": 30,
       "activityReasons": [
@@ -5291,7 +5342,7 @@
       "pointId": 192702,
       "pointType": 1,
       "level": 92,
-      "power": 16537958,
+      "power": 16539688,
       "armyPower": "212,852,747,332,558,400,000,000,000,000,000",
       "armyPowerText": "213ff",
       "allianceId": "400374421",
@@ -5301,8 +5352,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1663785418,
-      "lastShowTime": 1783907037,
-      "lastLogin": 1783907037,
+      "lastShowTime": 1784083758,
+      "lastLogin": 1784083758,
       "language": "zh_tw",
       "nationalflag": 95,
       "gender": 0,
@@ -5329,7 +5380,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.66
+      "lastLoginDaysAgo": 0.15
     },
     {
       "uid": "856672942397",
@@ -5342,9 +5393,9 @@
       "pointId": 368482,
       "pointType": 1,
       "level": 80,
-      "power": 15895322,
-      "armyPower": "60,909,722,580,278,120,000,000,000,000",
-      "armyPowerText": "60.9ee",
+      "power": 16086889,
+      "armyPower": "63,973,918,867,836,550,000,000,000,000",
+      "armyPowerText": "64ee",
       "allianceId": "400382566",
       "allianceTag": "AAB.",
       "allianceName": "Alt Account Builders",
@@ -5352,8 +5403,8 @@
       "rank": 5,
       "isOnline": 0,
       "joinTime": 1772588156,
-      "lastShowTime": 1783963245,
-      "lastLogin": 1783963245,
+      "lastShowTime": 1784073040,
+      "lastLogin": 1784073040,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5365,7 +5416,7 @@
       },
       "powerRankInAlliance": 2,
       "powerPercentileInAlliance": 1,
-      "powerContributionRate": 0.310177,
+      "powerContributionRate": 0.312746,
       "cumulativePowerContributionRate": 1,
       "activityScore": 60,
       "activityReasons": [
@@ -5379,7 +5430,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.01
+      "lastLoginDaysAgo": 0.28
     },
     {
       "uid": "848117889341",
@@ -5415,7 +5466,7 @@
       },
       "powerRankInAlliance": 3,
       "powerPercentileInAlliance": 1,
-      "powerContributionRate": 0.155842,
+      "powerContributionRate": 0.155841,
       "cumulativePowerContributionRate": 1,
       "activityScore": 55,
       "activityReasons": [
@@ -5430,7 +5481,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 4.61
+      "lastLoginDaysAgo": 6.15
     },
     {
       "uid": "857288898877",
@@ -5481,34 +5532,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 1.32
-    },
-    {
-      "uid": "847910132029",
-      "username": "wy.847910132029",
-      "serverId": 2365,
-      "worldId": 2365,
-      "x": 117,
-      "y": 775,
-      "pointId": 396859,
-      "pointType": 1,
-      "level": 30,
-      "power": 462055,
-      "armyPower": "237,930,504,649",
-      "armyPowerText": "238B",
-      "language": "en",
-      "nationalflag": 65,
-      "gender": 0,
-      "usergender": 0,
-      "source": {
-        "map": true
-      },
-      "userStatus": "UNKNOWN",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLogin_unknown"
-      ],
-      "lastLoginDaysAgo": null
+      "lastLoginDaysAgo": 2.86
     },
     {
       "uid": "848629672253",
@@ -5574,50 +5598,77 @@
         "lastLogin_unknown"
       ],
       "lastLoginDaysAgo": null
+    },
+    {
+      "uid": "848588618045",
+      "username": "wy.848588618045",
+      "serverId": 2365,
+      "worldId": 2365,
+      "x": 4,
+      "y": 714,
+      "pointId": 365571,
+      "pointType": 1,
+      "level": 5,
+      "power": 4475,
+      "armyPower": "139",
+      "armyPowerText": "139",
+      "language": "zh_tw",
+      "nationalflag": 228,
+      "gender": 0,
+      "usergender": 0,
+      "source": {
+        "map": true
+      },
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
     }
   ],
   "alliances": [
     {
-      "memberCount": 109,
+      "memberCount": 111,
       "allianceId": "400373334",
       "allianceTag": "VBRO",
       "allianceCode": "VBRO",
       "allianceName": "Vietnamese Brothers",
       "allianceLeader": "Memories",
       "allianceLevel": 5,
-      "alliancePower": 9950000000,
-      "alliancePowerText": "9.95B",
-      "allianceMemberCountShown": 163,
+      "alliancePower": 10000000000,
+      "alliancePowerText": "10B",
+      "allianceMemberCountShown": 164,
       "allianceMemberMax": 170,
-      "allianceMemberText": "163/170",
+      "allianceMemberText": "164/170",
       "serverId": 2365,
       "activitySummary": {
-        "collectedMapMemberCount": 109,
+        "collectedMapMemberCount": 111,
         "coreCount": 45,
-        "activeCount": 50,
-        "watchCount": 14,
+        "activeCount": 51,
+        "watchCount": 15,
         "lowCount": 0,
-        "activeTotalCount": 95,
-        "totalPower": 7146322836,
-        "corePowerSum": 3375325795,
-        "activePowerSum": 6424105280,
-        "corePowerRate": 0.472316,
-        "activePowerRate": 0.898939,
-        "top20PowerCount": 21,
-        "cumulative80PowerCount": 81,
-        "shownMemberCount": 163,
+        "activeTotalCount": 96,
+        "totalPower": 7291960559,
+        "corePowerSum": 3402038243,
+        "activePowerSum": 6517556632,
+        "corePowerRate": 0.466546,
+        "activePowerRate": 0.8938,
+        "top20PowerCount": 22,
+        "cumulative80PowerCount": 82,
+        "shownMemberCount": 164,
         "shownMemberMax": 170
       },
       "activeAllianceGrade": "CORE",
       "activeAllianceScore": 100,
       "activeAllianceReasons": [
-        "coverageRate=66.87%",
+        "coverageRate=67.68%",
         "coreCount>=10",
         "activeCount>=25",
         "memberCount>=30",
         "activePowerRate>=75% && coreCount>=5"
       ],
-      "coverageRate": 0.6687
+      "coverageRate": 0.6768
     },
     {
       "memberCount": 3,
@@ -5640,9 +5691,9 @@
         "watchCount": 1,
         "lowCount": 0,
         "activeTotalCount": 2,
-        "totalPower": 93933085,
-        "corePowerSum": 46379143,
-        "activePowerSum": 61017816,
+        "totalPower": 93933155,
+        "corePowerSum": 46379213,
+        "activePowerSum": 61017886,
         "corePowerRate": 0.493747,
         "activePowerRate": 0.649588,
         "top20PowerCount": 0,
@@ -5667,8 +5718,8 @@
       "allianceName": "Alt Account Builders",
       "allianceLeader": "Chicago",
       "allianceLevel": 1,
-      "alliancePower": 68900000,
-      "alliancePowerText": "68.9M",
+      "alliancePower": 69100000,
+      "alliancePowerText": "69.1M",
       "allianceMemberCountShown": 18,
       "allianceMemberMax": 60,
       "allianceMemberText": "18/60",
@@ -5680,10 +5731,10 @@
         "watchCount": 0,
         "lowCount": 0,
         "activeTotalCount": 2,
-        "totalPower": 51245942,
+        "totalPower": 51437509,
         "corePowerSum": 35350620,
-        "activePowerSum": 51245942,
-        "corePowerRate": 0.689823,
+        "activePowerSum": 51437509,
+        "corePowerRate": 0.687254,
         "activePowerRate": 1,
         "top20PowerCount": 0,
         "cumulative80PowerCount": 1,
@@ -5788,9 +5839,9 @@
         "watchCount": 0,
         "lowCount": 0,
         "activeTotalCount": 1,
-        "totalPower": 16537958,
+        "totalPower": 16539688,
         "corePowerSum": 0,
-        "activePowerSum": 16537958,
+        "activePowerSum": 16539688,
         "corePowerRate": 0,
         "activePowerRate": 1,
         "top20PowerCount": 0,
