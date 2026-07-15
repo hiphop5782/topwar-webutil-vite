@@ -470,5 +470,654 @@
         "privacy": "개인정보처리방침",
         "contact": "문의",
         "disclaimer": "면책 고지"
+    },
+    "TopwarPlayerMoveHistory": {
+        "eyebrow": "PLAYER MOVEMENT",
+        "title": "서버 이동 기록",
+        "description": "날짜별 플레이어 서버 이전 내역을 확인할 수 있습니다.",
+        "summary": {
+            "days": "조회 일자",
+            "total": "전체 이동",
+            "results": "검색 결과"
+        },
+        "filters": {
+            "begin": "시작일",
+            "end": "종료일",
+            "nickname": "닉네임",
+            "nicknamePlaceholder": "플레이어 닉네임",
+            "outServer": "출발 서버",
+            "outServerPlaceholder": "이동 전 서버",
+            "inServer": "도착 서버",
+            "inServerPlaceholder": "이동 대상 서버",
+            "reset": "초기화"
+        },
+        "messages": {
+            "loading": "이동 기록을 불러오는 중입니다.",
+            "loadError": "이동 기록 JSON 파일을 불러오지 못했습니다.",
+            "noFiles": "선택한 기간에 해당하는 이동 기록 파일이 없습니다.",
+            "noResults": "이 날짜에는 검색 조건에 해당하는 이동 기록이 없습니다."
+        },
+        "day": {
+            "searchResult": "검색 결과",
+            "people": "명"
+        },
+        "table": {
+            "detectedAt": "감지 시각",
+            "player": "플레이어",
+            "serverMove": "서버 이동",
+            "previousAlliance": "이전 연맹",
+            "currentAlliance": "이동 후 연맹"
+        },
+        "player": {
+            "unknown": "닉네임 없음",
+            "cp": "CP"
+        },
+        "server": {
+            "from": "FROM",
+            "to": "TO"
+        },
+        "alliance": {
+            "none": "무소속"
+        }
+    },
+    "ValuePackCalculator": {
+        "header": {
+            "badge": "TOP WAR 계산기",
+            "title": "특별 패키지 상점 계산기",
+            "description": "특별 패키지 상점에서 구매할 스킬 조각 패키지를 선택하고, 2배 쿠폰 적용 여부에 따른 총 결제 금액과 실제 조각당 가격을 계산할 수 있습니다."
+        },
+        "package": {
+            "title": "스킬 조각 패키지",
+            "description": "구매할 마지막 단계를 선택하면 이전 단계가 자동으로 함께 선택됩니다."
+        },
+        "buttons": {
+            "selectAll": "전체 구매",
+            "applyDoubleAll": "구매 항목 모두 2배",
+            "reset": "초기화",
+            "removeDoubleAll": "2배 쿠폰 전체 해제"
+        },
+        "table": {
+            "stage": "단계",
+            "price": "가격",
+            "baseCount": "기본 조각",
+            "appliedCount": "적용 조각",
+            "unitPrice": "실효 단가",
+            "buy": "구매",
+            "doubleCoupon": "2배 쿠폰",
+            "total": "합계"
+        },
+        "summary": {
+            "title": "구매 결과",
+            "emptyTitle": "선택한 패키지가 없습니다.",
+            "emptyDescription": "구매 항목을 선택하면 계산 결과가 표시됩니다.",
+            "expectedPayment": "예상 결제 금액",
+            "purchasePackages": "구매 패키지",
+            "baseShards": "기본 스킬 조각",
+            "bonusShards": "2배 추가 조각",
+            "finalShards": "최종 획득 조각",
+            "usedCoupons": "2배 쿠폰 사용",
+            "averageUnitPrice": "평균 조각당 가격",
+            "discountMessage": "2배 쿠폰 적용으로 단가가 {{percent}}% 낮아졌습니다.",
+            "bonusMessage": "동일한 결제 금액으로 스킬 조각 {{count}}개를 추가 획득합니다."
+        },
+        "guide": {
+            "introductionTitle": "특별 패키지 상점 계산기란?",
+            "introduction1": "특별 패키지 상점에서 판매되는 스킬 조각 패키지의 총 구매 금액과 획득 수량을 계산하는 도구입니다. 구매하려는 패키지 단계를 선택하면 이전 단계의 패키지가 함께 반영되며, 각 패키지에 2배 쿠폰을 적용했을 때의 추가 획득 수량과 실제 조각당 가격도 확인할 수 있습니다.",
+            "introduction2": "패키지 가격만 비교하면 높은 단계가 비싸 보일 수 있지만, 패키지마다 지급되는 스킬 조각 수가 다르기 때문에 실제 효율은 조각당 가격을 기준으로 비교하는 것이 좋습니다.",
+            "usageTitle": "계산기 사용 방법",
+            "usage1": "구매하려는 마지막 패키지 단계의 구매 체크박스를 선택합니다.",
+            "usage2": "선택한 단계까지의 이전 패키지가 자동으로 구매 항목에 포함됩니다.",
+            "usage3": "2배 쿠폰을 사용할 패키지의 쿠폰 체크박스를 선택합니다.",
+            "usage4": "계산 결과에서 총 결제 금액, 최종 스킬 조각 수와 평균 조각당 가격을 확인합니다.",
+            "calculationTitle": "스킬 조각 효율 계산 방식",
+            "basicFormulaTitle": "기본 조각당 가격",
+            "basicFormula": "패키지 가격 ÷ 기본 지급 조각",
+            "doubleFormulaTitle": "2배 쿠폰 적용 수량",
+            "doubleFormula": "기본 지급 조각 × 2",
+            "averageFormulaTitle": "최종 평균 단가",
+            "averageFormula": "총 결제 금액 ÷ 최종 획득 조각",
+            "exampleTitle": "계산 예시",
+            "exampleDescription": "1단계 패키지는 7,000원에 스킬 조각 40개를 지급하므로 기본 조각당 가격은 175원입니다. 해당 패키지에 2배 쿠폰을 적용하면 같은 금액으로 80개를 획득하므로 조각당 가격은 87.5원이 됩니다.",
+            "cautionTitle": "주의사항",
+            "caution1": "이 계산기는 패키지를 낮은 단계부터 순서대로 구매하는 구조를 기준으로 계산합니다.",
+            "caution2": "2배 쿠폰은 패키지 가격을 할인하는 것이 아니라 지급되는 스킬 조각 수를 2배로 계산합니다.",
+            "caution3": "실제 결제 가격은 사용 기기, 스토어, 국가, 환율 또는 게임 정책에 따라 달라질 수 있습니다.",
+            "caution4": "게임 업데이트로 패키지 가격이나 지급 수량이 변경되면 계산 결과와 차이가 발생할 수 있습니다."
+        },
+        "example": {
+            "type": "구분",
+            "price": "결제 금액",
+            "count": "획득 조각",
+            "unitPrice": "조각당 가격",
+            "normalPurchase": "일반 구매",
+            "doublePurchase": "2배 쿠폰 적용"
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "중간 단계의 패키지만 별도로 구매할 수 있나요?",
+            "answer1": "이 계산기는 이전 단계를 구매해야 다음 단계가 열리는 순차 구매 방식을 기준으로 합니다. 특정 단계를 선택하면 그 이전 단계가 자동으로 함께 선택됩니다.",
+            "question2": "2배 쿠폰을 사용하면 가격도 2배가 되나요?",
+            "answer2": "아닙니다. 결제 가격은 동일하게 유지되고 지급되는 스킬 조각 수만 2배로 계산됩니다.",
+            "question3": "어떤 패키지에 쿠폰을 사용하는 것이 좋은가요?",
+            "answer3": "2배 쿠폰은 기본 지급 조각이 많은 패키지에 사용할수록 추가 획득량이 커집니다. 다만 쿠폰 사용 가능 조건과 보유 수량을 함께 고려해야 합니다."
+        },
+        "format": {
+            "price": "{{value}}원",
+            "count": "{{value}}개",
+            "unitPrice": "{{value}}원",
+            "packageCount": "{{value}}개 패키지",
+            "couponCount": "{{value}}장",
+            "stage": "{{value}}단계"
+        },
+        "aria": {
+            "buy": "{{stage}}단계 패키지 구매",
+            "doubleCoupon": "{{stage}}단계 패키지에 2배 쿠폰 적용"
+        }
+    },
+    "SkillCalculator": {
+        "header": {
+            "title": "전속 스킬 계산기",
+            "description": "목표 전속 스킬 레벨을 만들기 위해 필요한 전속 조각 수를 계산하고, 현재 보유한 전속 스킬과 조각을 반영하여 부족한 수량을 확인할 수 있습니다."
+        },
+        "form": {
+            "title": "계산 조건 입력",
+            "price": {
+                "label": "1. 전속 스킬의 개당 판매 가격",
+                "description": "해당 영웅의 전속 스킬 1레벨 구매에 필요한 전속 조각 가격을 선택하세요.",
+                "option": "{{count}}개 - {{description}}"
+            },
+            "target": {
+                "label": "2. 목표 전속 스킬 레벨",
+                "description": "최종적으로 만들고 싶은 전속 스킬 레벨을 선택하세요.",
+                "required": "목표 레벨까지 필요한 총 전속 조각은 <strong>{{count}}개</strong>입니다."
+            },
+            "ownedShard": {
+                "title": "3. 현재 보유 중인 전속 조각",
+                "toggle": "보유한 전속 조각이 있습니다.",
+                "countLabel": "보유 전속 조각 수"
+            },
+            "ownedSkill": {
+                "title": "4. 현재 보유 중인 전속 스킬",
+                "toggle": "이미 보유한 하위 레벨 전속 스킬이 있습니다.",
+                "noLowerLevel": "목표 레벨이 1레벨이므로 입력할 하위 레벨 전속 스킬이 없습니다.",
+                "levelLabel": "{{level}}레벨 전속 스킬",
+                "convertedValue": "조각 가치 {{count}}개",
+                "convertedTotal": "보유 전속 스킬의 환산 가치는 <strong>{{count}}개</strong>입니다."
+            }
+        },
+        "priceOptions": {
+            "dianaCrusoe": "다이애나 / 크루조 등",
+            "tsuruBessel": "츠루 / 베셀 등",
+            "violet": "바이올렛",
+            "mostCombatHeroes": "대부분의 전투 영웅",
+            "villiersSilenceAmalia": "빌리어스 / 사일런스 / 아말리아"
+        },
+        "result": {
+            "title": "계산 결과",
+            "targetLevel": "목표 레벨",
+            "requiredTotal": "필요 총량",
+            "ownedShards": "보유 조각",
+            "skillValue": "스킬 환산",
+            "totalOwnedValue": "보유 총 가치",
+            "progress": "목표 대비 {{percent}}%",
+            "successTitle": "목표 레벨을 만들 수 있습니다.",
+            "successRemaining": "제작 후 전속 조각 가치가 <strong>{{count}}개</strong> 남습니다.",
+            "shortageTitle": "전속 조각이 더 필요합니다.",
+            "shortageAmount": "부족 수량 <strong>{{count}}개</strong>"
+        },
+        "buttons": {
+            "reset": "초기화"
+        },
+        "units": {
+            "shard": "개",
+            "skill": "개"
+        },
+        "format": {
+            "count": "{{value}}개",
+            "level": "전속 스킬 {{value}}레벨"
+        },
+        "aria": {
+            "progress": "목표 달성률"
+        },
+        "guide": {
+            "introductionTitle": "전속 스킬 계산기란?",
+            "introduction1": "전속 스킬의 목표 레벨을 만들기 위해 필요한 전속 조각 총량을 확인하는 계산기입니다. 현재 보유한 전속 조각뿐 아니라 이미 제작해 둔 하위 레벨 전속 스킬도 조각 가치로 환산하여 계산합니다.",
+            "introduction2": "영웅마다 전속 스킬의 기본 판매 가격이 다르므로, 먼저 해당 영웅의 가격을 선택해야 정확한 결과를 확인할 수 있습니다.",
+            "usageTitle": "계산기 사용 방법",
+            "usage1": "해당 영웅의 전속 스킬 판매 가격을 선택합니다.",
+            "usage2": "최종적으로 만들고 싶은 전속 스킬 레벨을 선택합니다.",
+            "usage3": "현재 보유한 전속 조각이 있다면 수량을 입력합니다.",
+            "usage4": "하위 레벨 전속 스킬을 보유하고 있다면 레벨별 개수를 입력합니다.",
+            "usage5": "계산 결과에서 추가로 필요한 전속 조각 또는 제작 후 남는 수량을 확인합니다.",
+            "calculationTitle": "전속 스킬 계산 방식",
+            "calculationDescription": "이 계산기는 전속 스킬 레벨이 한 단계 상승할 때마다 필요한 가치가 3배가 되는 기준으로 계산합니다.",
+            "targetFormulaTitle": "목표 레벨 필요 조각",
+            "targetFormulaBase": "판매 가격 × 3",
+            "targetFormulaExponent": "목표 레벨 - 1",
+            "ownedFormulaTitle": "보유 스킬의 조각 환산 가치",
+            "ownedFormulaBase": "보유 개수 × 판매 가격 × 3",
+            "ownedFormulaExponent": "보유 스킬 레벨 - 1",
+            "exampleTitle": "계산 예시",
+            "exampleDescription": "판매 가격이 25개인 전속 스킬의 7레벨을 만들려면 다음과 같이 계산합니다.",
+            "cautionTitle": "주의사항",
+            "caution1": "영웅별 전속 스킬 판매 가격을 정확하게 선택해야 합니다.",
+            "caution2": "게임 업데이트로 제작 규칙이나 판매 가격이 변경되면 실제 결과와 차이가 발생할 수 있습니다.",
+            "caution3": "보유 스킬은 목표 레벨보다 낮은 레벨만 입력할 수 있습니다.",
+            "caution4": "계산 결과는 전속 조각 가치 기준이며, 게임 내 별도의 제작 조건은 포함하지 않습니다."
+        },
+        "example": {
+            "item": "항목",
+            "calculation": "계산",
+            "result": "결과",
+            "requiredLevel7": "7레벨 필요 조각",
+            "ownedLevel5": "보유한 5레벨 스킬 1개의 가치",
+            "withExtraShards": "추가 보유 조각이 1,000개인 경우",
+            "shortageResult": "{{count}}개 부족"
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "보유한 전속 스킬도 조각으로 계산되나요?",
+            "answer1": "네. 보유한 전속 스킬을 해당 레벨 제작에 사용된 조각 가치로 환산하여 전체 보유량에 포함합니다.",
+            "question2": "판매 가격이 다른 이유는 무엇인가요?",
+            "answer2": "영웅마다 전속 스킬 1레벨의 기본 판매 가격이 다르기 때문입니다. 계산 전에 해당 영웅의 가격을 확인해 주세요.",
+            "question3": "결과가 게임 화면과 다르면 어떻게 하나요?",
+            "answer3": "먼저 판매 가격과 보유 수량을 확인해 주세요. 게임 업데이트 이후 제작 규칙이나 가격이 변경된 경우 계산 결과에 차이가 생길 수 있습니다."
+        }
+    },
+    "VitalCalculator": {
+        "header": {
+            "title": "체력 회복 속도 계산기",
+            "description": "현재 체력 회복 속도를 계산하고, 새로운 장식을 추가했을 때 회복 시간이 얼마나 단축되는지 비교할 수 있습니다."
+        },
+        "buttons": {
+            "reset": "초기화"
+        },
+        "current": {
+            "title": "현재 기지 정보 입력",
+            "description": "게임의 기지 정보 화면에서 체력 회복 속도와 기초 체력 회복 속도를 확인해 입력하세요.",
+            "imageAlt": "기지 정보 화면에서 체력 회복 속도를 확인하는 위치",
+            "totalSpeedLabel": "체력 회복 속도",
+            "totalSpeedPlaceholder": "예: 111.0",
+            "baseSpeedLabel": "기초 체력 회복 속도",
+            "baseSpeedPlaceholder": "예: 91.0",
+            "resultLabel": "현재 체력 1 회복 시간",
+            "resultDescription": "현재 설정에서 체력 1이 회복되는 예상 간격입니다."
+        },
+        "decoration": {
+            "title": "추가할 장식 정보 입력",
+            "description": "구매하거나 배치할 장식의 기초 체력 회복 속도 증가 수치를 입력하세요.",
+            "imageAlt": "장식 정보 화면에서 기초 체력 회복 속도를 확인하는 위치",
+            "addSpeedLabel": "장식의 기초 체력 회복 속도 증가",
+            "addSpeedPlaceholder": "예: 8.0",
+            "resultLabel": "장식 적용 후 체력 1 회복 시간",
+            "resultDescription": "입력한 장식을 적용한 뒤 체력 1이 회복되는 예상 간격입니다."
+        },
+        "comparison": {
+            "title": "효과 비교",
+            "currentInterval": "현재 회복 간격",
+            "futureInterval": "장식 적용 후 회복 간격",
+            "reducedTime": "1회당 단축 시간",
+            "improvement": "회복 속도 개선율",
+            "currentPerHour": "현재 시간당 회복량",
+            "futurePerHour": "적용 후 시간당 회복량",
+            "currentPerDay": "현재 하루 회복량",
+            "futurePerDay": "적용 후 하루 회복량",
+            "theoreticalNotice": "시간당·하루 회복량은 체력이 계속 소모되어 회복이 중단되지 않는다는 가정으로 계산한 이론값입니다."
+        },
+        "validation": {
+            "invalid": "모든 입력값에 0 이상의 올바른 숫자를 입력하세요."
+        },
+        "format": {
+            "duration": "{{minutes}}분 {{seconds}}초",
+            "seconds": "{{value}}초",
+            "percent": "{{value}}%",
+            "recoveryCount": "{{value}}"
+        },
+        "guide": {
+            "introductionTitle": "체력 회복 속도 계산기란?",
+            "introduction1": "기지 정보에 표시되는 체력 회복 속도와 기초 체력 회복 속도를 이용하여 체력 1이 회복되는 실제 시간을 계산하는 도구입니다.",
+            "introduction2": "장식의 기초 체력 회복 속도 증가 수치를 입력하면 적용 전후의 회복 간격, 단축 시간, 개선율과 예상 회복량을 함께 비교할 수 있습니다.",
+            "usageTitle": "계산기 사용 방법",
+            "usage1": "게임에서 기지 정보 화면을 열고 체력 회복 속도와 기초 체력 회복 속도를 확인합니다.",
+            "usage2": "확인한 두 값을 첫 번째 입력 영역에 그대로 입력합니다.",
+            "usage3": "구매하거나 배치하려는 장식의 기초 체력 회복 속도 증가 수치를 입력합니다.",
+            "usage4": "비교 결과에서 장식 적용 전후의 회복 시간과 시간당·하루 예상 회복량을 확인합니다.",
+            "formulaTitle": "계산 방식",
+            "formulaDescription": "기본 회복 시간 360초를 기준으로 전체 회복 속도와 기초 회복 속도의 관계를 반영합니다.",
+            "currentFormulaTitle": "현재 회복 시간",
+            "currentFormula": "((100 - 체력 회복 속도 + 기초 체력 회복 속도) ÷ (100 + 기초 체력 회복 속도)) × 360초",
+            "futureFormulaTitle": "장식 적용 후 회복 시간",
+            "futureFormula": "((100 - (체력 회복 속도 + 장식 수치) + (기초 체력 회복 속도 + 장식 수치)) ÷ (100 + 기초 체력 회복 속도 + 장식 수치)) × 360초",
+            "cautionTitle": "주의사항",
+            "caution1": "입력값은 게임 화면에 표시된 퍼센트 수치를 그대로 입력하세요.",
+            "caution2": "소수점이 있는 값은 반올림하지 말고 가능한 한 정확하게 입력하는 것이 좋습니다.",
+            "caution3": "시간당·하루 회복량은 체력이 최대치에 도달하지 않는다는 가정의 이론값입니다.",
+            "caution4": "게임 업데이트로 회복 공식이 변경되면 실제 결과와 차이가 발생할 수 있습니다."
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "체력 회복 속도와 기초 체력 회복 속도는 무엇이 다른가요?",
+            "answer1": "체력 회복 속도는 현재 적용된 전체 보너스를 포함한 수치이고, 기초 체력 회복 속도는 계산식의 기준이 되는 별도 수치입니다. 정확한 계산을 위해 두 값을 모두 입력해야 합니다.",
+            "question2": "장식 수치는 어느 항목을 입력해야 하나요?",
+            "answer2": "장식 상세 정보에 표시된 기초 체력 회복 속도 증가 퍼센트를 입력하세요. 일반 체력 회복 속도 항목과 혼동하지 않도록 주의해야 합니다.",
+            "question3": "왜 소수점 입력이 필요한가요?",
+            "answer3": "회복 시간은 퍼센트 수치의 작은 차이에도 몇 초씩 달라질 수 있습니다. 게임에 소수점이 표시된다면 그 값을 그대로 입력하는 것이 더 정확합니다."
+        }
+    },
+    "LuckyBox": {
+        "header": {
+            "badge": "TOP WAR 미니게임",
+            "title": "행운상자",
+            "description": "상자를 열어 28개의 보상 이미지 중 서로 다른 보상 1~3개를 무작위로 확인하는 간단한 추첨 시뮬레이터입니다."
+        },
+        "game": {
+            "title": "행운상자를 열어보세요",
+            "description": "상자 이미지 또는 열기 버튼을 누르면 이번 추첨의 보상이 결정됩니다.",
+            "closedBoxAlt": "열기 전의 닫힌 행운상자",
+            "openBoxAlt": "보상 추첨이 끝난 열린 행운상자"
+        },
+        "buttons": {
+            "open": "행운상자 열기",
+            "opening": "상자를 여는 중...",
+            "retry": "다시 추첨하기"
+        },
+        "result": {
+            "empty": "상자를 열면 보상이 이곳에 표시됩니다.",
+            "ready": "상자를 눌러 추첨을 시작하세요.",
+            "drawing": "행운상자를 여는 중입니다.",
+            "completed": "보상 {{count}}개가 선택되었습니다."
+        },
+        "reward": {
+            "alt": "{{number}}번 행운상자 보상 이미지",
+            "label": "보상 {{number}}"
+        },
+        "aria": {
+            "open": "행운상자 열기",
+            "opened": "이미 열린 행운상자"
+        },
+        "guide": {
+            "introductionTitle": "행운상자 시뮬레이터란?",
+            "introduction1": "게임 이벤트의 행운상자 개봉 느낌을 간단히 체험할 수 있도록 만든 무작위 보상 추첨 도구입니다.",
+            "introduction2": "한 번의 추첨에서는 보상 이미지가 중복되지 않으며, 결과를 확인한 뒤 다시 추첨할 수 있습니다.",
+            "usageTitle": "사용 방법",
+            "usage1": "닫힌 상자 이미지 또는 행운상자 열기 버튼을 누릅니다.",
+            "usage2": "짧은 개봉 연출이 끝나면 선택된 보상 이미지가 표시됩니다.",
+            "usage3": "다시 추첨하기 버튼을 누르면 상자가 초기화되고 새로운 결과를 확인할 수 있습니다.",
+            "ruleTitle": "추첨 규칙",
+            "rule1": "한 번의 추첨에서 {{min}}개부터 {{max}}개까지의 보상이 선택됩니다.",
+            "rule2": "보상 번호는 1번부터 {{limit}}번까지이며, 같은 추첨 안에서는 중복되지 않습니다.",
+            "rule3": "브라우저가 지원하는 경우 Web Crypto API를 이용하여 무작위 번호를 생성합니다.",
+            "noticeTitle": "이용 안내",
+            "notice": "이 페이지는 실제 아이템이나 금전적 가치를 지급하지 않는 오락용 시뮬레이터입니다. 게임 내 실제 보상 확률이나 결과를 보장하지 않습니다."
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "한 번에 몇 개의 보상이 나오나요?",
+            "answer1": "매번 1개부터 3개까지 무작위로 선택됩니다.",
+            "question2": "같은 보상이 한 번의 추첨에서 중복될 수 있나요?",
+            "answer2": "아닙니다. 한 번의 추첨 안에서는 서로 다른 번호의 보상만 선택됩니다.",
+            "question3": "실제 게임의 보상 확률과 같은가요?",
+            "answer3": "아닙니다. 이 도구는 단순한 오락용 무작위 시뮬레이터이며 실제 게임의 확률표를 재현하지 않습니다."
+        }
+    },
+    "TitanResearchSimulator": {
+        "header": {
+            "badge": "TOP WAR 시뮬레이터",
+            "title": "타이탄 제작 시뮬레이터",
+            "description": "제작 부위와 촉매제를 선택하고, 설정된 확률에 따라 타이탄 장비의 등급·옵션·특수 효과를 가상으로 제작해 볼 수 있습니다."
+        },
+        "settings": {
+            "title": "제작 조건",
+            "partTitle": "1. 제작 부위 선택",
+            "catalystTitle": "2. 촉매제 선택",
+            "countLabel": "3. 제작 횟수",
+            "presetCount": "{{count}}회"
+        },
+        "buttons": {
+            "create": "{{count}}회 제작하기",
+            "clear": "결과 지우기"
+        },
+        "units": {
+            "times": "회"
+        },
+        "rate": {
+            "title": "예상 제작 확률",
+            "description": "{{catalyst}} 기준의 장비 등급 확률입니다.",
+            "gradeAria": "{{grade}} 등급 확률",
+            "expectedCount": "현재 횟수 기준 약 {{count}}개",
+            "goldSpecialConditional": "황금 장비 특수 효과 합계",
+            "overallSpecial": "전체 제작 기준 특수 효과",
+            "notice": "예상 개수는 확률에 제작 횟수를 곱한 평균값이며, 실제 한 번의 시뮬레이션 결과와 다를 수 있습니다."
+        },
+        "statistics": {
+            "title": "이번 제작 통계",
+            "description": "방금 생성된 장비 결과를 등급과 특수 효과 기준으로 요약합니다.",
+            "total": "총 {{count}}개",
+            "empty": "제작하기 버튼을 누르면 결과 통계가 표시됩니다.",
+            "specialEffects": "특수 효과",
+            "averageOptions": "평균 옵션 수"
+        },
+        "results": {
+            "title": "제작 결과",
+            "description": "각 장비의 등급, 옵션 수치와 특수 효과를 확인하세요.",
+            "empty": "아직 제작 결과가 없습니다. 제작 조건을 선택한 뒤 제작하기 버튼을 눌러주세요.",
+            "gearImageAlt": "{{grade}} 등급 {{gear}} 이미지",
+            "specialEffect": "특수 효과"
+        },
+        "parts": {
+            "pistol": "돌격 권총",
+            "backarmor": "택티컬 아머",
+            "addon": "시야 확장기",
+            "headset": "레이시온 헤드셋",
+            "gps": "위치 추적기",
+            "boots": "파워 부츠"
+        },
+        "catalysts": {
+            "top": "최고급 촉매제",
+            "advanced": "고급 촉매제",
+            "mid": "중급 촉매제",
+            "none": "촉매제 없음"
+        },
+        "grades": {
+            "green": "초록",
+            "blue": "파랑",
+            "purple": "보라",
+            "gold": "황금"
+        },
+        "options": {
+            "armyAttack": "육군 공격력 증가",
+            "navyAttack": "해군 공격력 증가",
+            "airAttack": "공군 공격력 증가",
+            "armyDamageIncrease": "육군 데미지 증가",
+            "navyDamageIncrease": "해군 데미지 증가",
+            "airDamageIncrease": "공군 데미지 증가",
+            "armyHp": "육군 생명력 증가",
+            "navyHp": "해군 생명력 증가",
+            "airHp": "공군 생명력 증가",
+            "armyDefense": "육군 방어도 증가",
+            "navyDefense": "해군 방어도 증가",
+            "airDefense": "공군 방어도 증가",
+            "armyDamageReduction": "육군 데미지 감면",
+            "navyDamageReduction": "해군 데미지 감면",
+            "airDamageReduction": "공군 데미지 감면"
+        },
+        "specialEffects": {
+            "storm": "폭발의 허리케인",
+            "surge": "전군 돌격",
+            "steel": "강철의 흐름",
+            "unbreakable": "불굴",
+            "awareness": "전장 통찰",
+            "searing": "점화",
+            "breaking": "취약",
+            "impact": "쇠약",
+            "magnetic": "자기장",
+            "hologram": "스텔스 홀로그램",
+            "flammable": "인화",
+            "heavyblow": "헤비 스매시",
+            "debilitate": "진동",
+            "magnetize": "자석화"
+        },
+        "guide": {
+            "introductionTitle": "타이탄 제작 시뮬레이터란?",
+            "introduction1": "타이탄 장비 제작 시 나타날 수 있는 등급, 일반 옵션과 특수 효과를 확률에 따라 가상으로 생성하는 도구입니다.",
+            "introduction2": "URL에 제작 부위, 촉매제와 제작 횟수가 함께 저장되므로 같은 설정을 다른 사용자에게 공유하거나 다시 확인하기 쉽습니다.",
+            "usageTitle": "사용 방법",
+            "usage1": "제작할 타이탄 장비 부위를 선택합니다.",
+            "usage2": "사용할 촉매제를 선택하거나 촉매제 없음을 선택합니다.",
+            "usage3": "1회부터 100회 사이의 제작 횟수를 입력합니다.",
+            "usage4": "제작하기 버튼을 누르고 등급 분포, 옵션과 특수 효과 결과를 확인합니다.",
+            "methodTitle": "시뮬레이션 방식",
+            "gradeMethodTitle": "장비 등급",
+            "gradeMethod": "촉매제별 등급 확률표를 기준으로 초록·파랑·보라·황금 등급 중 하나를 선택합니다.",
+            "optionMethodTitle": "일반 옵션",
+            "optionMethod": "장비마다 옵션 1개 또는 2개가 각각 40%, 3개가 20% 확률로 생성되며, 수치는 허용 범위의 중앙값에 가까운 결과가 더 자주 나오도록 정규분포를 사용합니다.",
+            "specialMethodTitle": "특수 효과",
+            "specialMethod": "특수 효과는 황금 등급 장비에서만 판정되며, 제작 부위별 특수 효과 확률표를 따릅니다.",
+            "specialRateTitle": "선택 부위의 특수 효과 확률",
+            "specialRateDescription": "{{part}} 황금 등급 장비에서 각 특수 효과가 등장할 조건부 확률입니다.",
+            "effect": "특수 효과",
+            "goldConditionalRate": "황금 장비 내 확률",
+            "total": "합계",
+            "cautionTitle": "주의사항",
+            "caution1": "이 결과는 브라우저에서 생성되는 가상 시뮬레이션이며 실제 게임 제작 결과를 보장하지 않습니다.",
+            "caution2": "옵션 수치 분포는 현재 시뮬레이터의 정규분포 모델을 사용하므로 게임 내부 알고리즘과 다를 수 있습니다.",
+            "caution3": "확률표나 옵션 범위가 게임 업데이트로 변경되면 실제 값과 차이가 발생할 수 있습니다.",
+            "caution4": "적은 횟수의 결과는 확률표와 크게 다를 수 있으며, 횟수가 많아질수록 평균적으로 설정 확률에 가까워집니다."
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "같은 일반 옵션이 한 장비에 여러 번 나올 수 있나요?",
+            "answer1": "현재 시뮬레이터는 각 옵션을 독립적으로 선택하므로 동일한 옵션이 중복될 수 있습니다. 이는 기존 시뮬레이터의 동작을 유지한 것입니다.",
+            "question2": "황금 장비가 나오면 특수 효과가 반드시 붙나요?",
+            "answer2": "아닙니다. 황금 장비가 나온 뒤 별도의 특수 효과 확률 판정을 통과해야 특수 효과가 추가됩니다.",
+            "question3": "실제 게임 제작 확률과 완전히 동일한가요?",
+            "answer3": "등록된 확률 데이터와 옵션 범위를 기반으로 하지만, 게임 서버의 내부 난수와 옵션 분포 방식은 공개되지 않았을 수 있으므로 참고용으로 사용해야 합니다."
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
+    },
+    "TitanRefineSimulator": {
+        "header": {
+            "badge": "TOP WAR 시뮬레이터",
+            "title": "타이탄 재련 시뮬레이터",
+            "description": "타이탄 장비와 재료 옵션을 직접 설정하고, 재련 시 옵션 추가·수치 상승·덮어쓰기 결과를 시뮬레이션할 수 있습니다."
+        },
+        "settings": {
+            "partTitle": "재련 부위 선택",
+            "partDescription": "부위를 변경하면 장비, 재료, 기록이 해당 부위의 기본값으로 초기화됩니다.",
+            "useAnimation": "재련 애니메이션 사용"
+        },
+        "gear": {
+            "title": "타이탄 장비 설정",
+            "description": "옵션은 1개부터 3개까지 설정할 수 있으며, 각 옵션을 눌러 종류와 수치를 변경할 수 있습니다.",
+            "imageAlt": "황금 등급 {{gear}} 장비 이미지",
+            "emptySlot": "{{slot}}번 빈 옵션 슬롯",
+            "max": "MAX"
+        },
+        "material": {
+            "title": "재련 재료 설정",
+            "description": "재료 장비가 제공할 옵션 종류와 수치를 설정합니다.",
+            "imageAlt": "재련 재료로 사용하는 황금 등급 {{gear}} 이미지",
+            "rule": "재련 시 가능한 옵션 슬롯 중 하나가 무작위로 선택됩니다. 같은 옵션이면 수치가 상승하고, 다른 옵션이면 재료 옵션으로 교체됩니다."
+        },
+        "editor": {
+            "optionLabel": "옵션 종류",
+            "valueLabel": "옵션 수치",
+            "allowedRange": "입력 가능 범위: {{min}}% ~ {{max}}%"
+        },
+        "buttons": {
+            "addOption": "옵션 추가",
+            "removeOption": "옵션 제거",
+            "refine": "재련하기",
+            "refining": "재련 중...",
+            "reset": "현재 부위 초기화",
+            "clearHistory": "기록 지우기",
+            "confirm": "변경 적용",
+            "cancel": "변경 취소"
+        },
+        "status": {
+            "eligible": "현재 선택 가능한 재련 대상 슬롯: {{count}}개",
+            "noEligible": "현재 재련 가능한 옵션 슬롯이 없습니다.",
+            "finishEditing": "옵션 편집을 적용하거나 취소한 뒤 재련할 수 있습니다.",
+            "allMax": "세 옵션이 모두 같은 종류의 최대 수치라 재련할 수 없습니다. 재료 옵션을 변경하거나 장비 옵션을 수정하세요."
+        },
+        "statistics": {
+            "title": "재련 통계",
+            "description": "현재 부위에서 진행한 재련 결과를 유형별로 집계합니다.",
+            "total": "전체",
+            "added": "신규 추가",
+            "upgraded": "수치 상승",
+            "replaced": "옵션 교체",
+            "capped": "최대 수치"
+        },
+        "history": {
+            "title": "재련 기록",
+            "empty": "아직 재련 기록이 없습니다.",
+            "slot": "{{slot}}번 옵션",
+            "added": "{{option}} {{value}}% 옵션이 새로 추가되었습니다.",
+            "upgraded": "{{option}} 수치가 {{before}}%에서 {{after}}%로 상승했습니다. (+{{increase}}%)",
+            "replaced": "{{beforeOption}} 옵션이 {{afterOption}} {{value}}% 옵션으로 교체되었습니다."
+        },
+        "guide": {
+            "introductionTitle": "타이탄 재련 시뮬레이터란?",
+            "introduction1": "타이탄 장비의 일반 옵션과 재련 재료 옵션을 직접 구성한 뒤, 재련 결과가 어떤 방식으로 적용되는지 확인하는 도구입니다.",
+            "introduction2": "기존 코드의 재련 규칙과 JSON 데이터에 등록된 옵션 최대치·재련 상승 범위를 사용하며, 결과와 기록은 브라우저에서만 계산됩니다.",
+            "rulesTitle": "재련 규칙",
+            "rule1": "장비에 빈 슬롯이 있으면 빈 슬롯도 재련 대상에 포함될 수 있습니다.",
+            "rule2": "선택된 슬롯의 옵션과 재료 옵션이 같으면 JSON에 등록된 상승 범위만큼 수치가 증가합니다.",
+            "rule3": "선택된 슬롯의 옵션과 재료 옵션이 다르면 기존 옵션이 재료 옵션으로 교체됩니다.",
+            "rule4": "같은 종류의 옵션이 이미 최대 수치인 슬롯은 재련 대상에서 제외됩니다.",
+            "rangeTitle": "옵션 유형별 1회 재련 상승 범위",
+            "optionType": "옵션 유형",
+            "minimumIncrease": "최소 상승",
+            "maximumIncrease": "최대 상승",
+            "noticeTitle": "이용 안내",
+            "notice": "이 도구는 참고용 시뮬레이터입니다. 실제 게임의 서버 내부 알고리즘, 업데이트된 수치 또는 개별 결과를 보장하지 않습니다.",
+            "source": "재련 상승 수치 출처: THAODIEN - s348"
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "question1": "최대 수치 옵션은 왜 선택되지 않나요?",
+            "answer1": "재료 옵션과 같은 종류이면서 이미 최대 수치인 슬롯은 더 이상 상승할 수 없으므로 재련 대상에서 제외됩니다.",
+            "question2": "다른 종류의 옵션이 선택되면 어떻게 되나요?",
+            "answer2": "기존 옵션은 유지되지 않고 재료 장비의 옵션 종류와 수치로 교체됩니다.",
+            "question3": "실제 게임 결과와 완전히 같은가요?",
+            "answer3": "등록된 옵션 범위와 재련 상승 데이터를 기반으로 하지만 실제 게임의 내부 난수와 규칙이 변경될 수 있으므로 참고용으로 사용해야 합니다."
+        },
+        "parts": {
+            "pistol": "돌격 권총",
+            "backarmor": "택티컬 아머",
+            "addon": "시야 확장기",
+            "headset": "레이시온 헤드셋",
+            "gps": "위치 추적기",
+            "boots": "파워 부츠"
+        },
+        "options": {
+            "armyAttack": "육군 공격력 증가",
+            "navyAttack": "해군 공격력 증가",
+            "airAttack": "공군 공격력 증가",
+            "armyDamageIncrease": "육군 데미지 증가",
+            "navyDamageIncrease": "해군 데미지 증가",
+            "airDamageIncrease": "공군 데미지 증가",
+            "armyHp": "육군 생명력 증가",
+            "navyHp": "해군 생명력 증가",
+            "airHp": "공군 생명력 증가",
+            "armyDefense": "육군 방어도 증가",
+            "navyDefense": "해군 방어도 증가",
+            "airDefense": "공군 방어도 증가",
+            "armyDamageReduction": "육군 데미지 감면",
+            "navyDamageReduction": "해군 데미지 감면",
+            "airDamageReduction": "공군 데미지 감면"
+        },
+        "rangeTypes": {
+            "damage": "데미지",
+            "attack": "공격력",
+            "hp": "생명력",
+            "defense": "방어도"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }

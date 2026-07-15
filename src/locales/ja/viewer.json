@@ -470,5 +470,654 @@
         "privacy": "プライバシーポリシー",
         "contact": "お問い合わせ",
         "disclaimer": "免責事項"
+    },
+    "TopwarPlayerMoveHistory": {
+        "eyebrow": "PLAYER MOVEMENT",
+        "title": "サーバー移転履歴",
+        "description": "プレイヤーのサーバー移転履歴を日付別に確認できます。",
+        "summary": {
+            "days": "データ日数",
+            "total": "移転総数",
+            "results": "検索結果"
+        },
+        "filters": {
+            "begin": "開始日",
+            "end": "終了日",
+            "nickname": "ニックネーム",
+            "nicknamePlaceholder": "プレイヤー名",
+            "outServer": "移転元サーバー",
+            "outServerPlaceholder": "移転前のサーバー",
+            "inServer": "移転先サーバー",
+            "inServerPlaceholder": "移転先のサーバー",
+            "reset": "リセット"
+        },
+        "messages": {
+            "loading": "移転履歴を読み込んでいます。",
+            "loadError": "移転履歴のJSONファイルを読み込めませんでした。",
+            "noFiles": "選択した期間に該当する移転履歴ファイルがありません。",
+            "noResults": "この日付には検索条件に該当する移転履歴がありません。"
+        },
+        "day": {
+            "searchResult": "検索結果",
+            "people": "人"
+        },
+        "table": {
+            "detectedAt": "検出時刻",
+            "player": "プレイヤー",
+            "serverMove": "サーバー移転",
+            "previousAlliance": "移転前の連盟",
+            "currentAlliance": "移転後の連盟"
+        },
+        "player": {
+            "unknown": "名前なし",
+            "cp": "CP"
+        },
+        "server": {
+            "from": "FROM",
+            "to": "TO"
+        },
+        "alliance": {
+            "none": "無所属"
+        }
+    },
+    "ValuePackCalculator": {
+        "header": {
+            "badge": "TOP WAR 計算機",
+            "title": "特別パッケージショップ計算機",
+            "description": "購入するスキル破片パッケージを選択し、2倍クーポン適用後の合計決済金額、獲得数、破片1個あたりの実質価格を計算できます。"
+        },
+        "package": {
+            "title": "スキル破片パッケージ",
+            "description": "最後に購入する段階を選択すると、それ以前の段階も自動的に選択されます。"
+        },
+        "buttons": {
+            "selectAll": "すべて購入",
+            "applyDoubleAll": "購入項目をすべて2倍",
+            "reset": "リセット",
+            "removeDoubleAll": "2倍クーポンをすべて解除"
+        },
+        "table": {
+            "stage": "段階",
+            "price": "価格",
+            "baseCount": "基本破片",
+            "appliedCount": "獲得破片",
+            "unitPrice": "実質単価",
+            "buy": "購入",
+            "doubleCoupon": "2倍クーポン",
+            "total": "合計"
+        },
+        "summary": {
+            "title": "購入結果",
+            "emptyTitle": "パッケージが選択されていません。",
+            "emptyDescription": "購入するパッケージを選択すると計算結果が表示されます。",
+            "expectedPayment": "予想決済金額",
+            "purchasePackages": "購入パッケージ",
+            "baseShards": "基本スキル破片",
+            "bonusShards": "2倍追加破片",
+            "finalShards": "最終獲得破片",
+            "usedCoupons": "使用する2倍クーポン",
+            "averageUnitPrice": "破片1個あたりの平均価格",
+            "discountMessage": "2倍クーポンの適用により、実質単価が{{percent}}%下がりました。",
+            "bonusMessage": "同じ決済金額でスキル破片を{{count}}個追加獲得できます。"
+        },
+        "guide": {
+            "introductionTitle": "特別パッケージショップ計算機とは？",
+            "introduction1": "特別パッケージショップで販売されるスキル破片パッケージの合計購入金額と獲得数を計算するツールです。購入する段階を選択すると、それ以前のパッケージも自動的に反映されます。また、各パッケージに2倍クーポンを適用した場合の追加獲得数と実質単価も確認できます。",
+            "introduction2": "価格だけを見ると上位パッケージは高く見えますが、パッケージごとに獲得できる破片数が異なるため、実際の効率は破片1個あたりの価格で比較することをおすすめします。",
+            "usageTitle": "計算機の使用方法",
+            "usage1": "購入する最後のパッケージ段階のチェックボックスを選択します。",
+            "usage2": "選択した段階までのパッケージが自動的に購入項目へ追加されます。",
+            "usage3": "2倍クーポンを使用するパッケージのクーポン欄を選択します。",
+            "usage4": "計算結果から合計決済金額、最終獲得破片数、平均単価を確認します。",
+            "calculationTitle": "スキル破片の効率計算方法",
+            "basicFormulaTitle": "基本の破片単価",
+            "basicFormula": "パッケージ価格 ÷ 基本獲得破片数",
+            "doubleFormulaTitle": "2倍クーポン適用後の獲得数",
+            "doubleFormula": "基本獲得破片数 × 2",
+            "averageFormulaTitle": "最終平均単価",
+            "averageFormula": "合計決済金額 ÷ 最終獲得破片数",
+            "exampleTitle": "計算例",
+            "exampleDescription": "第1段階のパッケージは7,000ウォンでスキル破片を40個獲得できるため、基本単価は1個あたり175ウォンです。2倍クーポンを適用すると、同じ金額で80個獲得でき、単価は87.5ウォンになります。",
+            "cautionTitle": "注意事項",
+            "caution1": "この計算機は、パッケージを低い段階から順番に購入する方式を基準にしています。",
+            "caution2": "2倍クーポンはパッケージ価格を割引するものではなく、獲得するスキル破片数を2倍にします。",
+            "caution3": "実際の決済価格は、端末、ストア、国、為替レート、ゲームの運営方針によって異なる場合があります。",
+            "caution4": "ゲームのアップデートによって価格や獲得数が変更された場合、計算結果と異なることがあります。"
+        },
+        "example": {
+            "type": "区分",
+            "price": "決済金額",
+            "count": "獲得破片",
+            "unitPrice": "破片単価",
+            "normalPurchase": "通常購入",
+            "doublePurchase": "2倍クーポン適用"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "途中の段階のパッケージだけを購入できますか？",
+            "answer1": "この計算機は、前の段階を購入すると次の段階が開放される順次購入方式を基準にしています。特定の段階を選択すると、それ以前の段階も自動的に選択されます。",
+            "question2": "2倍クーポンを使用すると価格も2倍になりますか？",
+            "answer2": "いいえ。決済価格は変わらず、獲得できるスキル破片数だけが2倍になります。",
+            "question3": "どのパッケージにクーポンを使うのが良いですか？",
+            "answer3": "基本獲得破片数が多いパッケージに使用するほど、2倍クーポンによる追加獲得数が多くなります。ただし、クーポンの使用条件と保有数も考慮してください。"
+        },
+        "format": {
+            "price": "{{value}}ウォン",
+            "count": "{{value}}個",
+            "unitPrice": "{{value}}ウォン",
+            "packageCount": "{{value}}パッケージ",
+            "couponCount": "{{value}}枚",
+            "stage": "第{{value}}段階"
+        },
+        "aria": {
+            "buy": "第{{stage}}段階のパッケージを購入",
+            "doubleCoupon": "第{{stage}}段階のパッケージに2倍クーポンを適用"
+        }
+    },
+    "SkillCalculator": {
+        "header": {
+            "title": "専用スキル計算機",
+            "description": "目標とする専用スキルレベルに必要な専用破片数を計算し、現在所持している専用破片と下位レベルの専用スキルを反映して不足数を確認できます。"
+        },
+        "form": {
+            "title": "計算条件の入力",
+            "price": {
+                "label": "1. 専用スキル1個あたりの販売価格",
+                "description": "対象英雄の専用スキルLv.1を購入するために必要な専用破片数を選択してください。",
+                "option": "{{count}}個 - {{description}}"
+            },
+            "target": {
+                "label": "2. 目標専用スキルレベル",
+                "description": "最終的に作成したい専用スキルレベルを選択してください。",
+                "required": "目標レベルまでに必要な専用破片は合計<strong>{{count}}個</strong>です。"
+            },
+            "ownedShard": {
+                "title": "3. 現在所持している専用破片",
+                "toggle": "専用破片を所持しています。",
+                "countLabel": "所持している専用破片数"
+            },
+            "ownedSkill": {
+                "title": "4. 現在所持している専用スキル",
+                "toggle": "下位レベルの専用スキルを所持しています。",
+                "noLowerLevel": "目標がLv.1のため、入力できる下位レベルの専用スキルはありません。",
+                "levelLabel": "専用スキルLv.{{level}}",
+                "convertedValue": "破片換算価値：{{count}}個",
+                "convertedTotal": "所持している専用スキルの換算価値は<strong>{{count}}個</strong>です。"
+            }
+        },
+        "priceOptions": {
+            "dianaCrusoe": "ダイアナ / クルーゾーなど",
+            "tsuruBessel": "ツル / ベッセルなど",
+            "violet": "バイオレット",
+            "mostCombatHeroes": "ほとんどの戦闘英雄",
+            "villiersSilenceAmalia": "ヴィリアーズ / サイレンス / アマリア"
+        },
+        "result": {
+            "title": "計算結果",
+            "targetLevel": "目標レベル",
+            "requiredTotal": "必要総数",
+            "ownedShards": "所持破片",
+            "skillValue": "スキル換算",
+            "totalOwnedValue": "所持価値合計",
+            "progress": "目標の{{percent}}%",
+            "successTitle": "目標レベルを作成できます。",
+            "successRemaining": "作成後、専用破片換算で<strong>{{count}}個</strong>残ります。",
+            "shortageTitle": "専用破片がさらに必要です。",
+            "shortageAmount": "不足数：<strong>{{count}}個</strong>"
+        },
+        "buttons": {
+            "reset": "リセット"
+        },
+        "units": {
+            "shard": "個",
+            "skill": "個"
+        },
+        "format": {
+            "count": "{{value}}個",
+            "level": "専用スキル Lv.{{value}}"
+        },
+        "aria": {
+            "progress": "目標達成率"
+        },
+        "guide": {
+            "introductionTitle": "専用スキル計算機とは？",
+            "introduction1": "目標とする専用スキルレベルを作成するために必要な専用破片の総数を確認する計算機です。所持している専用破片だけでなく、すでに作成済みの下位レベル専用スキルも破片価値に換算して計算します。",
+            "introduction2": "英雄ごとに専用スキルの基本販売価格が異なるため、正確な結果を得るには先に対象英雄の価格を選択してください。",
+            "usageTitle": "計算機の使い方",
+            "usage1": "対象英雄の専用スキル販売価格を選択します。",
+            "usage2": "最終的に作成したい専用スキルレベルを選択します。",
+            "usage3": "現在所持している専用破片がある場合は数量を入力します。",
+            "usage4": "下位レベルの専用スキルを所持している場合は、レベルごとの数量を入力します。",
+            "usage5": "計算結果で追加必要数、または作成後に残る数量を確認します。",
+            "calculationTitle": "専用スキルの計算方式",
+            "calculationDescription": "この計算機では、専用スキルのレベルが1段階上がるごとに必要価値が3倍になる基準で計算します。",
+            "targetFormulaTitle": "目標レベルに必要な破片",
+            "targetFormulaBase": "販売価格 × 3",
+            "targetFormulaExponent": "目標レベル - 1",
+            "ownedFormulaTitle": "所持スキルの破片換算価値",
+            "ownedFormulaBase": "所持数 × 販売価格 × 3",
+            "ownedFormulaExponent": "所持スキルレベル - 1",
+            "exampleTitle": "計算例",
+            "exampleDescription": "販売価格が25個の専用スキルをLv.7まで作成する場合は、次のように計算します。",
+            "cautionTitle": "注意事項",
+            "caution1": "英雄ごとの専用スキル販売価格を正確に選択してください。",
+            "caution2": "ゲームアップデートで作成ルールや販売価格が変更された場合、実際の結果と異なることがあります。",
+            "caution3": "所持スキルには目標レベルより低いレベルのみ入力できます。",
+            "caution4": "計算結果は専用破片の換算価値を基準としており、ゲーム内のその他の作成条件は含みません。"
+        },
+        "example": {
+            "item": "項目",
+            "calculation": "計算",
+            "result": "結果",
+            "requiredLevel7": "Lv.7に必要な破片",
+            "ownedLevel5": "所持しているLv.5スキル1個の価値",
+            "withExtraShards": "追加で1,000個の破片を所持している場合",
+            "shortageResult": "{{count}}個不足"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "所持している専用スキルも破片として計算されますか？",
+            "answer1": "はい。所持している専用スキルを、そのレベルの作成に必要な破片価値へ換算し、所持総量に含めます。",
+            "question2": "販売価格が異なるのはなぜですか？",
+            "answer2": "英雄ごとに専用スキルLv.1の基本販売価格が異なるためです。計算前に対象英雄の価格を確認してください。",
+            "question3": "ゲーム画面の結果と異なる場合はどうすればよいですか？",
+            "answer3": "まず販売価格と所持数を確認してください。ゲームアップデート後に作成ルールや価格が変更された場合、計算結果に差が生じることがあります。"
+        }
+    },
+    "VitalCalculator": {
+        "header": {
+            "title": "体力回復速度計算機",
+            "description": "現在の体力回復間隔を計算し、新しい装飾を追加した場合に回復時間がどれだけ短縮されるか比較できます。"
+        },
+        "buttons": {
+            "reset": "リセット"
+        },
+        "current": {
+            "title": "現在の基地情報を入力",
+            "description": "ゲームの基地情報画面で体力回復速度と基礎体力回復速度を確認し、表示された値を入力してください。",
+            "imageAlt": "基地情報画面で体力回復速度を確認する位置",
+            "totalSpeedLabel": "体力回復速度",
+            "totalSpeedPlaceholder": "例：111.0",
+            "baseSpeedLabel": "基礎体力回復速度",
+            "baseSpeedPlaceholder": "例：91.0",
+            "resultLabel": "現在、体力1を回復する時間",
+            "resultDescription": "現在の設定で体力1を回復するために必要な推定間隔です。"
+        },
+        "decoration": {
+            "title": "追加する装飾情報を入力",
+            "description": "購入または配置する装飾の基礎体力回復速度上昇値を入力してください。",
+            "imageAlt": "装飾情報画面で基礎体力回復速度上昇値を確認する位置",
+            "addSpeedLabel": "装飾の基礎体力回復速度上昇",
+            "addSpeedPlaceholder": "例：8.0",
+            "resultLabel": "装飾適用後、体力1を回復する時間",
+            "resultDescription": "入力した装飾を適用した後、体力1を回復するために必要な推定間隔です。"
+        },
+        "comparison": {
+            "title": "効果比較",
+            "currentInterval": "現在の回復間隔",
+            "futureInterval": "装飾適用後の回復間隔",
+            "reducedTime": "1回あたりの短縮時間",
+            "improvement": "回復速度の改善率",
+            "currentPerHour": "現在の1時間あたり回復量",
+            "futurePerHour": "適用後の1時間あたり回復量",
+            "currentPerDay": "現在の1日あたり回復量",
+            "futurePerDay": "適用後の1日あたり回復量",
+            "theoreticalNotice": "1時間・1日あたりの回復量は、体力が継続的に消費され、回復が停止しないと仮定した理論値です。"
+        },
+        "validation": {
+            "invalid": "すべての入力欄に0以上の有効な数値を入力してください。"
+        },
+        "format": {
+            "duration": "{{minutes}}分 {{seconds}}秒",
+            "seconds": "{{value}}秒",
+            "percent": "{{value}}%",
+            "recoveryCount": "{{value}}"
+        },
+        "guide": {
+            "introductionTitle": "体力回復速度計算機とは？",
+            "introduction1": "基地情報に表示される体力回復速度と基礎体力回復速度を使い、体力1を回復する実際の時間を計算するツールです。",
+            "introduction2": "装飾の基礎体力回復速度上昇値を入力すると、適用前後の回復間隔、短縮時間、改善率、推定回復量を比較できます。",
+            "usageTitle": "計算機の使い方",
+            "usage1": "ゲームで基地情報画面を開き、体力回復速度と基礎体力回復速度を確認します。",
+            "usage2": "確認した2つの値を最初の入力欄にそのまま入力します。",
+            "usage3": "購入または配置する装飾の基礎体力回復速度上昇値を入力します。",
+            "usage4": "比較結果で、装飾適用前後の回復時間と1時間・1日あたりの推定回復量を確認します。",
+            "formulaTitle": "計算方式",
+            "formulaDescription": "基本回復時間360秒を基準に、全体回復速度と基礎回復速度の関係を反映します。",
+            "currentFormulaTitle": "現在の回復時間",
+            "currentFormula": "((100 - 体力回復速度 + 基礎体力回復速度) ÷ (100 + 基礎体力回復速度)) × 360秒",
+            "futureFormulaTitle": "装飾適用後の回復時間",
+            "futureFormula": "((100 - (体力回復速度 + 装飾数値) + (基礎体力回復速度 + 装飾数値)) ÷ (100 + 基礎体力回復速度 + 装飾数値)) × 360秒",
+            "cautionTitle": "注意事項",
+            "caution1": "入力値はゲーム画面に表示されたパーセント値をそのまま入力してください。",
+            "caution2": "小数点を含む値は丸めず、できるだけ正確に入力してください。",
+            "caution3": "1時間・1日あたりの回復量は、体力が最大値に到達しないと仮定した理論値です。",
+            "caution4": "ゲームアップデートで回復計算式が変更された場合、実際の結果と異なることがあります。"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "体力回復速度と基礎体力回復速度の違いは何ですか？",
+            "answer1": "体力回復速度は現在適用されている全ボーナスを含む値で、基礎体力回復速度は計算式の基準となる別の値です。正確な計算には両方の入力が必要です。",
+            "question2": "装飾のどの数値を入力すればよいですか？",
+            "answer2": "装飾の詳細情報に表示される基礎体力回復速度上昇率を入力してください。通常の体力回復速度項目と混同しないよう注意してください。",
+            "question3": "なぜ小数点まで入力する必要がありますか？",
+            "answer3": "パーセント値のわずかな差でも回復間隔が数秒変わることがあります。小数点が表示されている場合は、その値をそのまま入力する方が正確です。"
+        }
+    },
+    "LuckyBox": {
+        "header": {
+            "badge": "TOP WAR ミニゲーム",
+            "title": "幸運ボックス",
+            "description": "ボックスを開き、28種類の報酬画像から重複しない報酬を1～3個ランダムに表示する抽選シミュレーターです。"
+        },
+        "game": {
+            "title": "幸運ボックスを開けてみましょう",
+            "description": "ボックス画像または開封ボタンを押すと、今回の抽選結果が決まります。",
+            "closedBoxAlt": "抽選前の閉じた幸運ボックス",
+            "openBoxAlt": "報酬抽選後の開いた幸運ボックス"
+        },
+        "buttons": {
+            "open": "幸運ボックスを開ける",
+            "opening": "開封中...",
+            "retry": "もう一度抽選"
+        },
+        "result": {
+            "empty": "ボックスを開くと、ここに報酬が表示されます。",
+            "ready": "ボックスを押して抽選を開始してください。",
+            "drawing": "幸運ボックスを開封しています。",
+            "completed": "報酬が{{count}}個選択されました。"
+        },
+        "reward": {
+            "alt": "幸運ボックス報酬{{number}}番の画像",
+            "label": "報酬 {{number}}"
+        },
+        "aria": {
+            "open": "幸運ボックスを開ける",
+            "opened": "すでに開封された幸運ボックス"
+        },
+        "guide": {
+            "introductionTitle": "幸運ボックスシミュレーターとは？",
+            "introduction1": "ゲームイベントで幸運ボックスを開封する雰囲気を簡単に楽しめるランダム報酬抽選ツールです。",
+            "introduction2": "同じ抽選内で報酬は重複せず、結果を確認した後でもう一度抽選できます。",
+            "usageTitle": "使い方",
+            "usage1": "閉じたボックス画像、または幸運ボックスを開けるボタンを押します。",
+            "usage2": "短い開封演出の後、選択された報酬画像が表示されます。",
+            "usage3": "もう一度抽選ボタンを押すとボックスが初期化され、新しい結果を確認できます。",
+            "ruleTitle": "抽選ルール",
+            "rule1": "1回の抽選で{{min}}個から{{max}}個までの報酬が選択されます。",
+            "rule2": "報酬番号は1番から{{limit}}番までで、同じ抽選内では重複しません。",
+            "rule3": "ブラウザが対応している場合、Web Crypto APIを利用して乱数を生成します。",
+            "noticeTitle": "利用案内",
+            "notice": "このページは実際のアイテムや金銭的価値を提供しない娯楽用シミュレーターです。ゲーム内の実際の報酬確率や結果を保証するものではありません。"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "1回の抽選で報酬はいくつ出ますか？",
+            "answer1": "毎回1個から3個までランダムに選択されます。",
+            "question2": "同じ報酬が1回の抽選で重複することはありますか？",
+            "answer2": "いいえ。1回の抽選では異なる番号の報酬だけが選択されます。",
+            "question3": "実際のゲームと同じ報酬確率ですか？",
+            "answer3": "いいえ。このツールは単純な娯楽用ランダムシミュレーターであり、実際のゲームの確率表を再現していません。"
+        }
+    },
+    "TitanResearchSimulator": {
+        "header": {
+            "badge": "TOP WAR シミュレーター",
+            "title": "タイタン装備製作シミュレーター",
+            "description": "製作部位と触媒を選択し、設定された確率データに基づいてタイタン装備の等級・オプション・特殊効果を仮想製作できます。"
+        },
+        "settings": {
+            "title": "製作条件",
+            "partTitle": "1. 製作部位を選択",
+            "catalystTitle": "2. 触媒を選択",
+            "countLabel": "3. 製作回数",
+            "presetCount": "{{count}}回"
+        },
+        "buttons": {
+            "create": "{{count}}回製作する",
+            "clear": "結果を消去"
+        },
+        "units": {
+            "times": "回"
+        },
+        "rate": {
+            "title": "予想製作確率",
+            "description": "{{catalyst}}使用時の装備等級確率です。",
+            "gradeAria": "{{grade}}等級の確率",
+            "expectedCount": "現在の回数では約{{count}}個",
+            "goldSpecialConditional": "金装備内の特殊効果合計",
+            "overallSpecial": "全製作に対する特殊効果率",
+            "notice": "予想個数は確率×製作回数で求めた平均値であり、1回のシミュレーション結果とは異なる場合があります。"
+        },
+        "statistics": {
+            "title": "今回の製作統計",
+            "description": "生成された結果を等級と特殊効果ごとに要約します。",
+            "total": "合計{{count}}個",
+            "empty": "製作ボタンを押すと結果統計が表示されます。",
+            "specialEffects": "特殊効果",
+            "averageOptions": "平均オプション数"
+        },
+        "results": {
+            "title": "製作結果",
+            "description": "各装備の等級、オプション数値、特殊効果を確認してください。",
+            "empty": "まだ製作結果がありません。製作条件を選択して製作ボタンを押してください。",
+            "gearImageAlt": "{{grade}}等級の{{gear}}画像",
+            "specialEffect": "特殊効果"
+        },
+        "parts": {
+            "pistol": "アサルトピストル",
+            "backarmor": "タクティカルアーマー",
+            "addon": "視野拡張器",
+            "headset": "レイシオンヘッドセット",
+            "gps": "位置追跡機",
+            "boots": "パワーブーツ"
+        },
+        "catalysts": {
+            "top": "最高級触媒",
+            "advanced": "高級触媒",
+            "mid": "中級触媒",
+            "none": "触媒なし"
+        },
+        "grades": {
+            "green": "緑",
+            "blue": "青",
+            "purple": "紫",
+            "gold": "金"
+        },
+        "options": {
+            "armyAttack": "陸軍攻撃力増加",
+            "navyAttack": "海軍攻撃力増加",
+            "airAttack": "空軍攻撃力増加",
+            "armyDamageIncrease": "陸軍ダメージ増加",
+            "navyDamageIncrease": "海軍ダメージ増加",
+            "airDamageIncrease": "空軍ダメージ増加",
+            "armyHp": "陸軍生命増加",
+            "navyHp": "海軍生命増加",
+            "airHp": "空軍生命増加",
+            "armyDefense": "陸軍防御力増加",
+            "navyDefense": "海軍防御力増加",
+            "airDefense": "空軍防御力増加",
+            "armyDamageReduction": "陸軍ダメージ軽減",
+            "navyDamageReduction": "海軍ダメージ軽減",
+            "airDamageReduction": "空軍ダメージ軽減"
+        },
+        "specialEffects": {
+            "storm": "爆発のハリケーン",
+            "surge": "全軍突撃",
+            "steel": "鋼鉄の流れ",
+            "unbreakable": "不屈",
+            "awareness": "戦場洞察",
+            "searing": "点火",
+            "breaking": "脆弱",
+            "impact": "衰弱",
+            "magnetic": "磁場",
+            "hologram": "ステルスホログラム",
+            "flammable": "引火",
+            "heavyblow": "ヘビースマッシュ",
+            "debilitate": "振動",
+            "magnetize": "磁化"
+        },
+        "guide": {
+            "introductionTitle": "タイタン装備製作シミュレーターとは？",
+            "introduction1": "タイタン装備製作で出現する可能性のある等級、通常オプション、特殊効果を確率に基づいて仮想生成するツールです。",
+            "introduction2": "選択した部位、触媒、製作回数はURLに保存されるため、同じ設定を共有したり後で再確認したりできます。",
+            "usageTitle": "使い方",
+            "usage1": "製作するタイタン装備の部位を選択します。",
+            "usage2": "使用する触媒、または触媒なしを選択します。",
+            "usage3": "1回から100回までの製作回数を入力します。",
+            "usage4": "製作ボタンを押し、等級分布、オプション、特殊効果の結果を確認します。",
+            "methodTitle": "シミュレーション方式",
+            "gradeMethodTitle": "装備等級",
+            "gradeMethod": "選択した触媒の等級確率表を基準に、緑・青・紫・金のいずれかを選択します。",
+            "optionMethodTitle": "通常オプション",
+            "optionMethod": "装備ごとにオプション1個と2個がそれぞれ40%、3個が20%の確率で生成されます。数値は範囲の中央付近が出やすい正規分布を使用します。",
+            "specialMethodTitle": "特殊効果",
+            "specialMethod": "特殊効果は金等級装備でのみ判定され、選択した製作部位の特殊効果確率表に従います。",
+            "specialRateTitle": "選択部位の特殊効果確率",
+            "specialRateDescription": "金等級の{{part}}装備で各特殊効果が出現する条件付き確率です。",
+            "effect": "特殊効果",
+            "goldConditionalRate": "金装備内の確率",
+            "total": "合計",
+            "cautionTitle": "注意事項",
+            "caution1": "結果はブラウザ内で生成される仮想シミュレーションであり、実際のゲーム製作結果を保証しません。",
+            "caution2": "オプション数値の分布は本シミュレーターの正規分布モデルを使用しており、ゲーム内部のアルゴリズムと異なる場合があります。",
+            "caution3": "ゲームアップデートで確率表やオプション範囲が変更された場合、実際の値と差が生じることがあります。",
+            "caution4": "少ない回数の結果は設定確率と大きく異なることがあり、回数が増えるほど平均的に期待分布へ近づきます。"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "同じ通常オプションが1つの装備に複数付くことはありますか？",
+            "answer1": "はい。現在のシミュレーターでは各オプションを独立して選ぶため、同じオプションが重複する場合があります。元のシミュレーターの動作を維持しています。",
+            "question2": "金装備には必ず特殊効果が付きますか？",
+            "answer2": "いいえ。金装備が選ばれた後、別の特殊効果確率判定に成功した場合のみ追加されます。",
+            "question3": "実際のゲームと完全に同じ確率ですか？",
+            "answer3": "登録された確率データとオプション範囲を使用していますが、ゲーム内部の乱数やオプション分布方式が公開されていない可能性があるため、参考値として利用してください。"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
+    },
+    "TitanRefineSimulator": {
+        "header": {
+            "badge": "TOP WAR シミュレーター",
+            "title": "タイタン装備精錬シミュレーター",
+            "description": "タイタン装備と素材オプションを設定し、精錬によるオプション追加・数値上昇・置き換えをシミュレーションできます。"
+        },
+        "settings": {
+            "partTitle": "精錬部位を選択",
+            "partDescription": "部位を変更すると、装備・素材・履歴がその部位の初期値にリセットされます。",
+            "useAnimation": "精錬アニメーションを使用"
+        },
+        "gear": {
+            "title": "タイタン装備設定",
+            "description": "オプションは1～3個まで設定でき、各オプションを押すと種類と数値を変更できます。",
+            "imageAlt": "金等級の{{gear}}画像",
+            "emptySlot": "空のオプションスロット{{slot}}",
+            "max": "MAX"
+        },
+        "material": {
+            "title": "精錬素材設定",
+            "description": "素材装備が提供するオプションの種類と数値を設定します。",
+            "imageAlt": "精錬素材として使用する金等級の{{gear}}画像",
+            "rule": "精錬可能なスロットから1つがランダムに選択されます。同じオプションなら数値が上昇し、異なるオプションなら素材オプションに置き換わります。"
+        },
+        "editor": {
+            "optionLabel": "オプション種類",
+            "valueLabel": "オプション数値",
+            "allowedRange": "入力可能範囲：{{min}}%～{{max}}%"
+        },
+        "buttons": {
+            "addOption": "オプション追加",
+            "removeOption": "オプション削除",
+            "refine": "精錬する",
+            "refining": "精錬中...",
+            "reset": "現在の部位をリセット",
+            "clearHistory": "履歴を消去",
+            "confirm": "変更を適用",
+            "cancel": "変更を取消"
+        },
+        "status": {
+            "eligible": "現在選択可能な精錬対象スロット：{{count}}個",
+            "noEligible": "現在精錬できるオプションスロットがありません。",
+            "finishEditing": "オプション編集を適用または取消してから精錬してください。",
+            "allMax": "3つの同種オプションがすべて最大値です。素材オプションを変更するか、装備オプションを編集してください。"
+        },
+        "statistics": {
+            "title": "精錬統計",
+            "description": "現在の部位で実行した精錬結果を種類別に集計します。",
+            "total": "合計",
+            "added": "新規追加",
+            "upgraded": "数値上昇",
+            "replaced": "オプション交換",
+            "capped": "最大値到達"
+        },
+        "history": {
+            "title": "精錬履歴",
+            "empty": "まだ精錬履歴がありません。",
+            "slot": "オプションスロット{{slot}}",
+            "added": "{{option}} {{value}}%が新しいオプションとして追加されました。",
+            "upgraded": "{{option}}が{{before}}%から{{after}}%に上昇しました。（+{{increase}}%）",
+            "replaced": "{{beforeOption}}が{{afterOption}} {{value}}%に置き換わりました。"
+        },
+        "guide": {
+            "introductionTitle": "タイタン装備精錬シミュレーターとは？",
+            "introduction1": "タイタン装備の通常オプションと素材オプションを設定し、精錬結果がどのように適用されるか確認するツールです。",
+            "introduction2": "既存コードの精錬ルールとJSONデータに登録された最大値・上昇範囲を使用し、結果はブラウザ内で計算されます。",
+            "rulesTitle": "精錬ルール",
+            "rule1": "装備に空きスロットがある場合、次の空きスロットも精錬対象になります。",
+            "rule2": "選択されたオプションが素材オプションと同じ場合、設定された範囲だけ数値が上昇します。",
+            "rule3": "選択されたオプションが素材オプションと異なる場合、素材オプションに置き換わります。",
+            "rule4": "同じ種類ですでに最大値のオプションスロットは選択対象から除外されます。",
+            "rangeTitle": "1回の精錬による上昇範囲",
+            "optionType": "オプション種類",
+            "minimumIncrease": "最小上昇",
+            "maximumIncrease": "最大上昇",
+            "noticeTitle": "利用案内",
+            "notice": "本ツールは参考用シミュレーターです。実際のゲーム内部アルゴリズム、更新後の数値、個別結果を保証しません。",
+            "source": "精錬上昇データ出典：THAODIEN - s348"
+        },
+        "faq": {
+            "title": "よくある質問",
+            "question1": "最大値のオプションが選択されないのはなぜですか？",
+            "answer1": "素材と同じ種類ですでに最大値のスロットは、それ以上上昇できないため精錬対象から除外されます。",
+            "question2": "異なる種類のオプションが選択されるとどうなりますか？",
+            "answer2": "既存オプションは維持されず、素材装備のオプション種類と数値に置き換わります。",
+            "question3": "実際のゲーム結果と完全に同じですか？",
+            "answer3": "登録されたオプション範囲と上昇データを使用していますが、ゲーム内部の乱数やルールが変更される可能性があるため参考用として利用してください。"
+        },
+        "parts": {
+            "pistol": "アサルトピストル",
+            "backarmor": "タクティカルアーマー",
+            "addon": "視野拡張器",
+            "headset": "レイシオンヘッドセット",
+            "gps": "位置追跡機",
+            "boots": "パワーブーツ"
+        },
+        "options": {
+            "armyAttack": "陸軍攻撃力増加",
+            "navyAttack": "海軍攻撃力増加",
+            "airAttack": "空軍攻撃力増加",
+            "armyDamageIncrease": "陸軍ダメージ増加",
+            "navyDamageIncrease": "海軍ダメージ増加",
+            "airDamageIncrease": "空軍ダメージ増加",
+            "armyHp": "陸軍生命増加",
+            "navyHp": "海軍生命増加",
+            "airHp": "空軍生命増加",
+            "armyDefense": "陸軍防御力増加",
+            "navyDefense": "海軍防御力増加",
+            "airDefense": "空軍防御力増加",
+            "armyDamageReduction": "陸軍ダメージ軽減",
+            "navyDamageReduction": "海軍ダメージ軽減",
+            "airDamageReduction": "空軍ダメージ軽減"
+        },
+        "rangeTypes": {
+            "damage": "ダメージ",
+            "attack": "攻撃力",
+            "hp": "生命",
+            "defense": "防御力"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }

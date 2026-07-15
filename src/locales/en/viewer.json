@@ -470,5 +470,654 @@
         "privacy": "Privacy Policy",
         "contact": "Contact",
         "disclaimer": "Disclaimer"
+    },
+    "TopwarPlayerMoveHistory": {
+        "eyebrow": "PLAYER MOVEMENT",
+        "title": "Server Move History",
+        "description": "View player server transfers grouped by date.",
+        "summary": {
+            "days": "Data days",
+            "total": "Total moves",
+            "results": "Results"
+        },
+        "filters": {
+            "begin": "Start date",
+            "end": "End date",
+            "nickname": "Nickname",
+            "nicknamePlaceholder": "Player nickname",
+            "outServer": "Source server",
+            "outServerPlaceholder": "Server moved from",
+            "inServer": "Destination server",
+            "inServerPlaceholder": "Server moved to",
+            "reset": "Reset"
+        },
+        "messages": {
+            "loading": "Loading player move history.",
+            "loadError": "Failed to load the movement history JSON files.",
+            "noFiles": "No movement history files exist for the selected period.",
+            "noResults": "No player moves match the search conditions for this date."
+        },
+        "day": {
+            "searchResult": "Results",
+            "people": "players"
+        },
+        "table": {
+            "detectedAt": "Detected at",
+            "player": "Player",
+            "serverMove": "Server move",
+            "previousAlliance": "Previous alliance",
+            "currentAlliance": "New alliance"
+        },
+        "player": {
+            "unknown": "Unknown player",
+            "cp": "CP"
+        },
+        "server": {
+            "from": "FROM",
+            "to": "TO"
+        },
+        "alliance": {
+            "none": "No alliance"
+        }
+    },
+    "ValuePackCalculator": {
+        "header": {
+            "badge": "TOP WAR CALCULATOR",
+            "title": "Special Package Shop Calculator",
+            "description": "Select the skill shard packages you plan to purchase and calculate the total payment, final shard amount, and effective cost per shard after applying double coupons."
+        },
+        "package": {
+            "title": "Skill Shard Packages",
+            "description": "Selecting the final package tier automatically selects all preceding tiers."
+        },
+        "buttons": {
+            "selectAll": "Select All",
+            "applyDoubleAll": "Double All Selected",
+            "reset": "Reset",
+            "removeDoubleAll": "Remove All Double Coupons"
+        },
+        "table": {
+            "stage": "Tier",
+            "price": "Price",
+            "baseCount": "Base Shards",
+            "appliedCount": "Final Shards",
+            "unitPrice": "Effective Cost",
+            "buy": "Purchase",
+            "doubleCoupon": "Double Coupon",
+            "total": "Total"
+        },
+        "summary": {
+            "title": "Purchase Summary",
+            "emptyTitle": "No packages selected.",
+            "emptyDescription": "Select a package to display the calculation results.",
+            "expectedPayment": "Estimated Payment",
+            "purchasePackages": "Packages Selected",
+            "baseShards": "Base Skill Shards",
+            "bonusShards": "Bonus Shards",
+            "finalShards": "Total Shards",
+            "usedCoupons": "Double Coupons Used",
+            "averageUnitPrice": "Average Cost per Shard",
+            "discountMessage": "Double coupons reduced the effective unit cost by {{percent}}%.",
+            "bonusMessage": "You receive {{count}} additional skill shards for the same payment."
+        },
+        "guide": {
+            "introductionTitle": "What Is the Special Package Shop Calculator?",
+            "introduction1": "This tool calculates the total purchase price and number of skill shards obtained from Special Package Shop offers. When you select a package tier, all preceding tiers are included automatically. You can also apply a double coupon to individual packages and compare the resulting cost per shard.",
+            "introduction2": "Higher-tier packages may appear more expensive when comparing only their prices. Because each package provides a different number of shards, the cost per shard is a more useful measure of actual value.",
+            "usageTitle": "How to Use the Calculator",
+            "usage1": "Select the purchase checkbox for the highest package tier you plan to buy.",
+            "usage2": "All preceding package tiers are automatically included.",
+            "usage3": "Select the double-coupon checkbox for each package where a coupon will be used.",
+            "usage4": "Review the total payment, final shard amount, and average cost per shard in the summary.",
+            "calculationTitle": "How Package Efficiency Is Calculated",
+            "basicFormulaTitle": "Base Cost per Shard",
+            "basicFormula": "Package price ÷ Base shard amount",
+            "doubleFormulaTitle": "Shard Amount with Double Coupon",
+            "doubleFormula": "Base shard amount × 2",
+            "averageFormulaTitle": "Final Average Cost",
+            "averageFormula": "Total payment ÷ Total shards received",
+            "exampleTitle": "Calculation Example",
+            "exampleDescription": "The tier 1 package provides 40 skill shards for 7,000 KRW, resulting in a base cost of 175 KRW per shard. With a double coupon, the same payment provides 80 shards, reducing the cost to 87.5 KRW per shard.",
+            "cautionTitle": "Important Notes",
+            "caution1": "This calculator assumes that packages must be purchased sequentially from the lowest tier.",
+            "caution2": "A double coupon does not reduce the package price. It doubles the number of skill shards received.",
+            "caution3": "Actual prices may vary depending on the device, app store, country, exchange rate, or game policy.",
+            "caution4": "The results may differ if package prices or shard amounts are changed in a future game update."
+        },
+        "example": {
+            "type": "Purchase Type",
+            "price": "Payment",
+            "count": "Shards Received",
+            "unitPrice": "Cost per Shard",
+            "normalPurchase": "Standard Purchase",
+            "doublePurchase": "Double Coupon Applied"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Can I purchase only a package from the middle of the sequence?",
+            "answer1": "This calculator follows a sequential purchase system in which earlier tiers must be purchased before later tiers are unlocked. Selecting a tier automatically includes all preceding tiers.",
+            "question2": "Does using a double coupon also double the price?",
+            "answer2": "No. The payment remains the same, while only the number of skill shards received is doubled.",
+            "question3": "Which package is the best one for a double coupon?",
+            "answer3": "A double coupon provides a larger bonus when used on a package with more base shards. Coupon eligibility and the number of coupons available should also be considered."
+        },
+        "format": {
+            "price": "{{value}} KRW",
+            "count": "{{value}} shards",
+            "unitPrice": "{{value}} KRW",
+            "packageCount": "{{value}} packages",
+            "couponCount": "{{value}} coupons",
+            "stage": "Tier {{value}}"
+        },
+        "aria": {
+            "buy": "Purchase tier {{stage}} package",
+            "doubleCoupon": "Apply a double coupon to tier {{stage}} package"
+        }
+    },
+    "SkillCalculator": {
+        "header": {
+            "title": "Exclusive Skill Calculator",
+            "description": "Calculate the exclusive skill shards required for your target level and include your currently owned shards and lower-level exclusive skills to see the remaining shortage."
+        },
+        "form": {
+            "title": "Calculation Settings",
+            "price": {
+                "label": "1. Price of a Level 1 Exclusive Skill",
+                "description": "Select the number of exclusive skill shards required to purchase the hero's Level 1 exclusive skill.",
+                "option": "{{count}} shards - {{description}}"
+            },
+            "target": {
+                "label": "2. Target Exclusive Skill Level",
+                "description": "Select the final exclusive skill level you want to create.",
+                "required": "You need <strong>{{count}} shards</strong> to reach the target level."
+            },
+            "ownedShard": {
+                "title": "3. Exclusive Skill Shards You Own",
+                "toggle": "I currently have exclusive skill shards.",
+                "countLabel": "Owned exclusive skill shards"
+            },
+            "ownedSkill": {
+                "title": "4. Exclusive Skills You Own",
+                "toggle": "I already have lower-level exclusive skills.",
+                "noLowerLevel": "There are no lower-level exclusive skills to enter because the target is Level 1.",
+                "levelLabel": "Level {{level}} exclusive skill",
+                "convertedValue": "Shard value: {{count}}",
+                "convertedTotal": "Your owned exclusive skills are worth <strong>{{count}} shards</strong>."
+            }
+        },
+        "priceOptions": {
+            "dianaCrusoe": "Diana / Crusoe, etc.",
+            "tsuruBessel": "Tsuru / Bessel, etc.",
+            "violet": "Violet",
+            "mostCombatHeroes": "Most combat heroes",
+            "villiersSilenceAmalia": "Villiers / Silence / Amalia"
+        },
+        "result": {
+            "title": "Calculation Result",
+            "targetLevel": "Target level",
+            "requiredTotal": "Required total",
+            "ownedShards": "Owned shards",
+            "skillValue": "Converted skill value",
+            "totalOwnedValue": "Total owned value",
+            "progress": "{{percent}}% of target",
+            "successTitle": "You can create the target level.",
+            "successRemaining": "After crafting, <strong>{{count}} shards</strong> of value will remain.",
+            "shortageTitle": "You need more exclusive skill shards.",
+            "shortageAmount": "Shortage: <strong>{{count}} shards</strong>"
+        },
+        "buttons": {
+            "reset": "Reset"
+        },
+        "units": {
+            "shard": "shards",
+            "skill": "skills"
+        },
+        "format": {
+            "count": "{{value}} shards",
+            "level": "Exclusive Skill Lv. {{value}}"
+        },
+        "aria": {
+            "progress": "Target completion rate"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Exclusive Skill Calculator?",
+            "introduction1": "This calculator shows the total number of exclusive skill shards required to create a target exclusive skill level. It includes both loose shards and lower-level exclusive skills by converting them into their shard value.",
+            "introduction2": "The base purchase price differs by hero, so select the correct hero price before checking the result.",
+            "usageTitle": "How to Use the Calculator",
+            "usage1": "Select the exclusive skill purchase price for the hero.",
+            "usage2": "Select the exclusive skill level you want to create.",
+            "usage3": "Enter the number of loose exclusive skill shards you currently own.",
+            "usage4": "Enter the number of lower-level exclusive skills you already own for each level.",
+            "usage5": "Check the additional shards required or the amount remaining after crafting.",
+            "calculationTitle": "How the Calculation Works",
+            "calculationDescription": "The required value triples each time the exclusive skill level increases by one.",
+            "targetFormulaTitle": "Shards Required for the Target Level",
+            "targetFormulaBase": "Purchase price × 3",
+            "targetFormulaExponent": "target level - 1",
+            "ownedFormulaTitle": "Shard Value of Owned Skills",
+            "ownedFormulaBase": "Owned quantity × purchase price × 3",
+            "ownedFormulaExponent": "owned skill level - 1",
+            "exampleTitle": "Calculation Example",
+            "exampleDescription": "The following example creates a Level 7 exclusive skill with a base price of 25 shards.",
+            "cautionTitle": "Important Notes",
+            "caution1": "Select the correct exclusive skill purchase price for the hero.",
+            "caution2": "The actual result may differ if crafting rules or prices change after a game update.",
+            "caution3": "Only skills below the selected target level can be entered as owned skills.",
+            "caution4": "The result is based on shard value and does not include any other in-game crafting requirements."
+        },
+        "example": {
+            "item": "Item",
+            "calculation": "Calculation",
+            "result": "Result",
+            "requiredLevel7": "Shards required for Level 7",
+            "ownedLevel5": "Value of one owned Level 5 skill",
+            "withExtraShards": "With 1,000 additional loose shards",
+            "shortageResult": "{{count}} shards short"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Are owned exclusive skills converted into shards?",
+            "answer1": "Yes. Each owned exclusive skill is converted into the shard value required to craft that level and included in your total owned value.",
+            "question2": "Why are the purchase prices different?",
+            "answer2": "The base price of a Level 1 exclusive skill differs by hero. Check the hero's price before calculating.",
+            "question3": "What should I do if the result differs from the game?",
+            "answer3": "First verify the selected purchase price and owned quantities. The calculation may differ if the game's crafting rules or prices have changed."
+        }
+    },
+    "VitalCalculator": {
+        "header": {
+            "title": "Vitality Recovery Speed Calculator",
+            "description": "Calculate your current vitality recovery interval and compare how much a new decoration reduces the recovery time."
+        },
+        "buttons": {
+            "reset": "Reset"
+        },
+        "current": {
+            "title": "Enter Current Base Information",
+            "description": "Open the Base Information screen in the game and enter the displayed Vitality Recovery Speed and Base Vitality Recovery Speed.",
+            "imageAlt": "Location of vitality recovery speed values on the Base Information screen",
+            "totalSpeedLabel": "Vitality Recovery Speed",
+            "totalSpeedPlaceholder": "Example: 111.0",
+            "baseSpeedLabel": "Base Vitality Recovery Speed",
+            "baseSpeedPlaceholder": "Example: 91.0",
+            "resultLabel": "Current time to recover 1 vitality",
+            "resultDescription": "The estimated interval required to recover 1 vitality with the current settings."
+        },
+        "decoration": {
+            "title": "Enter Decoration Information",
+            "description": "Enter the Base Vitality Recovery Speed bonus of the decoration you plan to purchase or place.",
+            "imageAlt": "Location of the base vitality recovery speed bonus on the decoration information screen",
+            "addSpeedLabel": "Decoration's Base Vitality Recovery Speed Bonus",
+            "addSpeedPlaceholder": "Example: 8.0",
+            "resultLabel": "Time to recover 1 vitality after applying the decoration",
+            "resultDescription": "The estimated interval required to recover 1 vitality after applying the entered decoration."
+        },
+        "comparison": {
+            "title": "Effect Comparison",
+            "currentInterval": "Current recovery interval",
+            "futureInterval": "Recovery interval after decoration",
+            "reducedTime": "Time reduced per recovery",
+            "improvement": "Recovery improvement",
+            "currentPerHour": "Current recovery per hour",
+            "futurePerHour": "Recovery per hour after decoration",
+            "currentPerDay": "Current recovery per day",
+            "futurePerDay": "Recovery per day after decoration",
+            "theoreticalNotice": "Hourly and daily recovery values are theoretical estimates that assume vitality is continuously consumed and recovery never stops."
+        },
+        "validation": {
+            "invalid": "Enter a valid number of 0 or greater in every field."
+        },
+        "format": {
+            "duration": "{{minutes}}m {{seconds}}s",
+            "seconds": "{{value}}s",
+            "percent": "{{value}}%",
+            "recoveryCount": "{{value}}"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Vitality Recovery Speed Calculator?",
+            "introduction1": "This tool calculates the actual time required to recover 1 vitality using the Vitality Recovery Speed and Base Vitality Recovery Speed shown in Base Information.",
+            "introduction2": "Enter a decoration's Base Vitality Recovery Speed bonus to compare the recovery interval, time reduction, improvement percentage, and estimated recovery amount before and after applying it.",
+            "usageTitle": "How to Use the Calculator",
+            "usage1": "Open Base Information in the game and locate Vitality Recovery Speed and Base Vitality Recovery Speed.",
+            "usage2": "Enter both values exactly as displayed in the first input section.",
+            "usage3": "Enter the Base Vitality Recovery Speed bonus of the decoration you plan to purchase or place.",
+            "usage4": "Review the recovery time and estimated hourly and daily recovery before and after applying the decoration.",
+            "formulaTitle": "Calculation Method",
+            "formulaDescription": "The calculation starts from a base recovery time of 360 seconds and applies the relationship between total recovery speed and base recovery speed.",
+            "currentFormulaTitle": "Current Recovery Time",
+            "currentFormula": "((100 - Vitality Recovery Speed + Base Vitality Recovery Speed) ÷ (100 + Base Vitality Recovery Speed)) × 360 seconds",
+            "futureFormulaTitle": "Recovery Time After Decoration",
+            "futureFormula": "((100 - (Vitality Recovery Speed + Decoration Bonus) + (Base Vitality Recovery Speed + Decoration Bonus)) ÷ (100 + Base Vitality Recovery Speed + Decoration Bonus)) × 360 seconds",
+            "cautionTitle": "Important Notes",
+            "caution1": "Enter the percentage values exactly as displayed in the game.",
+            "caution2": "For better accuracy, do not round values that include decimal places.",
+            "caution3": "Hourly and daily recovery amounts assume that vitality never reaches its maximum capacity.",
+            "caution4": "Actual results may differ if the recovery formula changes in a future game update."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "What is the difference between Vitality Recovery Speed and Base Vitality Recovery Speed?",
+            "answer1": "Vitality Recovery Speed includes the currently applied total bonuses, while Base Vitality Recovery Speed is a separate value used by the formula. Both values are required for an accurate result.",
+            "question2": "Which decoration value should I enter?",
+            "answer2": "Enter the Base Vitality Recovery Speed percentage shown in the decoration details. Do not confuse it with a general Vitality Recovery Speed bonus.",
+            "question3": "Why should I enter decimal values?",
+            "answer3": "Even a small difference in the percentage can change the recovery interval by several seconds. Enter the displayed decimal value whenever available."
+        }
+    },
+    "LuckyBox": {
+        "header": {
+            "badge": "TOP WAR MINI GAME",
+            "title": "Lucky Box",
+            "description": "Open a box to randomly reveal 1 to 3 unique rewards from a set of 28 reward images."
+        },
+        "game": {
+            "title": "Open the Lucky Box",
+            "description": "Click the box image or the open button to determine the rewards for this draw.",
+            "closedBoxAlt": "Closed Lucky Box before drawing rewards",
+            "openBoxAlt": "Opened Lucky Box after the reward draw"
+        },
+        "buttons": {
+            "open": "Open Lucky Box",
+            "opening": "Opening...",
+            "retry": "Draw Again"
+        },
+        "result": {
+            "empty": "Your rewards will appear here after opening the box.",
+            "ready": "Click the box to start the draw.",
+            "drawing": "The Lucky Box is opening.",
+            "completed": "{{count}} rewards were selected."
+        },
+        "reward": {
+            "alt": "Lucky Box reward image number {{number}}",
+            "label": "Reward {{number}}"
+        },
+        "aria": {
+            "open": "Open the Lucky Box",
+            "opened": "Lucky Box already opened"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Lucky Box Simulator?",
+            "introduction1": "This random reward tool recreates the feeling of opening a Lucky Box during a game event.",
+            "introduction2": "Rewards do not repeat within the same draw. After viewing the result, you can reset the box and draw again.",
+            "usageTitle": "How to Use It",
+            "usage1": "Click the closed box image or the Open Lucky Box button.",
+            "usage2": "After the short opening animation, the selected reward images will appear.",
+            "usage3": "Click Draw Again to reset the box and generate a new result.",
+            "ruleTitle": "Draw Rules",
+            "rule1": "Each draw selects between {{min}} and {{max}} rewards.",
+            "rule2": "Reward numbers range from 1 to {{limit}}, with no duplicates in the same draw.",
+            "rule3": "When supported by the browser, random numbers are generated with the Web Crypto API.",
+            "noticeTitle": "Important Notice",
+            "notice": "This page is an entertainment-only simulator. It does not award real items or monetary value and does not guarantee actual in-game reward rates or results."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "How many rewards appear in one draw?",
+            "answer1": "Each draw randomly selects between 1 and 3 rewards.",
+            "question2": "Can the same reward appear twice in one draw?",
+            "answer2": "No. Every reward selected in a single draw has a unique number.",
+            "question3": "Does this use the same reward rates as the actual game?",
+            "answer3": "No. This is a simple entertainment simulator and does not reproduce the actual game's probability table."
+        }
+    },
+    "TitanResearchSimulator": {
+        "header": {
+            "badge": "TOP WAR SIMULATOR",
+            "title": "Titan Gear Crafting Simulator",
+            "description": "Choose a gear part and catalyst, then simulate Titan gear grades, options, and special effects using the configured probability data."
+        },
+        "settings": {
+            "title": "Crafting Settings",
+            "partTitle": "1. Select a Gear Part",
+            "catalystTitle": "2. Select a Catalyst",
+            "countLabel": "3. Number of Crafts",
+            "presetCount": "{{count}} times"
+        },
+        "buttons": {
+            "create": "Craft {{count}} Times",
+            "clear": "Clear Results"
+        },
+        "units": {
+            "times": "times"
+        },
+        "rate": {
+            "title": "Expected Crafting Rates",
+            "description": "Gear grade rates when using {{catalyst}}.",
+            "gradeAria": "{{grade}} grade probability",
+            "expectedCount": "About {{count}} at the current count",
+            "goldSpecialConditional": "Special-effect total on gold gear",
+            "overallSpecial": "Special-effect rate across all crafts",
+            "notice": "Expected counts are averages calculated from probability × craft count and may differ from a single simulation run."
+        },
+        "statistics": {
+            "title": "Current Run Statistics",
+            "description": "A summary of the generated results by grade and special effect.",
+            "total": "{{count}} total",
+            "empty": "Run the simulator to display result statistics.",
+            "specialEffects": "Special effects",
+            "averageOptions": "Average options"
+        },
+        "results": {
+            "title": "Crafting Results",
+            "description": "Review each gear's grade, option values, and special effect.",
+            "empty": "No results yet. Choose the crafting settings and run the simulator.",
+            "gearImageAlt": "{{grade}} {{gear}} image",
+            "specialEffect": "Special effect"
+        },
+        "parts": {
+            "pistol": "Assault Pistol",
+            "backarmor": "Tactical Armor",
+            "addon": "Vision Expander",
+            "headset": "Raysion Headset",
+            "gps": "Position Tracker",
+            "boots": "Power Boots"
+        },
+        "catalysts": {
+            "top": "Top Catalyst",
+            "advanced": "Advanced Catalyst",
+            "mid": "Intermediate Catalyst",
+            "none": "No Catalyst"
+        },
+        "grades": {
+            "green": "Green",
+            "blue": "Blue",
+            "purple": "Purple",
+            "gold": "Gold"
+        },
+        "options": {
+            "armyAttack": "Army ATK Increase",
+            "navyAttack": "Navy ATK Increase",
+            "airAttack": "Air Force ATK Increase",
+            "armyDamageIncrease": "Army Damage Increase",
+            "navyDamageIncrease": "Navy Damage Increase",
+            "airDamageIncrease": "Air Force Damage Increase",
+            "armyHp": "Army HP Increase",
+            "navyHp": "Navy HP Increase",
+            "airHp": "Air Force HP Increase",
+            "armyDefense": "Army DEF Increase",
+            "navyDefense": "Navy DEF Increase",
+            "airDefense": "Air Force DEF Increase",
+            "armyDamageReduction": "Army Damage Reduction",
+            "navyDamageReduction": "Navy Damage Reduction",
+            "airDamageReduction": "Air Force Damage Reduction"
+        },
+        "specialEffects": {
+            "storm": "Explosive Hurricane",
+            "surge": "All-Out Assault",
+            "steel": "Flow of Steel",
+            "unbreakable": "Unbreakable",
+            "awareness": "Battlefield Insight",
+            "searing": "Ignition",
+            "breaking": "Vulnerability",
+            "impact": "Weakening",
+            "magnetic": "Magnetic Field",
+            "hologram": "Stealth Hologram",
+            "flammable": "Flammable",
+            "heavyblow": "Heavy Smash",
+            "debilitate": "Shock",
+            "magnetize": "Magnetization"
+        },
+        "guide": {
+            "introductionTitle": "What Is the Titan Gear Crafting Simulator?",
+            "introduction1": "This tool generates possible Titan gear grades, standard options, and special effects using probability-based simulation.",
+            "introduction2": "The selected part, catalyst, and craft count are stored in the URL, making it easy to share or revisit the same settings.",
+            "usageTitle": "How to Use the Simulator",
+            "usage1": "Select the Titan gear part you want to craft.",
+            "usage2": "Choose a catalyst or select No Catalyst.",
+            "usage3": "Enter a craft count between 1 and 100.",
+            "usage4": "Run the simulator and review the grade distribution, option values, and special effects.",
+            "methodTitle": "Simulation Method",
+            "gradeMethodTitle": "Gear Grade",
+            "gradeMethod": "One grade is selected from Green, Blue, Purple, and Gold using the rate table for the selected catalyst.",
+            "optionMethodTitle": "Standard Options",
+            "optionMethod": "Each gear receives one or two options at a 40% chance each, or three options at a 20% chance. Option values use a normal distribution so values near the midpoint occur more often.",
+            "specialMethodTitle": "Special Effects",
+            "specialMethod": "Special effects are rolled only for Gold gear and use the rate table assigned to the selected gear part.",
+            "specialRateTitle": "Special-Effect Rates for the Selected Part",
+            "specialRateDescription": "Conditional rates for each special effect on Gold {{part}} gear.",
+            "effect": "Special Effect",
+            "goldConditionalRate": "Rate on Gold Gear",
+            "total": "Total",
+            "cautionTitle": "Important Notes",
+            "caution1": "Results are generated locally in the browser and do not guarantee actual in-game crafting outcomes.",
+            "caution2": "The option-value distribution uses this simulator's normal-distribution model and may differ from the game's internal algorithm.",
+            "caution3": "Results may become outdated if a game update changes probability tables or option ranges.",
+            "caution4": "Small samples can differ greatly from the configured rates; larger samples tend to approach the expected distribution."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Can the same standard option appear more than once on one gear item?",
+            "answer1": "Yes. The current simulator selects each option independently, so duplicate options are possible. This preserves the behavior of the original simulator.",
+            "question2": "Does every Gold gear item receive a special effect?",
+            "answer2": "No. After Gold gear is selected, it must pass a separate special-effect probability roll.",
+            "question3": "Are the rates exactly the same as the live game?",
+            "answer3": "The simulator uses the supplied probability data and option ranges, but the game's internal random and option-distribution algorithms may not be public. Treat the results as estimates."
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
+    },
+    "TitanRefineSimulator": {
+        "header": {
+            "badge": "TOP WAR SIMULATOR",
+            "title": "Titan Gear Refinement Simulator",
+            "description": "Configure Titan gear and material options, then simulate option additions, upgrades, and replacements during refinement."
+        },
+        "settings": {
+            "partTitle": "Select a Gear Part",
+            "partDescription": "Changing the part resets the gear, material, and history to that part's default values.",
+            "useAnimation": "Use refinement animation"
+        },
+        "gear": {
+            "title": "Titan Gear Settings",
+            "description": "Configure between one and three options. Select an option to change its type and value.",
+            "imageAlt": "Gold-grade {{gear}} image",
+            "emptySlot": "Empty option slot {{slot}}",
+            "max": "MAX"
+        },
+        "material": {
+            "title": "Refinement Material Settings",
+            "description": "Set the option type and value supplied by the material gear.",
+            "imageAlt": "Gold-grade {{gear}} used as refinement material",
+            "rule": "One eligible option slot is selected at random. A matching option is upgraded, while a different option is replaced by the material option."
+        },
+        "editor": {
+            "optionLabel": "Option type",
+            "valueLabel": "Option value",
+            "allowedRange": "Allowed range: {{min}}%–{{max}}%"
+        },
+        "buttons": {
+            "addOption": "Add Option",
+            "removeOption": "Remove Option",
+            "refine": "Refine",
+            "refining": "Refining...",
+            "reset": "Reset Current Part",
+            "clearHistory": "Clear History",
+            "confirm": "Apply change",
+            "cancel": "Cancel change"
+        },
+        "status": {
+            "eligible": "Eligible refinement slots: {{count}}",
+            "noEligible": "No option slot is currently eligible for refinement.",
+            "finishEditing": "Apply or cancel the current edit before refining.",
+            "allMax": "All three matching options are already at their maximum values. Change the material option or edit the gear options."
+        },
+        "statistics": {
+            "title": "Refinement Statistics",
+            "description": "Summary of refinement outcomes for the current part.",
+            "total": "Total",
+            "added": "Added",
+            "upgraded": "Upgraded",
+            "replaced": "Replaced",
+            "capped": "Reached Max"
+        },
+        "history": {
+            "title": "Refinement History",
+            "empty": "No refinement history yet.",
+            "slot": "Option Slot {{slot}}",
+            "added": "{{option}} {{value}}% was added as a new option.",
+            "upgraded": "{{option}} increased from {{before}}% to {{after}}%. (+{{increase}}%)",
+            "replaced": "{{beforeOption}} was replaced with {{afterOption}} {{value}}%."
+        },
+        "guide": {
+            "introductionTitle": "What Is the Titan Gear Refinement Simulator?",
+            "introduction1": "This tool lets you configure standard Titan gear options and a material option, then inspect how a refinement result is applied.",
+            "introduction2": "It uses the refinement rules from the existing code together with the option caps and increase ranges stored in the JSON data. All results are calculated locally in the browser.",
+            "rulesTitle": "Refinement Rules",
+            "rule1": "When the gear has an empty slot, that next empty slot can be selected as a refinement target.",
+            "rule2": "When the selected option matches the material option, its value increases by the configured range.",
+            "rule3": "When the selected option differs from the material option, it is replaced by the material option.",
+            "rule4": "A slot with the same option already at its maximum value is excluded from selection.",
+            "rangeTitle": "Increase Range per Refinement",
+            "optionType": "Option Type",
+            "minimumIncrease": "Minimum",
+            "maximumIncrease": "Maximum",
+            "noticeTitle": "Notice",
+            "notice": "This is a reference simulator. It does not guarantee the live game's internal algorithm, updated values, or individual outcomes.",
+            "source": "Refinement increase data source: THAODIEN - s348"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "question1": "Why is a maximum-value option not selected?",
+            "answer1": "A slot containing the same option at its maximum value cannot be upgraded further, so it is excluded from eligible targets.",
+            "question2": "What happens when a different option is selected?",
+            "answer2": "The existing option is replaced by the material gear's option type and value.",
+            "question3": "Are the results exactly the same as the live game?",
+            "answer3": "The simulator uses the registered option ranges and refinement increments, but the game's internal random algorithm and rules may change. Use it as a reference."
+        },
+        "parts": {
+            "pistol": "Assault Pistol",
+            "backarmor": "Tactical Armor",
+            "addon": "Vision Expander",
+            "headset": "Raysion Headset",
+            "gps": "Position Tracker",
+            "boots": "Power Boots"
+        },
+        "options": {
+            "armyAttack": "Army ATK Increase",
+            "navyAttack": "Navy ATK Increase",
+            "airAttack": "Air Force ATK Increase",
+            "armyDamageIncrease": "Army Damage Increase",
+            "navyDamageIncrease": "Navy Damage Increase",
+            "airDamageIncrease": "Air Force Damage Increase",
+            "armyHp": "Army HP Increase",
+            "navyHp": "Navy HP Increase",
+            "airHp": "Air Force HP Increase",
+            "armyDefense": "Army DEF Increase",
+            "navyDefense": "Navy DEF Increase",
+            "airDefense": "Air Force DEF Increase",
+            "armyDamageReduction": "Army Damage Reduction",
+            "navyDamageReduction": "Navy Damage Reduction",
+            "airDamageReduction": "Air Force Damage Reduction"
+        },
+        "rangeTypes": {
+            "damage": "Damage",
+            "attack": "Attack",
+            "hp": "HP",
+            "defense": "Defense"
+        },
+        "format": {
+            "percent": "{{value}}%"
+        }
     }
 }
