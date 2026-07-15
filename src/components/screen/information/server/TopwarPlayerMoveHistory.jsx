@@ -35,6 +35,14 @@ const movementFiles = Object.entries(movementJsonModules)
 const countFormatter = new Intl.NumberFormat("ko-KR");
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const SERVER_PATTERN = /^\d+$/;
+const POWER_INPUT_PATTERN = /^\d+(?:\.\d*)?[KMBT]?$/i;
+
+const POWER_UNIT_MULTIPLIERS = {
+    K: 1_000,
+    M: 1_000_000,
+    B: 1_000_000_000,
+    T: 1_000_000_000_000,
+};
 
 function formatCount(value) {
     const number = Number(value);
@@ -106,6 +114,66 @@ function validateServerParam(value) {
 
 function parseServerParam(value) {
     return String(value ?? "").replace(/\D/g, "");
+}
+
+/*
+ * 전투력 검색값
+ * - 단위 없음: M으로 처리 (50 -> 50M)
+ * - K / M / B / T 지원, 대소문자 구분 없음
+ * - 소수 입력 지원 (2.5B 등)
+ */
+function normalizePowerParam(value) {
+    return String(value ?? "")
+        .trim()
+        .replace(/[\s,]/g, "")
+        .toUpperCase();
+}
+
+function validatePowerParam(value) {
+    const normalized = normalizePowerParam(value);
+
+    return (
+        normalized === ""
+        || POWER_INPUT_PATTERN.test(normalized)
+    );
+}
+
+function parsePowerParam(value) {
+    const normalized = normalizePowerParam(value);
+
+    return validatePowerParam(normalized)
+        ? normalized
+        : "";
+}
+
+function parsePowerValue(value) {
+    const normalized = normalizePowerParam(value);
+
+    if (!POWER_INPUT_PATTERN.test(normalized)) {
+        return null;
+    }
+
+    const match = normalized.match(
+        /^(\d+(?:\.\d*)?)([KMBT]?)$/,
+    );
+
+    if (!match) {
+        return null;
+    }
+
+    const amount = Number(match[1]);
+    const unit = match[2] || "M";
+    const power = amount * POWER_UNIT_MULTIPLIERS[unit];
+
+    return Number.isFinite(power) ? power : null;
+}
+
+function getDetectedTimestamp(row) {
+    const timestamp = new Date(row.detectedAt).getTime();
+
+    return Number.isNaN(timestamp)
+        ? Number.NEGATIVE_INFINITY
+        : timestamp;
 }
 
 function getTodayString() {
@@ -286,6 +354,8 @@ export default function TopwarPlayerMoveHistory({
      * ?in=3715
      * &out=3423
      * &nickname=player
+     * &min=50       // 단위가 없으면 50M
+     * &max=500T
      * &begin=2026-07-01
      * &end=2026-07-14
      */
@@ -310,6 +380,24 @@ export default function TopwarPlayerMoveHistory({
     const [nicknameKeyword, setNicknameKeyword] =
         useParamState("nickname", "");
 
+    const [minPower, setMinPower] = useParamState(
+        "min",
+        "",
+        {
+            validate: validatePowerParam,
+            parse: parsePowerParam,
+        },
+    );
+
+    const [maxPower, setMaxPower] = useParamState(
+        "max",
+        "",
+        {
+            validate: validatePowerParam,
+            parse: parsePowerParam,
+        },
+    );
+
     const [beginDate, setBeginDate] = useParamState(
         "begin",
         defaultBeginDate,
@@ -331,6 +419,8 @@ export default function TopwarPlayerMoveHistory({
     const [dailyData, setDailyData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [isAdvancedOpen, setIsAdvancedOpen] =
+        useState(false);
 
     /*
      * URL에 begin > end가 직접 입력된 경우 보정한다.
@@ -419,46 +509,73 @@ export default function TopwarPlayerMoveHistory({
 
         const normalizedInServer = inServer.trim();
         const normalizedOutServer = outServer.trim();
+        const minPowerValue = parsePowerValue(minPower);
+        const maxPowerValue = parsePowerValue(maxPower);
 
         return dailyData.map((day) => {
-            const filteredRows = day.rows.filter((row) => {
-                const nickname = getNickname(row)
-                    .toLocaleLowerCase();
+            const filteredRows = day.rows
+                .filter((row) => {
+                    const nickname = getNickname(row)
+                        .toLocaleLowerCase();
 
-                const fromServer = String(
-                    getFromServer(row),
+                    const fromServer = String(
+                        getFromServer(row),
+                    );
+
+                    const toServer = String(
+                        getToServer(row),
+                    );
+
+                    const nicknameMatched =
+                        normalizedNickname === ""
+                        || nickname.includes(normalizedNickname);
+
+                    /*
+                     * in:
+                     * 사용자가 이동한 대상 서버
+                     */
+                    const inServerMatched =
+                        normalizedInServer === ""
+                        || toServer === normalizedInServer;
+
+                    /*
+                     * out:
+                     * 사용자가 이동하기 전에 있던 서버
+                     */
+                    const outServerMatched =
+                        normalizedOutServer === ""
+                        || fromServer === normalizedOutServer;
+
+                    const power = Number(row.to?.score);
+                    const hasValidPower = Number.isFinite(power);
+
+                    const minPowerMatched =
+                        minPowerValue === null
+                        || (
+                            hasValidPower
+                            && power >= minPowerValue
+                        );
+
+                    const maxPowerMatched =
+                        maxPowerValue === null
+                        || (
+                            hasValidPower
+                            && power <= maxPowerValue
+                        );
+
+                    return (
+                        nicknameMatched
+                        && inServerMatched
+                        && outServerMatched
+                        && minPowerMatched
+                        && maxPowerMatched
+                    );
+                })
+                .sort(
+                    (a, b) =>
+                        getDetectedTimestamp(b)
+                        - getDetectedTimestamp(a),
                 );
-
-                const toServer = String(
-                    getToServer(row),
-                );
-
-                const nicknameMatched =
-                    normalizedNickname === ""
-                    || nickname.includes(normalizedNickname);
-
-                /*
-                 * in:
-                 * 사용자가 이동한 대상 서버
-                 */
-                const inServerMatched =
-                    normalizedInServer === ""
-                    || toServer === normalizedInServer;
-
-                /*
-                 * out:
-                 * 사용자가 이동하기 전에 있던 서버
-                 */
-                const outServerMatched =
-                    normalizedOutServer === ""
-                    || fromServer === normalizedOutServer;
-
-                return (
-                    nicknameMatched
-                    && inServerMatched
-                    && outServerMatched
-                );
-            });
 
             return {
                 ...day,
@@ -470,6 +587,8 @@ export default function TopwarPlayerMoveHistory({
         nicknameKeyword,
         inServer,
         outServer,
+        minPower,
+        maxPower,
     ]);
 
     const totalCount = useMemo(() => {
@@ -487,12 +606,35 @@ export default function TopwarPlayerMoveHistory({
         );
     }, [filteredDailyData]);
 
-    const hasCustomCondition =
+    const hasAdvancedCondition =
         nicknameKeyword.trim() !== ""
         || inServer.trim() !== ""
         || outServer.trim() !== ""
+        || minPower.trim() !== ""
+        || maxPower.trim() !== "";
+
+    const advancedFilterCount = [
+        nicknameKeyword,
+        inServer,
+        outServer,
+        minPower,
+        maxPower,
+    ].filter((value) => value.trim() !== "").length;
+
+    const hasCustomCondition =
+        hasAdvancedCondition
         || beginDate !== defaultBeginDate
         || endDate !== today;
+
+    /*
+     * URL에 상세 검색 파라미터가 있는 경우
+     * 현재 적용 중인 조건을 바로 확인할 수 있도록 펼친다.
+     */
+    useEffect(() => {
+        if (hasAdvancedCondition) {
+            setIsAdvancedOpen(true);
+        }
+    }, [hasAdvancedCondition]);
 
     function handleBeginDateChange(event) {
         const nextBeginDate = event.target.value;
@@ -532,6 +674,26 @@ export default function TopwarPlayerMoveHistory({
         );
     }
 
+    function handleMinPowerChange(event) {
+        const nextMinPower = normalizePowerParam(
+            event.target.value,
+        );
+
+        if (validatePowerParam(nextMinPower)) {
+            setMinPower(nextMinPower);
+        }
+    }
+
+    function handleMaxPowerChange(event) {
+        const nextMaxPower = normalizePowerParam(
+            event.target.value,
+        );
+
+        if (validatePowerParam(nextMaxPower)) {
+            setMaxPower(nextMaxPower);
+        }
+    }
+
     /*
      * 빈 문자열을 전달하면 useParamState가
      * 해당 query parameter를 삭제한다.
@@ -540,6 +702,8 @@ export default function TopwarPlayerMoveHistory({
         setInServer("");
         setOutServer("");
         setNicknameKeyword("");
+        setMinPower("");
+        setMaxPower("");
         setBeginDate("");
         setEndDate("");
     }
@@ -651,69 +815,6 @@ export default function TopwarPlayerMoveHistory({
                             />
                         </div>
                     </div>
-                </div>
-
-                <div className="move-filter-row move-filter-search-row">
-                    <div className="move-filter-field move-nickname-filter">
-                        <label htmlFor="move-nickname">
-                            {t(
-                                "TopwarPlayerMoveHistory.filters.nickname",
-                            )}
-                        </label>
-
-                        <input
-                            id="move-nickname"
-                            type="search"
-                            value={nicknameKeyword}
-                            placeholder={t(
-                                "TopwarPlayerMoveHistory.filters.nicknamePlaceholder",
-                            )}
-                            autoComplete="off"
-                            onChange={(event) =>
-                                setNicknameKeyword(event.target.value)
-                            }
-                        />
-                    </div>
-
-                    <div className="move-filter-field move-server-filter">
-                        <label htmlFor="move-out-server">
-                            {t(
-                                "TopwarPlayerMoveHistory.filters.outServer",
-                            )}
-                        </label>
-
-                        <input
-                            id="move-out-server"
-                            type="search"
-                            inputMode="numeric"
-                            value={outServer}
-                            placeholder={t(
-                                "TopwarPlayerMoveHistory.filters.outServerPlaceholder",
-                            )}
-                            autoComplete="off"
-                            onChange={handleOutServerChange}
-                        />
-                    </div>
-
-                    <div className="move-filter-field move-server-filter">
-                        <label htmlFor="move-in-server">
-                            {t(
-                                "TopwarPlayerMoveHistory.filters.inServer",
-                            )}
-                        </label>
-
-                        <input
-                            id="move-in-server"
-                            type="search"
-                            inputMode="numeric"
-                            value={inServer}
-                            placeholder={t(
-                                "TopwarPlayerMoveHistory.filters.inServerPlaceholder",
-                            )}
-                            autoComplete="off"
-                            onChange={handleInServerChange}
-                        />
-                    </div>
 
                     <button
                         type="button"
@@ -726,6 +827,167 @@ export default function TopwarPlayerMoveHistory({
                         )}
                     </button>
                 </div>
+
+                <details
+                    className="move-filter-advanced"
+                    open={isAdvancedOpen}
+                    onToggle={(event) =>
+                        setIsAdvancedOpen(
+                            event.currentTarget.open,
+                        )
+                    }
+                >
+                    <summary className="move-filter-advanced-summary">
+                        <span>
+                            {t(
+                                "TopwarPlayerMoveHistory.filters.advanced",
+                                {
+                                    defaultValue: "상세 옵션",
+                                },
+                            )}
+                        </span>
+
+                        {advancedFilterCount > 0 && (
+                            <strong className="move-filter-active-count">
+                                {t(
+                                    "TopwarPlayerMoveHistory.filters.activeCount",
+                                    {
+                                        count: advancedFilterCount,
+                                        defaultValue:
+                                            `${advancedFilterCount}개 적용 중`,
+                                    },
+                                )}
+                            </strong>
+                        )}
+                    </summary>
+
+                    <div className="move-filter-advanced-content">
+                        <div className="move-filter-row move-filter-search-row">
+                            <div className="move-filter-field move-nickname-filter">
+                                <label htmlFor="move-nickname">
+                                    {t(
+                                        "TopwarPlayerMoveHistory.filters.nickname",
+                                    )}
+                                </label>
+
+                                <input
+                                    id="move-nickname"
+                                    type="search"
+                                    value={nicknameKeyword}
+                                    placeholder={t(
+                                        "TopwarPlayerMoveHistory.filters.nicknamePlaceholder",
+                                    )}
+                                    autoComplete="off"
+                                    onChange={(event) =>
+                                        setNicknameKeyword(
+                                            event.target.value,
+                                        )
+                                    }
+                                />
+                            </div>
+
+                            <div className="move-filter-field move-server-filter">
+                                <label htmlFor="move-out-server">
+                                    {t(
+                                        "TopwarPlayerMoveHistory.filters.outServer",
+                                    )}
+                                </label>
+
+                                <input
+                                    id="move-out-server"
+                                    type="search"
+                                    inputMode="numeric"
+                                    value={outServer}
+                                    placeholder={t(
+                                        "TopwarPlayerMoveHistory.filters.outServerPlaceholder",
+                                    )}
+                                    autoComplete="off"
+                                    onChange={handleOutServerChange}
+                                />
+                            </div>
+
+                            <div className="move-filter-field move-server-filter">
+                                <label htmlFor="move-in-server">
+                                    {t(
+                                        "TopwarPlayerMoveHistory.filters.inServer",
+                                    )}
+                                </label>
+
+                                <input
+                                    id="move-in-server"
+                                    type="search"
+                                    inputMode="numeric"
+                                    value={inServer}
+                                    placeholder={t(
+                                        "TopwarPlayerMoveHistory.filters.inServerPlaceholder",
+                                    )}
+                                    autoComplete="off"
+                                    onChange={handleInServerChange}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="move-filter-row move-filter-power-row">
+                            <div className="move-filter-field move-power-filter">
+                                <label htmlFor="move-min-power">
+                                    {t(
+                                        "TopwarPlayerMoveHistory.filters.minPower",
+                                        {
+                                            defaultValue: "전투력 하한",
+                                        },
+                                    )}
+                                </label>
+
+                                <input
+                                    id="move-min-power"
+                                    type="search"
+                                    inputMode="decimal"
+                                    value={minPower}
+                                    placeholder={t(
+                                        "TopwarPlayerMoveHistory.filters.minPowerPlaceholder",
+                                        {
+                                            defaultValue:
+                                                "예: 50 또는 50M",
+                                        },
+                                    )}
+                                    autoComplete="off"
+                                    onChange={handleMinPowerChange}
+                                />
+                            </div>
+
+                            <span className="move-power-separator">
+                                ~
+                            </span>
+
+                            <div className="move-filter-field move-power-filter">
+                                <label htmlFor="move-max-power">
+                                    {t(
+                                        "TopwarPlayerMoveHistory.filters.maxPower",
+                                        {
+                                            defaultValue: "전투력 상한",
+                                        },
+                                    )}
+                                </label>
+
+                                <input
+                                    id="move-max-power"
+                                    type="search"
+                                    inputMode="decimal"
+                                    value={maxPower}
+                                    placeholder={t(
+                                        "TopwarPlayerMoveHistory.filters.maxPowerPlaceholder",
+                                        {
+                                            defaultValue:
+                                                "예: 100M 또는 500T",
+                                        },
+                                    )}
+                                    autoComplete="off"
+                                    onChange={handleMaxPowerChange}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </details>
             </div>
 
             {loading && (
