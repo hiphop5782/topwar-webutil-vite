@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/copy-default-page.mjs",
+    "copy:default-page": "node scripts/copy-default-page.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "build": "vite build && npm run copy:default-page && npm run sitemap"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
@@ -47,6 +49,7 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
+    "sitemap": "^9.0.1",
     "tippy.js": "^6.3.7",
     "uuid": "9.0.1",
     "vis-data": "^7.1.9",

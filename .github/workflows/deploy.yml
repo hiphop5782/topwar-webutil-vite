@@ -43,8 +43,11 @@ jobs:
       # GitHub Secret에 저장한 운영 환경변수 파일 생성
       - name: Create .env.production file
         shell: bash
+        env:
+          ENV_PRODUCTION: ${{ secrets.ENV_PRODUCTION }}
         run: |
-          printf '%s' '${{ secrets.ENV_PRODUCTION }}' > .env.production
+          set -euo pipefail
+          printf '%s' "$ENV_PRODUCTION" > .env.production
 
       # package-lock.json 기준으로 의존성 설치
       # 이 과정에서 Puppeteer용 Chrome도 설치됨
@@ -53,9 +56,11 @@ jobs:
           PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
         run: npm ci
 
-      # Vite 빌드 + Puppeteer 프리렌더
-      # package.json의 build 명령에 따라
-      # scripts/copy-default-page.mjs도 이어서 실행됨
+      # package.json의 build 명령 실행
+      #
+      # 1. Vite 빌드 및 Puppeteer 프리렌더
+      # 2. 기본 언어 페이지 복사
+      # 3. sitemap.xml 및 robots.txt 생성
       - name: Build and prerender project
         env:
           CI: false
@@ -66,46 +71,336 @@ jobs:
       - name: Verify prerendered pages
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
-          echo "프리렌더 생성 파일을 확인합니다."
+          echo "=== 기본 프리렌더 파일 확인 ==="
 
-          test -f dist/index.html
-          test -f dist/ko/index.html
-          test -f dist/en/index.html
-          test -f dist/ja/index.html
+          test -s dist/index.html
+          test -s dist/ko/index.html
+          test -s dist/en/index.html
+          test -s dist/ja/index.html
 
-          echo "루트 요소에 정적 콘텐츠가 포함됐는지 확인합니다."
+          echo "=== 정책 페이지 파일 확인 ==="
+
+          for lang in ko en ja
+          do
+            test -s "dist/$lang/privacy/index.html"
+            test -s "dist/$lang/contact/index.html"
+            test -s "dist/$lang/disclaimer/index.html"
+          done
+
+          echo "=== 루트 요소의 정적 콘텐츠 확인 ==="
 
           grep -q '<div id="root"><div' dist/index.html
           grep -q '<div id="root"><div' dist/ko/index.html
           grep -q '<div id="root"><div' dist/en/index.html
           grep -q '<div id="root"><div' dist/ja/index.html
 
-          echo "한국어 페이지에 번역 키가 남아 있는지 확인합니다."
+          grep -q '<div id="root"><div' \
+            dist/ko/privacy/index.html
 
-          if grep -E \
-            'Developer\.title|info\.label|calculator\.label' \
-            dist/ko/index.html
+          grep -q '<div id="root"><div' \
+            dist/ko/contact/index.html
+
+          grep -q '<div id="root"><div' \
+            dist/ko/disclaimer/index.html
+
+          echo "=== 한국어 정책 페이지 본문 확인 ==="
+
+          grep -q '개인정보처리방침' \
+            dist/ko/privacy/index.html
+
+          grep -q '문의' \
+            dist/ko/contact/index.html
+
+          grep -q '면책' \
+            dist/ko/disclaimer/index.html
+
+          echo "=== 번역 키 잔존 여부 확인 ==="
+
+          if grep -R -E \
+            'Developer\.title|info\.label|calculator\.label|Privacy\.|Contact\.|Disclaimer\.' \
+            dist/ko/index.html \
+            dist/ko/privacy \
+            dist/ko/contact \
+            dist/ko/disclaimer
           then
             echo "한국어 프리렌더 결과에 번역되지 않은 키가 남아 있습니다."
             exit 1
           fi
 
+          echo "=== 생성된 정책 페이지 목록 ==="
+
+          find dist \
+            -type f \
+            \( \
+              -path "*/privacy/index.html" \
+              -o -path "*/contact/index.html" \
+              -o -path "*/disclaimer/index.html" \
+            \) \
+            -print \
+            | sort
+
           echo "프리렌더 결과 검증 완료"
 
-      # GitHub Pages가 빈 폴더를 무시하지 않도록 설정
+      # sitemap.xml과 robots.txt 검증
+      - name: Verify sitemap
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "=== 사이트맵 파일 확인 ==="
+
+          test -s dist/sitemap.xml
+          test -s dist/robots.txt
+
+          echo "=== sitemap.xml 구조와 URL 확인 ==="
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import unquote, urlparse
+          import xml.etree.ElementTree as ET
+
+          DIST_DIRECTORY = Path("dist")
+          SITEMAP_PATH = DIST_DIRECTORY / "sitemap.xml"
+
+          SITE_ORIGIN = "https://www.progamer.info"
+          SITE_HOST = "www.progamer.info"
+
+          namespaces = {
+              "sm": "http://www.sitemaps.org/schemas/sitemap/0.9",
+              "xhtml": "http://www.w3.org/1999/xhtml",
+          }
+
+          tree = ET.parse(SITEMAP_PATH)
+          root = tree.getroot()
+
+          expected_root_tag = (
+              "{http://www.sitemaps.org/schemas/"
+              "sitemap/0.9}urlset"
+          )
+
+          if root.tag != expected_root_tag:
+              raise SystemExit(
+                  f"잘못된 사이트맵 루트 요소: {root.tag}"
+              )
+
+          location_nodes = root.findall(
+              "sm:url/sm:loc",
+              namespaces,
+          )
+
+          urls = [
+              node.text.strip()
+              for node in location_nodes
+              if node.text and node.text.strip()
+          ]
+
+          if not urls:
+              raise SystemExit(
+                  "sitemap.xml에 URL이 없습니다."
+              )
+
+          if len(urls) != len(set(urls)):
+              duplicate_urls = sorted({
+                  url
+                  for url in urls
+                  if urls.count(url) > 1
+              })
+
+              raise SystemExit(
+                  "sitemap.xml에 중복 URL이 있습니다.\n"
+                  + "\n".join(duplicate_urls)
+              )
+
+          required_urls = {
+              "https://www.progamer.info/",
+              "https://www.progamer.info/ko/",
+              "https://www.progamer.info/en/",
+              "https://www.progamer.info/ja/",
+
+              "https://www.progamer.info/ko/privacy/",
+              "https://www.progamer.info/en/privacy/",
+              "https://www.progamer.info/ja/privacy/",
+
+              "https://www.progamer.info/ko/contact/",
+              "https://www.progamer.info/en/contact/",
+              "https://www.progamer.info/ja/contact/",
+
+              "https://www.progamer.info/ko/disclaimer/",
+              "https://www.progamer.info/en/disclaimer/",
+              "https://www.progamer.info/ja/disclaimer/",
+          }
+
+          missing_required_urls = sorted(
+              required_urls - set(urls)
+          )
+
+          if missing_required_urls:
+              raise SystemExit(
+                  "필수 URL이 사이트맵에서 누락됐습니다.\n"
+                  + "\n".join(missing_required_urls)
+              )
+
+          def resolve_dist_file(pathname):
+              decoded_path = unquote(pathname)
+
+              if decoded_path == "/":
+                  return DIST_DIRECTORY / "index.html"
+
+              relative_path = decoded_path.lstrip("/")
+
+              if decoded_path.endswith("/"):
+                  return (
+                      DIST_DIRECTORY
+                      / relative_path
+                      / "index.html"
+                  )
+
+              return DIST_DIRECTORY / relative_path
+
+          for url in urls:
+              parsed = urlparse(url)
+
+              if parsed.scheme != "https":
+                  raise SystemExit(
+                      f"HTTPS가 아닌 URL이 있습니다: {url}"
+                  )
+
+              if parsed.netloc != SITE_HOST:
+                  raise SystemExit(
+                      f"다른 도메인의 URL이 있습니다: {url}"
+                  )
+
+              if parsed.query:
+                  raise SystemExit(
+                      f"쿼리 문자열이 포함된 URL입니다: {url}"
+                  )
+
+              if parsed.fragment:
+                  raise SystemExit(
+                      f"fragment가 포함된 URL입니다: {url}"
+                  )
+
+              if (
+                  parsed.path != "/"
+                  and "." not in Path(parsed.path).name
+                  and not parsed.path.endswith("/")
+              ):
+                  raise SystemExit(
+                      "trailing slash가 누락된 URL입니다: "
+                      f"{url}"
+                  )
+
+              dist_file = resolve_dist_file(
+                  parsed.path
+              )
+
+              if not dist_file.is_file():
+                  raise SystemExit(
+                      "사이트맵 URL에 대응하는 배포 파일이 "
+                      f"없습니다.\nURL: {url}\n"
+                      f"파일: {dist_file}"
+                  )
+
+          alternate_nodes = root.findall(
+              ".//xhtml:link",
+              namespaces,
+          )
+
+          if not alternate_nodes:
+              raise SystemExit(
+                  "hreflang alternate 링크가 없습니다."
+              )
+
+          valid_languages = {
+              "ko",
+              "en",
+              "ja",
+              "x-default",
+          }
+
+          for node in alternate_nodes:
+              relation = node.attrib.get("rel")
+              language = node.attrib.get("hreflang")
+              href = node.attrib.get("href")
+
+              if relation != "alternate":
+                  raise SystemExit(
+                      "잘못된 xhtml:link rel 값: "
+                      f"{relation}"
+                  )
+
+              if language not in valid_languages:
+                  raise SystemExit(
+                      "지원하지 않는 hreflang 값: "
+                      f"{language}"
+                  )
+
+              if not href:
+                  raise SystemExit(
+                      "href가 없는 hreflang 링크가 있습니다."
+                  )
+
+              parsed_href = urlparse(href)
+
+              if (
+                  parsed_href.scheme != "https"
+                  or parsed_href.netloc != SITE_HOST
+              ):
+                  raise SystemExit(
+                      "잘못된 hreflang URL: "
+                      f"{href}"
+                  )
+
+          print(
+              f"sitemap.xml 검증 완료: "
+              f"{len(urls)}개 URL"
+          )
+
+          print(
+              f"hreflang 링크 수: "
+              f"{len(alternate_nodes)}개"
+          )
+          PY
+
+          echo "=== robots.txt 사이트맵 선언 확인 ==="
+
+          grep -Fxq \
+            'Sitemap: https://www.progamer.info/sitemap.xml' \
+            dist/robots.txt
+
+          echo "=== 제외 대상 URL 확인 ==="
+
+          if grep -E \
+            '<loc>https://www\.progamer\.info/(ko|en|ja)/(account|vote/manage|vote/cast)(/|<)' \
+            dist/sitemap.xml
+          then
+            echo "검색 제외 대상 URL이 사이트맵에 포함되어 있습니다."
+            exit 1
+          fi
+
+          echo "=== 생성된 사이트맵 URL 일부 ==="
+
+          grep '<loc>' dist/sitemap.xml \
+            | head -30
+
+          echo "사이트맵 검증 완료"
+
+      # Jekyll 변환을 비활성화
       - name: Create nojekyll file
         shell: bash
         run: touch dist/.nojekyll
 
-      # 기존 강제 재배포용 주석 유지
+      # 내용 변경이 없더라도 새 배포 커밋이 만들어지도록 주석 추가
       - name: Force deployment update
         shell: bash
         run: |
-          echo "<!-- force redeploy $(date -u) -->" >> dist/index.html
+          set -euo pipefail
+          echo "<!-- force redeploy $(date -u) -->" \
+            >> dist/index.html
 
-      # dist 폴더를 gh-pages 브랜치로 배포
+      # dist 폴더 전체를 gh-pages 브랜치로 배포
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -113,4 +408,3 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages
           cname: www.progamer.info
-
