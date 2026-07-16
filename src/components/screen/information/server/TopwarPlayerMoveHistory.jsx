@@ -34,7 +34,7 @@ const movementFiles = Object.entries(movementJsonModules)
 
 const countFormatter = new Intl.NumberFormat("ko-KR");
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const SERVER_PATTERN = /^\d+$/;
+const SERVER_PATTERN = /^[0-9X]+$/i;
 const POWER_INPUT_PATTERN = /^\d+(?:\.\d*)?[KMBT]?$/i;
 
 const POWER_UNIT_MULTIPLIERS = {
@@ -108,12 +108,50 @@ function validateDateParam(value) {
     return value === "" || isValidDateString(value);
 }
 
+function normalizeServerParam(value) {
+    return String(value ?? "")
+        .trim()
+        .replace(/[^0-9X]/gi, "")
+        .toLowerCase();
+}
+
 function validateServerParam(value) {
-    return value === "" || SERVER_PATTERN.test(value);
+    const normalized = normalizeServerParam(value);
+
+    return (
+        normalized === ""
+        || SERVER_PATTERN.test(normalized)
+    );
 }
 
 function parseServerParam(value) {
-    return String(value ?? "").replace(/\D/g, "");
+    return normalizeServerParam(value);
+}
+
+/*
+ * 서버 검색에서 x는 숫자 한 자리를 의미한다.
+ * 22xx -> 2200 ~ 2299
+ * 3x23 -> 3023, 3123, ... 3923
+ */
+function matchesServerPattern(server, pattern) {
+    const normalizedPattern = normalizeServerParam(pattern);
+
+    if (normalizedPattern === "") {
+        return true;
+    }
+
+    const normalizedServer = String(server ?? "");
+
+    if (normalizedServer.length !== normalizedPattern.length) {
+        return false;
+    }
+
+    return Array.from(normalizedPattern).every(
+        (character, index) => (
+            character === "x"
+            || character === normalizedServer[index]
+        ),
+    );
 }
 
 /*
@@ -351,8 +389,8 @@ export default function TopwarPlayerMoveHistory({
     /*
      * URL query parameter
      *
-     * ?in=3715
-     * &out=3423
+     * ?in=22xx     // 2200 ~ 2299
+     * &out=3x23    // 3023, 3123, ... 3923
      * &nickname=player
      * &min=50       // 단위가 없으면 50M
      * &max=500T
@@ -535,16 +573,20 @@ export default function TopwarPlayerMoveHistory({
                      * 사용자가 이동한 대상 서버
                      */
                     const inServerMatched =
-                        normalizedInServer === ""
-                        || toServer === normalizedInServer;
+                        matchesServerPattern(
+                            toServer,
+                            normalizedInServer,
+                        );
 
                     /*
                      * out:
                      * 사용자가 이동하기 전에 있던 서버
                      */
                     const outServerMatched =
-                        normalizedOutServer === ""
-                        || fromServer === normalizedOutServer;
+                        matchesServerPattern(
+                            fromServer,
+                            normalizedOutServer,
+                        );
 
                     const power = Number(row.to?.score);
                     const hasValidPower = Number.isFinite(power);
@@ -664,13 +706,13 @@ export default function TopwarPlayerMoveHistory({
 
     function handleInServerChange(event) {
         setInServer(
-            event.target.value.replace(/\D/g, ""),
+            normalizeServerParam(event.target.value),
         );
     }
 
     function handleOutServerChange(event) {
         setOutServer(
-            event.target.value.replace(/\D/g, ""),
+            normalizeServerParam(event.target.value),
         );
     }
 
@@ -896,7 +938,7 @@ export default function TopwarPlayerMoveHistory({
                                 <input
                                     id="move-out-server"
                                     type="search"
-                                    inputMode="numeric"
+                                    inputMode="text"
                                     value={outServer}
                                     placeholder={t(
                                         "TopwarPlayerMoveHistory.filters.outServerPlaceholder",
@@ -916,7 +958,7 @@ export default function TopwarPlayerMoveHistory({
                                 <input
                                     id="move-in-server"
                                     type="search"
-                                    inputMode="numeric"
+                                    inputMode="text"
                                     value={inServer}
                                     placeholder={t(
                                         "TopwarPlayerMoveHistory.filters.inServerPlaceholder",
