@@ -60,6 +60,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/list/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/history/liondance/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/liondance/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/liondance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/history/liondance/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/history/ssc-2026/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/ssc-2026/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/ssc-2026/" />
@@ -283,6 +289,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/list/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/ja/history/liondance/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/liondance/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/liondance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/history/liondance/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/ja/history/ssc-2026/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/ssc-2026/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/ssc-2026/" />
@@ -504,6 +516,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/list/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/list/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/list/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/history/liondance/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/liondance/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/liondance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/history/liondance/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/history/ssc-2026/</loc>
