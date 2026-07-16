@@ -42,6 +42,7 @@ const fixedRoutes = [
     "/emoji/list",
 
     "/history/ssc-2026",
+    "/history/liondance",
 
     "/vote/create",
     "/vote/cast",

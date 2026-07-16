@@ -1119,5 +1119,90 @@
         "format": {
             "percent": "{{value}}%"
         }
+    },
+    "LionDanceRanking": {
+        "common": {
+            "alliance": "Alliance",
+            "power": "Power",
+            "notAvailable": "-",
+            "unknownPlayer": "Unknown player",
+            "unknownAlliance": "Unknown alliance",
+            "profileAlt": "{{name}} profile",
+            "serverShort": "S{{serverId}}",
+            "rankShort": "#{{rank}}"
+        },
+        "hero": {
+            "title": "Alliance Battle",
+            "description": "View monthly player and alliance rankings and search by server number, nickname, or alliance name."
+        },
+        "filters": {
+            "ariaLabel": "Ranking filters",
+            "month": "Monthly data",
+            "search": "Search server or name",
+            "playerPlaceholder": "Search by server or nickname",
+            "alliancePlaceholder": "Search by server or alliance name",
+            "server": "Server",
+            "allServers": "All servers",
+            "sort": "Sort",
+            "sortRank": "Rank",
+            "sortScore": "Highest score",
+            "sortPower": "Highest power",
+            "sortServer": "Server",
+            "sortName": "Name"
+        },
+        "tabs": {
+            "ariaLabel": "Ranking type",
+            "player": "Player ranking",
+            "alliance": "Alliance ranking"
+        },
+        "metrics": {
+            "ariaLabel": "Monthly ranking summary",
+            "players": "Players",
+            "playersDescription": "Ranked players",
+            "alliances": "Alliances",
+            "alliancesDescription": "Ranked alliances",
+            "servers": "Servers",
+            "serversDescription": "Players and alliances combined",
+            "playerTotalScore": "Total player score",
+            "allianceTotalScore": "Total alliance score"
+        },
+        "podium": {
+            "eyebrow": "TOP RANKERS",
+            "title": "Monthly leaders"
+        },
+        "serverDistribution": {
+            "eyebrow": "SERVER DISTRIBUTION",
+            "title": "Participation by server",
+            "note": "Top 8 servers",
+            "playerSummary": "{{count}} players · {{score}}",
+            "allianceSummary": "{{count}} alliances · {{score}}"
+        },
+        "ranking": {
+            "playerTitle": "All player rankings",
+            "allianceTitle": "All alliance rankings",
+            "resultCount": "{{count}} results"
+        },
+        "table": {
+            "rank": "Rank",
+            "player": "Player",
+            "alliance": "Alliance",
+            "server": "Server",
+            "power": "Power",
+            "score": "Score",
+            "level": "Lv.{{level}}"
+        },
+        "empty": {
+            "noFiles": "No ranking JSON files were found.",
+            "addFiles": "Add a file using the {{path}} format.",
+            "noResults": "No results found.",
+            "adjustFilters": "Try changing the search term or server filter."
+        },
+        "pagination": {
+            "perPage": "Per page",
+            "itemCount": "{{count}}",
+            "previous": "Previous",
+            "next": "Next",
+            "page": "{{page}} / {{totalPages}}"
+        }
     }
 }

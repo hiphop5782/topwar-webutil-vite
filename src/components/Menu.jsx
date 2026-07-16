@@ -243,6 +243,7 @@ function Menu() {
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:history.label`)}</a>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/history/ssc-2026`}>{t(`menu:history.sub.ssc2026`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/history/liondance`}>{t(`menu:history.sub.liondance`)}</LanguageRouterLink>
                             </div>
                         </li>
                         {/* <li className="nav-item dropdown">

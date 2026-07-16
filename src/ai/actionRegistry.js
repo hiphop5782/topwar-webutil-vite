@@ -220,7 +220,6 @@ export const allowedPaths = [
             }
         },
     },
-
     { 
         path: "/history/ssc-2026/users", 
         label: "봉인석의난 개인랭킹",
@@ -236,6 +235,33 @@ export const allowedPaths = [
                 type: "number",
                 required: false,
                 description: "조회할 최소 점수"
+            },
+        },
+    },
+    { 
+        path: "/history/liondance", 
+        label: "길드 대결",
+        examples: ["lion dance", "alliance battle", "guild battle", "truck battle", "동맹 대결", "연맹 대결"],
+        chatbot: true,
+        queryParams: {
+            server: {
+                type: "string",
+                required: false,
+                description: "조회하거나 비교할 서버 번호 목록. 여러 서버는 쉼표로 구분한다. 예: 3223 또는 3223,3224,3225",
+                pattern: "^[1-9][0-9]*(,[1-9][0-9]*)*$",
+                aliases: ["서버", "서버번호", "server", "serverNumber"]
+            },
+            nickname: {
+                type: "string",
+                required: false,
+                description: "유저의 닉네임을 의미하는 항목이다.",
+                aliases: ["유저", "플레이어", "user", "player"]
+            },
+            alliance: {
+                type: "string",
+                required: false,
+                description: "동맹 이름을 의미하는 항목이다.",
+                aliases: ["동맹", "연맹", "길드", "guild", "alliance"]
             },
         },
     },

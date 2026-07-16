@@ -1119,5 +1119,90 @@
         "format": {
             "percent": "{{value}}%"
         }
+    },
+    "LionDanceRanking": {
+        "common": {
+            "alliance": "連盟",
+            "power": "戦力",
+            "notAvailable": "-",
+            "unknownPlayer": "不明なプレイヤー",
+            "unknownAlliance": "不明な連盟",
+            "profileAlt": "{{name}}のプロフィール",
+            "serverShort": "S{{serverId}}",
+            "rankShort": "#{{rank}}"
+        },
+        "hero": {
+            "title": "連盟対決",
+            "description": "月別のプレイヤー・連盟ランキングを確認し、サーバー番号、ニックネーム、連盟名で検索できます。"
+        },
+        "filters": {
+            "ariaLabel": "ランキングフィルター",
+            "month": "月別データ",
+            "search": "サーバー・名前検索",
+            "playerPlaceholder": "サーバーまたはニックネームを検索",
+            "alliancePlaceholder": "サーバーまたは連盟名を検索",
+            "server": "サーバー",
+            "allServers": "すべてのサーバー",
+            "sort": "並び順",
+            "sortRank": "順位順",
+            "sortScore": "スコアが高い順",
+            "sortPower": "戦力が高い順",
+            "sortServer": "サーバー順",
+            "sortName": "名前順"
+        },
+        "tabs": {
+            "ariaLabel": "ランキング種別",
+            "player": "プレイヤーランキング",
+            "alliance": "連盟ランキング"
+        },
+        "metrics": {
+            "ariaLabel": "月間ランキング概要",
+            "players": "プレイヤー",
+            "playersDescription": "登録プレイヤー",
+            "alliances": "連盟",
+            "alliancesDescription": "登録連盟",
+            "servers": "参加サーバー",
+            "serversDescription": "プレイヤー・連盟合計",
+            "playerTotalScore": "プレイヤー累計スコア",
+            "allianceTotalScore": "連盟累計スコア"
+        },
+        "podium": {
+            "eyebrow": "上位ランカー",
+            "title": "今月の上位"
+        },
+        "serverDistribution": {
+            "eyebrow": "サーバー分布",
+            "title": "サーバー別参加状況",
+            "note": "上位8サーバー",
+            "playerSummary": "{{count}}人 · {{score}}",
+            "allianceSummary": "{{count}}連盟 · {{score}}"
+        },
+        "ranking": {
+            "playerTitle": "プレイヤー総合順位",
+            "allianceTitle": "連盟総合順位",
+            "resultCount": "{{count}}件"
+        },
+        "table": {
+            "rank": "順位",
+            "player": "プレイヤー",
+            "alliance": "連盟",
+            "server": "サーバー",
+            "power": "戦力",
+            "score": "スコア",
+            "level": "Lv.{{level}}"
+        },
+        "empty": {
+            "noFiles": "ランキングJSONファイルが見つかりません。",
+            "addFiles": "{{path}}形式でファイルを追加してください。",
+            "noResults": "検索結果がありません。",
+            "adjustFilters": "検索語またはサーバーフィルターを変更してください。"
+        },
+        "pagination": {
+            "perPage": "表示件数",
+            "itemCount": "{{count}}件",
+            "previous": "前へ",
+            "next": "次へ",
+            "page": "{{page}} / {{totalPages}}"
+        }
     }
 }
