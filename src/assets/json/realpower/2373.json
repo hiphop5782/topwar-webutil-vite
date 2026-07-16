@@ -1,27 +1,27 @@
 {
-  "exportedAt": "2026-07-16T01:56:29.207Z",
+  "exportedAt": "2026-07-16T13:20:19.590Z",
   "serverId": 2373,
   "summary": {
     "players": 123,
     "mapPlayers": 123,
-    "allianceMemberMergedPlayers": 123,
-    "mapOnlyPlayers": 0,
-    "noAlliancePlayers": 0,
-    "alliances": 5,
-    "allianceDetails": 5,
+    "allianceMemberMergedPlayers": 122,
+    "mapOnlyPlayers": 1,
+    "noAlliancePlayers": 1,
+    "alliances": 4,
+    "allianceDetails": 4,
     "activity": {
-      "coreCount": 82,
-      "activeCount": 41,
+      "coreCount": 83,
+      "activeCount": 39,
       "watchCount": 0,
       "lowCount": 0,
-      "activeTotalCount": 123
+      "activeTotalCount": 122
     },
     "allianceActivitySummary": {
       "coreAllianceCount": 1,
       "activeAllianceCount": 0,
       "watchAllianceCount": 0,
       "lowAllianceCount": 3,
-      "insufficientAllianceCount": 1,
+      "insufficientAllianceCount": 0,
       "activeAllianceCountForWar": 1,
       "meaningfulAllianceCount": 1
     },
@@ -53,17 +53,17 @@
         "power_concentrated_top3_alliances"
       ],
       "totalMapPlayers": 123,
-      "coreUsers": 82,
-      "activeGradeUsers": 41,
+      "coreUsers": 83,
+      "activeGradeUsers": 39,
       "watchGradeUsers": 0,
       "lowGradeUsers": 0,
-      "activeUsers": 123,
-      "recentUsers": 9,
-      "sleepyUsers": 7,
+      "activeUsers": 122,
+      "recentUsers": 11,
+      "sleepyUsers": 5,
       "inactiveUsers": 0,
       "quitLikelyUsers": 0,
-      "unknownStatusUsers": 0,
-      "activeUserRate": 1,
+      "unknownStatusUsers": 1,
+      "activeUserRate": 0.99187,
       "quitLikelyRate": 0,
       "activeAllianceCountForWar": 1,
       "meaningfulAllianceCount": 1,
@@ -71,21 +71,21 @@
       "activeAllianceCount": 0,
       "watchAllianceCount": 0,
       "lowAllianceCount": 3,
-      "insufficientAllianceCount": 1,
-      "serverPowerTotal": 7374479483,
-      "activePowerTotal": 7374479483,
-      "activePowerRate": 1,
-      "topAlliancePowerRate": 0.993055,
-      "top3AlliancePowerRate": 0.998924
+      "insufficientAllianceCount": 0,
+      "serverPowerTotal": 7365275475,
+      "activePowerTotal": 7365271000,
+      "activePowerRate": 0.999999,
+      "topAlliancePowerRate": 0.995401,
+      "top3AlliancePowerRate": 0.999984
     },
     "userStatus": {
-      "activeUsers": 123,
-      "recentUsers": 9,
-      "sleepyUsers": 7,
+      "activeUsers": 122,
+      "recentUsers": 11,
+      "sleepyUsers": 5,
       "inactiveUsers": 0,
       "quitLikelyUsers": 0,
-      "unknownStatusUsers": 0,
-      "activeUserRate": 1,
+      "unknownStatusUsers": 1,
+      "activeUserRate": 0.99187,
       "quitLikelyRate": 0
     },
     "activeAllianceCountForWar": 1,
@@ -142,7 +142,7 @@
       "pointId": 337116,
       "pointType": 1,
       "level": 100,
-      "power": 113499258,
+      "power": 113528628,
       "armyPower": "7,198,913,363,577,935,000,000,000,000,000,000,000",
       "armyPowerText": "7.2hh",
       "allianceId": "500148545",
@@ -152,8 +152,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1769116110,
-      "lastShowTime": 1784163881,
-      "lastLogin": 1784163881,
+      "lastShowTime": 1784205000,
+      "lastLogin": 1784205000,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -165,8 +165,8 @@
       },
       "powerRankInAlliance": 1,
       "powerPercentileInAlliance": 0.0084,
-      "powerContributionRate": 0.015498,
-      "cumulativePowerContributionRate": 0.015498,
+      "powerContributionRate": 0.015485,
+      "cumulativePowerContributionRate": 0.015485,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -182,7 +182,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.04
+      "lastLoginDaysAgo": 0.03
     },
     {
       "uid": "386989499563",
@@ -195,7 +195,7 @@
       "pointId": 326353,
       "pointType": 1,
       "level": 100,
-      "power": 104028431,
+      "power": 104168704,
       "armyPower": "3,673,948,353,889,329,500,000,000,000,000,000,000",
       "armyPowerText": "3.67hh",
       "allianceId": "500148545",
@@ -203,10 +203,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1768443702,
-      "lastShowTime": 1784166834,
-      "lastLogin": 1784166834,
+      "lastShowTime": 1784178999,
+      "lastLogin": 1784178999,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -218,14 +218,13 @@
       },
       "powerRankInAlliance": 2,
       "powerPercentileInAlliance": 0.0168,
-      "powerContributionRate": 0.014205,
-      "cumulativePowerContributionRate": 0.029704,
-      "activityScore": 155,
+      "powerContributionRate": 0.014209,
+      "cumulativePowerContributionRate": 0.029694,
+      "activityScore": 125,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -234,9 +233,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.34
     },
     {
       "uid": "851530824005",
@@ -259,8 +258,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1686772571,
-      "lastShowTime": 1784134497,
-      "lastLogin": 1784134497,
+      "lastShowTime": 1784204850,
+      "lastLogin": 1784204850,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -272,8 +271,8 @@
       },
       "powerRankInAlliance": 3,
       "powerPercentileInAlliance": 0.0252,
-      "powerContributionRate": 0.012801,
-      "cumulativePowerContributionRate": 0.042505,
+      "powerContributionRate": 0.012787,
+      "cumulativePowerContributionRate": 0.042481,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -289,7 +288,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.38
+      "lastLoginDaysAgo": 0.04
     },
     {
       "uid": "851395299653",
@@ -302,7 +301,7 @@
       "pointId": 342242,
       "pointType": 1,
       "level": 100,
-      "power": 92375651,
+      "power": 92418151,
       "armyPower": "4,386,065,212,068,773,400,000,000,000,000,000,000",
       "armyPowerText": "4.39hh",
       "allianceId": "500148545",
@@ -310,10 +309,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 5,
       "rank": 5,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1683917598,
-      "lastShowTime": 1784164727,
-      "lastLogin": 1784164727,
+      "lastShowTime": 1784206114,
+      "lastLogin": 1784206114,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -325,14 +324,13 @@
       },
       "powerRankInAlliance": 4,
       "powerPercentileInAlliance": 0.0336,
-      "powerContributionRate": 0.012614,
-      "cumulativePowerContributionRate": 0.055119,
-      "activityScore": 145,
+      "powerContributionRate": 0.012606,
+      "cumulativePowerContributionRate": 0.055087,
+      "activityScore": 115,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "alliance_member_confirmed"
       ],
@@ -340,9 +338,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.02
     },
     {
       "uid": "283827073527",
@@ -355,7 +353,7 @@
       "pointId": 344286,
       "pointType": 1,
       "level": 100,
-      "power": 91483450,
+      "power": 91426570,
       "armyPower": "3,845,460,388,537,802,000,000,000,000,000,000,000",
       "armyPowerText": "3.85hh",
       "allianceId": "500148545",
@@ -365,8 +363,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1777041794,
-      "lastShowTime": 1784147473,
-      "lastLogin": 1784147473,
+      "lastShowTime": 1784200887,
+      "lastLogin": 1784200887,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -378,61 +376,8 @@
       },
       "powerRankInAlliance": 5,
       "powerPercentileInAlliance": 0.042,
-      "powerContributionRate": 0.012492,
-      "cumulativePowerContributionRate": 0.067611,
-      "activityScore": 125,
-      "activityReasons": [
-        "map_found",
-        "top_20_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.23
-    },
-    {
-      "uid": "312802132610",
-      "username": "Hulky",
-      "nickname": "Hulky",
-      "serverId": 2373,
-      "worldId": 32,
-      "x": 443,
-      "y": 663,
-      "pointId": 339678,
-      "pointType": 1,
-      "level": 100,
-      "power": 90831608,
-      "armyPower": "4,650,942,793,184,524,000,000,000,000,000,000,000",
-      "armyPowerText": "4.65hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 4,
-      "rank": 4,
-      "isOnline": 0,
-      "joinTime": 1768668426,
-      "lastShowTime": 1784160010,
-      "lastLogin": 1784160010,
-      "language": "fr",
-      "nationalflag": 38,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 8,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 6,
-      "powerPercentileInAlliance": 0.0504,
-      "powerContributionRate": 0.012403,
-      "cumulativePowerContributionRate": 0.080014,
+      "powerContributionRate": 0.012471,
+      "cumulativePowerContributionRate": 0.067557,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -451,41 +396,41 @@
       "lastLoginDaysAgo": 0.08
     },
     {
-      "uid": "790442424356",
-      "username": "Scobidoo",
-      "nickname": "Scobidoo",
+      "uid": "312802132610",
+      "username": "Voldemor",
+      "nickname": "Voldemor",
       "serverId": 2373,
-      "worldId": 1,
-      "x": 428,
-      "y": 660,
-      "pointId": 338135,
+      "worldId": 32,
+      "x": 443,
+      "y": 663,
+      "pointId": 339678,
       "pointType": 1,
       "level": 100,
-      "power": 88343299,
-      "armyPower": "2,685,216,963,331,041,000,000,000,000,000,000,000",
-      "armyPowerText": "2.69hh",
+      "power": 90832388,
+      "armyPower": "4,651,274,748,901,762,300,000,000,000,000,000,000",
+      "armyPowerText": "4.65hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
+      "allianceRole": 4,
+      "rank": 4,
       "isOnline": 0,
-      "joinTime": 1733771965,
-      "lastShowTime": 1784147339,
-      "lastLogin": 1784147339,
+      "joinTime": 1768668426,
+      "lastShowTime": 1784188104,
+      "lastLogin": 1784188104,
       "language": "fr",
-      "nationalflag": 75,
+      "nationalflag": 38,
       "gender": 0,
-      "usergender": 0,
-      "headFrameId": 3,
+      "usergender": 1,
+      "headFrameId": 8,
       "source": {
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 7,
-      "powerPercentileInAlliance": 0.0588,
-      "powerContributionRate": 0.012063,
-      "cumulativePowerContributionRate": 0.092078,
+      "powerRankInAlliance": 6,
+      "powerPercentileInAlliance": 0.0504,
+      "powerContributionRate": 0.012389,
+      "cumulativePowerContributionRate": 0.079947,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -502,6 +447,59 @@
         "lastLoginWithin1Day"
       ],
       "lastLoginDaysAgo": 0.23
+    },
+    {
+      "uid": "790442424356",
+      "username": "Scobidoo",
+      "nickname": "Scobidoo",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 428,
+      "y": 660,
+      "pointId": 338135,
+      "pointType": 1,
+      "level": 100,
+      "power": 88343389,
+      "armyPower": "2,685,533,111,633,173,000,000,000,000,000,000,000",
+      "armyPowerText": "2.69hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1733771965,
+      "lastShowTime": 1784201379,
+      "lastLogin": 1784201379,
+      "language": "fr",
+      "nationalflag": 75,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 3,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 7,
+      "powerPercentileInAlliance": 0.0588,
+      "powerContributionRate": 0.01205,
+      "cumulativePowerContributionRate": 0.091997,
+      "activityScore": 125,
+      "activityReasons": [
+        "map_found",
+        "top_20_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.08
     },
     {
       "uid": "386555212971",
@@ -524,8 +522,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768762765,
-      "lastShowTime": 1784149203,
-      "lastLogin": 1784149203,
+      "lastShowTime": 1784182317,
+      "lastLogin": 1784182317,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -537,8 +535,8 @@
       },
       "powerRankInAlliance": 8,
       "powerPercentileInAlliance": 0.0672,
-      "powerContributionRate": 0.011737,
-      "cumulativePowerContributionRate": 0.103815,
+      "powerContributionRate": 0.011724,
+      "cumulativePowerContributionRate": 0.103721,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -554,7 +552,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.21
+      "lastLoginDaysAgo": 0.3
     },
     {
       "uid": "886852373002",
@@ -577,8 +575,8 @@
       "rank": 9,
       "isOnline": 0,
       "joinTime": 1744387772,
-      "lastShowTime": 1784164413,
-      "lastLogin": 1784164413,
+      "lastShowTime": 1784200792,
+      "lastLogin": 1784200792,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -590,8 +588,8 @@
       },
       "powerRankInAlliance": 9,
       "powerPercentileInAlliance": 0.0756,
-      "powerContributionRate": 0.011677,
-      "cumulativePowerContributionRate": 0.115491,
+      "powerContributionRate": 0.011664,
+      "cumulativePowerContributionRate": 0.115384,
       "activityScore": 115,
       "activityReasons": [
         "map_found",
@@ -606,7 +604,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.08
     },
     {
       "uid": "371570803741",
@@ -629,8 +627,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1768682459,
-      "lastShowTime": 1784144994,
-      "lastLogin": 1784144994,
+      "lastShowTime": 1784173381,
+      "lastLogin": 1784173381,
       "language": "fr",
       "nationalflag": 243,
       "gender": 0,
@@ -642,8 +640,8 @@
       },
       "powerRankInAlliance": 10,
       "powerPercentileInAlliance": 0.084,
-      "powerContributionRate": 0.011675,
-      "cumulativePowerContributionRate": 0.127166,
+      "powerContributionRate": 0.011662,
+      "cumulativePowerContributionRate": 0.127046,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -659,7 +657,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.25
+      "lastLoginDaysAgo": 0.4
     },
     {
       "uid": "383712281710",
@@ -672,18 +670,18 @@
       "pointId": 342240,
       "pointType": 1,
       "level": 100,
-      "power": 83737647,
-      "armyPower": "3,208,024,556,510,697,000,000,000,000,000,000,000",
-      "armyPowerText": "3.21hh",
+      "power": 83738597,
+      "armyPower": "3,228,780,087,731,063,300,000,000,000,000,000,000",
+      "armyPowerText": "3.23hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1762393269,
-      "lastShowTime": 1784159109,
-      "lastLogin": 1784159109,
+      "lastShowTime": 1784184150,
+      "lastLogin": 1784184150,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -695,8 +693,61 @@
       },
       "powerRankInAlliance": 11,
       "powerPercentileInAlliance": 0.0924,
-      "powerContributionRate": 0.011434,
-      "cumulativePowerContributionRate": 0.138601,
+      "powerContributionRate": 0.011422,
+      "cumulativePowerContributionRate": 0.138468,
+      "activityScore": 125,
+      "activityReasons": [
+        "map_found",
+        "top_20_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.28
+    },
+    {
+      "uid": "400019105032",
+      "username": "Hido99",
+      "nickname": "Hido99",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 415,
+      "y": 635,
+      "pointId": 325328,
+      "pointType": 1,
+      "level": 100,
+      "power": 83249670,
+      "armyPower": "4,446,785,252,525,261,600,000,000,000,000,000,000",
+      "armyPowerText": "4.45hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 1,
+      "joinTime": 1783255334,
+      "lastShowTime": 1784207911,
+      "lastLogin": 1784207911,
+      "language": "en",
+      "nationalflag": 13,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 4,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 12,
+      "powerPercentileInAlliance": 0.1008,
+      "powerContributionRate": 0.011355,
+      "cumulativePowerContributionRate": 0.149823,
       "activityScore": 155,
       "activityReasons": [
         "map_found",
@@ -716,59 +767,6 @@
       "lastLoginDaysAgo": 0
     },
     {
-      "uid": "400019105032",
-      "username": "Hido99",
-      "nickname": "Hido99",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 415,
-      "y": 635,
-      "pointId": 325328,
-      "pointType": 1,
-      "level": 100,
-      "power": 83182670,
-      "armyPower": "4,440,558,593,159,152,000,000,000,000,000,000,000",
-      "armyPowerText": "4.44hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1783255334,
-      "lastShowTime": 1784165509,
-      "lastLogin": 1784165509,
-      "language": "en",
-      "nationalflag": 13,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 4,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 12,
-      "powerPercentileInAlliance": 0.1008,
-      "powerContributionRate": 0.011359,
-      "cumulativePowerContributionRate": 0.149959,
-      "activityScore": 125,
-      "activityReasons": [
-        "map_found",
-        "top_20_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.02
-    },
-    {
       "uid": "356217844664",
       "username": "MacDPaty",
       "nickname": "MacDPaty",
@@ -779,8 +777,8 @@
       "pointId": 339154,
       "pointType": 1,
       "level": 100,
-      "power": 81383785,
-      "armyPower": "5,486,573,776,567,247,000,000,000,000,000,000,000",
+      "power": 81387805,
+      "armyPower": "5,487,968,820,468,943,000,000,000,000,000,000,000",
       "armyPowerText": "5.49hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -789,8 +787,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1775148562,
-      "lastShowTime": 1784160314,
-      "lastLogin": 1784160314,
+      "lastShowTime": 1784175985,
+      "lastLogin": 1784175985,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -802,8 +800,8 @@
       },
       "powerRankInAlliance": 13,
       "powerPercentileInAlliance": 0.1092,
-      "powerContributionRate": 0.011113,
-      "cumulativePowerContributionRate": 0.161072,
+      "powerContributionRate": 0.011101,
+      "cumulativePowerContributionRate": 0.160925,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -819,7 +817,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0.37
     },
     {
       "uid": "382646903924",
@@ -842,8 +840,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1783253494,
-      "lastShowTime": 1784162013,
-      "lastLogin": 1784162013,
+      "lastShowTime": 1784199021,
+      "lastLogin": 1784199021,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -855,8 +853,8 @@
       },
       "powerRankInAlliance": 14,
       "powerPercentileInAlliance": 0.1176,
-      "powerContributionRate": 0.010958,
-      "cumulativePowerContributionRate": 0.172031,
+      "powerContributionRate": 0.010946,
+      "cumulativePowerContributionRate": 0.171871,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -872,7 +870,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.1
     },
     {
       "uid": "514020628098",
@@ -895,8 +893,8 @@
       "rank": 8,
       "isOnline": 0,
       "joinTime": 1699732299,
-      "lastShowTime": 1784166660,
-      "lastLogin": 1784166660,
+      "lastShowTime": 1784206820,
+      "lastLogin": 1784206820,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -908,8 +906,8 @@
       },
       "powerRankInAlliance": 15,
       "powerPercentileInAlliance": 0.1261,
-      "powerContributionRate": 0.010898,
-      "cumulativePowerContributionRate": 0.182928,
+      "powerContributionRate": 0.010886,
+      "cumulativePowerContributionRate": 0.182756,
       "activityScore": 115,
       "activityReasons": [
         "map_found",
@@ -924,7 +922,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.01
     },
     {
       "uid": "860291954983",
@@ -937,7 +935,7 @@
       "pointId": 341217,
       "pointType": 1,
       "level": 100,
-      "power": 78326052,
+      "power": 78329052,
       "armyPower": "2,923,616,674,504,608,500,000,000,000,000,000,000",
       "armyPowerText": "2.92hh",
       "allianceId": "500148545",
@@ -945,10 +943,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1736376170,
-      "lastShowTime": 1784162825,
-      "lastLogin": 1784162825,
+      "lastShowTime": 1784202423,
+      "lastLogin": 1784202423,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -960,14 +958,13 @@
       },
       "powerRankInAlliance": 16,
       "powerPercentileInAlliance": 0.1345,
-      "powerContributionRate": 0.010696,
-      "cumulativePowerContributionRate": 0.193624,
-      "activityScore": 155,
+      "powerContributionRate": 0.010684,
+      "cumulativePowerContributionRate": 0.19344,
+      "activityScore": 125,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -976,9 +973,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.06
     },
     {
       "uid": "816945981609",
@@ -1001,8 +998,8 @@
       "rank": 7,
       "isOnline": 0,
       "joinTime": 1683918143,
-      "lastShowTime": 1784144811,
-      "lastLogin": 1784144811,
+      "lastShowTime": 1784172399,
+      "lastLogin": 1784172399,
       "language": "en",
       "nationalflag": 100,
       "gender": 0,
@@ -1014,8 +1011,8 @@
       },
       "powerRankInAlliance": 17,
       "powerPercentileInAlliance": 0.1429,
-      "powerContributionRate": 0.010686,
-      "cumulativePowerContributionRate": 0.20431,
+      "powerContributionRate": 0.010674,
+      "cumulativePowerContributionRate": 0.204115,
       "activityScore": 115,
       "activityReasons": [
         "map_found",
@@ -1030,7 +1027,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.26
+      "lastLoginDaysAgo": 0.41
     },
     {
       "uid": "321003295460",
@@ -1043,9 +1040,9 @@
       "pointId": 343767,
       "pointType": 1,
       "level": 100,
-      "power": 77697618,
-      "armyPower": "3,369,081,939,823,873,000,000,000,000,000,000,000",
-      "armyPowerText": "3.37hh",
+      "power": 77710098,
+      "armyPower": "3,389,837,471,044,239,000,000,000,000,000,000,000",
+      "armyPowerText": "3.39hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
@@ -1053,8 +1050,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1733970803,
-      "lastShowTime": 1784160376,
-      "lastLogin": 1784160376,
+      "lastShowTime": 1784207877,
+      "lastLogin": 1784207877,
       "language": "pl",
       "nationalflag": 179,
       "gender": 0,
@@ -1066,8 +1063,8 @@
       },
       "powerRankInAlliance": 18,
       "powerPercentileInAlliance": 0.1513,
-      "powerContributionRate": 0.01061,
-      "cumulativePowerContributionRate": 0.21492,
+      "powerContributionRate": 0.0106,
+      "cumulativePowerContributionRate": 0.214714,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -1083,7 +1080,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "784251312161",
@@ -1119,8 +1116,8 @@
       },
       "powerRankInAlliance": 19,
       "powerPercentileInAlliance": 0.1597,
-      "powerContributionRate": 0.010602,
-      "cumulativePowerContributionRate": 0.225522,
+      "powerContributionRate": 0.01059,
+      "cumulativePowerContributionRate": 0.225304,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -1136,7 +1133,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.2
+      "lastLoginDaysAgo": 0.68
     },
     {
       "uid": "850167613765",
@@ -1149,7 +1146,7 @@
       "pointId": 343265,
       "pointType": 1,
       "level": 100,
-      "power": 76308021,
+      "power": 76302241,
       "armyPower": "2,820,643,066,509,826,700,000,000,000,000,000,000",
       "armyPowerText": "2.82hh",
       "allianceId": "500148545",
@@ -1159,8 +1156,8 @@
       "rank": 6,
       "isOnline": 1,
       "joinTime": 1684038730,
-      "lastShowTime": 1784166315,
-      "lastLogin": 1784166315,
+      "lastShowTime": 1784207571,
+      "lastLogin": 1784207571,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -1172,8 +1169,8 @@
       },
       "powerRankInAlliance": 20,
       "powerPercentileInAlliance": 0.1681,
-      "powerContributionRate": 0.01042,
-      "cumulativePowerContributionRate": 0.235942,
+      "powerContributionRate": 0.010408,
+      "cumulativePowerContributionRate": 0.235712,
       "activityScore": 145,
       "activityReasons": [
         "map_found",
@@ -1225,24 +1222,24 @@
       },
       "powerRankInAlliance": 21,
       "powerPercentileInAlliance": 0.1765,
-      "powerContributionRate": 0.010387,
-      "cumulativePowerContributionRate": 0.246328,
-      "activityScore": 125,
+      "powerContributionRate": 0.010375,
+      "cumulativePowerContributionRate": 0.246087,
+      "activityScore": 120,
       "activityReasons": [
         "map_found",
         "top_20_power",
         "cumulative_power_80",
-        "recent_login_1d",
+        "recent_login_3d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
+      "userStatus": "RECENT",
+      "inactiveScore": 10,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 0.57
+      "lastLoginDaysAgo": 1.05
     },
     {
       "uid": "549970892578",
@@ -1263,10 +1260,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1721838813,
-      "lastShowTime": 1784146077,
-      "lastLogin": 1784146077,
+      "lastShowTime": 1784207901,
+      "lastLogin": 1784207901,
       "language": "en",
       "nationalflag": 17,
       "gender": 0,
@@ -1278,8 +1275,62 @@
       },
       "powerRankInAlliance": 22,
       "powerPercentileInAlliance": 0.1849,
-      "powerContributionRate": 0.010356,
-      "cumulativePowerContributionRate": 0.256684,
+      "powerContributionRate": 0.010345,
+      "cumulativePowerContributionRate": 0.256432,
+      "activityScore": 155,
+      "activityReasons": [
+        "map_found",
+        "top_20_power",
+        "cumulative_power_80",
+        "online",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "online"
+      ],
+      "lastLoginDaysAgo": 0
+    },
+    {
+      "uid": "445336470968",
+      "username": "Roméo",
+      "nickname": "Roméo",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 441,
+      "y": 677,
+      "pointId": 346845,
+      "pointType": 1,
+      "level": 100,
+      "power": 75525148,
+      "armyPower": "3,842,372,568,070,816,600,000,000,000,000,000,000",
+      "armyPowerText": "3.84hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 4,
+      "rank": 4,
+      "isOnline": 0,
+      "joinTime": 1722008135,
+      "lastShowTime": 1784181155,
+      "lastLogin": 1784181155,
+      "language": "fr",
+      "nationalflag": 189,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 3,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 23,
+      "powerPercentileInAlliance": 0.1933,
+      "powerContributionRate": 0.010302,
+      "cumulativePowerContributionRate": 0.266733,
       "activityScore": 125,
       "activityReasons": [
         "map_found",
@@ -1295,7 +1346,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.24
+      "lastLoginDaysAgo": 0.31
     },
     {
       "uid": "687899514628",
@@ -1309,8 +1360,8 @@
       "pointType": 1,
       "level": 100,
       "power": 75496626,
-      "armyPower": "3,913,205,572,994,655,000,000,000,000,000,000,000",
-      "armyPowerText": "3.91hh",
+      "armyPower": "3,918,652,887,277,470,600,000,000,000,000,000,000",
+      "armyPowerText": "3.92hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
@@ -1329,63 +1380,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 23,
-      "powerPercentileInAlliance": 0.1933,
-      "powerContributionRate": 0.010309,
-      "cumulativePowerContributionRate": 0.266994,
-      "activityScore": 125,
-      "activityReasons": [
-        "map_found",
-        "top_20_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.13
-    },
-    {
-      "uid": "445336470968",
-      "username": "Roméo",
-      "nickname": "Roméo",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 441,
-      "y": 677,
-      "pointId": 346845,
-      "pointType": 1,
-      "level": 100,
-      "power": 75474148,
-      "armyPower": "3,842,372,568,070,816,600,000,000,000,000,000,000",
-      "armyPowerText": "3.84hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 4,
-      "rank": 4,
-      "isOnline": 0,
-      "joinTime": 1722008135,
-      "lastShowTime": 1784151421,
-      "lastLogin": 1784151421,
-      "language": "fr",
-      "nationalflag": 189,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 3,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 24,
       "powerPercentileInAlliance": 0.2017,
-      "powerContributionRate": 0.010306,
-      "cumulativePowerContributionRate": 0.2773,
+      "powerContributionRate": 0.010298,
+      "cumulativePowerContributionRate": 0.277031,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1401,7 +1399,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.18
+      "lastLoginDaysAgo": 0.61
     },
     {
       "uid": "886999415306",
@@ -1424,8 +1422,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768280665,
-      "lastShowTime": 1784160312,
-      "lastLogin": 1784160312,
+      "lastShowTime": 1784206132,
+      "lastLogin": 1784206132,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -1437,8 +1435,8 @@
       },
       "powerRankInAlliance": 25,
       "powerPercentileInAlliance": 0.2101,
-      "powerContributionRate": 0.009955,
-      "cumulativePowerContributionRate": 0.287254,
+      "powerContributionRate": 0.009944,
+      "cumulativePowerContributionRate": 0.286975,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1454,7 +1452,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0.02
     },
     {
       "uid": "817416620201",
@@ -1477,8 +1475,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1706887302,
-      "lastShowTime": 1784153347,
-      "lastLogin": 1784153347,
+      "lastShowTime": 1784204091,
+      "lastLogin": 1784204091,
       "language": "en",
       "nationalflag": 59,
       "gender": 0,
@@ -1490,8 +1488,8 @@
       },
       "powerRankInAlliance": 26,
       "powerPercentileInAlliance": 0.2185,
-      "powerContributionRate": 0.009953,
-      "cumulativePowerContributionRate": 0.297208,
+      "powerContributionRate": 0.009942,
+      "cumulativePowerContributionRate": 0.296917,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1507,7 +1505,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.16
+      "lastLoginDaysAgo": 0.05
     },
     {
       "uid": "315577365166",
@@ -1530,8 +1528,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1751593666,
-      "lastShowTime": 1784164754,
-      "lastLogin": 1784164754,
+      "lastShowTime": 1784196080,
+      "lastLogin": 1784196080,
       "language": "pt",
       "nationalflag": 31,
       "gender": 0,
@@ -1543,8 +1541,8 @@
       },
       "powerRankInAlliance": 27,
       "powerPercentileInAlliance": 0.2269,
-      "powerContributionRate": 0.009944,
-      "cumulativePowerContributionRate": 0.307152,
+      "powerContributionRate": 0.009933,
+      "cumulativePowerContributionRate": 0.30685,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1560,7 +1558,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.14
     },
     {
       "uid": "386749346987",
@@ -1596,8 +1594,8 @@
       },
       "powerRankInAlliance": 28,
       "powerPercentileInAlliance": 0.2353,
-      "powerContributionRate": 0.009924,
-      "cumulativePowerContributionRate": 0.317076,
+      "powerContributionRate": 0.009913,
+      "cumulativePowerContributionRate": 0.316764,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1613,7 +1611,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.1
+      "lastLoginDaysAgo": 0.58
     },
     {
       "uid": "512673363131",
@@ -1626,18 +1624,18 @@
       "pointId": 329438,
       "pointType": 1,
       "level": 100,
-      "power": 72307165,
-      "armyPower": "1,641,087,229,437,591,400,000,000,000,000,000,000",
+      "power": 72307185,
+      "armyPower": "1,641,419,185,154,830,600,000,000,000,000,000,000",
       "armyPowerText": "1.64hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1768683217,
-      "lastShowTime": 1784165766,
-      "lastLogin": 1784165766,
+      "lastShowTime": 1784174891,
+      "lastLogin": 1784174891,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -1649,14 +1647,13 @@
       },
       "powerRankInAlliance": 29,
       "powerPercentileInAlliance": 0.2437,
-      "powerContributionRate": 0.009874,
-      "cumulativePowerContributionRate": 0.32695,
-      "activityScore": 140,
+      "powerContributionRate": 0.009863,
+      "cumulativePowerContributionRate": 0.326626,
+      "activityScore": 110,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -1665,9 +1662,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.38
     },
     {
       "uid": "887381518858",
@@ -1690,8 +1687,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744390243,
-      "lastShowTime": 1784164897,
-      "lastLogin": 1784164897,
+      "lastShowTime": 1784203967,
+      "lastLogin": 1784203967,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -1703,8 +1700,8 @@
       },
       "powerRankInAlliance": 30,
       "powerPercentileInAlliance": 0.2521,
-      "powerContributionRate": 0.00983,
-      "cumulativePowerContributionRate": 0.33678,
+      "powerContributionRate": 0.009819,
+      "cumulativePowerContributionRate": 0.336445,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1720,7 +1717,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.02
+      "lastLoginDaysAgo": 0.05
     },
     {
       "uid": "385641002153",
@@ -1743,8 +1740,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1783277312,
-      "lastShowTime": 1784156389,
-      "lastLogin": 1784156389,
+      "lastShowTime": 1784172311,
+      "lastLogin": 1784172311,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -1756,8 +1753,8 @@
       },
       "powerRankInAlliance": 31,
       "powerPercentileInAlliance": 0.2605,
-      "powerContributionRate": 0.009728,
-      "cumulativePowerContributionRate": 0.346507,
+      "powerContributionRate": 0.009717,
+      "cumulativePowerContributionRate": 0.346162,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1773,7 +1770,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.41
     },
     {
       "uid": "887325420042",
@@ -1787,8 +1784,8 @@
       "pointType": 1,
       "level": 100,
       "power": 71182874,
-      "armyPower": "3,320,399,114,836,725,300,000,000,000,000,000,000",
-      "armyPowerText": "3.32hh",
+      "armyPower": "3,334,017,400,543,765,000,000,000,000,000,000,000",
+      "armyPowerText": "3.33hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
@@ -1796,8 +1793,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744492542,
-      "lastShowTime": 1784162838,
-      "lastLogin": 1784162838,
+      "lastShowTime": 1784184885,
+      "lastLogin": 1784184885,
       "language": "en",
       "nationalflag": 79,
       "gender": 0,
@@ -1809,8 +1806,8 @@
       },
       "powerRankInAlliance": 32,
       "powerPercentileInAlliance": 0.2689,
-      "powerContributionRate": 0.00972,
-      "cumulativePowerContributionRate": 0.356228,
+      "powerContributionRate": 0.009709,
+      "cumulativePowerContributionRate": 0.355871,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1826,7 +1823,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.05
+      "lastLoginDaysAgo": 0.27
     },
     {
       "uid": "851540486469",
@@ -1862,8 +1859,8 @@
       },
       "powerRankInAlliance": 33,
       "powerPercentileInAlliance": 0.2773,
-      "powerContributionRate": 0.009665,
-      "cumulativePowerContributionRate": 0.365892,
+      "powerContributionRate": 0.009654,
+      "cumulativePowerContributionRate": 0.365526,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1879,7 +1876,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.5
+      "lastLoginDaysAgo": 0.98
     },
     {
       "uid": "386920948907",
@@ -1915,8 +1912,8 @@
       },
       "powerRankInAlliance": 34,
       "powerPercentileInAlliance": 0.2857,
-      "powerContributionRate": 0.009654,
-      "cumulativePowerContributionRate": 0.375547,
+      "powerContributionRate": 0.009643,
+      "cumulativePowerContributionRate": 0.375169,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1932,7 +1929,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.21
+      "lastLoginDaysAgo": 0.69
     },
     {
       "uid": "313485505157",
@@ -1968,8 +1965,8 @@
       },
       "powerRankInAlliance": 35,
       "powerPercentileInAlliance": 0.2941,
-      "powerContributionRate": 0.009582,
-      "cumulativePowerContributionRate": 0.385128,
+      "powerContributionRate": 0.009571,
+      "cumulativePowerContributionRate": 0.38474,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -1985,7 +1982,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.11
+      "lastLoginDaysAgo": 0.58
     },
     {
       "uid": "783370024993",
@@ -2008,8 +2005,8 @@
       "rank": 4,
       "isOnline": 0,
       "joinTime": 1768771267,
-      "lastShowTime": 1784165912,
-      "lastLogin": 1784165912,
+      "lastShowTime": 1784204724,
+      "lastLogin": 1784204724,
       "language": "de",
       "nationalflag": 57,
       "gender": 0,
@@ -2021,8 +2018,8 @@
       },
       "powerRankInAlliance": 36,
       "powerPercentileInAlliance": 0.3025,
-      "powerContributionRate": 0.009573,
-      "cumulativePowerContributionRate": 0.394702,
+      "powerContributionRate": 0.009563,
+      "cumulativePowerContributionRate": 0.394303,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2038,7 +2035,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.01
+      "lastLoginDaysAgo": 0.04
     },
     {
       "uid": "384542061709",
@@ -2051,7 +2048,7 @@
       "pointId": 336089,
       "pointType": 1,
       "level": 100,
-      "power": 69935477,
+      "power": 69949607,
       "armyPower": "3,432,712,300,873,690,000,000,000,000,000,000,000",
       "armyPowerText": "3.43hh",
       "allianceId": "500148545",
@@ -2061,8 +2058,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1783261213,
-      "lastShowTime": 1784148089,
-      "lastLogin": 1784148089,
+      "lastShowTime": 1784192354,
+      "lastLogin": 1784192354,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -2074,8 +2071,8 @@
       },
       "powerRankInAlliance": 37,
       "powerPercentileInAlliance": 0.3109,
-      "powerContributionRate": 0.00955,
-      "cumulativePowerContributionRate": 0.404251,
+      "powerContributionRate": 0.009541,
+      "cumulativePowerContributionRate": 0.403844,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2091,7 +2088,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.22
+      "lastLoginDaysAgo": 0.18
     },
     {
       "uid": "887260637706",
@@ -2114,8 +2111,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1732462659,
-      "lastShowTime": 1784146789,
-      "lastLogin": 1784146789,
+      "lastShowTime": 1784203671,
+      "lastLogin": 1784203671,
       "language": "it",
       "nationalflag": 110,
       "gender": 0,
@@ -2127,8 +2124,8 @@
       },
       "powerRankInAlliance": 38,
       "powerPercentileInAlliance": 0.3193,
-      "powerContributionRate": 0.009538,
-      "cumulativePowerContributionRate": 0.413789,
+      "powerContributionRate": 0.009527,
+      "cumulativePowerContributionRate": 0.413371,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2144,7 +2141,60 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.23
+      "lastLoginDaysAgo": 0.05
+    },
+    {
+      "uid": "311999976056",
+      "username": "Laos😁",
+      "nickname": "Laos😁",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 423,
+      "y": 627,
+      "pointId": 321236,
+      "pointType": 1,
+      "level": 100,
+      "power": 69270759,
+      "armyPower": "1,260,979,216,081,637,200,000,000,000,000,000,000",
+      "armyPowerText": "1.26hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1706945513,
+      "lastShowTime": 1784200827,
+      "lastLogin": 1784200827,
+      "language": "es",
+      "nationalflag": 157,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 100,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 39,
+      "powerPercentileInAlliance": 0.3277,
+      "powerContributionRate": 0.009448,
+      "cumulativePowerContributionRate": 0.42282,
+      "activityScore": 110,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.08
     },
     {
       "uid": "851696748869",
@@ -2165,10 +2215,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1672001497,
-      "lastShowTime": 1784146564,
-      "lastLogin": 1784146564,
+      "lastShowTime": 1784207415,
+      "lastLogin": 1784207415,
       "language": "it",
       "nationalflag": 110,
       "gender": 0,
@@ -2178,63 +2228,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 39,
-      "powerPercentileInAlliance": 0.3277,
-      "powerContributionRate": 0.009438,
-      "cumulativePowerContributionRate": 0.423227,
-      "activityScore": 110,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.24
-    },
-    {
-      "uid": "887408941578",
-      "username": "DawgBurt",
-      "nickname": "DawgBurt",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 428,
-      "y": 650,
-      "pointId": 333015,
-      "pointType": 1,
-      "level": 100,
-      "power": 69038701,
-      "armyPower": "2,136,390,843,927,660,800,000,000,000,000,000,000",
-      "armyPowerText": "2.14hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 4,
-      "rank": 4,
-      "isOnline": 1,
-      "joinTime": 1747088416,
-      "lastShowTime": 1784166806,
-      "lastLogin": 1784166806,
-      "language": "en",
-      "nationalflag": 233,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 159,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 40,
       "powerPercentileInAlliance": 0.3361,
       "powerContributionRate": 0.009427,
-      "cumulativePowerContributionRate": 0.432654,
+      "cumulativePowerContributionRate": 0.432247,
       "activityScore": 140,
       "activityReasons": [
         "map_found",
@@ -2254,6 +2251,59 @@
       "lastLoginDaysAgo": 0
     },
     {
+      "uid": "887408941578",
+      "username": "DawgBurt",
+      "nickname": "DawgBurt",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 428,
+      "y": 650,
+      "pointId": 333015,
+      "pointType": 1,
+      "level": 100,
+      "power": 69050207,
+      "armyPower": "2,150,009,129,634,702,300,000,000,000,000,000,000",
+      "armyPowerText": "2.15hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 4,
+      "rank": 4,
+      "isOnline": 0,
+      "joinTime": 1747088416,
+      "lastShowTime": 1784180364,
+      "lastLogin": 1784180364,
+      "language": "en",
+      "nationalflag": 233,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 159,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 41,
+      "powerPercentileInAlliance": 0.3445,
+      "powerContributionRate": 0.009418,
+      "cumulativePowerContributionRate": 0.441665,
+      "activityScore": 110,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.32
+    },
+    {
       "uid": "851108186437",
       "username": "TopGun",
       "nickname": "TopGun",
@@ -2264,7 +2314,7 @@
       "pointId": 347866,
       "pointType": 1,
       "level": 100,
-      "power": 68914274,
+      "power": 68933824,
       "armyPower": "1,812,066,630,553,867,500,000,000,000,000,000,000",
       "armyPowerText": "1.81hh",
       "allianceId": "500148545",
@@ -2274,8 +2324,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1677954904,
-      "lastShowTime": 1784110972,
-      "lastLogin": 1784110972,
+      "lastShowTime": 1784198673,
+      "lastLogin": 1784198673,
       "language": "pt",
       "nationalflag": 31,
       "gender": 0,
@@ -2285,169 +2335,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 41,
-      "powerPercentileInAlliance": 0.3445,
-      "powerContributionRate": 0.00941,
-      "cumulativePowerContributionRate": 0.442065,
-      "activityScore": 110,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.65
-    },
-    {
-      "uid": "552496138034",
-      "username": "Arsenal♠",
-      "nickname": "Arsenal♠",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 427,
-      "y": 641,
-      "pointId": 328406,
-      "pointType": 1,
-      "level": 100,
-      "power": 68609976,
-      "armyPower": "3,137,247,160,389,090,500,000,000,000,000,000,000",
-      "armyPowerText": "3.14hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1769149979,
-      "lastShowTime": 1784152170,
-      "lastLogin": 1784152170,
-      "language": "fr",
-      "nationalflag": 75,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 0,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 42,
       "powerPercentileInAlliance": 0.3529,
-      "powerContributionRate": 0.009369,
-      "cumulativePowerContributionRate": 0.451433,
-      "activityScore": 110,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.17
-    },
-    {
-      "uid": "387092853947",
-      "username": "Trouble",
-      "nickname": "Trouble",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 456,
-      "y": 656,
-      "pointId": 336101,
-      "pointType": 1,
-      "level": 100,
-      "power": 68441491,
-      "armyPower": "3,088,249,635,970,119,600,000,000,000,000,000,000",
-      "armyPowerText": "3.09hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1768683842,
-      "lastShowTime": 1784165427,
-      "lastLogin": 1784165427,
-      "language": "en",
-      "nationalflag": 233,
-      "gender": 0,
-      "usergender": 2,
-      "headFrameId": 2,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 43,
-      "powerPercentileInAlliance": 0.3613,
-      "powerContributionRate": 0.009346,
-      "cumulativePowerContributionRate": 0.460779,
-      "activityScore": 110,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.02
-    },
-    {
-      "uid": "887041460746",
-      "username": "valhalla",
-      "nickname": "valhalla",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 427,
-      "y": 637,
-      "pointId": 326358,
-      "pointType": 1,
-      "level": 100,
-      "power": 68364047,
-      "armyPower": "2,359,541,159,097,456,700,000,000,000,000,000,000",
-      "armyPowerText": "2.36hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1733610397,
-      "lastShowTime": 1784157900,
-      "lastLogin": 1784157900,
-      "language": "en",
-      "nationalflag": 77,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 4,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 44,
-      "powerPercentileInAlliance": 0.3697,
-      "powerContributionRate": 0.009335,
-      "cumulativePowerContributionRate": 0.470114,
+      "powerContributionRate": 0.009403,
+      "cumulativePowerContributionRate": 0.451068,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2464,6 +2355,166 @@
         "lastLoginWithin1Day"
       ],
       "lastLoginDaysAgo": 0.11
+    },
+    {
+      "uid": "552496138034",
+      "username": "Arsenal♠",
+      "nickname": "Arsenal♠",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 427,
+      "y": 641,
+      "pointId": 328406,
+      "pointType": 1,
+      "level": 100,
+      "power": 68609976,
+      "armyPower": "3,148,141,788,954,722,300,000,000,000,000,000,000",
+      "armyPowerText": "3.15hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1769149979,
+      "lastShowTime": 1784189451,
+      "lastLogin": 1784189451,
+      "language": "fr",
+      "nationalflag": 75,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 0,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 43,
+      "powerPercentileInAlliance": 0.3613,
+      "powerContributionRate": 0.009358,
+      "cumulativePowerContributionRate": 0.460426,
+      "activityScore": 110,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.21
+    },
+    {
+      "uid": "387092853947",
+      "username": "Trouble",
+      "nickname": "Trouble",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 456,
+      "y": 656,
+      "pointId": 336101,
+      "pointType": 1,
+      "level": 100,
+      "power": 68465823,
+      "armyPower": "3,088,249,635,970,119,600,000,000,000,000,000,000",
+      "armyPowerText": "3.09hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1768683842,
+      "lastShowTime": 1784182608,
+      "lastLogin": 1784182608,
+      "language": "en",
+      "nationalflag": 233,
+      "gender": 0,
+      "usergender": 2,
+      "headFrameId": 2,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 44,
+      "powerPercentileInAlliance": 0.3697,
+      "powerContributionRate": 0.009339,
+      "cumulativePowerContributionRate": 0.469765,
+      "activityScore": 110,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.29
+    },
+    {
+      "uid": "887041460746",
+      "username": "valhalla",
+      "nickname": "valhalla",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 427,
+      "y": 637,
+      "pointId": 326358,
+      "pointType": 1,
+      "level": 100,
+      "power": 68364047,
+      "armyPower": "2,359,857,307,399,589,200,000,000,000,000,000,000",
+      "armyPowerText": "2.36hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 1,
+      "joinTime": 1733610397,
+      "lastShowTime": 1784207697,
+      "lastLogin": 1784207697,
+      "language": "en",
+      "nationalflag": 77,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 4,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 45,
+      "powerPercentileInAlliance": 0.3782,
+      "powerContributionRate": 0.009325,
+      "cumulativePowerContributionRate": 0.47909,
+      "activityScore": 140,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "online",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "online"
+      ],
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "784027760673",
@@ -2486,8 +2537,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768771488,
-      "lastShowTime": 1784155614,
-      "lastLogin": 1784155614,
+      "lastShowTime": 1784197178,
+      "lastLogin": 1784197178,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -2497,10 +2548,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 45,
-      "powerPercentileInAlliance": 0.3782,
-      "powerContributionRate": 0.009334,
-      "cumulativePowerContributionRate": 0.479448,
+      "powerRankInAlliance": 46,
+      "powerPercentileInAlliance": 0.3866,
+      "powerContributionRate": 0.009324,
+      "cumulativePowerContributionRate": 0.488413,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2537,10 +2588,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1769116265,
-      "lastShowTime": 1784153377,
-      "lastLogin": 1784153377,
+      "lastShowTime": 1784189271,
+      "lastLogin": 1784189271,
       "language": "en",
       "nationalflag": 102,
       "gender": 0,
@@ -2550,15 +2601,16 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 46,
-      "powerPercentileInAlliance": 0.3866,
-      "powerContributionRate": 0.009258,
-      "cumulativePowerContributionRate": 0.488706,
-      "activityScore": 110,
+      "powerRankInAlliance": 47,
+      "powerPercentileInAlliance": 0.395,
+      "powerContributionRate": 0.009248,
+      "cumulativePowerContributionRate": 0.497661,
+      "activityScore": 140,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
+        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -2567,9 +2619,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "online"
       ],
-      "lastLoginDaysAgo": 0.16
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "385846674601",
@@ -2592,8 +2644,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1783255192,
-      "lastShowTime": 1784159711,
-      "lastLogin": 1784159711,
+      "lastShowTime": 1784200899,
+      "lastLogin": 1784200899,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -2603,10 +2655,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 47,
-      "powerPercentileInAlliance": 0.395,
-      "powerContributionRate": 0.009171,
-      "cumulativePowerContributionRate": 0.497877,
+      "powerRankInAlliance": 48,
+      "powerPercentileInAlliance": 0.4034,
+      "powerContributionRate": 0.00916,
+      "cumulativePowerContributionRate": 0.506821,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2635,7 +2687,7 @@
       "pointId": 338658,
       "pointType": 1,
       "level": 100,
-      "power": 66794668,
+      "power": 66800928,
       "armyPower": "2,791,142,987,870,394,400,000,000,000,000,000,000",
       "armyPowerText": "2.79hh",
       "allianceId": "500148545",
@@ -2643,10 +2695,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1721577910,
-      "lastShowTime": 1784158069,
-      "lastLogin": 1784158069,
+      "lastShowTime": 1784207725,
+      "lastLogin": 1784207725,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -2656,15 +2708,16 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 48,
-      "powerPercentileInAlliance": 0.4034,
-      "powerContributionRate": 0.009121,
-      "cumulativePowerContributionRate": 0.506998,
-      "activityScore": 110,
+      "powerRankInAlliance": 49,
+      "powerPercentileInAlliance": 0.4118,
+      "powerContributionRate": 0.009112,
+      "cumulativePowerContributionRate": 0.515933,
+      "activityScore": 140,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
+        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -2673,9 +2726,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "online"
       ],
-      "lastLoginDaysAgo": 0.1
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "7536651537198",
@@ -2709,10 +2762,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 49,
-      "powerPercentileInAlliance": 0.4118,
-      "powerContributionRate": 0.009104,
-      "cumulativePowerContributionRate": 0.516102,
+      "powerRankInAlliance": 50,
+      "powerPercentileInAlliance": 0.4202,
+      "powerContributionRate": 0.009094,
+      "cumulativePowerContributionRate": 0.525027,
       "activityScore": 105,
       "activityReasons": [
         "map_found",
@@ -2728,7 +2781,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 1.04
+      "lastLoginDaysAgo": 1.51
     },
     {
       "uid": "814373922979",
@@ -2749,10 +2802,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1744562972,
-      "lastShowTime": 1784166839,
-      "lastLogin": 1784166839,
+      "lastShowTime": 1784206150,
+      "lastLogin": 1784206150,
       "language": "en",
       "nationalflag": 180,
       "gender": 0,
@@ -2762,64 +2815,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 50,
-      "powerPercentileInAlliance": 0.4202,
-      "powerContributionRate": 0.00908,
-      "cumulativePowerContributionRate": 0.525182,
-      "activityScore": 140,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "online",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "online"
-      ],
-      "lastLoginDaysAgo": 0
-    },
-    {
-      "uid": "342227043185",
-      "username": "ABAAD_1",
-      "nickname": "ABAAD_1",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 430,
-      "y": 658,
-      "pointId": 337112,
-      "pointType": 1,
-      "level": 100,
-      "power": 66038979,
-      "armyPower": "1,832,073,926,644,095,700,000,000,000,000,000,000",
-      "armyPowerText": "1.83hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1783269316,
-      "lastShowTime": 1784166766,
-      "lastLogin": 1784166766,
-      "language": "es",
-      "nationalflag": 157,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 8,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 51,
       "powerPercentileInAlliance": 0.4286,
-      "powerContributionRate": 0.009018,
-      "cumulativePowerContributionRate": 0.5342,
+      "powerContributionRate": 0.00907,
+      "cumulativePowerContributionRate": 0.534097,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -2835,7 +2834,60 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.02
+    },
+    {
+      "uid": "342227043185",
+      "username": "ABAAD_1",
+      "nickname": "ABAAD_1",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 430,
+      "y": 658,
+      "pointId": 337112,
+      "pointType": 1,
+      "level": 100,
+      "power": 66056979,
+      "armyPower": "1,832,390,074,946,228,000,000,000,000,000,000,000",
+      "armyPowerText": "1.83hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1783269316,
+      "lastShowTime": 1784175244,
+      "lastLogin": 1784175244,
+      "language": "es",
+      "nationalflag": 157,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 8,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 52,
+      "powerPercentileInAlliance": 0.437,
+      "powerContributionRate": 0.00901,
+      "cumulativePowerContributionRate": 0.543107,
+      "activityScore": 110,
+      "activityReasons": [
+        "map_found",
+        "top_50_power",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.38
     },
     {
       "uid": "557980792637",
@@ -2869,26 +2921,26 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 52,
-      "powerPercentileInAlliance": 0.437,
-      "powerContributionRate": 0.008946,
-      "cumulativePowerContributionRate": 0.543146,
-      "activityScore": 110,
+      "powerRankInAlliance": 53,
+      "powerPercentileInAlliance": 0.4454,
+      "powerContributionRate": 0.008936,
+      "cumulativePowerContributionRate": 0.552044,
+      "activityScore": 105,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
-        "recent_login_1d",
+        "recent_login_3d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
+      "userStatus": "RECENT",
+      "inactiveScore": 10,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 0.78
+      "lastLoginDaysAgo": 1.26
     },
     {
       "uid": "559809816382",
@@ -2922,26 +2974,26 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 53,
-      "powerPercentileInAlliance": 0.4454,
-      "powerContributionRate": 0.008917,
-      "cumulativePowerContributionRate": 0.552063,
-      "activityScore": 110,
+      "powerRankInAlliance": 54,
+      "powerPercentileInAlliance": 0.4538,
+      "powerContributionRate": 0.008907,
+      "cumulativePowerContributionRate": 0.56095,
+      "activityScore": 105,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
-        "recent_login_1d",
+        "recent_login_3d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
+      "userStatus": "RECENT",
+      "inactiveScore": 10,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 0.8
+      "lastLoginDaysAgo": 1.27
     },
     {
       "uid": "784314820641",
@@ -2955,35 +3007,36 @@
       "pointType": 1,
       "level": 100,
       "power": 65295586,
-      "armyPower": "2,451,290,965,955,785,000,000,000,000,000,000,000",
-      "armyPowerText": "2.45hh",
+      "armyPower": "2,474,122,050,298,188,000,000,000,000,000,000,000",
+      "armyPowerText": "2.47hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
       "allianceRole": 4,
       "rank": 4,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1768326846,
-      "lastShowTime": 1784163163,
-      "lastLogin": 1784163163,
+      "lastShowTime": 1784207545,
+      "lastLogin": 1784207545,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
       "usergender": 1,
-      "headFrameId": 123,
+      "headFrameId": 161,
       "source": {
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 54,
-      "powerPercentileInAlliance": 0.4538,
-      "powerContributionRate": 0.008916,
-      "cumulativePowerContributionRate": 0.560979,
-      "activityScore": 110,
+      "powerRankInAlliance": 55,
+      "powerPercentileInAlliance": 0.4622,
+      "powerContributionRate": 0.008906,
+      "cumulativePowerContributionRate": 0.569857,
+      "activityScore": 140,
       "activityReasons": [
         "map_found",
         "top_50_power",
         "cumulative_power_80",
+        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -2992,9 +3045,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "online"
       ],
-      "lastLoginDaysAgo": 0.04
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "557863524157",
@@ -3008,8 +3061,8 @@
       "pointType": 1,
       "level": 100,
       "power": 65020072,
-      "armyPower": "1,874,282,503,322,870,800,000,000,000,000,000,000",
-      "armyPowerText": "1.87hh",
+      "armyPower": "1,881,743,603,253,195,000,000,000,000,000,000,000",
+      "armyPowerText": "1.88hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
@@ -3017,8 +3070,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768753999,
-      "lastShowTime": 1784143673,
-      "lastLogin": 1784143673,
+      "lastShowTime": 1784199584,
+      "lastLogin": 1784199584,
       "language": "de",
       "nationalflag": 57,
       "gender": 0,
@@ -3028,10 +3081,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 55,
-      "powerPercentileInAlliance": 0.4622,
-      "powerContributionRate": 0.008879,
-      "cumulativePowerContributionRate": 0.569858,
+      "powerRankInAlliance": 56,
+      "powerPercentileInAlliance": 0.4706,
+      "powerContributionRate": 0.008869,
+      "cumulativePowerContributionRate": 0.578725,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -3047,7 +3100,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.27
+      "lastLoginDaysAgo": 0.1
     },
     {
       "uid": "850238626117",
@@ -3081,10 +3134,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 56,
-      "powerPercentileInAlliance": 0.4706,
-      "powerContributionRate": 0.008866,
-      "cumulativePowerContributionRate": 0.578724,
+      "powerRankInAlliance": 57,
+      "powerPercentileInAlliance": 0.479,
+      "powerContributionRate": 0.008856,
+      "cumulativePowerContributionRate": 0.587582,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3100,7 +3153,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 4.76
+      "lastLoginDaysAgo": 5.24
     },
     {
       "uid": "579019364274",
@@ -3123,8 +3176,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769357645,
-      "lastShowTime": 1784163719,
-      "lastLogin": 1784163719,
+      "lastShowTime": 1784205962,
+      "lastLogin": 1784205962,
       "language": "en",
       "nationalflag": 101,
       "gender": 0,
@@ -3134,10 +3187,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 57,
-      "powerPercentileInAlliance": 0.479,
-      "powerContributionRate": 0.00886,
-      "cumulativePowerContributionRate": 0.587584,
+      "powerRankInAlliance": 58,
+      "powerPercentileInAlliance": 0.4874,
+      "powerContributionRate": 0.00885,
+      "cumulativePowerContributionRate": 0.596432,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -3153,7 +3206,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.04
+      "lastLoginDaysAgo": 0.02
     },
     {
       "uid": "783020779553",
@@ -3166,7 +3219,7 @@
       "pointId": 330460,
       "pointType": 1,
       "level": 100,
-      "power": 64354541,
+      "power": 64380914,
       "armyPower": "1,958,575,628,873,445,800,000,000,000,000,000,000",
       "armyPowerText": "1.96hh",
       "allianceId": "500148545",
@@ -3176,8 +3229,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768753690,
-      "lastShowTime": 1784159824,
-      "lastLogin": 1784159824,
+      "lastShowTime": 1784201541,
+      "lastLogin": 1784201541,
       "language": "en",
       "nationalflag": 137,
       "gender": 0,
@@ -3187,10 +3240,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 58,
-      "powerPercentileInAlliance": 0.4874,
-      "powerContributionRate": 0.008788,
-      "cumulativePowerContributionRate": 0.596372,
+      "powerRankInAlliance": 59,
+      "powerPercentileInAlliance": 0.4958,
+      "powerContributionRate": 0.008782,
+      "cumulativePowerContributionRate": 0.605214,
       "activityScore": 110,
       "activityReasons": [
         "map_found",
@@ -3206,7 +3259,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0.07
     },
     {
       "uid": "886997330442",
@@ -3229,8 +3282,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744492884,
-      "lastShowTime": 1784151478,
-      "lastLogin": 1784151478,
+      "lastShowTime": 1784199247,
+      "lastLogin": 1784199247,
       "language": "en",
       "nationalflag": 197,
       "gender": 0,
@@ -3240,63 +3293,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 59,
-      "powerPercentileInAlliance": 0.4958,
-      "powerContributionRate": 0.008679,
-      "cumulativePowerContributionRate": 0.60505,
-      "activityScore": 110,
-      "activityReasons": [
-        "map_found",
-        "top_50_power",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.18
-    },
-    {
-      "uid": "599790778363",
-      "username": "TootsDom",
-      "nickname": "TootsDom",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 435,
-      "y": 635,
-      "pointId": 325338,
-      "pointType": 1,
-      "level": 100,
-      "power": 63376526,
-      "armyPower": "2,533,838,815,954,400,700,000,000,000,000,000,000",
-      "armyPowerText": "2.53hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1744392601,
-      "lastShowTime": 1784143149,
-      "lastLogin": 1784143149,
-      "language": "en",
-      "nationalflag": 77,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 1,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 60,
       "powerPercentileInAlliance": 0.5042,
-      "powerContributionRate": 0.008654,
-      "cumulativePowerContributionRate": 0.613704,
+      "powerContributionRate": 0.008669,
+      "cumulativePowerContributionRate": 0.613883,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3311,7 +3311,59 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.28
+      "lastLoginDaysAgo": 0.1
+    },
+    {
+      "uid": "599790778363",
+      "username": "TootsDom",
+      "nickname": "TootsDom",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 435,
+      "y": 635,
+      "pointId": 325338,
+      "pointType": 1,
+      "level": 100,
+      "power": 63380526,
+      "armyPower": "2,533,838,815,954,400,700,000,000,000,000,000,000",
+      "armyPowerText": "2.53hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1744392601,
+      "lastShowTime": 1784188522,
+      "lastLogin": 1784188522,
+      "language": "en",
+      "nationalflag": 77,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 1,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 61,
+      "powerPercentileInAlliance": 0.5126,
+      "powerContributionRate": 0.008645,
+      "cumulativePowerContributionRate": 0.622528,
+      "activityScore": 95,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.23
     },
     {
       "uid": "789504395300",
@@ -3334,8 +3386,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1721838288,
-      "lastShowTime": 1784137880,
-      "lastLogin": 1784137880,
+      "lastShowTime": 1784201806,
+      "lastLogin": 1784201806,
       "language": "en",
       "nationalflag": 164,
       "gender": 0,
@@ -3345,10 +3397,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 61,
-      "powerPercentileInAlliance": 0.5126,
-      "powerContributionRate": 0.008641,
-      "cumulativePowerContributionRate": 0.622345,
+      "powerRankInAlliance": 62,
+      "powerPercentileInAlliance": 0.521,
+      "powerContributionRate": 0.008632,
+      "cumulativePowerContributionRate": 0.631159,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3363,7 +3415,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.34
+      "lastLoginDaysAgo": 0.07
     },
     {
       "uid": "903876921669",
@@ -3384,10 +3436,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1766364203,
-      "lastShowTime": 1784160360,
-      "lastLogin": 1784160360,
+      "lastShowTime": 1784185882,
+      "lastLogin": 1784185882,
       "language": "en",
       "nationalflag": 38,
       "gender": 0,
@@ -3397,15 +3449,14 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 62,
-      "powerPercentileInAlliance": 0.521,
-      "powerContributionRate": 0.008629,
-      "cumulativePowerContributionRate": 0.630974,
-      "activityScore": 125,
+      "powerRankInAlliance": 63,
+      "powerPercentileInAlliance": 0.5294,
+      "powerContributionRate": 0.008619,
+      "cumulativePowerContributionRate": 0.639778,
+      "activityScore": 95,
       "activityReasons": [
         "map_found",
         "cumulative_power_80",
-        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
@@ -3414,9 +3465,9 @@
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "online"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.26
     },
     {
       "uid": "887283763722",
@@ -3429,8 +3480,8 @@
       "pointId": 323288,
       "pointType": 1,
       "level": 100,
-      "power": 63008783,
-      "armyPower": "3,256,065,425,020,686,000,000,000,000,000,000,000",
+      "power": 63009053,
+      "armyPower": "3,256,144,462,096,220,400,000,000,000,000,000,000",
       "armyPowerText": "3.26hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -3439,8 +3490,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744399737,
-      "lastShowTime": 1784159777,
-      "lastLogin": 1784159777,
+      "lastShowTime": 1784173173,
+      "lastLogin": 1784173173,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -3450,62 +3501,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 63,
-      "powerPercentileInAlliance": 0.5294,
-      "powerContributionRate": 0.008604,
-      "cumulativePowerContributionRate": 0.639578,
-      "activityScore": 95,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.08
-    },
-    {
-      "uid": "311999976056",
-      "username": "Laos😁",
-      "nickname": "Laos😁",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 423,
-      "y": 627,
-      "pointId": 321236,
-      "pointType": 1,
-      "level": 100,
-      "power": 62465659,
-      "armyPower": "1,229,554,074,849,685,400,000,000,000,000,000,000",
-      "armyPowerText": "1.23hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1706945513,
-      "lastShowTime": 1784089503,
-      "lastLogin": 1784089503,
-      "language": "es",
-      "nationalflag": 157,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 100,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
       "powerRankInAlliance": 64,
       "powerPercentileInAlliance": 0.5378,
-      "powerContributionRate": 0.00853,
-      "cumulativePowerContributionRate": 0.648108,
+      "powerContributionRate": 0.008594,
+      "cumulativePowerContributionRate": 0.648373,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3520,7 +3519,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.9
+      "lastLoginDaysAgo": 0.4
     },
     {
       "uid": "387603539132",
@@ -3556,8 +3555,8 @@
       },
       "powerRankInAlliance": 65,
       "powerPercentileInAlliance": 0.5462,
-      "powerContributionRate": 0.008525,
-      "cumulativePowerContributionRate": 0.656633,
+      "powerContributionRate": 0.008516,
+      "cumulativePowerContributionRate": 0.656889,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3572,7 +3571,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.45
+      "lastLoginDaysAgo": 0.92
     },
     {
       "uid": "891797092890",
@@ -3595,8 +3594,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769382786,
-      "lastShowTime": 1784164219,
-      "lastLogin": 1784164219,
+      "lastShowTime": 1784203801,
+      "lastLogin": 1784203801,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -3608,164 +3607,8 @@
       },
       "powerRankInAlliance": 66,
       "powerPercentileInAlliance": 0.5546,
-      "powerContributionRate": 0.008512,
-      "cumulativePowerContributionRate": 0.665145,
-      "activityScore": 95,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.03
-    },
-    {
-      "uid": "886824544778",
-      "username": "Destroy",
-      "nickname": "Destroy",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 424,
-      "y": 662,
-      "pointId": 339157,
-      "pointType": 1,
-      "level": 100,
-      "power": 61911575,
-      "armyPower": "2,604,726,667,789,284,500,000,000,000,000,000,000",
-      "armyPowerText": "2.6hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1744393894,
-      "lastShowTime": 1784115627,
-      "lastLogin": 1784115627,
-      "language": "en",
-      "nationalflag": 233,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 0,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 67,
-      "powerPercentileInAlliance": 0.563,
-      "powerContributionRate": 0.008454,
-      "cumulativePowerContributionRate": 0.673599,
-      "activityScore": 95,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.59
-    },
-    {
-      "uid": "910513252946",
-      "username": "KamLong",
-      "nickname": "KamLong",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 434,
-      "y": 664,
-      "pointId": 340186,
-      "pointType": 1,
-      "level": 100,
-      "power": 61847192,
-      "armyPower": "1,288,735,399,399,215,800,000,000,000,000,000,000",
-      "armyPowerText": "1.29hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1744591701,
-      "lastShowTime": 1784166742,
-      "lastLogin": 1784166742,
-      "language": "zh_tw",
-      "nationalflag": 95,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 4,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 68,
-      "powerPercentileInAlliance": 0.5714,
-      "powerContributionRate": 0.008445,
-      "cumulativePowerContributionRate": 0.682044,
-      "activityScore": 95,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0
-    },
-    {
-      "uid": "886968527370",
-      "username": "Lentz",
-      "nickname": "Lentz",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 437,
-      "y": 663,
-      "pointId": 339675,
-      "pointType": 1,
-      "level": 100,
-      "power": 61771311,
-      "armyPower": "1,994,030,330,477,988,700,000,000,000,000,000,000",
-      "armyPowerText": "1.99hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1744387932,
-      "lastShowTime": 1784163072,
-      "lastLogin": 1784163072,
-      "language": "en",
-      "nationalflag": 233,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 159,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 69,
-      "powerPercentileInAlliance": 0.5798,
-      "powerContributionRate": 0.008435,
-      "cumulativePowerContributionRate": 0.690479,
+      "powerContributionRate": 0.008502,
+      "cumulativePowerContributionRate": 0.665391,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3781,6 +3624,162 @@
         "lastLoginWithin1Day"
       ],
       "lastLoginDaysAgo": 0.05
+    },
+    {
+      "uid": "886824544778",
+      "username": "Destroy",
+      "nickname": "Destroy",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 424,
+      "y": 662,
+      "pointId": 339157,
+      "pointType": 1,
+      "level": 100,
+      "power": 61913525,
+      "armyPower": "2,607,967,187,886,141,400,000,000,000,000,000,000",
+      "armyPowerText": "2.61hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1744393894,
+      "lastShowTime": 1784176755,
+      "lastLogin": 1784176755,
+      "language": "en",
+      "nationalflag": 233,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 0,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 67,
+      "powerPercentileInAlliance": 0.563,
+      "powerContributionRate": 0.008445,
+      "cumulativePowerContributionRate": 0.673836,
+      "activityScore": 95,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.36
+    },
+    {
+      "uid": "910513252946",
+      "username": "KamLong",
+      "nickname": "KamLong",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 434,
+      "y": 664,
+      "pointId": 340186,
+      "pointType": 1,
+      "level": 100,
+      "power": 61853278,
+      "armyPower": "1,288,735,399,399,215,800,000,000,000,000,000,000",
+      "armyPowerText": "1.29hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1744591701,
+      "lastShowTime": 1784193900,
+      "lastLogin": 1784193900,
+      "language": "zh_tw",
+      "nationalflag": 95,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 4,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 68,
+      "powerPercentileInAlliance": 0.5714,
+      "powerContributionRate": 0.008437,
+      "cumulativePowerContributionRate": 0.682272,
+      "activityScore": 95,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.16
+    },
+    {
+      "uid": "886968527370",
+      "username": "Lentz",
+      "nickname": "Lentz",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 437,
+      "y": 663,
+      "pointId": 339675,
+      "pointType": 1,
+      "level": 100,
+      "power": 61782411,
+      "armyPower": "1,994,030,330,477,988,700,000,000,000,000,000,000",
+      "armyPowerText": "1.99hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1744387932,
+      "lastShowTime": 1784205292,
+      "lastLogin": 1784205292,
+      "language": "en",
+      "nationalflag": 233,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 159,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 69,
+      "powerPercentileInAlliance": 0.5798,
+      "powerContributionRate": 0.008427,
+      "cumulativePowerContributionRate": 0.690699,
+      "activityScore": 95,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.03
     },
     {
       "uid": "487594292773",
@@ -3816,8 +3815,8 @@
       },
       "powerRankInAlliance": 70,
       "powerPercentileInAlliance": 0.5882,
-      "powerContributionRate": 0.008368,
-      "cumulativePowerContributionRate": 0.698847,
+      "powerContributionRate": 0.008359,
+      "cumulativePowerContributionRate": 0.699059,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3832,7 +3831,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.2
+      "lastLoginDaysAgo": 0.68
     },
     {
       "uid": "455569585635",
@@ -3853,10 +3852,10 @@
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 1,
+      "isOnline": 0,
       "joinTime": 1718066683,
-      "lastShowTime": 1784163496,
-      "lastLogin": 1784163496,
+      "lastShowTime": 1784175378,
+      "lastLogin": 1784175378,
       "language": "pt",
       "nationalflag": 31,
       "gender": 0,
@@ -3868,61 +3867,8 @@
       },
       "powerRankInAlliance": 71,
       "powerPercentileInAlliance": 0.5966,
-      "powerContributionRate": 0.008307,
-      "cumulativePowerContributionRate": 0.707155,
-      "activityScore": 125,
-      "activityReasons": [
-        "map_found",
-        "cumulative_power_80",
-        "online",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "CORE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "online"
-      ],
-      "lastLoginDaysAgo": 0
-    },
-    {
-      "uid": "881759037936",
-      "username": "mario73",
-      "nickname": "mario73",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 420,
-      "y": 632,
-      "pointId": 323795,
-      "pointType": 1,
-      "level": 100,
-      "power": 60672986,
-      "armyPower": "2,029,093,785,407,947,000,000,000,000,000,000,000",
-      "armyPowerText": "2.03hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1707298214,
-      "lastShowTime": 1784134198,
-      "lastLogin": 1784134198,
-      "language": "it",
-      "nationalflag": 110,
-      "gender": 0,
-      "usergender": 1,
-      "headFrameId": 2,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 72,
-      "powerPercentileInAlliance": 0.605,
-      "powerContributionRate": 0.008285,
-      "cumulativePowerContributionRate": 0.71544,
+      "powerContributionRate": 0.008298,
+      "cumulativePowerContributionRate": 0.707357,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3940,41 +3886,41 @@
       "lastLoginDaysAgo": 0.38
     },
     {
-      "uid": "846971627815",
-      "username": "PoRToS🖤",
-      "nickname": "PoRToS🖤",
+      "uid": "881759037936",
+      "username": "mario73",
+      "nickname": "mario73",
       "serverId": 2373,
       "worldId": 1,
-      "x": 439,
-      "y": 673,
-      "pointId": 344796,
+      "x": 420,
+      "y": 632,
+      "pointId": 323795,
       "pointType": 1,
       "level": 100,
-      "power": 60519981,
-      "armyPower": "1,955,812,872,016,765,400,000,000,000,000,000,000",
-      "armyPowerText": "1.96hh",
+      "power": 60673006,
+      "armyPower": "2,029,093,785,407,947,000,000,000,000,000,000,000",
+      "armyPowerText": "2.03hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
       "isOnline": 0,
-      "joinTime": 1735143867,
-      "lastShowTime": 1784160727,
-      "lastLogin": 1784160727,
-      "language": "fr",
-      "nationalflag": 75,
+      "joinTime": 1707298214,
+      "lastShowTime": 1784171631,
+      "lastLogin": 1784171631,
+      "language": "it",
+      "nationalflag": 110,
       "gender": 0,
       "usergender": 1,
-      "headFrameId": 4,
+      "headFrameId": 2,
       "source": {
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 73,
-      "powerPercentileInAlliance": 0.6134,
-      "powerContributionRate": 0.008264,
-      "cumulativePowerContributionRate": 0.723704,
+      "powerRankInAlliance": 72,
+      "powerPercentileInAlliance": 0.605,
+      "powerContributionRate": 0.008276,
+      "cumulativePowerContributionRate": 0.715632,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -3989,7 +3935,59 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.07
+      "lastLoginDaysAgo": 0.42
+    },
+    {
+      "uid": "846971627815",
+      "username": "PoRToS🖤",
+      "nickname": "PoRToS🖤",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 439,
+      "y": 673,
+      "pointId": 344796,
+      "pointType": 1,
+      "level": 100,
+      "power": 60616201,
+      "armyPower": "1,955,812,872,016,765,400,000,000,000,000,000,000",
+      "armyPowerText": "1.96hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1735143867,
+      "lastShowTime": 1784204467,
+      "lastLogin": 1784204467,
+      "language": "fr",
+      "nationalflag": 75,
+      "gender": 0,
+      "usergender": 1,
+      "headFrameId": 4,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 73,
+      "powerPercentileInAlliance": 0.6134,
+      "powerContributionRate": 0.008268,
+      "cumulativePowerContributionRate": 0.7239,
+      "activityScore": 95,
+      "activityReasons": [
+        "map_found",
+        "cumulative_power_80",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "CORE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.04
     },
     {
       "uid": "577608279986",
@@ -4003,7 +4001,7 @@
       "pointType": 1,
       "level": 100,
       "power": 60255007,
-      "armyPower": "1,183,781,632,094,918,900,000,000,000,000,000,000",
+      "armyPower": "1,184,097,780,397,051,300,000,000,000,000,000,000",
       "armyPowerText": "1.18hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -4012,8 +4010,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769146091,
-      "lastShowTime": 1784156816,
-      "lastLogin": 1784156816,
+      "lastShowTime": 1784198334,
+      "lastLogin": 1784198334,
       "language": "en",
       "nationalflag": 158,
       "gender": 0,
@@ -4025,8 +4023,8 @@
       },
       "powerRankInAlliance": 74,
       "powerPercentileInAlliance": 0.6218,
-      "powerContributionRate": 0.008228,
-      "cumulativePowerContributionRate": 0.731932,
+      "powerContributionRate": 0.008219,
+      "cumulativePowerContributionRate": 0.732119,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4041,7 +4039,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.11
     },
     {
       "uid": "388270896318",
@@ -4054,8 +4052,8 @@
       "pointId": 341219,
       "pointType": 1,
       "level": 100,
-      "power": 59405305,
-      "armyPower": "1,947,477,211,539,919,000,000,000,000,000,000,000",
+      "power": 59406115,
+      "armyPower": "1,947,793,359,842,051,000,000,000,000,000,000,000",
       "armyPowerText": "1.95hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -4064,8 +4062,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768352900,
-      "lastShowTime": 1784114102,
-      "lastLogin": 1784114102,
+      "lastShowTime": 1784199499,
+      "lastLogin": 1784199499,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -4077,8 +4075,8 @@
       },
       "powerRankInAlliance": 75,
       "powerPercentileInAlliance": 0.6303,
-      "powerContributionRate": 0.008112,
-      "cumulativePowerContributionRate": 0.740043,
+      "powerContributionRate": 0.008103,
+      "cumulativePowerContributionRate": 0.740222,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4093,7 +4091,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.61
+      "lastLoginDaysAgo": 0.1
     },
     {
       "uid": "789978634276",
@@ -4107,7 +4105,7 @@
       "pointType": 1,
       "level": 100,
       "power": 59401186,
-      "armyPower": "2,650,045,882,073,088,000,000,000,000,000,000,000",
+      "armyPower": "2,651,342,090,111,830,700,000,000,000,000,000,000",
       "armyPowerText": "2.65hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -4116,8 +4114,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1771878289,
-      "lastShowTime": 1784147598,
-      "lastLogin": 1784147598,
+      "lastShowTime": 1784189053,
+      "lastLogin": 1784189053,
       "language": "fr",
       "nationalflag": 62,
       "gender": 0,
@@ -4129,8 +4127,8 @@
       },
       "powerRankInAlliance": 76,
       "powerPercentileInAlliance": 0.6387,
-      "powerContributionRate": 0.008111,
-      "cumulativePowerContributionRate": 0.748155,
+      "powerContributionRate": 0.008102,
+      "cumulativePowerContributionRate": 0.748324,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4181,8 +4179,8 @@
       },
       "powerRankInAlliance": 77,
       "powerPercentileInAlliance": 0.6471,
-      "powerContributionRate": 0.007904,
-      "cumulativePowerContributionRate": 0.756059,
+      "powerContributionRate": 0.007895,
+      "cumulativePowerContributionRate": 0.756219,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4197,7 +4195,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.5
     },
     {
       "uid": "846582245671",
@@ -4233,8 +4231,8 @@
       },
       "powerRankInAlliance": 78,
       "powerPercentileInAlliance": 0.6555,
-      "powerContributionRate": 0.007873,
-      "cumulativePowerContributionRate": 0.763932,
+      "powerContributionRate": 0.007864,
+      "cumulativePowerContributionRate": 0.764084,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4249,7 +4247,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.44
+      "lastLoginDaysAgo": 0.91
     },
     {
       "uid": "886942648842",
@@ -4262,8 +4260,8 @@
       "pointId": 326876,
       "pointType": 1,
       "level": 100,
-      "power": 57149696,
-      "armyPower": "2,612,860,334,325,019,500,000,000,000,000,000,000",
+      "power": 57156206,
+      "armyPower": "2,613,176,482,627,151,700,000,000,000,000,000,000",
       "armyPowerText": "2.61hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -4272,8 +4270,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744388114,
-      "lastShowTime": 1784150329,
-      "lastLogin": 1784150329,
+      "lastShowTime": 1784205481,
+      "lastLogin": 1784205481,
       "language": "en",
       "nationalflag": 197,
       "gender": 0,
@@ -4285,8 +4283,8 @@
       },
       "powerRankInAlliance": 79,
       "powerPercentileInAlliance": 0.6639,
-      "powerContributionRate": 0.007804,
-      "cumulativePowerContributionRate": 0.771736,
+      "powerContributionRate": 0.007796,
+      "cumulativePowerContributionRate": 0.77188,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4301,7 +4299,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.19
+      "lastLoginDaysAgo": 0.03
     },
     {
       "uid": "384557446285",
@@ -4337,8 +4335,8 @@
       },
       "powerRankInAlliance": 80,
       "powerPercentileInAlliance": 0.6723,
-      "powerContributionRate": 0.00775,
-      "cumulativePowerContributionRate": 0.779486,
+      "powerContributionRate": 0.007741,
+      "cumulativePowerContributionRate": 0.779621,
       "activityScore": 90,
       "activityReasons": [
         "map_found",
@@ -4353,7 +4351,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 2.43
+      "lastLoginDaysAgo": 2.91
     },
     {
       "uid": "887309273610",
@@ -4376,8 +4374,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1728847376,
-      "lastShowTime": 1784152944,
-      "lastLogin": 1784152944,
+      "lastShowTime": 1784203726,
+      "lastLogin": 1784203726,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -4389,8 +4387,8 @@
       },
       "powerRankInAlliance": 81,
       "powerPercentileInAlliance": 0.6807,
-      "powerContributionRate": 0.007656,
-      "cumulativePowerContributionRate": 0.787142,
+      "powerContributionRate": 0.007648,
+      "cumulativePowerContributionRate": 0.787269,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4405,7 +4403,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.16
+      "lastLoginDaysAgo": 0.05
     },
     {
       "uid": "791075661860",
@@ -4418,8 +4416,8 @@
       "pointId": 343261,
       "pointType": 1,
       "level": 100,
-      "power": 55598991,
-      "armyPower": "1,740,025,403,205,971,400,000,000,000,000,000,000",
+      "power": 55604671,
+      "armyPower": "1,739,709,254,903,839,200,000,000,000,000,000,000",
       "armyPowerText": "1.74hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -4428,8 +4426,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1722094396,
-      "lastShowTime": 1784138418,
-      "lastLogin": 1784138418,
+      "lastShowTime": 1784206974,
+      "lastLogin": 1784206974,
       "language": "de",
       "nationalflag": 57,
       "gender": 0,
@@ -4441,8 +4439,8 @@
       },
       "powerRankInAlliance": 82,
       "powerPercentileInAlliance": 0.6891,
-      "powerContributionRate": 0.007592,
-      "cumulativePowerContributionRate": 0.794734,
+      "powerContributionRate": 0.007584,
+      "cumulativePowerContributionRate": 0.794854,
       "activityScore": 95,
       "activityReasons": [
         "map_found",
@@ -4457,7 +4455,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.33
+      "lastLoginDaysAgo": 0.01
     },
     {
       "uid": "388662781118",
@@ -4493,8 +4491,8 @@
       },
       "powerRankInAlliance": 83,
       "powerPercentileInAlliance": 0.6975,
-      "powerContributionRate": 0.007556,
-      "cumulativePowerContributionRate": 0.80229,
+      "powerContributionRate": 0.007548,
+      "cumulativePowerContributionRate": 0.802401,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4508,7 +4506,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.53
     },
     {
       "uid": "783799683105",
@@ -4531,8 +4529,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768757053,
-      "lastShowTime": 1784145857,
-      "lastLogin": 1784145857,
+      "lastShowTime": 1784207221,
+      "lastLogin": 1784207221,
       "language": "de",
       "nationalflag": 11,
       "gender": 0,
@@ -4544,8 +4542,8 @@
       },
       "powerRankInAlliance": 84,
       "powerPercentileInAlliance": 0.7059,
-      "powerContributionRate": 0.007516,
-      "cumulativePowerContributionRate": 0.809807,
+      "powerContributionRate": 0.007508,
+      "cumulativePowerContributionRate": 0.809909,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4559,7 +4557,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.24
+      "lastLoginDaysAgo": 0.01
     },
     {
       "uid": "887322106378",
@@ -4572,7 +4570,7 @@
       "pointId": 333528,
       "pointType": 1,
       "level": 100,
-      "power": 55001352,
+      "power": 55037682,
       "armyPower": "3,271,898,742,119,127,000,000,000,000,000,000,000",
       "armyPowerText": "3.27hh",
       "allianceId": "500148545",
@@ -4582,8 +4580,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744403460,
-      "lastShowTime": 1784137872,
-      "lastLogin": 1784137872,
+      "lastShowTime": 1784181833,
+      "lastLogin": 1784181833,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -4595,8 +4593,8 @@
       },
       "powerRankInAlliance": 85,
       "powerPercentileInAlliance": 0.7143,
-      "powerContributionRate": 0.00751,
-      "cumulativePowerContributionRate": 0.817317,
+      "powerContributionRate": 0.007507,
+      "cumulativePowerContributionRate": 0.817416,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4610,7 +4608,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.34
+      "lastLoginDaysAgo": 0.3
     },
     {
       "uid": "810896222356",
@@ -4623,7 +4621,7 @@
       "pointId": 338650,
       "pointType": 1,
       "level": 100,
-      "power": 54638940,
+      "power": 54641810,
       "armyPower": "2,068,816,080,755,216,600,000,000,000,000,000,000",
       "armyPowerText": "2.07hh",
       "allianceId": "500148545",
@@ -4633,8 +4631,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768041649,
-      "lastShowTime": 1784147634,
-      "lastLogin": 1784147634,
+      "lastShowTime": 1784180149,
+      "lastLogin": 1784180149,
       "language": "fr",
       "nationalflag": 75,
       "gender": 0,
@@ -4646,8 +4644,8 @@
       },
       "powerRankInAlliance": 86,
       "powerPercentileInAlliance": 0.7227,
-      "powerContributionRate": 0.007461,
-      "cumulativePowerContributionRate": 0.824778,
+      "powerContributionRate": 0.007453,
+      "cumulativePowerContributionRate": 0.82487,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4661,7 +4659,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.22
+      "lastLoginDaysAgo": 0.32
     },
     {
       "uid": "392026150093",
@@ -4697,8 +4695,8 @@
       },
       "powerRankInAlliance": 87,
       "powerPercentileInAlliance": 0.7311,
-      "powerContributionRate": 0.007123,
-      "cumulativePowerContributionRate": 0.831901,
+      "powerContributionRate": 0.007115,
+      "cumulativePowerContributionRate": 0.831985,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4712,7 +4710,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.2
+      "lastLoginDaysAgo": 0.67
     },
     {
       "uid": "783151999009",
@@ -4725,18 +4723,18 @@
       "pointId": 330458,
       "pointType": 1,
       "level": 100,
-      "power": 51762614,
-      "armyPower": "671,880,502,818,957,900,000,000,000,000,000,000",
-      "armyPowerText": "672gg",
+      "power": 51764174,
+      "armyPower": "678,677,691,314,802,600,000,000,000,000,000,000",
+      "armyPowerText": "679gg",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
       "allianceRole": 3,
       "rank": 3,
-      "isOnline": 0,
+      "isOnline": 1,
       "joinTime": 1768759136,
-      "lastShowTime": 1784101889,
-      "lastLogin": 1784101889,
+      "lastShowTime": 1784206363,
+      "lastLogin": 1784206363,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -4748,22 +4746,23 @@
       },
       "powerRankInAlliance": 88,
       "powerPercentileInAlliance": 0.7395,
-      "powerContributionRate": 0.007068,
-      "cumulativePowerContributionRate": 0.838969,
-      "activityScore": 70,
+      "powerContributionRate": 0.007061,
+      "cumulativePowerContributionRate": 0.839045,
+      "activityScore": 100,
       "activityReasons": [
         "map_found",
+        "online",
         "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
       ],
-      "activityGrade": "ACTIVE",
+      "activityGrade": "CORE",
       "userStatus": "ACTIVE",
       "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "online"
       ],
-      "lastLoginDaysAgo": 0.75
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "887127767562",
@@ -4799,8 +4798,8 @@
       },
       "powerRankInAlliance": 89,
       "powerPercentileInAlliance": 0.7479,
-      "powerContributionRate": 0.007056,
-      "cumulativePowerContributionRate": 0.846025,
+      "powerContributionRate": 0.007048,
+      "cumulativePowerContributionRate": 0.846094,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4814,7 +4813,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.36
+      "lastLoginDaysAgo": 0.84
     },
     {
       "uid": "847519516967",
@@ -4837,8 +4836,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1728238724,
-      "lastShowTime": 1784140311,
-      "lastLogin": 1784140311,
+      "lastShowTime": 1784206971,
+      "lastLogin": 1784206971,
       "language": "de",
       "nationalflag": 57,
       "gender": 0,
@@ -4850,8 +4849,8 @@
       },
       "powerRankInAlliance": 90,
       "powerPercentileInAlliance": 0.7563,
-      "powerContributionRate": 0.006899,
-      "cumulativePowerContributionRate": 0.852924,
+      "powerContributionRate": 0.006891,
+      "cumulativePowerContributionRate": 0.852985,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -4865,7 +4864,58 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.31
+      "lastLoginDaysAgo": 0.01
+    },
+    {
+      "uid": "405681431693",
+      "username": "Rex",
+      "nickname": "Rex",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 432,
+      "y": 676,
+      "pointId": 346329,
+      "pointType": 1,
+      "level": 100,
+      "power": 50326176,
+      "armyPower": "875,024,309,712,757,700,000,000,000,000,000,000",
+      "armyPowerText": "875gg",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1783274423,
+      "lastShowTime": 1784200191,
+      "lastLogin": 1784200191,
+      "language": "en",
+      "nationalflag": 233,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 2,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 91,
+      "powerPercentileInAlliance": 0.7647,
+      "powerContributionRate": 0.006864,
+      "cumulativePowerContributionRate": 0.859849,
+      "activityScore": 70,
+      "activityReasons": [
+        "map_found",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.09
     },
     {
       "uid": "930298616541",
@@ -4899,10 +4949,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 91,
-      "powerPercentileInAlliance": 0.7647,
-      "powerContributionRate": 0.006849,
-      "cumulativePowerContributionRate": 0.859773,
+      "powerRankInAlliance": 92,
+      "powerPercentileInAlliance": 0.7731,
+      "powerContributionRate": 0.006841,
+      "cumulativePowerContributionRate": 0.86669,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -4916,58 +4966,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 4.21
-    },
-    {
-      "uid": "405681431693",
-      "username": "Rex",
-      "nickname": "Rex",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 432,
-      "y": 676,
-      "pointId": 346329,
-      "pointType": 1,
-      "level": 100,
-      "power": 50084176,
-      "armyPower": "875,024,309,712,757,700,000,000,000,000,000,000",
-      "armyPowerText": "875gg",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1783274423,
-      "lastShowTime": 1784164039,
-      "lastLogin": 1784164039,
-      "language": "en",
-      "nationalflag": 233,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 2,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 92,
-      "powerPercentileInAlliance": 0.7731,
-      "powerContributionRate": 0.006839,
-      "cumulativePowerContributionRate": 0.866612,
-      "activityScore": 70,
-      "activityReasons": [
-        "map_found",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 4.69
     },
     {
       "uid": "886903417354",
@@ -4980,7 +4979,7 @@
       "pointId": 341211,
       "pointType": 1,
       "level": 100,
-      "power": 49798001,
+      "power": 49802801,
       "armyPower": "1,869,259,123,003,427,600,000,000,000,000,000,000",
       "armyPowerText": "1.87hh",
       "allianceId": "500148545",
@@ -4990,8 +4989,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744393538,
-      "lastShowTime": 1784160409,
-      "lastLogin": 1784160409,
+      "lastShowTime": 1784206473,
+      "lastLogin": 1784206473,
       "language": "en",
       "nationalflag": 77,
       "gender": 0,
@@ -5003,8 +5002,8 @@
       },
       "powerRankInAlliance": 93,
       "powerPercentileInAlliance": 0.7815,
-      "powerContributionRate": 0.0068,
-      "cumulativePowerContributionRate": 0.873412,
+      "powerContributionRate": 0.006793,
+      "cumulativePowerContributionRate": 0.873483,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5018,7 +5017,58 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0.02
+    },
+    {
+      "uid": "397931566329",
+      "username": "Bobby",
+      "nickname": "Bobby",
+      "serverId": 2373,
+      "worldId": 1,
+      "x": 430,
+      "y": 674,
+      "pointId": 345304,
+      "pointType": 1,
+      "level": 100,
+      "power": 49372186,
+      "armyPower": "1,350,439,015,858,610,000,000,000,000,000,000,000",
+      "armyPowerText": "1.35hh",
+      "allianceId": "500148545",
+      "allianceTag": "AFMH",
+      "allianceName": "Aftermaths",
+      "allianceRole": 3,
+      "rank": 3,
+      "isOnline": 0,
+      "joinTime": 1783274425,
+      "lastShowTime": 1784199764,
+      "lastLogin": 1784199764,
+      "language": "en",
+      "nationalflag": 233,
+      "gender": 0,
+      "usergender": 0,
+      "headFrameId": 2,
+      "source": {
+        "map": true,
+        "allianceMember": true
+      },
+      "powerRankInAlliance": 94,
+      "powerPercentileInAlliance": 0.7899,
+      "powerContributionRate": 0.006734,
+      "cumulativePowerContributionRate": 0.880218,
+      "activityScore": 70,
+      "activityReasons": [
+        "map_found",
+        "recent_login_1d",
+        "high_role",
+        "alliance_member_confirmed"
+      ],
+      "activityGrade": "ACTIVE",
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLoginWithin1Day"
+      ],
+      "lastLoginDaysAgo": 0.1
     },
     {
       "uid": "887241177610",
@@ -5052,10 +5102,10 @@
         "map": true,
         "allianceMember": true
       },
-      "powerRankInAlliance": 94,
-      "powerPercentileInAlliance": 0.7899,
-      "powerContributionRate": 0.006729,
-      "cumulativePowerContributionRate": 0.880141,
+      "powerRankInAlliance": 95,
+      "powerPercentileInAlliance": 0.7983,
+      "powerContributionRate": 0.006722,
+      "cumulativePowerContributionRate": 0.886939,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -5069,58 +5119,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 6.44
-    },
-    {
-      "uid": "397931566329",
-      "username": "Bobby",
-      "nickname": "Bobby",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 430,
-      "y": 674,
-      "pointId": 345304,
-      "pointType": 1,
-      "level": 100,
-      "power": 49251186,
-      "armyPower": "1,350,439,015,858,610,000,000,000,000,000,000,000",
-      "armyPowerText": "1.35hh",
-      "allianceId": "500148545",
-      "allianceTag": "AFMH",
-      "allianceName": "Aftermaths",
-      "allianceRole": 3,
-      "rank": 3,
-      "isOnline": 0,
-      "joinTime": 1783274425,
-      "lastShowTime": 1784164035,
-      "lastLogin": 1784164035,
-      "language": "en",
-      "nationalflag": 233,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 2,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 95,
-      "powerPercentileInAlliance": 0.7983,
-      "powerContributionRate": 0.006725,
-      "cumulativePowerContributionRate": 0.886866,
-      "activityScore": 70,
-      "activityReasons": [
-        "map_found",
-        "recent_login_1d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
-      "inactiveReasons": [
-        "lastLoginWithin1Day"
-      ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 6.91
     },
     {
       "uid": "910290762322",
@@ -5143,8 +5142,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744568621,
-      "lastShowTime": 1784158804,
-      "lastLogin": 1784158804,
+      "lastShowTime": 1784207748,
+      "lastLogin": 1784207748,
       "language": "en",
       "nationalflag": 212,
       "gender": 0,
@@ -5156,8 +5155,8 @@
       },
       "powerRankInAlliance": 96,
       "powerPercentileInAlliance": 0.8067,
-      "powerContributionRate": 0.006686,
-      "cumulativePowerContributionRate": 0.893552,
+      "powerContributionRate": 0.006678,
+      "cumulativePowerContributionRate": 0.893618,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5171,7 +5170,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.09
+      "lastLoginDaysAgo": 0
     },
     {
       "uid": "931487709919",
@@ -5207,8 +5206,8 @@
       },
       "powerRankInAlliance": 97,
       "powerPercentileInAlliance": 0.8151,
-      "powerContributionRate": 0.00638,
-      "cumulativePowerContributionRate": 0.899932,
+      "powerContributionRate": 0.006373,
+      "cumulativePowerContributionRate": 0.89999,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5222,7 +5221,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.17
+      "lastLoginDaysAgo": 0.65
     },
     {
       "uid": "866527373729",
@@ -5235,7 +5234,7 @@
       "pointId": 343769,
       "pointType": 1,
       "level": 100,
-      "power": 45111380,
+      "power": 45353380,
       "armyPower": "852,749,724,603,031,400,000,000,000,000,000,000",
       "armyPowerText": "853gg",
       "allianceId": "500148545",
@@ -5245,8 +5244,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1783274425,
-      "lastShowTime": 1784164034,
-      "lastLogin": 1784164034,
+      "lastShowTime": 1784199545,
+      "lastLogin": 1784199545,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5258,8 +5257,8 @@
       },
       "powerRankInAlliance": 98,
       "powerPercentileInAlliance": 0.8235,
-      "powerContributionRate": 0.00616,
-      "cumulativePowerContributionRate": 0.906092,
+      "powerContributionRate": 0.006186,
+      "cumulativePowerContributionRate": 0.906177,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5273,7 +5272,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.1
     },
     {
       "uid": "386545419435",
@@ -5296,8 +5295,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769100176,
-      "lastShowTime": 1784156765,
-      "lastLogin": 1784156765,
+      "lastShowTime": 1784186412,
+      "lastLogin": 1784186412,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5309,8 +5308,8 @@
       },
       "powerRankInAlliance": 99,
       "powerPercentileInAlliance": 0.8319,
-      "powerContributionRate": 0.006019,
-      "cumulativePowerContributionRate": 0.912111,
+      "powerContributionRate": 0.006013,
+      "cumulativePowerContributionRate": 0.912189,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5324,7 +5323,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.25
     },
     {
       "uid": "874688129480",
@@ -5337,7 +5336,7 @@
       "pointId": 341214,
       "pointType": 1,
       "level": 100,
-      "power": 41840643,
+      "power": 41870643,
       "armyPower": "747,347,514,202,438,900,000,000,000,000,000,000",
       "armyPowerText": "747gg",
       "allianceId": "500148545",
@@ -5347,8 +5346,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769268820,
-      "lastShowTime": 1784164153,
-      "lastLogin": 1784164153,
+      "lastShowTime": 1784189598,
+      "lastLogin": 1784189598,
       "language": "fr",
       "nationalflag": 38,
       "gender": 0,
@@ -5360,8 +5359,8 @@
       },
       "powerRankInAlliance": 100,
       "powerPercentileInAlliance": 0.8403,
-      "powerContributionRate": 0.005713,
-      "cumulativePowerContributionRate": 0.917825,
+      "powerContributionRate": 0.005711,
+      "cumulativePowerContributionRate": 0.917901,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5375,7 +5374,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.03
+      "lastLoginDaysAgo": 0.21
     },
     {
       "uid": "392183157965",
@@ -5411,22 +5410,22 @@
       },
       "powerRankInAlliance": 101,
       "powerPercentileInAlliance": 0.8487,
-      "powerContributionRate": 0.005632,
-      "cumulativePowerContributionRate": 0.923457,
-      "activityScore": 70,
+      "powerContributionRate": 0.005626,
+      "cumulativePowerContributionRate": 0.923527,
+      "activityScore": 65,
       "activityReasons": [
         "map_found",
-        "recent_login_1d",
+        "recent_login_3d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "ACTIVE",
-      "userStatus": "ACTIVE",
-      "inactiveScore": 0,
+      "userStatus": "RECENT",
+      "inactiveScore": 10,
       "inactiveReasons": [
-        "lastLoginWithin1Day"
+        "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 0.83
+      "lastLoginDaysAgo": 1.31
     },
     {
       "uid": "385397470376",
@@ -5439,7 +5438,7 @@
       "pointId": 342744,
       "pointType": 1,
       "level": 100,
-      "power": 39645187,
+      "power": 39650467,
       "armyPower": "1,334,872,515,527,303,300,000,000,000,000,000,000",
       "armyPowerText": "1.33hh",
       "allianceId": "500148545",
@@ -5449,8 +5448,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769242831,
-      "lastShowTime": 1784098995,
-      "lastLogin": 1784098995,
+      "lastShowTime": 1784180528,
+      "lastLogin": 1784180528,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5462,8 +5461,8 @@
       },
       "powerRankInAlliance": 102,
       "powerPercentileInAlliance": 0.8571,
-      "powerContributionRate": 0.005414,
-      "cumulativePowerContributionRate": 0.928871,
+      "powerContributionRate": 0.005408,
+      "cumulativePowerContributionRate": 0.928935,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5477,7 +5476,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.79
+      "lastLoginDaysAgo": 0.32
     },
     {
       "uid": "387037025467",
@@ -5500,8 +5499,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769112662,
-      "lastShowTime": 1784161730,
-      "lastLogin": 1784161730,
+      "lastShowTime": 1784179760,
+      "lastLogin": 1784179760,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5513,8 +5512,8 @@
       },
       "powerRankInAlliance": 103,
       "powerPercentileInAlliance": 0.8655,
-      "powerContributionRate": 0.005389,
-      "cumulativePowerContributionRate": 0.93426,
+      "powerContributionRate": 0.005383,
+      "cumulativePowerContributionRate": 0.934318,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5528,7 +5527,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.33
     },
     {
       "uid": "887162468874",
@@ -5541,7 +5540,7 @@
       "pointId": 338143,
       "pointType": 1,
       "level": 100,
-      "power": 37003663,
+      "power": 37003753,
       "armyPower": "1,311,380,681,622,368,700,000,000,000,000,000,000",
       "armyPowerText": "1.31hh",
       "allianceId": "500148545",
@@ -5551,8 +5550,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744395207,
-      "lastShowTime": 1784113837,
-      "lastLogin": 1784113837,
+      "lastShowTime": 1784199891,
+      "lastLogin": 1784199891,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5564,8 +5563,8 @@
       },
       "powerRankInAlliance": 104,
       "powerPercentileInAlliance": 0.8739,
-      "powerContributionRate": 0.005053,
-      "cumulativePowerContributionRate": 0.939313,
+      "powerContributionRate": 0.005047,
+      "cumulativePowerContributionRate": 0.939366,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5579,7 +5578,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.62
+      "lastLoginDaysAgo": 0.09
     },
     {
       "uid": "850654193989",
@@ -5593,8 +5592,8 @@
       "pointType": 1,
       "level": 100,
       "power": 36630671,
-      "armyPower": "783,312,071,536,705,500,000,000,000,000,000,000",
-      "armyPowerText": "783gg",
+      "armyPower": "799,023,179,966,784,900,000,000,000,000,000,000",
+      "armyPowerText": "799gg",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
       "allianceName": "Aftermaths",
@@ -5602,8 +5601,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1781389486,
-      "lastShowTime": 1784160416,
-      "lastLogin": 1784160416,
+      "lastShowTime": 1784193093,
+      "lastLogin": 1784193093,
       "language": "en",
       "nationalflag": 179,
       "gender": 0,
@@ -5615,8 +5614,8 @@
       },
       "powerRankInAlliance": 105,
       "powerPercentileInAlliance": 0.8824,
-      "powerContributionRate": 0.005002,
-      "cumulativePowerContributionRate": 0.944315,
+      "powerContributionRate": 0.004996,
+      "cumulativePowerContributionRate": 0.944362,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5630,7 +5629,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.08
+      "lastLoginDaysAgo": 0.17
     },
     {
       "uid": "388582167742",
@@ -5653,8 +5652,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1768514529,
-      "lastShowTime": 1784051282,
-      "lastLogin": 1784051282,
+      "lastShowTime": 1784180694,
+      "lastLogin": 1784180694,
       "language": "en",
       "nationalflag": 89,
       "gender": 0,
@@ -5666,22 +5665,22 @@
       },
       "powerRankInAlliance": 106,
       "powerPercentileInAlliance": 0.8908,
-      "powerContributionRate": 0.004996,
-      "cumulativePowerContributionRate": 0.949311,
-      "activityScore": 65,
+      "powerContributionRate": 0.004991,
+      "cumulativePowerContributionRate": 0.949353,
+      "activityScore": 70,
       "activityReasons": [
         "map_found",
-        "recent_login_3d",
+        "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "ACTIVE",
-      "userStatus": "RECENT",
-      "inactiveScore": 10,
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin3Days"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 1.34
+      "lastLoginDaysAgo": 0.32
     },
     {
       "uid": "886870145546",
@@ -5689,9 +5688,9 @@
       "nickname": "virion",
       "serverId": 2373,
       "worldId": 1,
-      "x": 648,
-      "y": 548,
-      "pointId": 280901,
+      "x": 445,
+      "y": 665,
+      "pointId": 340703,
       "pointType": 1,
       "level": 100,
       "power": 34579015,
@@ -5704,8 +5703,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1744542241,
-      "lastShowTime": 1783784899,
-      "lastLogin": 1783784899,
+      "lastShowTime": 1784205246,
+      "lastLogin": 1784205246,
       "language": "pl",
       "nationalflag": 179,
       "gender": 0,
@@ -5717,22 +5716,22 @@
       },
       "powerRankInAlliance": 107,
       "powerPercentileInAlliance": 0.8992,
-      "powerContributionRate": 0.004722,
-      "cumulativePowerContributionRate": 0.954033,
-      "activityScore": 55,
+      "powerContributionRate": 0.004717,
+      "cumulativePowerContributionRate": 0.954069,
+      "activityScore": 70,
       "activityReasons": [
         "map_found",
-        "recent_login_7d",
+        "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "ACTIVE",
-      "userStatus": "SLEEPY",
-      "inactiveScore": 35,
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin7Days"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 4.42
+      "lastLoginDaysAgo": 0.03
     },
     {
       "uid": "330912826152",
@@ -5768,8 +5767,8 @@
       },
       "powerRankInAlliance": 108,
       "powerPercentileInAlliance": 0.9076,
-      "powerContributionRate": 0.004615,
-      "cumulativePowerContributionRate": 0.958648,
+      "powerContributionRate": 0.00461,
+      "cumulativePowerContributionRate": 0.958679,
       "activityScore": 65,
       "activityReasons": [
         "map_found",
@@ -5783,7 +5782,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 2.05
+      "lastLoginDaysAgo": 2.52
     },
     {
       "uid": "783984576545",
@@ -5797,7 +5796,7 @@
       "pointType": 1,
       "level": 100,
       "power": 33736119,
-      "armyPower": "562,702,575,726,861,700,000,000,000,000,000,000",
+      "armyPower": "562,702,575,726,861,400,000,000,000,000,000,000",
       "armyPowerText": "563gg",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -5819,8 +5818,8 @@
       },
       "powerRankInAlliance": 109,
       "powerPercentileInAlliance": 0.916,
-      "powerContributionRate": 0.004607,
-      "cumulativePowerContributionRate": 0.963255,
+      "powerContributionRate": 0.004602,
+      "cumulativePowerContributionRate": 0.963281,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5834,7 +5833,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.01
+      "lastLoginDaysAgo": 0.48
     },
     {
       "uid": "350213747608",
@@ -5870,8 +5869,8 @@
       },
       "powerRankInAlliance": 110,
       "powerPercentileInAlliance": 0.9244,
-      "powerContributionRate": 0.00458,
-      "cumulativePowerContributionRate": 0.967835,
+      "powerContributionRate": 0.004575,
+      "cumulativePowerContributionRate": 0.967856,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5885,7 +5884,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.12
+      "lastLoginDaysAgo": 0.6
     },
     {
       "uid": "936744344304",
@@ -5899,7 +5898,7 @@
       "pointType": 1,
       "level": 100,
       "power": 33012647,
-      "armyPower": "1,206,342,426,988,684,000,000,000,000,000,000,000",
+      "armyPower": "1,207,306,679,310,187,600,000,000,000,000,000,000",
       "armyPowerText": "1.21hh",
       "allianceId": "500148545",
       "allianceTag": "AFMH",
@@ -5908,8 +5907,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1767468913,
-      "lastShowTime": 1784166842,
-      "lastLogin": 1784166842,
+      "lastShowTime": 1784206250,
+      "lastLogin": 1784206250,
       "language": "en",
       "nationalflag": 104,
       "gender": 0,
@@ -5921,8 +5920,8 @@
       },
       "powerRankInAlliance": 111,
       "powerPercentileInAlliance": 0.9328,
-      "powerContributionRate": 0.004508,
-      "cumulativePowerContributionRate": 0.972343,
+      "powerContributionRate": 0.004503,
+      "cumulativePowerContributionRate": 0.972359,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5936,7 +5935,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0
+      "lastLoginDaysAgo": 0.02
     },
     {
       "uid": "364478014444",
@@ -5949,7 +5948,7 @@
       "pointId": 340696,
       "pointType": 1,
       "level": 100,
-      "power": 32272798,
+      "power": 32273298,
       "armyPower": "2,571,836,663,491,411,800,000,000,000,000,000,000",
       "armyPowerText": "2.57hh",
       "allianceId": "500148545",
@@ -5959,8 +5958,8 @@
       "rank": 3,
       "isOnline": 0,
       "joinTime": 1769204299,
-      "lastShowTime": 1784161609,
-      "lastLogin": 1784161609,
+      "lastShowTime": 1784200402,
+      "lastLogin": 1784200402,
       "language": "en",
       "nationalflag": 233,
       "gender": 0,
@@ -5972,8 +5971,8 @@
       },
       "powerRankInAlliance": 112,
       "powerPercentileInAlliance": 0.9412,
-      "powerContributionRate": 0.004407,
-      "cumulativePowerContributionRate": 0.97675,
+      "powerContributionRate": 0.004402,
+      "cumulativePowerContributionRate": 0.976761,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -5987,7 +5986,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.06
+      "lastLoginDaysAgo": 0.09
     },
     {
       "uid": "387244352699",
@@ -6023,8 +6022,8 @@
       },
       "powerRankInAlliance": 113,
       "powerPercentileInAlliance": 0.9496,
-      "powerContributionRate": 0.004349,
-      "cumulativePowerContributionRate": 0.981099,
+      "powerContributionRate": 0.004344,
+      "cumulativePowerContributionRate": 0.981105,
       "activityScore": 65,
       "activityReasons": [
         "map_found",
@@ -6038,7 +6037,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 2.1
+      "lastLoginDaysAgo": 2.57
     },
     {
       "uid": "887033330186",
@@ -6074,8 +6073,8 @@
       },
       "powerRankInAlliance": 114,
       "powerPercentileInAlliance": 0.958,
-      "powerContributionRate": 0.004332,
-      "cumulativePowerContributionRate": 0.985431,
+      "powerContributionRate": 0.004327,
+      "cumulativePowerContributionRate": 0.985432,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -6089,7 +6088,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.09
+      "lastLoginDaysAgo": 0.56
     },
     {
       "uid": "784158984225",
@@ -6125,8 +6124,8 @@
       },
       "powerRankInAlliance": 115,
       "powerPercentileInAlliance": 0.9664,
-      "powerContributionRate": 0.004135,
-      "cumulativePowerContributionRate": 0.989566,
+      "powerContributionRate": 0.004131,
+      "cumulativePowerContributionRate": 0.989563,
       "activityScore": 55,
       "activityReasons": [
         "map_found",
@@ -6140,7 +6139,7 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 3.82
+      "lastLoginDaysAgo": 4.29
     },
     {
       "uid": "783560022049",
@@ -6153,7 +6152,7 @@
       "pointId": 346843,
       "pointType": 1,
       "level": 85,
-      "power": 28904261,
+      "power": 29012341,
       "armyPower": "7,989,956,618,149,615,000,000,000,000,000",
       "armyPowerText": "7.99ff",
       "allianceId": "500148545",
@@ -6163,8 +6162,8 @@
       "rank": 2,
       "isOnline": 0,
       "joinTime": 1770238162,
-      "lastShowTime": 1784061942,
-      "lastLogin": 1784061942,
+      "lastShowTime": 1784189511,
+      "lastLogin": 1784189511,
       "language": "fr",
       "nationalflag": 62,
       "gender": 0,
@@ -6176,22 +6175,22 @@
       },
       "powerRankInAlliance": 116,
       "powerPercentileInAlliance": 0.9748,
-      "powerContributionRate": 0.003947,
-      "cumulativePowerContributionRate": 0.993513,
-      "activityScore": 65,
+      "powerContributionRate": 0.003957,
+      "cumulativePowerContributionRate": 0.99352,
+      "activityScore": 70,
       "activityReasons": [
         "map_found",
-        "recent_login_3d",
+        "recent_login_1d",
         "high_role",
         "alliance_member_confirmed"
       ],
       "activityGrade": "ACTIVE",
-      "userStatus": "RECENT",
-      "inactiveScore": 10,
+      "userStatus": "ACTIVE",
+      "inactiveScore": 0,
       "inactiveReasons": [
-        "lastLoginWithin3Days"
+        "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 1.22
+      "lastLoginDaysAgo": 0.21
     },
     {
       "uid": "850473650501",
@@ -6242,7 +6241,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 1.94
+      "lastLoginDaysAgo": 2.42
     },
     {
       "uid": "851520596293",
@@ -6278,8 +6277,8 @@
       },
       "powerRankInAlliance": 117,
       "powerPercentileInAlliance": 0.9832,
-      "powerContributionRate": 0.00264,
-      "cumulativePowerContributionRate": 0.996153,
+      "powerContributionRate": 0.002637,
+      "cumulativePowerContributionRate": 0.996157,
       "activityScore": 70,
       "activityReasons": [
         "map_found",
@@ -6293,58 +6292,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.15
-    },
-    {
-      "uid": "850194815301",
-      "username": "carlos14",
-      "nickname": "carlos14",
-      "serverId": 2373,
-      "worldId": 1,
-      "x": 456,
-      "y": 798,
-      "pointId": 408805,
-      "pointType": 1,
-      "level": 85,
-      "power": 17349713,
-      "armyPower": "3,657,630,667,294,482,500,000,000,000,000",
-      "armyPowerText": "3.66ff",
-      "allianceId": "500148281",
-      "allianceTag": "SPN8",
-      "allianceName": "HISPANIA8",
-      "allianceRole": 1,
-      "rank": 1,
-      "isOnline": 0,
-      "joinTime": 1698797635,
-      "lastShowTime": 1783568417,
-      "lastLogin": 1783568417,
-      "language": "es",
-      "nationalflag": 157,
-      "gender": 0,
-      "usergender": 0,
-      "headFrameId": 1,
-      "source": {
-        "map": true,
-        "allianceMember": true
-      },
-      "powerRankInAlliance": 1,
-      "powerPercentileInAlliance": 1,
-      "powerContributionRate": 1,
-      "cumulativePowerContributionRate": 1,
-      "activityScore": 55,
-      "activityReasons": [
-        "map_found",
-        "recent_login_7d",
-        "high_role",
-        "alliance_member_confirmed"
-      ],
-      "activityGrade": "ACTIVE",
-      "userStatus": "SLEEPY",
-      "inactiveScore": 35,
-      "inactiveReasons": [
-        "lastLoginWithin7Days"
-      ],
-      "lastLoginDaysAgo": 6.93
+      "lastLoginDaysAgo": 0.63
     },
     {
       "uid": "851104344389",
@@ -6380,8 +6328,8 @@
       },
       "powerRankInAlliance": 118,
       "powerPercentileInAlliance": 0.9916,
-      "powerContributionRate": 0.002027,
-      "cumulativePowerContributionRate": 0.99818,
+      "powerContributionRate": 0.002024,
+      "cumulativePowerContributionRate": 0.998182,
       "activityScore": 65,
       "activityReasons": [
         "map_found",
@@ -6395,7 +6343,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 2.01
+      "lastLoginDaysAgo": 2.48
     },
     {
       "uid": "851131435333",
@@ -6431,7 +6379,7 @@
       },
       "powerRankInAlliance": 119,
       "powerPercentileInAlliance": 1,
-      "powerContributionRate": 0.00182,
+      "powerContributionRate": 0.001818,
       "cumulativePowerContributionRate": 1,
       "activityScore": 70,
       "activityReasons": [
@@ -6446,7 +6394,7 @@
       "inactiveReasons": [
         "lastLoginWithin1Day"
       ],
-      "lastLoginDaysAgo": 0.15
+      "lastLoginDaysAgo": 0.63
     },
     {
       "uid": "850728311109",
@@ -6497,7 +6445,7 @@
       "inactiveReasons": [
         "lastLoginWithin3Days"
       ],
-      "lastLoginDaysAgo": 2.26
+      "lastLoginDaysAgo": 2.73
     },
     {
       "uid": "851417991493",
@@ -6548,7 +6496,34 @@
       "inactiveReasons": [
         "lastLoginWithin7Days"
       ],
-      "lastLoginDaysAgo": 3.33
+      "lastLoginDaysAgo": 3.8
+    },
+    {
+      "uid": "851094661445",
+      "username": "wy.851094661445",
+      "serverId": 2373,
+      "worldId": 2373,
+      "x": 628,
+      "y": 216,
+      "pointId": 110907,
+      "pointType": 1,
+      "level": 5,
+      "power": 4475,
+      "armyPower": "35",
+      "armyPowerText": "35",
+      "language": "fr",
+      "nationalflag": 75,
+      "gender": 0,
+      "usergender": 0,
+      "source": {
+        "map": true
+      },
+      "userStatus": "UNKNOWN",
+      "inactiveScore": 0,
+      "inactiveReasons": [
+        "lastLogin_unknown"
+      ],
+      "lastLoginDaysAgo": null
     }
   ],
   "alliances": [
@@ -6560,23 +6535,23 @@
       "allianceName": "Aftermaths",
       "allianceLeader": "Starlord",
       "allianceLevel": 5,
-      "alliancePower": 9580000000,
-      "alliancePowerText": "9.58B",
+      "alliancePower": 9590000000,
+      "alliancePowerText": "9.59B",
       "allianceMemberCountShown": 169,
       "allianceMemberMax": 170,
       "allianceMemberText": "169/170",
       "serverId": 2373,
       "activitySummary": {
         "collectedMapMemberCount": 119,
-        "coreCount": 82,
-        "activeCount": 37,
+        "coreCount": 83,
+        "activeCount": 36,
         "watchCount": 0,
         "lowCount": 0,
         "activeTotalCount": 119,
-        "totalPower": 7323262591,
-        "corePowerSum": 5820046188,
-        "activePowerSum": 7323262591,
-        "corePowerRate": 0.794734,
+        "totalPower": 7331403821,
+        "corePowerSum": 5879157082,
+        "activePowerSum": 7331403821,
+        "corePowerRate": 0.801914,
         "activePowerRate": 1,
         "top20PowerCount": 23,
         "cumulative80PowerCount": 82,
@@ -6672,46 +6647,6 @@
         "powerRate_ignored_due_to_low_coverage"
       ],
       "coverageRate": 0.0625
-    },
-    {
-      "memberCount": 1,
-      "allianceId": "500148281",
-      "allianceTag": "SPN8",
-      "allianceCode": "SPN8",
-      "allianceName": "HISPANIA8",
-      "allianceLeader": "wy.850169420101",
-      "allianceLevel": 2,
-      "alliancePower": 27700000,
-      "alliancePowerText": "27.7M",
-      "allianceMemberCountShown": 50,
-      "allianceMemberMax": 60,
-      "allianceMemberText": "50/60",
-      "serverId": 2373,
-      "activitySummary": {
-        "collectedMapMemberCount": 1,
-        "coreCount": 0,
-        "activeCount": 1,
-        "watchCount": 0,
-        "lowCount": 0,
-        "activeTotalCount": 1,
-        "totalPower": 17349713,
-        "corePowerSum": 0,
-        "activePowerSum": 17349713,
-        "corePowerRate": 0,
-        "activePowerRate": 1,
-        "top20PowerCount": 0,
-        "cumulative80PowerCount": 0,
-        "shownMemberCount": 50,
-        "shownMemberMax": 60
-      },
-      "activeAllianceGrade": "INSUFFICIENT",
-      "activeAllianceScore": 0,
-      "activeAllianceReasons": [
-        "coverageRate=2%",
-        "coverageRate<10%",
-        "sample_too_small_for_alliance_grade"
-      ],
-      "coverageRate": 0.02
     },
     {
       "memberCount": 1,
