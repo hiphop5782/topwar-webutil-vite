@@ -1121,6 +1121,10 @@
         }
     },
     "LionDanceRanking": {
+        "datasets": {
+            "champion": "챔피언",
+            "season": "시즌 {{season}}"
+        },
         "common": {
             "alliance": "연맹",
             "power": "전투력",

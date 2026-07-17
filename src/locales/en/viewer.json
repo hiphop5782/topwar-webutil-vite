@@ -1121,6 +1121,10 @@
         }
     },
     "LionDanceRanking": {
+        "datasets": {
+            "champion": "Champion",
+            "season": "Season {{season}}"
+        },
         "common": {
             "alliance": "Alliance",
             "power": "Power",
