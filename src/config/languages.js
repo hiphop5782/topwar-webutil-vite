@@ -3,5 +3,5 @@ export const supportedLngs = [
     "en",
     "ja",
 ];
-
+ 
 export const defaultLng = "ko";
