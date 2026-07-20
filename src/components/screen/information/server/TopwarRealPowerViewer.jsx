@@ -447,6 +447,17 @@ export default function TopwarRealPowerViewer() {
         </div>
 
         {json !== null && (<>
+            <div className="mt-4 fs-3">
+                <div>
+                    이 데이터는 
+                    <span className="mx-4 badge text-bg-danger">{dayjs(json.exportedAt).fromNow()}</span>
+                    조사된 데이터입니다.
+                </div> 
+                <div className="fw-bold text-danger">
+                    최신 데이터가 아닐 수 있으니 주의를 요합니다.
+                </div>
+            </div>
+
             {agentLoading && (
                 <div className="alert alert-light border rounded-4 my-3">
                     <div className="d-flex align-items-center gap-2">
