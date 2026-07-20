@@ -9,7 +9,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "flag-icons/sass/flag-icons.scss";
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import AiEvaluationCard from "./AiEvaluationCard";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
@@ -449,12 +449,22 @@ export default function TopwarRealPowerViewer() {
         {json !== null && (<>
             <div className="mt-4 fs-3">
                 <div>
-                    이 데이터는 
-                    <span className="mx-4 badge text-bg-danger">{dayjs(json.exportedAt).fromNow()}</span>
-                    조사된 데이터입니다.
-                </div> 
+                    <Trans
+                        ns="viewer"
+                        i18nKey="TopwarRealPowerViewer.dataCollectedAt"
+                        values={{
+                            relativeTime: dayjs(json.exportedAt).fromNow()
+                        }}
+                        components={{
+                            time: (
+                                <span className="mx-2 badge text-bg-danger" />
+                            )
+                        }}
+                    />
+                </div>
+
                 <div className="fw-bold text-danger">
-                    최신 데이터가 아닐 수 있으니 주의를 요합니다.
+                    {t("TopwarRealPowerViewer.outdatedDataWarning")}
                 </div>
             </div>
 

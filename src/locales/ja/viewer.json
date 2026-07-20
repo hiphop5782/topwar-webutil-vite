@@ -45,6 +45,8 @@
         "btn-server-move": "サーバー移動履歴"
     },
     "TopwarRealPowerViewer": {
+        "dataCollectedAt": "このデータは<time>{{relativeTime}}</time>に調査されたものです。",
+        "outdatedDataWarning": "最新のデータではない可能性がありますので、ご注意ください。",
         "error-analyze-fail": "AI分析に失敗しました",
         "error-streaming-fail": "通信エラーが発生しました",
         "error-unknown": "不明なエラーが発生しました",

@@ -34,6 +34,8 @@
         "btn-server-move": "Server Transfer History"
     },
     "TopwarRealPowerViewer": {
+        "dataCollectedAt": "This data was collected <time>{{relativeTime}}</time>.",
+        "outdatedDataWarning": "This may not be the latest data. Please use it with caution.",
         "error-analyze-fail": "AI analysis failed.",
         "error-streaming-fail": "Streaming error.",
         "error-unknown": "Unknown error.",
