@@ -99,15 +99,105 @@
         "no-result": "No results found"
     },
     "TopwarPlayerDataViewer": {
-        "label-input": "Server",
-        "label-nickname": "Nickname",
-        "label-total": "Total Players",
-        "label-active": "Active Players",
-        "label-pause": "Inactive (7d+)",
-        "label-stop": "Inactive (30d+)",
-        "overlay-day7": "Inactive for 7+ days",
-        "overlay-day30": "Inactive for 30+ days",
-        "no-result": "No results found"
+        "meta": {
+            "title": "Top War Player Data Viewer | Progamer.info",
+            "description": "Search Top War players by server and nickname, then review combat-power rank, activity status, country distribution, and alliance information.",
+            "datasetName": "Top War Player Dataset"
+        },
+        "hero": {
+            "eyebrow": "Top War Data",
+            "title": "Player Data Viewer",
+            "description": "Search players by server number and nickname, and review combat-power rankings, recent-login activity status, country distribution, and alliance information."
+        },
+        "search": {
+            "kicker": "Find players",
+            "title": "Search Filters",
+            "serverLabel": "Server number",
+            "serverHelp": "Shows only players whose server number matches exactly.",
+            "serverPlaceholder": "Example: 3223",
+            "nicknameLabel": "Nickname",
+            "nicknameHelp": "Enter any part of a nickname for a contains search.",
+            "nicknamePlaceholder": "Example: KID",
+            "clear": "Clear filters",
+            "resultCount_one": "{{value}} player found.",
+            "resultCount_other": "{{value}} players found.",
+            "preparing": "Preparing player data."
+        },
+        "stats": {
+            "kicker": "Result summary",
+            "title": "Activity Status",
+            "total": "Total",
+            "active": "Active",
+            "pause": "Inactive",
+            "stop": "Long-term inactive",
+            "criteria": "Players who logged in within 7 days are active, 8–30 days are inactive, and more than 30 days are long-term inactive."
+        },
+        "nations": {
+            "kicker": "Country distribution",
+            "title": "Players by Country",
+            "empty": "No country statistics are available.",
+            "showMore": "Show {{value}} more countries",
+            "showLess": "Show fewer countries",
+            "countryCount": "{{value}} players"
+        },
+        "list": {
+            "kicker": "Player list",
+            "title": "Combat Power Ranking",
+            "rank": "Rank",
+            "player": "Player",
+            "power": "Power",
+            "server": "Server / Alliance"
+        },
+        "activity": {
+            "active": "Active",
+            "pause": "Inactive",
+            "stop": "Long-term inactive",
+            "unknown": "No login data"
+        },
+        "lastLogin": {
+            "today": "Logged in today",
+            "daysAgo_one": "Logged in {{value}} day ago",
+            "daysAgo_other": "Logged in {{value}} days ago",
+            "unknown": "Last-login information unavailable"
+        },
+        "loading": "Loading player data.",
+        "error": {
+            "title": "Player data could not be loaded.",
+            "description": "Check the network or data file and try again.",
+            "retry": "Try again"
+        },
+        "noResult": "No players match the current filters.",
+        "info": {
+            "search": {
+                "title": "Combined server and nickname search",
+                "description": "When both fields are entered, only players matching both conditions are shown. Search filters are stored in the URL, making the result easy to share."
+            },
+            "activity": {
+                "title": "Activity classification",
+                "description": "Activity status is calculated from the last-login timestamp stored in the dataset. It does not indicate whether a player is currently online."
+            },
+            "notice": {
+                "title": "About this dataset",
+                "description": "This page is an unofficial viewer for a stored dataset, not live game-server data. It may differ from the latest information shown in the game."
+            }
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "items": {
+                "realtime": {
+                    "question": "Is this data updated in real time?",
+                    "answer": "No. The page searches a player dataset stored by the site, so it may differ from the game's current state."
+                },
+                "search": {
+                    "question": "Can I search by server and nickname together?",
+                    "answer": "Yes. When both fields are entered, the viewer shows only players on that server whose nickname contains the entered text."
+                },
+                "rank": {
+                    "question": "Why does the rank remain the global rank after filtering?",
+                    "answer": "Rank is calculated from combat power across the full dataset before filters are applied. Search results are not ranked again."
+                }
+            }
+        }
     },
     "TopwarAllianceDataViewer": {
         "label-title": "Alliance Rankings",

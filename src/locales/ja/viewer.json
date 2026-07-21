@@ -99,15 +99,103 @@
         "card-recommand": "推奨運用方針"
     },
     "TopwarPlayerDataViewer": {
-        "label-input": "サーバー",
-        "label-nickname": "ニックネーム",
-        "label-total": "総プレイヤー数",
-        "label-active": "アクティブプレイヤー",
-        "label-pause": "未ログイン(7日以上)",
-        "label-stop": "未ログイン(30日以上)",
-        "overlay-day7": "7日以上ログインなし",
-        "overlay-day30": "30日以上ログインなし",
-        "no-result": "検索結果がありません"
+        "meta": {
+            "title": "Top War プレイヤーデータ検索 | Progamer.info",
+            "description": "Top Warのプレイヤーをサーバー番号とニックネームで検索し、戦力順位、活動状態、国別分布、連盟情報を確認できます。",
+            "datasetName": "Top War プレイヤーデータ"
+        },
+        "hero": {
+            "eyebrow": "Top War データ",
+            "title": "プレイヤーデータ検索",
+            "description": "サーバー番号とニックネームでプレイヤーを検索し、戦力順位、最終ログイン基準の活動状態、国別分布、連盟情報を確認できます。"
+        },
+        "search": {
+            "kicker": "プレイヤー検索",
+            "title": "検索条件",
+            "serverLabel": "サーバー番号",
+            "serverHelp": "サーバー番号が完全に一致するプレイヤーだけを表示します。",
+            "serverPlaceholder": "例：3223",
+            "nicknameLabel": "ニックネーム",
+            "nicknameHelp": "ニックネームの一部を入力して部分一致検索できます。",
+            "nicknamePlaceholder": "例：KID",
+            "clear": "検索をリセット",
+            "resultCount_other": "{{value}}人のプレイヤーが見つかりました。",
+            "preparing": "プレイヤーデータを準備しています。"
+        },
+        "stats": {
+            "kicker": "検索結果の概要",
+            "title": "活動状態",
+            "total": "合計",
+            "active": "活動中",
+            "pause": "休止中",
+            "stop": "長期未ログイン",
+            "criteria": "最終ログインから7日以内は活動中、8～30日は休止中、30日超は長期未ログインとして分類します。"
+        },
+        "nations": {
+            "kicker": "国別分布",
+            "title": "国別プレイヤー数",
+            "empty": "表示できる国別統計がありません。",
+            "showMore": "残り{{value}}か国を表示",
+            "showLess": "国一覧を折りたたむ",
+            "countryCount": "{{value}}人"
+        },
+        "list": {
+            "kicker": "プレイヤー一覧",
+            "title": "戦力ランキング",
+            "rank": "順位",
+            "player": "プレイヤー",
+            "power": "戦力",
+            "server": "サーバー・連盟"
+        },
+        "activity": {
+            "active": "活動中",
+            "pause": "休止中",
+            "stop": "長期未ログイン",
+            "unknown": "ログイン情報なし"
+        },
+        "lastLogin": {
+            "today": "本日ログイン",
+            "daysAgo_other": "{{value}}日前にログイン",
+            "unknown": "最終ログイン情報なし"
+        },
+        "loading": "プレイヤーデータを読み込んでいます。",
+        "error": {
+            "title": "データを読み込めませんでした。",
+            "description": "ネットワークまたはデータファイルを確認して、もう一度お試しください。",
+            "retry": "再読み込み"
+        },
+        "noResult": "検索条件に一致するプレイヤーはいません。",
+        "info": {
+            "search": {
+                "title": "サーバーとニックネームの同時検索",
+                "description": "両方を入力すると、2つの条件を同時に満たすプレイヤーだけが表示されます。検索条件はURLに保存されるため、結果を共有しやすくなります。"
+            },
+            "activity": {
+                "title": "活動状態の分類",
+                "description": "活動状態はデータに記録された最終ログイン時刻を基準に計算します。ゲーム内で現在オンラインかどうかを示すものではありません。"
+            },
+            "notice": {
+                "title": "データ利用について",
+                "description": "このページは保存済みデータセットを閲覧する非公式ツールであり、ゲームサーバーのリアルタイムデータではありません。ゲーム内の最新情報と異なる場合があります。"
+            }
+        },
+        "faq": {
+            "title": "よくある質問",
+            "items": {
+                "realtime": {
+                    "question": "このデータはリアルタイムで更新されますか？",
+                    "answer": "いいえ。サイトに保存されたプレイヤーデータセットを検索するため、ゲームの現在状態と異なる場合があります。"
+                },
+                "search": {
+                    "question": "サーバー番号とニックネームを同時に検索できますか？",
+                    "answer": "はい。両方を入力すると、そのサーバーに所属し、入力した文字をニックネームに含むプレイヤーだけが表示されます。"
+                },
+                "rank": {
+                    "question": "絞り込み後も全体順位が表示されるのはなぜですか？",
+                    "answer": "順位は絞り込み前に全データの戦力を基準として計算されます。検索結果内で順位を付け直すことはありません。"
+                }
+            }
+        }
     },
     "TopwarAllianceDataViewer": {
         "label-title": "連盟ランキング",

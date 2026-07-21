@@ -1,0 +1,1008 @@
+.topwar-player-viewer {
+    padding-bottom: 4rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.topwar-player-hero {
+    padding: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1.25rem;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(var(--bs-info-rgb), 0.16),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            rgba(var(--bs-primary-rgb), 0.13),
+            rgba(var(--bs-dark-rgb), 0.035)
+        );
+}
+
+.topwar-player-eyebrow,
+.topwar-section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--bs-primary);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.topwar-player-hero h1 {
+    margin: 0.55rem 0 1rem;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 900;
+    line-height: 1.12;
+}
+
+.topwar-player-hero p {
+    max-width: 820px;
+    margin: 0;
+    color: var(--bs-secondary-color);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.topwar-search-panel,
+.topwar-stat-section,
+.topwar-nation-section,
+.topwar-list-section,
+.topwar-info-card,
+.topwar-player-faq {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1rem;
+    background: var(--bs-body-bg);
+    box-shadow: 0 0.55rem 1.6rem rgba(0, 0, 0, 0.055);
+}
+
+.topwar-search-panel,
+.topwar-stat-section,
+.topwar-nation-section,
+.topwar-list-section,
+.topwar-player-faq {
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    margin-bottom: 1.5rem;
+}
+
+.topwar-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.topwar-section-heading h2 {
+    margin: 0.25rem 0 0;
+    font-size: 1.35rem;
+    font-weight: 900;
+}
+
+.topwar-search-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.topwar-search-field {
+    display: block;
+    margin: 0;
+}
+
+.topwar-search-field > span {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.2rem;
+    font-weight: 800;
+}
+
+.topwar-search-field > small {
+    display: block;
+    min-height: 1.3rem;
+    margin-bottom: 0.45rem;
+    color: var(--bs-secondary-color);
+    line-height: 1.45;
+}
+
+.topwar-search-result {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(var(--bs-primary-rgb), 0.26);
+    border-radius: 0.75rem;
+    color: var(--bs-primary-text-emphasis);
+    background: rgba(var(--bs-primary-rgb), 0.07);
+    font-weight: 800;
+}
+
+.topwar-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.topwar-stat-card {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.9rem;
+    background: var(--bs-tertiary-bg);
+}
+
+.topwar-stat-icon {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    margin-bottom: 0.8rem;
+    place-items: center;
+    border-radius: 0.7rem;
+    background: rgba(var(--bs-secondary-rgb), 0.12);
+}
+
+.topwar-stat-card > span {
+    display: block;
+    color: var(--bs-secondary-color);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.topwar-stat-card > strong {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: clamp(1.65rem, 4vw, 2.35rem);
+    line-height: 1;
+}
+
+.topwar-stat-card.is-active {
+    border-color: rgba(var(--bs-info-rgb), 0.5);
+}
+
+.topwar-stat-card.is-active .topwar-stat-icon,
+.topwar-stat-card.is-active > strong {
+    color: var(--bs-info);
+}
+
+.topwar-stat-card.is-pause {
+    border-color: rgba(var(--bs-warning-rgb), 0.55);
+}
+
+.topwar-stat-card.is-pause .topwar-stat-icon,
+.topwar-stat-card.is-pause > strong {
+    color: var(--bs-warning-text-emphasis);
+}
+
+.topwar-stat-card.is-stop {
+    border-color: rgba(var(--bs-danger-rgb), 0.5);
+}
+
+.topwar-stat-card.is-stop .topwar-stat-icon,
+.topwar-stat-card.is-stop > strong {
+    color: var(--bs-danger);
+}
+
+.topwar-stat-card.is-stop > span {
+    color: var(--bs-danger-text-emphasis);
+    font-weight: 900;
+}
+
+.topwar-stat-note {
+    margin: 0.9rem 0 0;
+    color: var(--bs-secondary-color);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.topwar-nation-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+}
+
+.topwar-nation-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    min-width: 0;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.8rem;
+    background: var(--bs-tertiary-bg);
+}
+
+/*
+ * 이전 JSX의 국가 코드 요소가 남아 있어도 표시하지 않는다.
+ * 새 JSX에는 이 요소 자체가 없다.
+ */
+.topwar-nation-card .topwar-nation-name {
+    display: none !important;
+}
+
+.topwar-nation-flag {
+    display: grid;
+    flex: 0 0 2rem;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 0.45rem;
+    font-size: 1.35rem;
+}
+
+.topwar-nation-flag .fi {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+.topwar-nation-card strong {
+    flex: 0 0 auto;
+    min-width: 4.75rem;
+    color: var(--bs-body-color);
+    font-size: 0.9rem;
+    font-weight: 900;
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.topwar-player-table-header,
+.topwar-player-row {
+    display: grid;
+    grid-template-columns:
+        minmax(66px, 0.55fr)
+        minmax(190px, 2.1fr)
+        minmax(100px, 0.9fr)
+        minmax(130px, 1.1fr);
+    align-items: center;
+}
+
+.topwar-player-table-header {
+    position: relative;
+    z-index: 2;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-bottom: 0;
+    border-radius: 0.8rem 0.8rem 0 0;
+    color: var(--bs-secondary-color);
+    background: var(--bs-tertiary-bg);
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.topwar-player-virtuoso {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0 0 0.8rem 0.8rem;
+    background: var(--bs-body-bg);
+}
+
+.topwar-player-row {
+    min-height: 64px;
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+    transition:
+        background-color 0.14s ease,
+        opacity 0.14s ease;
+}
+
+.topwar-player-row:hover {
+    background: var(--bs-tertiary-bg);
+}
+
+.topwar-player-row.is-pause {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(var(--bs-warning-rgb), 0.08),
+            transparent 32%
+        );
+}
+
+.topwar-player-row.is-stop {
+    border-left: 4px solid var(--bs-danger);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(var(--bs-danger-rgb), 0.16),
+            rgba(var(--bs-danger-rgb), 0.04) 46%,
+            transparent 78%
+        );
+}
+
+.topwar-player-rank span {
+    display: inline-grid;
+    min-width: 2.3rem;
+    height: 2rem;
+    padding-inline: 0.45rem;
+    place-items: center;
+    border-radius: 0.6rem;
+    color: #fff;
+    background: var(--bs-primary);
+    font-size: 0.82rem;
+    font-weight: 900;
+}
+
+.topwar-player-identity {
+    min-width: 0;
+}
+
+.topwar-player-name-line {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+}
+
+.topwar-player-name-line .fi {
+    flex: 0 0 auto;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 0.25rem;
+}
+
+.topwar-player-name-line strong {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.topwar-player-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.55rem;
+    min-width: 0;
+    margin-top: 0.25rem;
+    color: var(--bs-secondary-color);
+    font-size: 0.72rem;
+}
+
+.topwar-activity-badge {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    min-height: 1.45rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-weight: 900;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.topwar-activity-badge.is-active {
+    color: var(--bs-info-text-emphasis);
+    background: rgba(var(--bs-info-rgb), 0.15);
+}
+
+.topwar-activity-badge.is-pause {
+    color: var(--bs-warning-text-emphasis);
+    background: rgba(var(--bs-warning-rgb), 0.18);
+}
+
+.topwar-activity-badge.is-stop {
+    border-color: var(--bs-danger);
+    color: #fff;
+    background: var(--bs-danger);
+    box-shadow: 0 0 0 2px rgba(var(--bs-danger-rgb), 0.12);
+}
+
+.topwar-activity-badge.is-unknown {
+    color: var(--bs-secondary-color);
+    background: var(--bs-tertiary-bg);
+}
+
+.topwar-player-power,
+.topwar-player-server {
+    min-width: 0;
+}
+
+.topwar-player-power small,
+.topwar-player-server small {
+    display: none;
+    color: var(--bs-secondary-color);
+    font-size: 0.68rem;
+}
+
+.topwar-player-power strong {
+    color: var(--bs-body-color);
+}
+
+.topwar-player-server {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "alliance server";
+    align-items: center;
+    column-gap: 0.55rem;
+    min-width: 0;
+}
+
+.topwar-player-alliance {
+    grid-area: alliance;
+    min-width: 0;
+    max-width: 7rem;
+    overflow: hidden;
+    justify-self: end;
+    color: var(--bs-danger);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.topwar-player-server-number {
+    grid-area: server;
+    justify-self: end;
+    color: var(--bs-info);
+    white-space: nowrap;
+}
+
+.topwar-loading,
+.topwar-error-state,
+.topwar-empty-state {
+    display: flex;
+    min-height: 220px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 2rem 1rem;
+    border: 1px dashed var(--bs-border-color);
+    border-radius: 0.8rem;
+    color: var(--bs-secondary-color);
+    text-align: center;
+}
+
+.topwar-loading p,
+.topwar-error-state p,
+.topwar-empty-state p {
+    max-width: 640px;
+    margin: 0;
+    line-height: 1.7;
+}
+
+.topwar-error-state > svg,
+.topwar-empty-icon {
+    color: var(--bs-primary);
+    font-size: 2rem;
+}
+
+.topwar-error-state h3 {
+    margin: 0;
+    color: var(--bs-body-color);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.topwar-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.topwar-info-card {
+    padding: 1.25rem;
+}
+
+.topwar-info-card h2,
+.topwar-player-faq h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.topwar-info-card p,
+.topwar-player-faq p {
+    margin: 0;
+    color: var(--bs-secondary-color);
+    line-height: 1.75;
+}
+
+.topwar-player-faq details {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.topwar-player-faq details:last-child {
+    border-bottom: 0;
+}
+
+.topwar-player-faq summary {
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.topwar-player-faq details p {
+    margin-top: 0.75rem;
+}
+
+@media (max-width: 991.98px) {
+    .topwar-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .topwar-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .topwar-player-table-header {
+        display: none;
+    }
+
+    .topwar-player-virtuoso {
+        border-radius: 0.8rem;
+    }
+
+    .topwar-player-row {
+        grid-template-columns:
+            3rem minmax(0, 1fr) auto;
+        grid-template-areas:
+            "rank player power"
+            "rank player server";
+        gap: 0.2rem 0.65rem;
+        min-height: 78px;
+        padding: 0.7rem 0.75rem;
+    }
+
+    .topwar-player-rank {
+        grid-area: rank;
+    }
+
+    .topwar-player-identity {
+        grid-area: player;
+    }
+
+    .topwar-player-power {
+        grid-area: power;
+        text-align: right;
+    }
+
+    .topwar-player-server {
+        grid-area: server;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "label"
+            "server";
+        justify-items: end;
+    }
+
+    .topwar-player-server small {
+        grid-area: label;
+    }
+
+    .topwar-player-server-number {
+        grid-area: server;
+    }
+
+    .topwar-player-power small,
+    .topwar-player-server small {
+        display: block;
+    }
+
+    .topwar-player-alliance {
+        display: none;
+    }
+
+    .topwar-player-meta {
+        align-items: flex-start;
+    }
+
+    .topwar-player-meta > span:last-child {
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .topwar-player-hero {
+        padding: 1.25rem;
+    }
+
+    .topwar-player-hero h1 {
+        font-size: 1.9rem;
+    }
+
+    .topwar-section-heading {
+        flex-direction: column;
+    }
+
+    .topwar-search-grid,
+    .topwar-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topwar-search-field > small {
+        min-height: 0;
+    }
+
+    .topwar-nation-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+        gap: 0.6rem;
+    }
+
+    .topwar-nation-card {
+        gap: 0.45rem;
+        padding-inline: 0.6rem;
+    }
+
+    .topwar-nation-card strong {
+        min-width: 0;
+        font-size: 0.78rem;
+    }
+
+    .topwar-player-row {
+        grid-template-columns:
+            2.65rem minmax(0, 1fr) auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .topwar-player-row {
+        transition: none;
+    }
+}
+
+/* =========================================================
+   플레이어 목록 전용 Container Query
+   화면 너비가 아니라 .topwar-list-section의 실제 너비를 기준으로 변경
+   ========================================================= */
+
+.topwar-list-section {
+    container-name: topwar-player-list;
+    container-type: inline-size;
+}
+
+@container topwar-player-list (max-width: 700px) {
+    .topwar-player-table-header {
+        display: none;
+    }
+
+    .topwar-player-virtuoso {
+        border-radius: 0.8rem;
+    }
+
+    .topwar-player-row {
+        grid-template-columns:
+            3rem minmax(0, 1fr) minmax(72px, auto);
+        grid-template-areas:
+            "rank player power"
+            "rank player server";
+        gap: 0.25rem 0.7rem;
+        min-height: 82px;
+        padding: 0.75rem;
+    }
+
+    .topwar-player-rank {
+        grid-area: rank;
+        align-self: center;
+    }
+
+    .topwar-player-identity {
+        grid-area: player;
+        align-self: center;
+    }
+
+    .topwar-player-power {
+        grid-area: power;
+        align-self: end;
+        text-align: right;
+    }
+
+    .topwar-player-server {
+        grid-area: server;
+        align-self: start;
+        justify-content: flex-end;
+    }
+
+    .topwar-player-power small,
+    .topwar-player-server small {
+        display: block;
+    }
+
+    .topwar-player-alliance {
+        display: none;
+    }
+
+    .topwar-player-meta {
+        align-items: flex-start;
+    }
+
+    .topwar-player-meta > span:last-child {
+        flex-basis: 100%;
+    }
+}
+
+@container topwar-player-list (max-width: 480px) {
+    .topwar-player-row {
+        grid-template-columns:
+            2.6rem minmax(0, 1fr) minmax(64px, auto);
+        gap: 0.2rem 0.5rem;
+        padding: 0.65rem;
+    }
+
+    .topwar-player-rank span {
+        min-width: 2rem;
+        height: 1.85rem;
+        padding-inline: 0.35rem;
+        font-size: 0.75rem;
+    }
+
+    .topwar-player-name-line {
+        gap: 0.4rem;
+    }
+
+    .topwar-player-name-line .fi {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .topwar-player-power strong,
+    .topwar-player-server strong {
+        font-size: 0.86rem;
+    }
+
+    .topwar-player-meta {
+        font-size: 0.67rem;
+    }
+
+    .topwar-activity-badge {
+        max-width: 100%;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
+/* =========================================================
+   가상 스크롤 고밀도 표시 모드
+   한 화면에 더 많은 플레이어가 보이도록 행과 헤더를 압축한다.
+   ========================================================= */
+
+.topwar-player-table-header {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.74rem;
+}
+
+.topwar-player-row {
+    min-height: 46px;
+    padding: 0.28rem 0.75rem;
+}
+
+.topwar-player-rank span {
+    min-width: 2rem;
+    height: 1.55rem;
+    padding-inline: 0.35rem;
+    border-radius: 0.45rem;
+    font-size: 0.72rem;
+}
+
+.topwar-player-name-line {
+    gap: 0.4rem;
+    line-height: 1.05;
+}
+
+.topwar-player-name-line .fi {
+    width: 1.05rem;
+    height: 1.05rem;
+    border-radius: 0.2rem;
+}
+
+.topwar-player-name-line strong {
+    font-size: 0.86rem;
+}
+
+.topwar-player-meta {
+    flex-wrap: nowrap;
+    gap: 0.25rem 0.4rem;
+    margin-top: 0.08rem;
+    overflow: hidden;
+    font-size: 0.63rem;
+    line-height: 1.05;
+    white-space: nowrap;
+}
+
+.topwar-player-meta > span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topwar-activity-badge {
+    min-height: 1.15rem;
+    padding: 0.1rem 0.38rem;
+    border-radius: 999px;
+    font-size: 0.62rem;
+}
+
+.topwar-player-power strong,
+.topwar-player-server-number {
+    font-size: 0.82rem;
+    line-height: 1;
+}
+
+.topwar-player-alliance {
+    max-width: 6rem;
+    font-size: 0.68rem;
+}
+
+.topwar-player-server {
+    column-gap: 0.35rem;
+}
+
+/* 목록 컨테이너가 700px 이하일 때도 지나치게 높아지지 않도록 압축 */
+@container topwar-player-list (max-width: 700px) {
+    .topwar-player-row {
+        grid-template-columns:
+            2.65rem minmax(0, 1fr) minmax(68px, auto);
+        gap: 0.1rem 0.5rem;
+        min-height: 60px;
+        padding: 0.38rem 0.55rem;
+    }
+
+    .topwar-player-rank span {
+        min-width: 1.9rem;
+        height: 1.5rem;
+        font-size: 0.68rem;
+    }
+
+    .topwar-player-power small,
+    .topwar-player-server small {
+        font-size: 0.58rem;
+        line-height: 1;
+    }
+
+    .topwar-player-power strong,
+    .topwar-player-server-number {
+        font-size: 0.78rem;
+    }
+
+    .topwar-player-meta {
+        flex-wrap: nowrap;
+        align-items: center;
+        font-size: 0.6rem;
+    }
+
+    .topwar-player-meta > span:last-child {
+        flex-basis: auto;
+    }
+
+    .topwar-activity-badge {
+        min-height: 1.1rem;
+        padding: 0.08rem 0.32rem;
+        font-size: 0.58rem;
+        white-space: nowrap;
+    }
+}
+
+@container topwar-player-list (max-width: 480px) {
+    .topwar-player-row {
+        grid-template-columns:
+            2.35rem minmax(0, 1fr) minmax(62px, auto);
+        gap: 0.08rem 0.4rem;
+        min-height: 56px;
+        padding: 0.32rem 0.45rem;
+    }
+
+    .topwar-player-rank span {
+        min-width: 1.75rem;
+        height: 1.4rem;
+        padding-inline: 0.25rem;
+        font-size: 0.64rem;
+    }
+
+    .topwar-player-name-line {
+        gap: 0.3rem;
+    }
+
+    .topwar-player-name-line .fi {
+        width: 0.95rem;
+        height: 0.95rem;
+    }
+
+    .topwar-player-name-line strong {
+        font-size: 0.8rem;
+    }
+
+    .topwar-player-meta {
+        font-size: 0.56rem;
+    }
+
+    .topwar-activity-badge {
+        max-width: none;
+        font-size: 0.54rem;
+        white-space: nowrap;
+    }
+
+    .topwar-player-power strong,
+    .topwar-player-server-number {
+        font-size: 0.72rem;
+    }
+}
+
+/* =========================================================
+   v9: 좁은 목록에서도 길드 태그 표시
+   - 1행: 길드 태그
+   - 2행: 서버 번호
+   - 길드가 없어도 서버 번호 위치는 동일
+   ========================================================= */
+
+@container topwar-player-list (max-width: 700px) {
+    .topwar-player-server {
+        grid-area: server;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: 0.8rem 0.9rem;
+        grid-template-areas:
+            "alliance"
+            "server";
+        align-self: center;
+        align-content: center;
+        justify-items: end;
+        row-gap: 0.1rem;
+        min-width: 68px;
+    }
+
+    /* 좁은 카드에서는 Server 라벨보다 실제 길드 정보가 더 중요하다. */
+    .topwar-player-server small {
+        display: none;
+    }
+
+    .topwar-player-alliance {
+        display: block;
+        grid-area: alliance;
+        justify-self: end;
+        width: 100%;
+        max-width: 5.5rem;
+        overflow: hidden;
+        color: var(--bs-danger);
+        font-size: 0.58rem;
+        font-weight: 800;
+        line-height: 0.8rem;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .topwar-player-server-number {
+        display: block;
+        grid-area: server;
+        justify-self: end;
+        font-size: 0.76rem;
+        line-height: 0.9rem;
+        white-space: nowrap;
+    }
+}
+
+@container topwar-player-list (max-width: 480px) {
+    .topwar-player-server {
+        grid-template-rows: 0.72rem 0.82rem;
+        min-width: 62px;
+        row-gap: 0.06rem;
+    }
+
+    .topwar-player-alliance {
+        max-width: 4.5rem;
+        font-size: 0.52rem;
+        line-height: 0.72rem;
+    }
+
+    .topwar-player-server-number {
+        font-size: 0.69rem;
+        line-height: 0.82rem;
+    }
+}
