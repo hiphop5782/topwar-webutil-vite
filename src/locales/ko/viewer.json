@@ -1382,5 +1382,101 @@
             "times": "회",
             "points": "점"
         }
+    },
+    "eternalLandScore": {
+        "meta": {
+            "title": "Top War 영원의 땅 시설 점수 지도 | Progamer.info",
+            "description": "Top War 영원의 땅 지도에서 점령 시설을 선택하고 분당, 시간당, 일일 예상 점수를 계산할 수 있는 비공식 도구입니다.",
+            "applicationName": "Top War 영원의 땅 시설 점수 지도"
+        },
+        "hero": {
+            "eyebrow": "Top War 영원의 땅",
+            "title": "영원의 땅 시설 점수 지도",
+            "description": "지도 위 시설을 선택하면 점령 중 획득할 수 있는 분당·시간당·일일 예상 점수를 한 번에 계산합니다. 여러 시설을 동시에 선택해 연합의 전체 점수 생산량도 비교할 수 있습니다."
+        },
+        "guide": {
+            "ariaLabel": "지도 사용 안내",
+            "title": "지도 사용 방법",
+            "description": "마름모 표시 위에 마우스를 올리거나 키보드로 포커스하면 시설 정보를 확인할 수 있습니다. 표시를 누르면 해당 시설이 합계에 추가됩니다."
+        },
+        "map": {
+            "title": "시설 선택 지도",
+            "description": "빛나는 표시가 현재 선택된 시설입니다.",
+            "reset": "선택 초기화",
+            "mobileHint": "지도를 좌우로 밀어서 시설을 확인하세요.",
+            "scrollAria": "영원의 땅 지도입니다. 모바일에서는 좌우로 스크롤할 수 있습니다.",
+            "imageAlt": "Top War 영원의 땅 시설 위치가 표시된 전체 지도",
+            "markerAria": "{{name}}, 분당 {{score}}점"
+        },
+        "live": {
+            "selectedLabel": "선택 시설",
+            "minuteTotal": "분당 합계"
+        },
+        "tooltip": {
+            "perMinute": "1분당",
+            "perHour": "1시간당",
+            "perDay": "1일당"
+        },
+        "summary": {
+            "title": "선택 시설 점수 합계",
+            "selectedCount_other": "현재 {{count}}개 시설이 선택되었습니다.",
+            "minuteScore": "1분 예상 점수",
+            "hourScore": "1시간 예상 점수",
+            "dayScore": "1일 예상 점수"
+        },
+        "selectedList": {
+            "title": "선택한 시설",
+            "empty": "지도에서 시설을 선택하면 이곳에 시설명과 분당 점수가 표시됩니다.",
+            "perMinuteScore": "분당 {{score}}점"
+        },
+        "calculatorLink": {
+            "before": "더 세부적인 점령 시간과 목표 점수 계산은",
+            "label": "영원의 땅 점수 계산기",
+            "after": "에서 확인하세요."
+        },
+        "info": {
+            "ariaLabel": "점수 계산 안내",
+            "calculation": {
+                "title": "점수 계산 기준",
+                "description1": "시설별 기본 분당 점수를 기준으로 시간당 점수는 60배, 일일 점수는 1,440배로 계산합니다.",
+                "description2": "계산 결과는 선택한 시설을 해당 시간 동안 계속 점령한다고 가정한 단순 예상치입니다."
+            },
+            "caution": {
+                "title": "결과 확인 시 주의사항",
+                "description1": "실제 획득 점수는 점령 시작 시각, 시설 상실, 서버 진행 상황, 이벤트 규칙 변경 등에 따라 달라질 수 있습니다.",
+                "description2": "게임 업데이트 이후 수치가 달라졌다면 사이트 문의 기능으로 알려주세요."
+            }
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "multiple": {
+                "question": "여러 시설을 동시에 선택할 수 있나요?",
+                "answer": "가능합니다. 지도에서 시설 표시를 차례로 누르면 선택한 모든 시설의 점수가 자동으로 합산됩니다."
+            },
+            "daily": {
+                "question": "표시된 일일 점수를 실제로 모두 얻나요?",
+                "answer": "일일 점수는 24시간 동안 시설을 계속 점령한다는 가정으로 계산한 값입니다. 점령 시간이 짧거나 시설을 빼앗기면 실제 점수는 더 적습니다."
+            },
+            "location": {
+                "question": "지도와 게임 화면의 시설 위치가 다른 경우는 어떻게 하나요?",
+                "answer": "영원의 땅 시즌 또는 게임 업데이트에 따라 배치와 수치가 변경될 수 있습니다. 최신 게임 화면을 우선 기준으로 확인해 주세요."
+            }
+        },
+        "units": {
+            "facilityCount_other": "{{count}}개",
+            "pointValue": "{{value}}점",
+            "points": "점"
+        },
+        "facilities": {}
+    },
+    "eternalLand": {
+        "title": "영원의 땅(EL)",
+        "description": "8개의 서버가 모여 영역 전쟁을 벌이고 왕중왕을 가립니다.",
+        "navigationAria": "영원의 땅 메뉴",
+        "menu": {
+            "mapAndScore": "지도 및 점수",
+            "darkforceScore": "암흑 점수 계산",
+            "occupationScore": "점령 점수 계산"
+        }
     }
 }

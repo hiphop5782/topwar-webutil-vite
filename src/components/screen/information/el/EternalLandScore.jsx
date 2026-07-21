@@ -2,6 +2,7 @@ import ELmap from "@src/assets/images/el-map.jpg";
 import Buildings from "@src/assets/json/el/buildings.json";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 import {
     FaAsterisk,
     FaCircleInfo,
@@ -20,13 +21,25 @@ import {
 import "./EternalLandScore.css";
 
 const createFacilities = () =>
-    Buildings.map((building, index) => ({
-        ...building,
-        id: building.id ?? `${building.name}-${index}`,
-        selected: false
-    }));
+    Buildings.map((building, index) => {
+        const i18nKey =
+            building.i18nKey ??
+            building.key ??
+            building.code ??
+            building.id ??
+            `facility-${index}`;
+
+        return {
+            ...building,
+            id: building.id ?? `${i18nKey}-${index}`,
+            i18nKey,
+            selected: false
+        };
+    });
 
 export default function EternalLandScore() {
+    const { t, i18n } = useTranslation("viewer");
+
     const mapRef = useRef(null);
 
     const [mapWidth, setMapWidth] = useState(0);
@@ -34,15 +47,33 @@ export default function EternalLandScore() {
     const [activeObject, setActiveObject] = useState(null);
     const [facilities, setFacilities] = useState(createFacilities);
 
+    const locale =
+        i18n.resolvedLanguage ??
+        i18n.language ??
+        "ko";
+
+    const languageCode = locale.split("-")[0];
+
     const numberFormatter = useMemo(
-        () => new Intl.NumberFormat("ko-KR"),
-        []
+        () => new Intl.NumberFormat(locale),
+        [locale]
+    );
+
+    const getFacilityName = useCallback(
+        (facility) =>
+            t(
+                `eternalLandScore.facilities.${facility.i18nKey}`,
+                {
+                    defaultValue: facility.name
+                }
+            ),
+        [t]
     );
 
     const canonicalUrl =
         typeof window !== "undefined"
             ? `${window.location.origin}${window.location.pathname}`
-            : "https://www.progamer.info/ko/information/el";
+            : `https://www.progamer.info/${languageCode}/information/el`;
 
     useEffect(() => {
         const mapElement = mapRef.current;
@@ -107,6 +138,7 @@ export default function EternalLandScore() {
                 selected: false
             }))
         );
+
         setHoverObject(null);
         setActiveObject(null);
     }, []);
@@ -136,47 +168,67 @@ export default function EternalLandScore() {
 
     const displayedObject = hoverObject ?? activeObject;
 
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: t("eternalLandScore.meta.applicationName"),
+        applicationCategory: "GameApplication",
+        operatingSystem: "Web",
+        description: t("eternalLandScore.meta.description"),
+        inLanguage: languageCode,
+        url: canonicalUrl
+    };
+
     return (
         <>
             <Helmet>
                 <title>
-                    Top War 영원의 땅 시설 점수 지도 | Progamer.info
+                    {t("eternalLandScore.meta.title")}
                 </title>
                 <meta
                     name="description"
-                    content="Top War 영원의 땅 지도에서 점령 시설을 선택하고 분당, 시간당, 일일 예상 점수를 계산할 수 있는 비공식 도구입니다."
+                    content={t(
+                        "eternalLandScore.meta.description"
+                    )}
                 />
                 <link rel="canonical" href={canonicalUrl} />
+                <script type="application/ld+json">
+                    {JSON.stringify(structuredData)}
+                </script>
             </Helmet>
 
             <article className="eternal-land-page">
                 <header className="eternal-land-hero">
                     <div className="eternal-land-eyebrow">
                         <FaMapLocationDot aria-hidden="true" />
-                        Top War 영원의 땅
+                        {t("eternalLandScore.hero.eyebrow")}
                     </div>
 
-                    <h1>영원의 땅 시설 점수 지도</h1>
+                    <h1>
+                        {t("eternalLandScore.hero.title")}
+                    </h1>
 
                     <p>
-                        지도 위 시설을 선택하면 점령 중 획득할 수 있는
-                        분당·시간당·일일 예상 점수를 한 번에 계산합니다.
-                        여러 시설을 동시에 선택해 연합의 전체 점수 생산량도
-                        비교할 수 있습니다.
+                        {t("eternalLandScore.hero.description")}
                     </p>
                 </header>
 
                 <section
                     className="eternal-land-guide-alert"
-                    aria-label="지도 사용 안내"
+                    aria-label={t(
+                        "eternalLandScore.guide.ariaLabel"
+                    )}
                 >
                     <FaAsterisk aria-hidden="true" />
+
                     <div>
-                        <strong>지도 사용 방법</strong>
+                        <strong>
+                            {t("eternalLandScore.guide.title")}
+                        </strong>
                         <p>
-                            마름모 표시 위에 마우스를 올리거나 키보드로
-                            포커스하면 시설 정보를 확인할 수 있습니다.
-                            표시를 누르면 해당 시설이 합계에 추가됩니다.
+                            {t(
+                                "eternalLandScore.guide.description"
+                            )}
                         </p>
                     </div>
                 </section>
@@ -188,10 +240,14 @@ export default function EternalLandScore() {
                     <div className="eternal-land-section-heading">
                         <div>
                             <h2 id="eternal-land-map-title">
-                                시설 선택 지도
+                                {t(
+                                    "eternalLandScore.map.title"
+                                )}
                             </h2>
                             <p>
-                                빛나는 표시가 현재 선택된 시설입니다.
+                                {t(
+                                    "eternalLandScore.map.description"
+                                )}
                             </p>
                         </div>
 
@@ -199,10 +255,14 @@ export default function EternalLandScore() {
                             type="button"
                             className="btn btn-outline-secondary btn-sm"
                             onClick={resetFacilities}
-                            disabled={selectedFacilities.length === 0}
+                            disabled={
+                                selectedFacilities.length === 0
+                            }
                         >
                             <FaRotateLeft className="me-2" />
-                            선택 초기화
+                            {t(
+                                "eternalLandScore.map.reset"
+                            )}
                         </button>
                     </div>
 
@@ -215,28 +275,54 @@ export default function EternalLandScore() {
                         aria-live="polite"
                     >
                         <div>
-                            <span>선택 시설</span>
-                            <strong>{selectedFacilities.length}개</strong>
-                        </div>
-                        <div>
-                            <span>분당 합계</span>
-                            <strong>
-                                {numberFormatter.format(
-                                    scoreSummary.minute
+                            <span>
+                                {t(
+                                    "eternalLandScore.live.selectedLabel"
                                 )}
-                                점
+                            </span>
+                            <strong>
+                                {t(
+                                    "eternalLandScore.units.facilityCount",
+                                    {
+                                        count:
+                                            selectedFacilities.length
+                                    }
+                                )}
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                {t(
+                                    "eternalLandScore.live.minuteTotal"
+                                )}
+                            </span>
+                            <strong>
+                                {t(
+                                    "eternalLandScore.units.pointValue",
+                                    {
+                                        value:
+                                            numberFormatter.format(
+                                                scoreSummary.minute
+                                            )
+                                    }
+                                )}
                             </strong>
                         </div>
                     </div>
 
                     <div className="eternal-land-mobile-hint">
-                        지도를 좌우로 밀어서 시설을 확인하세요.
+                        {t(
+                            "eternalLandScore.map.mobileHint"
+                        )}
                     </div>
 
                     <div
                         className="eternal-land-map-scroll"
                         tabIndex={0}
-                        aria-label="영원의 땅 지도. 모바일에서는 좌우로 스크롤할 수 있습니다."
+                        aria-label={t(
+                            "eternalLandScore.map.scrollAria"
+                        )}
                     >
                         <div
                             className="eternal-land-map"
@@ -245,47 +331,72 @@ export default function EternalLandScore() {
                             <img
                                 src={ELmap}
                                 className="eternal-land-map-image"
-                                alt="Top War 영원의 땅 시설 위치가 표시된 전체 지도"
+                                alt={t(
+                                    "eternalLandScore.map.imageAlt"
+                                )}
                             />
 
-                            {facilities.map((facility) => (
-                                <button
-                                    type="button"
-                                    key={facility.id}
-                                    className={`eternal-land-marker${
-                                        facility.selected
-                                            ? " is-selected"
-                                            : ""
-                                    }`}
-                                    style={{
-                                        top: `${facility.y}%`,
-                                        left: `${facility.x}%`,
-                                        width: `${markerSize}px`,
-                                        height: `${markerSize}px`,
-                                        backgroundColor: facility.color
-                                    }}
-                                    aria-label={`${facility.name}, 분당 ${numberFormatter.format(
-                                        facility.point
-                                    )}점`}
-                                    aria-pressed={facility.selected}
-                                    onMouseEnter={() =>
-                                        setHoverObject(facility)
-                                    }
-                                    onMouseLeave={() =>
-                                        setHoverObject(null)
-                                    }
-                                    onFocus={() =>
-                                        setHoverObject(facility)
-                                    }
-                                    onBlur={() =>
-                                        setHoverObject(null)
-                                    }
-                                    onClick={() => {
-                                        toggleFacility(facility.id);
-                                        setActiveObject(facility);
-                                    }}
-                                />
-                            ))}
+                            {facilities.map((facility) => {
+                                const facilityName =
+                                    getFacilityName(facility);
+
+                                return (
+                                    <button
+                                        type="button"
+                                        key={facility.id}
+                                        className={`eternal-land-marker${
+                                            facility.selected
+                                                ? " is-selected"
+                                                : ""
+                                        }`}
+                                        style={{
+                                            top: `${facility.y}%`,
+                                            left: `${facility.x}%`,
+                                            width: `${markerSize}px`,
+                                            height: `${markerSize}px`,
+                                            backgroundColor:
+                                                facility.color
+                                        }}
+                                        aria-label={t(
+                                            "eternalLandScore.map.markerAria",
+                                            {
+                                                name: facilityName,
+                                                score:
+                                                    numberFormatter.format(
+                                                        facility.point
+                                                    )
+                                            }
+                                        )}
+                                        aria-pressed={
+                                            facility.selected
+                                        }
+                                        onMouseEnter={() =>
+                                            setHoverObject(
+                                                facility
+                                            )
+                                        }
+                                        onMouseLeave={() =>
+                                            setHoverObject(null)
+                                        }
+                                        onFocus={() =>
+                                            setHoverObject(
+                                                facility
+                                            )
+                                        }
+                                        onBlur={() =>
+                                            setHoverObject(null)
+                                        }
+                                        onClick={() => {
+                                            toggleFacility(
+                                                facility.id
+                                            );
+                                            setActiveObject(
+                                                facility
+                                            );
+                                        }}
+                                    />
+                                );
+                            })}
 
                             {displayedObject && (
                                 <div
@@ -301,38 +412,69 @@ export default function EternalLandScore() {
                                     }}
                                 >
                                     <strong>
-                                        {displayedObject.name}
+                                        {getFacilityName(
+                                            displayedObject
+                                        )}
                                     </strong>
 
                                     <dl>
                                         <div>
-                                            <dt>1분당</dt>
-                                            <dd>
-                                                {numberFormatter.format(
-                                                    displayedObject.point
+                                            <dt>
+                                                {t(
+                                                    "eternalLandScore.tooltip.perMinute"
                                                 )}
-                                                점
+                                            </dt>
+                                            <dd>
+                                                {t(
+                                                    "eternalLandScore.units.pointValue",
+                                                    {
+                                                        value:
+                                                            numberFormatter.format(
+                                                                displayedObject.point
+                                                            )
+                                                    }
+                                                )}
                                             </dd>
                                         </div>
+
                                         <div>
-                                            <dt>1시간당</dt>
-                                            <dd>
-                                                {numberFormatter.format(
-                                                    displayedObject.point *
-                                                        60
+                                            <dt>
+                                                {t(
+                                                    "eternalLandScore.tooltip.perHour"
                                                 )}
-                                                점
+                                            </dt>
+                                            <dd>
+                                                {t(
+                                                    "eternalLandScore.units.pointValue",
+                                                    {
+                                                        value:
+                                                            numberFormatter.format(
+                                                                displayedObject.point *
+                                                                    60
+                                                            )
+                                                    }
+                                                )}
                                             </dd>
                                         </div>
+
                                         <div>
-                                            <dt>1일당</dt>
-                                            <dd>
-                                                {numberFormatter.format(
-                                                    displayedObject.point *
-                                                        60 *
-                                                        24
+                                            <dt>
+                                                {t(
+                                                    "eternalLandScore.tooltip.perDay"
                                                 )}
-                                                점
+                                            </dt>
+                                            <dd>
+                                                {t(
+                                                    "eternalLandScore.units.pointValue",
+                                                    {
+                                                        value:
+                                                            numberFormatter.format(
+                                                                displayedObject.point *
+                                                                    60 *
+                                                                    24
+                                                            )
+                                                    }
+                                                )}
                                             </dd>
                                         </div>
                                     </dl>
@@ -349,100 +491,159 @@ export default function EternalLandScore() {
                     <div className="eternal-land-section-heading">
                         <div>
                             <h2 id="eternal-land-summary-title">
-                                선택 시설 점수 합계
+                                {t(
+                                    "eternalLandScore.summary.title"
+                                )}
                             </h2>
                             <p>
-                                현재 {selectedFacilities.length}개 시설이
-                                선택되었습니다.
+                                {t(
+                                    "eternalLandScore.summary.selectedCount",
+                                    {
+                                        count:
+                                            selectedFacilities.length
+                                    }
+                                )}
                             </p>
                         </div>
                     </div>
 
                     <div className="eternal-land-score-grid">
                         <ScoreCard
-                            label="1분 예상 점수"
+                            label={t(
+                                "eternalLandScore.summary.minuteScore"
+                            )}
                             value={scoreSummary.minute}
                             formatter={numberFormatter}
+                            unit={t(
+                                "eternalLandScore.units.points"
+                            )}
                         />
+
                         <ScoreCard
-                            label="1시간 예상 점수"
+                            label={t(
+                                "eternalLandScore.summary.hourScore"
+                            )}
                             value={scoreSummary.hour}
                             formatter={numberFormatter}
+                            unit={t(
+                                "eternalLandScore.units.points"
+                            )}
                         />
+
                         <ScoreCard
-                            label="1일 예상 점수"
+                            label={t(
+                                "eternalLandScore.summary.dayScore"
+                            )}
                             value={scoreSummary.day}
                             formatter={numberFormatter}
+                            unit={t(
+                                "eternalLandScore.units.points"
+                            )}
                         />
                     </div>
 
                     <div className="eternal-land-selected-list">
-                        <h3>선택한 시설</h3>
+                        <h3>
+                            {t(
+                                "eternalLandScore.selectedList.title"
+                            )}
+                        </h3>
 
                         {selectedFacilities.length === 0 ? (
                             <div className="eternal-land-empty">
-                                지도에서 시설을 선택하면 이곳에 시설명과
-                                분당 점수가 표시됩니다.
+                                {t(
+                                    "eternalLandScore.selectedList.empty"
+                                )}
                             </div>
                         ) : (
                             <ul>
-                                {selectedFacilities.map((facility) => (
-                                    <li key={facility.id}>
-                                        <span>{facility.name}</span>
-                                        <strong>
-                                            분당{" "}
-                                            {numberFormatter.format(
-                                                facility.point
-                                            )}
-                                            점
-                                        </strong>
-                                    </li>
-                                ))}
+                                {selectedFacilities.map(
+                                    (facility) => (
+                                        <li key={facility.id}>
+                                            <span>
+                                                {getFacilityName(
+                                                    facility
+                                                )}
+                                            </span>
+                                            <strong>
+                                                {t(
+                                                    "eternalLandScore.selectedList.perMinuteScore",
+                                                    {
+                                                        score:
+                                                            numberFormatter.format(
+                                                                facility.point
+                                                            )
+                                                    }
+                                                )}
+                                            </strong>
+                                        </li>
+                                    )
+                                )}
                             </ul>
                         )}
                     </div>
 
                     <div className="eternal-land-calculator-link">
-                        더 세부적인 점령 시간과 목표 점수 계산은{" "}
+                        {t(
+                            "eternalLandScore.calculatorLink.before"
+                        )}{" "}
                         <LanguageRouterLink to="/calculator/el-score">
-                            영원의 땅 점수 계산기
+                            {t(
+                                "eternalLandScore.calculatorLink.label"
+                            )}
                         </LanguageRouterLink>
-                        에서 확인하세요.
+                        {t(
+                            "eternalLandScore.calculatorLink.after"
+                        )}
                     </div>
                 </section>
 
                 <section
                     className="eternal-land-content-grid"
-                    aria-label="점수 계산 안내"
+                    aria-label={t(
+                        "eternalLandScore.info.ariaLabel"
+                    )}
                 >
                     <div className="eternal-land-info-card">
                         <FaClock aria-hidden="true" />
+
                         <div>
-                            <h2>점수 계산 기준</h2>
+                            <h2>
+                                {t(
+                                    "eternalLandScore.info.calculation.title"
+                                )}
+                            </h2>
                             <p>
-                                시설별 기본 분당 점수를 기준으로
-                                시간당 점수는 60배, 일일 점수는 1,440배로
-                                계산합니다.
+                                {t(
+                                    "eternalLandScore.info.calculation.description1"
+                                )}
                             </p>
                             <p>
-                                계산 결과는 선택한 시설을 해당 시간 동안
-                                계속 점령한다고 가정한 단순 예상치입니다.
+                                {t(
+                                    "eternalLandScore.info.calculation.description2"
+                                )}
                             </p>
                         </div>
                     </div>
 
                     <div className="eternal-land-info-card">
                         <FaCircleInfo aria-hidden="true" />
+
                         <div>
-                            <h2>결과 확인 시 주의사항</h2>
+                            <h2>
+                                {t(
+                                    "eternalLandScore.info.caution.title"
+                                )}
+                            </h2>
                             <p>
-                                실제 획득 점수는 점령 시작 시각, 시설 상실,
-                                서버 진행 상황, 이벤트 규칙 변경 등에 따라
-                                달라질 수 있습니다.
+                                {t(
+                                    "eternalLandScore.info.caution.description1"
+                                )}
                             </p>
                             <p>
-                                게임 업데이트 이후 수치가 달라졌다면
-                                사이트 문의 기능으로 알려주세요.
+                                {t(
+                                    "eternalLandScore.info.caution.description2"
+                                )}
                             </p>
                         </div>
                     </div>
@@ -453,39 +654,45 @@ export default function EternalLandScore() {
                     aria-labelledby="eternal-land-faq-title"
                 >
                     <h2 id="eternal-land-faq-title">
-                        자주 묻는 질문
+                        {t("eternalLandScore.faq.title")}
                     </h2>
 
                     <details>
                         <summary>
-                            여러 시설을 동시에 선택할 수 있나요?
+                            {t(
+                                "eternalLandScore.faq.multiple.question"
+                            )}
                         </summary>
                         <p>
-                            가능합니다. 지도에서 시설 표시를 차례로 누르면
-                            선택한 모든 시설의 점수가 자동으로 합산됩니다.
+                            {t(
+                                "eternalLandScore.faq.multiple.answer"
+                            )}
                         </p>
                     </details>
 
                     <details>
                         <summary>
-                            표시된 일일 점수를 실제로 모두 얻나요?
+                            {t(
+                                "eternalLandScore.faq.daily.question"
+                            )}
                         </summary>
                         <p>
-                            일일 점수는 24시간 동안 시설을 계속 점령한다는
-                            가정으로 계산한 값입니다. 점령 시간이 짧거나
-                            시설을 빼앗기면 실제 점수는 더 적습니다.
+                            {t(
+                                "eternalLandScore.faq.daily.answer"
+                            )}
                         </p>
                     </details>
 
                     <details>
                         <summary>
-                            지도와 게임 화면의 시설 위치가 다른 경우는
-                            어떻게 하나요?
+                            {t(
+                                "eternalLandScore.faq.location.question"
+                            )}
                         </summary>
                         <p>
-                            영원의 땅 시즌 또는 게임 업데이트에 따라
-                            배치와 수치가 변경될 수 있습니다. 최신 게임
-                            화면을 우선 기준으로 확인해 주세요.
+                            {t(
+                                "eternalLandScore.faq.location.answer"
+                            )}
                         </p>
                     </details>
                 </section>
@@ -494,7 +701,12 @@ export default function EternalLandScore() {
     );
 }
 
-function ScoreCard({ label, value, formatter }) {
+function ScoreCard({
+    label,
+    value,
+    formatter,
+    unit
+}) {
     return (
         <div
             className={`eternal-land-score-card${
@@ -503,7 +715,7 @@ function ScoreCard({ label, value, formatter }) {
         >
             <span>{label}</span>
             <strong>{formatter.format(value)}</strong>
-            <small>점</small>
+            <small>{unit}</small>
         </div>
     );
 }

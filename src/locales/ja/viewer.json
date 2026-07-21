@@ -1382,5 +1382,101 @@
             "times": "回",
             "points": "ポイント"
         }
+    },
+    "eternalLandScore": {
+        "meta": {
+            "title": "Top War 永遠の地 施設スコアマップ | Progamer.info",
+            "description": "Top Warの永遠の地マップで占領施設を選択し、1分・1時間・1日あたりの予想スコアを計算します。",
+            "applicationName": "Top War 永遠の地 施設スコアマップ"
+        },
+        "hero": {
+            "eyebrow": "Top War 永遠の地",
+            "title": "永遠の地 施設スコアマップ",
+            "description": "地図上の施設を選択すると、占領中に獲得できる1分・1時間・1日あたりの予想スコアを計算できます。複数の施設を同時に選び、連盟全体のスコア生産量も比較できます。"
+        },
+        "guide": {
+            "ariaLabel": "地図の使い方",
+            "title": "地図の使い方",
+            "description": "ひし形のマーカーにカーソルを合わせるか、キーボードでフォーカスすると施設情報を確認できます。マーカーを選択すると合計に追加されます。"
+        },
+        "map": {
+            "title": "施設選択マップ",
+            "description": "光っているマーカーが現在選択中の施設です。",
+            "reset": "選択をリセット",
+            "mobileHint": "地図を左右にスワイプして施設を確認してください。",
+            "scrollAria": "永遠の地マップです。モバイルでは左右にスクロールできます。",
+            "imageAlt": "Top War 永遠の地の施設位置を表示した全体マップ",
+            "markerAria": "{{name}}、1分あたり{{score}}ポイント"
+        },
+        "live": {
+            "selectedLabel": "選択施設",
+            "minuteTotal": "1分あたりの合計"
+        },
+        "tooltip": {
+            "perMinute": "1分あたり",
+            "perHour": "1時間あたり",
+            "perDay": "1日あたり"
+        },
+        "summary": {
+            "title": "選択施設のスコア合計",
+            "selectedCount_other": "現在{{count}}施設を選択しています。",
+            "minuteScore": "1分の予想スコア",
+            "hourScore": "1時間の予想スコア",
+            "dayScore": "1日の予想スコア"
+        },
+        "selectedList": {
+            "title": "選択した施設",
+            "empty": "地図で施設を選択すると、施設名と1分あたりのスコアがここに表示されます。",
+            "perMinuteScore": "1分あたり{{score}}ポイント"
+        },
+        "calculatorLink": {
+            "before": "より詳しい占領時間と目標スコアの計算は",
+            "label": "永遠の地スコア計算機",
+            "after": "で確認できます。"
+        },
+        "info": {
+            "ariaLabel": "スコア計算の案内",
+            "calculation": {
+                "title": "スコアの計算基準",
+                "description1": "各施設の1分あたりの基本スコアを基準に、1時間は60倍、1日は1,440倍として計算します。",
+                "description2": "計算結果は、選択した施設を対象時間中ずっと占領していると仮定した単純な予想値です。"
+            },
+            "caution": {
+                "title": "結果を確認する際の注意",
+                "description1": "実際の獲得スコアは、占領開始時刻、施設の喪失、サーバー進行状況、イベントルールの変更などにより異なる場合があります。",
+                "description2": "ゲーム更新後に数値が変わっている場合は、サイトのお問い合わせ機能からお知らせください。"
+            }
+        },
+        "faq": {
+            "title": "よくある質問",
+            "multiple": {
+                "question": "複数の施設を同時に選択できますか？",
+                "answer": "はい。地図上の施設マーカーを順番に選択すると、選択したすべての施設のスコアが自動的に合算されます。"
+            },
+            "daily": {
+                "question": "表示された1日スコアを実際にすべて獲得できますか？",
+                "answer": "1日スコアは、施設を24時間継続して占領すると仮定した値です。占領時間が短い場合や施設を失った場合、実際のスコアは少なくなります。"
+            },
+            "location": {
+                "question": "地図とゲーム画面で施設位置が異なる場合はどうすればよいですか？",
+                "answer": "永遠の地のシーズンやゲーム更新により、配置と数値が変更される場合があります。最新のゲーム画面を優先して確認してください。"
+            }
+        },
+        "units": {
+            "facilityCount_other": "{{count}}施設",
+            "pointValue": "{{value}}ポイント",
+            "points": "ポイント"
+        },
+        "facilities": {}
+    },
+    "eternalLand": {
+        "title": "永遠の地（EL）",
+        "description": "8つのサーバーが領土戦を行い、最強の王者を決定します。",
+        "navigationAria": "永遠の地メニュー",
+        "menu": {
+            "mapAndScore": "マップ・施設スコア",
+            "darkforceScore": "暗黒軍団スコア計算",
+            "occupationScore": "占領スコア計算"
+        }
     }
 }

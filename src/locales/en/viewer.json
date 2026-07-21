@@ -1384,5 +1384,103 @@
             "times": "times",
             "points": "pts"
         }
+    },
+    "eternalLandScore": {
+        "meta": {
+            "title": "Top War Eternal Land Facility Score Map | Progamer.info",
+            "description": "Select occupied facilities on the Top War Eternal Land map and calculate estimated scores per minute, hour, and day.",
+            "applicationName": "Top War Eternal Land Facility Score Map"
+        },
+        "hero": {
+            "eyebrow": "Top War Eternal Land",
+            "title": "Eternal Land Facility Score Map",
+            "description": "Select facilities on the map to calculate estimated scores earned per minute, hour, and day while they remain occupied. Select multiple facilities to compare your alliance's combined score production."
+        },
+        "guide": {
+            "ariaLabel": "Map instructions",
+            "title": "How to use the map",
+            "description": "Hover over a diamond marker or focus it with the keyboard to view facility information. Select a marker to include that facility in the total."
+        },
+        "map": {
+            "title": "Facility Selection Map",
+            "description": "Glowing markers indicate currently selected facilities.",
+            "reset": "Clear selection",
+            "mobileHint": "Swipe horizontally to explore the map.",
+            "scrollAria": "Eternal Land map. On mobile devices, scroll horizontally to explore it.",
+            "imageAlt": "Full Top War Eternal Land map showing facility locations",
+            "markerAria": "{{name}}, {{score}} points per minute"
+        },
+        "live": {
+            "selectedLabel": "Selected facilities",
+            "minuteTotal": "Total per minute"
+        },
+        "tooltip": {
+            "perMinute": "Per minute",
+            "perHour": "Per hour",
+            "perDay": "Per day"
+        },
+        "summary": {
+            "title": "Selected Facility Score Total",
+            "selectedCount_one": "{{count}} facility is currently selected.",
+            "selectedCount_other": "{{count}} facilities are currently selected.",
+            "minuteScore": "Estimated score per minute",
+            "hourScore": "Estimated score per hour",
+            "dayScore": "Estimated score per day"
+        },
+        "selectedList": {
+            "title": "Selected Facilities",
+            "empty": "Select facilities on the map to display their names and per-minute scores here.",
+            "perMinuteScore": "{{score}} points per minute"
+        },
+        "calculatorLink": {
+            "before": "For detailed occupation-time and target-score calculations, use the",
+            "label": "Eternal Land Score Calculator",
+            "after": "."
+        },
+        "info": {
+            "ariaLabel": "Score calculation information",
+            "calculation": {
+                "title": "Calculation Basis",
+                "description1": "Hourly scores are calculated as 60 times each facility's base per-minute score, and daily scores as 1,440 times the base score.",
+                "description2": "The result is a simple estimate that assumes the selected facilities remain occupied for the entire period."
+            },
+            "caution": {
+                "title": "Important Limitations",
+                "description1": "Actual scores may vary depending on the occupation start time, facility loss, server progress, and event-rule changes.",
+                "description2": "Please contact the site if the values have changed after a game update."
+            }
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "multiple": {
+                "question": "Can I select multiple facilities at once?",
+                "answer": "Yes. Select facility markers one by one, and the scores of all selected facilities will be added automatically."
+            },
+            "daily": {
+                "question": "Will I actually earn the full daily score shown?",
+                "answer": "The daily score assumes continuous occupation for 24 hours. The actual score will be lower if the occupation period is shorter or the facility is lost."
+            },
+            "location": {
+                "question": "What if a facility location differs from the game map?",
+                "answer": "Facility layouts and values may change by Eternal Land season or game update. Use the latest in-game map as the primary reference."
+            }
+        },
+        "units": {
+            "facilityCount_one": "{{count}} facility",
+            "facilityCount_other": "{{count}} facilities",
+            "pointValue": "{{value}} pts",
+            "points": "pts"
+        },
+        "facilities": {}
+    },
+    "eternalLand": {
+        "title": "Eternal Land (EL)",
+        "description": "Eight servers compete in a territorial war to determine the ultimate champion.",
+        "navigationAria": "Eternal Land menu",
+        "menu": {
+            "mapAndScore": "Map and Facility Scores",
+            "darkforceScore": "Dark Force Score Calculator",
+            "occupationScore": "Occupation Score Calculator"
+        }
     }
 }
