@@ -1478,5 +1478,131 @@
             "darkforceScore": "暗黒軍団スコア計算",
             "occupationScore": "占領スコア計算"
         }
+    },
+    "elScoreCalculator": {
+        "meta": {
+            "title": "Top War 永遠の地 占領スコア計算機 | Progamer.info",
+            "description": "永遠の地の終了時刻、参加サーバー、現在スコア、占領施設を入力し、1分あたりのスコア、予想最終スコア、順位を計算します。",
+            "applicationName": "Top War 永遠の地 占領スコア計算機"
+        },
+        "hero": {
+            "eyebrow": "Top War 永遠の地",
+            "title": "永遠の地 占領スコア計算機",
+            "description": "終了時刻、各サーバーの現在スコア、占領施設を設定すると、残り時間のスコアを加算して予想最終順位を計算します。入力内容はこのブラウザに保存され、次回も続けて利用できます。"
+        },
+        "overview": {
+            "kicker": "計算手順",
+            "title": "5つの手順で予想順位を計算",
+            "description": "すべての手順を常に表示します。情報が不足している場合は空の状態と案内を表示するため、計算全体の流れを先に確認できます。",
+            "steps": {
+                "deadline": {
+                    "title": "終了時刻",
+                    "description": "イベントの終了日と時刻を設定します。"
+                },
+                "servers": {
+                    "title": "サーバー登録",
+                    "description": "比較するサーバー番号または名前を追加します。"
+                },
+                "currentScore": {
+                    "title": "現在スコア",
+                    "description": "各サーバーの現在の累積スコアを入力します。"
+                },
+                "occupation": {
+                    "title": "占領施設",
+                    "description": "地図上でサーバー別の占領施設を指定します。"
+                },
+                "ranking": {
+                    "title": "予想順位",
+                    "description": "1分スコアと予想最終スコアを比較します。"
+                }
+            }
+        },
+        "deadline": {
+            "title": "終了時刻の設定",
+            "description": "選択した終了時点までの残り時間を基準に予想スコアを計算します。",
+            "date": "終了日",
+            "time": "終了時刻",
+            "remaining": "残り時間",
+            "countdown": "終了まで{{days}}日{{hours}}時間{{minutes}}分{{seconds}}秒",
+            "noTime": "残り時間がないか、終了時刻が正しくありません。"
+        },
+        "server": {
+            "title": "サーバー登録",
+            "description": "最終スコアと順位を比較するサーバーを追加します。",
+            "reset": "サーバーをリセット",
+            "inputLabel": "サーバー番号または名前",
+            "placeholder": "サーバー番号または名前を入力",
+            "add": "追加",
+            "empty": "登録されたサーバーがありません。比較するサーバーを追加してください。",
+            "registeredCount_other": "現在{{count}}サーバーが登録されています。",
+            "removeAria": "{{name}}サーバーを削除",
+            "confirmReset": "登録したサーバーと施設の割り当てをすべてリセットしますか？",
+            "confirmRemove": "{{name}}サーバーを削除しますか？このサーバーの施設割り当ても解除されます。",
+            "errors": {
+                "required": "サーバー番号または名前を入力してください。",
+                "duplicate": "すでに登録されているサーバーです。"
+            }
+        },
+        "currentScore": {
+            "title": "現在スコアの入力",
+            "description": "ゲーム画面に表示されている各サーバーの現在累積スコアを入力します。",
+            "empty": "サーバーを登録すると現在スコアの入力欄が表示されます。"
+        },
+        "occupation": {
+            "title": "サーバー別占領地域の設定・{{perspective}}",
+            "description": "サーバーを選択した後、地図上の施設を押して占領状態を割り当てまたは解除します。",
+            "allMap": "全体マップ",
+            "serverPerspective": "{{name}}サーバー視点",
+            "showAll": "全サーバーの状況を表示",
+            "noServers": "施設を割り当てるには、先にサーバーを登録してください。",
+            "selectServer": "占領施設を編集するには上からサーバーを選択してください。現在は全体状況を表示しています。",
+            "unassigned": "未割り当て",
+            "markerAria": "{{building}}、{{server}}、1分あたり{{score}}ポイント",
+            "markerTitle": "{{building}}・{{server}}・1分あたり{{score}}ポイント",
+            "assignedCount_other": "合計{{count}}施設が割り当てられています。",
+            "overviewMode": "全サーバー概要モード",
+            "editMode": "{{name}}サーバー編集モード"
+        },
+        "ranking": {
+            "title": "予想スコアと順位",
+            "description": "現在スコアに残り時間の占領スコアを加え、予想最終順位を表示します。",
+            "rank": "順位",
+            "server": "サーバー",
+            "currentScore": "現在スコア",
+            "perMinute": "1分あたりのスコア",
+            "finalScore": "予想最終スコア",
+            "empty": "サーバーを登録すると予想スコアと順位が表示されます。"
+        },
+        "info": {
+            "calculation": {
+                "title": "計算方法",
+                "description": "各サーバーが占領している施設の1分あたりのスコアを合計し、終了までの残り分数を掛けて現在スコアに加えます。",
+                "formula": "予想最終スコア = 現在スコア + 施設の1分スコア合計 × 終了までの残り分"
+            },
+            "usage": {
+                "title": "結果を確認する際の注意",
+                "description1": "実際の結果は、施設の占領・喪失時刻、サーバー間の戦闘、イベントルールの変更などにより異なる場合があります。",
+                "description2": "このツールは、現在の占領状態が終了時点まで維持されると仮定した参考値です。"
+            }
+        },
+        "faq": {
+            "title": "よくある質問",
+            "conditional": {
+                "question": "準備できていない後続手順も表示してよいですか？",
+                "answer": "すべての手順を表示し、利用できない入力だけを空の状態または無効状態で案内すると、計算全体の流れを理解しやすくなります。"
+            },
+            "finalScore": {
+                "question": "予想最終スコアはどのように計算されますか？",
+                "answer": "現在スコアに、施設の1分あたりのスコアと終了までの残り分数を掛けた値を加えます。"
+            },
+            "storage": {
+                "question": "入力した情報はどこに保存されますか？",
+                "answer": "サーバー、施設の割り当て、終了時刻は現在のブラウザのローカルストレージに保存されます。"
+            }
+        },
+        "units": {
+            "points": "ポイント"
+        },
+        "facilities": {}
     }
 }

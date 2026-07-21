@@ -1478,5 +1478,131 @@
             "darkforceScore": "암흑 점수 계산",
             "occupationScore": "점령 점수 계산"
         }
+    },
+    "elScoreCalculator": {
+        "meta": {
+            "title": "Top War 영원의 땅 점령 점수 계산기 | Progamer.info",
+            "description": "영원의 땅 종료 시간, 참가 서버, 현재 점수와 점령 시설을 입력해 서버별 분당 점수, 최종 예상 점수와 순위를 계산합니다.",
+            "applicationName": "Top War 영원의 땅 점령 점수 계산기"
+        },
+        "hero": {
+            "eyebrow": "Top War 영원의 땅",
+            "title": "영원의 땅 점령 점수 계산기",
+            "description": "종료 시간과 서버별 현재 점수, 점령 시설을 설정하면 남은 시간 동안의 점수를 합산해 최종 예상 순위를 계산합니다. 입력 데이터는 브라우저에 저장되어 다음 방문에서도 이어서 사용할 수 있습니다."
+        },
+        "overview": {
+            "kicker": "계산 절차",
+            "title": "다섯 단계로 예상 순위를 계산합니다",
+            "description": "모든 단계는 항상 표시됩니다. 필요한 정보가 없을 때는 빈 상태와 안내 문구가 나타나므로 계산 구조를 미리 확인할 수 있습니다.",
+            "steps": {
+                "deadline": {
+                    "title": "종료 시간",
+                    "description": "이벤트 종료 일자와 시각을 설정합니다."
+                },
+                "servers": {
+                    "title": "서버 등록",
+                    "description": "비교할 서버 번호나 이름을 추가합니다."
+                },
+                "currentScore": {
+                    "title": "현재 점수",
+                    "description": "각 서버의 현재 누적 점수를 입력합니다."
+                },
+                "occupation": {
+                    "title": "점령 시설",
+                    "description": "서버별 점령 시설을 지도에서 지정합니다."
+                },
+                "ranking": {
+                    "title": "예상 순위",
+                    "description": "분당 점수와 최종 예상 점수를 비교합니다."
+                }
+            }
+        },
+        "deadline": {
+            "title": "종료 시간 설정",
+            "description": "선택한 종료 시점까지 남은 시간을 기준으로 예상 점수를 계산합니다.",
+            "date": "종료 일자",
+            "time": "종료 시각",
+            "remaining": "남은 시간",
+            "countdown": "종료까지 {{days}}일 {{hours}}시간 {{minutes}}분 {{seconds}}초",
+            "noTime": "남은 시간이 없거나 종료 시간이 올바르지 않습니다."
+        },
+        "server": {
+            "title": "서버 등록",
+            "description": "최종 점수와 순위를 비교할 서버를 추가합니다.",
+            "reset": "서버 초기화",
+            "inputLabel": "서버 번호 또는 이름",
+            "placeholder": "서버 번호 또는 이름 입력",
+            "add": "추가",
+            "empty": "아직 등록된 서버가 없습니다. 비교할 서버를 먼저 추가하세요.",
+            "registeredCount_other": "현재 {{count}}개 서버가 등록되어 있습니다.",
+            "removeAria": "{{name}} 서버 삭제",
+            "confirmReset": "등록한 서버와 시설 배정을 모두 초기화하시겠습니까?",
+            "confirmRemove": "{{name}} 서버를 삭제하시겠습니까? 해당 서버의 시설 배정도 해제됩니다.",
+            "errors": {
+                "required": "서버 번호 또는 이름을 입력하세요.",
+                "duplicate": "이미 등록된 서버입니다."
+            }
+        },
+        "currentScore": {
+            "title": "현재 점수 입력",
+            "description": "게임 화면에 표시된 서버별 현재 누적 점수를 입력합니다.",
+            "empty": "서버를 등록하면 현재 점수 입력란이 표시됩니다."
+        },
+        "occupation": {
+            "title": "서버별 점령 지역 설정 · {{perspective}}",
+            "description": "서버를 선택한 다음 지도 위 시설을 눌러 점령 상태를 배정하거나 해제합니다.",
+            "allMap": "전체 지도",
+            "serverPerspective": "{{name}} 서버 시점",
+            "showAll": "전체 서버 상황 보기",
+            "noServers": "시설을 배정하려면 먼저 서버를 등록하세요.",
+            "selectServer": "점령 시설을 수정하려면 위에서 서버를 선택하세요. 현재는 전체 현황을 표시합니다.",
+            "unassigned": "미배정",
+            "markerAria": "{{building}}, {{server}}, 분당 {{score}}점",
+            "markerTitle": "{{building}} · {{server}} · 분당 {{score}}점",
+            "assignedCount_other": "총 {{count}}개 시설이 배정되었습니다.",
+            "overviewMode": "전체 서버 현황 모드",
+            "editMode": "{{name}} 서버 편집 모드"
+        },
+        "ranking": {
+            "title": "예상 점수 및 순위",
+            "description": "현재 점수에 남은 시간 동안의 점령 점수를 더해 예상 최종 순위를 표시합니다.",
+            "rank": "순위",
+            "server": "서버",
+            "currentScore": "현재 점수",
+            "perMinute": "1분당 점수",
+            "finalScore": "최종 예상 점수",
+            "empty": "서버를 등록하면 예상 점수와 순위가 표시됩니다."
+        },
+        "info": {
+            "calculation": {
+                "title": "계산 방식",
+                "description": "각 서버가 점령한 시설의 분당 점수를 합산한 뒤, 종료까지 남은 분을 곱해 현재 점수에 더합니다.",
+                "formula": "최종 예상 점수 = 현재 점수 + 시설 분당 점수 합계 × 종료까지 남은 분"
+            },
+            "usage": {
+                "title": "결과 확인 시 주의사항",
+                "description1": "실제 결과는 시설 점령·상실 시각, 서버 간 전투, 이벤트 규칙 변경 등에 따라 달라질 수 있습니다.",
+                "description2": "이 도구는 현재 점령 상태가 종료 시점까지 유지된다고 가정한 참고용 예상치입니다."
+            }
+        },
+        "faq": {
+            "title": "자주 묻는 질문",
+            "conditional": {
+                "question": "단계별 화면을 숨기지 않아도 되나요?",
+                "answer": "모든 단계를 표시하고 입력할 수 없는 부분만 빈 상태나 비활성 상태로 안내하는 편이 사용자가 전체 계산 과정을 이해하기 쉽습니다."
+            },
+            "finalScore": {
+                "question": "최종 예상 점수는 어떻게 계산되나요?",
+                "answer": "현재 점수에 각 시설의 분당 점수와 종료까지 남은 분을 곱한 값을 더합니다."
+            },
+            "storage": {
+                "question": "입력한 정보는 어디에 저장되나요?",
+                "answer": "서버, 시설 배정, 종료 시간은 현재 브라우저의 로컬 저장소에 저장됩니다."
+            }
+        },
+        "units": {
+            "points": "점"
+        },
+        "facilities": {}
     }
 }

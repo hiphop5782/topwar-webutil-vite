@@ -1482,5 +1482,133 @@
             "darkforceScore": "Dark Force Score Calculator",
             "occupationScore": "Occupation Score Calculator"
         }
+    },
+    "elScoreCalculator": {
+        "meta": {
+            "title": "Top War Eternal Land Occupation Score Calculator | Progamer.info",
+            "description": "Enter the Eternal Land end time, participating servers, current scores, and occupied facilities to calculate score per minute, projected final scores, and rankings.",
+            "applicationName": "Top War Eternal Land Occupation Score Calculator"
+        },
+        "hero": {
+            "eyebrow": "Top War Eternal Land",
+            "title": "Eternal Land Occupation Score Calculator",
+            "description": "Set the end time, each server's current score, and occupied facilities to project final scores and rankings for the remaining event time. Your entries are stored in this browser for future visits."
+        },
+        "overview": {
+            "kicker": "Calculation workflow",
+            "title": "Project rankings in five steps",
+            "description": "Every step remains visible. When information is missing, the page shows an empty state and instructions so the complete calculation workflow is still clear.",
+            "steps": {
+                "deadline": {
+                    "title": "End time",
+                    "description": "Set the event end date and time."
+                },
+                "servers": {
+                    "title": "Servers",
+                    "description": "Add the server numbers or names to compare."
+                },
+                "currentScore": {
+                    "title": "Current scores",
+                    "description": "Enter each server's accumulated score."
+                },
+                "occupation": {
+                    "title": "Occupied facilities",
+                    "description": "Assign occupied facilities on the map."
+                },
+                "ranking": {
+                    "title": "Projected ranking",
+                    "description": "Compare score per minute and final scores."
+                }
+            }
+        },
+        "deadline": {
+            "title": "Set the End Time",
+            "description": "Projected scores are calculated using the time remaining until the selected deadline.",
+            "date": "End date",
+            "time": "End time",
+            "remaining": "Time remaining",
+            "countdown": "{{days}}d {{hours}}h {{minutes}}m {{seconds}}s until the end",
+            "noTime": "No time remains, or the end time is invalid."
+        },
+        "server": {
+            "title": "Register Servers",
+            "description": "Add the servers whose final scores and rankings you want to compare.",
+            "reset": "Reset servers",
+            "inputLabel": "Server number or name",
+            "placeholder": "Enter a server number or name",
+            "add": "Add",
+            "empty": "No servers have been registered. Add at least one server to begin.",
+            "registeredCount_one": "{{count}} server is currently registered.",
+            "registeredCount_other": "{{count}} servers are currently registered.",
+            "removeAria": "Remove server {{name}}",
+            "confirmReset": "Reset all registered servers and facility assignments?",
+            "confirmRemove": "Remove server {{name}}? Its facility assignments will also be cleared.",
+            "errors": {
+                "required": "Enter a server number or name.",
+                "duplicate": "This server has already been registered."
+            }
+        },
+        "currentScore": {
+            "title": "Enter Current Scores",
+            "description": "Enter each server's current accumulated score from the game.",
+            "empty": "Current-score inputs will appear after you register a server."
+        },
+        "occupation": {
+            "title": "Assign Occupied Facilities · {{perspective}}",
+            "description": "Select a server, then select facilities on the map to assign or remove them.",
+            "allMap": "All-server map",
+            "serverPerspective": "{{name}} server view",
+            "showAll": "Show all servers",
+            "noServers": "Register a server before assigning facilities.",
+            "selectServer": "Select a server above to edit its occupied facilities. The map is currently in overview mode.",
+            "unassigned": "Unassigned",
+            "markerAria": "{{building}}, {{server}}, {{score}} points per minute",
+            "markerTitle": "{{building}} · {{server}} · {{score}} points per minute",
+            "assignedCount_one": "{{count}} facility is assigned.",
+            "assignedCount_other": "{{count}} facilities are assigned.",
+            "overviewMode": "All-server overview mode",
+            "editMode": "Editing {{name}} server"
+        },
+        "ranking": {
+            "title": "Projected Scores and Ranking",
+            "description": "The calculator adds projected occupation scores for the remaining time to each server's current score.",
+            "rank": "Rank",
+            "server": "Server",
+            "currentScore": "Current score",
+            "perMinute": "Score per minute",
+            "finalScore": "Projected final score",
+            "empty": "Projected scores and rankings will appear after you register servers."
+        },
+        "info": {
+            "calculation": {
+                "title": "How the calculation works",
+                "description": "The per-minute scores of all facilities occupied by a server are added together, multiplied by the remaining minutes, and added to the current score.",
+                "formula": "Projected final score = current score + facility score per minute × minutes remaining"
+            },
+            "usage": {
+                "title": "Important limitations",
+                "description1": "Actual results may vary because of occupation and loss times, battles between servers, or event-rule changes.",
+                "description2": "This tool is a reference estimate that assumes the current occupation state remains unchanged until the deadline."
+            }
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "conditional": {
+                "question": "Should later steps remain visible before they are ready?",
+                "answer": "Showing every step and using empty or disabled states for unavailable inputs makes the full calculation workflow easier to understand."
+            },
+            "finalScore": {
+                "question": "How is the projected final score calculated?",
+                "answer": "The calculator adds the current score to the facility score per minute multiplied by the number of minutes remaining."
+            },
+            "storage": {
+                "question": "Where is my input stored?",
+                "answer": "Servers, facility assignments, and the end time are stored in this browser's local storage."
+            }
+        },
+        "units": {
+            "points": "pts"
+        },
+        "facilities": {}
     }
 }

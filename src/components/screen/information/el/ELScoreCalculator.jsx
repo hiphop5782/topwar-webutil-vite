@@ -1,288 +1,978 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { FaEraser, FaPlus, FaXmark } from "react-icons/fa6";
-import useLocalStorage from "@src/hooks/useLocalStorage";
 import BuildingList from "@src/assets/json/el/buildings.json";
 import ColorList from "@src/assets/json/colors.json";
-import NextStep from "@src/components/template/NextStep";
+import useLocalStorage from "@src/hooks/useLocalStorage";
+import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
+import {
+    FaBuildingFlag,
+    FaCalculator,
+    FaClock,
+    FaEraser,
+    FaFlagCheckered,
+    FaMapLocationDot,
+    FaPlus,
+    FaRankingStar,
+    FaServer,
+    FaTriangleExclamation,
+    FaXmark
+} from "react-icons/fa6";
+import {
+    useCallback,
+    useEffect,
+    useMemo,
+    useState
+} from "react";
+
 import "./ELScoreCalculator.css";
 
-const initialObject = {
-    no : 0 , name : "", currentScore : 0, scorePerMinute:0, scoreTotal : 0
+const INITIAL_SERVER = {
+    no: 0,
+    name: "",
+    currentScore: 0,
+    scorePerMinute: 0,
+    scoreTotal: 0
 };
 
-const dateOptions = {
-    year: 'numeric',
-    month: '2-digit', // 월을 두 자리 숫자로 표시 (01, 02, ..., 12)
-    day: '2-digit'    // 일을 두 자리 숫자로 표시 (01, 02, ..., 31)
-};
+function getDateAfter(diff) {
+    const result = new Date();
+    result.setDate(result.getDate() + diff);
+
+    const year = result.getFullYear();
+    const month = String(result.getMonth() + 1).padStart(2, "0");
+    const day = String(result.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+function getDeadline(endDate, endTime) {
+    if (!endDate || !endTime) {
+        return null;
+    }
+
+    const deadline = new Date(
+        `${endDate}T${endTime}:00`
+    );
+
+    return Number.isFinite(deadline.getTime())
+        ? deadline
+        : null;
+}
+
+function getAssignedServerNo(building) {
+    if (Number.isInteger(building.serverNo)) {
+        return building.serverNo;
+    }
+
+    if (Number.isInteger(building.server)) {
+        return building.server;
+    }
+
+    if (Number.isInteger(building.server?.no)) {
+        return building.server.no;
+    }
+
+    return null;
+}
+
+function normalizeBuildings(buildings) {
+    return buildings.map((building, index) => ({
+        ...building,
+        id:
+            building.id ??
+            building.key ??
+            building.code ??
+            `${building.name}-${index}`,
+        i18nKey:
+            building.i18nKey ??
+            building.key ??
+            building.code ??
+            building.id ??
+            `facility-${index}`,
+        serverNo: getAssignedServerNo(building),
+        server: undefined
+    }));
+}
+
+function parseNonNegativeInteger(value) {
+    const normalized = String(value).replace(/[^0-9]/g, "");
+
+    return normalized.length === 0
+        ? 0
+        : Number.parseInt(normalized, 10);
+}
 
 export default function ELScoreCalculator() {
-    const [no, setNo] = useState(1);
-    const [selected, setSelected] = useState(null);
-    const [input, setInput] = useState("");
-    const [servers, setServers] = useLocalStorage('el-score-servers', []);
-    const [buildings, setBuildings] = useLocalStorage('el-score-buildings', 
-        BuildingList.map(building=>({...building, server : null}))
+    const { t, i18n } = useTranslation("viewer");
+
+    const locale =
+        i18n.resolvedLanguage ??
+        i18n.language ??
+        "ko";
+
+    const languageCode = locale.split("-")[0];
+
+    const numberFormatter = useMemo(
+        () => new Intl.NumberFormat(locale),
+        [locale]
     );
-    // const [buildings, setBuildings] = useState(()=>{
-    //     return BuildingList.map(building=>({...building, server : null}));
-    // });
 
-    const getDayAfter = useCallback(diff=>{
-        const today = new Date();
-        const nextWeek = new Date();
-        nextWeek.setDate(today.getDate() + diff);
-        return nextWeek.toLocaleDateString("sv-SE", dateOptions);
-    }, []);
+    const [selectedServerNo, setSelectedServerNo] =
+        useState(null);
+    const [serverInput, setServerInput] = useState("");
+    const [serverInputError, setServerInputError] =
+        useState("");
 
-    const [endDate, setEndDate] = useLocalStorage("el-score-endDate", getDayAfter(7));
-    const [endTime, setEndTime] = useLocalStorage("el-score-endTime", "23:00");
+    const [servers, setServers] = useLocalStorage(
+        "el-score-servers",
+        []
+    );
 
-    const addServer = useCallback(()=>{
-        setServers(prev=>{
-            const newNo = no;
-            setNo(prev=>prev+1);
-            return [
-                ...prev, 
-                { ...initialObject, no : newNo, name : input }
-            ]
+    const [buildings, setBuildings] = useLocalStorage(
+        "el-score-buildings",
+        normalizeBuildings(BuildingList)
+    );
+
+    const [endDate, setEndDate] = useLocalStorage(
+        "el-score-endDate",
+        getDateAfter(7)
+    );
+
+    const [endTime, setEndTime] = useLocalStorage(
+        "el-score-endTime",
+        "23:00"
+    );
+
+    const [now, setNow] = useState(() => Date.now());
+
+    useEffect(() => {
+        setBuildings((current) => {
+            const normalized = normalizeBuildings(current);
+
+            const changed = normalized.some(
+                (building, index) =>
+                    building.serverNo !==
+                        current[index]?.serverNo ||
+                    current[index]?.server !== undefined ||
+                    current[index]?.id === undefined ||
+                    current[index]?.i18nKey === undefined
+            );
+
+            return changed ? normalized : current;
         });
-        setInput("");
-    }, [input]);
-    const resetServers = useCallback(()=>{
-        setServers([]);
-    }, []);
-    const removeServer = useCallback(target=>{
-        const choice = window.confirm("대상을 삭제하시겠습니까?");
-        if(choice === false) return;
+    }, [setBuildings]);
 
-        setServers(prev=>prev.filter(server=>server.no !== target.no));
-    }, []);
-
-    const changeCurrnetScore = useCallback((e, target)=>{
-        const replacement = e.target.value.replace(/[^0-9]+/g, "");
-        setServers(prev=>prev.map(server=>{
-            if(server.no === target.no)
-                return {...server , currentScore : replacement.length === 0 ? 0 : parseInt(replacement)}
-            return server;
-        }));
-    }, []);
-
-    const checkBuilding = useCallback((e, target)=>{
-        if(selected === null) return;
-
-        //기존 체크가 같은 서버일 경우만 해제, 나머진 변경
-        setBuildings(prev=>prev.map(building=>{
-            if(target.name === building.name) {//체크된 건물 발견 시
-                const {server, ...buildingWithoutServer} = building;
-                if(target.server === null) { //서버가 없으면 설정
-                    //서버 정보 변경(점령 유적 추가 혹은 제거)
-                    // setServers(before=>before.map(server=>{
-                    //     return {...server, conquests : [...server.conquests , buildingWithoutServer] }
-                    // }));
-                    return {...building, server : selected};
-                }
-                const sameServer = target.server.no === selected.no;
-                // setServers(before=>before.map(server=>{
-                //     return {
-                //         ...server, 
-                //         conquests : sameServer ? 
-                //                     server.conquests.filter(c=>c.name !== building.name) 
-                //                         : [...server.conquests , buildingWithoutServer]
-                //     }
-                // }));
-                return {...building, server : sameServer ? null : selected};
-            }
-            return building;
-        }));
-    }, [selected]);
-
-    //종료까지 남은시간
-    const [remainTimeValue, setRemainTimeValue] = useState("남은 시간 없음");
-    useEffect(()=>{
-        const handle = setInterval(()=>{
-            const now = new Date();
-            const deadline = new Date(`${endDate} ${endTime}:00`);
-
-            const diff = deadline.getTime() - now.getTime();
-            const remain = diff > 0 ? diff : 0;
-
-            const second = Math.floor(remain / 1000 % 60);
-            const minute = Math.floor(remain / 1000 / 60 % 60);
-            const hour = Math.floor(remain / 1000 / 60 / 60 % 24);
-            const day = Math.floor(remain / 1000 / 60 / 60 / 24);
-
-            if(remain > 0) 
-                setRemainTimeValue(`종료까지 ${day}일 ${hour}시간 ${minute}분 ${second}초 남음`);
-            else
-                setRemainTimeValue(`남은 시간 없음`);
+    useEffect(() => {
+        const handle = window.setInterval(() => {
+            setNow(Date.now());
         }, 1000);
 
-        return ()=>{
-            clearInterval(handle);
+        return () => {
+            window.clearInterval(handle);
         };
-    }, [endDate, endTime]);
+    }, []);
 
-    //최종 결과 계산
-    const sortedServers = useMemo(()=>{
-        //시간차 계산
-        const now = new Date();
-        const deadline = new Date(`${endDate} ${endTime}:00`);
-        const seconds = Math.floor((deadline.getTime() - now.getTime()) / 1000);
-        const minutes = Math.ceil(seconds / 60);
+    const selectedServer = useMemo(
+        () =>
+            servers.find(
+                (server) => server.no === selectedServerNo
+            ) ?? null,
+        [selectedServerNo, servers]
+    );
 
-        //분당 점수 계산
-        const conquestObject = {};
-        buildings.forEach(building=>{
-            if(building.server === null) return true;
+    useEffect(() => {
+        if (
+            selectedServerNo !== null &&
+            selectedServer === null
+        ) {
+            setSelectedServerNo(null);
+        }
+    }, [selectedServer, selectedServerNo]);
 
-            const origin = conquestObject[building.server.name] || 0;
-            conquestObject[building.server.name] = origin + building.point;
+    const deadline = useMemo(
+        () => getDeadline(endDate, endTime),
+        [endDate, endTime]
+    );
+
+    const remainingMilliseconds = useMemo(
+        () =>
+            deadline
+                ? Math.max(0, deadline.getTime() - now)
+                : 0,
+        [deadline, now]
+    );
+
+    const countdown = useMemo(() => {
+        const totalSeconds = Math.floor(
+            remainingMilliseconds / 1000
+        );
+
+        return {
+            days: Math.floor(totalSeconds / 86400),
+            hours: Math.floor(
+                (totalSeconds % 86400) / 3600
+            ),
+            minutes: Math.floor(
+                (totalSeconds % 3600) / 60
+            ),
+            seconds: totalSeconds % 60
+        };
+    }, [remainingMilliseconds]);
+
+    const remainingMinutes = useMemo(
+        () =>
+            Math.max(
+                0,
+                Math.ceil(remainingMilliseconds / 60000)
+            ),
+        [remainingMilliseconds]
+    );
+
+    const sortedServers = useMemo(() => {
+        const scoreByServerNo = {};
+
+        buildings.forEach((building) => {
+            const serverNo =
+                getAssignedServerNo(building);
+
+            if (serverNo === null) {
+                return;
+            }
+
+            scoreByServerNo[serverNo] =
+                (scoreByServerNo[serverNo] ?? 0) +
+                Number(building.point ?? 0);
         });
 
-        const calculated = servers.map(server=>{
-            const score = conquestObject[server.name] || 0;
-            return {
-                ...server,
-                scorePerMinute : score,
-                scoreTotal : server.currentScore + score * minutes
-            };
-        });
+        return servers
+            .map((server) => {
+                const scorePerMinute =
+                    scoreByServerNo[server.no] ?? 0;
 
-        return calculated.sort((a,b)=>b.scoreTotal - a.scoreTotal);
-    }, [buildings]);
+                return {
+                    ...server,
+                    scorePerMinute,
+                    scoreTotal:
+                        Number(server.currentScore ?? 0) +
+                        scorePerMinute * remainingMinutes
+                };
+            })
+            .sort(
+                (left, right) =>
+                    right.scoreTotal - left.scoreTotal
+            );
+    }, [
+        buildings,
+        remainingMinutes,
+        servers
+    ]);
 
-    //진행 단계
-    const step = useMemo(()=>{
-        if(endDate.length === 0 || endTime.length === 0) 
-            return 1;
+    const assignedBuildingCount = useMemo(
+        () =>
+            buildings.filter(
+                (building) =>
+                    getAssignedServerNo(building) !== null
+            ).length,
+        [buildings]
+    );
 
-        const fillCount = servers.reduce((acc, c)=>c.name.length > 0 ? acc + 1 : acc, 0);
-        if(fillCount < 1)
-            return 2;
+    const getFacilityName = useCallback(
+        (building) =>
+            t(
+                `elScoreCalculator.facilities.${building.i18nKey}`,
+                {
+                    defaultValue: building.name
+                }
+            ),
+        [t]
+    );
 
-        return 9999;
-    }, [servers, selected, endDate, endTime]);
+    const addServer = useCallback(() => {
+        const name = serverInput.trim();
 
-    const getColor = useCallback((building)=>{
-        if(building.server === null) 
-            return "transparent";
-        if(selected !== null && building.server.no !== selected.no)
-            return "transparent";
-        return ColorList[building.server.no % ColorList.length];
-    }, [selected]);
+        if (name.length === 0) {
+            setServerInputError(
+                t(
+                    "elScoreCalculator.server.errors.required"
+                )
+            );
+            return;
+        }
 
-    //render
-    return (<>
-        <div className="row">
-            <div className="col">
-                <h2>
-                    EL 점수 계산기                    
-                </h2>
-            </div>
-        </div>
+        if (
+            servers.some(
+                (server) =>
+                    server.name.toLocaleLowerCase() ===
+                    name.toLocaleLowerCase()
+            )
+        ) {
+            setServerInputError(
+                t(
+                    "elScoreCalculator.server.errors.duplicate"
+                )
+            );
+            return;
+        }
 
-        <div className="row mt-5 pt-5">
-            <h2>1. 종료 시간 설정</h2>
-        </div>
-        <div className="row">
-            <label className="col-sm-3 col-form-label">일자</label>
-            <div className="col-sm-9">
-                <input type="date" className="form-control" value={endDate}
-                    onChange={e=>setEndDate(e.target.value)}/>
-            </div>
-        </div>
-        <div className="row">
-            <label className="col-sm-3 col-form-label">시각</label>
-            <div className="col-sm-9">
-                <input type="time" className="form-control" value={endTime}
-                    onChange={e=>setEndTime(e.target.value)}/>
-            </div>
-        </div>
-        <div className="row">
-            <label className="col-sm-3 col-form-label">남은시간</label>
-            <div className="col-sm-9 text-danger d-flex align-items-center fs-4">
-                {remainTimeValue}
-            </div>
-        </div>
+        const nextNo =
+            servers.reduce(
+                (maximum, server) =>
+                    Math.max(maximum, server.no),
+                0
+            ) + 1;
 
-        {step >= 2 && (<>
-        <NextStep size={50}/>
-        <div className="row">
-            <h2>
-                2. 서버 번호 설정
-                <button className="btn btn-danger ms-4" onClick={resetServers}>
-                    <FaEraser/>
-                    <span className="ms-2">서버 초기화</span>
-                </button>
-            </h2>
+        setServers((current) => [
+            ...current,
+            {
+                ...INITIAL_SERVER,
+                no: nextNo,
+                name
+            }
+        ]);
 
-            <div className="col-12 d-flex align-items-center">
-                <input type="text" className="form-control w-auto flex-grow-1" 
-                    placeholder="번호 입력 후 추가 버튼 클릭 혹은 엔터" 
-                    value={input} onChange={e=>setInput(e.target.value)}
-                    onKeyUp={e=>{
-                        if(e.key === "Enter") addServer();
-                    }}/>
-                <button className="btn btn-success ms-2" onClick={addServer}>
-                    <FaPlus/>
-                    <span className="ms-2 d-none d-sm-inline-block">추가</span>
-                </button>
-            </div>
+        setServerInput("");
+        setServerInputError("");
+    }, [
+        serverInput,
+        servers,
+        setServers,
+        t
+    ]);
 
-            <div className="col-12 d-flex flex-wrap mt-2">
-                {servers.map((server, index)=>(
-                <button type="button" className="btn btn-outline-primary d-inline-flex align-items-center me-2 mb-2"
-                                onClick={e=>removeServer(server)} key={index}>
-                    <span>{server.name}</span>
-                    <FaXmark className="ms-2"/>
-                </button>
-                ))}
-            </div>
-            <div className="col-12 mt-2">
-                총 {servers.length}개 등록중
-            </div>
-        </div>
-        </>)}
+    const resetServers = useCallback(() => {
+        if (
+            !window.confirm(
+                t(
+                    "elScoreCalculator.server.confirmReset"
+                )
+            )
+        ) {
+            return;
+        }
 
-        {step >= 3 && (<>
-        <NextStep size={50}/>
-        <div className="row">
-            <h2>3. 현재 점수 입력</h2>
-        </div>
-        {servers.map((server, index)=>(
-        <div className="row mt-2" key={index}>
-            <label className="col-sm-3 col-form-label">{server.name}</label>
-            <div className="col-sm-9">
-                <input type="text" inputMode="numeric" className="form-control" 
-                    value={server.currentScore}
-                    onChange={e=>changeCurrnetScore(e, server)}/>
-            </div>
-        </div>
-        ))}
-        </>)}
+        setServers([]);
+        setBuildings((current) =>
+            current.map((building) => ({
+                ...building,
+                serverNo: null,
+                server: undefined
+            }))
+        );
+        setSelectedServerNo(null);
+    }, [setBuildings, setServers, t]);
 
-        {step >= 4 && (<>
-        <NextStep size={50}/>
-        <div className="row my-4">
-            <h2>4. 서버별 점령 지역 설정 ({selected === null ? "전체 지도" : `${selected.name} 서버 시점`})</h2>
-            <div className="col-12 mb-2">
-                <button className={`btn w-100 fw-bold ${selected === null ? 'btn-secondary' : 'btn-outline-secondary'}`} onClick={e=>setSelected(null)}>전체 서버 상황 보기</button>
-            </div>
+    const removeServer = useCallback(
+        (target) => {
+            if (
+                !window.confirm(
+                    t(
+                        "elScoreCalculator.server.confirmRemove",
+                        {
+                            name: target.name
+                        }
+                    )
+                )
+            ) {
+                return;
+            }
 
-            {servers.map((server, index)=>(
-            <div className="col-md-3 col-sm-4 col-6 mb-2" key={index}>
-                <button className={`btn w-100 fw-bold ${selected?.no === server.no ? 'btn-colored' : 'btn-outline-colored'}`} 
-                        style={{"--btn-color" : ColorList[server.no % ColorList.length]}}
-                        onClick={e=>setSelected(server)}>{server.name}</button>
-            </div>
-            ))}
-            <div className="col-12 mt-4">
-                
-                <div className="el-map">
-                    <div className="el-lines">
-                        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-                            {/* 1구역 */}
+            setServers((current) =>
+                current.filter(
+                    (server) => server.no !== target.no
+                )
+            );
+
+            setBuildings((current) =>
+                current.map((building) =>
+                    getAssignedServerNo(building) ===
+                    target.no
+                        ? {
+                            ...building,
+                            serverNo: null,
+                            server: undefined
+                        }
+                        : building
+                )
+            );
+
+            if (selectedServerNo === target.no) {
+                setSelectedServerNo(null);
+            }
+        },
+        [
+            selectedServerNo,
+            setBuildings,
+            setServers,
+            t
+        ]
+    );
+
+    const changeCurrentScore = useCallback(
+        (event, target) => {
+            const currentScore =
+                parseNonNegativeInteger(
+                    event.target.value
+                );
+
+            setServers((current) =>
+                current.map((server) =>
+                    server.no === target.no
+                        ? {
+                            ...server,
+                            currentScore
+                        }
+                        : server
+                )
+            );
+        },
+        [setServers]
+    );
+
+    const toggleBuilding = useCallback(
+        (target) => {
+            if (selectedServer === null) {
+                return;
+            }
+
+            setBuildings((current) =>
+                current.map((building) => {
+                    if (building.id !== target.id) {
+                        return building;
+                    }
+
+                    const assignedServerNo =
+                        getAssignedServerNo(building);
+
+                    return {
+                        ...building,
+                        serverNo:
+                            assignedServerNo ===
+                            selectedServer.no
+                                ? null
+                                : selectedServer.no,
+                        server: undefined
+                    };
+                })
+            );
+        },
+        [selectedServer, setBuildings]
+    );
+
+    const getBuildingColor = useCallback(
+        (building) => {
+            const assignedServerNo =
+                getAssignedServerNo(building);
+
+            if (assignedServerNo === null) {
+                return "transparent";
+            }
+
+            if (
+                selectedServer !== null &&
+                assignedServerNo !== selectedServer.no
+            ) {
+                return "transparent";
+            }
+
+            return ColorList[
+                assignedServerNo % ColorList.length
+            ];
+        },
+        [selectedServer]
+    );
+
+    const canonicalUrl =
+        typeof window !== "undefined"
+            ? `${window.location.origin}${window.location.pathname}`
+            : `https://www.progamer.info/${languageCode}/information/el/score`;
+
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: t(
+            "elScoreCalculator.meta.applicationName"
+        ),
+        applicationCategory: "GameApplication",
+        operatingSystem: "Web",
+        description: t(
+            "elScoreCalculator.meta.description"
+        ),
+        inLanguage: languageCode,
+        url: canonicalUrl
+    };
+
+    return (
+        <>
+            <Helmet>
+                <title>
+                    {t("elScoreCalculator.meta.title")}
+                </title>
+                <meta
+                    name="description"
+                    content={t(
+                        "elScoreCalculator.meta.description"
+                    )}
+                />
+                <link rel="canonical" href={canonicalUrl} />
+                <script type="application/ld+json">
+                    {JSON.stringify(structuredData)}
+                </script>
+            </Helmet>
+
+            <article className="el-score-page">
+                <header className="el-score-hero">
+                    <div className="el-score-eyebrow">
+                        <FaCalculator aria-hidden="true" />
+                        {t(
+                            "elScoreCalculator.hero.eyebrow"
+                        )}
+                    </div>
+
+                    <h1>
+                        {t("elScoreCalculator.hero.title")}
+                    </h1>
+
+                    <p>
+                        {t(
+                            "elScoreCalculator.hero.description"
+                        )}
+                    </p>
+                </header>
+
+                <section className="el-score-workflow-overview">
+                    <div className="el-score-section-heading">
+                        <div>
+                            <span className="el-score-kicker">
+                                {t(
+                                    "elScoreCalculator.overview.kicker"
+                                )}
+                            </span>
+                            <h2>
+                                {t(
+                                    "elScoreCalculator.overview.title"
+                                )}
+                            </h2>
+                            <p>
+                                {t(
+                                    "elScoreCalculator.overview.description"
+                                )}
+                            </p>
+                        </div>
+                    </div>
+
+                    <ol className="el-score-step-grid">
+                        <WorkflowStep
+                            icon={<FaClock />}
+                            number={1}
+                            title={t(
+                                "elScoreCalculator.overview.steps.deadline.title"
+                            )}
+                            description={t(
+                                "elScoreCalculator.overview.steps.deadline.description"
+                            )}
+                        />
+                        <WorkflowStep
+                            icon={<FaServer />}
+                            number={2}
+                            title={t(
+                                "elScoreCalculator.overview.steps.servers.title"
+                            )}
+                            description={t(
+                                "elScoreCalculator.overview.steps.servers.description"
+                            )}
+                        />
+                        <WorkflowStep
+                            icon={<FaFlagCheckered />}
+                            number={3}
+                            title={t(
+                                "elScoreCalculator.overview.steps.currentScore.title"
+                            )}
+                            description={t(
+                                "elScoreCalculator.overview.steps.currentScore.description"
+                            )}
+                        />
+                        <WorkflowStep
+                            icon={<FaMapLocationDot />}
+                            number={4}
+                            title={t(
+                                "elScoreCalculator.overview.steps.occupation.title"
+                            )}
+                            description={t(
+                                "elScoreCalculator.overview.steps.occupation.description"
+                            )}
+                        />
+                        <WorkflowStep
+                            icon={<FaRankingStar />}
+                            number={5}
+                            title={t(
+                                "elScoreCalculator.overview.steps.ranking.title"
+                            )}
+                            description={t(
+                                "elScoreCalculator.overview.steps.ranking.description"
+                            )}
+                        />
+                    </ol>
+                </section>
+
+                <section className="el-score-panel">
+                    <SectionTitle
+                        number={1}
+                        icon={<FaClock />}
+                        title={t(
+                            "elScoreCalculator.deadline.title"
+                        )}
+                        description={t(
+                            "elScoreCalculator.deadline.description"
+                        )}
+                    />
+
+                    <div className="el-score-form-grid">
+                        <label className="el-score-field">
+                            <span>
+                                {t(
+                                    "elScoreCalculator.deadline.date"
+                                )}
+                            </span>
+                            <input
+                                type="date"
+                                className="form-control"
+                                value={endDate}
+                                onChange={(event) =>
+                                    setEndDate(
+                                        event.target.value
+                                    )
+                                }
+                            />
+                        </label>
+
+                        <label className="el-score-field">
+                            <span>
+                                {t(
+                                    "elScoreCalculator.deadline.time"
+                                )}
+                            </span>
+                            <input
+                                type="time"
+                                className="form-control"
+                                value={endTime}
+                                onChange={(event) =>
+                                    setEndTime(
+                                        event.target.value
+                                    )
+                                }
+                            />
+                        </label>
+                    </div>
+
+                    <div
+                        className={`el-score-countdown${
+                            remainingMilliseconds > 0
+                                ? " is-active"
+                                : ""
+                        }`}
+                        aria-live="polite"
+                    >
+                        <span>
+                            {t(
+                                "elScoreCalculator.deadline.remaining"
+                            )}
+                        </span>
+
+                        <strong>
+                            {remainingMilliseconds > 0
+                                ? t(
+                                    "elScoreCalculator.deadline.countdown",
+                                    countdown
+                                )
+                                : t(
+                                    "elScoreCalculator.deadline.noTime"
+                                )}
+                        </strong>
+                    </div>
+                </section>
+
+                <section className="el-score-panel">
+                    <SectionTitle
+                        number={2}
+                        icon={<FaServer />}
+                        title={t(
+                            "elScoreCalculator.server.title"
+                        )}
+                        description={t(
+                            "elScoreCalculator.server.description"
+                        )}
+                        action={
+                            <button
+                                type="button"
+                                className="btn btn-outline-danger btn-sm"
+                                onClick={resetServers}
+                                disabled={servers.length === 0}
+                            >
+                                <FaEraser className="me-2" />
+                                {t(
+                                    "elScoreCalculator.server.reset"
+                                )}
+                            </button>
+                        }
+                    />
+
+                    <div className="el-score-server-entry">
+                        <div>
+                            <label
+                                className="visually-hidden"
+                                htmlFor="el-server-input"
+                            >
+                                {t(
+                                    "elScoreCalculator.server.inputLabel"
+                                )}
+                            </label>
+                            <input
+                                id="el-server-input"
+                                type="text"
+                                className={`form-control${
+                                    serverInputError
+                                        ? " is-invalid"
+                                        : ""
+                                }`}
+                                placeholder={t(
+                                    "elScoreCalculator.server.placeholder"
+                                )}
+                                value={serverInput}
+                                onChange={(event) => {
+                                    setServerInput(
+                                        event.target.value
+                                    );
+                                    setServerInputError("");
+                                }}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") {
+                                        event.preventDefault();
+                                        addServer();
+                                    }
+                                }}
+                            />
+                            {serverInputError && (
+                                <div className="invalid-feedback">
+                                    {serverInputError}
+                                </div>
+                            )}
+                        </div>
+
+                        <button
+                            type="button"
+                            className="btn btn-success"
+                            onClick={addServer}
+                        >
+                            <FaPlus className="me-sm-2" />
+                            <span className="d-none d-sm-inline">
+                                {t(
+                                    "elScoreCalculator.server.add"
+                                )}
+                            </span>
+                        </button>
+                    </div>
+
+                    {servers.length === 0 ? (
+                        <EmptyState
+                            icon={<FaServer />}
+                            text={t(
+                                "elScoreCalculator.server.empty"
+                            )}
+                        />
+                    ) : (
+                        <div className="el-score-server-list">
+                            {servers.map((server) => (
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-primary"
+                                    onClick={() =>
+                                        removeServer(server)
+                                    }
+                                    key={server.no}
+                                    title={t(
+                                        "elScoreCalculator.server.removeAria",
+                                        {
+                                            name: server.name
+                                        }
+                                    )}
+                                >
+                                    <span>{server.name}</span>
+                                    <FaXmark className="ms-2" />
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    <p className="el-score-count-note">
+                        {t(
+                            "elScoreCalculator.server.registeredCount",
+                            {
+                                count: servers.length
+                            }
+                        )}
+                    </p>
+                </section>
+
+                <section className="el-score-panel">
+                    <SectionTitle
+                        number={3}
+                        icon={<FaFlagCheckered />}
+                        title={t(
+                            "elScoreCalculator.currentScore.title"
+                        )}
+                        description={t(
+                            "elScoreCalculator.currentScore.description"
+                        )}
+                    />
+
+                    {servers.length === 0 ? (
+                        <EmptyState
+                            icon={<FaFlagCheckered />}
+                            text={t(
+                                "elScoreCalculator.currentScore.empty"
+                            )}
+                        />
+                    ) : (
+                        <div className="el-score-current-grid">
+                            {servers.map((server) => (
+                                <label
+                                    className="el-score-field"
+                                    key={server.no}
+                                >
+                                    <span>{server.name}</span>
+                                    <div className="input-group">
+                                        <input
+                                            type="text"
+                                            inputMode="numeric"
+                                            className="form-control"
+                                            value={
+                                                server.currentScore
+                                            }
+                                            onChange={(event) =>
+                                                changeCurrentScore(
+                                                    event,
+                                                    server
+                                                )
+                                            }
+                                        />
+                                        <span className="input-group-text">
+                                            {t(
+                                                "elScoreCalculator.units.points"
+                                            )}
+                                        </span>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
+                    )}
+                </section>
+
+                <section className="el-score-panel">
+                    <SectionTitle
+                        number={4}
+                        icon={<FaMapLocationDot />}
+                        title={t(
+                            "elScoreCalculator.occupation.title",
+                            {
+                                perspective:
+                                    selectedServer === null
+                                        ? t(
+                                            "elScoreCalculator.occupation.allMap"
+                                        )
+                                        : t(
+                                            "elScoreCalculator.occupation.serverPerspective",
+                                            {
+                                                name:
+                                                    selectedServer.name
+                                            }
+                                        )
+                            }
+                        )}
+                        description={t(
+                            "elScoreCalculator.occupation.description"
+                        )}
+                    />
+
+                    <div className="el-score-map-toolbar">
+                        <button
+                            type="button"
+                            className={`btn fw-bold ${
+                                selectedServer === null
+                                    ? "btn-secondary"
+                                    : "btn-outline-secondary"
+                            }`}
+                            onClick={() =>
+                                setSelectedServerNo(null)
+                            }
+                        >
+                            {t(
+                                "elScoreCalculator.occupation.showAll"
+                            )}
+                        </button>
+
+                        {servers.map((server) => (
+                            <button
+                                type="button"
+                                className={`btn fw-bold ${
+                                    selectedServer?.no ===
+                                    server.no
+                                        ? "btn-colored"
+                                        : "btn-outline-colored"
+                                }`}
+                                style={{
+                                    "--btn-color":
+                                        ColorList[
+                                            server.no %
+                                                ColorList.length
+                                        ]
+                                }}
+                                onClick={() =>
+                                    setSelectedServerNo(
+                                        server.no
+                                    )
+                                }
+                                key={server.no}
+                            >
+                                {server.name}
+                            </button>
+                        ))}
+                    </div>
+
+                    {servers.length === 0 && (
+                        <div className="el-score-inline-notice">
+                            <FaTriangleExclamation aria-hidden="true" />
+                            {t(
+                                "elScoreCalculator.occupation.noServers"
+                            )}
+                        </div>
+                    )}
+
+                    {servers.length > 0 &&
+                        selectedServer === null && (
+                            <div className="el-score-inline-notice">
+                                <FaBuildingFlag aria-hidden="true" />
+                                {t(
+                                    "elScoreCalculator.occupation.selectServer"
+                                )}
+                            </div>
+                        )}
+
+                    <div className="el-map-scroll">
+                        <div
+                            className={`el-map${
+                                selectedServer === null
+                                    ? " is-overview"
+                                    : " is-editing"
+                            }`}
+                        >
+                            <div
+                                className="el-lines"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    viewBox="0 0 100 100"
+                                    preserveAspectRatio="none"
+                                >
+                                    {/* 1구역 */}
                             <line x1={0} y1={0} x2={16} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
                             <line x1={16} y1={16.5} x2={51} y2={16.5} stroke="#0984e3" strokeWidth={0.2}/>
                             <line x1={51} y1={16.5} x2={51} y2={0} stroke="#0984e3" strokeWidth={0.2}/>
@@ -327,64 +1017,380 @@ export default function ELScoreCalculator() {
                             {/* 14구역 */}
                             <line x1={42} y1={42} x2={42} y2={58} stroke="#0984e3" strokeWidth={0.2}/>
                             <line x1={42} y1={58} x2={58} y2={58} stroke="#0984e3" strokeWidth={0.2}/>
+                                </svg>
+                            </div>
 
-                        </svg>
+                            {buildings.map((building) => {
+                                const assignedServerNo =
+                                    getAssignedServerNo(
+                                        building
+                                    );
+                                const buildingName =
+                                    getFacilityName(building);
+                                const assignedServer =
+                                    servers.find(
+                                        (server) =>
+                                            server.no ===
+                                            assignedServerNo
+                                    );
+                                const visibleAssigned =
+                                    assignedServerNo !== null &&
+                                    (
+                                        selectedServer === null ||
+                                        selectedServer.no ===
+                                            assignedServerNo
+                                    );
+
+                                return (
+                                    <button
+                                        type="button"
+                                        className={`el-building${
+                                            visibleAssigned
+                                                ? " is-assigned"
+                                                : ""
+                                        }${
+                                            selectedServer?.no ===
+                                            assignedServerNo
+                                                ? " is-current"
+                                                : ""
+                                        }`}
+                                        style={{
+                                            top: `${building.x}%`,
+                                            left: `${building.y}%`,
+                                            "--building-color":
+                                                getBuildingColor(
+                                                    building
+                                                )
+                                        }}
+                                        key={building.id}
+                                        disabled={
+                                            selectedServer === null
+                                        }
+                                        aria-pressed={
+                                            selectedServer !== null &&
+                                            assignedServerNo ===
+                                                selectedServer.no
+                                        }
+                                        aria-label={t(
+                                            "elScoreCalculator.occupation.markerAria",
+                                            {
+                                                building:
+                                                    buildingName,
+                                                server:
+                                                    assignedServer?.name ??
+                                                    t(
+                                                        "elScoreCalculator.occupation.unassigned"
+                                                    ),
+                                                score:
+                                                    numberFormatter.format(
+                                                        building.point
+                                                    )
+                                            }
+                                        )}
+                                        title={t(
+                                            "elScoreCalculator.occupation.markerTitle",
+                                            {
+                                                building:
+                                                    buildingName,
+                                                server:
+                                                    assignedServer?.name ??
+                                                    t(
+                                                        "elScoreCalculator.occupation.unassigned"
+                                                    ),
+                                                score:
+                                                    numberFormatter.format(
+                                                        building.point
+                                                    )
+                                            }
+                                        )}
+                                        onClick={() =>
+                                            toggleBuilding(
+                                                building
+                                            )
+                                        }
+                                    >
+                                        <span aria-hidden="true">
+                                            ✓
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
                     </div>
-                    {buildings.map((building, index)=>(
-                        <label className="el-building" style={{
-                            top : `${building.x}%`,
-                            left : `${building.y}%`,
-                            transform : `translate(-50%, -50%)`
-                        }} key={index}>
-                            {selected === null ? (
-                            <input type="checkbox" 
-                                checked={building.server !== null} readOnly/>
-                            ) : (
-                            <input type="checkbox" 
-                                onChange={e=>checkBuilding(e, building)}
-                                checked={building.server !== null && building.server?.no === selected?.no} />
+
+                    <div className="el-score-map-summary">
+                        <span>
+                            {t(
+                                "elScoreCalculator.occupation.assignedCount",
+                                {
+                                    count:
+                                        assignedBuildingCount
+                                }
                             )}
-                            <span style={{backgroundColor : getColor(building)}}></span>
-                        </label>
-                    ))}
+                        </span>
+                        <span>
+                            {selectedServer === null
+                                ? t(
+                                    "elScoreCalculator.occupation.overviewMode"
+                                )
+                                : t(
+                                    "elScoreCalculator.occupation.editMode",
+                                    {
+                                        name:
+                                            selectedServer.name
+                                    }
+                                )}
+                        </span>
+                    </div>
+                </section>
+
+                <section className="el-score-panel">
+                    <SectionTitle
+                        number={5}
+                        icon={<FaRankingStar />}
+                        title={t(
+                            "elScoreCalculator.ranking.title"
+                        )}
+                        description={t(
+                            "elScoreCalculator.ranking.description"
+                        )}
+                    />
+
+                    <div className="table-responsive">
+                        <table className="table align-middle text-nowrap">
+                            <thead>
+                                <tr className="text-center">
+                                    <th scope="col">
+                                        {t(
+                                            "elScoreCalculator.ranking.rank"
+                                        )}
+                                    </th>
+                                    <th scope="col">
+                                        {t(
+                                            "elScoreCalculator.ranking.server"
+                                        )}
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="text-end"
+                                    >
+                                        {t(
+                                            "elScoreCalculator.ranking.currentScore"
+                                        )}
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="text-end"
+                                    >
+                                        {t(
+                                            "elScoreCalculator.ranking.perMinute"
+                                        )}
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="text-end"
+                                    >
+                                        {t(
+                                            "elScoreCalculator.ranking.finalScore"
+                                        )}
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody className="text-center">
+                                {sortedServers.length === 0 ? (
+                                    <tr>
+                                        <td
+                                            colSpan={5}
+                                            className="py-4 text-muted"
+                                        >
+                                            {t(
+                                                "elScoreCalculator.ranking.empty"
+                                            )}
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    sortedServers.map(
+                                        (server, index) => (
+                                            <tr
+                                                key={server.no}
+                                                className={
+                                                    index === 0
+                                                        ? "table-primary"
+                                                        : index === 1
+                                                          ? "table-success"
+                                                          : ""
+                                                }
+                                            >
+                                                <td>
+                                                    {index + 1}
+                                                </td>
+                                                <td>
+                                                    {server.name}
+                                                </td>
+                                                <td className="text-end">
+                                                    {numberFormatter.format(
+                                                        server.currentScore
+                                                    )}
+                                                </td>
+                                                <td className="text-end">
+                                                    {numberFormatter.format(
+                                                        server.scorePerMinute
+                                                    )}
+                                                </td>
+                                                <td className="text-end fw-bold">
+                                                    {numberFormatter.format(
+                                                        server.scoreTotal
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        )
+                                    )
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section className="el-score-info-grid">
+                    <div className="el-score-info-card">
+                        <h2>
+                            {t(
+                                "elScoreCalculator.info.calculation.title"
+                            )}
+                        </h2>
+                        <p>
+                            {t(
+                                "elScoreCalculator.info.calculation.description"
+                            )}
+                        </p>
+                        <code>
+                            {t(
+                                "elScoreCalculator.info.calculation.formula"
+                            )}
+                        </code>
+                    </div>
+
+                    <div className="el-score-info-card">
+                        <h2>
+                            {t(
+                                "elScoreCalculator.info.usage.title"
+                            )}
+                        </h2>
+                        <p>
+                            {t(
+                                "elScoreCalculator.info.usage.description1"
+                            )}
+                        </p>
+                        <p>
+                            {t(
+                                "elScoreCalculator.info.usage.description2"
+                            )}
+                        </p>
+                    </div>
+                </section>
+
+                <section className="el-score-faq">
+                    <h2>
+                        {t("elScoreCalculator.faq.title")}
+                    </h2>
+
+                    <details>
+                        <summary>
+                            {t(
+                                "elScoreCalculator.faq.conditional.question"
+                            )}
+                        </summary>
+                        <p>
+                            {t(
+                                "elScoreCalculator.faq.conditional.answer"
+                            )}
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>
+                            {t(
+                                "elScoreCalculator.faq.finalScore.question"
+                            )}
+                        </summary>
+                        <p>
+                            {t(
+                                "elScoreCalculator.faq.finalScore.answer"
+                            )}
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>
+                            {t(
+                                "elScoreCalculator.faq.storage.question"
+                            )}
+                        </summary>
+                        <p>
+                            {t(
+                                "elScoreCalculator.faq.storage.answer"
+                            )}
+                        </p>
+                    </details>
+                </section>
+            </article>
+        </>
+    );
+}
+
+function WorkflowStep({
+    icon,
+    number,
+    title,
+    description
+}) {
+    return (
+        <li>
+            <div className="el-score-step-icon">
+                {icon}
+            </div>
+            <span>
+                {number}
+            </span>
+            <strong>{title}</strong>
+            <p>{description}</p>
+        </li>
+    );
+}
+
+function SectionTitle({
+    number,
+    icon,
+    title,
+    description,
+    action
+}) {
+    return (
+        <div className="el-score-section-heading">
+            <div className="el-score-section-title">
+                <span className="el-score-section-number">
+                    {number}
+                </span>
+                <div>
+                    <div className="el-score-kicker">
+                        {icon}
+                    </div>
+                    <h2>{title}</h2>
+                    <p>{description}</p>
                 </div>
             </div>
-        </div>
-        </>)}
 
-        {step >= 5 && (<>
-        <NextStep size={50}/>
-        <div className="row mt-4">
-            <h2>5. 예상 점수 및 순위 확인</h2>
-            <div className="col-12">
-                <div className="text-nowrap table-responsive">
-                    <table className="table">
-                        <thead>
-                            <tr className="text-center">
-                                <th>순위</th>
-                                <th>서버</th>
-                                <th className="text-end">현재 점수</th>
-                                <th className="text-end">1분당 점수</th>
-                                <th className="text-end">최종 점수</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            {sortedServers.map((server, index)=>(
-                            <tr key={server.no} className={`${index === 0 ? 'table-primary' : ''}${index === 1 ? 'table-success' : ''}`}>
-                                <td>{index+1}</td>
-                                <td>{server.name}</td>
-                                <td className="text-end">{server.currentScore?.toLocaleString()}</td>
-                                <td className="text-end">{server.scorePerMinute?.toLocaleString()}</td>
-                                <td className="text-end">{server.scoreTotal?.toLocaleString()}</td>
-                            </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            {action}
         </div>
-        </>)}
+    );
+}
 
-        <div className="row my-5 py-5"></div>
-    </>)
+function EmptyState({ icon, text }) {
+    return (
+        <div className="el-score-empty">
+            <span>{icon}</span>
+            <p>{text}</p>
+        </div>
+    );
 }
