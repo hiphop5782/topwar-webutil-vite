@@ -1210,5 +1210,177 @@
             "next": "次へ",
             "page": "{{page}} / {{totalPages}}"
         }
+    },
+    "eternalLandDarkforce": {
+        "meta": {
+            "title": "Top War 永遠の地 暗黒軍団スコア計算機 | Progamer.info",
+            "description": "永遠の地の狩猟エリア、部隊数、永遠の科学、移動時間から、1時間・1日・終了時点の暗黒軍団スコアを計算します。",
+            "applicationName": "Top War 永遠の地 暗黒軍団スコア計算機"
+        },
+        "hero": {
+            "eyebrow": "Top War 永遠の地",
+            "title": "暗黒軍団スコア計算機",
+            "description": "狩猟エリア、運用部隊数、永遠の科学、移動時間を基準に、1時間および1日の予想スコアを計算します。現在スコアと終了日を入力すると、イベント終了時点の予想最終スコアも確認できます。"
+        },
+        "notice": {
+            "title": "暗黒軍団のスコアは星数ではなくエリアによって異なります。",
+            "description": "選択したエリアは地図上で強調表示され、そのエリアの基本スコアが計算に使用されます。"
+        },
+        "map": {
+            "kicker": "エリア確認",
+            "title": "暗黒軍団 狩猟エリアマップ",
+            "baseScore": "基本 {{score}}ポイント",
+            "imageAlt": "Top War 永遠の地 暗黒軍団狩猟エリアマップ"
+        },
+        "highlight": {
+            "title": "地図の強調表示",
+            "color": "色",
+            "opacity": "濃さ",
+            "colorAria": "地図の強調色",
+            "opacityAria": "地図の強調表示の濃さ"
+        },
+        "settings": {
+            "kicker": "条件入力",
+            "title": "狩猟設定",
+            "reset": "リセット"
+        },
+        "fields": {
+            "area": {
+                "label": "狩猟エリア",
+                "description": "エリア別の暗黒軍団基本スコアが適用されます。"
+            },
+            "troop": {
+                "label": "運用部隊数",
+                "description": "同時に狩猟へ投入する部隊の総数です。"
+            },
+            "tech": {
+                "label": "永遠の科学",
+                "description": "暗黒軍団スコア増加効果を適用します。"
+            },
+            "count": {
+                "label": "巡回する対象数",
+                "description": "2体以上の場合、基本巡回時間240秒を含みます。",
+                "option_other": "{{count}}体"
+            },
+            "delay": {
+                "label": "往復移動時間",
+                "description": "出発と帰還を合わせた総移動時間です。"
+            }
+        },
+        "areas": {
+            "Zone-1": {
+                "label": "エリア1",
+                "description": "開始地点",
+                "option": "エリア1・開始地点（{{score}}ポイント）"
+            },
+            "Zone-2": {
+                "label": "エリア2",
+                "description": "武器庫・軍事要塞",
+                "option": "エリア2・武器庫／軍事要塞（{{score}}ポイント）"
+            },
+            "Zone-3": {
+                "label": "エリア3",
+                "description": "研究施設",
+                "option": "エリア3・研究施設（{{score}}ポイント）"
+            },
+            "Zone-4": {
+                "label": "中心部",
+                "description": "永遠の都市",
+                "option": "中心部・永遠の都市（{{score}}ポイント）"
+            },
+            "SRA-1": {
+                "label": "特殊資源エリア1",
+                "description": "特殊資源エリア",
+                "option": "特殊資源エリア1（{{score}}ポイント）"
+            },
+            "SRA-2": {
+                "label": "特殊資源エリア2",
+                "description": "特殊資源エリア",
+                "option": "特殊資源エリア2（{{score}}ポイント）"
+            },
+            "SRA-3": {
+                "label": "特殊資源エリア3",
+                "description": "特殊資源エリア",
+                "option": "特殊資源エリア3（{{score}}ポイント）"
+            }
+        },
+        "troops": {
+            "1": "1部隊・自動1",
+            "2": "2部隊・自動2",
+            "3": "3部隊・自動3",
+            "4": "4部隊・自動3＋手動1",
+            "5": "5部隊・自動3＋手動2",
+            "6": "6部隊・自動3＋手動3",
+            "7": "7部隊・自動3＋手動4"
+        },
+        "techLevels": {
+            "0": "レベル0・0%",
+            "4": "レベル1・4%",
+            "8": "レベル2・8%",
+            "12": "レベル3・12%",
+            "16": "レベル4・16%",
+            "20": "レベル5・20%"
+        },
+        "cycle": {
+            "title": "1回の巡回時間",
+            "duration": "{{seconds}}秒",
+            "single": "単一対象への移動時間を基準",
+            "multiple": "基本240秒＋移動{{delay}}秒"
+        },
+        "results": {
+            "kicker": "自動計算結果",
+            "title": "予想狩猟スコア",
+            "attacksPerHour": "1時間あたりの攻撃回数",
+            "scorePerHour": "1時間あたりの予想スコア",
+            "scorePerDay": "1日あたりの予想スコア",
+            "scorePerTurn": "1回あたり{{score}}ポイント",
+            "dayAssumption": "24時間連続で狩猟する想定",
+            "troopTotal_other": "{{troop}}部隊の合計"
+        },
+        "projection": {
+            "kicker": "終了スコア予測",
+            "title": "予想最終スコア",
+            "currentScore": "現在スコア",
+            "currentScoreDescription": "ゲーム画面に表示されている現在スコアです。",
+            "endDate": "終了日",
+            "endDateDescription": "選択した日の23時を基準に計算します。",
+            "expired": "終了日が過ぎているか、正しくありません。",
+            "remainingHours": "残り約{{hours}}時間",
+            "assumption": "現在の条件でイベント終了まで継続して狩猟する場合の予想値です。"
+        },
+        "info": {
+            "calculation": {
+                "title": "計算方法",
+                "description": "エリアの基本スコアに永遠の科学の増加率を適用し、1時間あたりの攻撃回数と部隊数を掛けます。",
+                "formula": "1時間スコア = エリアスコア × 科学ボーナス × 1時間の攻撃回数 × 部隊数"
+            },
+            "caution": {
+                "title": "結果を確認する際の注意",
+                "description1": "実際の結果は、対象の先取り、部隊帰還の遅延、接続中断、サーバー状況、イベントルールの変更などにより異なる場合があります。",
+                "description2": "長時間の狩猟が中断なく続くと仮定した参考値としてご利用ください。"
+            }
+        },
+        "faq": {
+            "title": "よくある質問",
+            "items": {
+                "grade": {
+                    "question": "暗黒軍団の星数はスコアに影響しませんか？",
+                    "answer": "この計算機では、暗黒軍団の星数ではなく狩猟エリアごとの基本スコアを使用します。"
+                },
+                "count": {
+                    "question": "巡回する対象数とは何ですか？",
+                    "answer": "1体だけを繰り返す場合は移動時間のみを使用し、2体以上の場合は基本240秒に移動時間を加えて1回の巡回時間を計算します。"
+                },
+                "difference": {
+                    "question": "予想スコアと実際のスコアが異なるのはなぜですか？",
+                    "answer": "対象の先取り、部隊停止、通信遅延など、実際のプレイ中に発生する変数が計算に含まれていないためです。"
+                }
+            }
+        },
+        "units": {
+            "seconds": "秒",
+            "times": "回",
+            "points": "ポイント"
+        }
     }
 }

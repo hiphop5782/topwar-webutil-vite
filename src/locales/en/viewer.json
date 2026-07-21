@@ -1210,5 +1210,179 @@
             "next": "Next",
             "page": "{{page}} / {{totalPages}}"
         }
+    },
+    "eternalLandDarkforce": {
+        "meta": {
+            "title": "Top War Eternal Land Dark Force Score Calculator | Progamer.info",
+            "description": "Calculate estimated hourly, daily, and final Dark Force scores in Eternal Land using the hunting area, marches, Eternal Tech, and travel time.",
+            "applicationName": "Top War Eternal Land Dark Force Score Calculator"
+        },
+        "hero": {
+            "eyebrow": "Top War Eternal Land",
+            "title": "Dark Force Score Calculator",
+            "description": "Estimate hourly and daily scores from the hunting area, number of marches, Eternal Tech, and travel time. Enter your current score and the event end date to project your final score."
+        },
+        "notice": {
+            "title": "Dark Force scores depend on the area, not the star level.",
+            "description": "The selected area is highlighted on the map, and its base score is used in the calculation."
+        },
+        "map": {
+            "kicker": "Area overview",
+            "title": "Dark Force Hunting Area Map",
+            "baseScore": "{{score}} base points",
+            "imageAlt": "Top War Eternal Land Dark Force hunting area map"
+        },
+        "highlight": {
+            "title": "Map highlight",
+            "color": "Color",
+            "opacity": "Opacity",
+            "colorAria": "Map highlight color",
+            "opacityAria": "Map highlight opacity"
+        },
+        "settings": {
+            "kicker": "Input conditions",
+            "title": "Hunting Settings",
+            "reset": "Reset"
+        },
+        "fields": {
+            "area": {
+                "label": "Hunting area",
+                "description": "The area's base Dark Force score is applied."
+            },
+            "troop": {
+                "label": "Number of marches",
+                "description": "Total marches used for hunting at the same time."
+            },
+            "tech": {
+                "label": "Eternal Tech",
+                "description": "Applies the Dark Force score bonus."
+            },
+            "count": {
+                "label": "Rotation target count",
+                "description": "A 240-second base rotation is included for two or more targets.",
+                "option_one": "{{count}} target",
+                "option_other": "{{count}} targets"
+            },
+            "delay": {
+                "label": "Round-trip travel time",
+                "description": "Total travel time for departure and return."
+            }
+        },
+        "areas": {
+            "Zone-1": {
+                "label": "Zone 1",
+                "description": "Starting area",
+                "option": "Zone 1 · Starting area ({{score}} pts)"
+            },
+            "Zone-2": {
+                "label": "Zone 2",
+                "description": "Arsenal and military fortress",
+                "option": "Zone 2 · Arsenal / fortress ({{score}} pts)"
+            },
+            "Zone-3": {
+                "label": "Zone 3",
+                "description": "Research facilities",
+                "option": "Zone 3 · Research facilities ({{score}} pts)"
+            },
+            "Zone-4": {
+                "label": "Central Zone",
+                "description": "Eternal City",
+                "option": "Central Zone · Eternal City ({{score}} pts)"
+            },
+            "SRA-1": {
+                "label": "Special Resource Area 1",
+                "description": "Special resource area",
+                "option": "Special Resource Area 1 ({{score}} pts)"
+            },
+            "SRA-2": {
+                "label": "Special Resource Area 2",
+                "description": "Special resource area",
+                "option": "Special Resource Area 2 ({{score}} pts)"
+            },
+            "SRA-3": {
+                "label": "Special Resource Area 3",
+                "description": "Special resource area",
+                "option": "Special Resource Area 3 ({{score}} pts)"
+            }
+        },
+        "troops": {
+            "1": "1 march · 1 automatic",
+            "2": "2 marches · 2 automatic",
+            "3": "3 marches · 3 automatic",
+            "4": "4 marches · 3 automatic + 1 manual",
+            "5": "5 marches · 3 automatic + 2 manual",
+            "6": "6 marches · 3 automatic + 3 manual",
+            "7": "7 marches · 3 automatic + 4 manual"
+        },
+        "techLevels": {
+            "0": "Level 0 · 0%",
+            "4": "Level 1 · 4%",
+            "8": "Level 2 · 8%",
+            "12": "Level 3 · 12%",
+            "16": "Level 4 · 16%",
+            "20": "Level 5 · 20%"
+        },
+        "cycle": {
+            "title": "Time per rotation",
+            "duration": "{{seconds}} sec",
+            "single": "Based on travel time for one target",
+            "multiple": "240 sec base + {{delay}} sec travel"
+        },
+        "results": {
+            "kicker": "Calculated results",
+            "title": "Estimated Hunting Score",
+            "attacksPerHour": "Attacks per hour",
+            "scorePerHour": "Estimated score per hour",
+            "scorePerDay": "Estimated score per day",
+            "scorePerTurn": "{{score}} points per attack",
+            "dayAssumption": "Assumes 24 hours of continuous hunting",
+            "troopTotal_one": "Total for {{troop}} march",
+            "troopTotal_other": "Total for {{troop}} marches"
+        },
+        "projection": {
+            "kicker": "Final score projection",
+            "title": "Estimated Final Score",
+            "currentScore": "Current score",
+            "currentScoreDescription": "Your current score shown in the game.",
+            "endDate": "End date",
+            "endDateDescription": "Calculated to 11:00 PM on the selected date.",
+            "expired": "The end date has passed or is invalid.",
+            "remainingHours": "About {{hours}} hours remaining",
+            "assumption": "This estimate assumes continuous hunting under the current settings until the event ends."
+        },
+        "info": {
+            "calculation": {
+                "title": "How the calculation works",
+                "description": "The Eternal Tech bonus is applied to the area's base score, then multiplied by the attacks per hour and the number of marches.",
+                "formula": "Hourly score = area score × tech bonus × attacks per hour × marches"
+            },
+            "caution": {
+                "title": "Important limitations",
+                "description1": "Actual results may vary because of occupied targets, delayed march returns, disconnections, server conditions, or event rule changes.",
+                "description2": "Use this as a reference estimate that assumes uninterrupted long-term hunting."
+            }
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "items": {
+                "grade": {
+                    "question": "Does the Dark Force star level affect the score?",
+                    "answer": "This calculator uses the base score of the hunting area rather than the Dark Force star level."
+                },
+                "count": {
+                    "question": "What is the rotation target count?",
+                    "answer": "For one repeated target, only travel time is used. For two or more targets, the calculator adds travel time to the 240-second base rotation."
+                },
+                "difference": {
+                    "question": "Why can the estimate differ from the actual score?",
+                    "answer": "Real gameplay variables such as occupied targets, stopped marches, and network delays are not included."
+                }
+            }
+        },
+        "units": {
+            "seconds": "sec",
+            "times": "times",
+            "points": "pts"
+        }
     }
 }

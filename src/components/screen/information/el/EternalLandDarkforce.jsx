@@ -1,6 +1,7 @@
 import DarkforceImage from "@src/assets/images/el/darkforce.jpg";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 import {
     FaArrowTrendUp,
     FaClock,
@@ -24,34 +25,19 @@ const SCORE_BY_AREA = {
     "SRA-3": 140
 };
 
-const AREA_OPTIONS = [
-    { value: "Zone-1", label: "1구역", description: "시작 지점" },
-    { value: "Zone-2", label: "2구역", description: "무기고·군사 요새" },
-    { value: "Zone-3", label: "3구역", description: "연구 시설" },
-    { value: "Zone-4", label: "중심부", description: "영원의 도시" },
-    { value: "SRA-1", label: "특수 자원 1구역", description: "특수 자원 지역" },
-    { value: "SRA-2", label: "특수 자원 2구역", description: "특수 자원 지역" },
-    { value: "SRA-3", label: "특수 자원 3구역", description: "특수 자원 지역" }
+const AREA_VALUES = [
+    "Zone-1",
+    "Zone-2",
+    "Zone-3",
+    "Zone-4",
+    "SRA-1",
+    "SRA-2",
+    "SRA-3"
 ];
 
-const TROOP_OPTIONS = [
-    { value: 1, label: "1개 대열", description: "1개 자동" },
-    { value: 2, label: "2개 대열", description: "2개 자동" },
-    { value: 3, label: "3개 대열", description: "3개 자동" },
-    { value: 4, label: "4개 대열", description: "3개 자동 + 1개 수동" },
-    { value: 5, label: "5개 대열", description: "3개 자동 + 2개 수동" },
-    { value: 6, label: "6개 대열", description: "3개 자동 + 3개 수동" },
-    { value: 7, label: "7개 대열", description: "3개 자동 + 4개 수동" }
-];
+const TROOP_VALUES = [1, 2, 3, 4, 5, 6, 7];
 
-const TECH_OPTIONS = [
-    { value: 0, label: "0레벨", bonus: "0%" },
-    { value: 4, label: "1레벨", bonus: "4%" },
-    { value: 8, label: "2레벨", bonus: "8%" },
-    { value: 12, label: "3레벨", bonus: "12%" },
-    { value: 16, label: "4레벨", bonus: "16%" },
-    { value: 20, label: "5레벨", bonus: "20%" }
-];
+const TECH_VALUES = [0, 4, 8, 12, 16, 20];
 
 function getDateAfter(diff) {
     const result = new Date();
@@ -87,28 +73,31 @@ function toSafeNumber(value, min = 0, max = Number.MAX_SAFE_INTEGER) {
 }
 
 export default function EternalLandDarkforce() {
+    const { t, i18n } = useTranslation("viewer");
+
     const [data, setData] = useLocalStorage(
         "el-darkforce",
         DEFAULT_DATA
     );
 
+    const locale =
+        i18n.resolvedLanguage ??
+        i18n.language ??
+        "ko";
+
+    const languageCode = locale.split("-")[0];
+
     const formatter = useMemo(
         () =>
-            new Intl.NumberFormat("ko-KR", {
+            new Intl.NumberFormat(locale, {
                 maximumFractionDigits: 2
             }),
-        []
-    );
-
-    const selectedArea = useMemo(
-        () =>
-            AREA_OPTIONS.find((item) => item.value === data.area) ??
-            AREA_OPTIONS[3],
-        [data.area]
+        [locale]
     );
 
     const areaScore =
-        SCORE_BY_AREA[data.area] ?? SCORE_BY_AREA["Zone-4"];
+        SCORE_BY_AREA[data.area] ??
+        SCORE_BY_AREA["Zone-4"];
 
     const highlightColor =
         /^#[0-9a-f]{6}$/i.test(data.highlightColor ?? "")
@@ -196,7 +185,7 @@ export default function EternalLandDarkforce() {
     const canonicalUrl =
         typeof window !== "undefined"
             ? `${window.location.origin}${window.location.pathname}`
-            : "https://www.progamer.info/ko/calculator/el-darkforce";
+            : `https://www.progamer.info/${languageCode}/calculator/el-darkforce`;
 
     const changeStringValue = useCallback((event) => {
         const { name, value } = event.target;
@@ -236,11 +225,13 @@ export default function EternalLandDarkforce() {
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Top War 영원의 땅 암흑 점수 계산기",
+        name: t("eternalLandDarkforce.meta.applicationName"),
         applicationCategory: "GameApplication",
         operatingSystem: "Web",
-        description:
-            "영원의 땅 암흑 사냥 구역, 대열 수, 기술 효과와 이동 시간을 기준으로 예상 점수를 계산하는 도구입니다.",
+        description: t(
+            "eternalLandDarkforce.meta.description"
+        ),
+        inLanguage: languageCode,
         url: canonicalUrl
     };
 
@@ -248,11 +239,13 @@ export default function EternalLandDarkforce() {
         <>
             <Helmet>
                 <title>
-                    Top War 영원의 땅 암흑 점수 계산기 | Progamer.info
+                    {t("eternalLandDarkforce.meta.title")}
                 </title>
                 <meta
                     name="description"
-                    content="영원의 땅 암흑 사냥 구역, 대열 수, 영원의 기술과 이동 시간을 입력해 시간당·일일 점수와 종료 시점 예상 점수를 계산합니다."
+                    content={t(
+                        "eternalLandDarkforce.meta.description"
+                    )}
                 />
                 <link rel="canonical" href={canonicalUrl} />
                 <script type="application/ld+json">
@@ -264,17 +257,17 @@ export default function EternalLandDarkforce() {
                 <header className="darkforce-hero">
                     <div className="darkforce-eyebrow">
                         <FaCrosshairs aria-hidden="true" />
-                        Top War 영원의 땅
+                        {t("eternalLandDarkforce.hero.eyebrow")}
                     </div>
 
-                    <h1>암흑 점수 계산기</h1>
+                    <h1>
+                        {t("eternalLandDarkforce.hero.title")}
+                    </h1>
 
                     <p>
-                        사냥 구역과 운용 대열, 영원의 기술,
-                        이동 시간을 기준으로 시간당·일일 예상 점수를
-                        계산합니다. 현재 점수와 종료 일자를 입력하면
-                        이벤트 종료 시점의 예상 최종 점수도 확인할 수
-                        있습니다.
+                        {t(
+                            "eternalLandDarkforce.hero.description"
+                        )}
                     </p>
                 </header>
 
@@ -282,11 +275,14 @@ export default function EternalLandDarkforce() {
                     <FaTriangleExclamation aria-hidden="true" />
                     <div>
                         <strong>
-                            암흑 점수는 성급이 아니라 구역에 따라 달라집니다.
+                            {t(
+                                "eternalLandDarkforce.notice.title"
+                            )}
                         </strong>
                         <p>
-                            선택한 구역은 지도에서 강하게 강조되며,
-                            해당 구역의 기본 점수가 계산에 적용됩니다.
+                            {t(
+                                "eternalLandDarkforce.notice.description"
+                            )}
                         </p>
                     </div>
                 </section>
@@ -296,15 +292,30 @@ export default function EternalLandDarkforce() {
                         <div className="darkforce-card-heading">
                             <div>
                                 <span className="darkforce-section-kicker">
-                                    구역 확인
+                                    {t(
+                                        "eternalLandDarkforce.map.kicker"
+                                    )}
                                 </span>
-                                <h2>암흑 사냥 구역 지도</h2>
+                                <h2>
+                                    {t(
+                                        "eternalLandDarkforce.map.title"
+                                    )}
+                                </h2>
                             </div>
 
                             <span className="darkforce-area-badge">
-                                {selectedArea.label}
+                                {t(
+                                    `eternalLandDarkforce.areas.${data.area}.label`
+                                )}
                                 <small>
-                                    기본 {areaScore}점
+                                    {t(
+                                        "eternalLandDarkforce.map.baseScore",
+                                        {
+                                            score: formatter.format(
+                                                areaScore
+                                            )
+                                        }
+                                    )}
                                 </small>
                             </span>
                         </div>
@@ -318,7 +329,9 @@ export default function EternalLandDarkforce() {
                         >
                             <img
                                 src={DarkforceImage}
-                                alt="Top War 영원의 땅 암흑 사냥 구역 지도"
+                                alt={t(
+                                    "eternalLandDarkforce.map.imageAlt"
+                                )}
                             />
 
                             <svg
@@ -380,9 +393,13 @@ export default function EternalLandDarkforce() {
                                 <FaMapLocationDot aria-hidden="true" />
                                 <span>
                                     <strong>
-                                        {selectedArea.label}
+                                        {t(
+                                            `eternalLandDarkforce.areas.${data.area}.label`
+                                        )}
                                     </strong>
-                                    {selectedArea.description}
+                                    {t(
+                                        `eternalLandDarkforce.areas.${data.area}.description`
+                                    )}
                                 </span>
                             </div>
                         </div>
@@ -390,27 +407,38 @@ export default function EternalLandDarkforce() {
                         <div className="darkforce-highlight-controls">
                             <div className="darkforce-highlight-title">
                                 <FaPalette aria-hidden="true" />
-                                지도 강조
+                                {t(
+                                    "eternalLandDarkforce.highlight.title"
+                                )}
                             </div>
 
                             <label>
-                                <span>색상</span>
+                                <span>
+                                    {t(
+                                        "eternalLandDarkforce.highlight.color"
+                                    )}
+                                </span>
                                 <input
                                     type="color"
                                     name="highlightColor"
                                     value={highlightColor}
                                     onChange={changeStringValue}
-                                    aria-label="지도 강조 색상"
+                                    aria-label={t(
+                                        "eternalLandDarkforce.highlight.colorAria"
+                                    )}
                                 />
                             </label>
 
                             <label className="darkforce-opacity-control">
                                 <span>
-                                    농도
+                                    {t(
+                                        "eternalLandDarkforce.highlight.opacity"
+                                    )}
                                     <strong>
                                         {Math.round(
                                             highlightOpacity * 100
-                                        )}%
+                                        )}
+                                        %
                                     </strong>
                                 </span>
                                 <input
@@ -420,6 +448,9 @@ export default function EternalLandDarkforce() {
                                     step="0.05"
                                     value={highlightOpacity}
                                     onChange={changeOpacity}
+                                    aria-label={t(
+                                        "eternalLandDarkforce.highlight.opacityAria"
+                                    )}
                                 />
                             </label>
                         </div>
@@ -429,9 +460,15 @@ export default function EternalLandDarkforce() {
                         <div className="darkforce-card-heading">
                             <div>
                                 <span className="darkforce-section-kicker">
-                                    조건 입력
+                                    {t(
+                                        "eternalLandDarkforce.settings.kicker"
+                                    )}
                                 </span>
-                                <h2>사냥 설정</h2>
+                                <h2>
+                                    {t(
+                                        "eternalLandDarkforce.settings.title"
+                                    )}
+                                </h2>
                             </div>
 
                             <button
@@ -440,14 +477,20 @@ export default function EternalLandDarkforce() {
                                 onClick={resetSettings}
                             >
                                 <FaRotateLeft className="me-2" />
-                                초기화
+                                {t(
+                                    "eternalLandDarkforce.settings.reset"
+                                )}
                             </button>
                         </div>
 
                         <div className="darkforce-form-grid">
                             <Field
-                                label="사냥 구역"
-                                description="구역별 암흑 기본 점수가 적용됩니다."
+                                label={t(
+                                    "eternalLandDarkforce.fields.area.label"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.fields.area.description"
+                                )}
                             >
                                 <select
                                     className="form-select"
@@ -455,21 +498,34 @@ export default function EternalLandDarkforce() {
                                     value={data.area}
                                     onChange={changeStringValue}
                                 >
-                                    {AREA_OPTIONS.map((item) => (
+                                    {AREA_VALUES.map((area) => (
                                         <option
-                                            key={item.value}
-                                            value={item.value}
+                                            key={area}
+                                            value={area}
                                         >
-                                            {item.label} · {item.description}
-                                            ({SCORE_BY_AREA[item.value]}점)
+                                            {t(
+                                                `eternalLandDarkforce.areas.${area}.option`,
+                                                {
+                                                    score:
+                                                        formatter.format(
+                                                            SCORE_BY_AREA[
+                                                                area
+                                                            ]
+                                                        )
+                                                }
+                                            )}
                                         </option>
                                     ))}
                                 </select>
                             </Field>
 
                             <Field
-                                label="운용 대열 수"
-                                description="동시에 사냥에 투입할 전체 대열입니다."
+                                label={t(
+                                    "eternalLandDarkforce.fields.troop.label"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.fields.troop.description"
+                                )}
                             >
                                 <select
                                     className="form-select"
@@ -477,20 +533,26 @@ export default function EternalLandDarkforce() {
                                     value={data.troop}
                                     onChange={changeNumberValue}
                                 >
-                                    {TROOP_OPTIONS.map((item) => (
+                                    {TROOP_VALUES.map((troop) => (
                                         <option
-                                            key={item.value}
-                                            value={item.value}
+                                            key={troop}
+                                            value={troop}
                                         >
-                                            {item.label} · {item.description}
+                                            {t(
+                                                `eternalLandDarkforce.troops.${troop}`
+                                            )}
                                         </option>
                                     ))}
                                 </select>
                             </Field>
 
                             <Field
-                                label="영원의 기술"
-                                description="암흑 점수 증가 효과를 적용합니다."
+                                label={t(
+                                    "eternalLandDarkforce.fields.tech.label"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.fields.tech.description"
+                                )}
                             >
                                 <select
                                     className="form-select"
@@ -498,20 +560,26 @@ export default function EternalLandDarkforce() {
                                     value={data.tech}
                                     onChange={changeNumberValue}
                                 >
-                                    {TECH_OPTIONS.map((item) => (
+                                    {TECH_VALUES.map((tech) => (
                                         <option
-                                            key={item.value}
-                                            value={item.value}
+                                            key={tech}
+                                            value={tech}
                                         >
-                                            {item.label} · {item.bonus}
+                                            {t(
+                                                `eternalLandDarkforce.techLevels.${tech}`
+                                            )}
                                         </option>
                                     ))}
                                 </select>
                             </Field>
 
                             <Field
-                                label="순환 사냥 대상 수"
-                                description="2개 이상이면 기본 순환 시간 240초를 포함합니다."
+                                label={t(
+                                    "eternalLandDarkforce.fields.count.label"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.fields.count.description"
+                                )}
                             >
                                 <select
                                     className="form-select"
@@ -524,15 +592,22 @@ export default function EternalLandDarkforce() {
                                             key={count}
                                             value={count}
                                         >
-                                            {count}개
+                                            {t(
+                                                "eternalLandDarkforce.fields.count.option",
+                                                { count }
+                                            )}
                                         </option>
                                     ))}
                                 </select>
                             </Field>
 
                             <Field
-                                label="왕복 이동 시간"
-                                description="출발과 복귀를 합한 총 이동 시간입니다."
+                                label={t(
+                                    "eternalLandDarkforce.fields.delay.label"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.fields.delay.description"
+                                )}
                             >
                                 <div className="input-group">
                                     <input
@@ -546,21 +621,45 @@ export default function EternalLandDarkforce() {
                                         onChange={changeNumberValue}
                                     />
                                     <span className="input-group-text">
-                                        초
+                                        {t(
+                                            "eternalLandDarkforce.units.seconds"
+                                        )}
                                     </span>
                                 </div>
                             </Field>
                         </div>
 
                         <div className="darkforce-cycle-summary">
-                            <span>1회 순환 시간</span>
+                            <span>
+                                {t(
+                                    "eternalLandDarkforce.cycle.title"
+                                )}
+                            </span>
                             <strong>
-                                {formatter.format(turnDuration)}초
+                                {t(
+                                    "eternalLandDarkforce.cycle.duration",
+                                    {
+                                        seconds:
+                                            formatter.format(
+                                                turnDuration
+                                            )
+                                    }
+                                )}
                             </strong>
                             <small>
                                 {data.count === 1
-                                    ? "단일 대상 이동 시간 기준"
-                                    : `기본 240초 + 이동 ${data.delay}초`}
+                                    ? t(
+                                        "eternalLandDarkforce.cycle.single"
+                                    )
+                                    : t(
+                                        "eternalLandDarkforce.cycle.multiple",
+                                        {
+                                            delay:
+                                                formatter.format(
+                                                    data.delay
+                                                )
+                                        }
+                                    )}
                             </small>
                         </div>
                     </div>
@@ -570,38 +669,69 @@ export default function EternalLandDarkforce() {
                     <div className="darkforce-section-heading">
                         <div>
                             <span className="darkforce-section-kicker">
-                                자동 계산 결과
+                                {t(
+                                    "eternalLandDarkforce.results.kicker"
+                                )}
                             </span>
-                            <h2>예상 사냥 점수</h2>
+                            <h2>
+                                {t(
+                                    "eternalLandDarkforce.results.title"
+                                )}
+                            </h2>
                         </div>
                     </div>
 
                     <div className="darkforce-result-grid">
                         <ResultCard
                             icon={<FaCrosshairs />}
-                            label="시간당 공격 횟수"
+                            label={t(
+                                "eternalLandDarkforce.results.attacksPerHour"
+                            )}
                             value={formatter.format(attacksPerHour)}
-                            unit="회"
-                            detail={`${data.troop}개 대열 합계`}
+                            unit={t(
+                                "eternalLandDarkforce.units.times"
+                            )}
+                            detail={t(
+                                "eternalLandDarkforce.results.troopTotal",
+                                {
+                                    troop: data.troop,
+                                    count: data.troop
+                                }
+                            )}
                         />
 
                         <ResultCard
                             icon={<FaClock />}
-                            label="시간당 예상 점수"
+                            label={t(
+                                "eternalLandDarkforce.results.scorePerHour"
+                            )}
                             value={formatter.format(scorePerHour)}
-                            unit="점"
-                            detail={`1회당 ${formatter.format(
-                                scorePerTurn
-                            )}점`}
+                            unit={t(
+                                "eternalLandDarkforce.units.points"
+                            )}
+                            detail={t(
+                                "eternalLandDarkforce.results.scorePerTurn",
+                                {
+                                    score: formatter.format(
+                                        scorePerTurn
+                                    )
+                                }
+                            )}
                             emphasized
                         />
 
                         <ResultCard
                             icon={<FaArrowTrendUp />}
-                            label="1일 예상 점수"
+                            label={t(
+                                "eternalLandDarkforce.results.scorePerDay"
+                            )}
                             value={formatter.format(scorePerDay)}
-                            unit="점"
-                            detail="24시간 연속 사냥 가정"
+                            unit={t(
+                                "eternalLandDarkforce.units.points"
+                            )}
+                            detail={t(
+                                "eternalLandDarkforce.results.dayAssumption"
+                            )}
                         />
                     </div>
                 </section>
@@ -611,16 +741,26 @@ export default function EternalLandDarkforce() {
                         <div className="darkforce-section-heading">
                             <div>
                                 <span className="darkforce-section-kicker">
-                                    종료 점수 예측
+                                    {t(
+                                        "eternalLandDarkforce.projection.kicker"
+                                    )}
                                 </span>
-                                <h2>최종 예상 점수</h2>
+                                <h2>
+                                    {t(
+                                        "eternalLandDarkforce.projection.title"
+                                    )}
+                                </h2>
                             </div>
                         </div>
 
                         <div className="darkforce-form-grid two-columns">
                             <Field
-                                label="현재 점수"
-                                description="게임 화면에 표시된 현재 점수입니다."
+                                label={t(
+                                    "eternalLandDarkforce.projection.currentScore"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.projection.currentScoreDescription"
+                                )}
                             >
                                 <div className="input-group">
                                     <input
@@ -633,14 +773,20 @@ export default function EternalLandDarkforce() {
                                         onChange={changeNumberValue}
                                     />
                                     <span className="input-group-text">
-                                        점
+                                        {t(
+                                            "eternalLandDarkforce.units.points"
+                                        )}
                                     </span>
                                 </div>
                             </Field>
 
                             <Field
-                                label="종료 일자"
-                                description="선택한 날짜 오후 11시 기준입니다."
+                                label={t(
+                                    "eternalLandDarkforce.projection.endDate"
+                                )}
+                                description={t(
+                                    "eternalLandDarkforce.projection.endDateDescription"
+                                )}
                             >
                                 <input
                                     type="date"
@@ -663,83 +809,118 @@ export default function EternalLandDarkforce() {
                     >
                         <span>
                             {projection.expired
-                                ? "종료 일자가 지났거나 유효하지 않습니다."
-                                : `남은 시간 약 ${formatter.format(
-                                    projection.remainingHours
-                                )}시간`}
+                                ? t(
+                                    "eternalLandDarkforce.projection.expired"
+                                )
+                                : t(
+                                    "eternalLandDarkforce.projection.remainingHours",
+                                    {
+                                        hours:
+                                            formatter.format(
+                                                projection.remainingHours
+                                            )
+                                    }
+                                )}
                         </span>
                         <strong>
                             {formatter.format(
                                 projection.targetScore
                             )}
-                            <small>점</small>
+                            <small>
+                                {t(
+                                    "eternalLandDarkforce.units.points"
+                                )}
+                            </small>
                         </strong>
                         <p>
-                            현재 조건으로 종료 시점까지 계속 사냥한다고
-                            가정한 예상치입니다.
+                            {t(
+                                "eternalLandDarkforce.projection.assumption"
+                            )}
                         </p>
                     </div>
                 </section>
 
                 <section className="darkforce-info-grid">
                     <div className="darkforce-info-card">
-                        <h2>계산 방식</h2>
+                        <h2>
+                            {t(
+                                "eternalLandDarkforce.info.calculation.title"
+                            )}
+                        </h2>
                         <p>
-                            구역 기본 점수에 영원의 기술 증가율을 적용한
-                            뒤, 1회 순환 시간으로 계산한 공격 횟수와 대열
-                            수를 곱합니다.
+                            {t(
+                                "eternalLandDarkforce.info.calculation.description"
+                            )}
                         </p>
                         <code>
-                            시간당 점수 = 구역 점수 × 기술 보너스 ×
-                            시간당 공격 횟수 × 대열 수
+                            {t(
+                                "eternalLandDarkforce.info.calculation.formula"
+                            )}
                         </code>
                     </div>
 
                     <div className="darkforce-info-card">
-                        <h2>결과 확인 시 주의사항</h2>
+                        <h2>
+                            {t(
+                                "eternalLandDarkforce.info.caution.title"
+                            )}
+                        </h2>
                         <p>
-                            실제 결과는 목표 선점, 대열 복귀 지연, 접속
-                            중단, 서버 상태 및 이벤트 규칙 변경 등에 따라
-                            달라질 수 있습니다.
+                            {t(
+                                "eternalLandDarkforce.info.caution.description1"
+                            )}
                         </p>
                         <p>
-                            장시간 사냥이 중단 없이 유지된다는 가정의
-                            참고값으로 사용하세요.
+                            {t(
+                                "eternalLandDarkforce.info.caution.description2"
+                            )}
                         </p>
                     </div>
                 </section>
 
                 <section className="darkforce-faq">
-                    <h2>자주 묻는 질문</h2>
+                    <h2>
+                        {t(
+                            "eternalLandDarkforce.faq.title"
+                        )}
+                    </h2>
 
                     <details>
                         <summary>
-                            암흑 성급은 점수에 영향을 주지 않나요?
+                            {t(
+                                "eternalLandDarkforce.faq.items.grade.question"
+                            )}
                         </summary>
                         <p>
-                            이 계산기는 현재 데이터 기준으로 성급이 아닌
-                            사냥 구역별 기본 점수를 사용합니다.
+                            {t(
+                                "eternalLandDarkforce.faq.items.grade.answer"
+                            )}
                         </p>
                     </details>
 
                     <details>
                         <summary>
-                            순환 사냥 대상 수는 무엇인가요?
+                            {t(
+                                "eternalLandDarkforce.faq.items.count.question"
+                            )}
                         </summary>
                         <p>
-                            한 대상만 반복하면 이동 시간만 사용하고,
-                            두 대상 이상이면 기존 계산 기준인 240초에
-                            이동 시간을 더해 1회 주기를 계산합니다.
+                            {t(
+                                "eternalLandDarkforce.faq.items.count.answer"
+                            )}
                         </p>
                     </details>
 
                     <details>
                         <summary>
-                            예상 점수가 실제 점수와 다른 이유는 무엇인가요?
+                            {t(
+                                "eternalLandDarkforce.faq.items.difference.question"
+                            )}
                         </summary>
                         <p>
-                            목표 선점, 대열 정지, 네트워크 지연 같은 실제
-                            플레이 변수가 계산에는 포함되지 않기 때문입니다.
+                            {t(
+                                "eternalLandDarkforce.faq.items.difference.answer"
+                            )}
                         </p>
                     </details>
                 </section>
