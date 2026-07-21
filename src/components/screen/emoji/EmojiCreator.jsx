@@ -159,7 +159,7 @@ export default function EmojiCreator() {
         window.addEventListener("resize", updateDisplaySize);
 
         return () => window.removeEventListener("resize", updateDisplaySize);
-    }, [originalImage]);
+    }, [originalImage, resultImage, loading]);
 
     const handleUndo = useCallback(() => {
         setLines((prev) => prev.slice(0, -1));
