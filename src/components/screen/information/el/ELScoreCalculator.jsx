@@ -24,6 +24,7 @@ import {
 } from "react";
 
 import "./ELScoreCalculator.css";
+import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 
 const INITIAL_SERVER = {
     no: 0,
@@ -480,10 +481,7 @@ export default function ELScoreCalculator() {
         [selectedServer]
     );
 
-    const canonicalUrl =
-        typeof window !== "undefined"
-            ? `${window.location.origin}${window.location.pathname}`
-            : `https://www.progamer.info/${languageCode}/information/el/score`;
+    const canonicalUrl = useCanonicalUrl();
 
     const structuredData = {
         "@context": "https://schema.org",

@@ -14,6 +14,7 @@ import {
 import { useCallback, useMemo } from "react";
 
 import "./EternalLandDarkforce.css";
+import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 
 const SCORE_BY_AREA = {
     "Zone-1": 100,
@@ -182,10 +183,7 @@ export default function EternalLandDarkforce() {
         scorePerHour
     ]);
 
-    const canonicalUrl =
-        typeof window !== "undefined"
-            ? `${window.location.origin}${window.location.pathname}`
-            : `https://www.progamer.info/${languageCode}/calculator/el-darkforce`;
+    const canonicalUrl = useCanonicalUrl();
 
     const changeStringValue = useCallback((event) => {
         const { name, value } = event.target;

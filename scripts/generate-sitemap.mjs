@@ -3,12 +3,29 @@ import {
     readdir,
     writeFile,
 } from "node:fs/promises";
+
 import path from "node:path";
+import { loadEnv } from "vite";
+
+import {
+    supportedLngs,
+} from "../src/config/languages.js";
 
 const DIST_DIRECTORY = path.resolve("dist");
-const SITE_ORIGIN = "https://www.progamer.info";
 
-import { supportedLngs } from "../src/config/languages.js";
+const env = loadEnv(
+    process.env.NODE_ENV || "production",
+    process.cwd(),
+    ""
+);
+
+const publicUrl =
+    env.VITE_PUBLIC_URL.startsWith("//")
+        ? `https:${env.VITE_PUBLIC_URL}`
+        : env.VITE_PUBLIC_URL;
+
+const SITE_ORIGIN =
+    new URL(publicUrl).origin;
 
 /**
  * 사이트맵에서 제외할 URL입니다.
@@ -351,6 +368,15 @@ async function generateSitemap() {
 
         const canonical =
             extractCanonical(html);
+
+        console.log(
+            "[sitemap] canonical 확인",
+            {
+                filePath,
+                pathname,
+                canonical,
+            }
+        );
 
         const url =
             normalizeCanonicalUrl(
