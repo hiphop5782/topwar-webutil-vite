@@ -48,6 +48,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/disclaimer/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/emoji/create/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/create/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/create/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/create/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/emoji/list/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/list/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/list/" />
@@ -269,6 +275,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/disclaimer/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/disclaimer/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/disclaimer/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ja/emoji/create/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/create/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/create/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/create/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ja/emoji/list/</loc>
@@ -496,6 +508,8 @@
   <url>
     <loc>https://www.progamer.info/ko/emoji/create/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/create/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/create/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/create/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/emoji/list/</loc>
