@@ -1700,5 +1700,120 @@
             "points": "pts"
         },
         "facilities": {}
+    },
+    "emojiCreator": {
+        "seo": {
+            "title": "Free AI Background Remover and Square Image Editor | Topwar Helper",
+            "description": "A free browser-based tool that removes image backgrounds automatically, lets you refine the result with erase and restore brushes, and exports a square PNG.",
+            "structuredName": "Free AI Background Remover and Square Image Editor"
+        },
+        "header": {
+            "title": "Free AI Background Remover and Square Image Editor",
+            "lead": "Automatically remove a photo background, erase or restore areas with a brush, and save the finished result as a square PNG image.",
+            "note": "Use it to create transparent 1:1 images for profile pictures, game community emotes, product images, and similar content."
+        },
+        "upload": {
+            "title": "Step 1: Select an image",
+            "description": "Choose a PNG, JPG, JPEG, or WebP image whose background you want to remove. The first run may take a little longer while the AI model is prepared.",
+            "label": "Image file to edit",
+            "privacyNote": "The selected image is processed in your browser for background removal. This page does not contain code that uploads the image file to a separate server."
+        },
+        "errors": {
+            "invalidFileType": "Please select an image file such as PNG, JPG, JPEG, or WebP.",
+            "backgroundRemovalFailed": "An error occurred while removing the background. Try another image or use an up-to-date browser."
+        },
+        "loading": {
+            "title": "AI is analyzing the image background",
+            "description": "Processing time may vary depending on the image size and your device performance."
+        },
+        "editor": {
+            "title": "Step 2: Refine the result and position it in a square",
+            "description": "Review the automatic result and refine edges or remaining background areas with the brush. The exported image is based on the visible 1:1 editing area.",
+            "controls": {
+                "zoom": "Ctrl + wheel: Zoom",
+                "move": "Middle-click: Move image",
+                "erase": "Left-click: Erase",
+                "restore": "Right-click: Restore"
+            },
+            "buttons": {
+                "undo": "Undo",
+                "center": "Center image",
+                "download": "Save square PNG"
+            },
+            "status": "Brush: {{brush}}px · Zoom: {{zoom}}%"
+        },
+        "guide": {
+            "features": {
+                "title": "What this tool can do",
+                "items": {
+                    "automaticRemoval": {
+                        "title": "Automatic background removal",
+                        "description": "Analyzes the main subject in the image and makes the background transparent."
+                    },
+                    "manualEditing": {
+                        "title": "Manual erase and restore",
+                        "description": "Erase background areas left by automatic processing and restore subject areas that were removed by mistake."
+                    },
+                    "pngExport": {
+                        "title": "Square PNG export",
+                        "description": "Adjust the position and zoom level, then save the result as a PNG while preserving transparency."
+                    }
+                }
+            },
+            "usage": {
+                "title": "How to use it",
+                "steps": {
+                    "selectImage": "Select the image file whose background you want to remove.",
+                    "checkResult": "After automatic analysis finishes, inspect the subject edges and transparent areas.",
+                    "editMask": "Left-click to erase unwanted areas and right-click to restore areas removed by mistake.",
+                    "adjustView": "Use Ctrl and the mouse wheel to zoom, and hold the mouse wheel button to move the image.",
+                    "download": "When the composition is ready, click the Save square PNG button."
+                }
+            },
+            "privacy": {
+                "title": "Image processing and privacy",
+                "body1": "This page uses the <library>@imgly/background-removal</library> library to remove backgrounds in your browser. The current implementation does not contain upload code that sends or stores the selected image file on the Progamer.info server.",
+                "body2": "For information about standard access logs, cookies, and analytics used to operate the site, review the site privacy policy as well."
+            },
+            "limitations": {
+                "title": "Cases where results may be less accurate",
+                "items": {
+                    "complexEdges": "Images with highly complex edges such as hair, fur, or translucent materials",
+                    "lowContrast": "Images where the subject and background have very similar colors or brightness",
+                    "lowResolution": "Images with very low resolution or severe motion blur",
+                    "overlappingSubjects": "Images with multiple overlapping subjects that are difficult to distinguish"
+                },
+                "note": "Automatic processing is an assistive feature. For important images, zoom in and inspect the edges before saving."
+            },
+            "copyright": {
+                "title": "Copyright and usage precautions",
+                "body": "Use only images that you photographed yourself or have permission to edit. Before editing or distributing another person's photograph, character, trademark, or copyrighted work, check the relevant rights holder's terms of use."
+            },
+            "faq": {
+                "title": "Frequently asked questions",
+                "items": {
+                    "storage": {
+                        "question": "Is my image stored on a server?",
+                        "answer": "Background removal runs in your browser. The current component does not contain code that uploads or stores the image file on a separate server."
+                    },
+                    "firstRun": {
+                        "question": "Why does the first run take longer?",
+                        "answer": "Your browser must prepare the AI model and runtime files required for background removal. Later runs may be faster depending on the browser cache and device condition."
+                    },
+                    "formats": {
+                        "question": "Which image formats can I use?",
+                        "answer": "PNG, JPG, JPEG, and WebP are generally supported, provided that your browser can decode the selected format."
+                    },
+                    "transparency": {
+                        "question": "Will the saved image have a transparent background?",
+                        "answer": "Yes. The result is saved as a PNG, which supports transparency, based on the square 1:1 editing area shown on screen."
+                    },
+                    "mobile": {
+                        "question": "Can I use this tool on mobile devices?",
+                        "answer": "Image selection and automatic background removal may work, but the current manual editing controls are designed for a mouse, so a desktop browser is recommended."
+                    }
+                }
+            }
+        }
     }
 }

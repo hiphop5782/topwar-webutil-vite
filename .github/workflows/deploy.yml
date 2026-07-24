@@ -19,6 +19,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
+
     steps:
       # 저장소 코드 가져오기
       - name: Checkout source
@@ -62,10 +65,10 @@ jobs:
       # 2. 기본 언어 페이지 복사
       # 3. sitemap.xml 및 robots.txt 생성
       - name: Build and prerender project
+        run: npm run build
         env:
           CI: false
           PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
-        run: npm run build
 
       # 기본 프리렌더 결과 검증
       - name: Verify prerendered pages

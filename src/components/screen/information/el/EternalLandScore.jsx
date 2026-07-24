@@ -19,6 +19,7 @@ import {
 } from "react";
 
 import "./EternalLandScore.css";
+import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 
 const createFacilities = () =>
     Buildings.map((building, index) => {
@@ -70,10 +71,7 @@ export default function EternalLandScore() {
         [t]
     );
 
-    const canonicalUrl =
-        typeof window !== "undefined"
-            ? `${window.location.origin}${window.location.pathname}`
-            : `https://www.progamer.info/${languageCode}/information/el`;
+    const canonicalUrl = useCanonicalUrl();
 
     useEffect(() => {
         const mapElement = mapRef.current;

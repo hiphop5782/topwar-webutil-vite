@@ -26,6 +26,7 @@ import {
 
 import "flag-icons/sass/flag-icons.scss";
 import "./TopwarPlayerDataViewer.css";
+import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 
 const ACTIVITY_STATUS = {
     ACTIVE: "active",
@@ -221,7 +222,7 @@ export default function TopwarPlayerDataViewer() {
                 const serverMatched =
                     normalizedServer.length === 0 ||
                     getPlayerServerNumber(player) ===
-                        normalizedServer;
+                    normalizedServer;
 
                 const nicknameMatched =
                     normalizedNickname.length === 0 ||
@@ -376,10 +377,7 @@ export default function TopwarPlayerDataViewer() {
         [numberFormatter, t]
     );
 
-    const canonicalUrl =
-        typeof window !== "undefined"
-            ? `${window.location.origin}${window.location.pathname}`
-            : `https://www.progamer.info/${languageCode}/information/player-data`;
+    const canonicalUrl = useCanonicalUrl();
 
     const structuredData = {
         "@context": "https://schema.org",
@@ -743,7 +741,7 @@ export default function TopwarPlayerDataViewer() {
                                                 value:
                                                     numberFormatter.format(
                                                         nationList.length -
-                                                            12
+                                                        12
                                                     )
                                             }
                                         )}
