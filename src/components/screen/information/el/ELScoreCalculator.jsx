@@ -1,6 +1,7 @@
 import BuildingList from "@src/assets/json/el/buildings.json";
 import ColorList from "@src/assets/json/colors.json";
-import useLocalStorage from "@src/hooks/useLocalStorage";
+import { useListParamState } from "@src/hooks/useListParamState";
+import { useParamState } from "@src/hooks/useParamState";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,10 +10,13 @@ import {
     FaClock,
     FaEraser,
     FaFlagCheckered,
+    FaLock,
+    FaLockOpen,
     FaMapLocationDot,
     FaPlus,
     FaRankingStar,
     FaServer,
+    FaShareNodes,
     FaTriangleExclamation,
     FaXmark
 } from "react-icons/fa6";
@@ -22,6 +26,7 @@ import {
     useMemo,
     useState
 } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import "./ELScoreCalculator.css";
 import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
@@ -102,6 +107,258 @@ function parseNonNegativeInteger(value) {
         : Number.parseInt(normalized, 10);
 }
 
+const BASE_BUILDINGS = normalizeBuildings(BuildingList).map(
+    (building) => ({
+        ...building,
+        serverNo: null,
+        server: undefined
+    })
+);
+
+function isValidDateParam(value) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return false;
+    }
+
+    const [year, month, day] = value
+        .split("-")
+        .map(Number);
+    const date = new Date(year, month - 1, day);
+
+    return (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+    );
+}
+
+function isValidTimeParam(value) {
+    return /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value);
+}
+
+function parseSelectedServerNo(value) {
+    const serverNo = Number(value);
+
+    return Number.isInteger(serverNo) && serverNo > 0
+        ? serverNo
+        : null;
+}
+
+function validateSelectedServerNo(value) {
+    return (
+        value === null ||
+        (Number.isInteger(value) && value > 0)
+    );
+}
+
+function parseFixedAt(value) {
+    const timestamp = Number(value);
+
+    return Number.isSafeInteger(timestamp) && timestamp > 0
+        ? timestamp
+        : null;
+}
+
+function validateFixedAt(value) {
+    return (
+        value === null ||
+        (Number.isSafeInteger(value) && value > 0)
+    );
+}
+
+function normalizeScore(value) {
+    const score = Number(value);
+
+    return Number.isFinite(score) && score >= 0
+        ? Math.floor(score)
+        : 0;
+}
+
+function encodeBase64Url(value) {
+    const bytes = new TextEncoder().encode(value);
+    let binary = "";
+
+    bytes.forEach((byte) => {
+        binary += String.fromCharCode(byte);
+    });
+
+    return window
+        .btoa(binary)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/g, "");
+}
+
+function decodeBase64Url(value) {
+    const base64 = value
+        .replace(/-/g, "+")
+        .replace(/_/g, "/")
+        .padEnd(Math.ceil(value.length / 4) * 4, "=");
+    const binary = window.atob(base64);
+    const bytes = Uint8Array.from(
+        binary,
+        (character) => character.charCodeAt(0)
+    );
+
+    return new TextDecoder().decode(bytes);
+}
+
+function normalizeServers(servers) {
+    const usedServerNos = new Set();
+    const usedNames = new Set();
+
+    return (Array.isArray(servers) ? servers : [])
+        .map((server) => {
+            const no = Number(server?.no);
+            const name = String(server?.name ?? "").trim();
+
+            if (
+                !Number.isInteger(no) ||
+                no <= 0 ||
+                name.length === 0
+            ) {
+                return null;
+            }
+
+            const normalizedName = name.toLocaleLowerCase();
+
+            if (
+                usedServerNos.has(no) ||
+                usedNames.has(normalizedName)
+            ) {
+                return null;
+            }
+
+            usedServerNos.add(no);
+            usedNames.add(normalizedName);
+
+            return {
+                ...INITIAL_SERVER,
+                no,
+                name,
+                currentScore: normalizeScore(
+                    server.currentScore
+                )
+            };
+        })
+        .filter(Boolean);
+}
+
+function serializeServer(server) {
+    return encodeBase64Url(
+        JSON.stringify([
+            server.no,
+            server.name,
+            normalizeScore(server.currentScore)
+        ])
+    );
+}
+
+function parseServer(value) {
+    try {
+        const [no, name, currentScore] = JSON.parse(
+            decodeBase64Url(value)
+        );
+
+        return { no, name, currentScore };
+    } catch {
+        return null;
+    }
+}
+
+function parseServers(values) {
+    return normalizeServers(
+        values.map(parseServer).filter(Boolean)
+    );
+}
+
+function serializeBuildingAssignment(building) {
+    return encodeBase64Url(
+        JSON.stringify([
+            String(building.id),
+            getAssignedServerNo(building)
+        ])
+    );
+}
+
+function parseBuildingAssignment(value) {
+    try {
+        const [buildingId, serverNo] = JSON.parse(
+            decodeBase64Url(value)
+        );
+        const normalizedServerNo = Number(serverNo);
+
+        if (
+            !buildingId ||
+            !Number.isInteger(normalizedServerNo) ||
+            normalizedServerNo <= 0
+        ) {
+            return null;
+        }
+
+        return {
+            buildingId: String(buildingId),
+            serverNo: normalizedServerNo
+        };
+    } catch {
+        return null;
+    }
+}
+
+function createBuildings(buildingParams, servers) {
+    const validServerNos = new Set(
+        servers.map((server) => server.no)
+    );
+    const assignmentMap = new Map();
+
+    buildingParams
+        .map(parseBuildingAssignment)
+        .filter(Boolean)
+        .forEach(({ buildingId, serverNo }) => {
+            if (validServerNos.has(serverNo)) {
+                assignmentMap.set(buildingId, serverNo);
+            }
+        });
+
+    return BASE_BUILDINGS.map((building) => ({
+        ...building,
+        serverNo:
+            assignmentMap.get(String(building.id)) ?? null,
+        server: undefined
+    }));
+}
+
+function serializeBuildings(buildings, servers) {
+    const buildingMap = new Map(
+        (Array.isArray(buildings) ? buildings : []).map(
+            (building) => [String(building.id), building]
+        )
+    );
+    const validServerNos = new Set(
+        servers.map((server) => server.no)
+    );
+
+    return BASE_BUILDINGS.flatMap((baseBuilding) => {
+        const building = buildingMap.get(
+            String(baseBuilding.id)
+        );
+        const serverNo = building
+            ? getAssignedServerNo(building)
+            : null;
+
+        if (!validServerNos.has(serverNo)) {
+            return [];
+        }
+
+        return [
+            serializeBuildingAssignment({
+                ...baseBuilding,
+                serverNo
+            })
+        ];
+    });
+}
+
 export default function ELScoreCalculator() {
     const { t, i18n } = useTranslation("viewer");
 
@@ -117,52 +374,116 @@ export default function ELScoreCalculator() {
         [locale]
     );
 
+    const defaultEndDate = useMemo(
+        () => getDateAfter(7),
+        []
+    );
+    const parseEndDate = useCallback(
+        (value) =>
+            isValidDateParam(value)
+                ? value
+                : defaultEndDate,
+        [defaultEndDate]
+    );
+
+    const [searchParams, setSearchParams] =
+        useSearchParams();
     const [selectedServerNo, setSelectedServerNo] =
-        useState(null);
+        useParamState("selected", null, {
+            parse: parseSelectedServerNo,
+            validate: validateSelectedServerNo
+        });
+    const [endDate, setEndDate] = useParamState(
+        "endDate",
+        defaultEndDate,
+        {
+            parse: parseEndDate,
+            validate: isValidDateParam
+        }
+    );
+    const [endTime, setEndTime] = useParamState(
+        "endTime",
+        "23:00",
+        {
+            parse: (value) =>
+                isValidTimeParam(value) ? value : "23:00",
+            validate: isValidTimeParam
+        }
+    );
+    const [fixedAt, setFixedAt] = useParamState(
+        "fixedAt",
+        null,
+        {
+            parse: parseFixedAt,
+            validate: validateFixedAt
+        }
+    );
+    const [serverParams, setServerParams] =
+        useListParamState("servers");
+    const [buildingParams, setBuildingParams] =
+        useListParamState("buildings");
+
+    const servers = useMemo(
+        () => parseServers(serverParams),
+        [serverParams]
+    );
+
+    const setServers = useCallback(
+        (newValue) => {
+            setServerParams((currentParams) => {
+                const currentServers =
+                    parseServers(currentParams);
+                const resolvedValue =
+                    typeof newValue === "function"
+                        ? newValue(currentServers)
+                        : newValue;
+
+                return normalizeServers(resolvedValue).map(
+                    serializeServer
+                );
+            });
+        },
+        [setServerParams]
+    );
+
+    const buildings = useMemo(
+        () => createBuildings(buildingParams, servers),
+        [buildingParams, servers]
+    );
+
+    const setBuildings = useCallback(
+        (newValue) => {
+            setBuildingParams((currentParams) => {
+                const currentBuildings = createBuildings(
+                    currentParams,
+                    servers
+                );
+                const resolvedValue =
+                    typeof newValue === "function"
+                        ? newValue(currentBuildings)
+                        : newValue;
+
+                return serializeBuildings(
+                    resolvedValue,
+                    servers
+                );
+            });
+        },
+        [servers, setBuildingParams]
+    );
+
     const [serverInput, setServerInput] = useState("");
     const [serverInputError, setServerInputError] =
         useState("");
-
-    const [servers, setServers] = useLocalStorage(
-        "el-score-servers",
-        []
-    );
-
-    const [buildings, setBuildings] = useLocalStorage(
-        "el-score-buildings",
-        normalizeBuildings(BuildingList)
-    );
-
-    const [endDate, setEndDate] = useLocalStorage(
-        "el-score-endDate",
-        getDateAfter(7)
-    );
-
-    const [endTime, setEndTime] = useLocalStorage(
-        "el-score-endTime",
-        "23:00"
-    );
-
     const [now, setNow] = useState(() => Date.now());
 
     useEffect(() => {
-        setBuildings((current) => {
-            const normalized = normalizeBuildings(current);
+        if (fixedAt !== null) {
+            return undefined;
+        }
 
-            const changed = normalized.some(
-                (building, index) =>
-                    building.serverNo !==
-                        current[index]?.serverNo ||
-                    current[index]?.server !== undefined ||
-                    current[index]?.id === undefined ||
-                    current[index]?.i18nKey === undefined
-            );
+        setNow(Date.now());
 
-            return changed ? normalized : current;
-        });
-    }, [setBuildings]);
-
-    useEffect(() => {
         const handle = window.setInterval(() => {
             setNow(Date.now());
         }, 1000);
@@ -170,7 +491,7 @@ export default function ELScoreCalculator() {
         return () => {
             window.clearInterval(handle);
         };
-    }, []);
+    }, [fixedAt]);
 
     const selectedServer = useMemo(
         () =>
@@ -180,14 +501,164 @@ export default function ELScoreCalculator() {
         [selectedServerNo, servers]
     );
 
+    const normalizedServerParams = useMemo(
+        () => servers.map(serializeServer),
+        [servers]
+    );
+    const normalizedBuildingParams = useMemo(
+        () => serializeBuildings(buildings, servers),
+        [buildings, servers]
+    );
+
+    const normalizedQueryValues = useMemo(
+        () => ({
+            endDate,
+            endTime,
+            fixedAt:
+                fixedAt !== null
+                    ? String(fixedAt)
+                    : null,
+            servers:
+                normalizedServerParams.length > 0
+                    ? normalizedServerParams.join(",")
+                    : null,
+            buildings:
+                normalizedBuildingParams.length > 0
+                    ? normalizedBuildingParams.join(",")
+                    : null,
+            selected:
+                selectedServer !== null
+                    ? String(selectedServer.no)
+                    : null
+        }),
+        [
+            endDate,
+            endTime,
+            fixedAt,
+            normalizedBuildingParams,
+            normalizedServerParams,
+            selectedServer
+        ]
+    );
+
+    const queryNeedsNormalization = useMemo(
+        () =>
+            Object.entries(normalizedQueryValues).some(
+                ([key, value]) =>
+                    searchParams.get(key) !== value
+            ),
+        [normalizedQueryValues, searchParams]
+    );
+
     useEffect(() => {
-        if (
-            selectedServerNo !== null &&
-            selectedServer === null
-        ) {
-            setSelectedServerNo(null);
+        if (!queryNeedsNormalization) {
+            return;
         }
-    }, [selectedServer, selectedServerNo]);
+
+        setSearchParams((currentParams) => {
+            const nextParams = new URLSearchParams(
+                currentParams
+            );
+
+            Object.entries(normalizedQueryValues).forEach(
+                ([key, value]) => {
+                    if (value === null) {
+                        nextParams.delete(key);
+                    } else {
+                        nextParams.set(key, value);
+                    }
+                }
+            );
+
+            return nextParams;
+        }, { replace: true });
+    }, [
+        normalizedQueryValues,
+        queryNeedsNormalization,
+        setSearchParams
+    ]);
+
+    const shareUrl = useMemo(() => {
+        const url = new URL(window.location.href);
+
+        url.searchParams.set("endDate", endDate);
+        url.searchParams.set("endTime", endTime);
+
+        Object.entries(normalizedQueryValues).forEach(
+            ([key, value]) => {
+                if (value === null) {
+                    url.searchParams.delete(key);
+                } else {
+                    url.searchParams.set(key, value);
+                }
+            }
+        );
+
+        return url.toString();
+    }, [normalizedQueryValues]);
+
+    const shareCalculator = useCallback(async () => {
+        const title = t(
+            "elScoreCalculator.meta.applicationName"
+        );
+
+        try {
+            if (navigator.share) {
+                await navigator.share({
+                    title,
+                    url: shareUrl
+                });
+                return;
+            }
+
+            await navigator.clipboard.writeText(shareUrl);
+            window.alert(
+                t("elScoreCalculator.share.copied", {
+                    defaultValue:
+                        "공유 링크를 복사했습니다."
+                })
+            );
+        } catch (error) {
+            if (error?.name === "AbortError") {
+                return;
+            }
+
+            window.prompt(
+                t("elScoreCalculator.share.manual", {
+                    defaultValue:
+                        "아래 주소를 직접 복사하세요."
+                }),
+                shareUrl
+            );
+        }
+    }, [shareUrl, t]);
+
+    const toggleTimeLock = useCallback(() => {
+        setFixedAt((current) =>
+            current === null ? Date.now() : null
+        );
+    }, [setFixedAt]);
+
+    const fixedAtFormatter = useMemo(
+        () =>
+            new Intl.DateTimeFormat(locale, {
+                dateStyle: "medium",
+                timeStyle: "medium"
+            }),
+        [locale]
+    );
+
+    const fixedAtText = useMemo(
+        () =>
+            fixedAt !== null
+                ? fixedAtFormatter.format(
+                    new Date(fixedAt)
+                )
+                : "",
+        [fixedAt, fixedAtFormatter]
+    );
+
+    const calculationTime = fixedAt ?? now;
 
     const deadline = useMemo(
         () => getDeadline(endDate, endTime),
@@ -199,7 +670,7 @@ export default function ELScoreCalculator() {
             deadline
                 ? Math.max(0, deadline.getTime() - now)
                 : 0,
-        [deadline, now]
+        [calculationTime, deadline]
     );
 
     const countdown = useMemo(() => {
@@ -351,15 +822,7 @@ export default function ELScoreCalculator() {
         }
 
         setServers([]);
-        setBuildings((current) =>
-            current.map((building) => ({
-                ...building,
-                serverNo: null,
-                server: undefined
-            }))
-        );
-        setSelectedServerNo(null);
-    }, [setBuildings, setServers, t]);
+    }, [setServers, t]);
 
     const removeServer = useCallback(
         (target) => {
@@ -382,29 +845,8 @@ export default function ELScoreCalculator() {
                 )
             );
 
-            setBuildings((current) =>
-                current.map((building) =>
-                    getAssignedServerNo(building) ===
-                    target.no
-                        ? {
-                            ...building,
-                            serverNo: null,
-                            server: undefined
-                        }
-                        : building
-                )
-            );
-
-            if (selectedServerNo === target.no) {
-                setSelectedServerNo(null);
-            }
         },
-        [
-            selectedServerNo,
-            setBuildings,
-            setServers,
-            t
-        ]
+        [setServers, t]
     );
 
     const changeCurrentScore = useCallback(
@@ -534,6 +976,17 @@ export default function ELScoreCalculator() {
                             "elScoreCalculator.hero.description"
                         )}
                     </p>
+
+                    <button
+                        type="button"
+                        className="btn btn-outline-primary mt-3"
+                        onClick={shareCalculator}
+                    >
+                        <FaShareNodes className="me-2" />
+                        {t("elScoreCalculator.share.button", {
+                            defaultValue: "현재 설정 공유"
+                        })}
+                    </button>
                 </header>
 
                 <section className="el-score-workflow-overview">
@@ -820,6 +1273,39 @@ export default function ELScoreCalculator() {
                         description={t(
                             "elScoreCalculator.currentScore.description"
                         )}
+                        action={
+                            <button
+                                type="button"
+                                className={`btn btn-sm ${
+                                    fixedAt !== null
+                                        ? "btn-warning"
+                                        : "btn-outline-primary"
+                                }`}
+                                onClick={toggleTimeLock}
+                                disabled={servers.length === 0}
+                            >
+                                {fixedAt !== null ? (
+                                    <FaLockOpen className="me-2" />
+                                ) : (
+                                    <FaLock className="me-2" />
+                                )}
+                                {fixedAt !== null
+                                    ? t(
+                                        "elScoreCalculator.timeLock.unlock",
+                                        {
+                                            defaultValue:
+                                                "시간 고정 해제"
+                                        }
+                                    )
+                                    : t(
+                                        "elScoreCalculator.timeLock.lock",
+                                        {
+                                            defaultValue:
+                                                "현재 시간 고정"
+                                        }
+                                    )}
+                            </button>
+                        }
                     />
 
                     {servers.length === 0 ? (
@@ -860,6 +1346,68 @@ export default function ELScoreCalculator() {
                                     </div>
                                 </label>
                             ))}
+                        </div>
+                    )}
+
+                    {servers.length > 0 && (
+                        <div
+                            className={`alert ${
+                                fixedAt !== null
+                                    ? "alert-warning"
+                                    : "alert-light"
+                            } mt-3 mb-0 d-flex align-items-start gap-2`}
+                            role="status"
+                        >
+                            {fixedAt !== null ? (
+                                <FaLock
+                                    className="flex-shrink-0 mt-1"
+                                    aria-hidden="true"
+                                />
+                            ) : (
+                                <FaClock
+                                    className="flex-shrink-0 mt-1"
+                                    aria-hidden="true"
+                                />
+                            )}
+
+                            <div>
+                                <strong className="d-block">
+                                    {fixedAt !== null
+                                        ? t(
+                                            "elScoreCalculator.timeLock.lockedTitle",
+                                            {
+                                                defaultValue:
+                                                    "계산 시간이 고정되었습니다."
+                                            }
+                                        )
+                                        : t(
+                                            "elScoreCalculator.timeLock.liveTitle",
+                                            {
+                                                defaultValue:
+                                                    "실시간 계산 중입니다."
+                                            }
+                                        )}
+                                </strong>
+
+                                <span>
+                                    {fixedAt !== null
+                                        ? t(
+                                            "elScoreCalculator.timeLock.lockedDescription",
+                                            {
+                                                time: fixedAtText,
+                                                defaultValue:
+                                                    "{{time}}을 기준으로 계산합니다. 시간이 지나도 예상 점수는 변하지 않습니다."
+                                            }
+                                        )
+                                        : t(
+                                            "elScoreCalculator.timeLock.liveDescription",
+                                            {
+                                                defaultValue:
+                                                    "현재 시각을 기준으로 남은 시간과 예상 점수가 계속 갱신됩니다."
+                                            }
+                                        )}
+                                </span>
+                            </div>
                         </div>
                     )}
                 </section>

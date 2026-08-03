@@ -1691,7 +1691,20 @@
         "units": {
             "points": "ポイント"
         },
-        "facilities": {}
+        "facilities": {},
+        "share": {
+            "button": "現在の設定を共有",
+            "copied": "共有リンクをコピーしました。",
+            "manual": "以下のURLを手動でコピーしてください。"
+        },
+        "timeLock": {
+            "lock": "現在時刻を固定",
+            "unlock": "時刻の固定を解除",
+            "lockedTitle": "計算時刻を固定しました。",
+            "liveTitle": "リアルタイムで計算中です。",
+            "lockedDescription": "{{time}}を基準に計算します。時間が経過しても予想スコアは変わりません。",
+            "liveDescription": "現在時刻を基準に、残り時間と予想スコアを継続して更新します。"
+        }
     },
     "emojiCreator": {
         "seo": {

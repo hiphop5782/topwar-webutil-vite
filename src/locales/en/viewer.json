@@ -1699,7 +1699,20 @@
         "units": {
             "points": "pts"
         },
-        "facilities": {}
+        "facilities": {},
+        "share": {
+            "button": "Share current setup",
+            "copied": "The share link has been copied.",
+            "manual": "Copy the URL below manually."
+        },
+        "timeLock": {
+            "lock": "Freeze current time",
+            "unlock": "Unfreeze time",
+            "lockedTitle": "The calculation time is frozen.",
+            "liveTitle": "Calculating in real time.",
+            "lockedDescription": "Calculations use {{time}} as the reference time. Projected scores will not change as time passes.",
+            "liveDescription": "The remaining time and projected scores continue to update based on the current time."
+        }
     },
     "emojiCreator": {
         "seo": {

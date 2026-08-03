@@ -1691,7 +1691,20 @@
         "units": {
             "points": "점"
         },
-        "facilities": {}
+        "facilities": {},
+        "share": {
+            "button": "현재 설정 공유",
+            "copied": "공유 링크를 복사했습니다.",
+            "manual": "아래 주소를 직접 복사하세요."
+        },
+        "timeLock": {
+            "lock": "현재 시간 고정",
+            "unlock": "시간 고정 해제",
+            "lockedTitle": "계산 시간이 고정되었습니다.",
+            "liveTitle": "실시간 계산 중입니다.",
+            "lockedDescription": "{{time}}을 기준으로 계산합니다. 시간이 지나도 예상 점수는 변하지 않습니다.",
+            "liveDescription": "현재 시각을 기준으로 남은 시간과 예상 점수가 계속 갱신됩니다."
+        }
     },
     "emojiCreator": {
         "seo": {
