@@ -1700,6 +1700,7 @@
         "timeLock": {
             "lock": "현재 시간 고정",
             "unlock": "시간 고정 해제",
+            "refresh": "현재 시간으로 갱신",
             "lockedTitle": "계산 시간이 고정되었습니다.",
             "liveTitle": "실시간 계산 중입니다.",
             "lockedDescription": "{{time}}을 기준으로 계산합니다. 시간이 지나도 예상 점수는 변하지 않습니다.",

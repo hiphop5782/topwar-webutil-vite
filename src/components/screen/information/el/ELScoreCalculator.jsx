@@ -15,6 +15,7 @@ import {
     FaMapLocationDot,
     FaPlus,
     FaRankingStar,
+    FaRotate,
     FaServer,
     FaShareNodes,
     FaTriangleExclamation,
@@ -639,6 +640,15 @@ export default function ELScoreCalculator() {
         );
     }, [setFixedAt]);
 
+    const refreshFixedTime = useCallback(() => {
+        if (fixedAt === null) {
+            return;
+        }
+
+        // 고정 상태는 유지하고 계산 기준 시각만 현재 시각으로 교체한다.
+        setFixedAt(Date.now());
+    }, [fixedAt, setFixedAt]);
+
     const fixedAtFormatter = useMemo(
         () =>
             new Intl.DateTimeFormat(locale, {
@@ -668,7 +678,10 @@ export default function ELScoreCalculator() {
     const remainingMilliseconds = useMemo(
         () =>
             deadline
-                ? Math.max(0, deadline.getTime() - now)
+                ? Math.max(
+                    0,
+                    deadline.getTime() - calculationTime
+                )
                 : 0,
         [calculationTime, deadline]
     );
@@ -1274,37 +1287,57 @@ export default function ELScoreCalculator() {
                             "elScoreCalculator.currentScore.description"
                         )}
                         action={
-                            <button
-                                type="button"
-                                className={`btn btn-sm ${
-                                    fixedAt !== null
-                                        ? "btn-warning"
-                                        : "btn-outline-primary"
-                                }`}
-                                onClick={toggleTimeLock}
-                                disabled={servers.length === 0}
-                            >
-                                {fixedAt !== null ? (
-                                    <FaLockOpen className="me-2" />
-                                ) : (
-                                    <FaLock className="me-2" />
+                            <div className="d-flex flex-wrap gap-2">
+                                {fixedAt !== null && (
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-success btn-sm"
+                                        onClick={refreshFixedTime}
+                                        disabled={servers.length === 0}
+                                    >
+                                        <FaRotate className="me-2" />
+                                        {t(
+                                            "elScoreCalculator.timeLock.refresh",
+                                            {
+                                                defaultValue:
+                                                    "현재 시간으로 갱신"
+                                            }
+                                        )}
+                                    </button>
                                 )}
-                                {fixedAt !== null
-                                    ? t(
-                                        "elScoreCalculator.timeLock.unlock",
-                                        {
-                                            defaultValue:
-                                                "시간 고정 해제"
-                                        }
-                                    )
-                                    : t(
-                                        "elScoreCalculator.timeLock.lock",
-                                        {
-                                            defaultValue:
-                                                "현재 시간 고정"
-                                        }
+
+                                <button
+                                    type="button"
+                                    className={`btn btn-sm ${
+                                        fixedAt !== null
+                                            ? "btn-warning"
+                                            : "btn-outline-primary"
+                                    }`}
+                                    onClick={toggleTimeLock}
+                                    disabled={servers.length === 0}
+                                >
+                                    {fixedAt !== null ? (
+                                        <FaLockOpen className="me-2" />
+                                    ) : (
+                                        <FaLock className="me-2" />
                                     )}
-                            </button>
+                                    {fixedAt !== null
+                                        ? t(
+                                            "elScoreCalculator.timeLock.unlock",
+                                            {
+                                                defaultValue:
+                                                    "시간 고정 해제"
+                                            }
+                                        )
+                                        : t(
+                                            "elScoreCalculator.timeLock.lock",
+                                            {
+                                                defaultValue:
+                                                    "현재 시간 고정"
+                                            }
+                                        )}
+                                </button>
+                            </div>
                         }
                     />
 
