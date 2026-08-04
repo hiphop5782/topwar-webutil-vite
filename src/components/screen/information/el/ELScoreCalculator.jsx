@@ -1,7 +1,7 @@
 import BuildingList from "@src/assets/json/el/buildings.json";
 import ColorList from "@src/assets/json/colors.json";
-import { useListParamState } from "@src/hooks/useListParamState";
 import { useParamState } from "@src/hooks/useParamState";
+import LZString from "lz-string";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import {
@@ -27,7 +27,6 @@ import {
     useMemo,
     useState
 } from "react";
-import { useSearchParams } from "react-router-dom";
 
 import "./ELScoreCalculator.css";
 import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
@@ -137,20 +136,7 @@ function isValidTimeParam(value) {
     return /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value);
 }
 
-function parseSelectedServerNo(value) {
-    const serverNo = Number(value);
-
-    return Number.isInteger(serverNo) && serverNo > 0
-        ? serverNo
-        : null;
-}
-
-function validateSelectedServerNo(value) {
-    return (
-        value === null ||
-        (Number.isInteger(value) && value > 0)
-    );
-}
+const SHARE_DATA_VERSION = 1;
 
 function parseFixedAt(value) {
     const timestamp = Number(value);
@@ -160,48 +146,12 @@ function parseFixedAt(value) {
         : null;
 }
 
-function validateFixedAt(value) {
-    return (
-        value === null ||
-        (Number.isSafeInteger(value) && value > 0)
-    );
-}
-
 function normalizeScore(value) {
     const score = Number(value);
 
     return Number.isFinite(score) && score >= 0
         ? Math.floor(score)
         : 0;
-}
-
-function encodeBase64Url(value) {
-    const bytes = new TextEncoder().encode(value);
-    let binary = "";
-
-    bytes.forEach((byte) => {
-        binary += String.fromCharCode(byte);
-    });
-
-    return window
-        .btoa(binary)
-        .replace(/\+/g, "-")
-        .replace(/\//g, "_")
-        .replace(/=+$/g, "");
-}
-
-function decodeBase64Url(value) {
-    const base64 = value
-        .replace(/-/g, "+")
-        .replace(/_/g, "/")
-        .padEnd(Math.ceil(value.length / 4) * 4, "=");
-    const binary = window.atob(base64);
-    const bytes = Uint8Array.from(
-        binary,
-        (character) => character.charCodeAt(0)
-    );
-
-    return new TextDecoder().decode(bytes);
 }
 
 function normalizeServers(servers) {
@@ -245,119 +195,363 @@ function normalizeServers(servers) {
         .filter(Boolean);
 }
 
-function serializeServer(server) {
-    return encodeBase64Url(
-        JSON.stringify([
-            server.no,
-            server.name,
-            normalizeScore(server.currentScore)
-        ])
-    );
-}
+function createBuildingMapSignature(buildings) {
+    const source = buildings
+        .map((building, index) =>
+            [
+                index,
+                building.id,
+                Number(building.point ?? 0)
+            ].join(":")
+        )
+        .join("|");
 
-function parseServer(value) {
-    try {
-        const [no, name, currentScore] = JSON.parse(
-            decodeBase64Url(value)
-        );
+    // FNV-1a 32bit hash
+    let hash = 0x811c9dc5;
 
-        return { no, name, currentScore };
-    } catch {
-        return null;
+    for (let index = 0; index < source.length; index += 1) {
+        hash ^= source.charCodeAt(index);
+        hash = Math.imul(hash, 0x01000193);
     }
+
+    return `${buildings.length}-${(hash >>> 0).toString(36)}`;
 }
 
-function parseServers(values) {
-    return normalizeServers(
-        values.map(parseServer).filter(Boolean)
-    );
-}
+const BUILDING_MAP_SIGNATURE =
+    createBuildingMapSignature(BASE_BUILDINGS);
 
-function serializeBuildingAssignment(building) {
-    return encodeBase64Url(
-        JSON.stringify([
-            String(building.id),
-            getAssignedServerNo(building)
-        ])
-    );
-}
-
-function parseBuildingAssignment(value) {
-    try {
-        const [buildingId, serverNo] = JSON.parse(
-            decodeBase64Url(value)
-        );
-        const normalizedServerNo = Number(serverNo);
-
-        if (
-            !buildingId ||
-            !Number.isInteger(normalizedServerNo) ||
-            normalizedServerNo <= 0
-        ) {
-            return null;
-        }
-
-        return {
-            buildingId: String(buildingId),
-            serverNo: normalizedServerNo
-        };
-    } catch {
-        return null;
-    }
-}
-
-function createBuildings(buildingParams, servers) {
-    const validServerNos = new Set(
-        servers.map((server) => server.no)
-    );
-    const assignmentMap = new Map();
-
-    buildingParams
-        .map(parseBuildingAssignment)
-        .filter(Boolean)
-        .forEach(({ buildingId, serverNo }) => {
-            if (validServerNos.has(serverNo)) {
-                assignmentMap.set(buildingId, serverNo);
-            }
-        });
-
+function cloneBaseBuildings() {
     return BASE_BUILDINGS.map((building) => ({
         ...building,
-        serverNo:
-            assignmentMap.get(String(building.id)) ?? null,
+        serverNo: null,
         server: undefined
     }));
 }
 
-function serializeBuildings(buildings, servers) {
-    const buildingMap = new Map(
+function createDefaultCalculatorState(defaultEndDate) {
+    return {
+        endDate: defaultEndDate,
+        endTime: "23:00",
+        fixedAt: null,
+        selectedServerNo: null,
+        servers: [],
+        buildings: cloneBaseBuildings()
+    };
+}
+
+function normalizeCalculatorBuildings(
+    buildings,
+    validServerNos
+) {
+    const sourceById = new Map(
         (Array.isArray(buildings) ? buildings : []).map(
             (building) => [String(building.id), building]
         )
     );
+
+    return BASE_BUILDINGS.map((baseBuilding) => {
+        const source = sourceById.get(
+            String(baseBuilding.id)
+        );
+        const assignedServerNo = source
+            ? getAssignedServerNo(source)
+            : null;
+
+        return {
+            ...baseBuilding,
+            serverNo:
+                validServerNos.has(assignedServerNo)
+                    ? assignedServerNo
+                    : null,
+            server: undefined
+        };
+    });
+}
+
+function normalizeCalculatorState(value, fallbackState) {
+    const source =
+        value && typeof value === "object"
+            ? value
+            : {};
+    const fallback =
+        fallbackState && typeof fallbackState === "object"
+            ? fallbackState
+            : createDefaultCalculatorState(getDateAfter(7));
+    const servers = normalizeServers(source.servers);
     const validServerNos = new Set(
         servers.map((server) => server.no)
     );
+    const selectedServerNo = Number(
+        source.selectedServerNo
+    );
 
-    return BASE_BUILDINGS.flatMap((baseBuilding) => {
-        const building = buildingMap.get(
-            String(baseBuilding.id)
-        );
-        const serverNo = building
-            ? getAssignedServerNo(building)
-            : null;
+    return {
+        endDate: isValidDateParam(source.endDate)
+            ? source.endDate
+            : fallback.endDate,
+        endTime: isValidTimeParam(source.endTime)
+            ? source.endTime
+            : fallback.endTime,
+        fixedAt: parseFixedAt(source.fixedAt),
+        selectedServerNo:
+            validServerNos.has(selectedServerNo)
+                ? selectedServerNo
+                : null,
+        servers,
+        buildings: normalizeCalculatorBuildings(
+            source.buildings,
+            validServerNos
+        )
+    };
+}
 
-        if (!validServerNos.has(serverNo)) {
-            return [];
+function encodeAssignmentRuns(buildings, serverIndexByNo) {
+    const buildingById = new Map(
+        (Array.isArray(buildings) ? buildings : []).map(
+            (building) => [String(building.id), building]
+        )
+    );
+    const assignments = BASE_BUILDINGS.map(
+        (baseBuilding) => {
+            const building = buildingById.get(
+                String(baseBuilding.id)
+            );
+            const assignedServerNo = building
+                ? getAssignedServerNo(building)
+                : null;
+
+            return (
+                serverIndexByNo.get(assignedServerNo) ?? 0
+            );
+        }
+    );
+
+    if (assignments.length === 0) {
+        return [];
+    }
+
+    const runs = [];
+    let currentValue = assignments[0];
+    let count = 1;
+
+    for (
+        let index = 1;
+        index < assignments.length;
+        index += 1
+    ) {
+        const value = assignments[index];
+
+        if (value === currentValue) {
+            count += 1;
+            continue;
         }
 
-        return [
-            serializeBuildingAssignment({
-                ...baseBuilding,
-                serverNo
-            })
-        ];
-    });
+        runs.push(currentValue, count);
+        currentValue = value;
+        count = 1;
+    }
+
+    runs.push(currentValue, count);
+
+    return runs;
+}
+
+function decodeAssignmentRuns(runs, serverCount) {
+    if (!Array.isArray(runs) || runs.length % 2 !== 0) {
+        return null;
+    }
+
+    const assignments = [];
+
+    for (let index = 0; index < runs.length; index += 2) {
+        const serverNo = Number(runs[index]);
+        const count = Number(runs[index + 1]);
+
+        if (
+            !Number.isInteger(serverNo) ||
+            serverNo < 0 ||
+            serverNo > serverCount ||
+            !Number.isInteger(count) ||
+            count <= 0 ||
+            assignments.length + count >
+                BASE_BUILDINGS.length
+        ) {
+            return null;
+        }
+
+        for (let repeat = 0; repeat < count; repeat += 1) {
+            assignments.push(serverNo);
+        }
+    }
+
+    return assignments.length === BASE_BUILDINGS.length
+        ? assignments
+        : null;
+}
+
+function serializeCalculatorState(value) {
+    const fallback = createDefaultCalculatorState(
+        getDateAfter(7)
+    );
+    const state = normalizeCalculatorState(
+        value,
+        fallback
+    );
+    const serverIndexByNo = new Map(
+        state.servers.map((server, index) => [
+            server.no,
+            index + 1
+        ])
+    );
+    const compactData = {
+        v: SHARE_DATA_VERSION,
+        m: BUILDING_MAP_SIGNATURE,
+        d: state.endDate,
+        t: state.endTime,
+        f: state.fixedAt ?? 0,
+        x:
+            serverIndexByNo.get(
+                state.selectedServerNo
+            ) ?? 0,
+        s: state.servers.map((server) => [
+            server.name,
+            normalizeScore(server.currentScore)
+        ]),
+        b: encodeAssignmentRuns(
+            state.buildings,
+            serverIndexByNo
+        )
+    };
+
+    return LZString.compressToEncodedURIComponent(
+        JSON.stringify(compactData)
+    );
+}
+
+function deserializeCalculatorState(
+    compressedValue,
+    fallbackState
+) {
+    try {
+        const json =
+            LZString.decompressFromEncodedURIComponent(
+                compressedValue
+            );
+
+        if (!json) {
+            throw new Error("압축 데이터가 비어 있습니다.");
+        }
+
+        const compactData = JSON.parse(json);
+
+        if (compactData.v !== SHARE_DATA_VERSION) {
+            throw new Error(
+                `지원하지 않는 공유 데이터 버전: ${compactData.v}`
+            );
+        }
+
+        if (compactData.m !== BUILDING_MAP_SIGNATURE) {
+            throw new Error(
+                "공유 링크와 현재 건물 데이터 버전이 다릅니다."
+            );
+        }
+
+        if (!Array.isArray(compactData.s)) {
+            throw new Error("서버 데이터 형식이 올바르지 않습니다.");
+        }
+
+        const usedNames = new Set();
+        const servers = compactData.s.map(
+            (serverData, index) => {
+                if (!Array.isArray(serverData)) {
+                    throw new Error(
+                        "서버 데이터 형식이 올바르지 않습니다."
+                    );
+                }
+
+                const name = String(
+                    serverData[0] ?? ""
+                ).trim();
+                const normalizedName =
+                    name.toLocaleLowerCase();
+
+                if (
+                    name.length === 0 ||
+                    usedNames.has(normalizedName)
+                ) {
+                    throw new Error(
+                        "서버 이름 데이터가 올바르지 않습니다."
+                    );
+                }
+
+                usedNames.add(normalizedName);
+
+                return {
+                    ...INITIAL_SERVER,
+                    no: index + 1,
+                    name,
+                    currentScore: normalizeScore(
+                        serverData[1]
+                    )
+                };
+            }
+        );
+        const assignments = decodeAssignmentRuns(
+            compactData.b,
+            servers.length
+        );
+
+        if (assignments === null) {
+            throw new Error(
+                "건물 배정 데이터 형식이 올바르지 않습니다."
+            );
+        }
+
+        const selectedServerNo = Number(compactData.x);
+
+        return {
+            endDate: isValidDateParam(compactData.d)
+                ? compactData.d
+                : fallbackState.endDate,
+            endTime: isValidTimeParam(compactData.t)
+                ? compactData.t
+                : fallbackState.endTime,
+            fixedAt: parseFixedAt(compactData.f),
+            selectedServerNo:
+                Number.isInteger(selectedServerNo) &&
+                selectedServerNo >= 1 &&
+                selectedServerNo <= servers.length
+                    ? selectedServerNo
+                    : null,
+            servers,
+            buildings: BASE_BUILDINGS.map(
+                (building, index) => ({
+                    ...building,
+                    serverNo:
+                        assignments[index] === 0
+                            ? null
+                            : assignments[index],
+                    server: undefined
+                })
+            )
+        };
+    } catch (error) {
+        console.warn(
+            "EL 점수 계산기 공유 데이터 복원 실패",
+            error
+        );
+
+        return fallbackState;
+    }
+}
+
+function isCalculatorState(value) {
+    return Boolean(
+        value &&
+        typeof value === "object" &&
+        Array.isArray(value.servers) &&
+        Array.isArray(value.buildings)
+    );
 }
 
 export default function ELScoreCalculator() {
@@ -379,98 +573,92 @@ export default function ELScoreCalculator() {
         () => getDateAfter(7),
         []
     );
-    const parseEndDate = useCallback(
-        (value) =>
-            isValidDateParam(value)
-                ? value
-                : defaultEndDate,
+    const defaultCalculatorState = useMemo(
+        () => createDefaultCalculatorState(defaultEndDate),
         [defaultEndDate]
     );
-
-    const [searchParams, setSearchParams] =
-        useSearchParams();
-    const [selectedServerNo, setSelectedServerNo] =
-        useParamState("selected", null, {
-            parse: parseSelectedServerNo,
-            validate: validateSelectedServerNo
-        });
-    const [endDate, setEndDate] = useParamState(
-        "endDate",
-        defaultEndDate,
-        {
-            parse: parseEndDate,
-            validate: isValidDateParam
-        }
-    );
-    const [endTime, setEndTime] = useParamState(
-        "endTime",
-        "23:00",
-        {
-            parse: (value) =>
-                isValidTimeParam(value) ? value : "23:00",
-            validate: isValidTimeParam
-        }
-    );
-    const [fixedAt, setFixedAt] = useParamState(
-        "fixedAt",
-        null,
-        {
-            parse: parseFixedAt,
-            validate: validateFixedAt
-        }
-    );
-    const [serverParams, setServerParams] =
-        useListParamState("servers");
-    const [buildingParams, setBuildingParams] =
-        useListParamState("buildings");
-
-    const servers = useMemo(
-        () => parseServers(serverParams),
-        [serverParams]
+    const parseCalculatorParam = useCallback(
+        (value) =>
+            deserializeCalculatorState(
+                value,
+                defaultCalculatorState
+            ),
+        [defaultCalculatorState]
     );
 
+    const [calculatorState, setCalculatorState] =
+        useParamState(
+            "data",
+            defaultCalculatorState,
+            {
+                replace: true,
+                parse: parseCalculatorParam,
+                serialize: serializeCalculatorState,
+                validate: isCalculatorState
+            }
+        );
+
+    const {
+        endDate,
+        endTime,
+        fixedAt,
+        selectedServerNo,
+        servers,
+        buildings
+    } = calculatorState;
+
+    const setCalculatorField = useCallback(
+        (field, newValue) => {
+            setCalculatorState((current) => {
+                const resolvedValue =
+                    typeof newValue === "function"
+                        ? newValue(current[field])
+                        : newValue;
+
+                return normalizeCalculatorState(
+                    {
+                        ...current,
+                        [field]: resolvedValue
+                    },
+                    current
+                );
+            });
+        },
+        [setCalculatorState]
+    );
+
+    const setEndDate = useCallback(
+        (value) =>
+            setCalculatorField("endDate", value),
+        [setCalculatorField]
+    );
+    const setEndTime = useCallback(
+        (value) =>
+            setCalculatorField("endTime", value),
+        [setCalculatorField]
+    );
+    const setFixedAt = useCallback(
+        (value) =>
+            setCalculatorField("fixedAt", value),
+        [setCalculatorField]
+    );
+    const setSelectedServerNo = useCallback(
+        (value) =>
+            setCalculatorField(
+                "selectedServerNo",
+                value
+            ),
+        [setCalculatorField]
+    );
     const setServers = useCallback(
-        (newValue) => {
-            setServerParams((currentParams) => {
-                const currentServers =
-                    parseServers(currentParams);
-                const resolvedValue =
-                    typeof newValue === "function"
-                        ? newValue(currentServers)
-                        : newValue;
-
-                return normalizeServers(resolvedValue).map(
-                    serializeServer
-                );
-            });
-        },
-        [setServerParams]
+        (value) =>
+            setCalculatorField("servers", value),
+        [setCalculatorField]
     );
-
-    const buildings = useMemo(
-        () => createBuildings(buildingParams, servers),
-        [buildingParams, servers]
-    );
-
     const setBuildings = useCallback(
-        (newValue) => {
-            setBuildingParams((currentParams) => {
-                const currentBuildings = createBuildings(
-                    currentParams,
-                    servers
-                );
-                const resolvedValue =
-                    typeof newValue === "function"
-                        ? newValue(currentBuildings)
-                        : newValue;
-
-                return serializeBuildings(
-                    resolvedValue,
-                    servers
-                );
-            });
-        },
-        [servers, setBuildingParams]
+        (value) =>
+            setCalculatorField("buildings", value),
+        [setCalculatorField]
     );
 
     const [serverInput, setServerInput] = useState("");
@@ -502,101 +690,23 @@ export default function ELScoreCalculator() {
         [selectedServerNo, servers]
     );
 
-    const normalizedServerParams = useMemo(
-        () => servers.map(serializeServer),
-        [servers]
+    const compressedShareData = useMemo(
+        () => serializeCalculatorState(calculatorState),
+        [calculatorState]
     );
-    const normalizedBuildingParams = useMemo(
-        () => serializeBuildings(buildings, servers),
-        [buildings, servers]
-    );
-
-    const normalizedQueryValues = useMemo(
-        () => ({
-            endDate,
-            endTime,
-            fixedAt:
-                fixedAt !== null
-                    ? String(fixedAt)
-                    : null,
-            servers:
-                normalizedServerParams.length > 0
-                    ? normalizedServerParams.join(",")
-                    : null,
-            buildings:
-                normalizedBuildingParams.length > 0
-                    ? normalizedBuildingParams.join(",")
-                    : null,
-            selected:
-                selectedServer !== null
-                    ? String(selectedServer.no)
-                    : null
-        }),
-        [
-            endDate,
-            endTime,
-            fixedAt,
-            normalizedBuildingParams,
-            normalizedServerParams,
-            selectedServer
-        ]
-    );
-
-    const queryNeedsNormalization = useMemo(
-        () =>
-            Object.entries(normalizedQueryValues).some(
-                ([key, value]) =>
-                    searchParams.get(key) !== value
-            ),
-        [normalizedQueryValues, searchParams]
-    );
-
-    useEffect(() => {
-        if (!queryNeedsNormalization) {
-            return;
-        }
-
-        setSearchParams((currentParams) => {
-            const nextParams = new URLSearchParams(
-                currentParams
-            );
-
-            Object.entries(normalizedQueryValues).forEach(
-                ([key, value]) => {
-                    if (value === null) {
-                        nextParams.delete(key);
-                    } else {
-                        nextParams.set(key, value);
-                    }
-                }
-            );
-
-            return nextParams;
-        }, { replace: true });
-    }, [
-        normalizedQueryValues,
-        queryNeedsNormalization,
-        setSearchParams
-    ]);
 
     const shareUrl = useMemo(() => {
         const url = new URL(window.location.href);
 
-        url.searchParams.set("endDate", endDate);
-        url.searchParams.set("endTime", endTime);
-
-        Object.entries(normalizedQueryValues).forEach(
-            ([key, value]) => {
-                if (value === null) {
-                    url.searchParams.delete(key);
-                } else {
-                    url.searchParams.set(key, value);
-                }
-            }
+        // 계산기 상태는 data 하나로만 공유한다.
+        url.search = "";
+        url.searchParams.set(
+            "data",
+            compressedShareData
         );
 
         return url.toString();
-    }, [normalizedQueryValues]);
+    }, [compressedShareData]);
 
     const shareCalculator = useCallback(async () => {
         const title = t(
@@ -857,7 +967,6 @@ export default function ELScoreCalculator() {
                     (server) => server.no !== target.no
                 )
             );
-
         },
         [setServers, t]
     );
