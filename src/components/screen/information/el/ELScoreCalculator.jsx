@@ -15,7 +15,6 @@ import {
     FaMapLocationDot,
     FaPlus,
     FaRankingStar,
-    FaRotate,
     FaServer,
     FaShareNodes,
     FaTriangleExclamation,
@@ -30,6 +29,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 
 import "./ELScoreCalculator.css";
+import "./ELScoreCalculator.strategy.css";
 import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 
 const INITIAL_SERVER = {
@@ -63,6 +63,43 @@ function getDeadline(endDate, endTime) {
     return Number.isFinite(deadline.getTime())
         ? deadline
         : null;
+}
+
+function getDateTimeParts(value = new Date()) {
+    const date = value instanceof Date
+        ? value
+        : new Date(value);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hour = String(date.getHours()).padStart(2, "0");
+    const minute = String(date.getMinutes()).padStart(2, "0");
+
+    return {
+        date: `${year}-${month}-${day}`,
+        time: `${hour}:${minute}`
+    };
+}
+
+function getTimestamp(date, time) {
+    return getDeadline(date, time)?.getTime() ?? null;
+}
+
+function clampTimestamp(value, minimum, maximum) {
+    return Math.min(
+        maximum,
+        Math.max(minimum, value)
+    );
+}
+
+function toDateTimeLocalValue(timestamp) {
+    if (!Number.isFinite(timestamp)) {
+        return "";
+    }
+
+    const { date, time } = getDateTimeParts(timestamp);
+    return `${date}T${time}`;
 }
 
 function getAssignedServerNo(building) {
@@ -375,10 +412,44 @@ export default function ELScoreCalculator() {
         [locale]
     );
 
+    const [searchParams, setSearchParams] =
+        useSearchParams();
+
+    const initialFixedAt = useMemo(
+        () => parseFixedAt(
+            searchParams.get("fixedAt")
+        ),
+        []
+    );
+
+    const defaultStart = useMemo(
+        () => getDateTimeParts(
+            initialFixedAt ?? new Date()
+        ),
+        [initialFixedAt]
+    );
+
     const defaultEndDate = useMemo(
         () => getDateAfter(7),
         []
     );
+
+    const parseStartDate = useCallback(
+        (value) =>
+            isValidDateParam(value)
+                ? value
+                : defaultStart.date,
+        [defaultStart.date]
+    );
+
+    const parseStartTime = useCallback(
+        (value) =>
+            isValidTimeParam(value)
+                ? value
+                : defaultStart.time,
+        [defaultStart.time]
+    );
+
     const parseEndDate = useCallback(
         (value) =>
             isValidDateParam(value)
@@ -387,13 +458,30 @@ export default function ELScoreCalculator() {
         [defaultEndDate]
     );
 
-    const [searchParams, setSearchParams] =
-        useSearchParams();
     const [selectedServerNo, setSelectedServerNo] =
         useParamState("selected", null, {
             parse: parseSelectedServerNo,
             validate: validateSelectedServerNo
         });
+
+    const [startDate, setStartDate] = useParamState(
+        "startDate",
+        defaultStart.date,
+        {
+            parse: parseStartDate,
+            validate: isValidDateParam
+        }
+    );
+
+    const [startTime, setStartTime] = useParamState(
+        "startTime",
+        defaultStart.time,
+        {
+            parse: parseStartTime,
+            validate: isValidTimeParam
+        }
+    );
+
     const [endDate, setEndDate] = useParamState(
         "endDate",
         defaultEndDate,
@@ -402,23 +490,37 @@ export default function ELScoreCalculator() {
             validate: isValidDateParam
         }
     );
+
     const [endTime, setEndTime] = useParamState(
         "endTime",
         "23:00",
         {
             parse: (value) =>
-                isValidTimeParam(value) ? value : "23:00",
+                isValidTimeParam(value)
+                    ? value
+                    : "23:00",
             validate: isValidTimeParam
         }
     );
+
     const [fixedAt, setFixedAt] = useParamState(
         "fixedAt",
-        null,
+        initialFixedAt,
         {
             parse: parseFixedAt,
             validate: validateFixedAt
         }
     );
+
+    const [viewAt, setViewAt] = useParamState(
+        "viewAt",
+        initialFixedAt,
+        {
+            parse: parseFixedAt,
+            validate: validateFixedAt
+        }
+    );
+
     const [serverParams, setServerParams] =
         useListParamState("servers");
     const [buildingParams, setBuildingParams] =
@@ -476,23 +578,6 @@ export default function ELScoreCalculator() {
     const [serverInput, setServerInput] = useState("");
     const [serverInputError, setServerInputError] =
         useState("");
-    const [now, setNow] = useState(() => Date.now());
-
-    useEffect(() => {
-        if (fixedAt !== null) {
-            return undefined;
-        }
-
-        setNow(Date.now());
-
-        const handle = window.setInterval(() => {
-            setNow(Date.now());
-        }, 1000);
-
-        return () => {
-            window.clearInterval(handle);
-        };
-    }, [fixedAt]);
 
     const selectedServer = useMemo(
         () =>
@@ -501,6 +586,48 @@ export default function ELScoreCalculator() {
             ) ?? null,
         [selectedServerNo, servers]
     );
+
+    const lockedStartParts = useMemo(
+        () =>
+            fixedAt !== null
+                ? getDateTimeParts(fixedAt)
+                : null,
+        [fixedAt]
+    );
+
+    const displayedStartDate =
+        lockedStartParts?.date ?? startDate;
+    const displayedStartTime =
+        lockedStartParts?.time ?? startTime;
+
+    const startCandidateAt = useMemo(
+        () => getTimestamp(startDate, startTime),
+        [startDate, startTime]
+    );
+
+    const deadline = useMemo(
+        () => getDeadline(endDate, endTime),
+        [endDate, endTime]
+    );
+
+    const deadlineAt = deadline?.getTime() ?? null;
+
+    const hasValidWindow =
+        fixedAt !== null &&
+        deadlineAt !== null &&
+        fixedAt < deadlineAt;
+
+    const selectedTimestamp = useMemo(() => {
+        if (!hasValidWindow) {
+            return null;
+        }
+
+        return clampTimestamp(
+            viewAt ?? fixedAt,
+            fixedAt,
+            deadlineAt
+        );
+    }, [deadlineAt, fixedAt, hasValidWindow, viewAt]);
 
     const normalizedServerParams = useMemo(
         () => servers.map(serializeServer),
@@ -513,11 +640,17 @@ export default function ELScoreCalculator() {
 
     const normalizedQueryValues = useMemo(
         () => ({
+            startDate: displayedStartDate,
+            startTime: displayedStartTime,
             endDate,
             endTime,
             fixedAt:
                 fixedAt !== null
                     ? String(fixedAt)
+                    : null,
+            viewAt:
+                selectedTimestamp !== null
+                    ? String(selectedTimestamp)
                     : null,
             servers:
                 normalizedServerParams.length > 0
@@ -533,12 +666,15 @@ export default function ELScoreCalculator() {
                     : null
         }),
         [
+            displayedStartDate,
+            displayedStartTime,
             endDate,
             endTime,
             fixedAt,
             normalizedBuildingParams,
             normalizedServerParams,
-            selectedServer
+            selectedServer,
+            selectedTimestamp
         ]
     );
 
@@ -634,126 +770,35 @@ export default function ELScoreCalculator() {
         }
     }, [shareUrl, t]);
 
-    const toggleTimeLock = useCallback(() => {
-        setFixedAt((current) =>
-            current === null ? Date.now() : null
-        );
-    }, [setFixedAt]);
-
-    const refreshFixedTime = useCallback(() => {
-        if (fixedAt === null) {
-            return;
-        }
-
-        const refreshDeadline = getDeadline(
-            endDate,
-            endTime
-        );
-
-        if (refreshDeadline === null) {
-            return;
-        }
-
-        const refreshedAt = Date.now();
-
-        const previousRemainingMinutes = Math.max(
-            0,
-            Math.ceil(
-                Math.max(
-                    0,
-                    refreshDeadline.getTime() - fixedAt
-                ) / 60000
-            )
-        );
-
-        const refreshedRemainingMinutes = Math.max(
-            0,
-            Math.ceil(
-                Math.max(
-                    0,
-                    refreshDeadline.getTime() - refreshedAt
-                ) / 60000
-            )
-        );
-
-        /*
-         * 이전 예상 점수를 유지하려면 감소한 남은 시간만큼을
-         * 각 서버의 현재 점수로 이동해야 한다.
-         *
-         * 기존 예상 점수
-         * = 기존 현재 점수 + 분당 점수 × 기존 남은 분
-         *
-         * 갱신 후 현재 점수
-         * = 기존 현재 점수
-         *   + 분당 점수 × (기존 남은 분 - 새 남은 분)
-         */
-        const elapsedMinutes = Math.max(
-            0,
-            previousRemainingMinutes -
-                refreshedRemainingMinutes
-        );
-
-        const scoreByServerNo = {};
-
-        buildings.forEach((building) => {
-            const serverNo =
-                getAssignedServerNo(building);
-
-            if (serverNo === null) {
-                return;
-            }
-
-            scoreByServerNo[serverNo] =
-                (scoreByServerNo[serverNo] ?? 0) +
-                Number(building.point ?? 0);
-        });
-
-        const refreshedServers = servers.map(
-            (server) => {
-                const scorePerMinute =
-                    scoreByServerNo[server.no] ?? 0;
-
-                return {
-                    ...server,
-                    currentScore:
-                        normalizeScore(
-                            server.currentScore
-                        ) +
-                        scorePerMinute *
-                            elapsedMinutes
-                };
-            }
-        );
-
-        const refreshedServerParams =
-            normalizeServers(refreshedServers).map(
-                serializeServer
+    const lockStartTime = useCallback(() => {
+        if (
+            startCandidateAt === null ||
+            deadlineAt === null ||
+            startCandidateAt >= deadlineAt
+        ) {
+            window.alert(
+                t("elScoreCalculator.strategyWindow.invalidRange", {
+                    defaultValue:
+                        "종료 시간은 시작 시간보다 뒤여야 합니다."
+                })
             );
+            return;
+        }
 
-        /*
-         * useParamState와 useListParamState의 setter를 연속 호출하면
-         * 같은 tick에서 searchParams 변경이 덮어써질 수 있다.
-         * servers와 fixedAt을 한 번의 URL 변경으로 함께 반영한다.
-         */
         setSearchParams(
             (currentParams) => {
                 const nextParams =
-                    new URLSearchParams(
-                        currentParams
-                    );
+                    new URLSearchParams(currentParams);
 
-                if (refreshedServerParams.length > 0) {
-                    nextParams.set(
-                        "servers",
-                        refreshedServerParams.join(",")
-                    );
-                } else {
-                    nextParams.delete("servers");
-                }
-
+                nextParams.set("startDate", startDate);
+                nextParams.set("startTime", startTime);
                 nextParams.set(
                     "fixedAt",
-                    String(refreshedAt)
+                    String(startCandidateAt)
+                );
+                nextParams.set(
+                    "viewAt",
+                    String(startCandidateAt)
                 );
 
                 return nextParams;
@@ -761,19 +806,67 @@ export default function ELScoreCalculator() {
             { replace: true }
         );
     }, [
-        buildings,
-        endDate,
-        endTime,
-        fixedAt,
-        servers,
-        setSearchParams
+        deadlineAt,
+        setSearchParams,
+        startCandidateAt,
+        startDate,
+        startTime,
+        t
     ]);
 
-    const fixedAtFormatter = useMemo(
+    const unlockStartTime = useCallback(() => {
+        setSearchParams(
+            (currentParams) => {
+                const nextParams =
+                    new URLSearchParams(currentParams);
+
+                nextParams.delete("fixedAt");
+                nextParams.delete("viewAt");
+
+                return nextParams;
+            },
+            { replace: true }
+        );
+    }, [setSearchParams]);
+
+    const updateSelectedTime = useCallback(
+        (timestamp) => {
+            if (!hasValidWindow) {
+                return;
+            }
+
+            const normalizedTimestamp = Number(timestamp);
+
+            if (!Number.isFinite(normalizedTimestamp)) {
+                return;
+            }
+
+            setViewAt(
+                clampTimestamp(
+                    normalizedTimestamp,
+                    fixedAt,
+                    deadlineAt
+                )
+            );
+        },
+        [deadlineAt, fixedAt, hasValidWindow, setViewAt]
+    );
+
+    const moveSelectedTime = useCallback(
+        (minutes) => {
+            updateSelectedTime(
+                (selectedTimestamp ?? fixedAt ?? 0) +
+                    minutes * 60000
+            );
+        },
+        [fixedAt, selectedTimestamp, updateSelectedTime]
+    );
+
+    const dateTimeFormatter = useMemo(
         () =>
             new Intl.DateTimeFormat(locale, {
                 dateStyle: "medium",
-                timeStyle: "medium"
+                timeStyle: "short"
             }),
         [locale]
     );
@@ -781,59 +874,42 @@ export default function ELScoreCalculator() {
     const fixedAtText = useMemo(
         () =>
             fixedAt !== null
-                ? fixedAtFormatter.format(
+                ? dateTimeFormatter.format(
                     new Date(fixedAt)
                 )
                 : "",
-        [fixedAt, fixedAtFormatter]
+        [dateTimeFormatter, fixedAt]
     );
 
-    const calculationTime = fixedAt ?? now;
-
-    const deadline = useMemo(
-        () => getDeadline(endDate, endTime),
-        [endDate, endTime]
-    );
-
-    const remainingMilliseconds = useMemo(
+    const selectedTimeText = useMemo(
         () =>
-            deadline
-                ? Math.max(
-                    0,
-                    deadline.getTime() - calculationTime
+            selectedTimestamp !== null
+                ? dateTimeFormatter.format(
+                    new Date(selectedTimestamp)
                 )
-                : 0,
-        [calculationTime, deadline]
+                : "",
+        [dateTimeFormatter, selectedTimestamp]
     );
 
-    const countdown = useMemo(() => {
-        const totalSeconds = Math.floor(
-            remainingMilliseconds / 1000
+    const elapsedMinutes = useMemo(() => {
+        if (
+            fixedAt === null ||
+            selectedTimestamp === null
+        ) {
+            return 0;
+        }
+
+        return Math.max(
+            0,
+            Math.floor(
+                (selectedTimestamp - fixedAt) / 60000
+            )
         );
+    }, [fixedAt, selectedTimestamp]);
 
-        return {
-            days: Math.floor(totalSeconds / 86400),
-            hours: Math.floor(
-                (totalSeconds % 86400) / 3600
-            ),
-            minutes: Math.floor(
-                (totalSeconds % 3600) / 60
-            ),
-            seconds: totalSeconds % 60
-        };
-    }, [remainingMilliseconds]);
 
-    const remainingMinutes = useMemo(
-        () =>
-            Math.max(
-                0,
-                Math.ceil(remainingMilliseconds / 60000)
-            ),
-        [remainingMilliseconds]
-    );
-
-    const sortedServers = useMemo(() => {
-        const scoreByServerNo = {};
+    const scoreByServerNo = useMemo(() => {
+        const result = {};
 
         buildings.forEach((building) => {
             const serverNo =
@@ -843,33 +919,39 @@ export default function ELScoreCalculator() {
                 return;
             }
 
-            scoreByServerNo[serverNo] =
-                (scoreByServerNo[serverNo] ?? 0) +
+            result[serverNo] =
+                (result[serverNo] ?? 0) +
                 Number(building.point ?? 0);
         });
 
-        return servers
-            .map((server) => {
-                const scorePerMinute =
-                    scoreByServerNo[server.no] ?? 0;
+        return result;
+    }, [buildings]);
 
-                return {
-                    ...server,
-                    scorePerMinute,
-                    scoreTotal:
-                        Number(server.currentScore ?? 0) +
-                        scorePerMinute * remainingMinutes
-                };
-            })
-            .sort(
-                (left, right) =>
-                    right.scoreTotal - left.scoreTotal
-            );
-    }, [
-        buildings,
-        remainingMinutes,
-        servers
-    ]);
+    const sortedServers = useMemo(
+        () =>
+            servers
+                .map((server) => {
+                    const scorePerMinute =
+                        scoreByServerNo[server.no] ?? 0;
+
+                    return {
+                        ...server,
+                        scorePerMinute,
+                        scoreTotal:
+                            Number(
+                                server.currentScore ?? 0
+                            ) +
+                            scorePerMinute *
+                                elapsedMinutes
+                    };
+                })
+                .sort(
+                    (left, right) =>
+                        right.scoreTotal -
+                        left.scoreTotal
+                ),
+        [elapsedMinutes, scoreByServerNo, servers]
+    );
 
     const assignedBuildingCount = useMemo(
         () =>
@@ -1202,76 +1284,201 @@ export default function ELScoreCalculator() {
                         number={1}
                         icon={<FaClock />}
                         title={t(
-                            "elScoreCalculator.deadline.title"
+                            "elScoreCalculator.strategyWindow.title",
+                            {
+                                defaultValue:
+                                    "전략 시간 범위 설정"
+                            }
                         )}
                         description={t(
-                            "elScoreCalculator.deadline.description"
+                            "elScoreCalculator.strategyWindow.description",
+                            {
+                                defaultValue:
+                                    "점수 기준이 되는 시작 시간을 잠그고 종료 시간을 설정하세요."
+                            }
                         )}
                     />
 
-                    <div className="el-score-form-grid">
-                        <label className="el-score-field">
-                            <span>
-                                {t(
-                                    "elScoreCalculator.deadline.date"
-                                )}
-                            </span>
-                            <input
-                                type="date"
-                                className="form-control"
-                                value={endDate}
-                                onChange={(event) =>
-                                    setEndDate(
-                                        event.target.value
-                                    )
-                                }
-                            />
-                        </label>
+                    <div className="el-score-time-config-grid">
+                        <div className="el-score-time-config-card">
+                            <div className="d-flex justify-content-between align-items-center gap-3 mb-3">
+                                <div>
+                                    <h3 className="h6 mb-1">
+                                        {t(
+                                            "elScoreCalculator.strategyWindow.startTitle",
+                                            {
+                                                defaultValue:
+                                                    "시작 시간"
+                                            }
+                                        )}
+                                    </h3>
+                                    <small className="text-muted">
+                                        {fixedAt !== null
+                                            ? t(
+                                                "elScoreCalculator.strategyWindow.lockedAt",
+                                                {
+                                                    time: fixedAtText,
+                                                    defaultValue:
+                                                        "{{time}}에 잠김"
+                                                }
+                                            )
+                                            : t(
+                                                "elScoreCalculator.strategyWindow.unlocked",
+                                                {
+                                                    defaultValue:
+                                                        "시간을 설정한 뒤 잠그세요."
+                                                }
+                                            )}
+                                    </small>
+                                </div>
 
-                        <label className="el-score-field">
-                            <span>
+                                <button
+                                    type="button"
+                                    className={`btn btn-sm ${
+                                        fixedAt !== null
+                                            ? "btn-warning"
+                                            : "btn-primary"
+                                    }`}
+                                    onClick={
+                                        fixedAt !== null
+                                            ? unlockStartTime
+                                            : lockStartTime
+                                    }
+                                >
+                                    {fixedAt !== null ? (
+                                        <FaLockOpen className="me-2" />
+                                    ) : (
+                                        <FaLock className="me-2" />
+                                    )}
+                                    {fixedAt !== null
+                                        ? t(
+                                            "elScoreCalculator.strategyWindow.unlock",
+                                            {
+                                                defaultValue:
+                                                    "시작 시간 잠금 해제"
+                                            }
+                                        )
+                                        : t(
+                                            "elScoreCalculator.strategyWindow.lock",
+                                            {
+                                                defaultValue:
+                                                    "시작 시간 잠금"
+                                            }
+                                        )}
+                                </button>
+                            </div>
+
+                            <div className="el-score-form-grid">
+                                <label className="el-score-field">
+                                    <span>
+                                        {t(
+                                            "elScoreCalculator.strategyWindow.startDate",
+                                            {
+                                                defaultValue:
+                                                    "시작 날짜"
+                                            }
+                                        )}
+                                    </span>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        value={displayedStartDate}
+                                        disabled={fixedAt !== null}
+                                        onChange={(event) =>
+                                            setStartDate(
+                                                event.target.value
+                                            )
+                                        }
+                                    />
+                                </label>
+
+                                <label className="el-score-field">
+                                    <span>
+                                        {t(
+                                            "elScoreCalculator.strategyWindow.startTime",
+                                            {
+                                                defaultValue:
+                                                    "시작 시각"
+                                            }
+                                        )}
+                                    </span>
+                                    <input
+                                        type="time"
+                                        className="form-control"
+                                        value={displayedStartTime}
+                                        disabled={fixedAt !== null}
+                                        onChange={(event) =>
+                                            setStartTime(
+                                                event.target.value
+                                            )
+                                        }
+                                    />
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="el-score-time-config-card">
+                            <h3 className="h6 mb-3">
                                 {t(
-                                    "elScoreCalculator.deadline.time"
+                                    "elScoreCalculator.strategyWindow.endTitle",
+                                    {
+                                        defaultValue:
+                                            "종료 시간"
+                                    }
                                 )}
-                            </span>
-                            <input
-                                type="time"
-                                className="form-control"
-                                value={endTime}
-                                onChange={(event) =>
-                                    setEndTime(
-                                        event.target.value
-                                    )
-                                }
-                            />
-                        </label>
+                            </h3>
+
+                            <div className="el-score-form-grid">
+                                <label className="el-score-field">
+                                    <span>
+                                        {t(
+                                            "elScoreCalculator.deadline.date"
+                                        )}
+                                    </span>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        value={endDate}
+                                        onChange={(event) =>
+                                            setEndDate(
+                                                event.target.value
+                                            )
+                                        }
+                                    />
+                                </label>
+
+                                <label className="el-score-field">
+                                    <span>
+                                        {t(
+                                            "elScoreCalculator.deadline.time"
+                                        )}
+                                    </span>
+                                    <input
+                                        type="time"
+                                        className="form-control"
+                                        value={endTime}
+                                        onChange={(event) =>
+                                            setEndTime(
+                                                event.target.value
+                                            )
+                                        }
+                                    />
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
-                    <div
-                        className={`el-score-countdown${
-                            remainingMilliseconds > 0
-                                ? " is-active"
-                                : ""
-                        }`}
-                        aria-live="polite"
-                    >
-                        <span>
+                    {fixedAt !== null && !hasValidWindow && (
+                        <div className="alert alert-danger mt-3 mb-0">
                             {t(
-                                "elScoreCalculator.deadline.remaining"
+                                "elScoreCalculator.strategyWindow.invalidRange",
+                                {
+                                    defaultValue:
+                                        "종료 시간은 시작 시간보다 뒤여야 합니다."
+                                }
                             )}
-                        </span>
-
-                        <strong>
-                            {remainingMilliseconds > 0
-                                ? t(
-                                    "elScoreCalculator.deadline.countdown",
-                                    countdown
-                                )
-                                : t(
-                                    "elScoreCalculator.deadline.noTime"
-                                )}
-                        </strong>
-                    </div>
+                        </div>
+                    )}
                 </section>
 
                 <section className="el-score-panel">
@@ -1401,64 +1608,19 @@ export default function ELScoreCalculator() {
                         number={3}
                         icon={<FaFlagCheckered />}
                         title={t(
-                            "elScoreCalculator.currentScore.title"
+                            "elScoreCalculator.baselineScore.title",
+                            {
+                                defaultValue:
+                                    "시작 시간 기준 점수"
+                            }
                         )}
                         description={t(
-                            "elScoreCalculator.currentScore.description"
+                            "elScoreCalculator.baselineScore.description",
+                            {
+                                defaultValue:
+                                    "잠근 시작 시간에 각 서버가 보유한 점수를 입력하세요."
+                            }
                         )}
-                        action={
-                            <div className="d-flex flex-wrap gap-2">
-                                {fixedAt !== null && (
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-success btn-sm"
-                                        onClick={refreshFixedTime}
-                                        disabled={servers.length === 0}
-                                    >
-                                        <FaRotate className="me-2" />
-                                        {t(
-                                            "elScoreCalculator.timeLock.refresh",
-                                            {
-                                                defaultValue:
-                                                    "현재 시간으로 갱신"
-                                            }
-                                        )}
-                                    </button>
-                                )}
-
-                                <button
-                                    type="button"
-                                    className={`btn btn-sm ${
-                                        fixedAt !== null
-                                            ? "btn-warning"
-                                            : "btn-outline-primary"
-                                    }`}
-                                    onClick={toggleTimeLock}
-                                    disabled={servers.length === 0}
-                                >
-                                    {fixedAt !== null ? (
-                                        <FaLockOpen className="me-2" />
-                                    ) : (
-                                        <FaLock className="me-2" />
-                                    )}
-                                    {fixedAt !== null
-                                        ? t(
-                                            "elScoreCalculator.timeLock.unlock",
-                                            {
-                                                defaultValue:
-                                                    "시간 고정 해제"
-                                            }
-                                        )
-                                        : t(
-                                            "elScoreCalculator.timeLock.lock",
-                                            {
-                                                defaultValue:
-                                                    "현재 시간 고정"
-                                            }
-                                        )}
-                                </button>
-                            </div>
-                        }
                     />
 
                     {servers.length === 0 ? (
@@ -1469,103 +1631,59 @@ export default function ELScoreCalculator() {
                             )}
                         />
                     ) : (
-                        <div className="el-score-current-grid">
-                            {servers.map((server) => (
-                                <label
-                                    className="el-score-field"
-                                    key={server.no}
-                                >
-                                    <span>{server.name}</span>
-                                    <div className="input-group">
-                                        <input
-                                            type="text"
-                                            inputMode="numeric"
-                                            className="form-control"
-                                            value={
-                                                server.currentScore
-                                            }
-                                            onChange={(event) =>
-                                                changeCurrentScore(
-                                                    event,
-                                                    server
-                                                )
-                                            }
-                                        />
-                                        <span className="input-group-text">
-                                            {t(
-                                                "elScoreCalculator.units.points"
-                                            )}
-                                        </span>
-                                    </div>
-                                </label>
-                            ))}
-                        </div>
-                    )}
-
-                    {servers.length > 0 && (
-                        <div
-                            className={`alert ${
-                                fixedAt !== null
-                                    ? "alert-warning"
-                                    : "alert-light"
-                            } mt-3 mb-0 d-flex align-items-start gap-2`}
-                            role="status"
-                        >
-                            {fixedAt !== null ? (
-                                <FaLock
-                                    className="flex-shrink-0 mt-1"
-                                    aria-hidden="true"
-                                />
-                            ) : (
-                                <FaClock
-                                    className="flex-shrink-0 mt-1"
-                                    aria-hidden="true"
-                                />
+                        <>
+                            {fixedAt === null && (
+                                <div className="alert alert-warning">
+                                    {t(
+                                        "elScoreCalculator.baselineScore.lockFirst",
+                                        {
+                                            defaultValue:
+                                                "점수를 입력하기 전에 시작 시간을 잠그세요."
+                                        }
+                                    )}
+                                </div>
                             )}
 
-                            <div>
-                                <strong className="d-block">
-                                    {fixedAt !== null
-                                        ? t(
-                                            "elScoreCalculator.timeLock.lockedTitle",
-                                            {
-                                                defaultValue:
-                                                    "계산 시간이 고정되었습니다."
-                                            }
-                                        )
-                                        : t(
-                                            "elScoreCalculator.timeLock.liveTitle",
-                                            {
-                                                defaultValue:
-                                                    "실시간 계산 중입니다."
-                                            }
-                                        )}
-                                </strong>
-
-                                <span>
-                                    {fixedAt !== null
-                                        ? t(
-                                            "elScoreCalculator.timeLock.lockedDescription",
-                                            {
-                                                time: fixedAtText,
-                                                defaultValue:
-                                                    "{{time}}을 기준으로 계산합니다. 현재 시간으로 갱신하면 경과 점수가 현재 점수에 반영되고 예상 점수는 유지됩니다."
-                                            }
-                                        )
-                                        : t(
-                                            "elScoreCalculator.timeLock.liveDescription",
-                                            {
-                                                defaultValue:
-                                                    "현재 시각을 기준으로 남은 시간과 예상 점수가 계속 갱신됩니다."
-                                            }
-                                        )}
-                                </span>
+                            <div className="el-score-current-grid">
+                                {servers.map((server) => (
+                                    <label
+                                        className="el-score-field"
+                                        key={server.no}
+                                    >
+                                        <span>{server.name}</span>
+                                        <div className="input-group">
+                                            <input
+                                                type="text"
+                                                inputMode="numeric"
+                                                className="form-control"
+                                                value={
+                                                    server.currentScore
+                                                }
+                                                disabled={
+                                                    fixedAt === null
+                                                }
+                                                onChange={(event) =>
+                                                    changeCurrentScore(
+                                                        event,
+                                                        server
+                                                    )
+                                                }
+                                            />
+                                            <span className="input-group-text">
+                                                {t(
+                                                    "elScoreCalculator.units.points"
+                                                )}
+                                            </span>
+                                        </div>
+                                    </label>
+                                ))}
                             </div>
-                        </div>
+                        </>
                     )}
                 </section>
 
-                <section className="el-score-panel">
+                <div className="el-score-strategy-workspace">
+                <section className="el-score-panel el-score-map-panel">
                     <SectionTitle
                         number={4}
                         icon={<FaMapLocationDot />}
@@ -1843,113 +1961,302 @@ export default function ELScoreCalculator() {
                     </div>
                 </section>
 
-                <section className="el-score-panel">
+                <section className="el-score-panel el-score-analysis-panel">
                     <SectionTitle
                         number={5}
                         icon={<FaRankingStar />}
                         title={t(
-                            "elScoreCalculator.ranking.title"
+                            "elScoreCalculator.timeline.title",
+                            {
+                                defaultValue:
+                                    "시간대별 예상 점수"
+                            }
                         )}
                         description={t(
-                            "elScoreCalculator.ranking.description"
+                            "elScoreCalculator.timeline.description",
+                            {
+                                defaultValue:
+                                    "슬라이더를 움직여 원하는 시각의 예상 점수와 순위를 확인하세요."
+                            }
                         )}
                     />
 
-                    <div className="table-responsive">
-                        <table className="table align-middle text-nowrap">
-                            <thead>
-                                <tr className="text-center">
-                                    <th scope="col">
-                                        {t(
-                                            "elScoreCalculator.ranking.rank"
-                                        )}
-                                    </th>
-                                    <th scope="col">
-                                        {t(
-                                            "elScoreCalculator.ranking.server"
-                                        )}
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-end"
-                                    >
-                                        {t(
-                                            "elScoreCalculator.ranking.currentScore"
-                                        )}
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-end"
-                                    >
-                                        {t(
-                                            "elScoreCalculator.ranking.perMinute"
-                                        )}
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-end"
-                                    >
-                                        {t(
-                                            "elScoreCalculator.ranking.finalScore"
-                                        )}
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody className="text-center">
-                                {sortedServers.length === 0 ? (
-                                    <tr>
-                                        <td
-                                            colSpan={5}
-                                            className="py-4 text-muted"
-                                        >
+                    {!hasValidWindow ? (
+                        <div className="el-score-inline-notice">
+                            <FaTriangleExclamation aria-hidden="true" />
+                            {t(
+                                "elScoreCalculator.timeline.notReady",
+                                {
+                                    defaultValue:
+                                        "시작 시간을 잠그고 올바른 종료 시간을 설정하세요."
+                                }
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            <div className="el-score-time-explorer">
+                                <div className="el-score-time-explorer-header">
+                                    <div>
+                                        <span className="text-muted">
                                             {t(
-                                                "elScoreCalculator.ranking.empty"
-                                            )}
-                                        </td>
-                                    </tr>
-                                ) : (
-                                    sortedServers.map(
-                                        (server, index) => (
-                                            <tr
-                                                key={server.no}
-                                                className={
-                                                    index === 0
-                                                        ? "table-primary"
-                                                        : index === 1
-                                                          ? "table-success"
-                                                          : ""
+                                                "elScoreCalculator.timeline.selectedTime",
+                                                {
+                                                    defaultValue:
+                                                        "선택 시각"
                                                 }
+                                            )}
+                                        </span>
+                                        <strong>
+                                            {selectedTimeText}
+                                        </strong>
+                                    </div>
+                                    <div className="text-end">
+                                        <span className="text-muted">
+                                            {t(
+                                                "elScoreCalculator.timeline.elapsed",
+                                                {
+                                                    defaultValue:
+                                                        "시작 후 경과"
+                                                }
+                                            )}
+                                        </span>
+                                        <strong>
+                                            {t(
+                                                "elScoreCalculator.timeline.elapsedMinutes",
+                                                {
+                                                    count:
+                                                        elapsedMinutes,
+                                                    defaultValue:
+                                                        "{{count}}분"
+                                                }
+                                            )}
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <input
+                                    type="range"
+                                    className="form-range el-score-time-slider"
+                                    min={fixedAt}
+                                    max={deadlineAt}
+                                    step={60000}
+                                    value={selectedTimestamp}
+                                    onChange={(event) =>
+                                        updateSelectedTime(
+                                            event.target.valueAsNumber
+                                        )
+                                    }
+                                    aria-label={t(
+                                        "elScoreCalculator.timeline.sliderAria",
+                                        {
+                                            defaultValue:
+                                                "예상 점수를 확인할 시각"
+                                        }
+                                    )}
+                                />
+
+                                <div className="el-score-time-range-labels">
+                                    <span>{fixedAtText}</span>
+                                    <span>
+                                        {dateTimeFormatter.format(
+                                            deadline
+                                        )}
+                                    </span>
+                                </div>
+
+                                <div className="el-score-time-controls">
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary btn-sm"
+                                        onClick={() =>
+                                            updateSelectedTime(
+                                                fixedAt
+                                            )
+                                        }
+                                    >
+                                        {t(
+                                            "elScoreCalculator.timeline.goStart",
+                                            {
+                                                defaultValue:
+                                                    "시작"
+                                            }
+                                        )}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary btn-sm"
+                                        onClick={() =>
+                                            moveSelectedTime(-60)
+                                        }
+                                    >
+                                        -1h
+                                    </button>
+                                    <label className="el-score-time-direct-input">
+                                        <span>
+                                            {t(
+                                                "elScoreCalculator.timeline.directTime",
+                                                {
+                                                    defaultValue:
+                                                        "직접 선택"
+                                                }
+                                            )}
+                                        </span>
+                                        <input
+                                            type="datetime-local"
+                                            className="form-control form-control-sm"
+                                            min={toDateTimeLocalValue(
+                                                fixedAt
+                                            )}
+                                            max={toDateTimeLocalValue(
+                                                deadlineAt
+                                            )}
+                                            value={toDateTimeLocalValue(
+                                                selectedTimestamp
+                                            )}
+                                            onChange={(event) =>
+                                                updateSelectedTime(
+                                                    new Date(
+                                                        event.target.value
+                                                    ).getTime()
+                                                )
+                                            }
+                                        />
+                                    </label>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary btn-sm"
+                                        onClick={() =>
+                                            moveSelectedTime(60)
+                                        }
+                                    >
+                                        +1h
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary btn-sm"
+                                        onClick={() =>
+                                            updateSelectedTime(
+                                                deadlineAt
+                                            )
+                                        }
+                                    >
+                                        {t(
+                                            "elScoreCalculator.timeline.goEnd",
+                                            {
+                                                defaultValue:
+                                                    "종료"
+                                            }
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="table-responsive mt-3">
+                                <table className="table align-middle text-nowrap">
+                                    <thead>
+                                        <tr className="text-center">
+                                            <th scope="col">
+                                                {t(
+                                                    "elScoreCalculator.ranking.rank"
+                                                )}
+                                            </th>
+                                            <th scope="col">
+                                                {t(
+                                                    "elScoreCalculator.ranking.server"
+                                                )}
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="text-end"
                                             >
-                                                <td>
-                                                    {index + 1}
-                                                </td>
-                                                <td>
-                                                    {server.name}
-                                                </td>
-                                                <td className="text-end">
-                                                    {numberFormatter.format(
-                                                        server.currentScore
-                                                    )}
-                                                </td>
-                                                <td className="text-end">
-                                                    {numberFormatter.format(
-                                                        server.scorePerMinute
-                                                    )}
-                                                </td>
-                                                <td className="text-end fw-bold">
-                                                    {numberFormatter.format(
-                                                        server.scoreTotal
+                                                {t(
+                                                    "elScoreCalculator.timeline.startScore",
+                                                    {
+                                                        defaultValue:
+                                                            "시작 점수"
+                                                    }
+                                                )}
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="text-end"
+                                            >
+                                                {t(
+                                                    "elScoreCalculator.ranking.perMinute"
+                                                )}
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="text-end"
+                                            >
+                                                {t(
+                                                    "elScoreCalculator.timeline.expectedScore",
+                                                    {
+                                                        defaultValue:
+                                                            "예상 점수"
+                                                    }
+                                                )}
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody className="text-center">
+                                        {sortedServers.length === 0 ? (
+                                            <tr>
+                                                <td
+                                                    colSpan={5}
+                                                    className="py-4 text-muted"
+                                                >
+                                                    {t(
+                                                        "elScoreCalculator.ranking.empty"
                                                     )}
                                                 </td>
                                             </tr>
-                                        )
-                                    )
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                                        ) : (
+                                            sortedServers.map(
+                                                (server, index) => (
+                                                    <tr
+                                                        key={server.no}
+                                                        className={
+                                                            index === 0
+                                                                ? "table-primary"
+                                                                : index === 1
+                                                                  ? "table-success"
+                                                                  : ""
+                                                        }
+                                                    >
+                                                        <td>
+                                                            {index + 1}
+                                                        </td>
+                                                        <td>
+                                                            {server.name}
+                                                        </td>
+                                                        <td className="text-end">
+                                                            {numberFormatter.format(
+                                                                server.currentScore
+                                                            )}
+                                                        </td>
+                                                        <td className="text-end">
+                                                            {numberFormatter.format(
+                                                                server.scorePerMinute
+                                                            )}
+                                                        </td>
+                                                        <td className="text-end fw-bold">
+                                                            {numberFormatter.format(
+                                                                server.scoreTotal
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            )
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </>
+                    )}
                 </section>
+                </div>
 
                 <section className="el-score-info-grid">
                     <div className="el-score-info-card">

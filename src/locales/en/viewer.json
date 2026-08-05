@@ -1713,6 +1713,38 @@
             "liveTitle": "Calculating in real time.",
             "lockedDescription": "Calculations use {{time}} as the reference time. The projected scores will not change as time passes.",
             "liveDescription": "The remaining time and projected scores continue to update based on the current time."
+        },
+        "strategyWindow": {
+            "title": "Strategy time range",
+            "description": "Lock the score baseline start time and set the ending time.",
+            "startTitle": "Start time",
+            "endTitle": "End time",
+            "startDate": "Start date",
+            "startTime": "Start time",
+            "lock": "Lock start time",
+            "unlock": "Unlock start time",
+            "lockedAt": "Locked at {{time}}",
+            "unlocked": "Set the time, then lock it.",
+            "invalidRange": "The end time must be later than the start time."
+        },
+        "baselineScore": {
+            "title": "Scores at the start time",
+            "description": "Enter each server's score at the locked start time.",
+            "lockFirst": "Lock the start time before entering scores."
+        },
+        "timeline": {
+            "title": "Projected scores by time",
+            "description": "Move the slider to inspect projected scores and rankings at any time.",
+            "notReady": "Lock the start time and set a valid end time.",
+            "selectedTime": "Selected time",
+            "elapsed": "Elapsed since start",
+            "elapsedMinutes": "{{count}} min",
+            "sliderAria": "Time for projected score analysis",
+            "goStart": "Start",
+            "goEnd": "End",
+            "directTime": "Choose directly",
+            "startScore": "Start score",
+            "expectedScore": "Projected score"
         }
     },
     "emojiCreator": {

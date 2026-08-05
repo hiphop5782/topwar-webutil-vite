@@ -1705,6 +1705,38 @@
             "liveTitle": "실시간 계산 중입니다.",
             "lockedDescription": "{{time}}을 기준으로 계산합니다. 시간이 지나도 예상 점수는 변하지 않습니다.",
             "liveDescription": "현재 시각을 기준으로 남은 시간과 예상 점수가 계속 갱신됩니다."
+        },
+        "strategyWindow": {
+            "title": "전략 시간 범위 설정",
+            "description": "점수 기준이 되는 시작 시간을 잠그고 종료 시간을 설정하세요.",
+            "startTitle": "시작 시간",
+            "endTitle": "종료 시간",
+            "startDate": "시작 날짜",
+            "startTime": "시작 시각",
+            "lock": "시작 시간 잠금",
+            "unlock": "시작 시간 잠금 해제",
+            "lockedAt": "{{time}}에 잠김",
+            "unlocked": "시간을 설정한 뒤 잠그세요.",
+            "invalidRange": "종료 시간은 시작 시간보다 뒤여야 합니다."
+        },
+        "baselineScore": {
+            "title": "시작 시간 기준 점수",
+            "description": "잠근 시작 시간에 각 서버가 보유한 점수를 입력하세요.",
+            "lockFirst": "점수를 입력하기 전에 시작 시간을 잠그세요."
+        },
+        "timeline": {
+            "title": "시간대별 예상 점수",
+            "description": "슬라이더를 움직여 원하는 시각의 예상 점수와 순위를 확인하세요.",
+            "notReady": "시작 시간을 잠그고 올바른 종료 시간을 설정하세요.",
+            "selectedTime": "선택 시각",
+            "elapsed": "시작 후 경과",
+            "elapsedMinutes": "{{count}}분",
+            "sliderAria": "예상 점수를 확인할 시각",
+            "goStart": "시작",
+            "goEnd": "종료",
+            "directTime": "직접 선택",
+            "startScore": "시작 점수",
+            "expectedScore": "예상 점수"
         }
     },
     "emojiCreator": {

@@ -1705,6 +1705,38 @@
             "liveTitle": "リアルタイムで計算中です。",
             "lockedDescription": "{{time}}を基準に計算します。時間が経過しても予想スコアは変わりません。",
             "liveDescription": "現在時刻を基準に、残り時間と予想スコアが継続して更新されます。"
+        },
+        "strategyWindow": {
+            "title": "戦略時間範囲の設定",
+            "description": "スコア基準となる開始時刻を固定し、終了時刻を設定してください。",
+            "startTitle": "開始時刻",
+            "endTitle": "終了時刻",
+            "startDate": "開始日",
+            "startTime": "開始時刻",
+            "lock": "開始時刻を固定",
+            "unlock": "開始時刻の固定を解除",
+            "lockedAt": "{{time}}に固定",
+            "unlocked": "時刻を設定してから固定してください。",
+            "invalidRange": "終了時刻は開始時刻より後に設定してください。"
+        },
+        "baselineScore": {
+            "title": "開始時刻時点のスコア",
+            "description": "固定した開始時刻に各サーバーが保有しているスコアを入力してください。",
+            "lockFirst": "スコアを入力する前に開始時刻を固定してください。"
+        },
+        "timeline": {
+            "title": "時間帯別の予想スコア",
+            "description": "スライダーを動かして、任意の時刻の予想スコアと順位を確認できます。",
+            "notReady": "開始時刻を固定し、有効な終了時刻を設定してください。",
+            "selectedTime": "選択時刻",
+            "elapsed": "開始からの経過",
+            "elapsedMinutes": "{{count}}分",
+            "sliderAria": "予想スコアを確認する時刻",
+            "goStart": "開始",
+            "goEnd": "終了",
+            "directTime": "直接選択",
+            "startScore": "開始スコア",
+            "expectedScore": "予想スコア"
         }
     },
     "emojiCreator": {
