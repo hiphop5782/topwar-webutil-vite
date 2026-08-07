@@ -29,7 +29,6 @@ import {
 import { useSearchParams } from "react-router-dom";
 
 import "./ELScoreCalculator.css";
-import "./ELScoreCalculator.strategy.css";
 import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 
 const INITIAL_SERVER = {
