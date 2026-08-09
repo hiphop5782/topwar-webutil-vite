@@ -1006,3 +1006,131 @@
         line-height: 0.82rem;
     }
 }
+
+
+/* =========================================================
+   활동 상태 강조
+   ACTIVE : 기존 스타일 유지
+   PAUSE  : 경고색 역상
+   STOP   : 위험색 완전 역상
+   ========================================================= */
+
+/* -------------------------
+   장기 휴면 : 7일 초과
+   ------------------------- */
+.topwar-player-row.is-pause {
+    border-left: 5px solid #f59f00;
+    background:
+        linear-gradient(
+            90deg,
+            #fff3bf 0%,
+            #ffec99 55%,
+            #fff3bf 100%
+        );
+    color: #3d2b00;
+}
+
+/* 이름 */
+.topwar-player-row.is-pause .topwar-player-name-line strong {
+    color: #5f3d00;
+    font-weight: 900;
+}
+
+/* 마지막 접속 */
+.topwar-player-row.is-pause .topwar-player-meta {
+    color: #805500;
+    font-weight: 700;
+}
+
+/* 전투력 */
+.topwar-player-row.is-pause .topwar-player-power strong {
+    color: #5f3d00;
+}
+
+/* 서버 */
+.topwar-player-row.is-pause .topwar-player-server-number {
+    color: #8a5700;
+}
+
+/* 장기휴면 배지 */
+.topwar-player-row.is-pause
+.topwar-activity-badge.is-pause {
+    border: 1px solid #5f3d00;
+    color: #fff;
+    background: #9c6500;
+    box-shadow: none;
+}
+
+
+/* -------------------------
+   비활성 : 30일 초과
+   ------------------------- */
+.topwar-player-row.is-stop {
+    border-left: 6px solid #7f0000;
+
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            #b42318 0,
+            #b42318 12px,
+            #a61b13 12px,
+            #a61b13 24px
+        );
+
+    color: #fff;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.16);
+}
+
+/* 비활성에서는 주요 정보 모두 흰색 */
+.topwar-player-row.is-stop .topwar-player-name-line strong,
+.topwar-player-row.is-stop .topwar-player-power strong,
+.topwar-player-row.is-stop .topwar-player-server-number,
+.topwar-player-row.is-stop .topwar-player-meta,
+.topwar-player-row.is-stop .topwar-player-alliance {
+    color: #fff;
+}
+
+/* 마지막 로그인은 살짝 연하게 */
+.topwar-player-row.is-stop
+.topwar-player-meta > span:last-child {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 비활성 배지 */
+.topwar-player-row.is-stop
+.topwar-activity-badge.is-stop {
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: #8b0000;
+    background: #fff;
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.18);
+}
+
+/* 비활성 순위도 역상 */
+.topwar-player-row.is-stop
+.topwar-player-rank span {
+    color: #9b1c13;
+    background: #fff;
+}
+
+/* -------------------------
+   Hover
+   ------------------------- */
+
+.topwar-player-row.is-pause:hover {
+    background: #ffe066;
+}
+
+.topwar-player-row.is-stop:hover {
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            #991b1b 0,
+            #991b1b 12px,
+            #7f1d1d 12px,
+            #7f1d1d 24px
+        );
+}
