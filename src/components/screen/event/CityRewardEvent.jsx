@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const DATA_URL = "//reward.progamer.info/data/city-rewards.json";
+const DATA_URL = "https://reward.progamer.info/data/city-rewards.json";
 const POLLING_INTERVAL = 5000;
 
 const REWARD_NAMES = {
