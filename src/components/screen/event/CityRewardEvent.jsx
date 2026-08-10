@@ -521,7 +521,7 @@ const CityRwardEvent = () => {
                     onKeyDown={(e) => {
                       if (
                         e.key ===
-                          "Enter" ||
+                        "Enter" ||
                         e.key === " "
                       ) {
                         e.preventDefault();
@@ -601,17 +601,17 @@ const CityRwardEvent = () => {
 
             {filteredLocations.length ===
               0 && (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="text-center text-secondary py-5"
-                >
-                  {t(
-                    "cityReward.empty"
-                  )}
-                </td>
-              </tr>
-            )}
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="text-center text-secondary py-5"
+                  >
+                    {t(
+                      "cityReward.empty"
+                    )}
+                  </td>
+                </tr>
+              )}
           </tbody>
         </table>
       </div>
