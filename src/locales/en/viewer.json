@@ -1861,5 +1861,37 @@
                 }
             }
         }
+    },
+    "cityReward": {
+        "title": "City Rewards",
+        "loading": "Loading city reward data...",
+        "polling": "Auto refresh every 5 seconds",
+        "lastUpdated": "Last updated",
+        "resultCount": "{{count}} rewards",
+        "filter": {
+            "server": "Server",
+            "reward": "Reward Type",
+            "all": "All"
+        },
+        "reward": {
+            "treasure": "Treasure",
+            "armor": "Armor",
+            "resource": "Resource",
+            "unknown": "Other ({{itemId}})"
+        },
+        "column": {
+            "server": "Server",
+            "coordinate": "Coordinate",
+            "nickname": "Nickname",
+            "type": "Type",
+            "foundAt": "Found"
+        },
+        "copied": "Copied",
+        "copyTitle": "Copy {{coordinate}}",
+        "empty": "No rewards have been found.",
+        "error": {
+            "loadFailed": "Failed to load data.",
+            "showingCached": "Showing the previous data."
+        }
     }
 }

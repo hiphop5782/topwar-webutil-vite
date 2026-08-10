@@ -1853,5 +1853,37 @@
                 }
             }
         }
+    },
+    "cityReward": {
+        "title": "都市報酬",
+        "loading": "都市報酬データを読み込んでいます...",
+        "polling": "5秒ごとに自動更新",
+        "lastUpdated": "最終更新",
+        "resultCount": "{{count}}件",
+        "filter": {
+            "server": "サーバー",
+            "reward": "ボックス種類",
+            "all": "すべて"
+        },
+        "reward": {
+            "treasure": "宝箱",
+            "armor": "装甲箱",
+            "resource": "資源箱",
+            "unknown": "その他 ({{itemId}})"
+        },
+        "column": {
+            "server": "サーバー",
+            "coordinate": "座標",
+            "nickname": "ニックネーム",
+            "type": "種類",
+            "foundAt": "発見"
+        },
+        "copied": "コピー済み",
+        "copyTitle": "{{coordinate}} をコピー",
+        "empty": "現在発見された報酬はありません。",
+        "error": {
+            "loadFailed": "データを読み込めませんでした。",
+            "showingCached": "以前のデータを表示しています。"
+        }
     }
 }

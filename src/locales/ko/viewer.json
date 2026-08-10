@@ -1853,5 +1853,37 @@
                 }
             }
         }
+    },
+    "cityReward": {
+        "title": "도시 보상",
+        "loading": "도시 보상 정보를 불러오는 중...",
+        "polling": "5초마다 자동 갱신",
+        "lastUpdated": "마지막 갱신",
+        "resultCount": "{{count}}개",
+        "filter": {
+            "server": "서버",
+            "reward": "상자 종류",
+            "all": "전체"
+        },
+        "reward": {
+            "treasure": "보물상자",
+            "armor": "기갑상자",
+            "resource": "자원상자",
+            "unknown": "기타 ({{itemId}})"
+        },
+        "column": {
+            "server": "서버",
+            "coordinate": "좌표",
+            "nickname": "닉네임",
+            "type": "종류",
+            "foundAt": "발견"
+        },
+        "copied": "복사됨",
+        "copyTitle": "{{coordinate}} 복사",
+        "empty": "현재 발견된 보상이 없습니다.",
+        "error": {
+            "loadFailed": "데이터를 불러오지 못했습니다.",
+            "showingCached": "기존 데이터를 표시하고 있습니다."
+        }
     }
 }

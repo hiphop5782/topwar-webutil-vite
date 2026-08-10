@@ -1,0 +1,33 @@
+.city-reward-row {
+    cursor: pointer;
+}
+
+.coordinate-cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.coordinate-value {
+    font-variant-numeric: tabular-nums;
+}
+
+.copy-status {
+    display: inline-block;
+    min-width: 3.5rem;
+    white-space: nowrap;
+}
+
+/*
+ * Bootstrap invisible도 visibility:hidden 이지만
+ * 혹시 Bootstrap 의존성을 줄이고 싶으면 이것을 사용해도 됨.
+ */
+.copy-status.invisible {
+    visibility: hidden;
+}
+
+.city-reward-table td,
+.city-reward-table th {
+    white-space: nowrap;
+}
