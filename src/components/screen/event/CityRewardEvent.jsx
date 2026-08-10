@@ -277,6 +277,39 @@ const CityRwardEvent = () => {
     ).format(new Date(date));
   };
 
+  const formatRelativeTime = (date) => {
+    if (!date) return "-";
+
+    const target = new Date(date).getTime();
+    const diff = Math.max(0, Date.now() - target);
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    const formatter = new Intl.RelativeTimeFormat(
+      getLocale(),
+      {
+        numeric: "always",
+      }
+    );
+
+    if (seconds < 60) {
+      return t("cityReward.time.justNow");
+    }
+
+    if (minutes < 60) {
+      return formatter.format(-minutes, "minute");
+    }
+
+    if (hours < 24) {
+      return formatter.format(-hours, "hour");
+    }
+
+    return formatter.format(-days, "day");
+  };
+
   if (loading) {
     return (
       <div className="text-center py-5 text-secondary">
@@ -589,9 +622,9 @@ const CityRwardEvent = () => {
                     {/* 발견 시각 */}
                     <td className="text-secondary">
                       <small>
-                        {formatTime(
-                          item.foundAt
-                        )}
+                        {formatRelativeTime(item.foundAt)}
+                        {" "}
+                        ({formatTime(item.foundAt)})
                       </small>
                     </td>
                   </tr>
