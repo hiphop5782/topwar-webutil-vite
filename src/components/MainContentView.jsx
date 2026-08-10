@@ -61,6 +61,8 @@ import Privacy from "@src/components/screen/etc/Privacy";
 import Contact from "@src/components/screen/etc/Contact";
 import Disclaimer from "@src/components/screen/etc/Disclaimer";
 
+import CityRewardEvent from "@src/components/screen/event/CityRewardEvent";
+
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
 
@@ -152,13 +154,16 @@ export default function MainContentView() {
                     <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
-                    
+
                     {/* history */}
                     <Route path="history/ssc-2026" element={<SealStoneChaos/>}>
                         <Route index element={<SscDashboard/>}/>
                         <Route path="users" element={<TopwarSscPointViewer/>}/>
                     </Route>
                     <Route path="history/liondance" element={<LionDanceRanking/>}/>
+
+                    {/* event */}
+                    <Route path="event/city-reward" element={<CityRewardEvent/>}></Route>
 
                     <Route path="privacy" element={<Privacy/>}/>
                     <Route path="contact" element={<Contact/>}/>

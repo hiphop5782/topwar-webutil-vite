@@ -265,6 +265,9 @@ function Menu() {
                         <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
                         </li>
+                         <li className="nav-item">
+                            <LanguageRouterLink className="nav-link" to={`/${lang}/event/city-reward`}>보상찾기</LanguageRouterLink>
+                        </li>
                         {/* <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/developer`}>{t(`menu:developer.label`)}</LanguageRouterLink>
                         </li> */}
