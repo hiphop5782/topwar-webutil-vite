@@ -37,13 +37,6 @@
             "lotto":"로또생성기"
         }
     },
-    "emoji":{
-        "label":"이모티콘",
-        "sub": {
-            "create": "신규 이모티콘 생성",
-            "list": "탑워 이모티콘 목록"
-        }
-    },
     "history":{
         "label":"기록",
         "sub":{
@@ -58,12 +51,19 @@
             "creator":"홍보화면생성"
         }
     },
-    "vote":{
-        "label":"투표",
+    "util":{
+        "label":"유틸리티",
         "sub":{
-            "create":"투표 생성",
-            "cast":"투표 참여",
-            "manage":"투표 관리"
+            "emoji":{
+                "create": "신규 이모티콘 생성",
+                "list": "탑워 이모티콘 목록"
+            },
+            "vote":{
+                "create":"투표 생성",
+                "cast":"투표 참여",
+                "manage":"투표 관리"
+            },
+            "reward-finder":"보상 찾기"
         }
     },
     "post":{
@@ -71,5 +71,12 @@
     },
     "developer":{
         "label":"개발자"
+    },
+    "vip-lounge":{
+        "label":"VIP 라운지",
+        "sub":{
+        "s3223":"s3223 전용",
+        "s4369":"s4369 전용"
+        }
     }
 }

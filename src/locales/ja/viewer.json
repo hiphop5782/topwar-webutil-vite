@@ -1,4 +1,85 @@
 {
+    "home": {
+        "hero": {
+            "eyebrow": "TOPWAR DATA OVERVIEW",
+            "title": "Topwar Data Overview",
+            "description": "An overview of Topwar trends based on collected server and player data.",
+            "dataAsOf": "Data as of",
+            "generatedAt": "Statistics generated"
+        },
+        "kpi": {
+            "server": {
+                "title": "Tracked Servers",
+                "description": "Servers observed in collected data"
+            },
+            "player": {
+                "title": "Tracked Players",
+                "description": "Based on ranking data"
+            },
+            "active24h": {
+                "title": "Active in Last 24h",
+                "description": "Based on last login records"
+            },
+            "online": {
+                "title": "Online at Scan",
+                "description": "Observed during data collection"
+            }
+        },
+        "activity": {
+            "title": "Player Activity",
+            "description": "Based on last login records of tracked players",
+            "within1d": "Within 24h",
+            "within3d": "Within 3 days",
+            "within7d": "Within 7 days",
+            "within14d": "Within 14 days",
+            "within30d": "Within 30 days"
+        },
+        "serverActivity": {
+            "title": "Server Activity Distribution",
+            "description": "Based on analysis of {{count}} servers",
+            "veryActive": "Very Active",
+            "active": "Active",
+            "normal": "Normal",
+            "quiet": "Quiet",
+            "dead": "Inactive"
+        },
+        "power": {
+            "title": "Power Distribution",
+            "description": "Based on the power of tracked players",
+            "average": "Average",
+            "median": "Median",
+            "top10": "Top 10% Threshold",
+            "top5": "Top 5% Threshold",
+            "top1": "Top 1% Threshold",
+            "max": "Highest Observed"
+        },
+        "playerComposition": {
+            "title": "Player Data Breakdown",
+            "level100": "Lv.100",
+            "allianceJoined": "In Alliance",
+            "uniqueUid": "Unique UIDs",
+            "duplicate": "Duplicate Observations"
+        },
+        "changes": {
+            "title": "Recently Detected Changes",
+            "movement": "Server Transfers",
+            "nickname": "Name Changes",
+            "detected": "{{count}} detected"
+        },
+        "serverTrend": {
+            "title": "Server Count Trend",
+            "description": "Based on archived server data",
+            "previousDay": "vs. Previous Day",
+            "sevenDays": "7 Days",
+            "thirtyDays": "30 Days"
+        },
+        "unit": {
+            "server": "",
+            "player": "",
+            "case": ""
+        },
+        "notice": "These statistics are based on independently collected data and may differ from the overall state of the game."
+    },
     "AttendanceVoteReader": {
         "title": "投票する",
         "level": "レベル",
@@ -1886,8 +1967,8 @@
             "loadFailed": "データを読み込めませんでした。",
             "showingCached": "以前のデータを表示しています。"
         },
-        "time":{
-            "justNow":"さっき"
+        "time": {
+            "justNow": "さっき"
         }
     }
 }

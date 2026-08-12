@@ -1,44 +1,618 @@
-.main-banner {
-    object-fit: scale-down;
-    width: 100%;
-    max-height: 700px;
+.home-dashboard {
+    padding-bottom: 3rem;
 }
 
-.random-box {
-    opacity: 0.75;
-    cursor: pointer;
-    width:100%;
-    max-width: 500px;
-}
-.random-box:hover {
-    opacity: 1;
-}
 
-.reward-wrapper {
-    white-space: nowrap;
-}
-.reward-wrapper > .reward-item {
-    transition-property: transform, opacity;
-    transition-duration: 0.25s;
-    transition-timing-function: ease-out;
+/* ==================================================
+   HERO
+================================================== */
+
+.home-hero {
     position: relative;
-    max-width: 100px;
-    max-height: 100px;
-    width: 23vw;
-    height: 23vw;
-    margin: 0px 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 1px black;
-    opacity: 1;
-}
-.reward-wrapper > .reward-item:nth-child(2) { transition-delay: 0.25s;}
-.reward-wrapper > .reward-item:nth-child(3) { transition-delay: 0.50s;}
-.reward-wrapper > .reward-item:nth-child(4) { transition-delay: 0.75s;}
-.reward-wrapper > .reward-item:nth-child(5) { transition-delay: 1.00s;}
-.reward-wrapper > .reward-item:not(.finish){
-    /* transform: translate(0%, 300%); */
-    transform: rotateY(180deg);
-    /* transform: translate(0%, 300%) rotateY(180deg); */
-    opacity: 0;
+
+    min-height: 310px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    border-radius: 1.25rem;
+
+    background-size: cover;
+    background-position: center;
 }
 
+.home-hero-content {
+    width: 100%;
+    max-width: 850px;
+
+    padding: 3rem;
+
+    color: #fff;
+}
+
+.home-hero-label {
+    margin-bottom: 0.65rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+
+    opacity: 0.65;
+}
+
+.home-hero h1 {
+    margin-bottom: 0.75rem;
+
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 800;
+}
+
+.home-hero p {
+    max-width: 620px;
+
+    margin-bottom: 2rem;
+
+    font-size: 1rem;
+
+    opacity: 0.82;
+}
+
+
+.home-hero-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+}
+
+.home-hero-summary > span {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 0.72rem;
+    text-transform: uppercase;
+
+    opacity: 0.8;
+}
+
+.home-hero-summary strong {
+    font-size: 1.45rem;
+    line-height: 1.15;
+
+    opacity: 1;
+}
+
+
+.home-updated {
+    margin-top: 1.5rem;
+
+    font-size: 0.75rem;
+
+    opacity: 0.5;
+}
+
+
+/* ==================================================
+   SECTION
+================================================== */
+
+.dashboard-section {
+    margin-top: 1.5rem;
+}
+
+
+/* ==================================================
+   KPI
+================================================== */
+
+.dashboard-kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1rem;
+}
+
+.dashboard-kpi {
+    position: relative;
+
+    padding: 1.35rem;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1rem;
+
+    background-color: var(--bs-body-bg);
+
+    overflow: hidden;
+}
+
+.dashboard-kpi::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background-color:
+        var(--bs-secondary);
+}
+
+.dashboard-kpi.success::before {
+    background-color: var(--bs-success);
+}
+
+.dashboard-kpi.primary::before {
+    background-color: var(--bs-primary);
+}
+
+
+.kpi-title {
+    margin-bottom: 0.4rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.kpi-value {
+    font-size: clamp(1.75rem, 3vw, 2.3rem);
+    font-weight: 800;
+
+    line-height: 1.15;
+}
+
+.kpi-value span {
+    margin-left: 0.3rem;
+
+    font-size: 0.8rem;
+    font-weight: 400;
+
+    color: var(--bs-secondary-color);
+}
+
+
+.kpi-description {
+    margin-top: 0.45rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.77rem;
+}
+
+.kpi-description.positive {
+    color: var(--bs-success);
+}
+
+
+/* ==================================================
+   PANEL
+================================================== */
+
+.dashboard-panel {
+    height: 100%;
+
+    padding: 1.5rem;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1rem;
+
+    background-color: var(--bs-body-bg);
+}
+
+.dashboard-panel-header {
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-panel-header h2 {
+    margin: 0;
+
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.dashboard-panel-header p {
+    margin: 0.3rem 0 0;
+
+    font-size: 0.75rem;
+
+    color: var(--bs-secondary-color);
+}
+
+
+/* ==================================================
+   PLAYER ACTIVITY
+================================================== */
+
+.activity-progress + .activity-progress {
+    margin-top: 1.2rem;
+}
+
+.activity-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 0.45rem;
+
+    font-size: 0.82rem;
+}
+
+.activity-progress-header > span {
+    color: var(--bs-secondary-color);
+}
+
+.activity-progress-header b {
+    margin-left: 0.75rem;
+
+    color: var(--bs-body-color);
+}
+
+
+.activity-progress-track {
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background-color: var(--bs-secondary-bg);
+}
+
+.activity-progress-bar {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--bs-primary),
+            var(--bs-info)
+        );
+}
+
+
+/* ==================================================
+   SERVER GRADE
+================================================== */
+
+.server-grade + .server-grade {
+    margin-top: 1rem;
+}
+
+.server-grade-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 0.4rem;
+
+    font-size: 0.82rem;
+}
+
+.server-grade-header > span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.grade-dot {
+    width: 8px;
+    height: 8px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+}
+
+
+.grade-progress {
+    height: 6px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background-color: var(--bs-secondary-bg);
+}
+
+.grade-progress-bar {
+    height: 100%;
+
+    border-radius: inherit;
+}
+
+
+.grade-dot.very-active,
+.grade-progress-bar.very-active {
+    background-color: var(--bs-success);
+}
+
+.grade-dot.active,
+.grade-progress-bar.active {
+    background-color: var(--bs-info);
+}
+
+.grade-dot.normal,
+.grade-progress-bar.normal {
+    background-color: var(--bs-primary);
+}
+
+.grade-dot.quiet,
+.grade-progress-bar.quiet {
+    background-color: var(--bs-warning);
+}
+
+.grade-dot.dead,
+.grade-progress-bar.dead {
+    background-color: var(--bs-danger);
+}
+
+
+/* ==================================================
+   POWER
+================================================== */
+
+.power-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 0.8rem;
+}
+
+.power-card {
+    padding: 1rem;
+
+    border-radius: 0.75rem;
+
+    background-color: var(--bs-tertiary-bg);
+}
+
+.power-card > div {
+    margin-bottom: 0.25rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.73rem;
+}
+
+.power-card strong {
+    font-size: 1.25rem;
+}
+
+.power-card.highlight {
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--bs-primary) 40%,
+            transparent
+        );
+}
+
+
+/* ==================================================
+   METRIC
+================================================== */
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.85rem 0;
+
+    border-bottom:
+        1px solid var(--bs-border-color);
+}
+
+.metric-row:first-child {
+    padding-top: 0;
+}
+
+.metric-row:last-child {
+    padding-bottom: 0;
+
+    border-bottom: 0;
+}
+
+.metric-row > span {
+    color: var(--bs-secondary-color);
+
+    font-size: 0.82rem;
+}
+
+.metric-row > div {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+.metric-row small {
+    color: var(--bs-secondary-color);
+}
+
+
+/* ==================================================
+   CHANGES
+================================================== */
+
+.change-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+
+    border-radius: 0.8rem;
+
+    background-color: var(--bs-tertiary-bg);
+}
+
+.change-item + .change-item {
+    margin-top: 0.75rem;
+}
+
+.change-item strong,
+.change-item small {
+    display: block;
+}
+
+.change-item small {
+    margin-top: 0.15rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.7rem;
+}
+
+
+.change-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.change-value span {
+    margin-left: 0.25rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+
+/* ==================================================
+   SERVER CHANGE
+================================================== */
+
+.server-change-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 0.8rem;
+}
+
+.server-change {
+    padding: 1.25rem;
+
+    text-align: center;
+
+    border-radius: 0.8rem;
+
+    background-color: var(--bs-tertiary-bg);
+}
+
+.server-change span {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.75rem;
+}
+
+.server-change strong {
+    font-size: 1.8rem;
+}
+
+.server-change strong.positive {
+    color: var(--bs-success);
+}
+
+.server-change strong.negative {
+    color: var(--bs-danger);
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+.dashboard-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+
+    border-top: 1px solid var(--bs-border-color);
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.72rem;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 991.98px) {
+
+    .dashboard-kpi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .home-hero {
+        min-height: 280px;
+
+        border-radius: 0.8rem;
+    }
+
+    .home-hero-content {
+        padding: 1.5rem;
+    }
+
+    .home-hero-summary {
+        gap: 1rem 1.5rem;
+    }
+
+
+    .dashboard-kpi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 0.65rem;
+    }
+
+    .dashboard-kpi {
+        padding: 1rem;
+    }
+
+
+    .power-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .server-change-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-footer {
+        flex-direction: column;
+    }
+
+}

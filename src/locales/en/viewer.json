@@ -1,4 +1,85 @@
 {
+    "home": {
+        "hero": {
+            "eyebrow": "TOPWAR DATA OVERVIEW",
+            "title": "Topwar データ概要",
+            "description": "収集したサーバーおよびプレイヤーデータをもとに、Topwarの全体的な傾向を表示しています。",
+            "dataAsOf": "データ基準時刻",
+            "generatedAt": "統計生成"
+        },
+        "kpi": {
+            "server": {
+                "title": "収集サーバー",
+                "description": "データ上で確認されたサーバー"
+            },
+            "player": {
+                "title": "追跡プレイヤー",
+                "description": "ランキングデータ基準"
+            },
+            "active24h": {
+                "title": "過去24時間の活動",
+                "description": "最終ログイン記録基準"
+            },
+            "online": {
+                "title": "収集時オンライン",
+                "description": "データ収集時に確認された状態"
+            }
+        },
+        "activity": {
+            "title": "プレイヤー活動状況",
+            "description": "追跡プレイヤーの最終ログイン記録基準",
+            "within1d": "24時間以内",
+            "within3d": "3日以内",
+            "within7d": "7日以内",
+            "within14d": "14日以内",
+            "within30d": "30日以内"
+        },
+        "serverActivity": {
+            "title": "サーバー活動分布",
+            "description": "{{count}}サーバーの分析データ基準",
+            "veryActive": "非常に活発",
+            "active": "活発",
+            "normal": "普通",
+            "quiet": "静か",
+            "dead": "非活発"
+        },
+        "power": {
+            "title": "戦力分布",
+            "description": "追跡プレイヤーの戦力基準",
+            "average": "平均",
+            "median": "中央値",
+            "top10": "上位10%基準",
+            "top5": "上位5%基準",
+            "top1": "上位1%基準",
+            "max": "最高観測値"
+        },
+        "playerComposition": {
+            "title": "プレイヤーデータ構成",
+            "level100": "Lv.100",
+            "allianceJoined": "連盟加入",
+            "uniqueUid": "ユニークUID",
+            "duplicate": "重複観測"
+        },
+        "changes": {
+            "title": "最近検出された変更",
+            "movement": "サーバー移動",
+            "nickname": "名前変更",
+            "detected": "{{count}}件検出"
+        },
+        "serverTrend": {
+            "title": "サーバー数の変化",
+            "description": "保存されたサーバーデータ基準",
+            "previousDay": "前日比",
+            "sevenDays": "7日",
+            "thirtyDays": "30日"
+        },
+        "unit": {
+            "server": "",
+            "player": "人",
+            "case": "件"
+        },
+        "notice": "個人が収集したデータをもとに提供している統計のため、実際のゲーム全体の状況とは異なる場合があります。"
+    },
     "AttendanceVoteReader": {
         "title": "Cast Your Vote",
         "level": "Level",
@@ -1894,8 +1975,8 @@
             "loadFailed": "Failed to load data.",
             "showingCached": "Showing the previous data."
         },
-        "time":{
-            "justNow":"just now"
+        "time": {
+            "justNow": "just now"
         }
     }
 }

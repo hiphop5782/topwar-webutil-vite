@@ -37,11 +37,19 @@
       "lotto": "Lotto Generator"
     }
   },
-  "emoji": {
-    "label": "Emojis",
-    "sub": {
-      "create": "Creator",
-      "list": "Legacy Emoji"
+  "util":{
+    "label": "Utilities",
+    "sub":{
+      "emoji": {
+        "create": "Creator",
+        "list": "Legacy Emoji"
+      },
+      "vote": {
+        "create": "Create Vote",
+        "cast": "Cast Vote",
+        "manage": "Manage Vote"
+      },
+      "reward-finder":"Find Rewards"
     }
   },
   "history":{
@@ -58,18 +66,17 @@
       "creator": "Creator"
     }
   },
-  "vote": {
-    "label": "Vote",
-    "sub": {
-      "create": "Create Vote",
-      "cast": "Cast Vote",
-      "manage": "Manage Vote"
-    }
-  },
    "post":{
         "label":"Tips"
     },
   "developer": {
     "label": "Developer"
+  },
+  "vip-lounge":{
+    "label":"VIP Lounge",
+    "sub":{
+      "s3223":"s3223 Only",
+      "s4369":"s4369 Only"
+    }
   }
 }

@@ -1,0 +1,182 @@
+{
+    "generatedAt": "2026-08-12T11:44:19.990Z",
+    "snapshotAt": "2026-08-12T10:10:37.000Z",
+    "server": {
+        "count": 724,
+        "change1d": 1,
+        "change7d": 4,
+        "change30d": 14,
+        "history": [
+            {
+                "date": "2026-07-08",
+                "count": 707
+            },
+            {
+                "date": "2026-07-13",
+                "count": 710
+            },
+            {
+                "date": "2026-07-14",
+                "count": 710
+            },
+            {
+                "date": "2026-07-15",
+                "count": 710
+            },
+            {
+                "date": "2026-07-16",
+                "count": 711
+            },
+            {
+                "date": "2026-07-17",
+                "count": 711
+            },
+            {
+                "date": "2026-07-18",
+                "count": 712
+            },
+            {
+                "date": "2026-07-19",
+                "count": 712
+            },
+            {
+                "date": "2026-07-20",
+                "count": 713
+            },
+            {
+                "date": "2026-07-21",
+                "count": 713
+            },
+            {
+                "date": "2026-07-22",
+                "count": 714
+            },
+            {
+                "date": "2026-07-23",
+                "count": 714
+            },
+            {
+                "date": "2026-07-24",
+                "count": 715
+            },
+            {
+                "date": "2026-07-25",
+                "count": 715
+            },
+            {
+                "date": "2026-07-26",
+                "count": 716
+            },
+            {
+                "date": "2026-07-27",
+                "count": 716
+            },
+            {
+                "date": "2026-07-28",
+                "count": 717
+            },
+            {
+                "date": "2026-07-29",
+                "count": 717
+            },
+            {
+                "date": "2026-07-30",
+                "count": 718
+            },
+            {
+                "date": "2026-07-31",
+                "count": 718
+            },
+            {
+                "date": "2026-08-04",
+                "count": 720
+            },
+            {
+                "date": "2026-08-05",
+                "count": 720
+            },
+            {
+                "date": "2026-08-06",
+                "count": 721
+            },
+            {
+                "date": "2026-08-07",
+                "count": 721
+            },
+            {
+                "date": "2026-08-08",
+                "count": 721
+            },
+            {
+                "date": "2026-08-09",
+                "count": 721
+            },
+            {
+                "date": "2026-08-10",
+                "count": 722
+            },
+            {
+                "date": "2026-08-11",
+                "count": 723
+            },
+            {
+                "date": "2026-08-12",
+                "count": 724
+            }
+        ]
+    },
+    "player": {
+        "tracked": 65160,
+        "unique": 65026,
+        "online": 4060,
+        "onlineRate": 6.23,
+        "level100": 53102,
+        "level100Rate": 81.49,
+        "allianceJoined": 58367,
+        "allianceJoinedRate": 89.57,
+        "activity": {
+            "within1d": 38491,
+            "within1dRate": 59.07,
+            "within3d": 40941,
+            "within3dRate": 62.83,
+            "within7d": 42345,
+            "within7dRate": 64.99,
+            "within14d": 43368,
+            "within14dRate": 66.56,
+            "within30d": 44894,
+            "within30dRate": 68.9
+        }
+    },
+    "power": {
+        "average": 51877390,
+        "median": 54973830,
+        "top25Threshold": 68930729,
+        "top10Threshold": 81548120,
+        "top5Threshold": 90962102,
+        "top1Threshold": 112963042,
+        "max": 218625314
+    },
+    "changes": {
+        "movement": {
+            "date": "2026-08-12",
+            "count": 39,
+            "updatedAt": "2026-08-12T10:16:12.208Z"
+        },
+        "nickname": {
+            "date": "2026-08-12",
+            "count": 111,
+            "updatedAt": "2026-08-12T10:16:12.846Z"
+        }
+    },
+    "realPower": {
+        "analyzedServers": 711,
+        "activityGrades": {
+            "VERY_ACTIVE": 118,
+            "ACTIVE": 211,
+            "NORMAL": 263,
+            "QUIET": 86,
+            "DEAD": 33,
+            "UNKNOWN": 0
+        }
+    }
+}

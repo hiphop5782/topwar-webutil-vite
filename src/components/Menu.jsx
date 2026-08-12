@@ -233,10 +233,16 @@ function Menu() {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:emoji.label`)}</a>
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:util.label`)}</a>
                             <div className="dropdown-menu">
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/create`}>{t(`menu:emoji.sub.create`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu:emoji.sub.list`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/create`}>{t(`menu:util.sub.emoji.create`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu:util.sub.emoji.list`)}</LanguageRouterLink>
+                                <div className="dropdown-divider"></div>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/create`}>{t(`menu:util.sub.vote.create`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/cast`}>{t(`menu:util.sub.vote.cast`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/manage`}>{t(`menu:util.sub.vote.manage`)}</LanguageRouterLink>
+                                <div className="dropdown-divider"></div>
+                                <LanguageRouterLink className="nav-link" to={`/${lang}/event/city-reward`}>보상찾기</LanguageRouterLink>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
@@ -254,23 +260,19 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu:account.sub.creator`)} (구현중)</LanguageRouterLink>
                             </div>
                         </li> */}
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:vote.label`)}</a>
-                            <div className="dropdown-menu">
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/create`}>{t(`menu:vote.sub.create`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/cast`}>{t(`menu:vote.sub.cast`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/manage`}>{t(`menu:vote.sub.manage`)}</LanguageRouterLink>
-                            </div>
-                        </li>
                         <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
                         </li>
-                         <li className="nav-item">
-                            <LanguageRouterLink className="nav-link" to={`/${lang}/event/city-reward`}>보상찾기</LanguageRouterLink>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:vip-lounge.label`)}</a>
+                            <div className="dropdown-menu">
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/s3223`}>{t(`menu:vip-lounge.sub.s3223`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/s4369`}>{t(`menu:vip-lounge.sub.s4369`)}</LanguageRouterLink>
+                            </div>
                         </li>
-                        {/* <li className="nav-item">
+                        <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/developer`}>{t(`menu:developer.label`)}</LanguageRouterLink>
-                        </li> */}
+                        </li>
 
                         {/* ✅ 언어 선택 드롭다운 부분 */}
                         <div className="dropdown ms-lg-2 mt-2 mt-lg-0">

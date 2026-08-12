@@ -37,15 +37,23 @@
       "lotto": "ロト生成機"
     }
   },
-  "emoji": {
-    "label": "絵文字",
-    "sub": {
-      "create": "新規絵文字作成",
-      "list": "絵文字一覧"
+  "util":{
+    "label":"ユーティリティ",
+    "sub":{
+      "emoji":{
+        "create": "新規絵文字作成",
+        "list": "絵文字一覧"
+      },
+      "vote":{
+        "create": "投票作成",
+        "cast": "投票参加",
+        "manage": "投票管理"
+      },
+      "reward-finder":"報酬を探す"
     }
   },
   "history":{
-      "label":"기록",
+      "label":"記録",
       "sub":{
           "ssc2026":"封印石カオス(2026)",
           "liondance":"連盟対抗戦（獅子舞"
@@ -58,18 +66,17 @@
       "creator": "宣伝画面作成"
     }
   },
-  "vote": {
-    "label": "投票",
-    "sub": {
-      "create": "投票作成",
-      "cast": "投票参加",
-      "manage": "投票管理"
-    }
-  },
    "post":{
         "label":"攻略"
     },
   "developer": {
     "label": "開発者"
+  },
+  "vip-lounge":{
+    "label":"VIPラウンジ",
+    "sub":{
+      "s3223":"s3223専用",
+      "s4369":"s4369専用"
+    }
   }
 }

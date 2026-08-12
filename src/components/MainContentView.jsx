@@ -87,7 +87,7 @@ export default function MainContentView() {
 
                 {/* routes */}
                 <Routes>
-                    <Route index element={<Developer />}></Route>
+                    <Route index element={<Home />}></Route>
 
                     {/* 포스트 */}
                     <Route path="post" element={<PostList/>}></Route>
@@ -138,7 +138,7 @@ export default function MainContentView() {
                     <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
                     <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
                     <Route path="simulator/lotto" element={<LottoGenerator/>}></Route>
-                    {/* <Route path="developer" element={<Developer/>}></Route> */}
+                    <Route path="developer" element={<Developer/>}></Route>
                     <Route path="emoji/create" element={<EmojiCreator />}></Route>
                     <Route path="emoji/list" element={<LegacyEmoji />}></Route>
                     {/* <Route path="/blog" element={<Blog />}></Route> */}
