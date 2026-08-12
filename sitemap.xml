@@ -42,6 +42,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/contact/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/developer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/developer/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/developer/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/developer/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/disclaimer/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/disclaimer/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/disclaimer/" />
@@ -271,6 +277,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/contact/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/ja/developer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/developer/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/developer/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/developer/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/ja/disclaimer/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/disclaimer/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/disclaimer/" />
@@ -498,6 +510,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/contact/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/contact/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/contact/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/developer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/developer/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/developer/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/developer/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/disclaimer/</loc>
