@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import "./CityRewardEvent.css";
 
-const DATA_URL =
-  "https://reward.progamer.info/data/city-rewards.json";
+const DATA_URL = "https://raw.githubusercontent.com/hiphop5782/topwar-reward-finder/refs/heads/main/data/city-rewards.json";
 
 const POLLING_INTERVAL = 5000;
 

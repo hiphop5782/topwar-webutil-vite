@@ -266,8 +266,8 @@ function Menu() {
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:vip-lounge.label`)}</a>
                             <div className="dropdown-menu">
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/s3223`}>{t(`menu:vip-lounge.sub.s3223`)}🔥</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/s4369`}>{t(`menu:vip-lounge.sub.s4369`)}🔥</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/3223`}>{t(`menu:vip-lounge.sub.s3223`)}🔥</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/4369`}>{t(`menu:vip-lounge.sub.s4369`)}🔥</LanguageRouterLink>
                             </div>
                         </li>
                         <li className="nav-item">

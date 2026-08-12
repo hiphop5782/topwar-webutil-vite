@@ -1,0 +1,1227 @@
+/* ==================================================
+   PAGE
+================================================== */
+
+.thief-finder {
+    width: 100%;
+    min-width: 0;
+
+    padding-bottom: 2rem;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.thief-finder-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-end;
+
+    gap: 2rem;
+
+    margin-bottom: 1rem;
+}
+
+
+.thief-finder-header > div:first-child {
+    min-width: 0;
+}
+
+
+.thief-finder-eyebrow {
+    margin-bottom: 0.3rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+
+.thief-finder-header h1 {
+    margin: 0;
+
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+
+.thief-finder-header p {
+    margin: 0.4rem 0 0;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.85rem;
+}
+
+
+/* ==================================================
+   SUMMARY
+================================================== */
+
+.thief-finder-summary {
+    display: flex;
+
+    flex-shrink: 0;
+
+    gap: 1.5rem;
+}
+
+
+.thief-finder-summary > div {
+    display: flex;
+    flex-direction: column;
+
+    text-align: right;
+
+    white-space: nowrap;
+}
+
+
+.thief-finder-summary span {
+    color: var(--bs-secondary-color);
+
+    font-size: 0.68rem;
+}
+
+
+.thief-finder-summary strong {
+    margin-top: 0.1rem;
+
+    font-size: 1rem;
+
+    white-space: nowrap;
+}
+
+
+/* ==================================================
+   MAP + LOCATION LIST LAYOUT
+================================================== */
+
+.thief-content-layout {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        clamp(250px, 24vw, 320px);
+
+    gap: 1rem;
+
+    align-items: stretch;
+
+    /*
+     * 지도가 지나치게 커지는 것을 막으면서
+     * 우측 목록을 한 화면에 함께 보여준다.
+     */
+    max-width:
+        calc(
+            min(78dvh, 900px)
+            + clamp(250px, 24vw, 320px)
+            + 1rem
+        );
+
+    margin: 0 auto;
+}
+
+
+/* ==================================================
+   MAP
+================================================== */
+
+.thief-map-scroll {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    overflow: hidden;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.8rem;
+
+    background: #080b0f;
+}
+
+
+.thief-map-stage {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    max-width: min(100%, 78dvh, 900px);
+
+    min-width: 0;
+
+    margin: 0 auto;
+
+    line-height: 0;
+
+    user-select: none;
+}
+
+
+.thief-map-image {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+
+    pointer-events: none;
+}
+
+
+.thief-map-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+/* ==================================================
+   THIEF MARKER
+================================================== */
+
+.thief-marker {
+    position: absolute;
+
+    z-index: 20;
+
+    width: 30px;
+    height: 30px;
+
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    transform: translate(-50%, -50%);
+
+    cursor: pointer;
+
+    pointer-events: auto;
+}
+
+
+/* ==================================================
+   PRIMARY PULSE
+================================================== */
+
+.thief-marker::before {
+    content: "";
+
+    position: absolute;
+
+    z-index: 1;
+
+    left: 50%;
+    top: 50%;
+
+    width: 24px;
+    height: 24px;
+
+    border: 3px solid #ff1635;
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.35);
+
+    box-shadow:
+        0 0 6px #ff1635,
+        0 0 12px #ff1635,
+        0 0 20px rgba(255, 22, 53, 0.95),
+        0 0 32px rgba(255, 22, 53, 0.6);
+
+    animation:
+        thief-pulse-primary
+        1s
+        ease-out
+        infinite;
+
+    pointer-events: none;
+}
+
+
+/* ==================================================
+   SECONDARY PULSE
+================================================== */
+
+.thief-marker::after {
+    content: "";
+
+    position: absolute;
+
+    z-index: 1;
+
+    left: 50%;
+    top: 50%;
+
+    width: 24px;
+    height: 24px;
+
+    border: 2px solid #fff;
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.3);
+
+    box-shadow:
+        0 0 6px rgba(255, 255, 255, 0.95),
+        0 0 12px rgba(255, 255, 255, 0.55);
+
+    animation:
+        thief-pulse-secondary
+        1s
+        ease-out
+        0.25s
+        infinite;
+
+    pointer-events: none;
+}
+
+
+/* ==================================================
+   PIN ICON
+================================================== */
+
+.thief-marker-dot {
+    position: absolute;
+
+    z-index: 3;
+
+    left: 50%;
+    top: 50%;
+
+    display: block;
+
+    width: 26px;
+    height: 26px;
+
+    transform:
+        translate(-50%, -58%);
+
+    filter:
+        drop-shadow(0 1px 2px #000)
+        drop-shadow(0 0 4px #ff001e)
+        drop-shadow(0 0 8px rgba(255, 0, 30, 1));
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+
+    pointer-events: none;
+}
+
+
+.thief-marker-dot svg {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+}
+
+
+.thief-marker-dot path {
+    fill: #ff1833;
+
+    stroke: #fff;
+    stroke-width: 1.8;
+
+    stroke-linejoin: round;
+}
+
+
+.thief-marker-dot circle {
+    fill: #fff;
+
+    stroke: #b00016;
+    stroke-width: 1;
+}
+
+
+/* ==================================================
+   MARKER HOVER / ACTIVE
+================================================== */
+
+.thief-marker:hover,
+.thief-marker.active {
+    z-index: 50;
+}
+
+
+.thief-marker:hover .thief-marker-dot,
+.thief-marker.active .thief-marker-dot {
+    transform:
+        translate(-50%, -58%)
+        scale(1.14);
+
+    filter:
+        drop-shadow(0 1px 2px #000)
+        drop-shadow(0 0 7px #ff001e)
+        drop-shadow(0 0 15px #ff001e);
+}
+
+
+.thief-marker.active::before {
+    border-color: #fff;
+
+    animation-duration: 0.65s;
+}
+
+
+.thief-marker.active::after {
+    border-color: #ff1833;
+
+    animation-duration: 0.65s;
+}
+
+
+/* ==================================================
+   PULSE ANIMATION
+================================================== */
+
+@keyframes thief-pulse-primary {
+
+    0% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.3);
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.45;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            scale(3);
+    }
+
+}
+
+
+@keyframes thief-pulse-secondary {
+
+    0% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.25);
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            scale(3.6);
+    }
+
+}
+
+
+/* ==================================================
+   EMPTY ON MAP
+================================================== */
+
+.thief-map-empty {
+    position: absolute;
+
+    z-index: 10;
+
+    left: 50%;
+    top: 50%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    width: max-content;
+    max-width: calc(100% - 2rem);
+
+    padding: 1rem 1.5rem;
+
+    transform: translate(-50%, -50%);
+
+    line-height: 1.4;
+
+    white-space: nowrap;
+
+    border-radius: 0.7rem;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    color: #fff;
+
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.4);
+
+    pointer-events: none;
+}
+
+
+.thief-map-empty strong,
+.thief-map-empty span {
+    white-space: nowrap;
+}
+
+
+.thief-map-empty span {
+    margin-top: 0.2rem;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 0.75rem;
+}
+
+
+/* ==================================================
+   LOCATION PANEL
+================================================== */
+
+.thief-location-panel {
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.8rem;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--bs-body-bg) 94%,
+            #000 6%
+        );
+}
+
+
+.thief-location-panel-header {
+    flex: 0 0 auto;
+
+    min-height: 62px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 0.75rem;
+
+    padding: 0.7rem 0.8rem;
+
+    border-bottom:
+        1px solid
+        var(--bs-border-color);
+}
+
+
+.thief-location-panel-header > div {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 0.5rem;
+}
+
+
+.thief-location-panel-header span {
+    color: var(--bs-secondary-color);
+
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+
+.thief-location-panel-header strong {
+    font-size: 1.15rem;
+}
+
+
+.thief-location-panel-header small {
+    flex: 0 0 auto;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.7rem;
+}
+
+
+/* ==================================================
+   LOCATION LIST
+================================================== */
+
+.thief-location-list {
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.5rem;
+
+    padding: 0.6rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+}
+
+
+.thief-location-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.thief-location-list::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+
+    background:
+        rgba(
+            127,
+            127,
+            127,
+            0.45
+        );
+}
+
+
+.thief-location-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+/* ==================================================
+   LOCATION CARD
+================================================== */
+
+.thief-location-card {
+    flex: 0 0 auto;
+
+    min-width: 0;
+
+    padding: 0.7rem;
+
+    border:
+        1px solid
+        var(--bs-border-color);
+
+    border-radius: 0.6rem;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--bs-body-bg) 97%,
+            #fff 3%
+        );
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        transform 0.12s ease,
+        border-color 0.12s ease,
+        background-color 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+
+.thief-location-card:hover {
+    border-color:
+        rgba(
+            255,
+            83,
+            100,
+            0.6
+        );
+
+    transform:
+        translateY(-1px);
+}
+
+
+.thief-location-card:focus-visible {
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            255,
+            83,
+            100,
+            0.2
+        );
+}
+
+
+.thief-location-card.active {
+    border-color: #ff5364;
+
+    background:
+        rgba(
+            255,
+            83,
+            100,
+            0.11
+        );
+
+    box-shadow:
+        0 0 0 1px
+        rgba(
+            255,
+            83,
+            100,
+            0.18
+        ),
+        0 4px 14px
+        rgba(
+            0,
+            0,
+            0,
+            0.14
+        );
+}
+
+
+.thief-location-card-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 0.6rem;
+
+    margin-bottom: 0.55rem;
+}
+
+
+.thief-location-coordinate {
+    min-width: 0;
+
+    color: #ff5364;
+
+    font-size: 1rem;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* ==================================================
+   LOCATION COPY BUTTON
+================================================== */
+
+.thief-location-copy {
+    flex: 0 0 auto;
+
+    padding: 0.28rem 0.55rem;
+
+    border:
+        1px solid
+        var(--bs-border-color);
+
+    border-radius: 0.35rem;
+
+    background:
+        rgba(
+            127,
+            127,
+            127,
+            0.08
+        );
+
+    color: inherit;
+
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+
+.thief-location-copy:hover:not(:disabled) {
+    border-color: #ff5364;
+
+    background:
+        rgba(
+            255,
+            83,
+            100,
+            0.15
+        );
+}
+
+
+.thief-location-copy.copied,
+.thief-location-copy:disabled {
+    border-color: #43d17a;
+
+    background:
+        rgba(
+            67,
+            209,
+            122,
+            0.15
+        );
+
+    color: #2dbd65;
+
+    cursor: default;
+
+    opacity: 1;
+}
+
+
+/* ==================================================
+   LOCATION CARD INFO
+================================================== */
+
+.thief-location-card-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.28rem;
+}
+
+
+.thief-location-card-info > div {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 0.7rem;
+}
+
+
+.thief-location-card-info span {
+    flex: 0 0 auto;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.65rem;
+}
+
+
+.thief-location-card-info strong {
+    min-width: 0;
+
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    text-align: right;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.thief-location-list-empty {
+    min-height: 120px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.75rem;
+
+    text-align: center;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+.thief-finder-footer {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 1rem;
+
+    max-width:
+        calc(
+            min(78dvh, 900px)
+            + clamp(250px, 24vw, 320px)
+            + 1rem
+        );
+
+    margin: 0.7rem auto 0;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.72rem;
+}
+
+
+/* ==================================================
+   LOADING
+================================================== */
+
+.thief-finder-loading {
+    padding: 4rem;
+
+    text-align: center;
+
+    color: var(--bs-secondary-color);
+}
+
+
+/* ==================================================
+   TABLET / NARROW DESKTOP
+================================================== */
+
+@media (max-width: 900px) {
+
+    .thief-content-layout {
+        grid-template-columns: 1fr;
+
+        max-width: min(100%, 78dvh, 900px);
+    }
+
+
+    .thief-location-panel {
+        /*
+         * 좁은 화면에서는 지도의 아래로 이동하고
+         * 목록 자체만 스크롤한다.
+         */
+        max-height: 320px;
+    }
+
+
+    .thief-location-list {
+        max-height: 258px;
+    }
+
+
+    .thief-finder-footer {
+        max-width: min(100%, 78dvh, 900px);
+    }
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 767.98px) {
+
+    .thief-finder-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 1rem;
+    }
+
+
+    .thief-finder-summary {
+        width: 100%;
+
+        justify-content: space-between;
+
+        gap: 1rem;
+    }
+
+
+    .thief-finder-summary > div {
+        text-align: left;
+    }
+
+
+    .thief-map-stage {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    .thief-content-layout,
+    .thief-finder-footer {
+        max-width: 100%;
+    }
+
+
+    .thief-finder-footer {
+        flex-direction: column;
+
+        gap: 0.25rem;
+    }
+
+}
+
+
+/* ==================================================
+   VERY SMALL
+================================================== */
+
+@media (max-width: 420px) {
+
+    .thief-finder-header h1 {
+        font-size: 1.45rem;
+    }
+
+
+    .thief-finder-header p {
+        font-size: 0.78rem;
+    }
+
+
+    .thief-location-panel {
+        max-height: 280px;
+    }
+
+
+    .thief-location-list {
+        max-height: 218px;
+    }
+
+
+    .thief-location-card {
+        padding: 0.6rem;
+    }
+
+
+    .thief-location-coordinate {
+        font-size: 0.9rem;
+    }
+
+
+    .thief-location-copy {
+        padding: 0.25rem 0.45rem;
+
+        font-size: 0.62rem;
+    }
+
+}
+
+
+/* ==================================================
+   PROTECTED ACCESS
+================================================== */
+
+.protected-access-page {
+    width: 100%;
+    min-height: min(520px, 65vh);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 2rem 1rem;
+}
+
+
+.protected-access-card {
+    width: min(100%, 430px);
+
+    padding: 1.5rem;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+
+    background: var(--bs-body-bg);
+
+    box-shadow:
+        0 10px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+}
+
+
+.protected-access-card h1 {
+    margin: 0 0 0.5rem;
+
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+
+.protected-access-card p {
+    margin: 0 0 1rem;
+
+    color: var(--bs-secondary-color);
+
+    font-size: 0.85rem;
+}
+
+
+.protected-access-form {
+    display: flex;
+
+    gap: 0.5rem;
+}
+
+
+.protected-access-form input {
+    flex: 1 1 auto;
+
+    min-width: 0;
+
+    padding: 0.65rem 0.75rem;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.45rem;
+
+    background: var(--bs-body-bg);
+
+    color: var(--bs-body-color);
+
+    outline: none;
+}
+
+
+.protected-access-form input:focus {
+    border-color: var(--bs-primary);
+
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(
+            var(--bs-primary-rgb),
+            0.15
+        );
+}
+
+
+.protected-access-form button {
+    flex: 0 0 auto;
+
+    padding: 0.65rem 0.9rem;
+
+    border: 0;
+    border-radius: 0.45rem;
+
+    background: var(--bs-primary);
+
+    color: #fff;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.protected-access-form button:disabled {
+    cursor: default;
+
+    opacity: 0.5;
+}
+
+
+.protected-access-error {
+    margin-top: 0.7rem;
+
+    color: var(--bs-danger);
+
+    font-size: 0.78rem;
+}
+
+
+.protected-access-message {
+    width: min(100%, 430px);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.4rem;
+
+    padding: 1.5rem;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+
+    background: var(--bs-body-bg);
+
+    text-align: center;
+}
+
+
+.protected-access-message strong {
+    font-size: 1rem;
+}
+
+
+.protected-access-message span {
+    color: var(--bs-secondary-color);
+
+    font-size: 0.8rem;
+}

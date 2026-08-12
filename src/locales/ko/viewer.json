@@ -1970,5 +1970,35 @@
         "time": {
             "justNow": "방금 전"
         }
+    },
+    "ThiefFinder": {
+        "title": "도둑 찾기",
+        "description": "수집된 탐색 결과를 기반으로 해당 서버에서 발견된 도둑의 위치를 표시합니다.",
+        "loading": "탐색 결과를 불러오는 중입니다.",
+        "loadError": "탐색 결과를 불러오지 못했습니다.",
+        "invalidServer": "올바른 서버 번호를 입력해주세요.",
+        "found": "확인된 위치",
+        "updatedAt": "데이터 갱신",
+        "server": "서버",
+        "foundAt": "발견 시각",
+        "detectedLocation": "도둑 발견 위치",
+        "locationCount": "개 위치",
+        "mapAlt": "{{serverId}} 서버 지도",
+        "empty": {
+            "title": "확인된 도둑이 없습니다",
+            "description": "최근 탐색 결과에서 발견된 위치가 없습니다."
+        },
+        "notice": "수집된 탐색 결과를 기반으로 표시되며 게임 내 상태와 차이가 있을 수 있습니다.",
+        "copy": "복사",
+        "copyCompleted": "복사완료!",
+        "access": {
+            "title": "보호된 페이지",
+            "description": "계속하려면 접근 코드를 입력하세요.",
+            "codePlaceholder": "접근 코드",
+            "submit": "입장",
+            "invalidCode": "접근 코드가 올바르지 않습니다.",
+            "deniedTitle": "접근할 수 없습니다",
+            "deniedMessage": "요청한 페이지를 이용할 수 없습니다."
+        }
     }
 }

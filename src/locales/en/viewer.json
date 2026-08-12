@@ -1978,5 +1978,35 @@
         "time": {
             "justNow": "just now"
         }
+    },
+    "ThiefFinder": {
+        "title": "Thief Finder",
+        "description": "Displays thief locations detected on this server based on collected scan results.",
+        "loading": "Loading scan results.",
+        "loadError": "Unable to load scan results.",
+        "invalidServer": "Please enter a valid server number.",
+        "found": "Detected Locations",
+        "updatedAt": "Data Updated",
+        "server": "Server",
+        "foundAt": "Detected At",
+        "detectedLocation": "Detected Thief Location",
+        "locationCount": "locations",
+        "mapAlt": "Server {{serverId}} Map",
+        "empty": {
+            "title": "No Thieves Detected",
+            "description": "No locations were detected in the latest scan results."
+        },
+        "notice": "Locations are based on collected scan results and may differ from the current in-game state.",
+        "copy": "Copy",
+        "copyCompleted": "Copied!",
+        "access": {
+            "title": "Protected Page",
+            "description": "Enter the access code to continue.",
+            "codePlaceholder": "Access code",
+            "submit": "Enter",
+            "invalidCode": "The access code is incorrect.",
+            "deniedTitle": "Access Unavailable",
+            "deniedMessage": "The requested page is not available."
+        }
     }
 }

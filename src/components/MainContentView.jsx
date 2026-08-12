@@ -63,6 +63,8 @@ import Disclaimer from "@src/components/screen/etc/Disclaimer";
 
 import CityRewardEvent from "@src/components/screen/event/CityRewardEvent";
 
+import ThiefFinder from "@src/components/screen/vip/ThiefFinder";
+
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
 
@@ -164,6 +166,8 @@ export default function MainContentView() {
 
                     {/* event */}
                     <Route path="event/city-reward" element={<CityRewardEvent/>}></Route>
+                    <Route path="vip/:serverId" element={<ThiefFinder/>}></Route>
+
 
                     <Route path="privacy" element={<Privacy/>}/>
                     <Route path="contact" element={<Contact/>}/>

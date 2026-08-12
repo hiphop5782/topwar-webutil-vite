@@ -1970,5 +1970,35 @@
         "time": {
             "justNow": "さっき"
         }
+    },
+    "ThiefFinder": {
+        "title": "泥棒探し",
+        "description": "収集された探索結果をもとに、このサーバーで検出された泥棒の位置を表示します。",
+        "loading": "探索結果を読み込んでいます。",
+        "loadError": "探索結果を読み込めませんでした。",
+        "invalidServer": "有効なサーバー番号を入力してください。",
+        "found": "確認された位置",
+        "updatedAt": "データ更新",
+        "server": "サーバー",
+        "foundAt": "検出時刻",
+        "detectedLocation": "泥棒の検出位置",
+        "locationCount": "か所",
+        "mapAlt": "サーバー{{serverId}}マップ",
+        "empty": {
+            "title": "確認された泥棒はいません",
+            "description": "最新の探索結果では位置が検出されていません。"
+        },
+        "notice": "収集された探索結果をもとに表示しているため、ゲーム内の状態とは異なる場合があります。",
+        "copy": "コピー",
+        "copyCompleted": "コピー完了!"
+    },
+    "access": {
+        "title": "保護されたページ",
+        "description": "続行するにはアクセスコードを入力してください。",
+        "codePlaceholder": "アクセスコード",
+        "submit": "入る",
+        "invalidCode": "アクセスコードが正しくありません。",
+        "deniedTitle": "アクセスできません",
+        "deniedMessage": "要求されたページは利用できません。"
     }
 }
