@@ -51,6 +51,7 @@ const fixedRoutes = [
     "/privacy",
     "/contact",
     "/disclaimer",
+    "/developer"
 ];
 
 const postRoutes = readdirSync(markdownDirectory, {
