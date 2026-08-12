@@ -120,7 +120,8 @@
             "nicknamePlaceholder": "例：KID",
             "clear": "検索をリセット",
             "resultCount_other": "{{value}}人のプレイヤーが見つかりました。",
-            "preparing": "プレイヤーデータを準備しています。"
+            "preparing": "プレイヤーデータを準備しています。",
+            "loadedResultCount": "読み込んだ結果数"
         },
         "stats": {
             "kicker": "検索結果の概要",
