@@ -1892,6 +1892,9 @@
         "error": {
             "loadFailed": "Failed to load data.",
             "showingCached": "Showing the previous data."
+        },
+        "time":{
+            "justNow":"just now"
         }
     }
 }

@@ -1884,6 +1884,9 @@
         "error": {
             "loadFailed": "データを読み込めませんでした。",
             "showingCached": "以前のデータを表示しています。"
+        },
+        "time":{
+            "justNow":"さっき"
         }
     }
 }
