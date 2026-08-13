@@ -23,6 +23,9 @@ const THIEF_DATA_URL =
     "https://raw.githubusercontent.com/hiphop5782/topwar-thief/main/data/thieves.json";
 
 
+const POLLING_INTERVAL = 5000;
+
+
 /*
  * servermap.png의 실제 좌표계에 맞춰 조정할 값.
  */
@@ -128,12 +131,40 @@ export default function ThiefFinder() {
             new AbortController();
 
 
+        let firstRequest =
+            true;
+
+        let requestInProgress =
+            false;
+
+
         async function load() {
+
+            /*
+             * 5초가 지났더라도 이전 요청이 아직 끝나지 않았다면
+             * 중복 요청은 보내지 않는다.
+             */
+            if (requestInProgress) {
+                return;
+            }
+
+
+            requestInProgress =
+                true;
+
 
             try {
 
-                setLoading(true);
-                setError(null);
+                /*
+                 * 최초 조회에서만 로딩 화면을 표시한다.
+                 * 5초 폴링 갱신 때는 기존 지도/목록을 그대로 유지한다.
+                 */
+                if (firstRequest) {
+
+                    setLoading(true);
+                    setError(null);
+
+                }
 
 
                 const response =
@@ -157,6 +188,8 @@ export default function ThiefFinder() {
                             locations: []
                         });
 
+                        setError(null);
+
                         return;
                     }
 
@@ -172,6 +205,7 @@ export default function ThiefFinder() {
 
 
                 setData(json);
+                setError(null);
 
             }
             catch (error) {
@@ -190,23 +224,59 @@ export default function ThiefFinder() {
                 );
 
 
-                setError(error);
+                /*
+                 * 최초 조회 실패만 오류 화면으로 처리한다.
+                 * 이후 폴링 중 일시적인 실패는 기존 데이터를 유지한다.
+                 */
+                if (firstRequest) {
+
+                    setError(error);
+
+                }
 
             }
             finally {
 
-                setLoading(false);
+                if (firstRequest) {
+
+                    setLoading(false);
+                    firstRequest = false;
+
+                }
+
+
+                requestInProgress =
+                    false;
 
             }
 
         }
 
 
+        /*
+         * 입장 직후 즉시 1회 조회.
+         */
         load();
 
 
+        /*
+         * 이후 5초마다 폴링.
+         */
+        const intervalId =
+            window.setInterval(
+                load,
+                POLLING_INTERVAL
+            );
+
+
         return () => {
+
+            window.clearInterval(
+                intervalId
+            );
+
             controller.abort();
+
         };
 
     }, [
