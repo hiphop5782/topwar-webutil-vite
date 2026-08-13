@@ -355,11 +355,11 @@ function Home() {
 
                         <DashboardPanel
                             title={t(
-                                "serverActivity.title"
+                                "home.serverActivity.title"
                             )}
                             description={
                                 t(
-                                    "serverActivity.description",
+                                    "home.serverActivity.description",
                                     {
                                         count:
                                             formatNumber(
