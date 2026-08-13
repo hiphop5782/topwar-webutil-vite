@@ -192,30 +192,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/formation-perk/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/en/simulator/lotto/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/lotto/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/lotto/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/lotto/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/en/simulator/luckybox/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/luckybox/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/luckybox/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/luckybox/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/en/simulator/random/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/random/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/random/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/random/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/en/simulator/slot/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/slot/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/slot/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/slot/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/en/simulator/titan-refine/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/titan-refine/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/titan-refine/" />
@@ -226,12 +202,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/titan-research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/titan-research/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/titan-research/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/en/vote/create/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/vote/create/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/vote/create/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/vote/create/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ja/</loc>
@@ -421,30 +391,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/formation-perk/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ja/simulator/lotto/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/lotto/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/lotto/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/lotto/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ja/simulator/luckybox/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/luckybox/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/luckybox/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/luckybox/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ja/simulator/random/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/random/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/random/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/random/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ja/simulator/slot/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/slot/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/slot/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/slot/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ja/simulator/titan-refine/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/titan-refine/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/titan-refine/" />
@@ -455,12 +401,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/titan-research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/titan-research/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/titan-research/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ja/vote/create/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/vote/create/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/vote/create/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/vote/create/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/</loc>
@@ -650,30 +590,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/formation-perk/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ko/simulator/lotto/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/lotto/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/lotto/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/lotto/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/simulator/luckybox/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/luckybox/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/luckybox/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/luckybox/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/simulator/random/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/random/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/random/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/random/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/simulator/slot/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/slot/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/slot/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/slot/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ko/simulator/titan-refine/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/titan-refine/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/titan-refine/" />
@@ -684,11 +600,5 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/simulator/titan-research/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/simulator/titan-research/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/simulator/titan-research/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/vote/create/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/vote/create/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/vote/create/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/vote/create/" />
   </url>
 </urlset>
