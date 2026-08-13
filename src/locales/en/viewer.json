@@ -149,7 +149,8 @@
         "result-player-rank-column": "Rank",
         "result-player-login-column": "Last Login",
         "result-player-unknown": "Unknown",
-        "result-notfound": "No data available for this server."
+        "result-notfound": "No data available for this server.",
+        "justNow": "just now"
     },
     "AiEvaluationCard": {
         "activity-veryhigh": "Very Active",

@@ -1,10 +1,4 @@
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-dayjs.extend(utc);
-dayjs.extend(relativeTime);
-
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "flag-icons/sass/flag-icons.scss";
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
@@ -23,6 +17,65 @@ const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
 export default function TopwarRealPowerViewer() {
 
     const { t, i18n } = useTranslation(["viewer", "commons"]);
+
+    const locale = useMemo(() => {
+        const language = i18n.resolvedLanguage ?? i18n.language;
+
+        if (language?.startsWith("ja")) return "ja-JP";
+        if (language?.startsWith("en")) return "en-US";
+
+        return "ko-KR";
+    }, [i18n.resolvedLanguage, i18n.language]);
+
+    const relativeTimeFormatter = useMemo(() => {
+        return new Intl.RelativeTimeFormat(locale, {
+            numeric: "always",
+        });
+    }, [locale]);
+
+    const formatRelativeTime = useCallback((date, baseDate = Date.now()) => {
+        if (!date) return "-";
+
+        const target = new Date(date).getTime();
+        const base = new Date(baseDate).getTime();
+
+        if (!Number.isFinite(target) || !Number.isFinite(base)) {
+            return "-";
+        }
+
+        const diff = base - target;
+        const seconds = Math.floor(Math.abs(diff) / 1000);
+        const direction = diff >= 0 ? -1 : 1;
+
+        if (seconds < 60) {
+            return t("TopwarRealPowerViewer.time.justNow");
+        }
+
+        const minutes = Math.floor(seconds / 60);
+
+        if (minutes < 60) {
+            return relativeTimeFormatter.format(
+                direction * minutes,
+                "minute",
+            );
+        }
+
+        const hours = Math.floor(minutes / 60);
+
+        if (hours < 24) {
+            return relativeTimeFormatter.format(
+                direction * hours,
+                "hour",
+            );
+        }
+
+        const days = Math.floor(hours / 24);
+
+        return relativeTimeFormatter.format(
+            direction * days,
+            "day",
+        );
+    }, [relativeTimeFormatter, t]);
 
     const fileNames = useMemo(() => {
         return Object.keys(jsonModules).map(path => {
@@ -453,7 +506,7 @@ export default function TopwarRealPowerViewer() {
                         ns="viewer"
                         i18nKey="TopwarRealPowerViewer.dataCollectedAt"
                         values={{
-                            relativeTime: dayjs(json.exportedAt).fromNow()
+                            relativeTime: formatRelativeTime(json.exportedAt)
                         }}
                         components={{
                             time: (
@@ -643,16 +696,17 @@ export default function TopwarRealPowerViewer() {
                         <tbody>
                             {filteredPlayers.map((player, index) => {
                                 const idx = alliances.findIndex(alliance => alliance.allianceTag === player.allianceTag);
-                                const lastLoginTime = dayjs.unix(player.lastLogin).utc();
-                                const exportedTime = dayjs.utc(json.exportedAt);
                                 const hasLastLogin =
                                     typeof player.lastLogin === "number" &&
                                     Number.isFinite(player.lastLogin) &&
                                     player.lastLogin > 0;
 
                                 const diff = hasLastLogin
-                                    ? dayjs.unix(player.lastLogin).utc().from(exportedTime)
-                                    : "정보 없음";
+                                    ? formatRelativeTime(
+                                        player.lastLogin * 1000,
+                                        json.exportedAt,
+                                    )
+                                    : t("TopwarRealPowerViewer.result-player-unknown");
                                 return (
                                     <tr className={`player-info ${calculateUserGrade(player.lastLogin, json.exportedAt)}`} key={index}>
                                         <td>

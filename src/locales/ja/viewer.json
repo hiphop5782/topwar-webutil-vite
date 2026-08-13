@@ -160,7 +160,8 @@
         "result-player-rank-column": "順位",
         "result-player-login-column": "最終ログイン",
         "result-player-unknown": "不明",
-        "result-notfound": "データが存在しないサーバーです。"
+        "result-notfound": "データが存在しないサーバーです。",
+        "justNow": "たった今"
     },
     "AiEvaluationCard": {
         "activity-veryhigh": "超活発",
