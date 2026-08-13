@@ -203,7 +203,8 @@
             "resultCount_one": "{{value}} player found.",
             "resultCount_other": "{{value}} players found.",
             "preparing": "Preparing player data.",
-            "loadedResultCount": "Loaded Results"
+            "loadedResultCount": "Loaded Results",
+            "filteredResultCount": "{{count}} players found"
         },
         "stats": {
             "kicker": "Result summary",

@@ -202,7 +202,8 @@
             "clear": "검색 초기화",
             "resultCount_other": "{{value}}명의 플레이어가 검색되었습니다.",
             "preparing": "플레이어 데이터를 준비하고 있습니다.",
-            "loadedResultCount": "불러온 결과 수"
+            "loadedResultCount": "불러온 결과 수",
+            "filteredResultCount": "검색 결과 {{count}}명"
         },
         "stats": {
             "kicker": "검색 결과 요약",

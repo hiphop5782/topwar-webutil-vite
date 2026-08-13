@@ -202,7 +202,8 @@
             "clear": "検索をリセット",
             "resultCount_other": "{{value}}人のプレイヤーが見つかりました。",
             "preparing": "プレイヤーデータを準備しています。",
-            "loadedResultCount": "読み込んだ結果数"
+            "loadedResultCount": "読み込んだ結果数",
+            "filteredResultCount": "検索結果 {{count}}人"
         },
         "stats": {
             "kicker": "検索結果の概要",
