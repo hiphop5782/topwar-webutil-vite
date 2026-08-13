@@ -108,12 +108,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/kartz/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/en/information/realpower/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/realpower/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/realpower/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/realpower/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/en/information/ssc/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/ssc/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/ssc/" />
@@ -343,12 +337,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/kartz/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ja/information/realpower/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/realpower/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/realpower/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/realpower/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ja/information/ssc/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/ssc/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/ssc/" />
@@ -576,12 +564,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/kartz/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/kartz/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/kartz/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/information/realpower/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/realpower/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/realpower/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/realpower/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/information/ssc/</loc>
