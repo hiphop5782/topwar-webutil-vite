@@ -65,7 +65,8 @@
             "title": "Recently Detected Changes",
             "movement": "Server Transfers",
             "nickname": "Name Changes",
-            "detected": "{{count}} detected"
+            "detected": "{{count}} detected",
+            "description":"Recent server transfers and nickname changes detected."
         },
         "serverTrend": {
             "title": "Server Count Trend",

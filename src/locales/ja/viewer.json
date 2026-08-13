@@ -65,7 +65,8 @@
             "title": "最近検出された変更",
             "movement": "サーバー移動",
             "nickname": "名前変更",
-            "detected": "{{count}}件検出"
+            "detected": "{{count}}件検出",
+            "description":"最近検出されたサーバー移動とニックネーム変更の履歴です。"
         },
         "serverTrend": {
             "title": "サーバー数の変化",

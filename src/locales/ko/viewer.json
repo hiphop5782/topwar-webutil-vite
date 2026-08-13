@@ -65,7 +65,8 @@
             "title": "최근 감지된 변화",
             "movement": "서버 이동",
             "nickname": "닉네임 변경",
-            "detected": "{{count}}건 감지"
+            "detected": "{{count}}건 감지",
+            "description":"최근 감지된 서버 이동과 닉네임 변경 내역입니다."
         },
         "serverTrend": {
             "title": "서버 수 변화",
