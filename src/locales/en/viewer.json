@@ -10,7 +10,8 @@
         "kpi": {
             "server": {
                 "title": "Tracked Servers",
-                "description": "Servers observed in collected data"
+                "description": "Servers observed in collected data",
+                "change7d": "7-day change"
             },
             "player": {
                 "title": "Tracked Players",

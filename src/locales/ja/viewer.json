@@ -10,7 +10,8 @@
         "kpi": {
             "server": {
                 "title": "収集サーバー",
-                "description": "データ上で確認されたサーバー"
+                "description": "データ上で確認されたサーバー",
+                "change7d": "過去7日間の変化"
             },
             "player": {
                 "title": "追跡プレイヤー",
