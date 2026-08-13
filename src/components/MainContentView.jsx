@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import PangeNotFound from "./error/PageNotFound";
+import PageNotFound from "./error/PageNotFound";
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
 import LegacyEmoji from '@src/components/screen/emoji/LegacyEmoji';
 import Home from '@src/components/screen/Home';
@@ -176,7 +176,7 @@ export default function MainContentView() {
                     <Route path="disclaimer" element={<Disclaimer/>}/>
 
                     {/* 404 not found */}
-                    <Route path="*" element={<PangeNotFound />}></Route>
+                    <Route path="*" element={<PageNotFound />}></Route>
                 </Routes>
             </div>
             {/* <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}> */}
