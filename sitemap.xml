@@ -108,12 +108,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/kartz/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/en/information/ssc/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/ssc/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/ssc/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/ssc/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/en/post/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/" />
@@ -307,12 +301,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/kartz/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ja/information/ssc/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/ssc/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/ssc/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/ssc/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ja/post/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/" />
@@ -504,12 +492,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/kartz/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/kartz/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/kartz/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/information/ssc/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/ssc/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/ssc/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/ssc/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/post/</loc>
