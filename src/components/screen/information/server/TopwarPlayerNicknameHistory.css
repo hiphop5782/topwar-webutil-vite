@@ -1,0 +1,1120 @@
+.topwar-nickname-history {
+    --nickname-card: #ffffff;
+    --nickname-border: #e1e6ef;
+    --nickname-border-strong: #d3dae6;
+    --nickname-text: #19202b;
+    --nickname-muted: #737d8c;
+    --nickname-primary: #2878ff;
+    --nickname-primary-dark: #165cd4;
+    --nickname-primary-light: #eaf2ff;
+    --nickname-from-bg: #f0f2f5;
+    --nickname-from-text: #5d6674;
+    --nickname-danger: #d64242;
+
+    width: 100%;
+    color: var(--nickname-text);
+
+    /* 화면(viewport)이 아니라 실제 컴포넌트 폭을 기준으로 반응 */
+    container-type: inline-size;
+    container-name: nickname-history;
+}
+
+/* ========================================
+   상단 제목
+======================================== */
+
+.nickname-history-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 22px;
+}
+
+.nickname-history-title {
+    min-width: 0;
+}
+
+.nickname-history-eyebrow {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--nickname-primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.nickname-history-title h2 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.nickname-history-title p {
+    margin: 7px 0 0;
+    color: var(--nickname-muted);
+    font-size: 14px;
+}
+
+/* ========================================
+   요약 카드
+======================================== */
+
+.nickname-history-summary {
+    display: flex;
+    gap: 8px;
+}
+
+.nickname-summary-item {
+    min-width: 91px;
+    padding: 11px 15px;
+    border: 1px solid var(--nickname-border);
+    border-radius: 12px;
+    background: var(--nickname-card);
+    box-shadow: 0 3px 10px rgb(30 45 70 / 4%);
+}
+
+.nickname-summary-item span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--nickname-muted);
+    font-size: 11px;
+}
+
+.nickname-summary-item strong {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.nickname-summary-item.is-primary {
+    border-color: #c9dcff;
+    background: var(--nickname-primary-light);
+}
+
+.nickname-summary-item.is-primary span,
+.nickname-summary-item.is-primary strong {
+    color: var(--nickname-primary-dark);
+}
+
+/* ========================================
+   검색 및 기간 필터
+======================================== */
+
+.nickname-history-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    border: 1px solid var(--nickname-border);
+    border-radius: 14px;
+    background: var(--nickname-card);
+    box-shadow: 0 4px 18px rgb(30 45 70 / 5%);
+}
+
+.nickname-filter-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+}
+
+.nickname-filter-date-row {
+    justify-content: space-between;
+}
+
+.nickname-filter-dates {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.nickname-date-separator,
+.nickname-power-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    color: var(--nickname-muted);
+}
+
+.nickname-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.nickname-filter-field label {
+    color: var(--nickname-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.nickname-filter-field input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--nickname-border-strong);
+    border-radius: 9px;
+    outline: none;
+    background: #ffffff;
+    color: var(--nickname-text);
+    font: inherit;
+    font-size: 14px;
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.nickname-filter-field input:hover {
+    border-color: #b9c2d0;
+}
+
+.nickname-filter-field input:focus {
+    border-color: var(--nickname-primary);
+    box-shadow: 0 0 0 3px rgb(40 120 255 / 12%);
+}
+
+.nickname-filter-dates .nickname-filter-field {
+    width: 165px;
+}
+
+.nickname-name-filter {
+    flex: 0 1 320px;
+    width: 320px;
+    max-width: 100%;
+}
+
+.nickname-server-filter {
+    flex: 0 0 160px;
+    width: 160px;
+}
+
+.nickname-power-filter {
+    flex: 0 1 190px;
+    width: 190px;
+}
+
+.nickname-filter-reset {
+    flex: 0 0 auto;
+    height: 42px;
+    padding: 0 17px;
+    border: 1px solid var(--nickname-border-strong);
+    border-radius: 9px;
+    background: #ffffff;
+    color: var(--nickname-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.nickname-filter-reset:hover:not(:disabled) {
+    border-color: #b5bfcd;
+    background: #f3f5f8;
+}
+
+.nickname-filter-reset:disabled {
+    opacity: 0.42;
+    cursor: default;
+}
+
+/* ========================================
+   상세 검색 토글
+======================================== */
+
+.nickname-filter-advanced {
+    border-top: 1px solid var(--nickname-border);
+}
+
+.nickname-filter-advanced-summary {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    padding-top: 12px;
+    color: var(--nickname-text);
+    font-size: 13px;
+    font-weight: 800;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nickname-filter-advanced-summary::-webkit-details-marker {
+    display: none;
+}
+
+.nickname-filter-advanced-summary::before {
+    content: "▸";
+    color: var(--nickname-muted);
+    transition: transform 0.15s ease;
+}
+
+.nickname-filter-advanced[open]
+    > .nickname-filter-advanced-summary::before {
+    transform: rotate(90deg);
+}
+
+.nickname-filter-active-count {
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: var(--nickname-primary-light);
+    color: var(--nickname-primary-dark);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.nickname-filter-advanced-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 14px;
+}
+
+/* ========================================
+   로딩 및 오류
+======================================== */
+
+.nickname-history-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 120px;
+    padding: 25px;
+    border: 1px solid var(--nickname-border);
+    border-radius: 14px;
+    background: var(--nickname-card);
+    color: var(--nickname-muted);
+    font-size: 14px;
+}
+
+.nickname-history-message.is-error {
+    border-color: #f1b4b4;
+    background: #fff5f5;
+    color: var(--nickname-danger);
+}
+
+.nickname-loading-spinner {
+    width: 17px;
+    height: 17px;
+    border: 2px solid #d6e3f9;
+    border-top-color: var(--nickname-primary);
+    border-radius: 50%;
+    animation: nickname-spinner 0.7s linear infinite;
+}
+
+@keyframes nickname-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   검색 결과
+======================================== */
+
+.nickname-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nickname-history-item {
+    overflow: hidden;
+    border: 1px solid var(--nickname-border);
+    border-radius: 14px;
+    background: var(--nickname-card);
+    box-shadow: 0 4px 16px rgb(30 45 70 / 4%);
+}
+
+.nickname-history-item[open] {
+    border-color: #cbd8ee;
+    box-shadow: 0 6px 22px rgb(30 45 70 / 7%);
+}
+
+.nickname-history-item-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 15px 18px;
+    list-style: none;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+
+.nickname-history-item-summary::-webkit-details-marker {
+    display: none;
+}
+
+.nickname-history-item-summary:hover {
+    background: #f8faff;
+}
+
+.nickname-history-item[open]
+    > .nickname-history-item-summary {
+    border-bottom: 1px solid var(--nickname-border);
+    background:
+        linear-gradient(
+            90deg,
+            #f7faff 0%,
+            #ffffff 62%
+        );
+}
+
+.nickname-history-player {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.nickname-history-summary-route {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
+    align-items: end;
+    gap: 8px;
+    width: min(620px, 100%);
+    min-width: 0;
+}
+
+.nickname-history-summary-name {
+    min-width: 0;
+}
+
+.nickname-history-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--nickname-muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
+.nickname-history-summary-name strong {
+    display: block;
+    overflow: hidden;
+    color: var(--nickname-text);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nickname-history-summary-name.is-last strong {
+    color: var(--nickname-primary-dark);
+}
+
+.nickname-history-summary-arrow {
+    align-self: end;
+    padding-bottom: 1px;
+    color: #9aa4b2;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.nickname-history-meta {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 10px;
+    color: var(--nickname-muted);
+    white-space: nowrap;
+}
+
+.nickname-history-server {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    background: var(--nickname-primary-light);
+    color: var(--nickname-primary-dark);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.nickname-history-cp {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.nickname-history-cp small {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.nickname-history-cp strong {
+    color: var(--nickname-primary-dark);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.nickname-history-change-count {
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: #f1f3f6;
+    color: #586273;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.nickname-history-last-date {
+    font-family: Consolas, monospace;
+    font-size: 11px;
+}
+
+.nickname-history-chevron {
+    color: #8d97a6;
+    font-size: 14px;
+    transition: transform 0.15s ease;
+}
+
+.nickname-history-item[open]
+    .nickname-history-chevron {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   접이식 상세 이력
+======================================== */
+
+.nickname-history-detail {
+    padding: 16px 18px 18px;
+    background: #fcfdff;
+}
+
+.nickname-history-detail-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 13px;
+}
+
+.nickname-history-detail-head strong {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.nickname-history-detail-head span {
+    color: var(--nickname-muted);
+    font-family: Consolas, monospace;
+    font-size: 10px;
+}
+
+.nickname-history-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.nickname-history-event {
+    display: grid;
+    grid-template-columns: 175px minmax(0, 1fr) 90px;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 11px 0;
+    border-top: 1px solid #edf0f4;
+}
+
+.nickname-history-event:first-child {
+    border-top: 0;
+}
+
+.nickname-history-event-time {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.nickname-history-event-time time {
+    overflow: hidden;
+    color: var(--nickname-muted);
+    font-family: Consolas, monospace;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nickname-history-event-time span {
+    color: var(--nickname-primary-dark);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.nickname-history-route {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.nickname-history-name {
+    display: block;
+    overflow: hidden;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nickname-history-name.is-from {
+    background: var(--nickname-from-bg);
+    color: var(--nickname-from-text);
+}
+
+.nickname-history-name.is-to {
+    background: var(--nickname-primary-light);
+    color: var(--nickname-primary-dark);
+}
+
+.nickname-history-arrow {
+    color: #9aa4b2;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.nickname-history-event-power {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.nickname-history-event-power small {
+    color: var(--nickname-muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.nickname-history-event-power strong {
+    color: var(--nickname-primary-dark);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ========================================
+   반응형
+======================================== */
+
+@media (max-width: 1000px) {
+    .nickname-history-header {
+        flex-direction: column;
+    }
+
+    .nickname-history-summary {
+        width: 100%;
+    }
+
+    .nickname-summary-item {
+        flex: 1;
+    }
+
+    .nickname-history-event {
+        grid-template-columns: 150px minmax(0, 1fr) 80px;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 760px) {
+    .nickname-history-title h2 {
+        font-size: 23px;
+    }
+
+    .nickname-history-summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .nickname-summary-item {
+        min-width: 0;
+        padding: 10px 8px;
+        text-align: center;
+    }
+
+    .nickname-summary-item strong {
+        font-size: 17px;
+    }
+
+    .nickname-history-filter {
+        padding: 13px;
+    }
+
+    .nickname-filter-date-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nickname-filter-dates {
+        display: grid;
+        grid-template-columns: 1fr 18px 1fr;
+        width: 100%;
+    }
+
+    .nickname-filter-dates .nickname-filter-field {
+        width: 100%;
+    }
+
+    .nickname-filter-reset {
+        width: 100%;
+    }
+
+    .nickname-filter-search-row,
+    .nickname-filter-power-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nickname-name-filter {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .nickname-server-filter,
+    .nickname-power-filter {
+        width: 100%;
+    }
+
+    .nickname-history-item-summary {
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .nickname-history-summary-route {
+        width: 100%;
+    }
+
+    .nickname-history-summary-name strong {
+        font-size: 15px;
+    }
+
+    .nickname-history-meta {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-items: end;
+        gap: 6px 8px;
+    }
+
+    .nickname-history-chevron {
+        display: none;
+    }
+
+    .nickname-history-detail {
+        padding: 14px;
+    }
+
+    .nickname-history-detail-head {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .nickname-history-event {
+        grid-template-columns: 1fr auto;
+        gap: 8px 12px;
+    }
+
+    .nickname-history-event-time {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .nickname-history-route {
+        grid-column: 1;
+    }
+
+    .nickname-history-event-power {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 520px) {
+    .nickname-history-title p {
+        font-size: 13px;
+    }
+
+    .nickname-history-summary {
+        gap: 5px;
+    }
+
+    .nickname-summary-item {
+        padding: 9px 5px;
+    }
+
+    .nickname-summary-item span {
+        font-size: 10px;
+    }
+
+    .nickname-summary-item strong {
+        font-size: 16px;
+    }
+
+    .nickname-filter-dates {
+        grid-template-columns: 1fr;
+    }
+
+    .nickname-date-separator {
+        display: none;
+    }
+
+    .nickname-filter-search-row,
+    .nickname-filter-power-row {
+        grid-template-columns: 1fr;
+    }
+
+    .nickname-name-filter,
+    .nickname-server-filter,
+    .nickname-power-filter {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .nickname-power-separator {
+        display: none;
+    }
+
+    .nickname-history-item-summary {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nickname-history-summary-route {
+        grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
+        gap: 5px;
+        width: 100%;
+    }
+
+    .nickname-history-summary-name strong {
+        font-size: 14px;
+    }
+
+    .nickname-history-summary-arrow {
+        font-size: 14px;
+    }
+
+    .nickname-history-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .nickname-history-last-date {
+        margin-left: auto;
+    }
+
+    .nickname-history-event {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 13px 0;
+    }
+
+    .nickname-history-event-time {
+        display: flex;
+    }
+
+    .nickname-history-route {
+        grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    .nickname-history-name {
+        padding: 7px 8px;
+        font-size: 12px;
+    }
+
+    .nickname-history-event-power {
+        justify-content: flex-start;
+    }
+}
+
+/* ========================================
+   닉네임 단독 검색 - 전체 기간 추적 안내
+======================================== */
+.nickname-search-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: -10px 0 18px;
+    padding: 11px 14px;
+    border: 1px solid #c9dcff;
+    border-radius: 10px;
+    background: var(--nickname-primary-light);
+    color: var(--nickname-primary-dark);
+    font-size: 12px;
+}
+
+.nickname-search-mode strong {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.nickname-search-mode span {
+    min-width: 0;
+    color: #52657f;
+}
+
+@media (max-width: 600px) {
+    .nickname-search-mode {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+
+/* ========================================
+   컨테이너 기준 반응형
+   - 사이드바/좁은 콘텐츠 영역에서도 viewport와 무관하게 적용
+======================================== */
+
+@container nickname-history (max-width: 680px) {
+    .nickname-history-header {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .nickname-history-summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: 100%;
+    }
+
+    .nickname-summary-item {
+        min-width: 0;
+        padding: 10px 8px;
+        text-align: center;
+    }
+
+    .nickname-summary-item strong {
+        font-size: 17px;
+    }
+
+    .nickname-history-filter {
+        padding: 13px;
+    }
+
+    .nickname-filter-date-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nickname-filter-dates {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+        width: 100%;
+    }
+
+    .nickname-filter-dates .nickname-filter-field {
+        width: 100%;
+    }
+
+    .nickname-filter-reset {
+        width: 100%;
+    }
+
+    .nickname-filter-search-row,
+    .nickname-filter-power-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nickname-name-filter {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .nickname-server-filter,
+    .nickname-power-filter {
+        width: 100%;
+    }
+
+    /*
+     * 핵심 변경:
+     * 최초 → 최종 닉네임과 메타정보를 같은 줄에 억지로 넣지 않는다.
+     */
+    .nickname-history-item-summary {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 11px;
+        padding: 14px;
+    }
+
+    .nickname-history-player,
+    .nickname-history-summary-route {
+        width: 100%;
+    }
+
+    .nickname-history-summary-route {
+        grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+        gap: 7px;
+    }
+
+    .nickname-history-summary-name strong {
+        font-size: 15px;
+    }
+
+    .nickname-history-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 6px 8px;
+        width: 100%;
+        white-space: normal;
+    }
+
+    .nickname-history-last-date {
+        margin-left: auto;
+    }
+
+    .nickname-history-chevron {
+        display: none;
+    }
+
+    .nickname-history-detail {
+        padding: 14px;
+    }
+
+    .nickname-history-detail-head {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .nickname-history-event {
+        grid-template-columns: 1fr auto;
+        gap: 8px 12px;
+    }
+
+    .nickname-history-event-time {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .nickname-history-route {
+        grid-column: 1;
+    }
+
+    .nickname-history-event-power {
+        grid-column: 2;
+    }
+
+    .nickname-search-mode {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+@container nickname-history (max-width: 520px) {
+    .nickname-history-title h2 {
+        font-size: 23px;
+    }
+
+    .nickname-history-title p {
+        font-size: 13px;
+    }
+
+    .nickname-history-summary {
+        gap: 5px;
+    }
+
+    .nickname-summary-item {
+        padding: 9px 5px;
+    }
+
+    .nickname-summary-item span {
+        font-size: 10px;
+    }
+
+    .nickname-summary-item strong {
+        font-size: 16px;
+    }
+
+    .nickname-filter-dates,
+    .nickname-filter-search-row,
+    .nickname-filter-power-row {
+        grid-template-columns: 1fr;
+    }
+
+    .nickname-date-separator,
+    .nickname-power-separator {
+        display: none;
+    }
+
+    .nickname-name-filter,
+    .nickname-server-filter,
+    .nickname-power-filter {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .nickname-history-summary-route {
+        grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    .nickname-history-summary-name strong {
+        font-size: 14px;
+    }
+
+    .nickname-history-summary-arrow {
+        font-size: 14px;
+    }
+
+    .nickname-history-event {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 13px 0;
+    }
+
+    .nickname-history-event-time {
+        display: flex;
+    }
+
+    .nickname-history-route {
+        grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    .nickname-history-name {
+        padding: 7px 8px;
+        font-size: 12px;
+    }
+
+    .nickname-history-event-power {
+        justify-content: flex-start;
+    }
+}

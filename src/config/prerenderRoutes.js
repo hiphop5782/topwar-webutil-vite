@@ -23,7 +23,7 @@ const fixedRoutes = [
     "/information/data",
     "/information/kartz",
     "/information/ssc",
-    "/information/realpower",
+    //"/information/realpower",
 
     "/calculator/vital",
     "/calculator/skill",

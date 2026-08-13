@@ -112,7 +112,9 @@
         "btn-player-data": "Player Data",
         "btn-server-data": "Server Data",
         "btn-alliance-data": "Alliance Data",
-        "btn-server-move": "Server Transfer History"
+        "btn-server-move": "Server Transfer History",
+        "btn-nickname-history":"Nickname History",
+        "btn-realpower":"Map Scan (AI)"
     },
     "TopwarRealPowerViewer": {
         "dataCollectedAt": "This data was collected <time>{{relativeTime}}</time>.",
@@ -2008,6 +2010,48 @@
             "invalidCode": "The access code is incorrect.",
             "deniedTitle": "Access Unavailable",
             "deniedMessage": "The requested page is not available."
+        }
+    },
+    "TopwarPlayerNicknameHistory": {
+        "eyebrow": "PLAYER DATA",
+        "title": "Nickname Change History",
+        "description": "View player nickname changes recorded over time.",
+        "summary": {
+            "days": "Days",
+            "changes": "Changes",
+            "results": "Results"
+        },
+        "filters": {
+            "begin": "Start Date",
+            "end": "End Date",
+            "reset": "Reset",
+            "advanced": "Advanced Options",
+            "activeCount": "{{count}} active",
+            "nickname": "Nickname",
+            "nicknamePlaceholder": "Search previous/current nicknames · Unicode variants",
+            "server": "Server",
+            "serverPlaceholder": "e.g. 3223, 22xx",
+            "minPower": "Minimum Power",
+            "minPowerPlaceholder": "e.g. 50 or 50M",
+            "maxPower": "Maximum Power",
+            "maxPowerPlaceholder": "e.g. 100M or 500T"
+        },
+        "searchMode": {
+            "fullHistory": "Full History Search",
+            "fullHistoryDescription": "Since only a nickname was entered, nickname changes are tracked across all available data from {{begin}} to {{end}}."
+        },
+        "messages": {
+            "loading": "Loading data...",
+            "loadError": "Failed to load nickname change data.",
+            "noFiles": "No data is available for the selected period.",
+            "noResults": "No results match the search criteria."
+        },
+        "result": {
+            "firstNickname": "FIRST",
+            "lastNickname": "FINAL",
+            "changeCount": "{{count}} changes",
+            "history": "Nickname Change History",
+            "unknown": "Unknown"
         }
     }
 }

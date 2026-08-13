@@ -42,6 +42,7 @@ import TopwarServerDataViewer from "@src/components/screen/information/server/To
 import TopwarAllianceDataViewer from "@src/components/screen/information/server/TopwarAllianceDataViewer";
 import TopwarCompareViewer from "@src/components/screen/information/server/TopwarCompareViewer";
 import TopwarServerRealtimeDataViewer from "@src/components/screen/information/server/TopwarServerRealtimeDataViewer";
+import TopwarPlayerNicknameHistory from "@src/components/screen/information/server/TopwarPlayerNicknameHistory";
 
 import KartzDataViewer from "@src/components/screen/information/kartz/KartzDataViewer";
 import KartzRankViewer from "@src/components/screen/information/kartz/KartzRankViewer";
@@ -114,6 +115,8 @@ export default function MainContentView() {
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
                         <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7}/>}></Route>
+                        <Route path="nickname" element={<TopwarPlayerNicknameHistory />}></Route>
+                        <Route path="realpower" element={<TopwarRealPowerViewer/>}></Route>
                         {/* <Route path="compare" element={<TopwarCompareViewer/>}></Route> */}
                         {/* <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route> */}
                     </Route>
@@ -126,7 +129,6 @@ export default function MainContentView() {
 
                     {/* <Route path="information/ssc" element={<TopwarSscPointViewer/>}></Route> */}
                     
-                    <Route path="information/realpower" element={<TopwarRealPowerViewer/>}></Route>
                     
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>

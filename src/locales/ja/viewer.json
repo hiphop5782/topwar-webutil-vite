@@ -123,7 +123,9 @@
         "btn-player-data": "プレイヤーデータ",
         "btn-server-data": "サーバーデータ",
         "btn-alliance-data": "連盟データ",
-        "btn-server-move": "サーバー移動履歴"
+        "btn-server-move": "サーバー移動履歴",
+        "btn-nickname-history":"ニックネーム履歴",
+        "btn-realpower":"マップ調査（AI）"
     },
     "TopwarRealPowerViewer": {
         "dataCollectedAt": "このデータは<time>{{relativeTime}}</time>に調査されたものです。",
@@ -2001,5 +2003,47 @@
         "invalidCode": "アクセスコードが正しくありません。",
         "deniedTitle": "アクセスできません",
         "deniedMessage": "要求されたページは利用できません。"
+    },
+    "TopwarPlayerNicknameHistory": {
+        "eyebrow": "PLAYER DATA",
+        "title": "ニックネーム変更履歴",
+        "description": "期間別にプレイヤーのニックネーム変更履歴を確認できます。",
+        "summary": {
+            "days": "検索日数",
+            "changes": "変更件数",
+            "results": "検索結果"
+        },
+        "filters": {
+            "begin": "開始日",
+            "end": "終了日",
+            "reset": "リセット",
+            "advanced": "詳細オプション",
+            "activeCount": "{{count}}件適用中",
+            "nickname": "ニックネーム",
+            "nicknamePlaceholder": "変更前・変更後のニックネーム・類似Unicode検索",
+            "server": "サーバー",
+            "serverPlaceholder": "例: 3223, 22xx",
+            "minPower": "戦力下限",
+            "minPowerPlaceholder": "例: 50 または 50M",
+            "maxPower": "戦力上限",
+            "maxPowerPlaceholder": "例: 100M または 500T"
+        },
+        "searchMode": {
+            "fullHistory": "全期間追跡",
+            "fullHistoryDescription": "ニックネームのみの検索のため、{{begin}} ～ {{end}} の全データから変更履歴を追跡します。"
+        },
+        "messages": {
+            "loading": "データを読み込んでいます。",
+            "loadError": "ニックネーム変更データを読み込めませんでした。",
+            "noFiles": "選択した期間のデータがありません。",
+            "noResults": "検索条件に一致する結果がありません。"
+        },
+        "result": {
+            "firstNickname": "最初",
+            "lastNickname": "最終",
+            "changeCount": "{{count}}回変更",
+            "history": "ニックネーム変更履歴",
+            "unknown": "不明"
+        }
     }
 }
