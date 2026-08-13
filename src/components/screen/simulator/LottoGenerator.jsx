@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { FaRotateRight, FaTrashCan, FaTicket } from "react-icons/fa6";
 import confetti from 'canvas-confetti';
+import { Helmet } from "react-helmet-async";
 
 export default function LottoGenerator() {
     const [isSpinning, setIsSpinning] = useState(false);
@@ -81,7 +82,12 @@ export default function LottoGenerator() {
         fireConfetti();
     }, [isSpinning]);
 
-    return (
+    return (<>
+        {/* 검색대상 제외 */}
+        <Helmet>
+            <meta name="robots" content="noindex, follow" />
+        </Helmet>
+
         <div className="container py-4 px-2" style={{ maxWidth: '850px', fontFamily: 'Pretendard, sans-serif' }}>
             {/* 제목 섹션: 골드 메탈릭 효과 적용 */}
             <div className="text-center mb-4">
@@ -265,5 +271,5 @@ export default function LottoGenerator() {
                 }
             `}</style>
         </div>
-    );
+    </>);
 }

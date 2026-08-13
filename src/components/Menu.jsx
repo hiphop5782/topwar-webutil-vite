@@ -223,12 +223,12 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/titan-refine`}>{t(`menu:simulator.sub.titan-refine`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/formation-perk`}>{t(`menu:simulator.sub.formation-perk`)}</LanguageRouterLink>
-                                <div className="dropdown-divider"></div>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/random`}>{t(`menu:simulator.sub.random`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/slot`}>{t(`menu:simulator.sub.slot`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/luckybox`}>{t(`menu:simulator.sub.luckybox`)}</LanguageRouterLink>
-                                <div className="dropdown-divider"></div>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/lotto`}>{t(`menu:simulator.sub.lotto`)}</LanguageRouterLink>
+                                {/* <div className="dropdown-divider"></div> */}
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/random`}>{t(`menu:simulator.sub.random`)}</LanguageRouterLink> */}
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/slot`}>{t(`menu:simulator.sub.slot`)}</LanguageRouterLink> */}
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/luckybox`}>{t(`menu:simulator.sub.luckybox`)}</LanguageRouterLink> */}
+                                {/* <div className="dropdown-divider"></div> */}
+                                {/* <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/lotto`}>{t(`menu:simulator.sub.lotto`)}</LanguageRouterLink> */}
                                 {/* <LanguageRouterLink className="nav-link" to="/simulator/hero">데미지계산기</LanguageRouterLink> */}
                             </div>
                         </li>

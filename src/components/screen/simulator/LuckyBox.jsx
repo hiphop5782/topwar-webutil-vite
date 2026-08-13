@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import BoxImage from "@src/assets/images/box.png";
 import BoxOpenImage from "@src/assets/images/box-open.png";
+import { Helmet } from "react-helmet-async";
 
 const REWARD_LIMIT = 28;
 const MIN_REWARD_COUNT = 1;
@@ -141,7 +142,12 @@ export default function LuckyBox() {
         return t("LuckyBox.result.ready");
     }, [isDrawing, isFinished, reward.length, t]);
 
-    return (
+    return (<>
+        {/* 검색대상 제외 */}
+        <Helmet>
+            <meta name="robots" content="noindex, follow" />
+        </Helmet>
+
         <main className="container py-4">
             <header className="row mb-4">
                 <div className="col-12">
@@ -489,5 +495,5 @@ export default function LuckyBox() {
                 </div>
             </section>
         </main>
-    );
+    </>);
 }

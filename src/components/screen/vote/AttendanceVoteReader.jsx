@@ -11,6 +11,7 @@ import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
 import "flag-icons/css/flag-icons.min.css";
 import "./AttendanceVoteReader.css";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 
 export default function AttendanceVoteReader() {
     const { t } = useTranslation("viewer"); 
@@ -161,6 +162,12 @@ export default function AttendanceVoteReader() {
     }, [vote]);
 
     return (<>
+        {/* 검색대상 제외 */}
+        <Helmet>
+            <meta name="robots" content="noindex, follow" />
+        </Helmet>
+
+
         <h1>{t(`AttendanceVoteReader.title`)}</h1>
 
         <hr />

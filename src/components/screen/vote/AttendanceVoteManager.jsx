@@ -3,6 +3,7 @@ import { useFirebase } from "@src/hooks/useFirebase";
 import { useParams } from "react-router-dom";
 import { FaPlay, FaStop, FaUpload, FaXmark } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 export default function AttendanceVoteManager() {
     const {voteId} = useParams();
@@ -67,6 +68,11 @@ export default function AttendanceVoteManager() {
     }, [uuid, password, deletePlayerFromVote]); // password 의존성 추가
 
     return (<>
+        {/* 검색대상 제외 */}
+        <Helmet>
+            <meta name="robots" content="noindex, follow" />
+        </Helmet>
+
         <h1>투표 현황 및 관리</h1>
         <hr/>
 

@@ -5,6 +5,7 @@ import { useFirebase } from "@src/hooks/useFirebase";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import VoteTemplates from "@src/assets/json/vote/vote-template.json";
+import { Helmet } from "react-helmet-async";
 
 export default function AttendanceVoteCreator() {
     const { saveVote } = useFirebase();
@@ -123,6 +124,11 @@ export default function AttendanceVoteCreator() {
 
     //render
     return (<>
+        {/* 검색대상 제외 */}
+        <Helmet>
+            <meta name="robots" content="noindex, follow" />
+        </Helmet>
+
         <h1>참여 투표 생성</h1>
         <hr />
 

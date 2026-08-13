@@ -37,9 +37,13 @@ const EXCLUDED_PATH_PATTERNS = [
     /^\/404\/?$/,
     /^\/(?:ko|en|ja)\/404\/?$/,
 
-    /^\/(?:ko|en|ja)\/vote\/manage\/?$/,
-    /^\/(?:ko|en|ja)\/vote\/cast\/?$/,
+    // 투표
+    /^\/(?:ko|en|ja)\/vote\/(?:create|manage|cast)\/?$/,
 
+    // 저가치 시뮬레이터
+    /^\/(?:ko|en|ja)\/simulator\/(?:slot|lotto|random|luckybox)\/?$/,
+
+    // 계정
     /^\/(?:ko|en|ja)\/account(?:\/|$)/,
 ];
 
