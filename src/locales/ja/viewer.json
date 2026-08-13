@@ -2,83 +2,83 @@
     "home": {
         "hero": {
             "eyebrow": "TOPWAR DATA OVERVIEW",
-            "title": "Topwar Data Overview",
-            "description": "An overview of Topwar trends based on collected server and player data.",
-            "dataAsOf": "Data as of",
-            "generatedAt": "Statistics generated"
+            "title": "Topwar データ概要",
+            "description": "収集したサーバーおよびプレイヤーデータをもとに、Topwarの全体的な傾向を表示しています。",
+            "dataAsOf": "データ基準時刻",
+            "generatedAt": "統計生成"
         },
         "kpi": {
             "server": {
-                "title": "Tracked Servers",
-                "description": "Servers observed in collected data"
+                "title": "収集サーバー",
+                "description": "データ上で確認されたサーバー"
             },
             "player": {
-                "title": "Tracked Players",
-                "description": "Based on ranking data"
+                "title": "追跡プレイヤー",
+                "description": "ランキングデータ基準"
             },
             "active24h": {
-                "title": "Active in Last 24h",
-                "description": "Based on last login records"
+                "title": "過去24時間の活動",
+                "description": "最終ログイン記録基準"
             },
             "online": {
-                "title": "Online at Scan",
-                "description": "Observed during data collection"
+                "title": "収集時オンライン",
+                "description": "データ収集時に確認された状態"
             }
         },
         "activity": {
-            "title": "Player Activity",
-            "description": "Based on last login records of tracked players",
-            "within1d": "Within 24h",
-            "within3d": "Within 3 days",
-            "within7d": "Within 7 days",
-            "within14d": "Within 14 days",
-            "within30d": "Within 30 days"
+            "title": "プレイヤー活動状況",
+            "description": "追跡プレイヤーの最終ログイン記録基準",
+            "within1d": "24時間以内",
+            "within3d": "3日以内",
+            "within7d": "7日以内",
+            "within14d": "14日以内",
+            "within30d": "30日以内"
         },
         "serverActivity": {
-            "title": "Server Activity Distribution",
-            "description": "Based on analysis of {{count}} servers",
-            "veryActive": "Very Active",
-            "active": "Active",
-            "normal": "Normal",
-            "quiet": "Quiet",
-            "dead": "Inactive"
+            "title": "サーバー活動分布",
+            "description": "{{count}}サーバーの分析データ基準",
+            "veryActive": "非常に活発",
+            "active": "活発",
+            "normal": "普通",
+            "quiet": "静か",
+            "dead": "非活発"
         },
         "power": {
-            "title": "Power Distribution",
-            "description": "Based on the power of tracked players",
-            "average": "Average",
-            "median": "Median",
-            "top10": "Top 10% Threshold",
-            "top5": "Top 5% Threshold",
-            "top1": "Top 1% Threshold",
-            "max": "Highest Observed"
+            "title": "戦力分布",
+            "description": "追跡プレイヤーの戦力基準",
+            "average": "平均",
+            "median": "中央値",
+            "top10": "上位10%基準",
+            "top5": "上位5%基準",
+            "top1": "上位1%基準",
+            "max": "最高観測値"
         },
         "playerComposition": {
-            "title": "Player Data Breakdown",
+            "title": "プレイヤーデータ構成",
             "level100": "Lv.100",
-            "allianceJoined": "In Alliance",
-            "uniqueUid": "Unique UIDs",
-            "duplicate": "Duplicate Observations"
+            "allianceJoined": "連盟加入",
+            "uniqueUid": "ユニークUID",
+            "duplicate": "重複観測"
         },
         "changes": {
-            "title": "Recently Detected Changes",
-            "movement": "Server Transfers",
-            "nickname": "Name Changes",
-            "detected": "{{count}} detected"
+            "title": "最近検出された変更",
+            "movement": "サーバー移動",
+            "nickname": "名前変更",
+            "detected": "{{count}}件検出"
         },
         "serverTrend": {
-            "title": "Server Count Trend",
-            "description": "Based on archived server data",
-            "previousDay": "vs. Previous Day",
-            "sevenDays": "7 Days",
-            "thirtyDays": "30 Days"
+            "title": "サーバー数の変化",
+            "description": "保存されたサーバーデータ基準",
+            "previousDay": "前日比",
+            "sevenDays": "7日",
+            "thirtyDays": "30日"
         },
         "unit": {
             "server": "",
-            "player": "",
-            "case": ""
+            "player": "人",
+            "case": "件"
         },
-        "notice": "These statistics are based on independently collected data and may differ from the overall state of the game."
+        "notice": "個人が収集したデータをもとに提供している統計のため、実際のゲーム全体の状況とは異なる場合があります。"
     },
     "AttendanceVoteReader": {
         "title": "投票する",
