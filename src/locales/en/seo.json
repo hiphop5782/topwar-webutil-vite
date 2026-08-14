@@ -1,0 +1,198 @@
+{
+    "home": {
+        "title": "Top War Data, Guides & Calculators"
+    },
+
+    "post": {
+        "list": {
+            "title": "Top War Guides & Analysis"
+        },
+        "detail": {
+            "title": "{{postTitle}}"
+        }
+    },
+
+    "information": {
+        "base": {
+            "title": "Top War Base Effects & Acquisition"
+        },
+        "job": {
+            "title": "Top War Profession Upgrade Tree"
+        },
+        "kartzStatistics": {
+            "title": "Top War Kartz Trial Statistics"
+        },
+
+        "el": {
+            "home": {
+                "title": "Top War Eternal Land Scores & Data"
+            },
+            "howto": {
+                "title": "Top War Eternal Land Guide"
+            },
+            "tip": {
+                "title": "Top War Eternal Land Tips & Strategy"
+            },
+            "reward": {
+                "title": "Top War Eternal Land Rewards"
+            },
+            "darkforce": {
+                "title": "Top War Eternal Land Dark Force Guide"
+            },
+            "score": {
+                "title": "Top War Eternal Land Score Calculator"
+            }
+        },
+
+        "data": {
+            "player": {
+                "title": "Top War Player Data Search"
+            },
+            "server": {
+                "title": "Top War Server Data Search"
+            },
+            "alliance": {
+                "title": "Top War Alliance Data Search"
+            },
+            "move": {
+                "title": "Top War Server Transfer History"
+            },
+            "nickname": {
+                "title": "Top War Nickname Change History"
+            },
+            "realpower": {
+                "title": "Top War Real Power Viewer"
+            }
+        },
+
+        "kartz": {
+            "home": {
+                "title": "Top War Kartz Trial Monster Data"
+            },
+            "rank": {
+                "title": "Top War Kartz Trial Rankings"
+            },
+            "user": {
+                "title": "Top War Kartz Trial Player History"
+            },
+            "server": {
+                "title": "Top War Kartz Trial Server History"
+            }
+        }
+    },
+
+    "calculator": {
+        "vital": {
+            "title": "Top War Vitality Recovery Calculator"
+        },
+        "skill": {
+            "title": "Top War Exclusive Skill Shard Calculator"
+        },
+        "valuePack": {
+            "title": "Top War Pack Value Calculator"
+        },
+        "cost": {
+            "title": "Top War Item Level Cost Calculator"
+        }
+    },
+
+    "simulator": {
+        "random": {
+            "title": "Random Draw Simulator"
+        },
+        "formationPerk": {
+            "title": "Top War Formation Perk Simulator"
+        },
+        "titanResearch": {
+            "title": "Top War Titan Gear Crafting Simulator"
+        },
+        "titanRefine": {
+            "title": "Top War Titan Gear Refining Simulator"
+        },
+        "slot": {
+            "title": "Top War Slot Machine"
+        },
+        "luckyBox": {
+            "title": "Top War Lucky Box Simulator"
+        },
+        "lotto": {
+            "title": "Lotto Number Generator"
+        }
+    },
+
+    "developer": {
+        "title": "About the Developer & Site"
+    },
+
+    "emoji": {
+        "create": {
+            "title": "AI Background Remover & Square Image Editor"
+        },
+        "list": {
+            "title": "Top War Emoji Collection"
+        }
+    },
+
+    "account": {
+        "viewer": {
+            "title": "Top War Account Viewer"
+        },
+        "profile": {
+            "title": "Top War Account Profile"
+        },
+        "creator": {
+            "title": "Top War Account Creator"
+        }
+    },
+
+    "vote": {
+        "create": {
+            "title": "Create Vote"
+        },
+        "cast": {
+            "title": "Cast Vote"
+        },
+        "manage": {
+            "title": "Manage Vote"
+        }
+    },
+
+    "history": {
+        "ssc2026": {
+            "home": {
+                "title": "Top War SSC 2026 Rankings"
+            },
+            "users": {
+                "title": "Top War SSC 2026 Player Rankings"
+            }
+        },
+        "liondance": {
+            "title": "Top War Lion Dance Rankings"
+        }
+    },
+
+    "event": {
+        "cityReward": {
+            "title": "Top War City Reward Event"
+        }
+    },
+
+    "vip": {
+        "thiefFinder": {
+            "title": "Top War S{{serverId}} Reward Finder"
+        }
+    },
+
+    "privacy": {
+        "title": "Privacy Policy"
+    },
+    "contact": {
+        "title": "Contact"
+    },
+    "disclaimer": {
+        "title": "Disclaimer"
+    },
+    "notFound": {
+        "title": "Page Not Found"
+    }
+}

@@ -16,6 +16,8 @@ import partsList from "@src/assets/json/titan/titan-parts-types.json";
 import gearNames from "@src/assets/json/titan/titan-gear-names.json";
 import gearOptionList from "@src/assets/json/titan/titan-gear-options.json";
 import gearOptionRange from "@src/assets/json/titan/titan-gear-range.json";
+import { Helmet } from "react-helmet-async";
+import SEO from "../../template/SEO";
 
 const MAX_OPTION_COUNT = 3;
 const HISTORY_LIMIT = 50;
@@ -946,7 +948,10 @@ export default function TitanRefineSimulator() {
             draft.title
         );
 
-        return (
+        return (<>
+            <SEO title={t("TitanRefineSimulator.title")}
+                description={t("TitanRefineSimulator.description")}/>
+
             <div className="refine-option-editor">
                 <select
                     className="form-select form-select-sm"
@@ -1033,7 +1038,7 @@ export default function TitanRefineSimulator() {
                     )}
                 </small>
             </div>
-        );
+        </>);
     };
 
     return (

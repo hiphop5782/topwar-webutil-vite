@@ -1,0 +1,198 @@
+{
+    "home": {
+        "title": "Top War 데이터·공략·계산기"
+    },
+
+    "post": {
+        "list": {
+            "title": "Top War 공략 및 분석"
+        },
+        "detail": {
+            "title": "{{postTitle}}"
+        }
+    },
+
+    "information": {
+        "base": {
+            "title": "Top War 기지 효과 및 획득 정보"
+        },
+        "job": {
+            "title": "Top War 전문 직업 강화 트리"
+        },
+        "kartzStatistics": {
+            "title": "Top War 카르츠의 시험 통계"
+        },
+
+        "el": {
+            "home": {
+                "title": "Top War 영원의 땅 점수 및 정보"
+            },
+            "howto": {
+                "title": "Top War 영원의 땅 진행 방법"
+            },
+            "tip": {
+                "title": "Top War 영원의 땅 공략 및 팁"
+            },
+            "reward": {
+                "title": "Top War 영원의 땅 보상 정보"
+            },
+            "darkforce": {
+                "title": "Top War 영원의 땅 다크포스 정보"
+            },
+            "score": {
+                "title": "Top War 영원의 땅 점수 계산기"
+            }
+        },
+
+        "data": {
+            "player": {
+                "title": "Top War 플레이어 데이터 검색"
+            },
+            "server": {
+                "title": "Top War 서버 데이터 검색"
+            },
+            "alliance": {
+                "title": "Top War 연맹 데이터 검색"
+            },
+            "move": {
+                "title": "Top War 서버 이동 기록"
+            },
+            "nickname": {
+                "title": "Top War 닉네임 변경 기록"
+            },
+            "realpower": {
+                "title": "Top War 실제 전투력 조회"
+            }
+        },
+
+        "kartz": {
+            "home": {
+                "title": "Top War 카르츠의 시험 몬스터 정보"
+            },
+            "rank": {
+                "title": "Top War 카르츠의 시험 랭킹"
+            },
+            "user": {
+                "title": "Top War 카르츠의 시험 플레이어 기록"
+            },
+            "server": {
+                "title": "Top War 카르츠의 시험 서버 기록"
+            }
+        }
+    },
+
+    "calculator": {
+        "vital": {
+            "title": "Top War 체력 회복 계산기"
+        },
+        "skill": {
+            "title": "Top War 전속 스킬 조각 계산기"
+        },
+        "valuePack": {
+            "title": "Top War 패키지 가치 계산기"
+        },
+        "cost": {
+            "title": "Top War 아이템 레벨별 소모량 계산기"
+        }
+    },
+
+    "simulator": {
+        "random": {
+            "title": "랜덤 추첨기"
+        },
+        "formationPerk": {
+            "title": "Top War 군진 특성 시뮬레이터"
+        },
+        "titanResearch": {
+            "title": "Top War 타이탄 장비 제작 시뮬레이터"
+        },
+        "titanRefine": {
+            "title": "Top War 타이탄 장비 정제 시뮬레이터"
+        },
+        "slot": {
+            "title": "Top War 슬롯머신"
+        },
+        "luckyBox": {
+            "title": "Top War 행운상자 시뮬레이터"
+        },
+        "lotto": {
+            "title": "로또 번호 생성기"
+        }
+    },
+
+    "developer": {
+        "title": "개발자 및 사이트 소개"
+    },
+
+    "emoji": {
+        "create": {
+            "title": "AI 배경 제거·정사각형 이미지 편집"
+        },
+        "list": {
+            "title": "Top War 이모티콘 모음"
+        }
+    },
+
+    "account": {
+        "viewer": {
+            "title": "Top War 계정 정보 조회"
+        },
+        "profile": {
+            "title": "Top War 계정 프로필"
+        },
+        "creator": {
+            "title": "Top War 계정 정보 생성"
+        }
+    },
+
+    "vote": {
+        "create": {
+            "title": "투표 생성"
+        },
+        "cast": {
+            "title": "투표 참여"
+        },
+        "manage": {
+            "title": "투표 관리"
+        }
+    },
+
+    "history": {
+        "ssc2026": {
+            "home": {
+                "title": "Top War SSC 2026 랭킹"
+            },
+            "users": {
+                "title": "Top War SSC 2026 플레이어 랭킹"
+            }
+        },
+        "liondance": {
+            "title": "Top War Lion Dance 랭킹"
+        }
+    },
+
+    "event": {
+        "cityReward": {
+            "title": "Top War 도시 보상 이벤트"
+        }
+    },
+
+    "vip": {
+        "thiefFinder": {
+            "title": "Top War S{{serverId}} 보상 찾기"
+        }
+    },
+
+    "privacy": {
+        "title": "개인정보처리방침"
+    },
+    "contact": {
+        "title": "문의하기"
+    },
+    "disclaimer": {
+        "title": "면책 고지"
+    },
+    "notFound": {
+        "title": "페이지를 찾을 수 없습니다"
+    }
+}

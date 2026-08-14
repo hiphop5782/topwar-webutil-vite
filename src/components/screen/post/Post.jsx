@@ -16,6 +16,7 @@ import rehypeKatex from "rehype-katex";
 
 import "katex/dist/katex.min.css";
 import "./MarkdownRenderer.css";
+import SEO from "@src/components/template/SEO";
 
 const ALL_MODULES = import.meta.glob("/src/assets/md/*/readme.md", { query: "?raw" });
 // const localeMap = { ko, en: enUS, ja };
@@ -82,7 +83,9 @@ export default function Post() {
         loadPageData();
     }, [folder]);
 
-    return (
+    return (<>
+        <SEO title={t("seo:post.detail.title")}/>
+
         <div className="container-fluid p-0">
             {/* 1. Sticky 헤더 섹션: 우측 끝 버튼 배치 */}
             <div className="sticky-top bg-white border-bottom shadow-sm" style={{ top: '56px', zIndex: 1020 }}>
@@ -159,5 +162,5 @@ export default function Post() {
                 </div>
             </div>
         </div>
-    );
+    </>);
 }

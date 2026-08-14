@@ -1,0 +1,198 @@
+{
+    "home": {
+        "title": "Top War データ・攻略・計算ツール"
+    },
+
+    "post": {
+        "list": {
+            "title": "Top War 攻略・分析"
+        },
+        "detail": {
+            "title": "{{postTitle}}"
+        }
+    },
+
+    "information": {
+        "base": {
+            "title": "Top War 基地効果・入手情報"
+        },
+        "job": {
+            "title": "Top War 専門職強化ツリー"
+        },
+        "kartzStatistics": {
+            "title": "Top War Kartz 統計"
+        },
+
+        "el": {
+            "home": {
+                "title": "Top War Eternal Land スコア・データ"
+            },
+            "howto": {
+                "title": "Top War Eternal Land 攻略ガイド"
+            },
+            "tip": {
+                "title": "Top War Eternal Land 攻略・ヒント"
+            },
+            "reward": {
+                "title": "Top War Eternal Land 報酬情報"
+            },
+            "darkforce": {
+                "title": "Top War Eternal Land Dark Force 情報"
+            },
+            "score": {
+                "title": "Top War Eternal Land スコア計算ツール"
+            }
+        },
+
+        "data": {
+            "player": {
+                "title": "Top War プレイヤーデータ検索"
+            },
+            "server": {
+                "title": "Top War サーバーデータ検索"
+            },
+            "alliance": {
+                "title": "Top War 連盟データ検索"
+            },
+            "move": {
+                "title": "Top War サーバー移動履歴"
+            },
+            "nickname": {
+                "title": "Top War ニックネーム変更履歴"
+            },
+            "realpower": {
+                "title": "Top War 実際の戦力データ"
+            }
+        },
+
+        "kartz": {
+            "home": {
+                "title": "Top War Kartz モンスターデータ"
+            },
+            "rank": {
+                "title": "Top War Kartz ランキング"
+            },
+            "user": {
+                "title": "Top War Kartz プレイヤー履歴"
+            },
+            "server": {
+                "title": "Top War Kartz サーバー履歴"
+            }
+        }
+    },
+
+    "calculator": {
+        "vital": {
+            "title": "Top War 体力回復計算ツール"
+        },
+        "skill": {
+            "title": "Top War 専用スキル欠片計算ツール"
+        },
+        "valuePack": {
+            "title": "Top War パック価値計算ツール"
+        },
+        "cost": {
+            "title": "Top War アイテムレベル別消費量計算"
+        }
+    },
+
+    "simulator": {
+        "random": {
+            "title": "ランダム抽選ツール"
+        },
+        "formationPerk": {
+            "title": "Top War 陣形特性シミュレーター"
+        },
+        "titanResearch": {
+            "title": "Top War タイタン装備製作シミュレーター"
+        },
+        "titanRefine": {
+            "title": "Top War タイタン装備精錬シミュレーター"
+        },
+        "slot": {
+            "title": "Top War スロットマシン"
+        },
+        "luckyBox": {
+            "title": "Top War ラッキーボックスシミュレーター"
+        },
+        "lotto": {
+            "title": "ロト番号生成ツール"
+        }
+    },
+
+    "developer": {
+        "title": "開発者・サイト紹介"
+    },
+
+    "emoji": {
+        "create": {
+            "title": "AI背景削除・正方形画像編集"
+        },
+        "list": {
+            "title": "Top War 絵文字一覧"
+        }
+    },
+
+    "account": {
+        "viewer": {
+            "title": "Top War アカウント情報表示"
+        },
+        "profile": {
+            "title": "Top War アカウントプロフィール"
+        },
+        "creator": {
+            "title": "Top War アカウント情報作成"
+        }
+    },
+
+    "vote": {
+        "create": {
+            "title": "投票作成"
+        },
+        "cast": {
+            "title": "投票参加"
+        },
+        "manage": {
+            "title": "投票管理"
+        }
+    },
+
+    "history": {
+        "ssc2026": {
+            "home": {
+                "title": "Top War SSC 2026 ランキング"
+            },
+            "users": {
+                "title": "Top War SSC 2026 プレイヤーランキング"
+            }
+        },
+        "liondance": {
+            "title": "Top War Lion Dance ランキング"
+        }
+    },
+
+    "event": {
+        "cityReward": {
+            "title": "Top War 都市報酬イベント"
+        }
+    },
+
+    "vip": {
+        "thiefFinder": {
+            "title": "Top War S{{serverId}} 報酬検索"
+        }
+    },
+
+    "privacy": {
+        "title": "プライバシーポリシー"
+    },
+    "contact": {
+        "title": "お問い合わせ"
+    },
+    "disclaimer": {
+        "title": "免責事項"
+    },
+    "notFound": {
+        "title": "ページが見つかりません"
+    }
+}

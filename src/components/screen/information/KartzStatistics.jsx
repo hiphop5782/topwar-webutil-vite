@@ -3,6 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 import { Line } from 'react-chartjs-2';
 import { absoluteAngleDegrees } from "@nivo/core";
+import SEO from "../../template/SEO";
+import { t } from "i18next";
 // Chart.js 구성 요소 등록
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -314,6 +316,8 @@ export default function KartzStatistics() {
     }, []);
 
     return (<>
+        <SEO title={t("seo:information.kartzStatistics.title")}/>
+
         <h1>카르츠 서버 랭커 변화</h1>
         <hr />
         <div className="row">

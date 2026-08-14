@@ -4,6 +4,7 @@ import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
 import statistics from "@src/assets/json/generated/homeStatistics.json";
 
 import "./Home.css";
+import SEO from "../template/SEO";
 
 
 function Home() {
@@ -143,8 +144,11 @@ function Home() {
         },
     ];
 
+    const { t } = useTranslation();
 
-    return (
+    return (<>
+        <SEO title={t("seo:home.title")}/>
+
         <main className="home-dashboard">
 
             {/* ========================================
@@ -736,7 +740,7 @@ function Home() {
             </footer>
 
         </main>
-    );
+    </>);
 }
 
 

@@ -11,7 +11,7 @@ const localeMap = { ko, en: enUS, ja };
 const modules = import.meta.glob("/src/assets/md/*/readme.md", { eager: true, query: "?raw" });
 
 export default function PostList() {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     // i18n.language가 'ko-KR'처럼 올 수 있으므로 앞의 두 글자만 자르는 것이 안전합니다.
     const currentLang = i18n.language.split('-')[0];
@@ -81,7 +81,9 @@ export default function PostList() {
             });
     }, [modules]);
 
-    return (
+    return (<>
+        <SEO title={t("seo:post.list.title")}/>
+
         <div className="container-fluid mb-5">
             <h1>포스트 ({posts.length})</h1>
 
@@ -131,5 +133,6 @@ export default function PostList() {
                     </li>
                 ))}
             </ul>
-        </div>)
+        </div>
+    </>)
 }

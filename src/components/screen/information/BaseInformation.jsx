@@ -10,6 +10,8 @@ useState,
 } from "react";
 import { useSearchParams } from "react-router-dom";
 import SafeImage from "@src/components/template/SafeImage";
+import { Helmet } from "react-helmet-async";
+import SEO from "../../template/SEO";
 
 function BaseInformation() {
 const [params, setParams] = useSearchParams();
@@ -142,7 +144,9 @@ const renderOption = useCallback(
     [includesSelectedType, selectedTypes.length]
 );
 
-return (
+return (<>
+    <SEO title={t("seo:information.base.title")}/>
+    
     <div className="base-information">
         {/* 페이지 헤더 */}
         <section className="base-page-header mb-4">
@@ -395,7 +399,7 @@ return (
             </div>
         )}
     </div>
-);
+</>);
 
 }
 

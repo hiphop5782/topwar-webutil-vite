@@ -1,6 +1,8 @@
 import JobDataJson from "@src/assets/json/job.json";
 import "./JobInformation.css"
 import { useCallback, useEffect, useState } from "react";
+import SEO from "../../template/SEO";
+import { t } from "i18next";
 
 function JobInformation() {
     const [job, setJob] = useState("CL");
@@ -173,6 +175,8 @@ function JobInformation() {
 
     return (
         <>
+            <SEO title={t("seo:information.job.title")}/>
+
             <div className="row">
                 <div className="col-12">
                     <h1>전문 직업 강화</h1>

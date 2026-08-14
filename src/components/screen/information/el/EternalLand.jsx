@@ -1,19 +1,14 @@
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
+import SEO from "../../../template/SEO";
 
 export default function EternalLand() {
     const { t } = useTranslation("viewer");
 
     return (
         <>
-            <header className="mb-4">
-                <h1>{t("eternalLand.title")}</h1>
-
-                <p className="text-muted mb-0">
-                    {t("eternalLand.description")}
-                </p>
-            </header>
+            <SEO title={t("seo:information.el.home.title")}/>
 
             <nav
                 className="row mb-4"

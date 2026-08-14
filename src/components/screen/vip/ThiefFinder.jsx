@@ -27,27 +27,35 @@ const POLLING_INTERVAL = 5000;
 
 
 /*
- * servermap.png의 실제 좌표계에 맞춰 조정할 값.
+ * servermap.png의 실제 좌표계
  */
 const MAP_MAX_X = 1200;
 const MAP_MAX_Y = 1200;
 
 
 /*
- * 게임 좌표의 Y축 증가 방향과 이미지 Y축 증가 방향이 반대면 true.
+ * 게임 좌표 Y축과 이미지 Y축 방향이 반대면 true
  */
 const INVERT_Y = true;
 
 
 /*
- * 클라이언트 코드에 포함되는 값이므로 강한 보안 수단은 아닙니다.
- * 서버별 접근 코드만 각각 변경해서 사용하세요.
+ * 서버별 일반 접근 코드
+ *
+ * 클라이언트 코드에 포함되므로
+ * 강한 보안 수단으로 사용할 수는 없습니다.
  */
 const SERVER_ACCESS_CODES = Object.freeze({
     3223: "3223forever",
     4369: "4369forever"
 });
 
+
+/*
+ * 모든 서버를 조회할 수 있는 MASTER 코드
+ */
+const MASTER_ACCESS_CODE =
+    "kid3223";
 
 
 export default function ThiefFinder() {
@@ -75,11 +83,40 @@ export default function ThiefFinder() {
     const [selectedKey, setSelectedKey] =
         useState(null);
 
+
+    /*
+     * 로그인 입력값
+     */
     const [accessCode, setAccessCode] =
         useState("");
 
-    const [authorizedServerId, setAuthorizedServerId] =
-        useState(null);
+
+    /*
+     * 일반 서버 코드로 인증한 서버
+     */
+    const [
+        authorizedServerId,
+        setAuthorizedServerId
+    ] = useState(null);
+
+
+    /*
+     * MASTER 인증 여부
+     */
+    const [
+        masterAuthorized,
+        setMasterAuthorized
+    ] = useState(false);
+
+
+    /*
+     * MASTER 모드에서 현재 선택한 서버
+     */
+    const [
+        selectedServerId,
+        setSelectedServerId
+    ] = useState(null);
+
 
     const [accessError, setAccessError] =
         useState(false);
@@ -93,6 +130,12 @@ export default function ThiefFinder() {
         Number(serverId);
 
 
+    /*
+     * URL로 직접 접근 가능한 서버인지 확인
+     *
+     * 일반 접근 페이지 자체는 기존처럼
+     * SERVER_ACCESS_CODES에 등록된 서버만 허용
+     */
     const serverAllowed =
         Number.isInteger(targetServer) &&
         Object.prototype.hasOwnProperty.call(
@@ -101,22 +144,47 @@ export default function ThiefFinder() {
         );
 
 
+    /*
+     * 일반 인증 또는 MASTER 인증
+     */
     const accessGranted =
         serverAllowed &&
-        authorizedServerId === targetServer;
+        (
+            masterAuthorized ||
+            authorizedServerId === targetServer
+        );
 
 
-
+    /*
+     * URL 서버가 바뀌면 인증 상태 초기화
+     */
     useEffect(() => {
 
         setAccessCode("");
         setAccessError(false);
+
         setSelectedKey(null);
 
-    }, [serverId]);
+        setAuthorizedServerId(null);
+
+        setMasterAuthorized(false);
+
+        setSelectedServerId(null);
+
+        setData(null);
+
+        setLoading(true);
+
+        setError(null);
+
+    }, [
+        serverId
+    ]);
 
 
-
+    /*
+     * 데이터 조회
+     */
     useEffect(() => {
 
         if (
@@ -141,8 +209,8 @@ export default function ThiefFinder() {
         async function load() {
 
             /*
-             * 5초가 지났더라도 이전 요청이 아직 끝나지 않았다면
-             * 중복 요청은 보내지 않는다.
+             * 이전 요청이 아직 진행 중이면
+             * 다음 폴링 요청을 중복 실행하지 않는다.
              */
             if (requestInProgress) {
                 return;
@@ -156,8 +224,7 @@ export default function ThiefFinder() {
             try {
 
                 /*
-                 * 최초 조회에서만 로딩 화면을 표시한다.
-                 * 5초 폴링 갱신 때는 기존 지도/목록을 그대로 유지한다.
+                 * 최초 조회에서만 로딩 표시
                  */
                 if (firstRequest) {
 
@@ -205,14 +272,14 @@ export default function ThiefFinder() {
 
 
                 setData(json);
+
                 setError(null);
 
             }
             catch (error) {
 
                 if (
-                    error.name ===
-                    "AbortError"
+                    error.name === "AbortError"
                 ) {
                     return;
                 }
@@ -225,8 +292,7 @@ export default function ThiefFinder() {
 
 
                 /*
-                 * 최초 조회 실패만 오류 화면으로 처리한다.
-                 * 이후 폴링 중 일시적인 실패는 기존 데이터를 유지한다.
+                 * 최초 요청 실패만 오류 화면 표시
                  */
                 if (firstRequest) {
 
@@ -240,7 +306,9 @@ export default function ThiefFinder() {
                 if (firstRequest) {
 
                     setLoading(false);
-                    firstRequest = false;
+
+                    firstRequest =
+                        false;
 
                 }
 
@@ -254,13 +322,13 @@ export default function ThiefFinder() {
 
 
         /*
-         * 입장 직후 즉시 1회 조회.
+         * 입장 직후 즉시 조회
          */
         load();
 
 
         /*
-         * 이후 5초마다 폴링.
+         * 이후 5초 폴링
          */
         const intervalId =
             window.setInterval(
@@ -286,8 +354,13 @@ export default function ThiefFinder() {
     ]);
 
 
-
-    const locations =
+    /*
+     * 전체 위치 데이터 정리
+     *
+     * MASTER 모드에서는 여기에서
+     * 서버 목록을 추출한다.
+     */
+    const allLocations =
         useMemo(() => {
 
             if (
@@ -299,38 +372,225 @@ export default function ThiefFinder() {
             }
 
 
+            return data.locations
+                .filter(location => {
+
+                    const locationServerId =
+                        Number(
+                            location.serverId
+                        );
+
+                    const x =
+                        Number(
+                            location.x
+                        );
+
+                    const y =
+                        Number(
+                            location.y
+                        );
+
+
+                    return (
+                        Number.isInteger(
+                            locationServerId
+                        ) &&
+                        Number.isFinite(x) &&
+                        Number.isFinite(y)
+                    );
+
+                });
+
+        }, [
+            data
+        ]);
+
+
+    /*
+     * 도둑이 존재하는 서버 목록
+     *
+     * [
+     *   {
+     *      serverId: 3223,
+     *      count: 3
+     *   },
+     *   ...
+     * ]
+     */
+    const availableServers =
+        useMemo(() => {
+
+            const serverMap =
+                new Map();
+
+
+            allLocations.forEach(
+                location => {
+
+                    const locationServerId =
+                        Number(
+                            location.serverId
+                        );
+
+
+                    serverMap.set(
+                        locationServerId,
+                        (
+                            serverMap.get(
+                                locationServerId
+                            ) ?? 0
+                        ) + 1
+                    );
+
+                }
+            );
+
+
+            return Array
+                .from(
+                    serverMap.entries()
+                )
+                .map(
+                    ([
+                        serverId,
+                        count
+                    ]) => ({
+                        serverId,
+                        count
+                    })
+                )
+                .sort(
+                    (a, b) =>
+                        a.serverId -
+                        b.serverId
+                );
+
+        }, [
+            allLocations
+        ]);
+
+
+    /*
+     * MASTER 입장 후 최초 서버 결정
+     *
+     * 현재 URL 서버에 도둑이 있으면
+     * 해당 서버를 우선 선택.
+     *
+     * 없으면 첫 번째 도둑 서버를 선택.
+     */
+    useEffect(() => {
+
+        if (!masterAuthorized) {
+            return;
+        }
+
+
+        if (!availableServers.length) {
+
+            setSelectedServerId(
+                targetServer
+            );
+
+            return;
+        }
+
+
+        const availableServerIds =
+            availableServers.map(
+                server =>
+                    server.serverId
+            );
+
+
+        setSelectedServerId(
+            currentServerId => {
+
+                /*
+                 * 기존 선택 서버가 아직 존재하면 유지
+                 */
+                if (
+                    availableServerIds.includes(
+                        currentServerId
+                    )
+                ) {
+                    return currentServerId;
+                }
+
+
+                /*
+                 * URL 서버에 도둑이 있으면 우선 선택
+                 */
+                if (
+                    availableServerIds.includes(
+                        targetServer
+                    )
+                ) {
+                    return targetServer;
+                }
+
+
+                /*
+                 * 아니면 첫 번째 서버
+                 */
+                return (
+                    availableServerIds[0]
+                );
+
+            }
+        );
+
+    }, [
+        masterAuthorized,
+        availableServers,
+        targetServer
+    ]);
+
+
+    /*
+     * 실제 화면에 표시할 서버
+     */
+    const activeServerId =
+        masterAuthorized
+            ? (
+                selectedServerId ??
+                targetServer
+            )
+            : targetServer;
+
+
+    /*
+     * 현재 선택 서버의 위치만 필터링
+     */
+    const locations =
+        useMemo(() => {
+
             if (
                 !Number.isFinite(
-                    targetServer
+                    activeServerId
                 )
             ) {
                 return [];
             }
 
 
-            return data.locations
-                .filter(location =>
-                    Number(
-                        location.serverId
-                    ) ===
-                    targetServer
-                )
-                .filter(location =>
-                    Number.isFinite(
-                        Number(location.x)
-                    ) &&
-                    Number.isFinite(
-                        Number(location.y)
-                    )
+            return allLocations
+                .filter(
+                    location =>
+                        Number(
+                            location.serverId
+                        ) ===
+                        activeServerId
                 );
 
         }, [
-            data,
-            targetServer
+            allLocations,
+            activeServerId
         ]);
 
 
-
+    /*
+     * 언어별 날짜 형식
+     */
     const locale =
         useMemo(() => {
 
@@ -350,12 +610,12 @@ export default function ThiefFinder() {
 
                 default:
                     return "en-US";
+
             }
 
         }, [
             i18n.resolvedLanguage
         ]);
-
 
 
     const formatDateTime =
@@ -393,7 +653,9 @@ export default function ThiefFinder() {
         };
 
 
-
+    /*
+     * 비밀번호 확인
+     */
     const handleAccessSubmit =
         event => {
 
@@ -405,31 +667,116 @@ export default function ThiefFinder() {
             }
 
 
+            /*
+             * MASTER 코드
+             */
+            if (
+                accessCode ===
+                MASTER_ACCESS_CODE
+            ) {
+
+                setMasterAuthorized(
+                    true
+                );
+
+                setAuthorizedServerId(
+                    null
+                );
+
+                setSelectedServerId(
+                    targetServer
+                );
+
+                setAccessCode("");
+
+                setAccessError(
+                    false
+                );
+
+                return;
+            }
+
+
+            /*
+             * 일반 서버 코드
+             */
             const expectedCode =
-                SERVER_ACCESS_CODES[targetServer];
+                SERVER_ACCESS_CODES[
+                    targetServer
+                ];
 
 
             if (
-                accessCode === expectedCode
+                accessCode ===
+                expectedCode
             ) {
 
                 setAuthorizedServerId(
                     targetServer
                 );
 
+                setMasterAuthorized(
+                    false
+                );
+
+                setSelectedServerId(
+                    null
+                );
+
                 setAccessCode("");
-                setAccessError(false);
+
+                setAccessError(
+                    false
+                );
 
                 return;
             }
 
 
-            setAuthorizedServerId(null);
+            /*
+             * 인증 실패
+             */
+            setAuthorizedServerId(
+                null
+            );
+
+            setMasterAuthorized(
+                false
+            );
+
+            setSelectedServerId(
+                null
+            );
+
             setAccessCode("");
-            setAccessError(true);
+
+            setAccessError(
+                true
+            );
 
         };
 
+
+    /*
+     * MASTER 서버 변경
+     */
+    const handleServerChange =
+        nextServerId => {
+
+            if (!masterAuthorized) {
+                return;
+            }
+
+
+            setSelectedServerId(
+                nextServerId
+            );
+
+            setSelectedKey(
+                null
+            );
+
+        };
 
 
     const selectLocation =
@@ -465,12 +812,15 @@ export default function ThiefFinder() {
 
                     }
                 );
+
             }
 
         };
 
 
-
+    /*
+     * 지도 마커 클릭
+     */
     const handleMarkerClick =
         async (
             location,
@@ -491,10 +841,8 @@ export default function ThiefFinder() {
         };
 
 
-
     /*
-     * 허용되지 않은 서버에서는 기능명, 지도, 데이터 로딩 UI를
-     * 전혀 렌더링하지 않는다.
+     * 허용되지 않은 URL 서버
      */
     if (!serverAllowed) {
 
@@ -519,13 +867,12 @@ export default function ThiefFinder() {
 
             </div>
         );
+
     }
 
 
-
     /*
-     * 허용 서버라도 코드 확인 전에는 실제 화면과 데이터 요청을
-     * 시작하지 않는다.
+     * 인증 전
      */
     if (!accessGranted) {
 
@@ -562,7 +909,11 @@ export default function ThiefFinder() {
                                 );
 
                                 if (accessError) {
-                                    setAccessError(false);
+
+                                    setAccessError(
+                                        false
+                                    );
+
                                 }
 
                             }}
@@ -589,9 +940,11 @@ export default function ThiefFinder() {
                     {accessError && (
 
                         <div className="protected-access-error">
+
                             {t(
                                 "ThiefFinder.access.invalidCode"
                             )}
+
                         </div>
 
                     )}
@@ -600,30 +953,40 @@ export default function ThiefFinder() {
 
             </div>
         );
+
     }
 
 
-
+    /*
+     * 최초 데이터 로딩
+     */
     if (loading) {
 
         return (
             <div className="thief-finder-loading">
-                {t("ThiefFinder.loading")}
+                {t(
+                    "ThiefFinder.loading"
+                )}
             </div>
         );
+
     }
 
 
-
+    /*
+     * 최초 데이터 로딩 실패
+     */
     if (error) {
 
         return (
             <div className="alert alert-danger">
-                {t("ThiefFinder.loadError")}
+                {t(
+                    "ThiefFinder.loadError"
+                )}
             </div>
         );
-    }
 
+    }
 
 
     return (
@@ -638,13 +1001,20 @@ export default function ThiefFinder() {
                     </div>
 
                     <h1>
-                        #{serverId}
+
+                        #{activeServerId}
                         {" "}
-                        {t("ThiefFinder.title")}
+
+                        {t(
+                            "ThiefFinder.title"
+                        )}
+
                     </h1>
 
                     <p>
-                        {t("ThiefFinder.description")}
+                        {t(
+                            "ThiefFinder.description"
+                        )}
                     </p>
 
                 </div>
@@ -655,7 +1025,9 @@ export default function ThiefFinder() {
                     <div>
 
                         <span>
-                            {t("ThiefFinder.found")}
+                            {t(
+                                "ThiefFinder.found"
+                            )}
                         </span>
 
                         <strong>
@@ -668,7 +1040,9 @@ export default function ThiefFinder() {
                     <div>
 
                         <span>
-                            {t("ThiefFinder.updatedAt")}
+                            {t(
+                                "ThiefFinder.updatedAt"
+                            )}
                         </span>
 
                         <strong>
@@ -684,6 +1058,100 @@ export default function ThiefFinder() {
             </div>
 
 
+            {/*
+             * MASTER 서버 선택 영역
+             *
+             * 실제 도둑이 존재하는 서버만 표시
+             */}
+            {masterAuthorized && (
+
+                <div
+                    className="
+                        thief-master-server-selector
+                        mb-3
+                    "
+                >
+
+                    <div
+                        className="
+                            d-flex
+                            align-items-center
+                            flex-wrap
+                            gap-2
+                        "
+                    >
+
+                        <strong
+                            className="
+                                me-1
+                                text-danger
+                            "
+                        >
+                            MASTER
+                        </strong>
+
+
+                        {availableServers.map(
+                            server => (
+
+                                <button
+                                    key={
+                                        server.serverId
+                                    }
+                                    type="button"
+                                    className={
+                                        `btn btn-sm ${
+                                            activeServerId ===
+                                            server.serverId
+                                                ? "btn-primary"
+                                                : "btn-outline-primary"
+                                        }`
+                                    }
+                                    onClick={() =>
+                                        handleServerChange(
+                                            server.serverId
+                                        )
+                                    }
+                                >
+
+                                    #{server.serverId}
+
+                                    {" "}
+
+                                    <span
+                                        className="
+                                            opacity-75
+                                        "
+                                    >
+                                        ({server.count})
+                                    </span>
+
+                                </button>
+
+                            )
+                        )}
+
+
+                        {!availableServers.length && (
+
+                            <span
+                                className="
+                                    text-muted
+                                    small
+                                "
+                            >
+                                도둑이 발견된 서버가 없습니다.
+                            </span>
+
+                        )}
+
+                    </div>
+
+                </div>
+
+            )}
+
+
             <div className="thief-content-layout">
 
                 <div className="thief-map-scroll">
@@ -696,7 +1164,8 @@ export default function ThiefFinder() {
                                 t(
                                     "ThiefFinder.mapAlt",
                                     {
-                                        serverId
+                                        serverId:
+                                            activeServerId
                                     }
                                 )
                             }
@@ -761,6 +1230,7 @@ export default function ThiefFinder() {
                                                     viewBox="0 0 24 24"
                                                     aria-hidden="true"
                                                 >
+
                                                     <path
                                                         d="
                                                             M12 2
@@ -776,6 +1246,7 @@ export default function ThiefFinder() {
                                                         cy="10"
                                                         r="3.2"
                                                     />
+
                                                 </svg>
 
                                             </span>
@@ -833,7 +1304,7 @@ export default function ThiefFinder() {
                         </div>
 
                         <small>
-                            #{serverId}
+                            #{activeServerId}
                         </small>
 
                     </div>
@@ -880,7 +1351,8 @@ export default function ThiefFinder() {
                                         }}
                                         location={location}
                                         active={
-                                            selectedKey === key
+                                            selectedKey ===
+                                            key
                                         }
                                         formatDateTime={
                                             formatDateTime
@@ -922,25 +1394,33 @@ export default function ThiefFinder() {
             <div className="thief-finder-footer">
 
                 <span>
-                    {t("ThiefFinder.notice")}
+                    {t(
+                        "ThiefFinder.notice"
+                    )}
                 </span>
 
                 <span>
-                    #{serverId}
+
+                    #{activeServerId}
+
                     {" · "}
+
                     {locations.length}
+
                     {" "}
+
                     {t(
                         "ThiefFinder.locationCount"
                     )}
+
                 </span>
 
             </div>
 
         </div>
     );
-}
 
+}
 
 
 function LocationCard({
@@ -960,7 +1440,6 @@ function LocationCard({
         useRef(null);
 
 
-
     useEffect(() => {
 
         return () => {
@@ -972,12 +1451,12 @@ function LocationCard({
                 window.clearTimeout(
                     timerRef.current
                 );
+
             }
 
         };
 
     }, []);
-
 
 
     const handleCopy =
@@ -1010,14 +1489,15 @@ function LocationCard({
                     () => {
 
                         setCopied(false);
-                        timerRef.current = null;
+
+                        timerRef.current =
+                            null;
 
                     },
                     2000
                 );
 
         };
-
 
 
     const handleKeyDown =
@@ -1029,11 +1509,12 @@ function LocationCard({
             ) {
 
                 event.preventDefault();
+
                 onSelect();
+
             }
 
         };
-
 
 
     return (
@@ -1139,8 +1620,8 @@ function LocationCard({
 
         </div>
     );
-}
 
+}
 
 
 function convertPosition(
@@ -1194,8 +1675,8 @@ function convertPosition(
             )
 
     };
-}
 
+}
 
 
 function createLocationKey(
@@ -1211,6 +1692,7 @@ function createLocationKey(
             `${location.serverId}:` +
             `${location.id}`
         );
+
     }
 
 
@@ -1220,8 +1702,8 @@ function createLocationKey(
         `${location.y}:` +
         `${index}`
     );
-}
 
+}
 
 
 async function copyCoordinate(
@@ -1239,11 +1721,13 @@ async function copyCoordinate(
             window.isSecureContext
         ) {
 
-            await navigator.clipboard.writeText(
-                text
-            );
+            await navigator.clipboard
+                .writeText(
+                    text
+                );
 
             return true;
+
         }
 
 
@@ -1277,6 +1761,7 @@ async function copyCoordinate(
 
 
         textarea.focus();
+
         textarea.select();
 
 
@@ -1301,5 +1786,7 @@ async function copyCoordinate(
 
 
         return false;
+
     }
+
 }

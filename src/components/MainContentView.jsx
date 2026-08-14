@@ -104,9 +104,9 @@ export default function MainContentView() {
                     
                     <Route path="information/el" element={<EternalLand/>}>
                         <Route index element={<EternalLandScore/>}/>
-                        <Route path="howto" element={<EternalLandHowto/>}/>
-                        <Route path="tip" element={<EternalLandTip/>}/>
-                        <Route path="reward" element={<EternalLandReward/>}/>
+                        {/* <Route path="howto" element={<EternalLandHowto/>}/> */}
+                        {/* <Route path="tip" element={<EternalLandTip/>}/> */}
+                        {/* <Route path="reward" element={<EternalLandReward/>}/> */}
                         <Route path="darkforce" element={<EternalLandDarkforce/>}/>
                         <Route path="score" element={<ELScoreCalculator/>}/>
                     </Route>

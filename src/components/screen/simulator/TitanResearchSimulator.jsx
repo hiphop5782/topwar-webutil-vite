@@ -16,6 +16,7 @@ import specialEffectNames from "@src/assets/json/titan/titan-special-effect-name
 import gearNames from "@src/assets/json/titan/titan-gear-names.json";
 
 import { useParamState } from "@src/hooks/useParamState";
+import { Helmet } from "react-helmet-async";
 
 const MIN_CREATE_COUNT = 1;
 const MAX_CREATE_COUNT = 100;
@@ -513,7 +514,11 @@ const TitanResearchSimulator = () => {
         };
     }, [titanResult]);
 
-    return (
+    return (<>
+        <Helmet>
+            <title>Top War 타이탄 제작 시뮬레이터 | Progamer.info</title>
+        </Helmet>
+
         <main className="titan-research-simulator container py-4">
             <header className="titan-research-header mb-4">
                 <span className="badge text-bg-primary mb-2">
@@ -1515,7 +1520,7 @@ const TitanResearchSimulator = () => {
                 </div>
             </section>
         </main>
-    );
+    </>);
 };
 
 export default TitanResearchSimulator;
