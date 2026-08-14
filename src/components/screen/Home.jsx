@@ -144,8 +144,6 @@ function Home() {
         },
     ];
 
-    const { t } = useTranslation();
-
     return (<>
         <SEO title={t("seo:home.title")}/>
 
