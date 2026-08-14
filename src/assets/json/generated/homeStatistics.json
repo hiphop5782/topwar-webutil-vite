@@ -1,11 +1,11 @@
 {
-    "generatedAt": "2026-08-12T16:44:21.597Z",
-    "snapshotAt": "2026-08-12T10:10:37.000Z",
+    "generatedAt": "2026-08-14T12:31:18.311Z",
+    "snapshotAt": "2026-08-14T11:24:15.000Z",
     "server": {
-        "count": 724,
-        "change1d": 1,
+        "count": 725,
+        "change1d": 0,
         "change7d": 4,
-        "change30d": 14,
+        "change30d": 15,
         "history": [
             {
                 "date": "2026-07-08",
@@ -122,59 +122,67 @@
             {
                 "date": "2026-08-12",
                 "count": 724
+            },
+            {
+                "date": "2026-08-13",
+                "count": 725
+            },
+            {
+                "date": "2026-08-14",
+                "count": 725
             }
         ]
     },
     "player": {
-        "tracked": 65160,
-        "unique": 65026,
-        "online": 4060,
-        "onlineRate": 6.23,
-        "level100": 53102,
-        "level100Rate": 81.49,
-        "allianceJoined": 58367,
-        "allianceJoinedRate": 89.57,
+        "tracked": 72440,
+        "unique": 72297,
+        "online": 5275,
+        "onlineRate": 7.28,
+        "level100": 58267,
+        "level100Rate": 80.43,
+        "allianceJoined": 64454,
+        "allianceJoinedRate": 88.98,
         "activity": {
-            "within1d": 38491,
-            "within1dRate": 59.07,
-            "within3d": 40941,
-            "within3dRate": 62.83,
-            "within7d": 42345,
-            "within7dRate": 64.99,
-            "within14d": 43368,
-            "within14dRate": 66.56,
-            "within30d": 44894,
-            "within30dRate": 68.9
+            "within1d": 40959,
+            "within1dRate": 56.54,
+            "within3d": 43980,
+            "within3dRate": 60.71,
+            "within7d": 45782,
+            "within7dRate": 63.2,
+            "within14d": 47017,
+            "within14dRate": 64.9,
+            "within30d": 48778,
+            "within30dRate": 67.34
         }
     },
     "power": {
-        "average": 51877390,
-        "median": 54973830,
-        "top25Threshold": 68930729,
-        "top10Threshold": 81548120,
-        "top5Threshold": 90962102,
-        "top1Threshold": 112963042,
+        "average": 50735343,
+        "median": 53607004,
+        "top25Threshold": 67794220,
+        "top10Threshold": 80398561,
+        "top5Threshold": 89735454,
+        "top1Threshold": 111555057,
         "max": 218625314
     },
     "changes": {
         "movement": {
-            "date": "2026-08-12",
-            "count": 39,
-            "updatedAt": "2026-08-12T10:16:12.208Z"
+            "date": "2026-08-14",
+            "count": 21,
+            "updatedAt": "2026-08-14T08:18:50.190Z"
         },
         "nickname": {
-            "date": "2026-08-12",
-            "count": 111,
-            "updatedAt": "2026-08-12T10:16:12.846Z"
+            "date": "2026-08-14",
+            "count": 135,
+            "updatedAt": "2026-08-14T11:28:22.901Z"
         }
     },
     "realPower": {
-        "analyzedServers": 711,
+        "analyzedServers": 725,
         "activityGrades": {
-            "VERY_ACTIVE": 118,
-            "ACTIVE": 211,
-            "NORMAL": 263,
-            "QUIET": 86,
+            "VERY_ACTIVE": 127,
+            "ACTIVE": 212,
+            "NORMAL": 268,
+            "QUIET": 85,
             "DEAD": 33,
             "UNKNOWN": 0
         }

@@ -16,7 +16,7 @@ import rehypeKatex from "rehype-katex";
 
 import "katex/dist/katex.min.css";
 import "./MarkdownRenderer.css";
-import SEO from "../../template/SEO";
+import SEO from "@src/components/template/SEO";
 
 const ALL_MODULES = import.meta.glob("/src/assets/md/*/readme.md", { query: "?raw" });
 // const localeMap = { ko, en: enUS, ja };

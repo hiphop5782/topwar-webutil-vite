@@ -8,24 +8,24 @@ export default function SEO({
     const fullTitle = title
         ? `${title} | Progamer.info`
         : "Progamer.info";
+    return null;
+    // return (
+    //     <Helmet>
+    //         <title>{fullTitle}</title>
 
-    return (
-        <Helmet>
-            <title>{fullTitle}</title>
+    //         {description && (
+    //             <meta
+    //                 name="description"
+    //                 content={description}
+    //             />
+    //         )}
 
-            {description && (
-                <meta
-                    name="description"
-                    content={description}
-                />
-            )}
-
-            {noindex && (
-                <meta
-                    name="robots"
-                    content="noindex, follow"
-                />
-            )}
-        </Helmet>
-    );
+    //         {noindex && (
+    //             <meta
+    //                 name="robots"
+    //                 content="noindex, follow"
+    //             />
+    //         )}
+    //     </Helmet>
+    // );
 }

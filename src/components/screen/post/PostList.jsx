@@ -5,6 +5,7 @@ import { ko, enUS, ja } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import SafeImage from "@src/components/template/SafeImage";
+import SEO from "../../template/SEO";
 
 const localeMap = { ko, en: enUS, ja };
 
