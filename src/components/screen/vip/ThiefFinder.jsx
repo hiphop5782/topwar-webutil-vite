@@ -20,7 +20,8 @@ import "./ThiefFinder.css";
 
 
 const THIEF_DATA_URL =
-    "https://raw.githubusercontent.com/hiphop5782/topwar-thief/main/data/thieves.json";
+    //"https://raw.githubusercontent.com/hiphop5782/topwar-thief/main/data/thieves.json";
+    "https://thief.progamer.info/data/thieves.json";
 
 
 const POLLING_INTERVAL = 5000;
