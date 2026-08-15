@@ -37,7 +37,7 @@ const MAP_MAX_Y = 1200;
 /*
  * 게임 좌표 Y축과 이미지 Y축 방향이 반대면 true
  */
-const INVERT_Y = true;
+const INVERT_Y = false;
 
 
 /*
