@@ -43,8 +43,8 @@ const MAP_BOUNDS = Object.freeze({
  * 서버별 접근 코드만 각각 변경해서 사용하세요.
  */
 const SERVER_ACCESS_CODES = Object.freeze({
-    3223: "CHANGE_ME_3223",
-    4369: "CHANGE_ME_4369"
+    3223: "3223forever",
+    4369: "4369forever"
 });
 
 
