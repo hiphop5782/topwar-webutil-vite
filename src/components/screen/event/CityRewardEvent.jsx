@@ -145,24 +145,19 @@ const CityRwardEvent = () => {
    * 서버 + 상자 종류 필터
    * 이후 최근 발견순 정렬
    */
+  const itemTypes = useMemo(()=>{
+    return Object.keys(REWARD_TYPES);
+  }, [REWARD_TYPES]);
   const filteredLocations = useMemo(() => {
     return [...locations]
       .filter((item) => {
-        if (
-          selectedServer !== "all" &&
-          item.serverId !== selectedServer
-        ) {
+        if (selectedServer !== "all" && item.serverId !== selectedServer ) {
           return false;
         }
-
-        if (
-          selectedReward !== "all" &&
-          item.cityReward?.itemId !== selectedReward
-        ) {
+        if (selectedReward !== "all" && item.cityReward?.itemId !== selectedReward) {
           return false;
         }
-
-        return true;
+        return itemTypes.includes(item.cityReward.itemId.toString());
       })
       .sort(
         (a, b) =>
