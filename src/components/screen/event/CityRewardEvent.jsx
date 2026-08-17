@@ -160,7 +160,7 @@ const CityRwardEvent = () => {
         return itemTypes.includes(item.cityReward.itemId.toString());
       })
       .sort(
-        (a, b) =>
+        (a, b) => 
           new Date(b.foundAt).getTime() -
           new Date(a.foundAt).getTime()
       );
