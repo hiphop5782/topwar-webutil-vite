@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "build": "npm run generate:stats && cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build && npm run copy:default-page && npm run sitemap",
-    "generate:stats": "node scripts/generate-home-stats.mjs"
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build && npm run copy:default-page && npm run sitemap"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
