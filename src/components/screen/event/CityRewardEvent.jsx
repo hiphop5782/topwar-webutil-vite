@@ -5,7 +5,7 @@ import "./CityRewardEvent.css";
 
 const DATA_URL = "https://raw.githubusercontent.com/hiphop5782/topwar-reward-finder/refs/heads/main/data/city-rewards.json";
 
-const POLLING_INTERVAL = 5000;
+const POLLING_INTERVAL = 30000;
 
 const REWARD_TYPES = {
   260617002: {
