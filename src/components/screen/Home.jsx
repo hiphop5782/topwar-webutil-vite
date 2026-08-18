@@ -21,6 +21,7 @@ function Home() {
 
     const { t, i18n } = useTranslation("viewer");
     const [statistics, setStatistics] = useState(EMPTY_STATISTICS);
+    const [statisticsState, setStatisticsState] = useState("loading");
 
     useEffect(() => {
         let mounted = true;
@@ -29,11 +30,15 @@ function Home() {
             .then((data) => {
                 if (mounted && data && typeof data === "object") {
                     setStatistics(data);
+                    setStatisticsState("success");
                 }
             })
             .catch((error) => {
                 console.error("Failed to load home statistics", error);
-                if (mounted) setStatistics(EMPTY_STATISTICS);
+                if (mounted) {
+                    setStatistics(EMPTY_STATISTICS);
+                    setStatisticsState("error");
+                }
             });
 
         return () => {
@@ -74,6 +79,10 @@ function Home() {
 
     const formatNumber = value => {
 
+        if (statisticsState === "loading") {
+            return "…";
+        }
+
         if (
             value === null ||
             value === undefined
@@ -89,6 +98,10 @@ function Home() {
 
     const formatRate = value => {
 
+        if (statisticsState === "loading") {
+            return "…";
+        }
+
         if (
             value === null ||
             value === undefined
@@ -101,6 +114,10 @@ function Home() {
 
 
     const formatPower = value => {
+
+        if (statisticsState === "loading") {
+            return "…";
+        }
 
         if (
             value === null ||
@@ -126,6 +143,10 @@ function Home() {
 
 
     const formatDateTime = value => {
+
+        if (statisticsState === "loading") {
+            return "…";
+        }
 
         if (!value) {
             return "-";
@@ -177,7 +198,12 @@ function Home() {
     return (<>
         <SEO title={t("seo:home.title")}/>
 
-        <main className="home-dashboard">
+        <main
+            className={`home-dashboard ${
+                statisticsState === "loading" ? "is-loading" : ""
+            }`}
+            aria-busy={statisticsState === "loading"}
+        >
 
             {/* ========================================
                 HERO
@@ -1096,8 +1122,12 @@ function ServerChange({
 
 function formatSignedNumber(value) {
 
+    if (value === null || value === undefined) {
+        return "-";
+    }
+
     const number =
-        Number(value ?? 0);
+        Number(value);
 
     if (number > 0) {
         return `+${number}`;

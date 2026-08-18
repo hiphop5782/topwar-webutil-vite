@@ -7,6 +7,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { useParamState } from "@src/hooks/useParamState";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import {
     listHistoryFiles,
     loadDataFile,
@@ -323,6 +324,7 @@ export default function TopwarPlayerMoveHistory({
 }) {
     const { t, i18n } = useTranslation("viewer");
     const [movementFiles, setMovementFiles] = useState([]);
+    const [indexLoading, setIndexLoading] = useState(true);
 
     useEffect(() => {
         let mounted = true;
@@ -333,6 +335,9 @@ export default function TopwarPlayerMoveHistory({
             .catch((error) => {
                 console.error(error);
                 if (mounted) setMovementFiles([]);
+            })
+            .finally(() => {
+                if (mounted) setIndexLoading(false);
             });
         return () => { mounted = false; };
     }, []);
@@ -1026,23 +1031,17 @@ export default function TopwarPlayerMoveHistory({
                 </details>
             </div>
 
-            {loading && (
-                <div className="move-history-message">
-                    <span className="move-loading-spinner" />
-
-                    {t(
-                        "TopwarPlayerMoveHistory.messages.loading",
-                    )}
-                </div>
+            {(indexLoading || loading) && (
+                <DataLoadingPlaceholder rows={8} cards={2} />
             )}
 
-            {!loading && error && (
+            {!indexLoading && !loading && error && (
                 <div className="move-history-message is-error">
                     {error}
                 </div>
             )}
 
-            {!loading
+            {!indexLoading && !loading
                 && !error
                 && selectedFiles.length === 0 && (
                     <div className="move-history-message">

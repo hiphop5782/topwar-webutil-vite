@@ -15,7 +15,7 @@ import {
     FaUser,
     FaUsers
 } from "react-icons/fa6";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import { Virtuoso } from "react-virtuoso";
 import {
     useCallback,
@@ -799,14 +799,7 @@ export default function TopwarPlayerDataViewer() {
                     </div>
 
                     {loadState === "loading" && (
-                        <div className="topwar-loading">
-                            <PacmanLoader color="#0984e3" />
-                            <p>
-                                {t(
-                                    "TopwarPlayerDataViewer.loading"
-                                )}
-                            </p>
-                        </div>
+                        <DataLoadingPlaceholder rows={10} cards={4} />
                     )}
 
                     {loadState === "error" && (

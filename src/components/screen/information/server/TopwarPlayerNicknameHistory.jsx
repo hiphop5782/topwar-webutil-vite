@@ -7,6 +7,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { useParamState } from "@src/hooks/useParamState";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import {
     listHistoryFiles,
     loadDataFile,
@@ -461,6 +462,7 @@ export default function TopwarPlayerNicknameHistory({
 }) {
     const { t, i18n } = useTranslation("viewer");
     const [nicknameFiles, setNicknameFiles] = useState([]);
+    const [indexLoading, setIndexLoading] = useState(true);
 
     useEffect(() => {
         let mounted = true;
@@ -471,6 +473,9 @@ export default function TopwarPlayerNicknameHistory({
             .catch((error) => {
                 console.error(error);
                 if (mounted) setNicknameFiles([]);
+            })
+            .finally(() => {
+                if (mounted) setIndexLoading(false);
             });
         return () => { mounted = false; };
     }, []);
@@ -1122,17 +1127,11 @@ export default function TopwarPlayerNicknameHistory({
                 </div>
             )}
 
-            {loading && (
-                <div className="nickname-history-message">
-                    <span className="nickname-loading-spinner" />
-                    {t(
-                        "TopwarPlayerNicknameHistory.messages.loading",
-                        { defaultValue: "데이터를 불러오는 중입니다." },
-                    )}
-                </div>
+            {(indexLoading || loading) && (
+                <DataLoadingPlaceholder rows={8} cards={2} />
             )}
 
-            {!loading && error && (
+            {!indexLoading && !loading && error && (
                 <div className="nickname-history-message is-error">
                     {error}
                 </div>

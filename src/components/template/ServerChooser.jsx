@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import { toast } from "react-toastify";
 import { useListParamState } from "@src/hooks/useListParamState"
 import { loadPowerFile } from "@src/services/topwarDataRepository";
@@ -180,7 +180,7 @@ export default function ServerChooser({
     }, [selectedServers]);
 
     if (dataLoading === true) {
-        return <PacmanLoader color="#0984e3" />
+        return <DataLoadingPlaceholder rows={2} compact />
     }
 
     return (<>

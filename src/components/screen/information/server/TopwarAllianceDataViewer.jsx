@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import "./TopwarData.css";
 import { useTranslation } from "react-i18next";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import { loadPowerFile } from "@src/services/topwarDataRepository";
 
 export default function TopwarAllianceDataViewer() {
@@ -103,9 +103,7 @@ export default function TopwarAllianceDataViewer() {
                         )}
                     />
                     {dataLoading === true && filteredAlliance.length === 0 && (
-                        <div className="text-center py-5 text-muted fs-2">
-                            <PacmanLoader color="#0984e3"/>
-                        </div>
+                        <DataLoadingPlaceholder rows={8} />
                     )}
                     {dataLoading === false && filteredAlliance.length === 0 && (
                         <div className="text-center py-5 text-muted">{t(`TopwarAllianceDataViewer.no-result`)}</div>

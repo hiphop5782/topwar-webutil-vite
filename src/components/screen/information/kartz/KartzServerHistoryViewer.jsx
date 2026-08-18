@@ -14,6 +14,7 @@ import { getBaseOptions } from "./KartzChartToolkit";
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 import ChartDataTable from "@src/components/template/ChartDataTable";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import { useTranslation } from "react-i18next";
 
 const serverLabelPlugin = {
@@ -77,6 +78,7 @@ export default function KartzServerHistoryViewer() {
     }, []);
 
     const [fileNames, setFileNames] = useState([]);
+    const [indexLoading, setIndexLoading] = useState(true);
     useEffect(() => {
         listKartzHistoryFiles()
             .then((files) => setFileNames(files.map((file) => ({
@@ -86,7 +88,8 @@ export default function KartzServerHistoryViewer() {
             .catch((error) => {
                 console.error("Kartz index load failed", error);
                 setFileNames([]);
-            });
+            })
+            .finally(() => setIndexLoading(false));
     }, []);
 
     //구현중
@@ -372,6 +375,10 @@ export default function KartzServerHistoryViewer() {
             setFileLoading(false);
         }
     }, [fileNames, t]);
+
+    if (indexLoading || fileLoading) {
+        return <DataLoadingPlaceholder rows={8} cards={3} />;
+    }
 
     return (<>
         <ServerChooser onChangeServer={onChangeServer} enableShare={false} />

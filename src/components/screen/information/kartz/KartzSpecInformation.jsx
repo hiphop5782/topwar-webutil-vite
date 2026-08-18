@@ -2,12 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParamState } from '../../../../hooks/useParamState';
 import { loadKartzEnemy } from '@src/services/topwarDataRepository';
+import DataLoadingPlaceholder from '@src/components/template/DataLoadingPlaceholder';
 
 const KartzSpecInformation = ()=>{
     const {t} = useTranslation("viewer");
 
     const [list, setList] = useState([]);
     const [sourceList, setSourceList] = useState([]);
+    const [dataLoading, setDataLoading] = useState(true);
 
     useEffect(() => {
         loadKartzEnemy()
@@ -15,7 +17,8 @@ const KartzSpecInformation = ()=>{
             .catch((error) => {
                 console.error("Kartz enemy data load failed", error);
                 setSourceList([]);
-            });
+            })
+            .finally(() => setDataLoading(false));
     }, []);
 
     //const [bossOnly, setBossOnly] = useState(true);
@@ -35,6 +38,10 @@ const KartzSpecInformation = ()=>{
     const numberWithCommas = useCallback((x)=>{
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }, []);
+
+    if (dataLoading) {
+        return <DataLoadingPlaceholder rows={10} />;
+    }
 
     return (<>
         <h1>{t("KartzSpecInformation.title")}</h1>

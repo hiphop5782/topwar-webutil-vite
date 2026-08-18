@@ -16,6 +16,7 @@ import {
     loadPowerFile,
     loadRealPower
 } from "@src/services/topwarDataRepository";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 
 export default function TopwarRealPowerViewer() {
 
@@ -81,6 +82,7 @@ export default function TopwarRealPowerViewer() {
     }, [relativeTimeFormatter, t]);
 
     const [fileNames, setFileNames] = useState([]);
+    const [indexLoading, setIndexLoading] = useState(true);
     useEffect(() => {
         let mounted = true;
         listRealPowerServers()
@@ -94,6 +96,9 @@ export default function TopwarRealPowerViewer() {
             .catch((error) => {
                 console.error("지도 데이터 인덱스 로드 실패", error);
                 if (mounted) setFileNames([]);
+            })
+            .finally(() => {
+                if (mounted) setIndexLoading(false);
             });
         return () => { mounted = false; };
     }, []);
@@ -486,6 +491,10 @@ export default function TopwarRealPowerViewer() {
 
         search();
     }, [selectedServer]);
+
+    if (indexLoading || dataLoading || loading) {
+        return <DataLoadingPlaceholder rows={9} cards={4} />;
+    }
 
     return (<>
         <h1>{t("TopwarRealPowerViewer.title")}</h1>

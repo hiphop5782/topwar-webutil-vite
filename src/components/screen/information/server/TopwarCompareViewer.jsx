@@ -4,6 +4,7 @@ import { ResponsiveHeatMapCanvas } from "@nivo/heatmap";
 import { FaArrowLeft, FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
 
 import { loadPowerFile } from "@src/services/topwarDataRepository";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 
 import "./TopwarData.css";
 import { useSearchParams } from "react-router-dom";
@@ -218,6 +219,10 @@ export default function TopwarCompareViewer() {
             }
         }
     }, [selectedServers]);
+
+    if (!loading) {
+        return <DataLoadingPlaceholder rows={7} cards={3} />;
+    }
 
     return (<>
         <div className="row">

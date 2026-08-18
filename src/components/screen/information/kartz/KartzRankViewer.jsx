@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 
 import "./KartzData.css";
 import { useParamState } from "../../../../hooks/useParamState";
@@ -12,13 +13,15 @@ import {
 export default function KartzRankViewer() {
     const { t } = useTranslation("viewer");
     const [fileNames, setFileNames] = useState([]);
+    const [indexLoading, setIndexLoading] = useState(true);
     useEffect(() => {
         listKartzHistoryFiles()
             .then(setFileNames)
             .catch((error) => {
                 console.error("Kartz index load failed", error);
                 setFileNames([]);
-            });
+            })
+            .finally(() => setIndexLoading(false));
     }, []);
 
     const defaultWhen = useMemo(() => {
@@ -97,6 +100,10 @@ export default function KartzRankViewer() {
         if (serverInput === "") return allianceRankData;
         return allianceRankData.filter(alliance => alliance.server === parseInt(serverInput));
     }, [allianceRankData, serverInput]);
+
+    if (indexLoading || loading) {
+        return <DataLoadingPlaceholder rows={8} cards={2} />;
+    }
 
     return (<>
         <label className="d-flex">

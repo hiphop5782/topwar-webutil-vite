@@ -11,6 +11,7 @@ import {
     listLionDanceFiles,
     loadDataFile,
 } from "@src/services/topwarDataRepository";
+import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import "./LionDanceRanking.css?rev=20260717-dataset-filenames-v6";
 
 const UNIT_MAP = {
@@ -713,6 +714,7 @@ export default function LionDanceRanking() {
     );
 
     const [lionDanceModules, setLionDanceModules] = useState({});
+    const [lionDanceLoading, setLionDanceLoading] = useState(true);
 
     useEffect(() => {
         let mounted = true;
@@ -726,6 +728,9 @@ export default function LionDanceRanking() {
             .catch((error) => {
                 console.error("LionDance data load failed", error);
                 if (mounted) setLionDanceModules({});
+            })
+            .finally(() => {
+                if (mounted) setLionDanceLoading(false);
             });
         return () => { mounted = false; };
     }, []);
@@ -1180,6 +1185,10 @@ export default function LionDanceRanking() {
                 </div>
             </main>
         );
+    }
+
+    if (lionDanceLoading) {
+        return <DataLoadingPlaceholder rows={9} cards={3} />;
     }
 
     return (
