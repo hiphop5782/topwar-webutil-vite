@@ -1,12 +1,22 @@
-import KartzSpecInfoList from '@src/assets/json/kartz/enemy.json';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParamState } from '../../../../hooks/useParamState';
+import { loadKartzEnemy } from '@src/services/topwarDataRepository';
 
 const KartzSpecInformation = ()=>{
     const {t} = useTranslation("viewer");
 
     const [list, setList] = useState([]);
+    const [sourceList, setSourceList] = useState([]);
+
+    useEffect(() => {
+        loadKartzEnemy()
+            .then((data) => setSourceList(Array.isArray(data) ? data : []))
+            .catch((error) => {
+                console.error("Kartz enemy data load failed", error);
+                setSourceList([]);
+            });
+    }, []);
 
     //const [bossOnly, setBossOnly] = useState(true);
     const [bossOnly, setBossOnly] = useParamState("boss", false, {
@@ -15,12 +25,12 @@ const KartzSpecInformation = ()=>{
     });
     useEffect(()=>{
         if(bossOnly) {
-            setList(KartzSpecInfoList.filter(info=>info.round%5 === 0));
+            setList(sourceList.filter(info=>info.round%5 === 0));
         }
         else {
-            setList(KartzSpecInfoList);
+            setList(sourceList);
         }
-    }, [bossOnly]);
+    }, [bossOnly, sourceList]);
 
     const numberWithCommas = useCallback((x)=>{
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

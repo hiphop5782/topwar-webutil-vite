@@ -7,30 +7,11 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { useParamState } from "@src/hooks/useParamState";
+import {
+    listHistoryFiles,
+    loadDataFile,
+} from "@src/services/topwarDataRepository";
 import "./TopwarPlayerNicknameHistory.css";
-
-const nicknameJsonModules = import.meta.glob(
-    "/src/assets/json/power/nickname/*.json",
-);
-
-const nicknameFiles = Object.entries(nicknameJsonModules)
-    .map(([path, loader]) => {
-        const match = path.match(
-            /(\d{4}-\d{2}-\d{2})\.json$/,
-        );
-
-        if (!match) {
-            return null;
-        }
-
-        return {
-            path,
-            date: match[1],
-            loader,
-        };
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.date.localeCompare(b.date));
 
 const countFormatter = new Intl.NumberFormat("ko-KR");
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -479,6 +460,20 @@ export default function TopwarPlayerNicknameHistory({
     defaultDays = 7,
 }) {
     const { t, i18n } = useTranslation("viewer");
+    const [nicknameFiles, setNicknameFiles] = useState([]);
+
+    useEffect(() => {
+        let mounted = true;
+        listHistoryFiles("nickname")
+            .then((files) => {
+                if (mounted) setNicknameFiles(files);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (mounted) setNicknameFiles([]);
+            });
+        return () => { mounted = false; };
+    }, []);
 
     const locale = getLocale(
         i18n.resolvedLanguage ?? i18n.language,
@@ -623,6 +618,7 @@ export default function TopwarPlayerNicknameHistory({
             && file.date <= endDate
         ));
     }, [
+        nicknameFiles,
         isNicknameOnlySearch,
         beginDate,
         endDate,
@@ -638,8 +634,7 @@ export default function TopwarPlayerNicknameHistory({
             try {
                 const results = await Promise.all(
                     selectedFiles.map(async (file) => {
-                        const module = await file.loader();
-                        const json = module.default ?? module;
+                        const json = await loadDataFile(file.path);
 
                         return {
                             date: json.date ?? file.date,

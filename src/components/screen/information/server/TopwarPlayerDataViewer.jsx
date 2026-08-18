@@ -27,6 +27,10 @@ import {
 import "flag-icons/sass/flag-icons.scss";
 import "./TopwarPlayerDataViewer.css";
 import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
+import {
+    clearTopwarDataCache,
+    loadPowerFile
+} from "@src/services/topwarDataRepository";
 
 const ACTIVITY_STATUS = {
     ACTIVE: "active",
@@ -157,15 +161,15 @@ export default function TopwarPlayerDataViewer() {
 
         setLoadState("loading");
 
-        import("@src/assets/json/power/playerData.json")
-            .then((module) => {
+        loadPowerFile("playerData")
+            .then((data) => {
                 if (!mounted) {
                     return;
                 }
 
                 setPlayerList(
-                    Array.isArray(module.default)
-                        ? module.default
+                    Array.isArray(data)
+                        ? data
                         : []
                 );
                 setLoadState("success");
@@ -339,6 +343,7 @@ export default function TopwarPlayerDataViewer() {
     ]);
 
     const retryLoading = useCallback(() => {
+        clearTopwarDataCache();
         setReloadKey((current) => current + 1);
     }, []);
 

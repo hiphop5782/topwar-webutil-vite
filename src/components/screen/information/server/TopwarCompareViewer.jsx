@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import axios from "axios";
 
 import { ResponsiveHeatMapCanvas } from "@nivo/heatmap";
-import { FaArrowLeft, FaPlus, FaShare, FaShareNodes, FaXmark } from "react-icons/fa6";
+import { FaArrowLeft, FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
 
-import ServerDataJson from "@src/assets/json/power/serverData.json";
+import { loadPowerFile } from "@src/services/topwarDataRepository";
 
 import "./TopwarData.css";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import dayjs from "dayjs";
@@ -20,20 +19,37 @@ dayjs.locale("ko");
 export default function TopwarCompareViewer() {
     const { t } = useTranslation("viewer");
     const [params, setParams] = useSearchParams();
-    const [serverList, setServerList] = useState(()=>{
-        return ServerDataJson.map(server=>server.serverNumber);
-    });
+    const [serverData, setServerData] = useState([]);
+    const [serverList, setServerList] = useState([]);
     const [selectedServers, setSelectedServers] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        if (params !== null && selectedServers.length === 0) {
-            const value = params.get("server");
-            if(value !== null) {
-                const decoded = decodeURIComponent(value);
-                decoded.split(",").forEach(addServerByParameter);
-            }
-        }
-        setLoading(true);
+        let mounted = true;
+        loadPowerFile("serverData")
+            .then((data) => {
+                if (!mounted) return;
+                const rows = Array.isArray(data) ? data : [];
+                const selectedNumbers = new Set(
+                    decodeURIComponent(params.get("server") || "")
+                        .split(",")
+                        .map(Number)
+                        .filter(Number.isInteger)
+                );
+                setServerData(rows);
+                setSelectedServers(rows.filter((server) =>
+                    selectedNumbers.has(Number(server.serverNumber))
+                ));
+                setServerList(rows
+                    .map((server) => Number(server.serverNumber))
+                    .filter((serverNumber) => !selectedNumbers.has(serverNumber))
+                );
+                setLoading(true);
+            })
+            .catch((error) => {
+                console.error("Failed to load server data", error);
+                if (mounted) setLoading(true);
+            });
+        return () => { mounted = false; };
     }, []);
     useEffect(() => {
         if (loading == false) return;
@@ -49,13 +65,6 @@ export default function TopwarCompareViewer() {
     const [serverInput, setServerInput] = useState("");
     const [cutoff, setCutoff] = useState(100);
 
-    const addServerByParameter = useCallback(async (target) => {
-        if(!target) return;
-
-        const datalist = ServerDataJson.filter(server=>server.serverNumber === parseInt(target));
-        setSelectedServers(prev => [...prev, datalist[0]]);
-        setServerList(prev => prev.filter(server => server !== target));
-    }, []);
     const addServer = useCallback(async () => {
         const selectedServer = parseInt(serverInput);
         if (serverList.includes(selectedServer) === false) {
@@ -63,11 +72,11 @@ export default function TopwarCompareViewer() {
             return;
         }
 
-        const datalist = ServerDataJson.filter(server=>server.serverNumber === selectedServer);
+        const datalist = serverData.filter(server=>server.serverNumber === selectedServer);
         setSelectedServers(prev => [...prev, datalist[0]]);
         setServerList(prev => prev.filter(server => server !== selectedServer));
         setServerInput("");
-    }, [serverInput]);
+    }, [serverInput, serverData, serverList, t]);
 
     const removeServer = useCallback(targetServer => {
         setSelectedServers(prev => prev.filter(server => server.serverNumber !== targetServer.serverNumber));

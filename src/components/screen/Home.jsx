@@ -1,15 +1,45 @@
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
 import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
-import statistics from "@src/assets/json/generated/homeStatistics.json";
+import { loadHomeStatistics } from "@src/services/topwarDataRepository";
 
 import "./Home.css";
 import SEO from "../template/SEO";
 
+const EMPTY_STATISTICS = Object.freeze({
+    generatedAt: null,
+    snapshotAt: null,
+    server: {},
+    player: {},
+    power: {},
+    changes: {},
+    realPower: {},
+});
 
 function Home() {
 
     const { t, i18n } = useTranslation("viewer");
+    const [statistics, setStatistics] = useState(EMPTY_STATISTICS);
+
+    useEffect(() => {
+        let mounted = true;
+
+        loadHomeStatistics()
+            .then((data) => {
+                if (mounted && data && typeof data === "object") {
+                    setStatistics(data);
+                }
+            })
+            .catch((error) => {
+                console.error("Failed to load home statistics", error);
+                if (mounted) setStatistics(EMPTY_STATISTICS);
+            });
+
+        return () => {
+            mounted = false;
+        };
+    }, []);
 
     const {
         generatedAt,

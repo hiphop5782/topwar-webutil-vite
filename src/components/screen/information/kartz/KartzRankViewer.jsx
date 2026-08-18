@@ -4,16 +4,21 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import "./KartzData.css";
 import { useParamState } from "../../../../hooks/useParamState";
-
-const jsonModules = import.meta.glob('@src/assets/json/kartz/history/*.json');
+import {
+    listKartzHistoryFiles,
+    loadDataFile,
+} from "@src/services/topwarDataRepository";
 
 export default function KartzRankViewer() {
     const { t } = useTranslation("viewer");
-    const fileNames = useMemo(() => {
-        return Object.keys(jsonModules).map(path => {
-            const fileName = path.split('/').pop().replace(".json", "");
-            return { path, fileName };
-        }).sort((a, b) => b.fileName.localeCompare(a.fileName));
+    const [fileNames, setFileNames] = useState([]);
+    useEffect(() => {
+        listKartzHistoryFiles()
+            .then(setFileNames)
+            .catch((error) => {
+                console.error("Kartz index load failed", error);
+                setFileNames([]);
+            });
     }, []);
 
     const defaultWhen = useMemo(() => {
@@ -23,6 +28,12 @@ export default function KartzRankViewer() {
     const [selectedWhen, setSelectedWhen] = useParamState("when", defaultWhen, {
         validate: value => value === "" || /^2[0-9]{3}-(0[1-9]|1[0-2])$/.test(value),
     });
+
+    useEffect(() => {
+        if (!selectedWhen && fileNames.length > 0) {
+            setSelectedWhen(fileNames[0].fileName);
+        }
+    }, [fileNames, selectedWhen, setSelectedWhen]);
 
     const selectedFile = useMemo(() => {
         if (!selectedWhen) return null;
@@ -37,8 +48,8 @@ export default function KartzRankViewer() {
         setLoading(true);
 
         try {
-            const module = await jsonModules[selectedFile.path]();
-            setRankData(module.default);
+            const data = await loadDataFile(selectedFile.path);
+            setRankData(data);
         } catch (error) {
             console.error("데이터 로드 실패", error);
             setRankData(null);

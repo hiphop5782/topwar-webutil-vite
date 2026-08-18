@@ -3,14 +3,18 @@ import { Virtuoso } from "react-virtuoso";
 import "./TopwarData.css";
 import { useTranslation } from "react-i18next";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import { loadPowerFile } from "@src/services/topwarDataRepository";
 
 export default function TopwarAllianceDataViewer() {
     const [allianceList, setAllianceList] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const loadData = useCallback(async ()=>{
-        const data = await import("@src/assets/json/power/allianceData.json");
-        setAllianceList(data.default);
-        setDataLoading(false);
+        try {
+            const data = await loadPowerFile("allianceData");
+            setAllianceList(Array.isArray(data) ? data : []);
+        } finally {
+            setDataLoading(false);
+        }
     }, []);
     useEffect(()=>{ loadData(); }, []);
 

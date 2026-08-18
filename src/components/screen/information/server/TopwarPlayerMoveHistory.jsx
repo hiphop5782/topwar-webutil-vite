@@ -7,30 +7,11 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { useParamState } from "@src/hooks/useParamState";
+import {
+    listHistoryFiles,
+    loadDataFile,
+} from "@src/services/topwarDataRepository";
 import "./TopwarPlayerMoveHistory.css";
-
-const movementJsonModules = import.meta.glob(
-    "/src/assets/json/power/movement/*.json",
-);
-
-const movementFiles = Object.entries(movementJsonModules)
-    .map(([path, loader]) => {
-        const match = path.match(
-            /(\d{4}-\d{2}-\d{2})\.json$/,
-        );
-
-        if (!match) {
-            return null;
-        }
-
-        return {
-            path,
-            date: match[1],
-            loader,
-        };
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.date.localeCompare(b.date));
 
 const countFormatter = new Intl.NumberFormat("ko-KR");
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -341,6 +322,20 @@ export default function TopwarPlayerMoveHistory({
     defaultDays = 7,
 }) {
     const { t, i18n } = useTranslation("viewer");
+    const [movementFiles, setMovementFiles] = useState([]);
+
+    useEffect(() => {
+        let mounted = true;
+        listHistoryFiles("movement")
+            .then((files) => {
+                if (mounted) setMovementFiles(files);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (mounted) setMovementFiles([]);
+            });
+        return () => { mounted = false; };
+    }, []);
 
     const locale = getLocale(
         i18n.resolvedLanguage ?? i18n.language,
@@ -480,7 +475,7 @@ export default function TopwarPlayerMoveHistory({
                 && file.date <= endDate
             );
         });
-    }, [beginDate, endDate]);
+    }, [movementFiles, beginDate, endDate]);
 
     useEffect(() => {
         let cancelled = false;
@@ -492,8 +487,7 @@ export default function TopwarPlayerMoveHistory({
             try {
                 const results = await Promise.all(
                     selectedFiles.map(async (file) => {
-                        const module = await file.loader();
-                        const json = module.default ?? module;
+                        const json = await loadDataFile(file.path);
 
                         return {
                             date: json.date ?? file.date,

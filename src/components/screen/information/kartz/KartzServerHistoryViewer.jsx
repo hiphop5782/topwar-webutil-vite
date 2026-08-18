@@ -1,9 +1,12 @@
 import ServerChooser from "@src/components/template/ServerChooser";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import "./KartzData.css";
 
-const jsonModules = import.meta.glob('@src/assets/json/kartz/history/*.json');
+import {
+    listKartzHistoryFiles,
+    loadDataFile,
+} from "@src/services/topwarDataRepository";
 
 import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 import { Line } from 'react-chartjs-2';
@@ -11,7 +14,6 @@ import { getBaseOptions } from "./KartzChartToolkit";
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 import ChartDataTable from "@src/components/template/ChartDataTable";
-import { useListParamState } from "@src/hooks/useListParamState";
 import { useTranslation } from "react-i18next";
 
 const serverLabelPlugin = {
@@ -74,12 +76,18 @@ export default function KartzServerHistoryViewer() {
         setSelectedServers(servers);
     }, []);
 
-    const [fileNames, setFileNames] = useState(() => {
-        return Object.keys(jsonModules).map(path => {
-            const fileName = path.split('/').pop().replace(".json", "");
-            return { path, fileName, checked: false };
-        }).sort((a, b) => b.fileName.localeCompare(a.fileName));
-    });
+    const [fileNames, setFileNames] = useState([]);
+    useEffect(() => {
+        listKartzHistoryFiles()
+            .then((files) => setFileNames(files.map((file) => ({
+                ...file,
+                checked: false,
+            }))))
+            .catch((error) => {
+                console.error("Kartz index load failed", error);
+                setFileNames([]);
+            });
+    }, []);
 
     //구현중
     //const [selectedFiles, setSelectedFiles] = useListParamState('date');
@@ -96,8 +104,8 @@ export default function KartzServerHistoryViewer() {
         if (checked) {//체크시 추가
             setFileLoading(true);
             try {
-                const module = await jsonModules[file.path]();
-                setSelectedFiles(prev => ({ ...prev, [file.fileName]: module.default }));
+                const data = await loadDataFile(file.path);
+                setSelectedFiles(prev => ({ ...prev, [file.fileName]: data }));
             }
             catch (error) {
                 console.error(t("error-load-fail"), error);
@@ -342,16 +350,14 @@ export default function KartzServerHistoryViewer() {
     const changePeriod = useCallback(async (n = 999999999) => {
         setFileLoading(true);
 
-        const filenameList = fileNames.sort((a, b) => b.fileName.localeCompare(a.fileName)).slice(0, n);
+        const filenameList = [...fileNames]
+            .sort((a, b) => b.fileName.localeCompare(a.fileName))
+            .slice(0, n);
 
         const newSelectedFiles = {};
         try {
             for (const file of filenameList) {
-                const loader = jsonModules[file.path];
-                if (typeof loader === 'function') {
-                    const module = await loader();
-                    newSelectedFiles[file.fileName] = module.default;
-                }
+                newSelectedFiles[file.fileName] = await loadDataFile(file.path);
             }
 
             setSelectedFiles(newSelectedFiles);
@@ -365,7 +371,7 @@ export default function KartzServerHistoryViewer() {
         finally {
             setFileLoading(false);
         }
-    }, [fileNames, jsonModules]);
+    }, [fileNames, t]);
 
     return (<>
         <ServerChooser onChangeServer={onChangeServer} enableShare={false} />

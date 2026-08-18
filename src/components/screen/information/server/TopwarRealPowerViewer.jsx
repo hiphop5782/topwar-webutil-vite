@@ -11,8 +11,11 @@ import "./TopwarRealPowerViewer.css";
 import { useParamState } from "@src/hooks/useParamState";
 
 import SupportBanner from "@src/components/template/SupportBanner";
-
-const jsonModules = import.meta.glob('@src/assets/json/realpower/*.json');
+import {
+    listRealPowerServers,
+    loadPowerFile,
+    loadRealPower
+} from "@src/services/topwarDataRepository";
 
 export default function TopwarRealPowerViewer() {
 
@@ -77,13 +80,22 @@ export default function TopwarRealPowerViewer() {
         );
     }, [relativeTimeFormatter, t]);
 
-    const fileNames = useMemo(() => {
-        return Object.keys(jsonModules).map(path => {
-            const fileName = path.split('/').pop().replace(".json", "");
-            return { path, fileName };
-        })
-        //.sort((a,b)=>b.fileName.localeCompare(a.fileName));
-        sort((a, b) => parseInt(a.fileName) - parseInt(b.fileName));
+    const [fileNames, setFileNames] = useState([]);
+    useEffect(() => {
+        let mounted = true;
+        listRealPowerServers()
+            .then((serverIds) => {
+                if (mounted) {
+                    setFileNames(serverIds.map((serverId) => ({
+                        fileName: String(serverId),
+                    })));
+                }
+            })
+            .catch((error) => {
+                console.error("지도 데이터 인덱스 로드 실패", error);
+                if (mounted) setFileNames([]);
+            });
+        return () => { mounted = false; };
     }, []);
 
     // const [selectedServer, setSelectedServer] = useState(() => {
@@ -96,8 +108,7 @@ export default function TopwarRealPowerViewer() {
 
     const [loading, setLoading] = useState(false);
     const handiveFileSelect = useCallback(async () => {
-        const path = fileNames.filter(file => file.fileName == selectedServer)[0].path;
-        if (!jsonModules[path]) {
+        if (!fileNames.some((file) => file.fileName == selectedServer)) {
             setJson(null);
             return;
         }
@@ -105,22 +116,25 @@ export default function TopwarRealPowerViewer() {
         setLoading(true);
 
         try {
-            const module = await jsonModules[path]();
-            setJson(module.default);
+            const data = await loadRealPower(selectedServer);
+            setJson(data);
         } catch (error) {
             console.error("데이터 로드 실패", error);
             setJson(null);
         } finally {
             setLoading(false);
         }
-    }, [selectedServer]);
+    }, [selectedServer, fileNames]);
 
     const [playerList, setPlayerList] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const loadData = useCallback(async () => {
-        const data = await import("@src/assets/json/power/playerData.json");
-        setPlayerList(data.default);
-        setDataLoading(false);
+        try {
+            const data = await loadPowerFile("playerData");
+            setPlayerList(Array.isArray(data) ? data : []);
+        } finally {
+            setDataLoading(false);
+        }
     }, []);
     useEffect(() => { loadData(); }, []);
 

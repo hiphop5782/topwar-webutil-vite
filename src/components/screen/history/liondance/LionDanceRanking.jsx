@@ -7,15 +7,11 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
+import {
+    listLionDanceFiles,
+    loadDataFile,
+} from "@src/services/topwarDataRepository";
 import "./LionDanceRanking.css?rev=20260717-dataset-filenames-v6";
-
-const lionDanceModules = import.meta.glob(
-    "@src/assets/json/liondance/*.json",
-    {
-        eager: true,
-        import: "default",
-    },
-);
 
 const UNIT_MAP = {
     "": 1,
@@ -385,7 +381,7 @@ function formatInteger(
     ).format(value || 0);
 }
 
-function buildMonths(locale, t) {
+function buildMonths(lionDanceModules, locale, t) {
     return Object.entries(
         lionDanceModules,
     )
@@ -716,13 +712,32 @@ export default function LionDanceRanking() {
         i18n.language,
     );
 
+    const [lionDanceModules, setLionDanceModules] = useState({});
+
+    useEffect(() => {
+        let mounted = true;
+        listLionDanceFiles()
+            .then(async (paths) => {
+                const entries = await Promise.all(
+                    paths.map(async (path) => [path, await loadDataFile(path)]),
+                );
+                if (mounted) setLionDanceModules(Object.fromEntries(entries));
+            })
+            .catch((error) => {
+                console.error("LionDance data load failed", error);
+                if (mounted) setLionDanceModules({});
+            });
+        return () => { mounted = false; };
+    }, []);
+
     const months = useMemo(
         () =>
             buildMonths(
+                lionDanceModules,
                 locale,
                 t,
             ),
-        [locale, t],
+        [lionDanceModules, locale, t],
     );
 
     const initialFilters =
@@ -739,6 +754,12 @@ export default function LionDanceRanking() {
             months,
         ),
     );
+
+    useEffect(() => {
+        if (months.length === 0) return;
+        if (months.some((month) => month.key === selectedMonth)) return;
+        setSelectedMonth(resolveDatasetKey(searchParams, months));
+    }, [months, searchParams, selectedMonth]);
 
     const [mode, setMode] =
         useState(

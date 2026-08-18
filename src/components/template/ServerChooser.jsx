@@ -4,6 +4,7 @@ import { FaPlus, FaShareNodes, FaXmark } from "react-icons/fa6";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { toast } from "react-toastify";
 import { useListParamState } from "@src/hooks/useListParamState"
+import { loadPowerFile } from "@src/services/topwarDataRepository";
 
 export default function ServerChooser({
     onChangeServer,
@@ -16,9 +17,12 @@ export default function ServerChooser({
     const [serverData, setServerData] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const loadData = useCallback(async () => {
-        const data = await import("@src/assets/json/power/serverData.json");
-        setServerData(data.default);
-        setDataLoading(false);
+        try {
+            const data = await loadPowerFile("serverData");
+            setServerData(Array.isArray(data) ? data : []);
+        } finally {
+            setDataLoading(false);
+        }
     }, []);
     useEffect(() => { loadData(); }, []);
 
