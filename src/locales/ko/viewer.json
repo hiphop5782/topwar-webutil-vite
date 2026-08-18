@@ -1945,7 +1945,7 @@
     "cityReward": {
         "title": "도시 보상",
         "loading": "도시 보상 정보를 불러오는 중...",
-        "polling": "5초마다 자동 갱신",
+        "polling": "30초마다 자동 갱신",
         "lastUpdated": "마지막 갱신",
         "resultCount": "{{count}}개",
         "filter": {

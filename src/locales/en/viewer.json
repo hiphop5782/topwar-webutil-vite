@@ -1953,7 +1953,7 @@
     "cityReward": {
         "title": "City Rewards",
         "loading": "Loading city reward data...",
-        "polling": "Auto refresh every 5 seconds",
+        "polling": "Auto refresh every 30 seconds",
         "lastUpdated": "Last updated",
         "resultCount": "{{count}} rewards",
         "filter": {

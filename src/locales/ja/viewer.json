@@ -1945,7 +1945,7 @@
     "cityReward": {
         "title": "都市報酬",
         "loading": "都市報酬データを読み込んでいます...",
-        "polling": "5秒ごとに自動更新",
+        "polling": "30秒ごとに自動更新",
         "lastUpdated": "最終更新",
         "resultCount": "{{count}}件",
         "filter": {
