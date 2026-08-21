@@ -90,6 +90,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/information/data/player-detail/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/player-detail/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/player-detail/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/player-detail/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/information/el/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/el/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/el/" />
@@ -307,6 +313,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/ja/information/data/player-detail/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/player-detail/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/player-detail/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/player-detail/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/ja/information/el/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/el/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/el/" />
@@ -522,6 +534,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/information/data/player-detail/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/player-detail/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/player-detail/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/player-detail/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/information/el/</loc>
