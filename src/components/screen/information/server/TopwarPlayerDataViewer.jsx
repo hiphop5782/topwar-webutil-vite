@@ -547,7 +547,7 @@ export default function TopwarPlayerDataViewer() {
                                     "TopwarPlayerDataViewer.search.nicknameHelp"
                                 )}
                             </small>
-                            <input
+                            <input  
                                 type="search"
                                 className="form-control"
                                 placeholder={t(
