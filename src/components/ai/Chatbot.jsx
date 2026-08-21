@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa6";
 
 import { useTranslation } from "react-i18next";
-import { allowedPaths } from "../../ai/actionRegistry";
+import { chatbotActions } from "../../ai/actionRegistry";
 
 import "./Chatbot.css";
 import SupportBanner from "@src/components/template/SupportBanner";
@@ -37,13 +37,6 @@ export default function Chatbot() {
 
     const chatBodyRef = useRef(null);
     const inputRef = useRef(null);
-
-    /**
-     * 챗봇 열기
-     */
-    const openChatbot = useCallback(() => {
-        setIsOpen(true);
-    }, []);
 
     /**
      * 챗봇 닫기
@@ -84,17 +77,7 @@ export default function Chatbot() {
             const data = {
                 message: text,
                 lang: i18n.language,
-                actions: [
-                    {
-                        name: "navigate",
-                        description:
-                            "사용자가 요청한 허용된 페이지로 이동한다",
-                        requiredParams: ["path"],
-                        allowedValues: {
-                            path: allowedPaths,
-                        },
-                    },
-                ],
+                actions: chatbotActions,
             };
 
             console.log("chatbot request", data);
