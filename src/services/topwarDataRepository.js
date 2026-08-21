@@ -155,6 +155,34 @@ export async function loadHomeStatistics() {
     return requestJson(path, { revision: index.revision });
 }
 
+export async function loadPlayerSearchManifest() {
+    const index = await loadDataIndex();
+    const path = index?.datasets?.generated?.playerSearch
+        || "generated/player-search/manifest.json";
+
+    return requestJson(path, { revision: index.revision });
+}
+
+export async function loadPlayerNicknameShard(shard) {
+    const index = await loadDataIndex();
+    const manifest = await loadPlayerSearchManifest();
+    const pattern = manifest.nicknamePattern
+        || "generated/player-search/nickname/{shard}.json";
+    const path = pattern.replace("{shard}", String(shard));
+
+    return requestJson(path, { revision: index.revision });
+}
+
+export async function loadPlayerUidShard(shard) {
+    const index = await loadDataIndex();
+    const manifest = await loadPlayerSearchManifest();
+    const pattern = manifest.uidPattern
+        || "generated/player-search/uid/{shard}.json";
+    const path = pattern.replace("{shard}", String(shard));
+
+    return requestJson(path, { revision: index.revision });
+}
+
 export async function listAllianceDefenseFiles() {
     const index = await loadDataIndex();
     const descriptor = index?.datasets?.allianceDefense;

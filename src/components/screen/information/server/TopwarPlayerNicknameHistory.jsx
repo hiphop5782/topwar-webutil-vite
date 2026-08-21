@@ -12,6 +12,7 @@ import {
     listHistoryFiles,
     loadDataFile,
 } from "@src/services/topwarDataRepository";
+import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 import "./TopwarPlayerNicknameHistory.css";
 
 const countFormatter = new Intl.NumberFormat("ko-KR");
@@ -253,78 +254,6 @@ function formatDateOnly(value, locale) {
     });
 }
 
-
-/*
- * 닉네임 검색용 시각적 정규화
- *
- * 1) NFKC: 𝐀, Ａ, 𝖠 같은 compatibility 문자를 일반 문자로 환원
- * 2) 라틴 문자의 발음 구별 기호 제거: é -> e, ö -> o
- * 3) zero-width / variation selector 제거
- * 4) 게임 닉네임에서 자주 쓰이는 Greek/Cyrillic homoglyph를 ASCII로 접기
- *
- * 완전한 Unicode confusable 판정이 필요한 경우에는
- * Unicode UTS #39 confusables.txt 기반 skeleton 구현으로 교체할 수 있다.
- */
-const NICKNAME_CONFUSABLES = new Map(
-    Object.entries({
-        // Cyrillic uppercase
-        "А": "A", "В": "B", "С": "C", "Е": "E",
-        "Н": "H", "І": "I", "Ј": "J", "К": "K",
-        "М": "M", "О": "O", "Р": "P", "Ѕ": "S",
-        "Т": "T", "Х": "X", "У": "Y",
-
-        // Cyrillic lowercase
-        "а": "a", "в": "b", "с": "c", "е": "e",
-        "і": "i", "ј": "j", "к": "k", "м": "m",
-        "о": "o", "р": "p", "ѕ": "s", "т": "t",
-        "х": "x", "у": "y",
-
-        // Greek uppercase
-        "Α": "A", "Β": "B", "Ε": "E", "Ζ": "Z",
-        "Η": "H", "Ι": "I", "Κ": "K", "Μ": "M",
-        "Ν": "N", "Ο": "O", "Ρ": "P", "Τ": "T",
-        "Υ": "Y", "Χ": "X",
-
-        // Greek lowercase - visually close Latin forms only
-        "α": "a", "β": "b", "ε": "e", "ι": "i",
-        "κ": "k", "ο": "o", "ρ": "p", "τ": "t",
-        "υ": "y", "χ": "x",
-    }),
-);
-
-function foldLatinDiacritics(value) {
-    return Array.from(value).map((character) => {
-        const decomposed = character.normalize("NFD");
-        const base = decomposed.charAt(0);
-
-        if (/^[A-Za-z]$/.test(base)) {
-            return base;
-        }
-
-        return character;
-    }).join("");
-}
-
-function normalizeNicknameForSearch(value) {
-    const compatibilityNormalized = String(value ?? "")
-        .normalize("NFKC")
-        .replace(/[\u200B-\u200D\u2060\uFEFF]/g, "")
-        .replace(/[\uFE00-\uFE0F]/g, "");
-
-    const latinFolded = foldLatinDiacritics(
-        compatibilityNormalized,
-    );
-
-    return Array.from(latinFolded)
-        .map((character) => (
-            NICKNAME_CONFUSABLES.get(character)
-            ?? character
-        ))
-        .join("")
-        .toLocaleLowerCase()
-        .replace(/\s+/g, " ")
-        .trim();
-}
 
 function getFromNickname(row) {
     return String(

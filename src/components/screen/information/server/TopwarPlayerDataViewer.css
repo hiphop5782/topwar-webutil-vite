@@ -93,7 +93,8 @@
     margin: 0;
 }
 
-.topwar-search-field > span {
+.topwar-search-field > span,
+.topwar-search-field > label {
     display: flex;
     align-items: center;
     gap: 0.45rem;

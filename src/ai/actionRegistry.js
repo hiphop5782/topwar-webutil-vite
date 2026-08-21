@@ -103,6 +103,19 @@ export const allowedPaths = [
             },
         },
     },
+    {
+        path: "/information/data/player-detail",
+        label: "플레이어 통합 조회",
+        examples: ["플레이어 검색", "유저 상세 정보", "닉네임으로 유저 찾기", "캐릭터 정보 조회"],
+        chatbot: true,
+        queryParams: {
+            nickname: {
+                type: "string",
+                required: false,
+                description: "조회할 플레이어 닉네임"
+            }
+        },
+    },
     { 
         path: "/information/data/server", 
         label: "서버 정보",

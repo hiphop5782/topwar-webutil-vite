@@ -43,6 +43,7 @@ import TopwarAllianceDataViewer from "@src/components/screen/information/server/
 import TopwarCompareViewer from "@src/components/screen/information/server/TopwarCompareViewer";
 import TopwarServerRealtimeDataViewer from "@src/components/screen/information/server/TopwarServerRealtimeDataViewer";
 import TopwarPlayerNicknameHistory from "@src/components/screen/information/server/TopwarPlayerNicknameHistory";
+import TopwarPlayerDetail from "@src/components/screen/information/server/TopwarPlayerDetail";
 
 import KartzDataViewer from "@src/components/screen/information/kartz/KartzDataViewer";
 import KartzRankViewer from "@src/components/screen/information/kartz/KartzRankViewer";
@@ -116,6 +117,7 @@ export default function MainContentView() {
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
                         <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7}/>}></Route>
                         <Route path="nickname" element={<TopwarPlayerNicknameHistory />}></Route>
+                        <Route path="player-detail" element={<TopwarPlayerDetail />}></Route>
                         <Route path="realpower" element={<TopwarRealPowerViewer/>}></Route>
                         {/* <Route path="compare" element={<TopwarCompareViewer/>}></Route> */}
                         {/* <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route> */}
