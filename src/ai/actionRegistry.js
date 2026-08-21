@@ -106,13 +106,24 @@ export const allowedPaths = [
     {
         path: "/information/data/player-detail",
         label: "플레이어 통합 조회",
-        examples: ["플레이어 검색", "유저 상세 정보", "닉네임으로 유저 찾기", "캐릭터 정보 조회"],
+        examples: [
+            "플레이어 검색",
+            "유저 검색",
+            "캐릭터 검색",
+            "유저 상세 정보",
+            "닉네임으로 유저 찾기",
+            "캐릭터 정보 조회",
+            "플레이어 닉네임 변경 기록",
+            "유저 서버 이동 기록",
+            "UID로 플레이어 조회"
+        ],
         chatbot: true,
         queryParams: {
             nickname: {
                 type: "string",
                 required: false,
-                description: "조회할 플레이어 닉네임"
+                description: "자동완성으로 조회할 플레이어 닉네임. 한글 자모·초성 및 Unicode 유사문자 검색을 지원한다.",
+                aliases: ["닉네임", "유저", "사용자", "플레이어", "캐릭터", "nickname", "user"]
             }
         },
     },

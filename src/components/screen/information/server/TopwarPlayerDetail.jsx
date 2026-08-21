@@ -1,5 +1,6 @@
 import CountryFlagJson from "@src/assets/json/power/countryFlag.json";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
+import { useCanonicalUrl } from "@src/hooks/useCanonicalUrl";
 import { useParamState } from "@src/hooks/useParamState";
 import {
     loadPlayerNicknameShard,
@@ -105,6 +106,7 @@ function InfoItem({ label, value, accent = false }) {
 }
 
 export default function TopwarPlayerDetail() {
+    const canonicalUrl = useCanonicalUrl();
     const [nicknameParam, setNicknameParam] = useParamState("nickname", "");
     const [nickname, setNickname] = useState(nicknameParam);
     const [debouncedNickname, setDebouncedNickname] = useState(nicknameParam);
@@ -240,12 +242,57 @@ export default function TopwarPlayerDetail() {
         [detail],
     );
     const countryCode = getCountryCode(player?.countryFlag);
+    const seoTitle = "TopWar 플레이어 검색 · 닉네임·서버 이동 통합 조회 | Topwar Helper";
+    const seoDescription = "TopWar 닉네임을 한글 자모·초성, 영문 대소문자와 유사 Unicode 문자로 검색하고 UID 기반 플레이어 정보, 전투력, 동맹, 닉네임 변경 및 서버 이동 기록을 확인하세요.";
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebApplication",
+                name: "TopWar 플레이어 통합 조회",
+                url: canonicalUrl,
+                description: seoDescription,
+                applicationCategory: "GameApplication",
+                operatingSystem: "Any",
+                isAccessibleForFree: true,
+                potentialAction: {
+                    "@type": "SearchAction",
+                    target: {
+                        "@type": "EntryPoint",
+                        urlTemplate: `${canonicalUrl}?nickname={nickname}`,
+                    },
+                    "query-input": "required name=nickname",
+                },
+            },
+            {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    { "@type": "ListItem", position: 1, name: "Topwar Helper", item: new URL("/", canonicalUrl).href },
+                    { "@type": "ListItem", position: 2, name: "데이터 조회", item: new URL("../", canonicalUrl).href },
+                    { "@type": "ListItem", position: 3, name: "플레이어 통합 조회", item: canonicalUrl },
+                ],
+            },
+        ],
+    };
 
     return (
         <article className="topwar-player-detail">
             <Helmet>
-                <title>플레이어 통합 조회 | Topwar Helper</title>
-                <meta name="description" content="닉네임으로 TopWar 플레이어의 현재 정보와 변경 이력을 통합 조회합니다." />
+                <title>{seoTitle}</title>
+                <meta name="description" content={seoDescription} />
+                <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+                <meta name="keywords" content="TopWar, Top War, 탑워, 플레이어 검색, 닉네임 검색, 서버 이동, 닉네임 변경, 전투력" />
+                <link rel="canonical" href={canonicalUrl} />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Topwar Helper" />
+                <meta property="og:title" content={seoTitle} />
+                <meta property="og:description" content={seoDescription} />
+                <meta property="og:url" content={canonicalUrl} />
+                <meta property="og:locale" content="ko_KR" />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content={seoTitle} />
+                <meta name="twitter:description" content={seoDescription} />
+                <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
             </Helmet>
 
             <header className="player-detail-hero">
