@@ -65,13 +65,13 @@ function JobInformation() {
             ? previous.filter(item => item !== level)
             : [...previous, level].sort((a, b) => a - b));
     };
-    const resourceCards = value => (
-        <div className="job-resources">
-            <Resource label="직업 연구서" value={numbers.format(value.item)} />
-            {value.core > 0 && <Resource label="코어" value={numbers.format(value.core)} />}
-            <Resource label="석유" value={compact.format(value.oil)} title={numbers.format(value.oil)} />
-            <Resource label="식량" value={compact.format(value.food)} title={numbers.format(value.food)} />
-            <Resource wide label="총 연구 시간" value={formatTime(value.seconds)} />
+    const resourceCards = (value, condensed = false) => (
+        <div className={`job-resources ${condensed ? "condensed" : ""} ${value.core > 0 ? "has-core" : ""}`}>
+            <Resource className="item" label="직업 연구서" value={numbers.format(value.item)} />
+            {value.core > 0 && <Resource className="core" label="코어" value={numbers.format(value.core)} />}
+            <Resource className="oil" label="석유" value={compact.format(value.oil)} title={numbers.format(value.oil)} />
+            <Resource className="food" label="식량" value={compact.format(value.food)} title={numbers.format(value.food)} />
+            <Resource className="time" wide label="총 연구 시간" value={formatTime(value.seconds)} />
         </div>
     );
 
@@ -122,7 +122,7 @@ function JobInformation() {
                                 })}
                             </tbody></table></div>
                         </section>
-                        {selectedLevels.length > 0 && <section className="job-selection-total"><h3>선택 합계</h3>{resourceCards(total)}</section>}
+                        {selectedLevels.length > 0 && <section className="job-selection-total"><h3>선택 합계</h3>{resourceCards(total, true)}</section>}
                         <button type="button" className="job-add" onClick={addPlan} disabled={selectedLevels.length === 0}>강화 계획에 추가</button>
                     </> : <div className="job-empty"><h2>스킬을 선택해 주세요</h2><p>레벨 행을 선택하면 필요한 자원의 합계를 확인할 수 있습니다.</p></div>}
                 </aside>
@@ -144,8 +144,8 @@ function Heading({ step, title, description }) {
     return <div className="job-heading"><div><span>{step}</span><h2>{title}</h2></div>{description && <small>{description}</small>}</div>;
 }
 
-function Resource({ label, value, title, wide = false }) {
-    return <div className={`job-resource ${wide ? "wide" : ""}`}><span>{label}</span><strong title={title}>{value}</strong></div>;
+function Resource({ label, value, title, wide = false, className = "" }) {
+    return <div className={`job-resource ${wide ? "wide" : ""} ${className}`}><span>{label}</span><strong title={title}>{value}</strong></div>;
 }
 
 export default JobInformation;
