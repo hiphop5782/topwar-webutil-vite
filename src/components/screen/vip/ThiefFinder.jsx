@@ -1333,7 +1333,7 @@ async function copyCoordinate(
         console.error(
             "[ThiefFinder] clipboard copy failed",
             error
-        );
+        ); 
 
 
         return false;
