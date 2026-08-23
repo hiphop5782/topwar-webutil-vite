@@ -31,6 +31,10 @@ import {
     clearTopwarDataCache,
     loadPowerFile
 } from "@src/services/topwarDataRepository";
+import {
+    getPlayerNicknameSearchKeys,
+    getPlayerSearchQuery,
+} from "@src/utils/playerSearchIndex";
 
 const ACTIVITY_STATUS = {
     ACTIVE: "active",
@@ -38,13 +42,6 @@ const ACTIVITY_STATUS = {
     STOP: "stop",
     UNKNOWN: "unknown"
 };
-
-function normalizeSearchText(value) {
-    return String(value ?? "")
-        .normalize("NFKC")
-        .trim()
-        .toLocaleLowerCase();
-}
 
 function getPlayerServerNumber(player) {
     const rawServer =
@@ -132,8 +129,30 @@ export default function TopwarPlayerDataViewer() {
             validate: (value) => /^[0-9]*$/.test(value)
         });
 
-    const [searchNickname, setSearchNickname] =
+    const [searchNicknameParam, setSearchNicknameParam] =
         useParamState("user", "");
+
+    // URL 갱신과 7만여 명 필터링이 키 입력을 막지 않도록 입력 상태를
+    // 분리하고, 사용자가 잠시 멈춘 뒤에만 실제 검색을 수행한다.
+    const [searchNickname, setSearchNickname] =
+        useState(searchNicknameParam);
+    const [debouncedNickname, setDebouncedNickname] =
+        useState(searchNicknameParam);
+
+    useEffect(() => {
+        const timeoutId = window.setTimeout(() => {
+            setDebouncedNickname(searchNickname);
+            if (searchNickname !== searchNicknameParam) {
+                setSearchNicknameParam(searchNickname);
+            }
+        }, 250);
+
+        return () => window.clearTimeout(timeoutId);
+    }, [
+        searchNickname,
+        searchNicknameParam,
+        setSearchNicknameParam
+    ]);
 
     const locale =
         i18n.resolvedLanguage ??
@@ -203,7 +222,11 @@ export default function TopwarPlayerDataViewer() {
                 )
                 .map((player, index) => ({
                     ...player,
-                    rank: index + 1
+                    rank: index + 1,
+                    _nicknameSearchKeys:
+                        getPlayerNicknameSearchKeys(
+                            player.nickname
+                        )
                 })),
         [playerList]
     );
@@ -213,8 +236,9 @@ export default function TopwarPlayerDataViewer() {
         .replace(/^s/i, "")
         .replace(/\D/g, "");
 
-    const normalizedNickname =
-        normalizeSearchText(searchNickname);
+    const nicknameQuery =
+        getPlayerSearchQuery(debouncedNickname);
+    const normalizedNickname = nicknameQuery.key;
 
     const hasActiveFilter =
         normalizedServer.length > 0 ||
@@ -229,9 +253,11 @@ export default function TopwarPlayerDataViewer() {
                     normalizedServer;
 
                 const nicknameMatched =
-                    normalizedNickname.length === 0 ||
-                    normalizeSearchText(
-                        player.nickname
+                    normalizedNickname.length === 0
+                    || String(
+                        player._nicknameSearchKeys[
+                            nicknameQuery.field
+                        ] ?? ""
                     ).includes(normalizedNickname);
 
                 return serverMatched && nicknameMatched;
@@ -239,6 +265,7 @@ export default function TopwarPlayerDataViewer() {
         [
             normalizedNickname,
             normalizedServer,
+            nicknameQuery.field,
             sortedPlayers
         ]
     );
@@ -336,9 +363,12 @@ export default function TopwarPlayerDataViewer() {
     const clearFilters = useCallback(() => {
         setSearchServer("");
         setSearchNickname("");
+        setDebouncedNickname("");
+        setSearchNicknameParam("");
         setExpandNations(false);
     }, [
         setSearchNickname,
+        setSearchNicknameParam,
         setSearchServer
     ]);
 
@@ -517,7 +547,7 @@ export default function TopwarPlayerDataViewer() {
                                     "TopwarPlayerDataViewer.search.nicknameHelp"
                                 )}
                             </small>
-                            <input
+                            <input  
                                 type="search"
                                 className="form-control"
                                 placeholder={t(

@@ -1,302 +1,151 @@
-import JobDataJson from "@src/assets/json/job.json";
-import "./JobInformation.css"
-import { useCallback, useEffect, useState } from "react";
-import SEO from "../../template/SEO";
+import { useMemo, useState } from "react";
 import { t } from "i18next";
+import JobData from "@src/assets/json/job.json";
+import SEO from "../../template/SEO";
+import "./JobInformation.css";
+
+const JOBS = [
+    ["CL", "전투 정예", "Combat Elite"],
+    ["MM", "기계 전문가", "Mechanic Master"],
+];
+const EMPTY = { oil: 0, food: 0, item: 0, core: 0, seconds: 0 };
+
+function timeToSeconds(value = "") {
+    const [d = 0, h = 0, m = 0, s = 0] = value.match(/\d+/g)?.map(Number) || [];
+    return (((d * 24 + h) * 60 + m) * 60) + s;
+}
+
+function formatTime(value) {
+    const d = Math.floor(value / 86400);
+    const h = Math.floor((value % 86400) / 3600);
+    const m = Math.floor((value % 3600) / 60);
+    return [d && `${d}일`, h && `${h}시간`, m && `${m}분`].filter(Boolean).join(" ") || "0분";
+}
+
+function totalOf(upgrades) {
+    return upgrades.reduce((sum, item) => ({
+        oil: sum.oil + (item.oil || 0),
+        food: sum.food + (item.food || 0),
+        item: sum.item + (item.item || 0),
+        core: sum.core + (item.core || 0),
+        seconds: sum.seconds + timeToSeconds(item.time),
+    }), { ...EMPTY });
+}
 
 function JobInformation() {
     const [job, setJob] = useState("CL");
-    const [jobData, setJobData] = useState(JobDataJson);
-    const [display, setDisplay] = useState([]);
-    const numberFormat = useCallback(n=>{
-        return Intl.NumberFormat('en-US', {
-            notation: "compact",
-            maximumFractionDigits: 3
-        }).format(n);
-    }, []);
-
-    const clearSelectedItem = ()=>{
-        //console.log(window);
-        setDisplay([]);
-        setJobData(JobDataJson);
-    };
-
-    useEffect(clearSelectedItem, [job]);
-
-    //항목 체크 이벤트
-    const checkItem = (r, c) => {
-        /* 디자인 이슈로 하나만 표시하기 위해 코드 추가 */
-        setDisplay(prev=>[{...c, row:r.row}]);
-        setJobData(prev=>prev.map(rowItem=>{
-            if(rowItem.row === r.row) {
-                return {
-                    ...rowItem, 
-                    items:rowItem.items.map(colItem=>{
-                        if(colItem.col === c.col) {
-                            return {...colItem, choice:true};
-                        }
-                        return {...colItem, choice:false};
-                    })
-                };
-            }
-            else {
-                return {
-                    ...rowItem, 
-                    items:rowItem.items.map(colItem=>{
-                        return {...colItem, choice:false};
-                    })
-                };
-            }
-        }));
-        /* 디자인 이슈로 하나만 표시하기 위해 코드 추가 */
-
-        // setDisplay(prev=> c.choice ? 
-        //     prev.filter(p=>p.col !== c.col) : prev.concat({...c, row:r.row})
-        // );
-        // setJobData(prev=>prev.map(rowItem=>{
-        //     if(rowItem.row === r.row) {
-        //         return {
-        //             ...rowItem, 
-        //             items:rowItem.items.map(colItem=>{
-        //                 if(colItem.col === c.col) {
-        //                     return {...colItem, choice:!c.choice};
-        //                 }
-        //                 return colItem;
-        //             })
-        //         };
-        //     }
-        //     return rowItem;
-        // }));
-    };
-
-    //시간 더하기
-    const plusTime = (a, b)=>{
-        const arr = a.match(/\d+/g);
-        const brr = b.match(/\d+/g);
-        const crr = arr.map((a,i)=>parseInt(a)+parseInt(brr[i]));
-        const size = [0, 24, 60, 60];
-        for(let i=crr.length-1; i > 0; i--) {
-            const div = parseInt(crr[i] / size[i]);
-            const mod = parseInt(crr[i] % size[i]);
-            crr[i] = mod;
-            crr[i-1] += div;
-        }
-        return `${crr[0]}일 ${crr[1]}시간 ${crr[2]}분 ${crr[3]}초`;
-    };
-
-    //업그레이드 체크 이벤트
-    const checkUpgrades = (dis, upgrade, checked)=>{
-        setDisplay(prev=>prev.map(p=>{
-            if(p.row === dis.row && p.col === dis.col) {
-                return {
-                    ...p, 
-                    upgrades:p.upgrades.map(u=>{
-                        if(u.level == upgrade.level) {
-                            return {
-                                ...u, 
-                                choice:checked,
-                            };
-                        }
-                        return {...u};
-                    })
-                };
-            }
-            return p;
-        }));
-        
-        setDisplay(prev=>prev.map(p=>{
-            if(p.row === dis.row && p.col === dis.col) {
-                return {
-                    ...p, 
-                    allCheck:p.upgrades.reduce((sum,n) => {
-                        return sum && (n.level ===upgrade.level ? checked : n.choice);
-                    }, true),
-                    subtotal:p.upgrades.reduce((sum, cur)=>{
-                        if(cur.choice) {
-                            return {
-                                oil:sum.oil + cur.oil,
-                                food:sum.food + cur.food,
-                                item:sum.item + cur.item,
-                                core:sum.core + (cur.core || 0),
-                                time:plusTime(sum.time, cur.time)
-                            };
-                        }
-                        return {...sum};
-                    }, {
-                        oil:0, food:0, item:0, core:0, time:"0일 0시간 0분 0초"
-                    })
-                };
-            }
-            return p;
-        }));
-    };
-
-    //전체선택
-    const allCheck = (d, checked)=>{
-        setDisplay(prev=>prev.map(display=>{
-            if(display.row === d.row && display.col === d.col) {
-                return {
-                    ...display, 
-                    allCheck: checked,
-                    upgrades:display.upgrades.map(u=>{
-                        return {...u, choice:checked};
-                    })
-                };
-            }
-            return display;
-        }));
-        setDisplay(prev=>prev.map(p=>{
-            if(p.row === d.row && p.col === d.col) {
-                return {
-                    ...p, 
-                    subtotal:p.upgrades.reduce((sum, cur)=>{
-                        if(cur.choice) {
-                            return {
-                                oil:sum.oil + cur.oil,
-                                food:sum.food + cur.food,
-                                item:sum.item + cur.item,
-                                core:sum.core + (cur.core || 0),
-                                time:plusTime(sum.time, cur.time)
-                            };
-                        }
-                        return {...sum};
-                    }, {
-                        oil:0, food:0, item:0, core:0, time:"0일 0시간 0분 0초"
-                    })
-                };
-            }
-            return p;
-        }));
-    };
-
-    const numberWithCommas = useCallback((x)=>{
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }, []);
-
-    return (
-        <>
-            <SEO title={t("seo:information.job.title")}/>
-
-            <div className="row">
-                <div className="col-12">
-                    <h1>전문 직업 강화</h1>
-                </div>
-            </div>
-            <hr />
-            <div className="row mt-4">
-                <div className="col-12">
-                직업을 선택하세요
-                </div>
-                <div className="col-12 mt-2">
-                    <div className="form-check">
-                        <input className="form-check-input" type="radio" name="job" id="radio1" value="CL" defaultChecked onChange={e=>setJob(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="radio1">
-                            전투 정예 <span className="text-muted">(Combat Elite)</span>
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="radio" name="job" id="radio2" value="MM" onChange={e=>setJob(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="radio2">
-                            기계 전문가 <span className="text-muted">(Mechanic Master)</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div className="row mt-4">
-                
-                {/* 스킬트리 */}
-                <div className="col-sm-4 skill-tree">
-                    <div className="row">
-                        {jobData.map(r=>(
-                            <div className="col-12" key={r.row}>
-                                <div className="row-inner">
-                                    <span className="title">{r.row} 행</span>
-                                    {r.items.map(c=>(
-                                        <div key={c.col} className="col-4">
-                                            <label className={`col-inner ${c.choice ? 'active' : false}`} onClick={e=>checkItem(r, c)}>
-                                                {/* <span className="title">{c.col} 열</span> */}
-                                                <div className="content">
-                                                    <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/job/${job}-${r.row}-${c.col}.png`}/>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* 스킬상세 */}
-                {display.length > 0 ? 
-                <div className={`col-sm-8 skill-detail ${display.length > 0 ? 'active' : ''}`} onClick={clearSelectedItem}>
-                    <span className="advice"></span>
-                    {display.length > 0 ? 
-                        display.map((d, i)=>
-                        <div className="box p-3 mb-2" key={i} onClick={e=>e.stopPropagation()}>
-                            
-                            <h3>
-                                <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/job/${job}-${d.row}-${d.col}.png`} width={50} height={50}/>
-                                &nbsp;&nbsp;
-                                {d.name[job]}
-                            </h3>
-                            
-                            <p className="ps-5"><span className="text-muted ms-4">{d.explain[job]}</span></p>
-
-                            <table className="table table-striped">
-                                <thead className="text-end">
-                                    <tr>
-                                        <th className="text-center pc-only"><input type="checkbox" checked={d.allCheck} onChange={e=>allCheck(d, e.target.checked)}/></th>
-                                        <th className="text-center">레벨</th>
-                                        <th>석유</th>
-                                        <th>식량</th>
-                                        <th>직상</th>
-                                        {d.upgrades[0]["core"] !== undefined ? 
-                                        <th>코어</th>
-                                        : false}
-                                        <th className="pc-only">시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-end">
-                                    {d.upgrades.map((item, index)=>(
-                                        <tr key={index}  onClick={e=>checkUpgrades(d, item, !item.choice)} className={`${item.choice ? 'table-dark text-light' : ''}`}>
-                                            <td className="text-center pc-only">
-                                                <input type="checkbox" checked={item.choice} onChange={e=>checkUpgrades(d, item, e.target.checked)}/>
-                                            </td>
-                                            <td className="text-center">{item.level}</td>
-                                            <td>{numberFormat(item.oil)}</td>
-                                            <td>{numberFormat(item.food)}</td>
-                                            <td>{numberWithCommas(item.item)}</td>
-                                            {item["core"] !== undefined ? 
-                                            <td>{numberWithCommas(item.core)}</td>
-                                            : false}
-                                            <td className="pc-only">{item.time}</td>
-                                        </tr>
-                                    ))}
-                                    {!d.subtotal === false && d.subtotal.oil > 0? 
-                                        <tr>
-                                            <td className="pc-only"></td>
-                                            <td className="text-center">합계</td>
-                                            <td>{numberFormat(d.subtotal.oil)}</td>
-                                            <td>{numberFormat(d.subtotal.food)}</td>
-                                            <td>{numberWithCommas(d.subtotal.item)}</td>
-                                            {d.subtotal["core"] !== undefined && d.subtotal.core > 0 ? 
-                                            <td>{numberWithCommas(d.subtotal.core)}</td>
-                                            : false}
-                                            <td className="pc-only">{d.subtotal.time}</td>
-                                        </tr>
-                                    : false}
-                                </tbody>
-                            </table>
-                        </div> )
-                    : false}
-                </div>
-                : false}
-            </div>
-        </>
-
+    const [skill, setSkill] = useState(null);
+    const [selectedLevels, setSelectedLevels] = useState([]);
+    const [plans, setPlans] = useState([]);
+    const numbers = useMemo(() => new Intl.NumberFormat("ko-KR"), []);
+    const compact = useMemo(() => new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }), []);
+    const upgrades = useMemo(
+        () => skill?.upgrades.filter(item => selectedLevels.includes(item.level)) || [],
+        [skill, selectedLevels]
     );
+    const total = useMemo(() => totalOf(upgrades), [upgrades]);
+    const grandTotal = useMemo(() => totalOf(plans.flatMap(plan => plan.upgrades)), [plans]);
+
+    const chooseSkill = (row, item) => {
+        setSkill({ ...item, row });
+        setSelectedLevels([]);
+    };
+    const changeJob = next => {
+        setJob(next);
+        setSkill(null);
+        setPlans([]);
+    };
+    const addPlan = () => {
+        const key = `${job}-${skill.row}-${skill.col}`;
+        const plan = { key, name: skill.name[job], levels: selectedLevels, upgrades, total };
+        setPlans(previous => [...previous.filter(item => item.key !== key), plan]);
+    };
+    const toggleLevel = level => {
+        setSelectedLevels(previous => previous.includes(level)
+            ? previous.filter(item => item !== level)
+            : [...previous, level].sort((a, b) => a - b));
+    };
+    const resourceCards = (value, condensed = false) => (
+        <div className={`job-resources ${condensed ? "condensed" : ""} ${value.core > 0 ? "has-core" : ""}`}>
+            <Resource className="item" label="직업 연구서" value={numbers.format(value.item)} />
+            {value.core > 0 && <Resource className="core" label="코어" value={numbers.format(value.core)} />}
+            <Resource className="oil" label="석유" value={compact.format(value.oil)} title={numbers.format(value.oil)} />
+            <Resource className="food" label="식량" value={compact.format(value.food)} title={numbers.format(value.food)} />
+            <Resource className="time" wide label="총 연구 시간" value={formatTime(value.seconds)} />
+        </div>
+    );
+
+    return <>
+        <SEO title={t("seo:information.job.title")}/>
+        <main className="job-page">
+            <header className="job-header">
+                <div><h1>전문 직업 강화 계산기</h1><p>필요한 강화 레벨을 선택해 자원 소모량을 계산해 보세요.</p></div>
+                <div className="job-switcher" aria-label="직업 선택">
+                    {JOBS.map(([value, label, english]) => <button key={value} type="button" className={job === value ? "active" : ""} aria-pressed={job === value} onClick={() => changeJob(value)}><strong>{label}</strong><small>{english}</small></button>)}
+                </div>
+            </header>
+
+            <div className="job-workspace">
+                <section className="job-card job-tree">
+                    <Heading step="STEP 1" title="스킬 선택" description="계산할 스킬을 눌러주세요." />
+                    {JobData.map(row => <div className="job-row" key={row.row}>
+                        <span>{row.row}행</span>
+                        <div>{[1, 2, 3].map(column => {
+                            const item = row.items.find(candidate => candidate.col === column);
+
+                            if (!item) {
+                                return <span className="job-skill-slot-empty" key={column} aria-hidden="true" />;
+                            }
+
+                            const active = skill?.row === row.row && skill?.col === item.col;
+                            return <button type="button" key={column} className={active ? "active" : ""} aria-pressed={active} onClick={() => chooseSkill(row.row, item)}>
+                                <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/job/${job}-${row.row}-${item.col}.png`} alt="" />
+                                <b>{item.name[job]}</b>
+                            </button>;
+                        })}</div>
+                    </div>)}
+                </section>
+
+                <aside className={`job-card job-calculator ${skill ? "active" : ""}`} aria-label="강화 구간 계산기">
+                    {skill ? <>
+                        <button className="job-close" type="button" onClick={() => setSkill(null)} aria-label="닫기">×</button>
+                        <div className="job-skill-title">
+                            <img src={`${import.meta.env.VITE_PUBLIC_URL}/images/job/${job}-${skill.row}-${skill.col}.png`} alt="" />
+                            <div><small>{skill.row}행 스킬</small><h2>{skill.name[job]}</h2><p>{skill.explain[job]}</p></div>
+                        </div>
+                        <section className="job-details job-level-costs">
+                            <Heading step="LEVEL COST" title="전체 레벨별 소모량" />
+                            <div><table><thead><tr><th><input type="checkbox" aria-label="전체 레벨 선택" checked={selectedLevels.length === skill.upgrades.length} onChange={event => setSelectedLevels(event.target.checked ? skill.upgrades.map(item => item.level) : [])} /></th><th>레벨</th><th>직상</th><th>석유</th><th>식량</th>{skill.upgrades.some(item => item.core !== undefined) && <th>코어</th>}<th>시간</th></tr></thead><tbody>
+                                {skill.upgrades.map(item => {
+                                    const selected = selectedLevels.includes(item.level);
+                                    return <tr key={item.level} className={selected ? "selected" : ""} onClick={() => toggleLevel(item.level)}><td><input type="checkbox" aria-label={`레벨 ${item.level} 선택`} checked={selected} onClick={event => event.stopPropagation()} onChange={() => toggleLevel(item.level)} /></td><td>Lv.{item.level}</td><td>{numbers.format(item.item)}</td><td title={numbers.format(item.oil)}>{compact.format(item.oil)}</td><td title={numbers.format(item.food)}>{compact.format(item.food)}</td>{skill.upgrades.some(upgrade => upgrade.core !== undefined) && <td>{numbers.format(item.core || 0)}</td>}<td>{item.time}</td></tr>;
+                                })}
+                            </tbody></table></div>
+                        </section>
+                        {selectedLevels.length > 0 && <section className="job-selection-total"><h3>선택 합계</h3>{resourceCards(total, true)}</section>}
+                        <button type="button" className="job-add" onClick={addPlan} disabled={selectedLevels.length === 0}>강화 계획에 추가</button>
+                    </> : <div className="job-empty"><h2>스킬을 선택해 주세요</h2><p>레벨 행을 선택하면 필요한 자원의 합계를 확인할 수 있습니다.</p></div>}
+                </aside>
+            </div>
+
+            <section className="job-card job-plans">
+                <Heading step="PLAN" title={`강화 계획 (${plans.length})`} />
+                {plans.length ? <>
+                    <div className="job-plan-list">{plans.map(plan => <article key={plan.key}><div><strong>{plan.name}</strong><small>Lv. {plan.levels.join(", ")}</small></div><span>직상 {numbers.format(plan.total.item)}개</span><button type="button" onClick={() => setPlans(value => value.filter(item => item.key !== plan.key))} aria-label={`${plan.name} 삭제`}>×</button></article>)}</div>
+                    <div className="job-grand-total"><div className="job-grand-title"><h3>전체 필요량</h3><button type="button" onClick={() => setPlans([])}>전체 삭제</button></div>{resourceCards(grandTotal)}</div>
+                </> : <p className="job-plan-empty">계산 결과를 계획에 추가하면 여러 스킬의 전체 필요량을 확인할 수 있습니다.</p>}
+            </section>
+        </main>
+        {skill && <button type="button" className="job-backdrop" onClick={() => setSkill(null)} aria-label="계산기 닫기" />}
+    </>;
+}
+
+function Heading({ step, title, description }) {
+    return <div className="job-heading"><div><span>{step}</span><h2>{title}</h2></div>{description && <small>{description}</small>}</div>;
+}
+
+function Resource({ label, value, title, wide = false, className = "" }) {
+    return <div className={`job-resource ${wide ? "wide" : ""} ${className}`}><span>{label}</span><strong title={title}>{value}</strong></div>;
 }
 
 export default JobInformation;

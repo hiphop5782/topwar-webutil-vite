@@ -1,4 +1,4 @@
-import { use, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { createActionRegistry } from "./actionRegistry"
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ export function useChatActions() {
 
     const actionRegistry = useMemo(()=>{
         return createActionRegistry({navigate : navigateWithLang});
-    }, [navigate, lang]);
+    }, [navigateWithLang]);
 
     return useMemo(() => {
         //check validation and run actions
@@ -42,7 +42,19 @@ export function useChatActions() {
                 }
             }
 
-            action.run(params);
+            try {
+                action.run(params);
+            } catch (error) {
+                console.warn("액션 실행 실패", actionName, error);
+
+                return {
+                    success: false,
+                    message:
+                        error instanceof Error
+                            ? error.message
+                            : "요청한 작업을 실행하지 못했습니다",
+                };
+            }
 
             return { success: true, message: `${actionName}을 실행합니다` };
         };
@@ -61,5 +73,5 @@ export function useChatActions() {
         };
 
         return { actionRegistry, runAction, getActionDescriptions };
-    }, [navigate]);
+    }, [actionRegistry]);
 }

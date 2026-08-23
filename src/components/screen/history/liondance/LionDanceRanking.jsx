@@ -12,6 +12,7 @@ import {
     loadDataFile,
 } from "@src/services/topwarDataRepository";
 import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
+import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 import "./LionDanceRanking.css?rev=20260717-dataset-filenames-v6";
 
 const UNIT_MAP = {
@@ -242,13 +243,6 @@ function readFilterParams(
                 ),
             ),
     };
-}
-
-function normalizeSearch(value) {
-    return String(value ?? "")
-        .normalize("NFKC")
-        .toLocaleLowerCase()
-        .trim();
 }
 
 function resolveLocale(language) {
@@ -1084,7 +1078,7 @@ export default function LionDanceRanking() {
 
     const rows = useMemo(() => {
         const normalizedQuery =
-            normalizeSearch(
+            normalizeNicknameForSearch(
                 deferredQuery,
             );
 
@@ -1112,7 +1106,7 @@ export default function LionDanceRanking() {
                         row.serverId,
                     ].some(
                         (value) =>
-                            normalizeSearch(
+                            normalizeNicknameForSearch(
                                 value,
                             ).includes(
                                 normalizedQuery,

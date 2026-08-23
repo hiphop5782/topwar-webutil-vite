@@ -6,6 +6,7 @@ import { loadHomeStatistics } from "@src/services/topwarDataRepository";
 
 import "./Home.css";
 import SEO from "../template/SEO";
+import LanguageRouterLink from "../template/LanguageRouterLink";
 
 const EMPTY_STATISTICS = Object.freeze({
     generatedAt: null,
@@ -242,16 +243,19 @@ function Home() {
                     <div className="home-hero-summary">
 
                         <HeroMetric
+                            to="/information/data/server"
                             value={formatNumber(server.count)}
                             label={t("home.kpi.server.title")}
                         />
 
                         <HeroMetric
+                            to="/information/data"
                             value={formatNumber(player.tracked)}
                             label={t("home.kpi.player.title")}
                         />
 
                         <HeroMetric
+                            to="/information/data"
                             value={formatRate(
                                 activity.within1dRate
                             )}
@@ -259,6 +263,7 @@ function Home() {
                         />
 
                         <HeroMetric
+                            to="/information/data"
                             value={formatNumber(player.online)}
                             label={t("home.kpi.online.title")}
                         />
@@ -289,6 +294,7 @@ function Home() {
                 <div className="dashboard-kpi-grid">
 
                     <KpiCard
+                        to="/information/data/server"
                         title={t("home.kpi.server.title")}
                         value={formatNumber(server.count)}
                         description={
@@ -306,6 +312,7 @@ function Home() {
 
 
                     <KpiCard
+                        to="/information/data"
                         title={t("home.kpi.player.title")}
                         value={formatNumber(player.tracked)}
                         description={
@@ -315,6 +322,7 @@ function Home() {
 
 
                     <KpiCard
+                        to="/information/data"
                         title={t("home.kpi.active24h.title")}
                         value={
                             formatNumber(
@@ -331,6 +339,7 @@ function Home() {
 
 
                     <KpiCard
+                        to="/information/data"
                         title={t("home.kpi.online.title")}
                         value={formatNumber(player.online)}
                         description={
@@ -358,6 +367,7 @@ function Home() {
                     <div className="col-lg-7">
 
                         <DashboardPanel
+                            to="/information/data"
                             title={t("home.activity.title")}
                             description={
                                 t("home.activity.description")
@@ -412,6 +422,7 @@ function Home() {
                     <div className="col-lg-5">
 
                         <DashboardPanel
+                            to="/information/data/realpower"
                             title={t(
                                 "home.serverActivity.title"
                             )}
@@ -492,6 +503,7 @@ function Home() {
                     <div className="col-lg-8">
 
                         <DashboardPanel
+                            to="/information/data"
                             title={t("home.power.title")}
                             description={
                                 t("home.power.description")
@@ -569,6 +581,7 @@ function Home() {
                     <div className="col-lg-4">
 
                         <DashboardPanel
+                            to="/information/data"
                             title={
                                 t(
                                     "home.playerComposition.title"
@@ -671,6 +684,7 @@ function Home() {
                         >
 
                             <ChangeItem
+                                to="/information/data/move"
                                 title={
                                     t("home.changes.movement")
                                 }
@@ -691,6 +705,7 @@ function Home() {
                             />
 
                             <ChangeItem
+                                to="/information/data/nickname"
                                 title={
                                     t("home.changes.nickname")
                                 }
@@ -718,6 +733,7 @@ function Home() {
                     <div className="col-lg-7">
 
                         <DashboardPanel
+                            to="/information/data/server"
                             title={
                                 t("home.serverTrend.title")
                             }
@@ -800,11 +816,12 @@ function Home() {
 
 
 function HeroMetric({
+    to,
     value,
     label,
 }) {
 
-    return (
+    const content = (
         <span>
 
             <strong>
@@ -815,18 +832,25 @@ function HeroMetric({
 
         </span>
     );
+
+    return to ? (
+        <LanguageRouterLink className="hero-metric-link" to={to}>
+            {content}
+        </LanguageRouterLink>
+    ) : content;
 }
 
 
 
 function KpiCard({
+    to,
     title,
     value,
     description,
     accent = "",
 }) {
 
-    return (
+    const content = (
         <div
             className={
                 `dashboard-kpi ${accent}`
@@ -847,17 +871,24 @@ function KpiCard({
 
         </div>
     );
+
+    return to ? (
+        <LanguageRouterLink className="dashboard-link dashboard-link-fill" to={to}>
+            {content}
+        </LanguageRouterLink>
+    ) : content;
 }
 
 
 
 function DashboardPanel({
+    to,
     title,
     description,
     children,
 }) {
 
-    return (
+    const content = (
         <div className="dashboard-panel">
 
             <div className="dashboard-panel-header">
@@ -878,6 +909,12 @@ function DashboardPanel({
 
         </div>
     );
+
+    return to ? (
+        <LanguageRouterLink className="dashboard-link dashboard-link-fill" to={to}>
+            {content}
+        </LanguageRouterLink>
+    ) : content;
 }
 
 
@@ -1055,13 +1092,14 @@ function MetricRow({
 
 
 function ChangeItem({
+    to,
     title,
     value,
     date,
     formatNumber,
 }) {
 
-    return (
+    const content = (
         <div className="change-item">
 
             <div>
@@ -1086,6 +1124,12 @@ function ChangeItem({
 
         </div>
     );
+
+    return to ? (
+        <LanguageRouterLink className="dashboard-link" to={to}>
+            {content}
+        </LanguageRouterLink>
+    ) : content;
 }
 
 

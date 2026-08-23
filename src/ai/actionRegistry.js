@@ -13,8 +13,26 @@ export const allowedPaths = [
     },
     { 
         path: "/information/job", 
-        label: "직업",
-        examples: ["직업", "전투", "기계", "직상", "연구", "개발"],
+        label: "직업 정보",
+        examples: ["직업", "직업 정보", "전투 직업", "기계 직업", "연구 직업", "직상"],
+        chatbot: true,
+    },
+    {
+        path: "/information/el",
+        label: "영원의 땅",
+        examples: ["영원의 땅", "영원의땅", "영땅"],
+        chatbot: true,
+    },
+    {
+        path: "/information/el/darkforce",
+        label: "영원의 땅 암흑군단",
+        examples: ["영원의 땅 암흑군단", "영땅 암흑군단"],
+        chatbot: true,
+    },
+    {
+        path: "/information/el/score",
+        label: "영원의 땅 점수 계산기",
+        examples: ["영원의 땅 점수", "영땅 점수 계산"],
         chatbot: true,
     },
     { 
@@ -55,6 +73,18 @@ export const allowedPaths = [
         examples: ["카르츠 서버별", "카르츠 서버랭킹", "카르츠 비교"],
         chatbot: true,
     },
+    {
+        path: "/information/kartz/user",
+        label: "카르츠 유저 기록",
+        examples: ["카르츠 유저 기록", "카르츠 개인 기록"],
+        chatbot: true,
+    },
+    {
+        path: "/information/kartz-statistics",
+        label: "카르츠 통계",
+        examples: ["카르츠 통계"],
+        chatbot: true,
+    },
     { 
         path: "/information/data", 
         label: "유저 정보",
@@ -71,6 +101,30 @@ export const allowedPaths = [
                 required: false,
                 description: "조회할 유저 닉네임"
             },
+        },
+    },
+    {
+        path: "/information/data/player-detail",
+        label: "플레이어 통합 조회",
+        examples: [
+            "플레이어 검색",
+            "유저 검색",
+            "캐릭터 검색",
+            "유저 상세 정보",
+            "닉네임으로 유저 찾기",
+            "캐릭터 정보 조회",
+            "플레이어 닉네임 변경 기록",
+            "유저 서버 이동 기록",
+            "UID로 플레이어 조회"
+        ],
+        chatbot: true,
+        queryParams: {
+            nickname: {
+                type: "string",
+                required: false,
+                description: "자동완성으로 조회할 플레이어 닉네임. 한글 자모·초성 및 Unicode 유사문자 검색을 지원한다.",
+                aliases: ["닉네임", "유저", "사용자", "플레이어", "캐릭터", "nickname", "user"]
+            }
         },
     },
     { 
@@ -90,7 +144,7 @@ export const allowedPaths = [
     },
     
     { 
-        path: "/information/realpower", 
+        path: "/information/data/realpower",
         label: "서버 분석",
         examples: ["AI 서버 분석", "진짜 유저", "실제 유저", "서버 분석"],
         chatbot: true,
@@ -103,7 +157,7 @@ export const allowedPaths = [
         },
     },
     { 
-        path: "/information/move", 
+        path: "/information/data/move",
         label: "서버 이동",
         examples: ["서버 이전", "서버 이동", "move server", "server transfer"],
         chatbot: true,
@@ -135,12 +189,49 @@ export const allowedPaths = [
             }
         },
     },
+    {
+        path: "/information/data/alliance",
+        label: "연맹 정보",
+        examples: ["연맹 정보", "동맹 정보", "길드 정보"],
+        chatbot: true,
+    },
+    {
+        path: "/information/data/nickname",
+        label: "닉네임 변경 기록",
+        examples: ["닉네임 변경", "닉네임 기록", "이름 변경 기록"],
+        chatbot: true,
+    },
+
+    {
+        path: "/calculator/vital",
+        label: "생명력 계산기",
+        examples: ["생명력 계산", "체력 계산", "생명력 계산기"],
+        chatbot: true,
+    },
+    {
+        path: "/calculator/skill",
+        label: "스킬 조각 계산기",
+        examples: ["스킬 조각", "스킬 계산기"],
+        chatbot: true,
+    },
+    {
+        path: "/calculator/value-pack",
+        label: "가치 패키지 계산기",
+        examples: ["가치 패키지", "패키지 효율", "과금 효율"],
+        chatbot: true,
+    },
+    {
+        path: "/calculator/cost",
+        label: "아이템 레벨 비용 계산기",
+        examples: ["아이템 레벨 비용", "강화 비용", "레벨업 비용"],
+        chatbot: true,
+    },
 
 
     { 
         path: "/simulator/titan-research", 
-        label: "타이탄제작",
-        examples: ["타이탄만들기", "타이탄생성"],
+        label: "타이탄 제작 시뮬레이터",
+        examples: ["타이탄 제작", "타이탄 만들기", "타이탄 생성", "타이탄 연구"],
         chatbot: true,
         queryParams: {
             type: {
@@ -168,20 +259,92 @@ export const allowedPaths = [
     },
     { 
         path: "/simulator/titan-refine", 
-        label: "타이탄재련",
-        examples: ["타이탄제련", "타이탄개조"],
+        label: "타이탄 재련 시뮬레이터",
+        examples: ["타이탄 재련", "타이탄 제련", "타이탄 개조"],
         chatbot: true,
     },
     { 
         path: "/simulator/formation-perk", 
-        label: "군진",
-        examples: ["군진특성", "군진", "샤크", "스콜", "스콜피온", "이글"],
+        label: "군진 특성 시뮬레이터",
+        examples: ["군진 특성", "군진", "샤크 군진", "스콜피온 군진", "이글 군진"],
         chatbot: true,
     },
     { 
         path: "/simulator/lotto", 
         label: "로또",
         examples: ["로또", "lotto"],
+        chatbot: true,
+    },
+    {
+        path: "/simulator/random",
+        label: "랜덤 시뮬레이터",
+        examples: ["랜덤 시뮬레이터", "무작위 추첨"],
+        chatbot: true,
+    },
+    {
+        path: "/simulator/slot",
+        label: "슬롯 머신",
+        examples: ["슬롯", "슬롯 머신"],
+        chatbot: true,
+    },
+    {
+        path: "/simulator/luckybox",
+        label: "럭키 박스",
+        examples: ["럭키 박스", "행운 상자"],
+        chatbot: true,
+    },
+    {
+        path: "/emoji/create",
+        label: "이모지 만들기",
+        examples: ["이모지 만들기", "이모티콘 만들기"],
+        chatbot: true,
+    },
+    {
+        path: "/emoji/list",
+        label: "이모지 목록",
+        examples: ["이모지 목록", "이모티콘 목록"],
+        chatbot: true,
+    },
+    {
+        path: "/vote/create",
+        label: "출석 투표 만들기",
+        examples: ["투표 만들기", "출석 투표 생성"],
+        chatbot: true,
+    },
+    {
+        path: "/vote/cast",
+        label: "출석 투표 참여",
+        examples: ["투표 참여", "출석 투표"],
+        chatbot: true,
+    },
+    {
+        path: "/vote/manage",
+        label: "출석 투표 관리",
+        examples: ["투표 관리", "출석 투표 관리"],
+        chatbot: true,
+    },
+    {
+        path: "/event/city-reward",
+        label: "도시 보상 찾기",
+        examples: ["도시 보상", "도시 보상 찾기"],
+        chatbot: true,
+    },
+    {
+        path: "/account/profile",
+        label: "계정 프로필",
+        examples: ["계정 프로필", "계정 분석"],
+        chatbot: true,
+    },
+    {
+        path: "/account/viewer",
+        label: "계정 보기",
+        examples: ["계정 보기", "계정 조회"],
+        chatbot: true,
+    },
+    {
+        path: "/account/creator",
+        label: "계정 등록",
+        examples: ["계정 등록", "계정 만들기"],
         chatbot: true,
     },
     { 
@@ -191,10 +354,21 @@ export const allowedPaths = [
         chatbot: true,
     },
     { 
-        // path: "/developer", 
-        path: "/",
+        path: "/developer",
         label: "개발자",
         examples: ["제작자", "개발자", "만든사람"],
+        chatbot: true,
+    },
+    {
+        path: "/vip/3223",
+        label: "3223 서버 VIP 라운지",
+        examples: ["3223 VIP", "3223 도둑 찾기"],
+        chatbot: true,
+    },
+    {
+        path: "/vip/4369",
+        label: "4369 서버 VIP 라운지",
+        examples: ["4369 VIP", "4369 도둑 찾기"],
         chatbot: true,
     },
 
@@ -265,6 +439,24 @@ export const allowedPaths = [
             },
         },
     },
+    {
+        path: "/privacy",
+        label: "개인정보처리방침",
+        examples: ["개인정보처리방침", "개인정보"],
+        chatbot: true,
+    },
+    {
+        path: "/contact",
+        label: "문의하기",
+        examples: ["문의", "연락", "문의하기"],
+        chatbot: true,
+    },
+    {
+        path: "/disclaimer",
+        label: "면책 조항",
+        examples: ["면책", "면책 조항"],
+        chatbot: true,
+    },
 ];
 
 function createAllowedPathItems(paths) {
@@ -283,27 +475,74 @@ function createAllowedPathItems(paths) {
     });
 }
 
+const chatbotPaths = allowedPaths.filter(item => item.chatbot === true);
+
+export const chatbotActions = [
+    {
+        name: "navigate",
+        description: "사용자의 요청과 가장 잘 맞는 Topwar Helper 페이지로 이동한다. query에는 선택한 path에 정의된 queryParams만 넣는다.",
+        requiredParams: ["path"],
+        allowedValues: {
+            path: createAllowedPathItems(chatbotPaths),
+        },
+    },
+];
+
+function createQueryString(pathItem, query) {
+    if (!query || typeof query !== "object" || Array.isArray(query)) {
+        return "";
+    }
+
+    const queryParams = pathItem.queryParams || {};
+    const searchParams = new URLSearchParams();
+
+    Object.entries(query).forEach(([key, rawValue]) => {
+        const definition = queryParams[key];
+
+        if (!definition || rawValue === undefined || rawValue === null || rawValue === "") {
+            return;
+        }
+
+        const value = Array.isArray(rawValue)
+            ? rawValue.join(",")
+            : String(rawValue).trim();
+
+        if (definition.type === "number" && !Number.isFinite(Number(value))) {
+            throw new Error(`${key} 값은 숫자여야 합니다`);
+        }
+
+        if (definition.type === "boolean" && !["true", "false"].includes(value)) {
+            throw new Error(`${key} 값은 true 또는 false여야 합니다`);
+        }
+
+        if (definition.pattern && !new RegExp(definition.pattern).test(value)) {
+            throw new Error(`${key} 값의 형식이 올바르지 않습니다`);
+        }
+
+        searchParams.set(key, value);
+    });
+
+    return searchParams.toString();
+}
+
 export function createActionRegistry({ navigate }) {
-    const chatbotPaths = allowedPaths.filter(item => item.chatbot === true);
-    const allowedPathValues = chatbotPaths.map(item => item.path);
+    const chatbotPathMap = new Map(
+        chatbotPaths.map(item => [item.path, item])
+    );
+    const navigateAction = chatbotActions[0];
 
     return {
         navigate: {
-            description: "허용된 일반 페이지로 이동한다",
-            requiredParams: ["path"],
+            ...navigateAction,
             examples: chatbotPaths.flatMap(item => item.examples || []),
-            allowedValues: {
-                path: createAllowedPathItems(chatbotPaths)
-            },
             run: ({ path, query }) => {
-                if (!allowedPathValues.includes(path)) {
+                const pathItem = chatbotPathMap.get(path);
+
+                if (!pathItem) {
                     throw new Error("허용되지 않은 이동 요청입니다");
                 }
 
-                const queryString =
-                    query && Object.keys(query).length > 0
-                        ? new URLSearchParams(query).toString()
-                        : "";
+                const queryString = createQueryString(pathItem, query);
 
                 navigate(queryString ? `${path}?${queryString}` : path);
             },
