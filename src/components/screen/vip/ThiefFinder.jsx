@@ -20,7 +20,7 @@ import "./ThiefFinder.css";
 
 
 const THIEF_DATA_URL =
-    "https://raw.githubusercontent.com/hiphop5782/topwar-thief/main/data/thieves.json";
+    "https://datahub.progamer.info/api/v1/data/thieves";
 
 
 const POLLING_INTERVAL = 5000;
@@ -166,11 +166,31 @@ export default function ThiefFinder() {
                 }
 
 
+                const requestUrl =
+                    new URL(THIEF_DATA_URL);
+
+
+                requestUrl.searchParams.set(
+                    "serverId",
+                    String(targetServer)
+                );
+
+
+                requestUrl.searchParams.set(
+                    "t",
+                    String(Date.now())
+                );
+
+
                 const response =
                     await fetch(
-                        `${THIEF_DATA_URL}?t=${Date.now()}`,
+                        requestUrl.toString(),
                         {
+                            method: "GET",
                             cache: "no-store",
+                            headers: {
+                                Accept: "application/json"
+                            },
                             signal: controller.signal
                         }
                     );
