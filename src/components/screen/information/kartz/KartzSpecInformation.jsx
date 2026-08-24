@@ -1,13 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParamState } from '../../../../hooks/useParamState';
 import { loadKartzEnemy } from '@src/services/topwarDataRepository';
 import DataLoadingPlaceholder from '@src/components/template/DataLoadingPlaceholder';
 
+const SILVER_RATIO = 0.24;
+const SPEC_FIELDS = ['level', 'unit', 'attack', 'dmg', 'hit', 'critDmg', 'def'];
+
 const KartzSpecInformation = ()=>{
     const {t} = useTranslation("viewer");
 
-    const [list, setList] = useState([]);
     const [sourceList, setSourceList] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
 
@@ -26,14 +28,25 @@ const KartzSpecInformation = ()=>{
         parse: (value) => value === "true",
         serialize: (value) => String(value),
     });
-    useEffect(()=>{
-        if(bossOnly) {
-            setList(sourceList.filter(info=>info.round%5 === 0));
-        }
-        else {
-            setList(sourceList);
-        }
-    }, [bossOnly, sourceList]);
+    const [league, setLeague] = useParamState('league', 'diamond', {
+        parse: (value) => value === 'silver' ? 'silver' : 'diamond',
+    });
+
+    const list = useMemo(() => {
+        const filteredList = bossOnly
+            ? sourceList.filter((info) => info.round % 5 === 0)
+            : sourceList;
+
+        if (league !== 'silver') return filteredList;
+
+        return filteredList.map((info) => {
+            const silverInfo = {...info};
+            SPEC_FIELDS.forEach((field) => {
+                silverInfo[field] = Math.round(Number(info[field]) * SILVER_RATIO);
+            });
+            return silverInfo;
+        });
+    }, [bossOnly, league, sourceList]);
 
     const numberWithCommas = useCallback((x)=>{
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -46,6 +59,37 @@ const KartzSpecInformation = ()=>{
     return (<>
         <h1>{t("KartzSpecInformation.title")}</h1>
         <hr/>
+        <div className="mb-3">
+            <div className="btn-group" role="group" aria-label={t('KartzSpecInformation.league-select')}>
+                <button
+                    type="button"
+                    className={`btn ${league === 'silver' ? 'btn-primary' : 'btn-outline-primary'}`}
+                    aria-pressed={league === 'silver'}
+                    onClick={() => setLeague('silver')}
+                >
+                    {t('KartzSpecInformation.league-silver')}
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    title={t('KartzSpecInformation.league-gold-pending')}
+                    disabled
+                >
+                    {t('KartzSpecInformation.league-gold')}
+                </button>
+                <button
+                    type="button"
+                    className={`btn ${league === 'diamond' ? 'btn-primary' : 'btn-outline-primary'}`}
+                    aria-pressed={league === 'diamond'}
+                    onClick={() => setLeague('')}
+                >
+                    {t('KartzSpecInformation.league-diamond')}
+                </button>
+            </div>
+            {league === 'silver' && (
+                <div className="form-text">{t('KartzSpecInformation.silver-estimate')}</div>
+            )}
+        </div>
         <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={bossOnly} onChange={e=>setBossOnly(e.target.checked)}/>
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{t("KartzSpecInformation.boss-only")}</label>
@@ -69,7 +113,7 @@ const KartzSpecInformation = ()=>{
                         </thead>
                         <tbody className='text-center'>
                             {list.map(info=>(
-                            <tr key={info.round} className={`${info.round % 5 == 0 ? 'table-info' : ''}`}>
+                            <tr key={info.round} className={`${info.round % 5 === 0 ? 'table-info' : ''}`}>
                                 <td>{info.round}</td>
                                 <td>{info.level}</td>
                                 <td>{numberWithCommas(info.unit)}</td>

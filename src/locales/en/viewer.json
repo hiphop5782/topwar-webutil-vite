@@ -351,6 +351,12 @@
     "KartzSpecInformation": {
         "title": "Kartz's Trial: Monster Info by Round",
         "boss-only": "Boss Rounds Only",
+        "league-select": "Select league",
+        "league-silver": "Silver",
+        "league-gold": "Gold",
+        "league-diamond": "Diamond",
+        "league-gold-pending": "Gold League data is being verified",
+        "silver-estimate": "Silver League values are estimates rounded from 24% of the Diamond League values.",
         "table-round": "Round",
         "table-level": "Lv.",
         "table-unitcount": "Units",

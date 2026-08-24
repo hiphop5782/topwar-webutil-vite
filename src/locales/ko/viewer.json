@@ -349,6 +349,12 @@
     "KartzSpecInformation": {
         "title": "카르츠 라운드별 몬스터 정보",
         "boss-only": "보스 라운드만 보기",
+        "league-select": "리그 선택",
+        "league-silver": "실버",
+        "league-gold": "골드",
+        "league-diamond": "다이아",
+        "league-gold-pending": "골드 리그 정보 확인 중",
+        "silver-estimate": "실버 리그 수치는 다이아 리그 수치의 24%를 반올림한 예상값입니다.",
         "table-round": "라운드",
         "table-level": "레벨",
         "table-unitcount": "유닛수",

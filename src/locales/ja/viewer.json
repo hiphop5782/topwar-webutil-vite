@@ -349,6 +349,12 @@
     "KartzSpecInformation": {
         "title": "カルツの試練：ラウンド別モンスター情報",
         "boss-only": "ボスのみ表示",
+        "league-select": "リーグ選択",
+        "league-silver": "シルバー",
+        "league-gold": "ゴールド",
+        "league-diamond": "ダイヤ",
+        "league-gold-pending": "ゴールドリーグの情報を確認中です",
+        "silver-estimate": "シルバーリーグの数値は、ダイヤリーグの数値の24%を四捨五入した推定値です。",
         "table-round": "ラウンド",
         "table-level": "Lv.",
         "table-unitcount": "ユニット数",
