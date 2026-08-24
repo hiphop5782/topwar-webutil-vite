@@ -179,7 +179,7 @@ function VitalCalculator() {
 
     const formatDuration = (seconds) => {
         if (seconds === null) {
-            return t("VitalCalculator.format.invalid");
+            return t("VitalCalculator.validation.invalid");
         }
 
         const roundedSeconds = Math.max(

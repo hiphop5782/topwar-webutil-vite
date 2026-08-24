@@ -667,7 +667,13 @@
             "outServerPlaceholder": "이동 전 서버",
             "inServer": "도착 서버",
             "inServerPlaceholder": "이동 대상 서버",
-            "reset": "초기화"
+            "reset": "초기화",
+            "advanced": "상세 옵션",
+            "activeCount_other": "{{count}}개 적용 중",
+            "minPower": "전투력 하한",
+            "minPowerPlaceholder": "예: 50 또는 50M",
+            "maxPower": "전투력 상한",
+            "maxPowerPlaceholder": "예: 100M 또는 500T"
         },
         "messages": {
             "loading": "이동 기록을 불러오는 중입니다.",

@@ -111,7 +111,7 @@ export default function KartzServerHistoryViewer() {
                 setSelectedFiles(prev => ({ ...prev, [file.fileName]: data }));
             }
             catch (error) {
-                console.error(t("error-load-fail"), error);
+                console.error(t("KartzServerHistoryViewer.error-load-fail"), error);
             }
             finally {
                 setFileLoading(false);

@@ -949,8 +949,8 @@ export default function TitanRefineSimulator() {
         );
 
         return (<>
-            <SEO title={t("TitanRefineSimulator.title")}
-                description={t("TitanRefineSimulator.description")}/>
+            <SEO title={t("TitanRefineSimulator.header.title")}
+                description={t("TitanRefineSimulator.header.description")}/>
 
             <div className="refine-option-editor">
                 <select

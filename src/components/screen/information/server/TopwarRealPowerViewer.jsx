@@ -20,7 +20,7 @@ import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlacehol
 
 export default function TopwarRealPowerViewer() {
 
-    const { t, i18n } = useTranslation(["viewer", "commons"]);
+    const { t, i18n } = useTranslation("viewer");
 
     const locale = useMemo(() => {
         const language = i18n.resolvedLanguage ?? i18n.language;
@@ -52,7 +52,7 @@ export default function TopwarRealPowerViewer() {
         const direction = diff >= 0 ? -1 : 1;
 
         if (seconds < 60) {
-            return t("TopwarRealPowerViewer.time.justNow");
+            return t("TopwarRealPowerViewer.justNow");
         }
 
         const minutes = Math.floor(seconds / 60);

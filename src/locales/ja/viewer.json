@@ -454,8 +454,8 @@
         "start-playback": "再生",
         "pause-playback": "一時停止",
         "ranking-range": "{{start}}位～{{end}}位を表示",
-        "export-gif": "Video を書き出す",
-        "exporting-gif": "Video を作成中..."
+        "export-video": "動画を書き出す",
+        "exporting-video": "動画を作成中..."
     },
     "Developer": {
         "title": "トップウォーをもう少し便利に",
@@ -667,7 +667,13 @@
             "outServerPlaceholder": "移転前のサーバー",
             "inServer": "移転先サーバー",
             "inServerPlaceholder": "移転先のサーバー",
-            "reset": "リセット"
+            "reset": "リセット",
+            "advanced": "詳細オプション",
+            "activeCount_other": "{{count}}件適用中",
+            "minPower": "戦力下限",
+            "minPowerPlaceholder": "例: 50 または 50M",
+            "maxPower": "戦力上限",
+            "maxPowerPlaceholder": "例: 100M または 500T"
         },
         "messages": {
             "loading": "移転履歴を読み込んでいます。",
@@ -1996,16 +2002,16 @@
         },
         "notice": "収集された探索結果をもとに表示しているため、ゲーム内の状態とは異なる場合があります。",
         "copy": "コピー",
-        "copyCompleted": "コピー完了!"
-    },
-    "access": {
-        "title": "保護されたページ",
-        "description": "続行するにはアクセスコードを入力してください。",
-        "codePlaceholder": "アクセスコード",
-        "submit": "入る",
-        "invalidCode": "アクセスコードが正しくありません。",
-        "deniedTitle": "アクセスできません",
-        "deniedMessage": "要求されたページは利用できません。"
+        "copyCompleted": "コピー完了!",
+        "access": {
+            "title": "保護されたページ",
+            "description": "続行するにはアクセスコードを入力してください。",
+            "codePlaceholder": "アクセスコード",
+            "submit": "入る",
+            "invalidCode": "アクセスコードが正しくありません。",
+            "deniedTitle": "アクセスできません",
+            "deniedMessage": "要求されたページは利用できません。"
+        }
     },
     "TopwarPlayerNicknameHistory": {
         "eyebrow": "PLAYER DATA",

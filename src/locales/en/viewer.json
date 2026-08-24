@@ -669,7 +669,14 @@
             "outServerPlaceholder": "Server moved from",
             "inServer": "Destination server",
             "inServerPlaceholder": "Server moved to",
-            "reset": "Reset"
+            "reset": "Reset",
+            "advanced": "Advanced options",
+            "activeCount_one": "{{count}} filter applied",
+            "activeCount_other": "{{count}} filters applied",
+            "minPower": "Minimum power",
+            "minPowerPlaceholder": "e.g. 50 or 50M",
+            "maxPower": "Maximum power",
+            "maxPowerPlaceholder": "e.g. 100M or 500T"
         },
         "messages": {
             "loading": "Loading player move history.",

@@ -1,17 +1,26 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFirebase } from "@src/hooks/useFirebase";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import { FaVoteYea } from "react-icons/fa";
-import { FaXmark } from "react-icons/fa6";
+import { FaGear, FaUsers, FaXmark } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import axios from "axios";
 import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
+import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
 import "flag-icons/css/flag-icons.min.css";
 import "./AttendanceVoteReader.css";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
+
+function getChoicePlayers(choice) {
+    if (Array.isArray(choice?.players)) return choice.players;
+    if (choice?.players && typeof choice.players === "object") {
+        return Object.values(choice.players);
+    }
+    return [];
+}
 
 export default function AttendanceVoteReader() {
     const { t } = useTranslation("viewer"); 
@@ -32,7 +41,7 @@ export default function AttendanceVoteReader() {
     }, [uuid]);
 
     const loadVote = useCallback(() => {
-        const unsubscribe = getVote(uuid, (data) => {
+        getVote(uuid, (data) => {
             if (data === null) {
                 toast.error(t("AttendanceVoteReader.title"));
             }
@@ -74,7 +83,16 @@ export default function AttendanceVoteReader() {
 
     const changeUserStrInfo = useCallback(e => {
         const { name, value } = e.target;
-        setUserInfo(prev => ({ ...prev, [name]: value }))
+        setUserInfo(prev => ({
+            ...prev,
+            [name]: value,
+            ...(name === "job" ? {
+                skill: Math.min(
+                    Number(prev.skill ?? 0),
+                    value === "CE" ? 10 : 5
+                )
+            } : {})
+        }))
     }, []);
     const changeUserNumberInfo = useCallback(e => {
         const { name, value } = e.target;
@@ -82,11 +100,6 @@ export default function AttendanceVoteReader() {
         const number = replacement.length === 0 ? "" : parseInt(replacement);
         setUserInfo(prev => ({ ...prev, [name]: number }))
     }, []);
-
-    const skillRef = useRef();
-    useEffect(() => {
-        setUserInfo(prev => ({ ...prev, skill: parseInt(skillRef.current.value) }));
-    }, [userInfo.job]);
 
     const writeUserInfoComplete = useMemo(() => {
         if (userInfo.nickname.trim().length === 0) return false;
@@ -180,6 +193,19 @@ export default function AttendanceVoteReader() {
                 <button className="btn btn-primary ms-2" onClick={loadVote}>{t(`AttendanceVoteReader.id-load-btn`)}</button>
             </div>
         </div>
+        {String(uuid ?? "").trim() !== "" && (
+            <div className="row mt-2">
+                <div className="offset-sm-3 col-sm-9">
+                    <LanguageRouterLink
+                        className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2"
+                        to={`/vote/manage/${encodeURIComponent(String(uuid).trim())}`}
+                    >
+                        <FaGear />
+                        <span>이 투표 관리 페이지로 이동</span>
+                    </LanguageRouterLink>
+                </div>
+            </div>
+        )}
         <hr />
         <div className="row mt-4">
             <div className="col">
@@ -203,7 +229,7 @@ export default function AttendanceVoteReader() {
         <div className="row mt-1">
             <label className="col-form-label col-sm-3">{t("AttendanceVoteReader.myinfo-job")}</label>
             <div className="col-sm-9">
-                <select className="form-select" name="job" onChange={changeUserStrInfo}>
+                <select className="form-select" name="job" value={userInfo.job} onChange={changeUserStrInfo}>
                     <option value="CE">{t("AttendanceVoteReader.myinfo-job-ce")}</option>
                     <option value="MM">{t("AttendanceVoteReader.myinfo-job-mm")}</option>
                 </select>
@@ -212,7 +238,7 @@ export default function AttendanceVoteReader() {
         <div className="row mt-1">
             <label className="col-form-label col-sm-3">{userInfo.job === "CE" ? t("AttendanceVoteReader.myinfo-morale") : t("AttendanceVoteReader.myinfo-urgent")}</label>
             <div className="col-sm-9">
-                <select className="form-select" name="skill" onChange={changeUserNumberInfo} ref={skillRef}>
+                <select className="form-select" name="skill" value={userInfo.skill} onChange={changeUserNumberInfo}>
                     {Array.from({ length: userInfo.job === "CE" ? 11 : 6 }, (_, i) => userInfo.job === "CE" ? 10 - i : 5 - i).map(n => (
                         <option key={n} value={n}>{n}{t("AttendanceVoteReader.level")}</option>
                     ))}
@@ -236,7 +262,7 @@ export default function AttendanceVoteReader() {
                             <span className="shimmer-text">{t("AttendanceVoteReader.message-language-search")}<span className="dots"></span></span>
                         ) : (<>
                             {languages.map(language => (
-                                <FlagWithTooltip key={language.name} lang={language} onClick={e => translateVote(language)} />
+                                <FlagWithTooltip key={language.name} lang={language} onClick={() => translateVote(language)} />
                             ))}
                         </>)}
                     </div>
@@ -264,7 +290,7 @@ export default function AttendanceVoteReader() {
                                     <div className="d-flex align-items-center">
                                         <label>
                                             <input type="radio" name="choice" className="form-check-input me-2"
-                                                checked={choiceNo === choice.no} onChange={e => setChoiceNo(choice.no)} />
+                                                checked={choiceNo === choice.no} onChange={() => setChoiceNo(choice.no)} />
                                             {translateLoading ? (
                                                 <span className="shimmer-text">{t("AttendanceVoteReader.message-translate")}<span className="dots"></span></span>
                                             ) : (
@@ -319,6 +345,62 @@ export default function AttendanceVoteReader() {
                         </button>
                     </div>
                 </div>
+
+                <section className="attendance-voters mt-3" aria-labelledby="attendance-voters-title">
+                    <h4 id="attendance-voters-title" className="attendance-voters-title">
+                        <FaUsers />
+                        <span>투표한 사람 명단</span>
+                        <span className="badge rounded-pill bg-secondary">{totalCount}명</span>
+                    </h4>
+                    <div className="attendance-voter-groups">
+                        {voteTranslated.choices.map((choice) => {
+                            const players = [...getChoicePlayers(choice)].sort((a, b) => {
+                                if (a.job === b.job) return Number(b.cp ?? 0) - Number(a.cp ?? 0);
+                                return String(a.job ?? "").localeCompare(String(b.job ?? ""));
+                            });
+
+                            return (
+                                <details className="attendance-voter-group" key={choice.no}>
+                                    <summary>
+                                        <span>{choice.content}</span>
+                                        <strong>{players.length}명</strong>
+                                    </summary>
+                                    {players.length === 0 ? (
+                                        <p className="attendance-voter-empty">아직 투표한 사람이 없습니다.</p>
+                                    ) : (
+                                        <ul className="attendance-voter-list">
+                                            {players.map((player, playerIndex) => (
+                                                <li
+                                                    key={`${player.nickname}-${playerIndex}`}
+                                                    className={
+                                                        String(player.nickname ?? "").trim()
+                                                        === String(userInfo.nickname ?? "").trim()
+                                                            ? "is-current-user"
+                                                            : ""
+                                                    }
+                                                >
+                                                    <strong className="attendance-voter-name">
+                                                        <span>{player.nickname}</span>
+                                                        {String(player.nickname ?? "").trim()
+                                                            === String(userInfo.nickname ?? "").trim() && (
+                                                            <span className="badge rounded-pill bg-danger">내 투표</span>
+                                                        )}
+                                                    </strong>
+                                                    <span className={`badge rounded-pill ${player.job === "CE" ? "bg-primary" : "bg-success"}`}>
+                                                        {player.job || "-"}
+                                                    </span>
+                                                    <span>{Number(player.cp ?? 0).toLocaleString()}M</span>
+                                                    <span>{player.job === "CE" ? "기합" : "응시"} {player.skill ?? "-"}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </details>
+                            );
+                        })}
+                    </div>
+                </section>
+
             </>)}
         </>)}
 

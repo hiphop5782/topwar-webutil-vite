@@ -21,7 +21,7 @@ export default function TopwarSscPointViewer() {
     useEffect(() => { loadData(); }, []);
 
     
-    const { t } = useTranslation(["viewer", "commons"]);
+    const { t } = useTranslation("viewer");
     const [searchTerm, setSearchTerm] = useParamState("server", "", {
         validate: value=>/^[0-9]*$/.test(value),
     });

@@ -299,7 +299,7 @@ function Home() {
                         value={formatNumber(server.count)}
                         description={
                             t(
-                                "kpi.server.change7d",
+                                "home.kpi.server.change7d",
                                 {
                                     count:
                                         formatSignedNumber(

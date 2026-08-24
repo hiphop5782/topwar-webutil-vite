@@ -2,9 +2,9 @@ import { useTranslation } from "react-i18next";
 import "./AiEvaluationCard.css";
 
 export default function AiEvaluationCard({ evaluation }) {
-    if (!evaluation) return null;
+    const { t } = useTranslation("viewer");
 
-    const { t } = useTranslation("viewer", "commons");
+    if (!evaluation) return null;
 
     const activityScore = Number(evaluation.activityScore ?? 0);
     const riskScore = Number(evaluation.riskScore ?? 0);
