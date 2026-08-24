@@ -243,7 +243,7 @@ export default function TopwarPlayerDetail() {
     );
     const countryCode = getCountryCode(player?.countryFlag);
     const seoTitle = "TopWar 플레이어 검색 · 닉네임·서버 이동 통합 조회 | Topwar Helper";
-    const seoDescription = "TopWar 닉네임을 한글 자모·초성, 영문 대소문자와 유사 Unicode 문자로 검색하고 UID 기반 플레이어 정보, 전투력, 동맹, 닉네임 변경 및 서버 이동 기록을 확인하세요.";
+    const seoDescription = "TopWar 닉네임을 한글 자모·초성, 영문 대소문자와 유사 Unicode 문자로 검색하고 플레이어 정보, 전투력, 동맹, 닉네임 변경 및 서버 이동 기록을 확인하세요.";
     const structuredData = {
         "@context": "https://schema.org",
         "@graph": [
@@ -298,7 +298,7 @@ export default function TopwarPlayerDetail() {
             <header className="player-detail-hero">
                 <span><FaMagnifyingGlass /> PLAYER LOOKUP</span>
                 <h1>플레이어 통합 조회</h1>
-                <p>닉네임을 입력하고 플레이어를 선택하면 UID를 기준으로 현재 정보와 모든 변경 이력을 확인할 수 있습니다.</p>
+                <p>닉네임을 입력하고 플레이어를 선택하면 현재 정보와 모든 변경 이력을 확인할 수 있습니다.</p>
             </header>
 
             <section className="player-detail-search" aria-labelledby="player-detail-search-title">
@@ -346,7 +346,6 @@ export default function TopwarPlayerDetail() {
                                 <span className="player-detail-suggestion-main">
                                     <strong>{suggestion.n}</strong>
                                     {suggestion.x && suggestion.m && <em>이전 닉네임 일치: {suggestion.m}</em>}
-                                    <small>UID {suggestion.u}</small>
                                 </span>
                                 <span className="player-detail-suggestion-meta">
                                     <strong>S{suggestion.s ?? "-"}</strong>
@@ -376,7 +375,6 @@ export default function TopwarPlayerDetail() {
                             {countryCode ? <span className={`fi fi-${countryCode}`} /> : <FaUser />}
                         </div>
                         <div className="player-detail-profile-main">
-                            <span>UID {player.uid}</span>
                             <h2>{player.nickname || "이름 없음"}</h2>
                             <p>{player.allianceTag ? `[${player.allianceTag}] ` : ""}{player.allianceName || "소속 동맹 없음"}</p>
                         </div>
@@ -400,7 +398,7 @@ export default function TopwarPlayerDetail() {
                     </section>
 
                     <footer className="player-detail-footnote">
-                        <FaClockRotateLeft /> 표시 정보는 마지막 데이터 수집 시점을 기준으로 하며 UID를 기준으로 결합됩니다.
+                        <FaClockRotateLeft /> 표시 정보는 마지막 데이터 수집 시점을 기준으로 동일 플레이어의 기록을 결합합니다.
                     </footer>
 
                     <div className="player-detail-history-grid">
@@ -442,7 +440,7 @@ export default function TopwarPlayerDetail() {
                 <section className="player-detail-placeholder">
                     <FaShieldHalved />
                     <h2>플레이어를 선택해 주세요</h2>
-                    <p>자동완성 목록에서 한 명을 선택하면 UID를 기준으로 정확한 정보를 조회합니다.</p>
+                    <p>자동완성 목록에서 한 명을 선택하면 해당 플레이어의 정보를 정확하게 조회합니다.</p>
                 </section>
             )}
         </article>

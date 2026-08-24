@@ -58,7 +58,7 @@
             "title": "プレイヤーデータ構成",
             "level100": "Lv.100",
             "allianceJoined": "連盟加入",
-            "uniqueUid": "ユニークUID",
+            "uniqueUid": "ユニークプレイヤー",
             "duplicate": "重複観測"
         },
         "changes": {

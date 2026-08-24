@@ -115,7 +115,7 @@ export const allowedPaths = [
             "캐릭터 정보 조회",
             "플레이어 닉네임 변경 기록",
             "유저 서버 이동 기록",
-            "UID로 플레이어 조회"
+            "닉네임으로 플레이어 조회"
         ],
         chatbot: true,
         queryParams: {

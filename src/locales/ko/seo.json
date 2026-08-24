@@ -1,4 +1,7 @@
 {
+    "default": {
+        "description": "{{title}}에서 Top War 관련 데이터와 도구를 확인하세요."
+    },
     "home": {
         "title": "Top War 데이터·공략·계산기"
     },
@@ -59,6 +62,9 @@
             },
             "nickname": {
                 "title": "Top War 닉네임 변경 기록"
+            },
+            "playerDetail": {
+                "title": "Top War 플레이어 통합 조회"
             },
             "realpower": {
                 "title": "Top War 실제 전투력 조회"

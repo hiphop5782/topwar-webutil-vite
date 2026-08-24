@@ -1,9 +1,11 @@
-import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
+import SEO from "@src/components/template/SEO";
 import "./PageNotFound.css";
 
 export default function PageNotFound() {
     const location = useLocation();
+    const { t } = useTranslation("seo");
 
     const language = location.pathname.split("/")[1];
     const supportedLanguages = ["ko", "en", "ja"];
@@ -14,10 +16,13 @@ export default function PageNotFound() {
 
     return (
         <>
-            <Helmet>
-                <title>페이지를 찾을 수 없습니다 | Topwar Helper</title>
-                <meta name="robots" content="noindex, follow" />
-            </Helmet>
+            <SEO
+                title={t("notFound.title")}
+                description={t("default.description", {
+                    title: t("notFound.title"),
+                })}
+                noindex
+            />
 
             <div className="not-found">
                 <div className="not-found-code">404</div>

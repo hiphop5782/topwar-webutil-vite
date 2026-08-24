@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, memo } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -7,7 +7,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import fm from "front-matter";
 import { useTranslation } from "react-i18next";
-import { format } from "date-fns";
 // import { ko, enUS, ja } from "date-fns/locale";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import { FaChevronLeft, FaChevronRight, FaList } from "react-icons/fa6";
@@ -17,7 +16,6 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import "./MarkdownRenderer.css";
 import SEO from "@src/components/template/SEO";
-import { t } from "i18next";
 
 const ALL_MODULES = import.meta.glob("/src/assets/md/*/readme.md", { query: "?raw" });
 // const localeMap = { ko, en: enUS, ja };
@@ -49,7 +47,7 @@ const ReadingBar = () => {
 
 export default function Post() {
     const { folder } = useParams();
-    const { i18n } = useTranslation();
+    const { t } = useTranslation();
     const [post, setPost] = useState({ attributes: {}, body: "" });
     const [pagination, setPagination] = useState({ prev: null, next: null });
 
@@ -85,7 +83,13 @@ export default function Post() {
     }, [folder]);
 
     return (<>
-        <SEO title={t("seo:post.detail.title")}/>
+        <SEO
+            title={t("seo:post.detail.title", {
+                postTitle: post.attributes.title || folder,
+            })}
+            description={post.attributes.description}
+            type="article"
+        />
 
         <div className="container-fluid p-0">
             {/* 1. Sticky 헤더 섹션: 우측 끝 버튼 배치 */}
@@ -126,6 +130,7 @@ export default function Post() {
                         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeKatex]}
                         components={{
                             code({ node, inline, className, children, ...props }) {
+                                void node;
                                 const match = /language-(\w+)/.exec(className || "");
                                 return !inline && match ? (
                                     <SyntaxHighlighter style={vscDarkPlus} language={match[1]} PreTag="div" {...props}>

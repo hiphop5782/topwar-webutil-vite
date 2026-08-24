@@ -1,4 +1,7 @@
 {
+    "default": {
+        "description": "Explore Top War data and tools on {{title}}."
+    },
     "home": {
         "title": "Top War Data, Guides & Calculators"
     },
@@ -59,6 +62,9 @@
             },
             "nickname": {
                 "title": "Top War Nickname Change History"
+            },
+            "playerDetail": {
+                "title": "Top War Player Details"
             },
             "realpower": {
                 "title": "Top War Real Power Viewer"

@@ -66,6 +66,7 @@ import Disclaimer from "@src/components/screen/etc/Disclaimer";
 import CityRewardEvent from "@src/components/screen/event/CityRewardEvent";
 
 import ThiefFinder from "@src/components/screen/vip/ThiefFinder";
+import RouteSEO from "@src/components/template/RouteSEO";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -78,6 +79,7 @@ export default function MainContentView() {
                 <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
             </div>
             <div className="col-md-8">
+                <RouteSEO />
                 {/* 카카오 애드핏 수평 광고 */}
                 <div className="row mb-4">
                     <div className="col d-flex justify-content-center align-items-center">

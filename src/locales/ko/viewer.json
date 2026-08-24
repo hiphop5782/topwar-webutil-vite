@@ -58,7 +58,7 @@
             "title": "플레이어 데이터 구성",
             "level100": "Lv.100",
             "allianceJoined": "연맹 가입",
-            "uniqueUid": "고유 UID",
+            "uniqueUid": "고유 플레이어",
             "duplicate": "중복 관측"
         },
         "changes": {
