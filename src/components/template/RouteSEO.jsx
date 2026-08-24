@@ -80,7 +80,7 @@ export default function RouteSEO() {
         })),
         {
             language: "x-default",
-            href: createSiteUrl(`/${defaultLng}${routePath === "/" ? "" : routePath}`),
+            href: createSiteUrl(routePath === "/" ? "/" : `/${defaultLng}${routePath}`),
         },
     ], [routePath]);
 
