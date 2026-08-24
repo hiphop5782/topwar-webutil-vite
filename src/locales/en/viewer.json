@@ -61,6 +61,21 @@
             "uniqueUid": "Unique Players",
             "duplicate": "Duplicate Observations"
         },
+        "kartz": {
+            "title": "Latest Kartz Season Summary",
+            "description": "{{month}} season · Data as of {{date}}",
+            "topPlayer": "No. 1 Player",
+            "topAlliance": "No. 1 Alliance",
+            "round": "Round {{value}}",
+            "score": "{{value}} pts",
+            "topServer": "Most Top 500 Players",
+            "top500Players": "{{count}} players",
+            "cutoff": "Top 500 Cutoff",
+            "cutoffDetail": "Rank {{rank}} · Damage {{damage}}",
+            "averageRound": "Top 500 Average Round",
+            "playerCount": "Ranked Players",
+            "allianceCount": "Ranked Alliances"
+        },
         "changes": {
             "title": "Recently Detected Changes",
             "movement": "Server Transfers",

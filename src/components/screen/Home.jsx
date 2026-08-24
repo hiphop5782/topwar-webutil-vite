@@ -16,6 +16,7 @@ const EMPTY_STATISTICS = Object.freeze({
     power: {},
     changes: {},
     realPower: {},
+    kartz: null,
 });
 
 function Home() {
@@ -55,6 +56,7 @@ function Home() {
         power = {},
         changes = {},
         realPower = {},
+        kartz = null,
     } = statistics;
 
 
@@ -111,6 +113,25 @@ function Home() {
         }
 
         return `${Number(value).toFixed(1)}%`;
+    };
+
+
+    const formatDecimal = value => {
+
+        if (statisticsState === "loading") {
+            return "…";
+        }
+
+        if (value === null || value === undefined) {
+            return "-";
+        }
+
+        return new Intl.NumberFormat(
+            locale,
+            {
+                maximumFractionDigits: 1,
+            }
+        ).format(Number(value));
     };
 
 
@@ -667,6 +688,128 @@ function Home() {
 
 
             {/* ========================================
+                KARTZ
+            ======================================== */}
+
+            {kartz && (
+                <section className="dashboard-section">
+
+                    <DashboardPanel
+                        to="/information/kartz/rank"
+                        title={t("home.kartz.title")}
+                        description={
+                            t(
+                                "home.kartz.description",
+                                {
+                                    month: kartz.month ?? "-",
+                                    date: formatDateTime(
+                                        kartz.recordedAt
+                                    ),
+                                }
+                            )
+                        }
+                    >
+
+                        <div className="kartz-overview">
+
+                            <div className="kartz-leaders">
+
+                                <article className="kartz-leader-card is-player">
+                                    <span>{t("home.kartz.topPlayer")}</span>
+                                    <strong>
+                                        {kartz.topPlayer?.nickname || "-"}
+                                    </strong>
+                                    <div>
+                                        <b>S{kartz.topPlayer?.server ?? "-"}</b>
+                                        <small>
+                                            {t("home.kartz.round", {
+                                                value:
+                                                    kartz.topPlayer?.round
+                                                    ?? "-",
+                                            })}
+                                        </small>
+                                    </div>
+                                </article>
+
+                                <article className="kartz-leader-card is-alliance">
+                                    <span>{t("home.kartz.topAlliance")}</span>
+                                    <strong>
+                                        {kartz.topAlliance?.tag
+                                            ? `[${kartz.topAlliance.tag}] `
+                                            : ""}
+                                        {kartz.topAlliance?.name || "-"}
+                                    </strong>
+                                    <div>
+                                        <b>S{kartz.topAlliance?.server ?? "-"}</b>
+                                        <small>
+                                            {t("home.kartz.score", {
+                                                value: formatNumber(
+                                                    kartz.topAlliance?.score
+                                                ),
+                                            })}
+                                        </small>
+                                    </div>
+                                </article>
+
+                            </div>
+
+                            <div className="kartz-metrics">
+
+                                <KartzMetric
+                                    label={t("home.kartz.topServer")}
+                                    value={`S${kartz.topServer?.server ?? "-"}`}
+                                    detail={t("home.kartz.top500Players", {
+                                        count: formatNumber(
+                                            kartz.topServer?.playerCount
+                                        ),
+                                    })}
+                                    wide
+                                />
+
+                                <KartzMetric
+                                    label={t("home.kartz.cutoff")}
+                                    value={t("home.kartz.round", {
+                                        value:
+                                            kartz.cutoff?.round
+                                            ?? "-",
+                                    })}
+                                    detail={t("home.kartz.cutoffDetail", {
+                                        rank: formatNumber(
+                                            kartz.cutoff?.rank
+                                        ),
+                                        damage:
+                                            kartz.cutoff?.damage
+                                            ?? "-",
+                                    })}
+                                />
+
+                                <KartzMetric
+                                    label={t("home.kartz.averageRound")}
+                                    value={formatDecimal(kartz.averageRound)}
+                                />
+
+                                <KartzMetric
+                                    label={t("home.kartz.playerCount")}
+                                    value={formatNumber(kartz.playerCount)}
+                                />
+
+                                <KartzMetric
+                                    label={t("home.kartz.allianceCount")}
+                                    value={formatNumber(kartz.allianceCount)}
+                                />
+
+                            </div>
+
+                        </div>
+
+                    </DashboardPanel>
+
+                </section>
+            )}
+
+
+
+            {/* ========================================
                 DETECTED CHANGES / SERVER TREND
             ======================================== */}
 
@@ -838,6 +981,24 @@ function HeroMetric({
             {content}
         </LanguageRouterLink>
     ) : content;
+}
+
+
+
+function KartzMetric({
+    label,
+    value,
+    detail,
+    wide = false,
+}) {
+
+    return (
+        <div className={`kartz-metric ${wide ? "is-wide" : ""}`}>
+            <span>{label}</span>
+            <strong>{value}</strong>
+            {detail && <small>{detail}</small>}
+        </div>
+    );
 }
 
 

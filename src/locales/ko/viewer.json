@@ -61,6 +61,21 @@
             "uniqueUid": "고유 플레이어",
             "duplicate": "중복 관측"
         },
+        "kartz": {
+            "title": "카르츠 최신 시즌 요약",
+            "description": "{{month}} 시즌 · {{date}} 기준",
+            "topPlayer": "랭킹 1위 플레이어",
+            "topAlliance": "랭킹 1위 동맹",
+            "round": "{{value}} 라운드",
+            "score": "{{value}}점",
+            "topServer": "Top 500 최다 진입 서버",
+            "top500Players": "{{count}}명 진입",
+            "cutoff": "Top 500 커트라인",
+            "cutoffDetail": "{{rank}}위 · 피해량 {{damage}}",
+            "averageRound": "Top 500 평균 라운드",
+            "playerCount": "집계 플레이어",
+            "allianceCount": "집계 동맹"
+        },
         "changes": {
             "title": "최근 감지된 변화",
             "movement": "서버 이동",

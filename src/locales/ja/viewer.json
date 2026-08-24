@@ -61,6 +61,21 @@
             "uniqueUid": "ユニークプレイヤー",
             "duplicate": "重複観測"
         },
+        "kartz": {
+            "title": "Kartz 最新シーズン概要",
+            "description": "{{month}}シーズン・{{date}}時点",
+            "topPlayer": "プレイヤーランキング1位",
+            "topAlliance": "連盟ランキング1位",
+            "round": "ラウンド{{value}}",
+            "score": "{{value}}ポイント",
+            "topServer": "Top 500最多進出サーバー",
+            "top500Players": "{{count}}人進出",
+            "cutoff": "Top 500ボーダー",
+            "cutoffDetail": "{{rank}}位・ダメージ {{damage}}",
+            "averageRound": "Top 500平均ラウンド",
+            "playerCount": "集計プレイヤー",
+            "allianceCount": "集計連盟"
+        },
         "changes": {
             "title": "最近検出された変更",
             "movement": "サーバー移動",
