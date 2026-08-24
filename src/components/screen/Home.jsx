@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
 import { loadHomeStatistics } from "@src/services/topwarDataRepository";
@@ -25,6 +25,14 @@ function Home() {
     const [statistics, setStatistics] = useState(EMPTY_STATISTICS);
     const [statisticsState, setStatisticsState] = useState("loading");
 
+    useLayoutEffect(() => {
+        document.documentElement.dataset.homeStatisticsReady = "false";
+
+        return () => {
+            delete document.documentElement.dataset.homeStatisticsReady;
+        };
+    }, []);
+
     useEffect(() => {
         let mounted = true;
 
@@ -33,6 +41,9 @@ function Home() {
                 if (mounted && data && typeof data === "object") {
                     setStatistics(data);
                     setStatisticsState("success");
+                } else if (mounted) {
+                    setStatistics(EMPTY_STATISTICS);
+                    setStatisticsState("error");
                 }
             })
             .catch((error) => {
@@ -47,6 +58,23 @@ function Home() {
             mounted = false;
         };
     }, []);
+
+    useEffect(() => {
+        if (statisticsState === "loading") {
+            return;
+        }
+
+        const frameId = window.requestAnimationFrame(() => {
+            document.documentElement.dataset.homeStatisticsReady = "true";
+            document.dispatchEvent(
+                new Event("home-statistics-ready")
+            );
+        });
+
+        return () => {
+            window.cancelAnimationFrame(frameId);
+        };
+    }, [statisticsState]);
 
     const {
         generatedAt,

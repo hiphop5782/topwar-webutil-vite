@@ -111,13 +111,47 @@ function WithLanguageRouter() {
             return;
         }
 
-        console.log(
-            `[PRERENDER] READY 발생: ${window.location.pathname}`
+        const dispatchPrerenderReady = () => {
+            console.log(
+                `[PRERENDER] READY 발생: ${window.location.pathname}`
+            );
+
+            document.dispatchEvent(
+                new Event("prerender-ready")
+            );
+        };
+
+        const normalizedPath =
+            window.location.pathname.replace(/\/+$/, "");
+
+        const isHomePage =
+            normalizedPath === `/${lang}`;
+
+        if (!isHomePage) {
+            dispatchPrerenderReady();
+            return;
+        }
+
+        if (
+            document.documentElement.dataset
+                .homeStatisticsReady === "true"
+        ) {
+            dispatchPrerenderReady();
+            return;
+        }
+
+        document.addEventListener(
+            "home-statistics-ready",
+            dispatchPrerenderReady,
+            { once: true }
         );
 
-        document.dispatchEvent(
-            new Event("prerender-ready")
-        );
+        return () => {
+            document.removeEventListener(
+                "home-statistics-ready",
+                dispatchPrerenderReady
+            );
+        };
 
     }, [
         readyLanguage,
