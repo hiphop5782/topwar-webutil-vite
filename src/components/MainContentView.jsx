@@ -6,42 +6,32 @@ import Home from '@src/components/screen/Home';
 import BaseInformation from '@src/components/screen/information/BaseInformation';
 import FormationPerk from '@src/components/screen/simulator/FormationPerk';
 import JobInformation from '@src/components/screen/information/JobInformation';
-import KartzRankInformation from '@src/components/screen/information/KartzRankInformation';
 import KartzSpecInformation from '@src/components/screen/information/kartz/KartzSpecInformation';
 import TitanRefineSimulator from '@src/components/screen/simulator/TitanRefineSimulator';
 import TitanResearchSimulator from '@src/components/screen/simulator/TitanResearchSimulator';
 import SkillCalculator from '@src/components/screen/calculator/SkillCalculator';
 import ValuePackCalculator from '@src/components/screen/calculator/VapuePackCalculator';
-import RandomSimulator from '@src/components/screen/simulator/RandomSimulator';
 import Developer from '@src/components/screen/Developer';
 import EternalLand from "@src/components/screen/information/el/EternalLand";
 import AccountViewer from "@src/components/screen/trade/AccountViewer";
 import AccountCreator from "@src/components/screen/trade/AccountCreator";
 import AccountProfilePage from "@src/components/screen/trade/account-profile/AccountProfilePage";
-import TopwarSlotMachine from "@src/components/screen/simulator/TopwarSlotMachine";
-import LuckyBox from "@src/components/screen/simulator/LuckyBox";
 import KartzStatistics from "@src/components/screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "@src/components/screen/information/el/ELScoreCalculator";
 import KakaoAds from "@src/components/adsense/KakaoAds";
 import { useIsMobile } from "@src/hooks/useIsMobile";
 import EternalLandScore from "@src/components/screen/information/el/EternalLandScore";
-import EternalLandHowto from "@src/components/screen/information/el/EternalLandHowto";
-import EternalLandTip from "@src/components/screen/information/el/EternalLandTip";
-import EternalLandReward from "@src/components/screen/information/el/EternalLandReward";
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
 import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCreator";
 import AttendanceVoteReader from "@src/components/screen/vote/AttendanceVoteReader";
 import AttendanceVoteManager from "@src/components/screen/vote/AttendanceVoteManager";
 import EmojiCreator from "@src/components/screen/emoji/EmojiCreator";
-import LottoGenerator from "@src/components/screen/simulator/LottoGenerator";
 import TopwarDataViewer from "@src/components/screen/information/server/TopwarDataViewer";
 import TopwarPlayerDataViewer from "@src/components/screen/information/server/TopwarPlayerDataViewer";
 import TopwarPlayerMoveHistory from "@src/components/screen/information/server/TopwarPlayerMoveHistory";
 import TopwarServerDataViewer from "@src/components/screen/information/server/TopwarServerDataViewer";
 import TopwarAllianceDataViewer from "@src/components/screen/information/server/TopwarAllianceDataViewer";
-import TopwarCompareViewer from "@src/components/screen/information/server/TopwarCompareViewer";
-import TopwarServerRealtimeDataViewer from "@src/components/screen/information/server/TopwarServerRealtimeDataViewer";
 import TopwarPlayerNicknameHistory from "@src/components/screen/information/server/TopwarPlayerNicknameHistory";
 import TopwarPlayerDetail from "@src/components/screen/information/server/TopwarPlayerDetail";
 
@@ -139,13 +129,9 @@ export default function MainContentView() {
                     <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
                     <Route path="calculator/cost" element={<ItemLevelCostCalculator/>}></Route>
 
-                    <Route path="simulator/random" element={<RandomSimulator/>}></Route>
                     <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
                     <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
                     <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
-                    <Route path="simulator/slot" element={<TopwarSlotMachine/>}></Route>
-                    <Route path="simulator/luckybox" element={<LuckyBox/>}></Route>
-                    <Route path="simulator/lotto" element={<LottoGenerator/>}></Route>
                     <Route path="developer" element={<Developer/>}></Route>
                     <Route path="emoji/create" element={<EmojiCreator />}></Route>
                     <Route path="emoji/list" element={<LegacyEmoji />}></Route>

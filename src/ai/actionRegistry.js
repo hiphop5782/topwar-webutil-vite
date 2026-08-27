@@ -269,30 +269,6 @@ export const allowedPaths = [
         examples: ["군진 특성", "군진", "샤크 군진", "스콜피온 군진", "이글 군진"],
         chatbot: true,
     },
-    { 
-        path: "/simulator/lotto", 
-        label: "로또",
-        examples: ["로또", "lotto"],
-        chatbot: true,
-    },
-    {
-        path: "/simulator/random",
-        label: "랜덤 시뮬레이터",
-        examples: ["랜덤 시뮬레이터", "무작위 추첨"],
-        chatbot: true,
-    },
-    {
-        path: "/simulator/slot",
-        label: "슬롯 머신",
-        examples: ["슬롯", "슬롯 머신"],
-        chatbot: true,
-    },
-    {
-        path: "/simulator/luckybox",
-        label: "럭키 박스",
-        examples: ["럭키 박스", "행운 상자"],
-        chatbot: true,
-    },
     {
         path: "/emoji/create",
         label: "이모지 만들기",
