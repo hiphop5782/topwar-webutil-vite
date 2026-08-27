@@ -24,7 +24,6 @@ const fixedRoutes = [
     "/information/data/player-detail",
     "/information/kartz",
     "/information/ssc",
-    //"/information/realpower",
 
     "/calculator/vital",
     "/calculator/skill",
@@ -34,10 +33,6 @@ const fixedRoutes = [
     "/simulator/titan-research",
     "/simulator/titan-refine",
     "/simulator/formation-perk",
-    "/simulator/random",
-    "/simulator/slot",
-    "/simulator/luckybox",
-    "/simulator/lotto",
 
     "/emoji/create",
     "/emoji/list",
