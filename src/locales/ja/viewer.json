@@ -2088,12 +2088,12 @@
         "resultCount": "{{count}}人が見つかりました", "virtualScroll": "仮想スクロール",
         "noResults": "条件に一致するプレイヤーがいません。",
         "recentMoveTitle": "最近の移動: s{{from}} → s{{to}}",
-        "stats": { "total": "全体", "both": "両方で確認", "power": "Top 100のみ", "realpower": "マップのみ", "powerPopulation": "Top 100人数", "realpowerPopulation": "マップ調査人数", "vennLabel": "Top 100 {{power}}人、両方で確認 {{both}}人、マップ調査 {{realpower}}人" },
+        "stats": { "total": "全体", "both": "重複調査人数", "power": "Top 100のみ", "realpower": "マップのみ", "powerPopulation": "Top 100人数", "realpowerPopulation": "マップ調査人数", "vennLabel": "Top 100 {{power}}人、重複調査人数 {{both}}人、マップ調査 {{realpower}}人" },
         "filters": {
             "nickname": "ニックネーム検索", "nicknameLabel": "プレイヤーのニックネーム検索",
             "server": "サーバー番号", "alliance": "連盟名", "allianceLabel": "連盟名検索",
             "advanced": "詳細オプション", "reset": "リセット", "source": "データソース",
-            "movementLoading": "移動履歴を読込中...", "serverOut": "サーバーOUT", "serverOutLabel": "移動前のサーバー番号"
+            "movementLoading": "移動履歴を読込中...", "serverOut": "サーバーOUT", "serverOutLabel": "移動前のサーバー番号", "movedOnly": "移動履歴のあるプレイヤーのみ"
         },
         "source": { "all": "すべてのソース", "both": "Top 100 + マップ", "power": "Top 100", "realpower": "マップ", "powerOnly": "Top 100のみ", "realpowerOnly": "マップのみ" },
         "columns": { "server": "サーバー", "player": "プレイヤー", "alliance": "連盟", "power": "戦力" },

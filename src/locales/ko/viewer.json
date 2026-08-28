@@ -2090,12 +2090,12 @@
         "virtualScroll": "가상 스크롤",
         "noResults": "조건에 맞는 플레이어가 없습니다.",
         "recentMoveTitle": "최근 이동: s{{from}} → s{{to}}",
-        "stats": { "total": "전체", "both": "양쪽 확인", "power": "Top 100만", "realpower": "지도만", "powerPopulation": "Top 100 인원", "realpowerPopulation": "지도 조사 인원", "vennLabel": "Top 100 {{power}}명, 양쪽 확인 {{both}}명, 지도 조사 {{realpower}}명" },
+        "stats": { "total": "전체", "both": "중복 조사 인원", "power": "Top 100만", "realpower": "지도만", "powerPopulation": "Top 100 인원", "realpowerPopulation": "지도 조사 인원", "vennLabel": "Top 100 {{power}}명, 중복 조사 인원 {{both}}명, 지도 조사 {{realpower}}명" },
         "filters": {
             "nickname": "닉네임 검색", "nicknameLabel": "플레이어 닉네임 검색",
             "server": "서버 번호", "alliance": "연맹명", "allianceLabel": "연맹명 검색",
             "advanced": "상세 옵션", "reset": "초기화", "source": "데이터 출처",
-            "movementLoading": "이동내역 로딩 중...", "serverOut": "서버 OUT", "serverOutLabel": "이동 전 서버 번호"
+            "movementLoading": "이동내역 로딩 중...", "serverOut": "서버 OUT", "serverOutLabel": "이동 전 서버 번호", "movedOnly": "이동한 인원만"
         },
         "source": { "all": "모든 출처", "both": "Top 100 + 지도", "power": "Top 100", "realpower": "지도", "powerOnly": "Top 100만", "realpowerOnly": "지도만" },
         "columns": { "server": "서버", "player": "플레이어", "alliance": "연맹", "power": "전투력" },

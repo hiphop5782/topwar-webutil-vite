@@ -127,6 +127,7 @@ export default function TopwarDataOverAll() {
     const [server, setServer] = useState("");
     const [source, setSource] = useState("all");
     const [serverOut, setServerOut] = useState("");
+    const [movedOnly, setMovedOnly] = useState(false);
     const [advancedOpen, setAdvancedOpen] = useState(false);
     const [expandedPlayers, setExpandedPlayers] = useState(() => new Set());
     const [nicknameHistory, setNicknameHistory] = useState(() => new Map());
@@ -279,14 +280,15 @@ export default function TopwarDataOverAll() {
                 if (serverNumber != null && Number(player.server) !== serverNumber) return false;
                 if (keyword && !player.nicknameSearchText.includes(keyword)) return false;
                 if (allianceKeyword && !player.allianceSearchText.includes(allianceKeyword)) return false;
+                const movements = movementHistory?.get(String(player.uid)) ?? [];
+                if (movedOnly && movements.length === 0) return false;
                 if (serverOutNumber != null) {
-                    const movements = movementHistory?.get(String(player.uid)) ?? [];
                     if (!movements.some((row) => Number(row.fromServer) === serverOutNumber)) return false;
                 }
 
                 return true;
             });
-    }, [searchablePlayers, deferredQuery, deferredAllianceQuery, server, source, serverOut, movementHistory]);
+    }, [searchablePlayers, deferredQuery, deferredAllianceQuery, server, source, serverOut, movedOnly, movementHistory]);
 
     const statistics = useMemo(() => {
         const counts = { total: filteredPlayers.length, both: 0, power: 0, realpower: 0 };
@@ -305,6 +307,7 @@ export default function TopwarDataOverAll() {
         setServer("");
         setSource("all");
         setServerOut("");
+        setMovedOnly(false);
     };
 
     const togglePlayer = (uid) => {
@@ -468,6 +471,16 @@ export default function TopwarDataOverAll() {
                             placeholder={movementLoading ? t("filters.movementLoading") : t("filters.serverOut")}
                             aria-label={t("filters.serverOutLabel")}
                         />
+                        <label className="overall-viewer__movement-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                checked={movedOnly}
+                                disabled={movementLoading}
+                                onChange={(event) => setMovedOnly(event.target.checked)}
+                            />
+                            <span>{movementLoading ? t("filters.movementLoading") : t("filters.movedOnly")}</span>
+                        </label>
                     </div>
                 )}
             </div>

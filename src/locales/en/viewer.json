@@ -2097,12 +2097,12 @@
         "resultCount": "{{count}} players found", "virtualScroll": "Virtual scroll",
         "noResults": "No players match the filters.",
         "recentMoveTitle": "Recent move: s{{from}} → s{{to}}",
-        "stats": { "total": "Total", "both": "Both sources", "power": "Top 100 only", "realpower": "Map only", "powerPopulation": "Top 100 players", "realpowerPopulation": "Map survey players", "vennLabel": "Top 100 {{power}}, both sources {{both}}, map survey {{realpower}}" },
+        "stats": { "total": "Total", "both": "Duplicate survey players", "power": "Top 100 only", "realpower": "Map only", "powerPopulation": "Top 100 players", "realpowerPopulation": "Map survey players", "vennLabel": "Top 100 {{power}}, duplicate survey players {{both}}, map survey {{realpower}}" },
         "filters": {
             "nickname": "Search nickname", "nicknameLabel": "Search player nickname",
             "server": "Server number", "alliance": "Alliance name", "allianceLabel": "Search alliance name",
             "advanced": "Advanced", "reset": "Reset", "source": "Data source",
-            "movementLoading": "Loading movement history...", "serverOut": "Server OUT", "serverOutLabel": "Previous server number"
+            "movementLoading": "Loading movement history...", "serverOut": "Server OUT", "serverOutLabel": "Previous server number", "movedOnly": "Moved players only"
         },
         "source": { "all": "All sources", "both": "Top 100 + Map", "power": "Top 100", "realpower": "Map", "powerOnly": "Top 100 only", "realpowerOnly": "Map only" },
         "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power" },

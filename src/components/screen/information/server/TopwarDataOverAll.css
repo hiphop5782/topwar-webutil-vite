@@ -168,10 +168,33 @@
 .overall-viewer__advanced-filters {
     display: grid;
     grid-column: 1 / -1;
-    grid-template-columns: minmax(10rem, 1fr) minmax(9rem, 1fr);
+    grid-template-columns: minmax(10rem, 1fr) minmax(9rem, 1fr) max-content;
     gap: .65rem;
     padding-top: .65rem;
     border-top: 1px solid var(--overall-border);
+}
+
+.overall-viewer__movement-check {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: 2.375rem;
+    padding: .375rem .7rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    cursor: pointer;
+    font-size: .84rem;
+    white-space: nowrap;
+}
+
+.overall-viewer__movement-check:has(input:disabled) {
+    cursor: default;
+    opacity: .65;
+}
+
+.overall-viewer__movement-check input {
+    flex: 0 0 auto;
+    margin: 0;
 }
 
 .overall-viewer__search {
