@@ -68,6 +68,9 @@
             },
             "realpower": {
                 "title": "Top War 実際の戦力データ"
+            },
+            "overall": {
+                "title": "善く生きよう"
             }
         },
 

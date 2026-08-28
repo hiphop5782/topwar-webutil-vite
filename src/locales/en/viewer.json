@@ -2084,5 +2084,34 @@
             "history": "Nickname Change History",
             "unknown": "Unknown"
         }
+    },
+    "TopwarDataOverAll": {
+        "title": "Live Kindly",
+        "eyebrow": "Unified Player Snapshot",
+        "description": "Survey it and you'll find everything.",
+        "loading": "Loading the large latest snapshot.",
+        "loadError": "Failed to load unified data.",
+        "checkLatest": "Please check overall/latest.json.",
+        "sourceUpdatedAt": "Latest source update",
+        "unknown": "Unknown", "unnamed": "Unnamed",
+        "resultCount": "{{count}} players found", "virtualScroll": "Virtual scroll",
+        "noResults": "No players match the filters.",
+        "recentMoveTitle": "Recent move: s{{from}} → s{{to}}",
+        "stats": { "total": "Total", "both": "Both sources", "power": "Top 100 only", "realpower": "Map only", "powerPopulation": "Top 100 players", "realpowerPopulation": "Map survey players", "vennLabel": "Top 100 {{power}}, both sources {{both}}, map survey {{realpower}}" },
+        "filters": {
+            "nickname": "Search nickname", "nicknameLabel": "Search player nickname",
+            "server": "Server number", "alliance": "Alliance name", "allianceLabel": "Search alliance name",
+            "advanced": "Advanced", "reset": "Reset", "source": "Data source",
+            "movementLoading": "Loading movement history...", "serverOut": "Server OUT", "serverOutLabel": "Previous server number"
+        },
+        "source": { "all": "All sources", "both": "Top 100 + Map", "power": "Top 100", "realpower": "Map", "powerOnly": "Top 100 only", "realpowerOnly": "Map only" },
+        "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power" },
+        "activity": { "unknown": "Login unknown", "stop": "Inactive · {{count}}d ago", "pause": "Dormant · {{count}}d ago", "today": "Active · Today", "active": "Active · {{count}}d ago" },
+        "details": { "previous": "Previous", "source": "Source", "observed": "Observed", "activity": "Activity", "baseLocation": "Base location", "recentMove": "Recent move", "nicknameHistory": "Nickname history" },
+        "history": { "loading": "Loading...", "empty": "No nickname changes", "more": "+{{count}} more" }
+        ,"views": { "label": "Unified data view", "players": "Players", "servers": "Server comparison", "alliances": "Alliance comparison" }
+        ,"groups": { "serverSearch": "Search server number", "allianceSearch": "Search alliance name or tag", "allianceServerSearch": "Search server number", "count": "{{count}} items", "players": "Players", "averagePower": "Avg. power", "active": "Active", "inactive": "Inactive", "activeRate": "Active rate", "inactiveRate": "Inactive rate", "alliances": "Alliances", "coverage": "Top/Map/Both", "coverageTitle": "Top 100 included / Map included / Both sources" }
+        ,"comparison": { "selected": "{{count}} selected", "clear": "Clear all", "remove": "Remove {{name}} from comparison", "goToResults": "Go to comparison", "goToSearch": "Go to search list" }
+        ,"kartz": { "title": "Kartz ranking", "serverResult": "{{month}} · Best #{{rank}} · {{count}} in Top 500 · Best R{{round}}", "allianceResult": "{{month}} · #{{rank}} · {{score}} pts", "unranked": "Not ranked" }
     }
 }

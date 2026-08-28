@@ -2075,5 +2075,34 @@
             "history": "ニックネーム変更履歴",
             "unknown": "不明"
         }
+    },
+    "TopwarDataOverAll": {
+        "title": "善く生きよう",
+        "eyebrow": "統合プレイヤースナップショット",
+        "description": "調査すれば全部わかります。",
+        "loading": "大容量の最新スナップショットを読み込んでいます。",
+        "loadError": "統合データを読み込めませんでした。",
+        "checkLatest": "overall/latest.jsonを確認してください。",
+        "sourceUpdatedAt": "元データの最新時刻",
+        "unknown": "不明", "unnamed": "名前なし",
+        "resultCount": "{{count}}人が見つかりました", "virtualScroll": "仮想スクロール",
+        "noResults": "条件に一致するプレイヤーがいません。",
+        "recentMoveTitle": "最近の移動: s{{from}} → s{{to}}",
+        "stats": { "total": "全体", "both": "両方で確認", "power": "Top 100のみ", "realpower": "マップのみ", "powerPopulation": "Top 100人数", "realpowerPopulation": "マップ調査人数", "vennLabel": "Top 100 {{power}}人、両方で確認 {{both}}人、マップ調査 {{realpower}}人" },
+        "filters": {
+            "nickname": "ニックネーム検索", "nicknameLabel": "プレイヤーのニックネーム検索",
+            "server": "サーバー番号", "alliance": "連盟名", "allianceLabel": "連盟名検索",
+            "advanced": "詳細オプション", "reset": "リセット", "source": "データソース",
+            "movementLoading": "移動履歴を読込中...", "serverOut": "サーバーOUT", "serverOutLabel": "移動前のサーバー番号"
+        },
+        "source": { "all": "すべてのソース", "both": "Top 100 + マップ", "power": "Top 100", "realpower": "マップ", "powerOnly": "Top 100のみ", "realpowerOnly": "マップのみ" },
+        "columns": { "server": "サーバー", "player": "プレイヤー", "alliance": "連盟", "power": "戦力" },
+        "activity": { "unknown": "ログイン日不明", "stop": "非アクティブ · {{count}}日前", "pause": "休眠 · {{count}}日前", "today": "アクティブ · 今日", "active": "アクティブ · {{count}}日前" },
+        "details": { "previous": "以前の観測", "source": "ソース", "observed": "観測", "activity": "活動状態", "baseLocation": "基地位置", "recentMove": "最近の移動", "nicknameHistory": "ニックネーム変更履歴" },
+        "history": { "loading": "読込中...", "empty": "変更履歴なし", "more": "+{{count}}件" }
+        ,"views": { "label": "統合データ表示", "players": "プレイヤー", "servers": "サーバー比較", "alliances": "連盟比較" }
+        ,"groups": { "serverSearch": "サーバー番号検索", "allianceSearch": "連盟名・タグ検索", "allianceServerSearch": "サーバー番号検索", "count": "{{count}}件", "players": "人数", "averagePower": "平均戦力", "active": "アクティブ", "inactive": "非アクティブ", "activeRate": "活動率", "inactiveRate": "非活動率", "alliances": "連盟数", "coverage": "Top/マップ/両方", "coverageTitle": "Top 100含む / マップ調査含む / 両方で確認" }
+        ,"comparison": { "selected": "{{count}}件選択", "clear": "すべて解除", "remove": "{{name}}を比較から削除", "goToResults": "比較結果へ移動", "goToSearch": "検索一覧へ移動" }
+        ,"kartz": { "title": "Kartzランキング", "serverResult": "{{month}} · 最高{{rank}}位 · Top 500 {{count}}人 · 最高{{round}}R", "allianceResult": "{{month}} · {{rank}}位 · {{score}}点", "unranked": "ランキング圏外" }
     }
 }

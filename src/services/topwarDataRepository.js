@@ -329,6 +329,38 @@ export async function listHistoryFiles(type) {
         }));
 }
 
+export async function loadOverallLatest() {
+    const index = await loadDataIndex();
+
+    const path =
+        index?.datasets?.overall?.latest
+        || "overall/latest.json";
+
+    return requestPossiblyChunkedJson(path, {
+        revision: index.revision,
+    });
+}
+
+export async function listOverallHistoryFiles(type) {
+    if (type !== "movement" && type !== "nickname") {
+        throw new Error(
+            `Unsupported overall history type: ${type}`,
+        );
+    }
+
+    const index = await loadDataIndex();
+    const descriptor = index?.datasets?.overall?.[type];
+    const pattern = descriptor?.pattern
+        || `overall/${type}/{date}.json`;
+
+    return [...(descriptor?.dates ?? [])]
+        .sort((a, b) => a.localeCompare(b))
+        .map((date) => ({
+            date,
+            path: pattern.replace("{date}", date),
+        }));
+}
+
 export async function listLionDanceFiles() {
     const index = await loadDataIndex();
 

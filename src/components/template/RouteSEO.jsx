@@ -23,6 +23,7 @@ const routeSeo = [
     [/^\/information\/data\/nickname$/, "information.data.nickname"],
     [/^\/information\/data\/player-detail$/, "information.data.playerDetail"],
     [/^\/information\/data\/realpower$/, "information.data.realpower"],
+    [/^\/information\/data\/overall$/, "information.data.overall", true],
     [/^\/information\/kartz$/, "information.kartz.home"],
     [/^\/information\/kartz\/rank$/, "information.kartz.rank"],
     [/^\/information\/kartz\/user$/, "information.kartz.user"],
