@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import "./CityRewardEvent.css";
 
@@ -316,14 +316,26 @@ const CityRwardEvent = () => {
     <div className="container py-3">
 
       {/* 제목 */}
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="mb-3">
         <div>
-          <h4 className="mb-1">
-            {t("cityReward.title")}
-          </h4>
+          <div className="d-flex flex-wrap align-items-center gap-2 mb-1">
+            <h4 className="mb-0">
+              {t("cityReward.title")}
+            </h4>
+
+            <span className="badge text-bg-secondary">
+              {t("cityReward.resultCount", {
+                count: filteredLocations.length,
+              })}
+            </span>
+          </div>
 
           <div className="small text-secondary mb-1">
-            {t("cityReward.supportNotice")}
+            <Trans
+              i18nKey="cityReward.supportNotice"
+              ns="viewer"
+              components={{ strong: <strong /> }}
+            />
           </div>
 
           <small className="text-secondary">
@@ -338,16 +350,6 @@ const CityRwardEvent = () => {
             )}
           </small>
         </div>
-
-        <span className="badge text-bg-secondary">
-          {t(
-            "cityReward.resultCount",
-            {
-              count:
-                filteredLocations.length,
-            }
-          )}
-        </span>
       </div>
 
 

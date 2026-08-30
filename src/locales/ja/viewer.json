@@ -1971,7 +1971,7 @@
     },
     "cityReward": {
         "title": "都市報酬",
-        "supportNotice": "ページが正常に動作しない場合は、3223サーバーの🍌MinionにDMでお知らせください。",
+        "supportNotice": "ページが正常に動作しない場合は、3223サーバーの<strong>🍌Minion</strong>にDMでお知らせください。",
         "loading": "都市報酬データを読み込んでいます...",
         "polling": "30秒ごとに自動更新",
         "lastUpdated": "最終更新",
