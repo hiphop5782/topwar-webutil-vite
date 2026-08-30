@@ -1971,6 +1971,7 @@
     },
     "cityReward": {
         "title": "도시 보상",
+        "supportNotice": "페이지가 정상 작동하지 않을 경우 3223 서버의 🍌Minion 에게 DM으로 알려주세요",
         "loading": "도시 보상 정보를 불러오는 중...",
         "polling": "30초마다 자동 갱신",
         "lastUpdated": "마지막 갱신",

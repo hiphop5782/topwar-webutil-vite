@@ -322,6 +322,10 @@ const CityRwardEvent = () => {
             {t("cityReward.title")}
           </h4>
 
+          <div className="small text-secondary mb-1">
+            {t("cityReward.supportNotice")}
+          </div>
+
           <small className="text-secondary">
             {t("cityReward.polling")}
 

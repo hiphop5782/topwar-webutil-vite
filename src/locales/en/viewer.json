@@ -1980,6 +1980,7 @@
     },
     "cityReward": {
         "title": "City Rewards",
+        "supportNotice": "If the page is not working properly, please send a DM to 🍌Minion on server 3223.",
         "loading": "Loading city reward data...",
         "polling": "Auto refresh every 30 seconds",
         "lastUpdated": "Last updated",
