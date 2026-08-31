@@ -2108,8 +2108,8 @@
         "source": { "all": "모든 출처", "both": "Top 100 + 지도", "power": "Top 100", "realpower": "지도", "powerOnly": "Top 100만", "realpowerOnly": "지도만" },
         "columns": { "server": "서버", "player": "플레이어", "alliance": "연맹", "power": "전투력" },
         "activity": { "unknown": "접속일 미확인", "stop": "비활성 · {{count}}일 전", "pause": "휴면 · {{count}}일 전", "today": "활동 · 오늘", "active": "활동 · {{count}}일 전" },
-        "details": { "previous": "이전 관측", "source": "출처", "observed": "관측", "activity": "접속 상태", "baseLocation": "기지 위치", "recentMove": "최근 이동", "nicknameHistory": "닉네임 변경 이력" },
-        "history": { "loading": "불러오는 중...", "empty": "변경 이력 없음", "more": "+{{count}}건" }
+        "details": { "previous": "이전 관측", "source": "출처", "observed": "관측", "activity": "접속 상태", "armyPower": "부대 전투력", "baseLocation": "기지 위치", "recentMove": "최근 이동", "movementHistory": "서버 이동 이력", "nicknameHistory": "닉네임 변경 이력" },
+        "history": { "loading": "불러오는 중...", "empty": "변경 이력 없음", "movementEmpty": "이동 이력 없음", "more": "+{{count}}건" }
         ,"views": { "label": "통합 데이터 보기", "players": "플레이어", "servers": "서버 비교", "alliances": "연맹 비교" }
         ,"groups": { "serverSearch": "서버 번호 검색", "allianceSearch": "연맹명 또는 태그 검색", "allianceServerSearch": "서버 번호 검색", "count": "{{count}}개 항목", "players": "인원", "averagePower": "평균 전투력", "active": "활성", "inactive": "비활성", "activeRate": "활성률", "inactiveRate": "비활성률", "alliances": "연맹 수", "coverage": "Top/지도/양쪽", "coverageTitle": "Top 100 포함 / 지도 조사 포함 / 양쪽 확인" }
         ,"comparison": { "selected": "{{count}}개 선택", "clear": "전체 해제", "remove": "{{name}} 비교에서 제거", "goToResults": "비교 결과로 이동", "goToSearch": "검색 목록으로 이동" }

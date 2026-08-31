@@ -363,7 +363,8 @@
     display: none;
 }
 
-.overall-viewer__nickname-history {
+.overall-viewer__nickname-history,
+.overall-viewer__movement-history {
     display: grid;
     flex-basis: 100%;
     align-items: center;
@@ -372,12 +373,14 @@
     padding-top: .08rem;
 }
 
-.overall-viewer__nickname-history > b {
+.overall-viewer__nickname-history > b,
+.overall-viewer__movement-history > b {
     align-self: start;
     grid-row: 1 / span 4;
 }
 
-.overall-viewer__nickname-history span {
+.overall-viewer__nickname-history span,
+.overall-viewer__movement-history span {
     display: flex;
     gap: .3rem;
     white-space: nowrap;
@@ -385,13 +388,15 @@
     text-overflow: ellipsis;
 }
 
-.overall-viewer__nickname-history time {
+.overall-viewer__nickname-history time,
+.overall-viewer__movement-history time {
     min-width: 5.2rem;
     color: var(--bs-secondary-color);
     font-variant-numeric: tabular-nums;
 }
 
-.overall-viewer__nickname-history small {
+.overall-viewer__nickname-history small,
+.overall-viewer__movement-history small {
     color: var(--bs-primary);
     font-weight: 700;
     white-space: nowrap;

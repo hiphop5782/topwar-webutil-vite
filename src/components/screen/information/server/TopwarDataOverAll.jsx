@@ -202,12 +202,17 @@ export default function TopwarDataOverAll() {
         async function loadMovementHistory() {
             try {
                 const files = await listOverallHistoryFiles("movement");
-                const documents = await Promise.all(
+                const results = await Promise.allSettled(
                     files.map((file) => loadDataFile(file.path)),
                 );
                 const grouped = new Map();
 
-                for (const data of documents) {
+                for (const result of results) {
+                    if (result.status !== "fulfilled") {
+                        console.warn("일부 서버 이동 이력 로드 실패", result.reason);
+                        continue;
+                    }
+                    const data = result.value;
                     for (const row of data?.rows ?? []) {
                         const uid = String(row.uid ?? "");
                         if (!uid) continue;
@@ -215,6 +220,11 @@ export default function TopwarDataOverAll() {
                         history.push(row);
                         grouped.set(uid, history);
                     }
+                }
+
+                for (const history of grouped.values()) {
+                    history.sort((left, right) => String(right.detectedAt ?? "")
+                        .localeCompare(String(left.detectedAt ?? "")));
                 }
 
                 setMovementHistory(grouped);
@@ -235,7 +245,7 @@ export default function TopwarDataOverAll() {
         async function loadNicknameHistory() {
             try {
                 const files = await listOverallHistoryFiles("nickname");
-                const documents = await Promise.all(
+                const results = await Promise.allSettled(
                     files.map(async (file) => ({
                         date: file.date,
                         data: await loadDataFile(file.path),
@@ -243,7 +253,12 @@ export default function TopwarDataOverAll() {
                 );
                 const grouped = new Map();
 
-                for (const { date, data } of documents) {
+                for (const result of results) {
+                    if (result.status !== "fulfilled") {
+                        console.warn("일부 닉네임 변경 이력 로드 실패", result.reason);
+                        continue;
+                    }
+                    const { date, data } = result.value;
                     for (const row of data?.rows ?? []) {
                         const uid = String(row.uid ?? "");
                         if (!uid) continue;
@@ -585,21 +600,22 @@ export default function TopwarDataOverAll() {
                         itemContent={(_index, player) => {
                             const expanded = expandedPlayers.has(player.uid);
                             const playerNicknameHistory = nicknameHistory.get(String(player.uid)) ?? [];
+                            const playerMovementHistory = movementHistory?.get(String(player.uid)) ?? [];
                             const activity = getActivity(player.lastLogin, t);
                             const recentInbound = getRecentInbound(
                                 player,
-                                movementHistory?.get(String(player.uid)) ?? [],
+                                playerMovementHistory,
                             );
                             const playerKartz = findPlayerKartz(
                                 kartzIndexes,
                                 player,
                                 playerNicknameHistory,
-                                movementHistory?.get(String(player.uid)) ?? [],
+                                playerMovementHistory,
                             );
                             const expandAnalytics = {
                                 source: player.source,
                                 activity_status: activity.key,
-                                has_movement_history: Boolean(movementHistory?.get(String(player.uid))?.length),
+                                has_movement_history: playerMovementHistory.length > 0,
                                 has_nickname_history: playerNicknameHistory.length > 0,
                                 has_kartz_history: playerKartz.length > 0,
                             };
@@ -665,6 +681,12 @@ export default function TopwarDataOverAll() {
                                             <span><b>{t("details.source")}</b> {sourceLabel(player.source, t)}</span>
                                             <span><b>{t("details.observed")}</b> {formatDate(player.observedAt, locale)}</span>
                                             <span><b>{t("details.activity")}</b> {activity.label}</span>
+                                            {(player.armyPower != null || player.armyPowerText) && (
+                                                <span title={player.armyPower ? String(player.armyPower) : undefined}>
+                                                    <b>{t("details.armyPower")}</b>
+                                                    {player.armyPowerText || formatCompactNumber(String(player.armyPower).replaceAll(",", ""))}
+                                                </span>
+                                            )}
                                             {player.x != null && player.y != null ? (
                                                 <span>
                                                     <b>{t("details.baseLocation")}</b> x {player.x}, y {player.y}
@@ -680,6 +702,24 @@ export default function TopwarDataOverAll() {
                                                     {recentInbound.detectedAt ? ` · ${formatDate(recentInbound.detectedAt, locale)}` : ""}
                                                 </span>
                                             )}
+                                            <div className="overall-viewer__movement-history">
+                                                <b>{t("details.movementHistory")}</b>
+                                                {movementLoading ? (
+                                                    <span>{t("history.loading")}</span>
+                                                ) : playerMovementHistory.length > 0 ? (
+                                                    playerMovementHistory.slice(0, 3).map((history, index) => (
+                                                        <span key={`${history.detectedAt ?? index}-${index}`}>
+                                                            <time>{formatDate(history.detectedAt, locale)}</time>
+                                                            s{history.fromServer ?? "-"} → s{history.toServer ?? "-"}
+                                                        </span>
+                                                    ))
+                                                ) : (
+                                                    <span>{t("history.movementEmpty")}</span>
+                                                )}
+                                                {playerMovementHistory.length > 3 && (
+                                                    <small>{t("history.more", { count: playerMovementHistory.length - 3 })}</small>
+                                                )}
+                                            </div>
                                             <div className="overall-viewer__nickname-history">
                                                 <b>{t("details.nicknameHistory")}</b>
                                                 {historyLoading ? (

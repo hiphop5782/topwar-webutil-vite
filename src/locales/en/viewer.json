@@ -2115,8 +2115,8 @@
         "source": { "all": "All sources", "both": "Top 100 + Map", "power": "Top 100", "realpower": "Map", "powerOnly": "Top 100 only", "realpowerOnly": "Map only" },
         "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power" },
         "activity": { "unknown": "Login unknown", "stop": "Inactive · {{count}}d ago", "pause": "Dormant · {{count}}d ago", "today": "Active · Today", "active": "Active · {{count}}d ago" },
-        "details": { "previous": "Previous", "source": "Source", "observed": "Observed", "activity": "Activity", "baseLocation": "Base location", "recentMove": "Recent move", "nicknameHistory": "Nickname history" },
-        "history": { "loading": "Loading...", "empty": "No nickname changes", "more": "+{{count}} more" }
+        "details": { "previous": "Previous", "source": "Source", "observed": "Observed", "activity": "Activity", "armyPower": "Army power", "baseLocation": "Base location", "recentMove": "Recent move", "movementHistory": "Server movement history", "nicknameHistory": "Nickname history" },
+        "history": { "loading": "Loading...", "empty": "No nickname changes", "movementEmpty": "No server movements", "more": "+{{count}} more" }
         ,"views": { "label": "Unified data view", "players": "Players", "servers": "Server comparison", "alliances": "Alliance comparison" }
         ,"groups": { "serverSearch": "Search server number", "allianceSearch": "Search alliance name or tag", "allianceServerSearch": "Search server number", "count": "{{count}} items", "players": "Players", "averagePower": "Avg. power", "active": "Active", "inactive": "Inactive", "activeRate": "Active rate", "inactiveRate": "Inactive rate", "alliances": "Alliances", "coverage": "Top/Map/Both", "coverageTitle": "Top 100 included / Map included / Both sources" }
         ,"comparison": { "selected": "{{count}} selected", "clear": "Clear all", "remove": "Remove {{name}} from comparison", "goToResults": "Go to comparison", "goToSearch": "Go to search list" }

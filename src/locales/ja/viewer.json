@@ -2106,8 +2106,8 @@
         "source": { "all": "すべてのソース", "both": "Top 100 + マップ", "power": "Top 100", "realpower": "マップ", "powerOnly": "Top 100のみ", "realpowerOnly": "マップのみ" },
         "columns": { "server": "サーバー", "player": "プレイヤー", "alliance": "連盟", "power": "戦力" },
         "activity": { "unknown": "ログイン日不明", "stop": "非アクティブ · {{count}}日前", "pause": "休眠 · {{count}}日前", "today": "アクティブ · 今日", "active": "アクティブ · {{count}}日前" },
-        "details": { "previous": "以前の観測", "source": "ソース", "observed": "観測", "activity": "活動状態", "baseLocation": "基地位置", "recentMove": "最近の移動", "nicknameHistory": "ニックネーム変更履歴" },
-        "history": { "loading": "読込中...", "empty": "変更履歴なし", "more": "+{{count}}件" }
+        "details": { "previous": "以前の観測", "source": "ソース", "observed": "観測", "activity": "活動状態", "armyPower": "部隊戦力", "baseLocation": "基地位置", "recentMove": "最近の移動", "movementHistory": "サーバー移動履歴", "nicknameHistory": "ニックネーム変更履歴" },
+        "history": { "loading": "読込中...", "empty": "変更履歴なし", "movementEmpty": "移動履歴なし", "more": "+{{count}}件" }
         ,"views": { "label": "統合データ表示", "players": "プレイヤー", "servers": "サーバー比較", "alliances": "連盟比較" }
         ,"groups": { "serverSearch": "サーバー番号検索", "allianceSearch": "連盟名・タグ検索", "allianceServerSearch": "サーバー番号検索", "count": "{{count}}件", "players": "人数", "averagePower": "平均戦力", "active": "アクティブ", "inactive": "非アクティブ", "activeRate": "活動率", "inactiveRate": "非活動率", "alliances": "連盟数", "coverage": "Top/マップ/両方", "coverageTitle": "Top 100含む / マップ調査含む / 両方で確認" }
         ,"comparison": { "selected": "{{count}}件選択", "clear": "すべて解除", "remove": "{{name}}を比較から削除", "goToResults": "比較結果へ移動", "goToSearch": "検索一覧へ移動" }
