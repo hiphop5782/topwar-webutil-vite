@@ -379,7 +379,14 @@
         "table-username": "Username",
         "table-round": "Round",
         "table-alliance": "Alliance",
-        "table-score": "Score"
+        "table-score": "Score",
+        "table-damage": "Damage",
+        "search": "Search name or tag",
+        "search-placeholder": "Player, alliance, or alliance tag",
+        "user-heading": "Player rankings",
+        "alliance-heading": "Alliance rankings",
+        "result-count": "{{count}} results",
+        "no-results": "No rankings match the current filters."
     },
     "KartzServerHistoryViewer": {
         "title-top500-count": "Top 500 Population Distribution",

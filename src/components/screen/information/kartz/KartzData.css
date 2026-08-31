@@ -28,3 +28,144 @@
   /* 가독성을 위한 폰트 설정 (숫자가 예쁜 폰트 권장) */
   font-family: 'Pretendard', 'Inter', -apple-system, sans-serif;
 }
+
+.kartz-rank-toolbar {
+  background: var(--bs-tertiary-bg);
+}
+
+.kartz-rank-toolbar .form-label {
+  margin-bottom: 0.35rem;
+  color: var(--bs-secondary-color);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.kartz-rank-panel {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--bs-body-bg);
+}
+
+.kartz-rank-panel .card-header {
+  min-height: 3.4rem;
+}
+
+.kartz-rank-list,
+.kartz-rank-virtuoso {
+  height: clamp(30rem, 68vh, 48rem);
+  min-height: 0;
+}
+
+.kartz-rank-scroller {
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.kartz-virtual-table {
+  width: 100%;
+  margin-bottom: 0;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.kartz-virtual-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0.65rem 0.55rem;
+  border-bottom-width: 1px;
+  background: var(--bs-tertiary-bg);
+  color: var(--bs-secondary-color);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.kartz-virtual-table tbody td {
+  height: 2.75rem;
+  padding: 0.58rem 0.55rem;
+  overflow: hidden;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.kartz-rank-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kartz-col-rank {
+  width: 3.5rem;
+}
+
+.kartz-col-server {
+  width: 4.25rem;
+}
+
+.kartz-col-round,
+.kartz-col-damage,
+.kartz-col-score {
+  width: 5.25rem;
+}
+
+.kartz-rank-1 {
+  background-color: #FFD700CC !important;
+  color: #1f1f1f;
+  font-weight: 800;
+}
+
+.kartz-rank-2 {
+  background-color: #C0C0C0CC !important;
+  color: #1f1f1f;
+  font-weight: 800;
+}
+
+.kartz-rank-3 {
+  background-color: #CD7F32CC !important;
+  color: #1f1f1f;
+  font-weight: 800;
+}
+
+.kartz-rank-top10 {
+  font-weight: 700;
+}
+
+.kartz-rank-empty {
+  display: grid;
+  min-height: 12rem;
+  place-items: center;
+  padding: 2rem;
+  color: var(--bs-secondary-color);
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .kartz-rank-list,
+  .kartz-rank-virtuoso {
+    height: 32rem;
+  }
+
+  .kartz-virtual-table thead th,
+  .kartz-virtual-table tbody td {
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
+  }
+
+  .kartz-col-rank {
+    width: 3rem;
+  }
+
+  .kartz-col-server {
+    width: 3.7rem;
+  }
+
+  .kartz-col-round,
+  .kartz-col-damage,
+  .kartz-col-score {
+    width: 4.5rem;
+  }
+}

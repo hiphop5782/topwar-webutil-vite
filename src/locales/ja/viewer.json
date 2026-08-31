@@ -377,7 +377,14 @@
         "table-username": "ユーザー名",
         "table-round": "ラウンド",
         "table-alliance": "同盟名",
-        "table-score": "スコア"
+        "table-score": "スコア",
+        "table-damage": "ダメージ",
+        "search": "名前・タグ検索",
+        "search-placeholder": "プレイヤー名・同盟名・同盟タグ",
+        "user-heading": "個人ランキング",
+        "alliance-heading": "同盟ランキング",
+        "result-count": "{{count}}件",
+        "no-results": "検索条件に一致するランキングがありません。"
     },
     "KartzServerHistoryViewer": {
         "title-top500-count": "Top 500 人구 분포 (分布)",

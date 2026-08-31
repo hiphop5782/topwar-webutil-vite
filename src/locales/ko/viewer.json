@@ -377,7 +377,14 @@
         "table-username": "유저명",
         "table-round": "라운드",
         "table-alliance": "동맹명",
-        "table-score": "점수"
+        "table-score": "점수",
+        "table-damage": "피해량",
+        "search": "이름 또는 태그 검색",
+        "search-placeholder": "플레이어명 · 동맹명 · 동맹 태그",
+        "user-heading": "개인 랭킹",
+        "alliance-heading": "동맹 랭킹",
+        "result-count": "{{count}}개 결과",
+        "no-results": "검색 조건에 맞는 랭킹이 없습니다."
     },
     "KartzServerHistoryViewer": {
         "title-top500-count": "Top 500 인구 분포",
