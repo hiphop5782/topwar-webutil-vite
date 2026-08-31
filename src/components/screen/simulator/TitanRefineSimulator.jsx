@@ -1498,6 +1498,7 @@ export default function TitanRefineSimulator() {
                         <div className="col-12 col-lg-auto">
                             <button
                                 type="button"
+                                data-analytics-action="run_refine"
                                 className="btn btn-primary btn-lg refine-submit-button"
                                 onClick={refine}
                                 disabled={!canRefine}
@@ -1559,6 +1560,7 @@ export default function TitanRefineSimulator() {
 
                         <button
                             type="button"
+                            data-analytics-action="clear_history"
                             className="btn btn-sm btn-outline-secondary align-self-sm-start"
                             onClick={clearHistory}
                             disabled={

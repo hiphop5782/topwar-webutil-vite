@@ -363,7 +363,7 @@ const FormationPerk = () => {
         <hr />
         <h2>
             사용한 포인트 : {totalPoint} pt
-            <RiResetLeftFill onClick={clearPoint} className="text-danger fs-bold ms-2" />
+                            <RiResetLeftFill data-analytics-action="reset" onClick={clearPoint} className="text-danger fs-bold ms-2" />
             {/* <TbCaptureFilled onClick={saveImageToClipboard} className="text-info fs-bold ms-2"/> */}
         </h2>
         <div ref={containerRef} id="graph-viewer" style={{ backgroundImage: `url(${import.meta.env.VITE_PUBLIC_URL}/images/formation/perk/background.png)` }}></div>

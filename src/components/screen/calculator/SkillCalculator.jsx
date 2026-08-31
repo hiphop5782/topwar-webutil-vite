@@ -495,6 +495,7 @@ function SkillCalculator() {
 
                                 <button
                                     type="button"
+                                    data-analytics-action="reset"
                                     className="btn btn-sm btn-outline-secondary"
                                     onClick={resetCalculator}
                                 >

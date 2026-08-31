@@ -1,7 +1,8 @@
-import { useDeferredValue, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Virtuoso } from "react-virtuoso";
 import { FaArrowDown, FaArrowUp, FaXmark } from "react-icons/fa6";
+import { trackAnalyticsEvent } from "@src/db/firebase";
 import KartzTrend from "./TopwarKartzTrend";
 import { findAllianceKartz } from "./topwarKartzUtils";
 
@@ -40,6 +41,7 @@ export default function TopwarOverallGroupView({ type, players, movementHistory,
     const [selectedKeys, setSelectedKeys] = useState([]);
     const toolbarRef = useRef(null);
     const comparisonRef = useRef(null);
+    const lastTrackedSearchRef = useRef("");
     const deferredQuery = useDeferredValue(query);
     const deferredServerQuery = useDeferredValue(serverQuery);
 
@@ -124,10 +126,52 @@ export default function TopwarOverallGroupView({ type, players, movementHistory,
         averagePower: Math.max(0, ...selectedRows.map((row) => row.averagePower)),
     }), [selectedRows]);
 
+    useEffect(() => {
+        if (!deferredQuery && !deferredServerQuery) return undefined;
+        const signature = `${type}|${Boolean(deferredQuery)}|${Boolean(deferredServerQuery)}|${filtered.length}`;
+        if (signature === lastTrackedSearchRef.current) return undefined;
+        const timer = window.setTimeout(() => {
+            lastTrackedSearchRef.current = signature;
+            trackAnalyticsEvent("overall_group_search", {
+                group_type: type,
+                has_name_filter: Boolean(deferredQuery),
+                has_server_filter: Boolean(deferredServerQuery),
+                result_count: filtered.length,
+            });
+        }, 800);
+        return () => window.clearTimeout(timer);
+    }, [type, deferredQuery, deferredServerQuery, filtered.length]);
+
     const toggleSelection = (key) => {
-        setSelectedKeys((current) => {
-            if (current.includes(key)) return current.filter((item) => item !== key);
-            return [...current, key];
+        const removing = selectedKeys.includes(key);
+        trackAnalyticsEvent("overall_comparison_selection", {
+            group_type: type,
+            action: removing ? "remove" : "add",
+            selected_count: selectedKeys.length + (removing ? -1 : 1),
+        });
+        setSelectedKeys((current) => removing
+            ? current.filter((item) => item !== key)
+            : [...current, key]);
+    };
+
+    const clearSelection = (location) => {
+        trackAnalyticsEvent("overall_comparison_clear", {
+            group_type: type,
+            location,
+            selected_count: selectedKeys.length,
+        });
+        setSelectedKeys([]);
+    };
+
+    const jumpTo = (target) => {
+        trackAnalyticsEvent("overall_comparison_jump", {
+            group_type: type,
+            target,
+            selected_count: selectedKeys.length,
+        });
+        (target === "results" ? comparisonRef : toolbarRef).current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
         });
     };
 
@@ -162,9 +206,9 @@ export default function TopwarOverallGroupView({ type, players, movementHistory,
                             <button
                                 type="button"
                                 className="is-jump"
-                                onClick={() => comparisonRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                                onClick={() => jumpTo("results")}
                             ><FaArrowDown aria-hidden="true" /> {t("comparison.goToResults")}</button>
-                            <button type="button" onClick={() => setSelectedKeys([])}>{t("comparison.clear")}</button>
+                            <button type="button" onClick={() => clearSelection("toolbar")}>{t("comparison.clear")}</button>
                         </>
                     )}
                 </div>
@@ -212,9 +256,9 @@ export default function TopwarOverallGroupView({ type, players, movementHistory,
                             <button
                                 type="button"
                                 className="is-jump"
-                                onClick={() => toolbarRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                                onClick={() => jumpTo("search")}
                             ><FaArrowUp aria-hidden="true" /> {t("comparison.goToSearch")}</button>
-                            <button type="button" onClick={() => setSelectedKeys([])}>{t("comparison.clear")}</button>
+                            <button type="button" onClick={() => clearSelection("results")}>{t("comparison.clear")}</button>
                         </div>
                     </div>
                     <div className="overall-group-view__comparison-track">

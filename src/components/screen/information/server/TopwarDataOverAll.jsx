@@ -1,10 +1,11 @@
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronDown, FaMagnifyingGlass, FaRotateRight, FaSliders } from "react-icons/fa6";
 import { Virtuoso } from "react-virtuoso";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
+import { trackAnalyticsEvent } from "@src/db/firebase";
 import TopwarOverallGroupView from "./TopwarOverallGroupView";
 import KartzTrend from "./TopwarKartzTrend";
 import { buildKartzIndexes, findPlayerKartz } from "./topwarKartzUtils";
@@ -141,6 +142,7 @@ export default function TopwarDataOverAll() {
     const [kartzLoading, setKartzLoading] = useState(true);
     const [relativeTimeNow, setRelativeTimeNow] = useState(Date.now);
     const [searchParams, setSearchParams] = useSearchParams();
+    const lastTrackedSearchRef = useRef("");
 
     useEffect(() => {
         const timer = window.setInterval(() => setRelativeTimeNow(Date.now()), 60_000);
@@ -327,7 +329,42 @@ export default function TopwarDataOverAll() {
         return counts;
     }, [filteredPlayers]);
 
+    useEffect(() => {
+        const activeFilterCount = [
+            deferredQuery, deferredAllianceQuery, server, serverOut,
+            source !== "all", movedOnly,
+        ].filter(Boolean).length;
+        if (view !== "players" || activeFilterCount === 0) return undefined;
+
+        const signature = JSON.stringify({
+            hasNickname: Boolean(deferredQuery),
+            hasAlliance: Boolean(deferredAllianceQuery),
+            hasServer: Boolean(server),
+            hasServerOut: Boolean(serverOut),
+            source,
+            movedOnly,
+            resultCount: filteredPlayers.length,
+        });
+        if (signature === lastTrackedSearchRef.current) return undefined;
+
+        const timer = window.setTimeout(() => {
+            lastTrackedSearchRef.current = signature;
+            trackAnalyticsEvent("overall_search", {
+                active_filter_count: activeFilterCount,
+                has_nickname_filter: Boolean(deferredQuery),
+                has_alliance_filter: Boolean(deferredAllianceQuery),
+                has_server_filter: Boolean(server),
+                has_server_out_filter: Boolean(serverOut),
+                source_filter: source,
+                moved_only: movedOnly,
+                result_count: filteredPlayers.length,
+            });
+        }, 800);
+        return () => window.clearTimeout(timer);
+    }, [view, deferredQuery, deferredAllianceQuery, server, serverOut, source, movedOnly, filteredPlayers.length]);
+
     const resetFilters = () => {
+        trackAnalyticsEvent("overall_filter_reset", { view: "players" });
         setQuery("");
         setAllianceQuery("");
         setServer("");
@@ -336,16 +373,24 @@ export default function TopwarDataOverAll() {
         setMovedOnly(false);
     };
 
-    const togglePlayer = (uid) => {
+    const togglePlayer = (uid, analyticsData) => {
         setExpandedPlayers((current) => {
             const next = new Set(current);
-            if (next.has(uid)) next.delete(uid);
-            else next.add(uid);
+            if (next.has(uid)) {
+                next.delete(uid);
+            } else {
+                next.add(uid);
+                trackAnalyticsEvent("overall_player_expand", analyticsData);
+            }
             return next;
         });
     };
 
     const changeView = (nextView) => {
+        trackAnalyticsEvent("overall_view_change", {
+            from_view: view,
+            to_view: nextView,
+        });
         const next = new URLSearchParams(searchParams);
         if (nextView === "players") next.delete("view");
         else next.set("view", nextView);
@@ -467,7 +512,10 @@ export default function TopwarDataOverAll() {
                     type="button"
                     className={`btn ${advancedOpen ? "btn-secondary" : "btn-outline-secondary"}`}
                     aria-expanded={advancedOpen}
-                    onClick={() => setAdvancedOpen((current) => !current)}
+                    onClick={() => setAdvancedOpen((current) => {
+                        trackAnalyticsEvent("overall_advanced_toggle", { open: !current });
+                        return !current;
+                    })}
                 >
                     <FaSliders aria-hidden="true" /> {t("filters.advanced")}
                 </button>
@@ -503,7 +551,10 @@ export default function TopwarDataOverAll() {
                                 type="checkbox"
                                 checked={movedOnly}
                                 disabled={movementLoading}
-                                onChange={(event) => setMovedOnly(event.target.checked)}
+                                onChange={(event) => {
+                                    setMovedOnly(event.target.checked);
+                                    trackAnalyticsEvent("overall_moved_only_toggle", { enabled: event.target.checked });
+                                }}
                             />
                             <span>{movementLoading ? t("filters.movementLoading") : t("filters.movedOnly")}</span>
                         </label>
@@ -545,17 +596,24 @@ export default function TopwarDataOverAll() {
                                 playerNicknameHistory,
                                 movementHistory?.get(String(player.uid)) ?? [],
                             );
+                            const expandAnalytics = {
+                                source: player.source,
+                                activity_status: activity.key,
+                                has_movement_history: Boolean(movementHistory?.get(String(player.uid))?.length),
+                                has_nickname_history: playerNicknameHistory.length > 0,
+                                has_kartz_history: playerKartz.length > 0,
+                            };
                             return (
                                 <article
                                     className={`overall-viewer__compact-item is-${activity.key}${expanded ? " is-expanded" : ""}`}
                                     role="button"
                                     tabIndex={0}
                                     aria-expanded={expanded}
-                                    onClick={() => togglePlayer(player.uid)}
+                                    onClick={() => togglePlayer(player.uid, expandAnalytics)}
                                     onKeyDown={(event) => {
                                         if (event.key === "Enter" || event.key === " ") {
                                             event.preventDefault();
-                                            togglePlayer(player.uid);
+                                            togglePlayer(player.uid, expandAnalytics);
                                         }
                                     }}
                                 >

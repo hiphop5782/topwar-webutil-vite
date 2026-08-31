@@ -386,10 +386,10 @@ export default function KartzServerHistoryViewer() {
         {isServerExist && (<>
             {/* 주요 기간 버튼 생성 */}
             <div className="my-1">
-                <button className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(3)}>{t("KartzServerHistoryViewer.recent-prefix")} 3{t("KartzServerHistoryViewer.recent-suffix")}</button>
-                <button className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(6)}>{t("KartzServerHistoryViewer.recent-prefix")} 6{t("KartzServerHistoryViewer.recent-suffix")}</button>
-                <button className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod(12)}>{t("KartzServerHistoryViewer.recent-prefix")} 12{t("KartzServerHistoryViewer.recent-suffix")}</button>
-                <button className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={e => changePeriod()}>{t("KartzServerHistoryViewer.recent-all")}</button>
+                    <button data-analytics-action="period_3" className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={() => changePeriod(3)}>{t("KartzServerHistoryViewer.recent-prefix")} 3{t("KartzServerHistoryViewer.recent-suffix")}</button>
+                    <button data-analytics-action="period_6" className={`btn ${checkPeriod(6) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={() => changePeriod(6)}>{t("KartzServerHistoryViewer.recent-prefix")} 6{t("KartzServerHistoryViewer.recent-suffix")}</button>
+                    <button data-analytics-action="period_12" className={`btn ${checkPeriod(12) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={() => changePeriod(12)}>{t("KartzServerHistoryViewer.recent-prefix")} 12{t("KartzServerHistoryViewer.recent-suffix")}</button>
+                    <button data-analytics-action="period_all" className={`btn ${checkPeriod() ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={() => changePeriod()}>{t("KartzServerHistoryViewer.recent-all")}</button>
             </div>
 
             {/* 파일명을 체크박스로 생성 */}

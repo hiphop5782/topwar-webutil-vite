@@ -264,6 +264,7 @@ const ValuePackCalculator = () => {
                                 <div className="d-flex flex-wrap gap-2">
                                     <button
                                         type="button"
+                                        data-analytics-action="select_all_packages"
                                         className="btn btn-sm btn-outline-primary"
                                         onClick={
                                             selectAllPackages
@@ -276,6 +277,7 @@ const ValuePackCalculator = () => {
 
                                     <button
                                         type="button"
+                                        data-analytics-action="apply_coupon_all"
                                         className="btn btn-sm btn-outline-success"
                                         onClick={
                                             applyDoubleCouponToAll
@@ -292,6 +294,7 @@ const ValuePackCalculator = () => {
 
                                     <button
                                         type="button"
+                                        data-analytics-action="reset"
                                         className="btn btn-sm btn-outline-secondary"
                                         onClick={
                                             resetCalculator
@@ -538,6 +541,7 @@ const ValuePackCalculator = () => {
                             <div className="d-flex justify-content-end mt-3">
                                 <button
                                     type="button"
+                                    data-analytics-action="remove_coupon_all"
                                     className="btn btn-sm btn-link text-secondary text-decoration-none"
                                     onClick={
                                         removeAllDoubleCoupons

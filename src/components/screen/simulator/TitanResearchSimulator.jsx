@@ -763,6 +763,7 @@ const TitanResearchSimulator = () => {
                             <div className="d-flex flex-wrap gap-2 mt-4">
                                 <button
                                     type="button"
+                                    data-analytics-action="run_simulation"
                                     className="btn btn-primary btn-lg"
                                     onClick={
                                         createRandomTitanGears
@@ -778,6 +779,7 @@ const TitanResearchSimulator = () => {
 
                                 <button
                                     type="button"
+                                    data-analytics-action="clear_result"
                                     className="btn btn-outline-secondary btn-lg"
                                     onClick={clearResult}
                                     disabled={

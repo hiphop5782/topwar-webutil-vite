@@ -255,6 +255,7 @@ function VitalCalculator() {
 
                         <button
                             type="button"
+                            data-analytics-action="reset"
                             className="btn btn-outline-secondary"
                             onClick={resetCalculator}
                         >

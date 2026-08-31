@@ -58,6 +58,7 @@ import CityRewardEvent from "@src/components/screen/event/CityRewardEvent";
 
 import ThiefFinder from "@src/components/screen/vip/ThiefFinder";
 import RouteSEO from "@src/components/template/RouteSEO";
+import RouteAnalytics from "@src/components/template/RouteAnalytics";
 
 export default function MainContentView() {
     const isMobile = useIsMobile(1200);
@@ -71,6 +72,7 @@ export default function MainContentView() {
             </div>
             <div className="col-md-8">
                 <RouteSEO />
+                <RouteAnalytics />
                 {/* 카카오 애드핏 수평 광고 */}
                 <div className="row mb-4">
                     <div className="col d-flex justify-content-center align-items-center">

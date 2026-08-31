@@ -365,6 +365,7 @@ export default function ItemLevelCostCalculator() {
                                             <button
                                                 key={item.id}
                                                 type="button"
+                                                data-analytics-action="select_item"
                                                 role="radio"
                                                 aria-checked={
                                                     selected
