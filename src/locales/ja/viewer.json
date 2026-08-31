@@ -2111,6 +2111,7 @@
         ,"views": { "label": "統合データ表示", "players": "プレイヤー", "servers": "サーバー比較", "alliances": "連盟比較" }
         ,"groups": { "serverSearch": "サーバー番号検索", "allianceSearch": "連盟名・タグ検索", "allianceServerSearch": "サーバー番号検索", "count": "{{count}}件", "players": "人数", "averagePower": "平均戦力", "active": "アクティブ", "inactive": "非アクティブ", "activeRate": "活動率", "inactiveRate": "非活動率", "alliances": "連盟数", "coverage": "Top/マップ/両方", "coverageTitle": "Top 100含む / マップ調査含む / 両方で確認" }
         ,"comparison": { "selected": "{{count}}件選択", "clear": "すべて解除", "remove": "{{name}}を比較から削除", "goToResults": "比較結果へ移動", "goToSearch": "検索一覧へ移動" }
-        ,"kartz": { "title": "Kartzランキング", "serverResult": "{{month}} · 最高{{rank}}位 · Top 500 {{count}}人 · 最高{{round}}R", "allianceResult": "{{month}} · {{rank}}位 · {{score}}点", "unranked": "ランキング圏外" }
+        ,"kartz": { "title": "Kartzランキング", "playerHistory": "個人Kartz順位推移", "allianceHistory": "連盟Kartz順位推移", "serverHistory": "サーバー実戦総合順位推移", "unranked": "ランキング圏外" }
+        ,"performance": { "title": "実戦成績", "short": "実戦", "overallRank": "総合", "top100": "Top 100", "top500": "Top 500", "averageRound": "平均ラウンド", "efficiency": "アクティブ比進出率", "change": "前回比", "appearances": "ランクイン回数", "formula": "各回は個人順位35%・平均ラウンド20%・上位層15%・連盟スコア20%で計算し、総合順位は各回平均90%・継続性10%で算出します。" }
     }
 }

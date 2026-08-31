@@ -2120,6 +2120,7 @@
         ,"views": { "label": "Unified data view", "players": "Players", "servers": "Server comparison", "alliances": "Alliance comparison" }
         ,"groups": { "serverSearch": "Search server number", "allianceSearch": "Search alliance name or tag", "allianceServerSearch": "Search server number", "count": "{{count}} items", "players": "Players", "averagePower": "Avg. power", "active": "Active", "inactive": "Inactive", "activeRate": "Active rate", "inactiveRate": "Inactive rate", "alliances": "Alliances", "coverage": "Top/Map/Both", "coverageTitle": "Top 100 included / Map included / Both sources" }
         ,"comparison": { "selected": "{{count}} selected", "clear": "Clear all", "remove": "Remove {{name}} from comparison", "goToResults": "Go to comparison", "goToSearch": "Go to search list" }
-        ,"kartz": { "title": "Kartz ranking", "serverResult": "{{month}} · Best #{{rank}} · {{count}} in Top 500 · Best R{{round}}", "allianceResult": "{{month}} · #{{rank}} · {{score}} pts", "unranked": "Not ranked" }
+        ,"kartz": { "title": "Kartz ranking", "playerHistory": "Player Kartz rank history", "allianceHistory": "Alliance Kartz rank history", "serverHistory": "Server performance rank history", "unranked": "Not ranked" }
+        ,"performance": { "title": "Battle performance", "short": "Perf", "overallRank": "Overall", "top100": "Top 100", "top500": "Top 500", "averageRound": "Avg. round", "efficiency": "Active-entry rate", "change": "vs previous", "appearances": "Appearances", "formula": "Each period uses player ranks 35%, average round 20%, roster depth 15%, and alliance score 20%. Overall ranking uses the period average 90% and consistency 10%." }
     }
 }

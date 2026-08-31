@@ -6,7 +6,10 @@ import { useSearchParams } from "react-router-dom";
 
 import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import TopwarOverallGroupView from "./TopwarOverallGroupView";
+import KartzTrend from "./TopwarKartzTrend";
+import { buildKartzIndexes, findPlayerKartz } from "./topwarKartzUtils";
 import {
+    listKartzHistoryFiles,
     listOverallHistoryFiles,
     loadDataFile,
     loadOverallLatest,
@@ -134,12 +137,34 @@ export default function TopwarDataOverAll() {
     const [historyLoading, setHistoryLoading] = useState(true);
     const [movementHistory, setMovementHistory] = useState(null);
     const [movementLoading, setMovementLoading] = useState(true);
+    const [kartzHistory, setKartzHistory] = useState([]);
+    const [kartzLoading, setKartzLoading] = useState(true);
     const [relativeTimeNow, setRelativeTimeNow] = useState(Date.now);
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         const timer = window.setInterval(() => setRelativeTimeNow(Date.now()), 60_000);
         return () => window.clearInterval(timer);
+    }, []);
+
+    useEffect(() => {
+        let cancelled = false;
+        async function loadKartzHistory() {
+            try {
+                const files = await listKartzHistoryFiles();
+                const snapshots = await Promise.all(files.map(async (file) => ({
+                    month: file.fileName,
+                    ...await loadDataFile(file.path),
+                })));
+                if (!cancelled) setKartzHistory(snapshots.sort((a, b) => a.month.localeCompare(b.month)));
+            } catch (kartzError) {
+                console.error("카르츠 전체 이력 로드 실패", kartzError);
+            } finally {
+                if (!cancelled) setKartzLoading(false);
+            }
+        }
+        loadKartzHistory();
+        return () => { cancelled = true; };
     }, []);
     const requestedView = searchParams.get("view");
     const view = ["players", "servers", "alliances"].includes(requestedView)
@@ -249,6 +274,7 @@ export default function TopwarDataOverAll() {
         () => Array.isArray(document?.players) ? document.players : [],
         [document],
     );
+    const kartzIndexes = useMemo(() => buildKartzIndexes(kartzHistory), [kartzHistory]);
 
     const searchablePlayers = useMemo(() => players
         .map((player) => ({
@@ -513,6 +539,12 @@ export default function TopwarDataOverAll() {
                                 player,
                                 movementHistory?.get(String(player.uid)) ?? [],
                             );
+                            const playerKartz = findPlayerKartz(
+                                kartzIndexes,
+                                player,
+                                playerNicknameHistory,
+                                movementHistory?.get(String(player.uid)) ?? [],
+                            );
                             return (
                                 <article
                                     className={`overall-viewer__compact-item is-${activity.key}${expanded ? " is-expanded" : ""}`}
@@ -608,6 +640,12 @@ export default function TopwarDataOverAll() {
                                                     <small>{t("history.more", { count: playerNicknameHistory.length - 3 })}</small>
                                                 )}
                                             </div>
+                                            <KartzTrend
+                                                entries={playerKartz}
+                                                loading={kartzLoading}
+                                                emptyLabel={t("kartz.unranked")}
+                                                title={t("kartz.playerHistory")}
+                                            />
                                         </div>
                                     )}
                                 </article>
@@ -627,10 +665,17 @@ export default function TopwarDataOverAll() {
                     players={players}
                     movementHistory={movementHistory}
                     movementLoading={movementLoading}
+                    kartzIndexes={kartzIndexes}
+                    kartzLoading={kartzLoading}
                 />
             )}
             {view === "alliances" && (
-                <TopwarOverallGroupView type="alliances" players={players} />
+                <TopwarOverallGroupView
+                    type="alliances"
+                    players={players}
+                    kartzIndexes={kartzIndexes}
+                    kartzLoading={kartzLoading}
+                />
             )}
         </section>
     );

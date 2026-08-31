@@ -2113,6 +2113,7 @@
         ,"views": { "label": "통합 데이터 보기", "players": "플레이어", "servers": "서버 비교", "alliances": "연맹 비교" }
         ,"groups": { "serverSearch": "서버 번호 검색", "allianceSearch": "연맹명 또는 태그 검색", "allianceServerSearch": "서버 번호 검색", "count": "{{count}}개 항목", "players": "인원", "averagePower": "평균 전투력", "active": "활성", "inactive": "비활성", "activeRate": "활성률", "inactiveRate": "비활성률", "alliances": "연맹 수", "coverage": "Top/지도/양쪽", "coverageTitle": "Top 100 포함 / 지도 조사 포함 / 양쪽 확인" }
         ,"comparison": { "selected": "{{count}}개 선택", "clear": "전체 해제", "remove": "{{name}} 비교에서 제거", "goToResults": "비교 결과로 이동", "goToSearch": "검색 목록으로 이동" }
-        ,"kartz": { "title": "카르츠 랭킹", "serverResult": "{{month}} · 최고 {{rank}}위 · Top 500 {{count}}명 · 최고 {{round}}R", "allianceResult": "{{month}} · {{rank}}위 · {{score}}점", "unranked": "순위권 밖" }
+        ,"kartz": { "title": "카르츠 랭킹", "playerHistory": "개인 카르츠 순위 추이", "allianceHistory": "연맹 카르츠 순위 추이", "serverHistory": "서버 실전 종합 순위 추이", "unranked": "순위권 밖" }
+        ,"performance": { "title": "실전 성적", "short": "실전", "overallRank": "종합", "top100": "Top 100", "top500": "Top 500", "averageRound": "평균 라운드", "efficiency": "활성 대비 진입률", "change": "직전 대비", "appearances": "진입 회차", "formula": "개인 순위 35% · 평균 라운드 20% · 상위권 선수층 15% · 연맹 점수 20%를 회차별로 계산하고, 전체 회차 평균 90% · 지속성 10%로 종합 순위를 산출합니다." }
     }
 }

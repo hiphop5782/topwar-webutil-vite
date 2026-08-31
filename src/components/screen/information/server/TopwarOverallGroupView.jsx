@@ -1,8 +1,9 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Virtuoso } from "react-virtuoso";
 import { FaArrowDown, FaArrowUp, FaXmark } from "react-icons/fa6";
-import { listKartzHistoryFiles, loadDataFile } from "@src/services/topwarDataRepository";
+import KartzTrend from "./TopwarKartzTrend";
+import { findAllianceKartz } from "./topwarKartzUtils";
 
 function normalize(value) {
     return String(value ?? "").normalize("NFKD").replace(/\p{M}+/gu, "").toLocaleLowerCase().trim();
@@ -31,36 +32,16 @@ function barWidth(value, maximum) {
     return `${Math.max(0, Math.min(100, ratio * 100))}%`;
 }
 
-export default function TopwarOverallGroupView({ type, players, movementHistory }) {
+export default function TopwarOverallGroupView({ type, players, movementHistory, kartzIndexes, kartzLoading }) {
     const { t, i18n } = useTranslation("viewer", { keyPrefix: "TopwarDataOverAll" });
     const locale = i18n.resolvedLanguage?.startsWith("ja") ? "ja-JP" : i18n.resolvedLanguage?.startsWith("en") ? "en-US" : "ko-KR";
     const [query, setQuery] = useState("");
     const [serverQuery, setServerQuery] = useState("");
     const [selectedKeys, setSelectedKeys] = useState([]);
-    const [kartz, setKartz] = useState(null);
-    const [kartzLoading, setKartzLoading] = useState(true);
     const toolbarRef = useRef(null);
     const comparisonRef = useRef(null);
     const deferredQuery = useDeferredValue(query);
     const deferredServerQuery = useDeferredValue(serverQuery);
-
-    useEffect(() => {
-        let cancelled = false;
-        async function loadLatestKartz() {
-            try {
-                const [latest] = await listKartzHistoryFiles();
-                if (!latest) return;
-                const data = await loadDataFile(latest.path);
-                if (!cancelled) setKartz({ ...data, fileName: latest.fileName });
-            } catch (error) {
-                console.error("Kartz ranking load failed", error);
-            } finally {
-                if (!cancelled) setKartzLoading(false);
-            }
-        }
-        loadLatestKartz();
-        return () => { cancelled = true; };
-    }, []);
 
     const rows = useMemo(() => {
         const groups = new Map();
@@ -102,48 +83,24 @@ export default function TopwarOverallGroupView({ type, players, movementHistory 
             }
         }
 
-        const kartzPlayers = Array.isArray(kartz?.playerRankList) ? kartz.playerRankList : [];
-        const kartzAlliances = Array.isArray(kartz?.allianceRankList) ? kartz.allianceRankList : [];
-        const kartzPlayersByServer = new Map();
-        const kartzAllianceByTag = new Map();
-        const kartzAllianceByName = new Map();
-        for (const ranker of kartzPlayers) {
-            const key = String(ranker.server);
-            const list = kartzPlayersByServer.get(key) ?? [];
-            list.push(ranker);
-            kartzPlayersByServer.set(key, list);
-        }
-        for (const ranking of kartzAlliances) {
-            const serverKey = String(ranking.server);
-            if (ranking.tag) kartzAllianceByTag.set(`${serverKey}|${normalize(ranking.tag)}`, ranking);
-            if (ranking.name) kartzAllianceByName.set(`${serverKey}|${normalize(ranking.name)}`, ranking);
-        }
-
         return [...groups.values()]
             .map((row) => {
-                const serverRankers = type === "servers"
-                    ? kartzPlayersByServer.get(String(row.server)) ?? []
-                    : [];
-                const allianceRanking = type === "alliances"
-                    ? (row.tag ? kartzAllianceByTag.get(`${row.server}|${normalize(row.tag)}`) : null)
-                        ?? kartzAllianceByName.get(`${row.server}|${normalize(row.name)}`)
+                const kartzEntries = type === "servers"
+                    ? kartzIndexes?.servers.get(String(row.server)) ?? []
+                    : findAllianceKartz(kartzIndexes, row);
+                const kartzSummary = type === "servers"
+                    ? kartzIndexes?.serverSummaries.get(String(row.server)) ?? null
                     : null;
                 return {
                     ...row,
                     alliances: row.alliances.size,
                     averagePower: row.players ? row.totalPower / row.players : 0,
-                    kartz: type === "servers" ? {
-                        bestRank: serverRankers.length ? Math.min(...serverRankers.map((ranker) => Number(ranker.rank))) : null,
-                        rankers: serverRankers.length,
-                        bestRound: serverRankers.length ? Math.max(...serverRankers.map((ranker) => Number(ranker.round) || 0)) : null,
-                    } : {
-                        rank: allianceRanking?.rank ?? null,
-                        score: allianceRanking?.score ?? null,
-                    },
+                    kartzEntries,
+                    kartzSummary,
                 };
             })
             .sort((left, right) => right.totalPower - left.totalPower || Number(left.server) - Number(right.server));
-    }, [players, type, movementHistory, kartz]);
+    }, [players, type, movementHistory, kartzIndexes]);
 
     const filtered = useMemo(() => {
         const keyword = normalize(deferredQuery);
@@ -234,6 +191,11 @@ export default function TopwarOverallGroupView({ type, players, movementHistory 
                                 onChange={() => toggleSelection(row.key)}
                             />
                             <strong className="text-truncate">{serverView ? row.name : `${row.tag ? `[${row.tag}] ` : ""}${row.name}`}</strong>
+                            {row.kartzEntries.length > 0 && (
+                                <small className="overall-group-view__kartz-rank">
+                                    {serverView ? t("performance.short") : "K"} #{serverView ? row.kartzSummary?.rank : row.kartzEntries.at(-1).rank}
+                                </small>
+                            )}
                         </label>
                         <span>{row.players.toLocaleString(locale)}</span>
                         <span>{compact(row.averagePower)}</span>
@@ -270,18 +232,23 @@ export default function TopwarOverallGroupView({ type, players, movementHistory 
                                     <span>{t("groups.active")} <b>{row.active.toLocaleString(locale)}</b></span>
                                     <span>{t("groups.inactive")} <b>{row.inactive.toLocaleString(locale)}</b></span>
                                     {serverView && <span>IN / OUT <b>{row.inbound.toLocaleString(locale)} / {row.outbound.toLocaleString(locale)}</b></span>}
-                                    <div className="overall-group-view__kartz">
-                                        <b>{t("kartz.title")}</b>
-                                        {kartzLoading ? (
-                                            <span>{t("history.loading")}</span>
-                                        ) : serverView ? (
-                                            row.kartz.bestRank != null ? (
-                                                <span>{t("kartz.serverResult", { rank: row.kartz.bestRank, count: row.kartz.rankers, round: row.kartz.bestRound, month: kartz?.fileName ?? "-" })}</span>
-                                            ) : <span>{t("kartz.unranked")}</span>
-                                        ) : row.kartz.rank != null ? (
-                                            <span>{t("kartz.allianceResult", { rank: row.kartz.rank, score: Number(row.kartz.score).toLocaleString(locale), month: kartz?.fileName ?? "-" })}</span>
-                                        ) : <span>{t("kartz.unranked")}</span>}
-                                    </div>
+                                    {serverView && row.kartzEntries.length > 0 && (() => {
+                                        const latest = row.kartzEntries.at(-1);
+                                        const previous = row.kartzEntries.at(-2);
+                                        const change = previous ? previous.rank - latest.rank : null;
+                                        return (
+                                            <div className="overall-group-view__performance" title={t("performance.formula")}>
+                                                <b>{t("performance.title")}</b>
+                                                <span>{t("performance.overallRank")} <strong>#{row.kartzSummary?.rank ?? "-"}</strong></span>
+                                                <span>{t("performance.top100")} <strong>{latest.top100}</strong></span>
+                                                <span>{t("performance.top500")} <strong>{latest.top500}</strong></span>
+                                                <span>{t("performance.averageRound")} <strong>{latest.averageRound.toFixed(1)}R</strong></span>
+                                                <span>{t("performance.efficiency")} <strong>{row.active ? (latest.top500 / row.active * 100).toFixed(1) : "0.0"}%</strong></span>
+                                                <span>{t("performance.change")} <strong>{change == null ? "-" : change > 0 ? `▲${change}` : change < 0 ? `▼${Math.abs(change)}` : "-"}</strong></span>
+                                                <span>{t("performance.appearances")} <strong>{row.kartzSummary?.appearances ?? 0}</strong></span>
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
                                 <div className="overall-group-view__chart">
                                     {[
@@ -296,6 +263,15 @@ export default function TopwarOverallGroupView({ type, players, movementHistory 
                                             <b>{metric.text}</b>
                                         </div>
                                     ))}
+                                </div>
+                                <div className="overall-group-view__kartz">
+                                    <KartzTrend
+                                        entries={row.kartzEntries}
+                                        loading={kartzLoading}
+                                        emptyLabel={t("kartz.unranked")}
+                                        title={t(serverView ? "kartz.serverHistory" : "kartz.allianceHistory")}
+                                        score={!serverView}
+                                    />
                                 </div>
                             </article>
                         ))}
