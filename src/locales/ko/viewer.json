@@ -193,6 +193,7 @@
     },
     "TopwarDataViewer": {
         "btn-player-data": "유저 데이터",
+        "btn-overall": "올인원 검색",
         "btn-server-data": "서버 데이터",
         "btn-alliance-data": "길드 데이터",
         "btn-server-move": "서버 이동 내역",

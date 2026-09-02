@@ -24,6 +24,15 @@ export default function TopwarDataViewer() {
                 <LanguageRouterLink to={`/information/data`} className={getBtnClass("/information/data")}>{t(`TopwarDataViewer.btn-player-data`)}</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <LanguageRouterLink
+                    to={`/information/data/overall`}
+                    className={`btn btn-danger w-100 text-nowrap fw-bold shadow-sm${location.pathname.endsWith("/information/data/overall") ? " active" : ""}`}
+                    aria-current={location.pathname.endsWith("/information/data/overall") ? "page" : undefined}
+                >
+                    {t(`TopwarDataViewer.btn-overall`)}
+                </LanguageRouterLink>
+            </div>
+            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink to={`/information/data/player-detail`} className={getBtnClass("/information/data/player-detail")}>플레이어 통합 조회</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">

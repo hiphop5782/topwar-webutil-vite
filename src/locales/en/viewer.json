@@ -127,6 +127,7 @@
     },
     "TopwarDataViewer": {
         "btn-player-data": "Player Data",
+        "btn-overall": "All-in-One Search",
         "btn-server-data": "Server Data",
         "btn-alliance-data": "Alliance Data",
         "btn-server-move": "Server Transfer History",

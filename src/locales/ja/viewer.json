@@ -138,6 +138,7 @@
     },
     "TopwarDataViewer": {
         "btn-player-data": "プレイヤーデータ",
+        "btn-overall": "オールインワン検索",
         "btn-server-data": "サーバーデータ",
         "btn-alliance-data": "連盟データ",
         "btn-server-move": "サーバー移動履歴",

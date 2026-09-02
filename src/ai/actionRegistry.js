@@ -104,6 +104,12 @@ export const allowedPaths = [
         },
     },
     {
+        path: "/information/data/overall",
+        label: "올인원 검색",
+        examples: ["올인원 검색", "통합 데이터 검색", "전체 플레이어 검색", "서버 연맹 플레이어 통합 검색"],
+        chatbot: true,
+    },
+    {
         path: "/information/data/player-detail",
         label: "플레이어 통합 조회",
         examples: [

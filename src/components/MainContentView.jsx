@@ -108,9 +108,9 @@ export default function MainContentView() {
                         <Route path="darkforce" element={<EternalLandDarkforce/>}/>
                         <Route path="score" element={<ELScoreCalculator/>}/>
                     </Route>
-                    <Route path="information/data/overall" element={<TopwarDataOverAll/>}></Route>
                     <Route path="information/data" element={<TopwarDataViewer/>}>
                         <Route index element={<TopwarPlayerDataViewer/>}></Route>
+                        <Route path="overall" element={<TopwarDataOverAll/>}></Route>
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
                         <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7}/>}></Route>
