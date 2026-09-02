@@ -49,7 +49,7 @@ function PlayerRankingTable({ data, t }) {
                     <th className="text-end kartz-col-round">{t("KartzRankViewer.table-round")}</th>
                     <th className="text-end kartz-col-damage">{t("KartzRankViewer.table-damage")}</th>
                 </tr>
-            )}
+            )} 
             itemContent={(_, player) => {
                 const cellClass = rankCellClass(player.rank);
                 return (<>
