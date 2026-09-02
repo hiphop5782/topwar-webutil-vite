@@ -68,7 +68,7 @@ export default function MainContentView() {
             {/* <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}> */}
             <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start">
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
-                <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/>
+                {/* <KakaoAds id="DAN-2TYGu5OktHTg0aW6" width={160} height={600}/> */}
             </div>
             <div className="col-md-8">
                 <RouteSEO />
@@ -76,11 +76,13 @@ export default function MainContentView() {
                 {/* 카카오 애드핏 수평 광고 */}
                 <div className="row mb-4">
                     <div className="col d-flex justify-content-center align-items-center">
+                        {/* 
                         {isMobile ? (
                             <KakaoAds id="DAN-lZUjWtUlP8hglGID" width={320} height={50} />
                         ) : (
                             <KakaoAds id="DAN-Z2S2sYjDqUqroYxO" width={728} height={90} />
                         )}
+                        */}
                     </div>
                 </div>
 
@@ -176,7 +178,7 @@ export default function MainContentView() {
             {/* <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}> */}
             <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start">
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
-                <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/>
+                {/* <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/> */}
             </div>
         </div>
     )
