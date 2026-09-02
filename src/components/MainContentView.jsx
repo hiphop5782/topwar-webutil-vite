@@ -181,5 +181,5 @@ export default function MainContentView() {
                 {/* <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/> */}
             </div>
         </div>
-    )
+    ) 
 }
