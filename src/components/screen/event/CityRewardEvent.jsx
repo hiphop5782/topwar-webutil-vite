@@ -6,6 +6,8 @@ import "./CityRewardEvent.css";
 const DATA_URL = "https://raw.githubusercontent.com/hiphop5782/topwar-reward-finder/refs/heads/main/data/city-rewards.json";
 
 const POLLING_INTERVAL = 30000;
+const REWARD_DURATION = 30 * 60 * 1000;
+const CLOCK_INTERVAL = 1000;
 
 const REWARD_TYPES = {
   260617002: {
@@ -21,12 +23,14 @@ const REWARD_TYPES = {
     className: "text-bg-success",
   },
 };
+const REWARD_ITEM_IDS = Object.keys(REWARD_TYPES);
 
 const CityRwardEvent = () => {
   const { t, i18n } = useTranslation("viewer");
 
   const [locations, setLocations] = useState([]);
   const [updatedAt, setUpdatedAt] = useState(null);
+  const [now, setNow] = useState(() => Date.now());
 
   const [selectedServer, setSelectedServer] = useState("all");
   const [selectedReward, setSelectedReward] = useState("all");
@@ -105,33 +109,55 @@ const CityRwardEvent = () => {
   }, []);
 
   /**
+   * API 갱신 사이에도 만료 시간이 지나면 즉시 목록에서 제거한다.
+   */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(Date.now());
+    }, CLOCK_INTERVAL);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  /**
+   * 종료 시간이 유효하고 아직 유지 시간(30분)이 끝나지 않은 상자 목록
+   */
+  const activeLocations = useMemo(() => {
+    return locations.filter((item) => {
+      const endTime = Number(item.cityReward?.endTimeMilli);
+
+      return Number.isFinite(endTime) && endTime > now;
+    });
+  }, [locations, now]);
+
+  /**
    * 서버 목록
    */
   const servers = useMemo(() => {
     return [
       ...new Set(
-        locations.map((item) => item.serverId)
+        activeLocations.map((item) => item.serverId)
       ),
     ].sort((a, b) => a - b);
-  }, [locations]);
+  }, [activeLocations]);
 
   /**
    * 서버별 데이터 개수
    */
   const serverCounts = useMemo(() => {
-    return locations.reduce((result, item) => {
+    return activeLocations.reduce((result, item) => {
       result[item.serverId] =
         (result[item.serverId] ?? 0) + 1;
 
       return result;
     }, {});
-  }, [locations]);
+  }, [activeLocations]);
 
   /**
    * 상자 종류별 데이터 개수
    */
   const rewardCounts = useMemo(() => {
-    return locations.reduce((result, item) => {
+    return activeLocations.reduce((result, item) => {
       const itemId = item.cityReward?.itemId;
 
       result[itemId] =
@@ -139,17 +165,14 @@ const CityRwardEvent = () => {
 
       return result;
     }, {});
-  }, [locations]);
+  }, [activeLocations]);
 
   /**
    * 서버 + 상자 종류 필터
    * 이후 최근 발견순 정렬
    */
-  const itemTypes = useMemo(()=>{
-    return Object.keys(REWARD_TYPES);
-  }, [REWARD_TYPES]);
   const filteredLocations = useMemo(() => {
-    return [...locations]
+    return [...activeLocations]
       .filter((item) => {
         if (selectedServer !== "all" && item.serverId !== selectedServer ) {
           return false;
@@ -157,18 +180,26 @@ const CityRwardEvent = () => {
         if (selectedReward !== "all" && item.cityReward?.itemId !== selectedReward) {
           return false;
         }
-        return itemTypes.includes(item.cityReward.itemId.toString());
+        return REWARD_ITEM_IDS.includes(item.cityReward?.itemId?.toString());
       })
       .sort(
-        (a, b) => 
-          new Date(b.foundAt).getTime() -
-          new Date(a.foundAt).getTime()
+        (a, b) =>
+          Number(b.cityReward.endTimeMilli) -
+          Number(a.cityReward.endTimeMilli)
       );
   }, [
-    locations,
+    activeLocations,
     selectedServer,
     selectedReward,
   ]);
+
+  const getRewardCreatedAt = (item) => {
+    const endTime = Number(item.cityReward?.endTimeMilli);
+
+    if (!Number.isFinite(endTime)) return null;
+
+    return endTime - REWARD_DURATION;
+  };
 
   /**
    * 상자 이름
@@ -373,7 +404,7 @@ const CityRwardEvent = () => {
           >
             {t("cityReward.filter.all")}
             <span className="ms-1">
-              ({locations.length})
+              ({activeLocations.length})
             </span>
           </button>
 
@@ -535,6 +566,9 @@ const CityRwardEvent = () => {
                 const rewardItemId =
                   item.cityReward?.itemId;
 
+                const rewardCreatedAt =
+                  getRewardCreatedAt(item);
+
                 return (
                   <tr
                     key={id}
@@ -622,9 +656,9 @@ const CityRwardEvent = () => {
                     {/* 발견 시각 */}
                     <td className="text-secondary">
                       <small>
-                        {formatRelativeTime(item.foundAt)}
+                        {formatRelativeTime(rewardCreatedAt)}
                         {" "}
-                        ({formatTime(item.foundAt)})
+                        ({formatTime(rewardCreatedAt)})
                       </small>
                     </td>
                   </tr>
