@@ -145,7 +145,7 @@ export default function Post() {
                                 const decodedSrc = decodeURI(src);
 
                                 const imagePath = decodedSrc.startsWith('./')
-                                    ? new URL(`/src/assets/md/${folder}/${decodedSrc.replace('./', '')}`, import.meta.url).href
+                                    ? new URL(`/src/assets/md/${folder}/${decodedSrc.replace('./', '')}`, import.meta.url).pathname
                                     : decodedSrc;
 
                                 return (

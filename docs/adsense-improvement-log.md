@@ -11,6 +11,64 @@ Google AdSense의 `가치가 없는 콘텐츠` 거절 대응 작업을 누적 �
 
 ---
 
+## 2026-09-08 · 최신 서버 현황 분석 글 발행 준비
+
+상태: `배포 대기`
+
+### 목표
+
+GitHub `hiphop5782/topwar-json` main 브랜치의 당일 최신 데이터를 고정된 revision으로 분석해, 서버 활동성·활성 인원·활성 전력·연맹 구조와 재현 가능한 상대 티어를 설명하는 자체 콘텐츠를 추가한다.
+
+### 완료한 변경
+
+- 기존 로컬 데이터 스냅샷을 사용하지 않고 원격 main을 새로 받아 분석했다.
+- main 확인 커밋 `5cbeb29f0f157070516fec534da91f522e01dd7c` 안의 `index.json` revision `eb942ee6298bc21eeec7559a4d9cd89e59e9ea85`, generatedAt `2026-09-08T03:16:06.675323Z`를 게시글에 기록했다.
+- 통합 플레이어 257,805명을 서버별로 집계했다.
+- 7일 로그인 또는 수집 순간 온라인을 활성 기준으로 삼고, 관측 20명 이상인 728개 서버를 상대평가했다. 표본 부족 3개 서버는 티어 산정에서 제외했다.
+- 활성 인원, 활성 전력, 활성률, 주요 연맹 수, 연맹 전력 균형, 활성 유저 전력 중앙값을 백분위 점수로 결합하고 S/A/B/C/D 구간·가중치·한계를 공개했다.
+- 전체 서버별 결과와 PNG 차트 3개를 게시글 폴더에 추가하고 Markdown 상대경로로 연결했다.
+- 프리렌더 HTML의 로컬 Markdown 이미지 URL에서 프리렌더 서버 origin이 남지 않도록 게시글 이미지 경로 생성을 보정했다.
+
+### 변경 파일
+
+- `src/assets/md/2026-09-08-001-Server-Status/readme.md`
+- `src/assets/md/2026-09-08-001-Server-Status/tier-distribution.png`
+- `src/assets/md/2026-09-08-001-Server-Status/active-players-top20.png`
+- `src/assets/md/2026-09-08-001-Server-Status/active-power-top20.png`
+- `src/components/screen/post/Post.jsx`
+- `docs/adsense-improvement-log.md`
+
+### 검증 결과
+
+- 게시글 경로가 ko/en/ja 전체 프리렌더 대상에 포함되는 것을 확인했다.
+- 프로덕션 빌드와 112개 sitemap URL 생성이 성공했다.
+- sitemap에서 ko/en/ja 게시글 URL과 각 언어 alternate 링크를 확인했다.
+- 프리렌더 HTML에 제목과 고정 revision이 포함되는 것을 확인했다.
+- PNG 3개가 빌드 자산으로 생성되는 것을 확인했다.
+- 이미지 URL의 프리렌더 origin 제거 수정 후 최종 빌드에서 `/assets/...` 경로를 재검증했다.
+
+### 판단과 보류 사항
+
+- 티어는 실제 경기 결과나 게임사의 공식 분류가 아니라 해당 revision 내부의 활동·전력·연맹 구조 상대평가다.
+- 영어·일본어 URL에도 한국어 원문이 노출되는 기존 게시글 구조는 이번 작업 범위에서 변경하지 않았다.
+
+### 다음 작업
+
+- [ ] 변경 사항 운영 사이트 배포
+- [ ] 배포 후 게시글 본문과 차트 3개의 HTTP 200 응답 확인
+- [ ] Search Console에서 새 게시글 URL 재크롤링 요청
+- [ ] 다음 월 동일 공식으로 변화량 비교 글 작성
+
+### 운영 결과
+
+- 배포일: 미기록
+- Search Console 재요청일: 미기록
+- AdSense 재심사 신청일: 미기록
+- AdSense 결과: 미기록
+- 비고: 미기록
+
+---
+
 ## 2026-09-08 · 1차 콘텐츠 가치 개선
 
 상태: `배포 대기`
