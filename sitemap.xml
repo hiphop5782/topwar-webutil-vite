@@ -12,6 +12,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.progamer.info/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/about/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/about/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/about/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/calculator/cost/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/calculator/cost/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/calculator/cost/" />
@@ -54,18 +60,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/disclaimer/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/en/emoji/create/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/create/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/create/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/create/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/en/emoji/list/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/list/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/list/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/list/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/en/history/liondance/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/liondance/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/liondance/" />
@@ -94,12 +88,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/overall/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/en/information/data/player-detail/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/player-detail/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/player-detail/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/player-detail/" />
   </url>
   <url>
     <loc>https://www.progamer.info/en/information/el/</loc>
@@ -210,6 +198,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-08-20-003-SvS/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/post/2026-09-08-001-Server-Status/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-08-001-Server-Status/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-08-001-Server-Status/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/privacy/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/privacy/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/privacy/" />
@@ -239,6 +233,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.progamer.info/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ja/about/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/about/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/about/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/about/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ja/calculator/cost/</loc>
@@ -283,18 +283,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/disclaimer/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ja/emoji/create/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/create/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/create/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/create/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ja/emoji/list/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/list/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/list/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/list/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ja/history/liondance/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/liondance/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/liondance/" />
@@ -323,12 +311,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/overall/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ja/information/data/player-detail/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/player-detail/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/player-detail/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/player-detail/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ja/information/el/</loc>
@@ -439,6 +421,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-08-20-003-SvS/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-08-001-Server-Status/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-08-001-Server-Status/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/ja/privacy/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/privacy/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/privacy/" />
@@ -468,6 +456,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.progamer.info/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/about/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/about/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/about/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/about/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/calculator/cost/</loc>
@@ -512,18 +506,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/disclaimer/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ko/emoji/create/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/create/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/create/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/create/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/emoji/list/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/emoji/list/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/emoji/list/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/emoji/list/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ko/history/liondance/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/history/liondance/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/history/liondance/" />
@@ -552,12 +534,6 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/overall/" />
-  </url>
-  <url>
-    <loc>https://www.progamer.info/ko/information/data/player-detail/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/player-detail/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/player-detail/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/player-detail/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/information/el/</loc>
@@ -666,6 +642,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-08-20-003-SvS/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-08-20-003-SvS/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-08-20-003-SvS/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/post/2026-09-08-001-Server-Status/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-08-001-Server-Status/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-08-001-Server-Status/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/privacy/</loc>
