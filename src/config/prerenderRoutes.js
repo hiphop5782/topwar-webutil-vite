@@ -48,6 +48,7 @@ const fixedRoutes = [
     "/privacy",
     "/contact",
     "/disclaimer",
+    "/about",
     "/developer"
 ];
 

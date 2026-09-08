@@ -53,6 +53,7 @@ import SealStoneChaos from "@src/components/screen/history/2026-ssc/SealStoncCha
 import Privacy from "@src/components/screen/etc/Privacy";
 import Contact from "@src/components/screen/etc/Contact";
 import Disclaimer from "@src/components/screen/etc/Disclaimer";
+import About from "@src/components/screen/etc/About";
 
 import CityRewardEvent from "@src/components/screen/event/CityRewardEvent";
 
@@ -76,7 +77,7 @@ export default function MainContentView() {
                 {/* 카카오 애드핏 수평 광고 */}
                 <div className="row mb-4">
                     <div className="col d-flex justify-content-center align-items-center">
-                        {/* 
+                        {/*
                         {isMobile ? (
                             <KakaoAds id="DAN-lZUjWtUlP8hglGID" width={320} height={50} />
                         ) : (
@@ -170,6 +171,7 @@ export default function MainContentView() {
                     <Route path="privacy" element={<Privacy/>}/>
                     <Route path="contact" element={<Contact/>}/>
                     <Route path="disclaimer" element={<Disclaimer/>}/>
+                    <Route path="about" element={<About/>}/>
 
                     {/* 404 not found */}
                     <Route path="*" element={<PageNotFound />}></Route>

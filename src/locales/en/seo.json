@@ -132,6 +132,9 @@
     "developer": {
         "title": "About the Developer & Site"
     },
+    "about": {
+        "title": "About the Site and Data Practices"
+    },
 
     "emoji": {
         "create": {

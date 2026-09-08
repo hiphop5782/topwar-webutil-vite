@@ -601,7 +601,7 @@ export default function EmojiCreator() {
                 />
                 <meta
                     name="robots"
-                    content="index, follow, max-image-preview:large"
+                    content="noindex, follow"
                 />
                 <link
                     rel="canonical"

@@ -132,7 +132,17 @@
         "btn-alliance-data": "Alliance Data",
         "btn-server-move": "Server Transfer History",
         "btn-nickname-history":"Nickname History",
-        "btn-realpower":"Map Scan (AI)"
+        "btn-realpower":"Map Scan (AI)",
+        "guide": {
+            "eyebrow": "DATA READING GUIDE", "title": "Check the context before comparing figures", "description": "These are time-stamped observations collected by this site, not official live population data.", "methodButton": "Collection practices",
+            "items": {
+                "sample": { "title": "Sample coverage", "body": "Only observed servers and players are included; do not treat the total as the full game population." },
+                "activity": { "title": "Activity status", "body": "Status is based on the last-seen record and does not mean the player is currently online." },
+                "power": { "title": "Power distribution", "body": "Averages react to extreme values, so compare them with the median and percentile thresholds." },
+                "timing": { "title": "Reference time", "body": "Datasets update at different times. Check the date shown before making server comparisons." }
+            },
+            "analysisTitle": "Related analysis and source data", "serverTierTitle": "Server tiers from power and SSC performance", "serverTierBody": "See the model, indicators, and limitations based on 712 servers and 15 rounds.", "sscTitle": "SSC 2026 accumulated data", "sscBody": "Inspect the server and player performance used in analysis.", "moreTitle": "All data-based guides and analysis", "moreBody": "Browse articles that disclose formulas, test conditions, and observations."
+        }
     },
     "TopwarRealPowerViewer": {
         "dataCollectedAt": "This data was collected <time>{{relativeTime}}</time>.",
@@ -675,7 +685,25 @@
         "privacyButton": "Privacy Policy",
         "contactButton": "Contact"
     },
+    "About": {
+        "badge": "ABOUT PROGAMER.INFO",
+        "title": "Turning game data into information people can read",
+        "intro": "Progamer.info is an independently operated, unofficial fan site built to help Top War players understand server and player changes and verify complex calculations.",
+        "sections": [
+            { "title": "Purpose", "body": "The goal is to add context to activity, power distribution, and server transfers rather than merely list rankings." },
+            { "title": "Operator", "body": "The site is developed and operated by KID, a player on Top War server 3223. It is not affiliated with the game publisher." },
+            { "title": "Data collection", "body": "Statistics come from stored observations of servers and players. We do not collect passwords, and the sample may differ from the official population." },
+            { "title": "Update schedule", "body": "Collection times vary by dataset. Check the reference time on each page; updates can be delayed and some servers may be absent." },
+            { "title": "Calculators and simulators", "body": "They reduce repetitive work and let players test game rules. Inputs, methods, and examples are provided so results can be checked." },
+            { "title": "Editorial principles", "body": "Observed facts are separated from interpretation, and estimates disclose their limits. Reported errors are reviewed and corrected when verifiable." }
+        ],
+        "transparencyTitle": "How to interpret the data",
+        "transparencyBody": "Figures are observations from a stated point in time, not the live state of the entire game. Consider the date, sample size, and activity definitions.",
+        "dataButton": "View data and methods",
+        "contactButton": "Report an issue"
+    },
     "footer": {
+        "about": "About",
         "privacy": "Privacy Policy",
         "contact": "Contact",
         "disclaimer": "Disclaimer"

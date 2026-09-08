@@ -42,6 +42,11 @@ const EXCLUDED_PATH_PATTERNS = [
 
     // 계정
     /^\/(?:ko|en|ja)\/account(?:\/|$)/,
+
+    // 개인 입력·결과 중심의 범용 도구
+    /^\/(?:ko|en|ja)\/emoji(?:\/|$)/,
+    /^\/(?:ko|en|ja)\/event\/city-reward\/?$/,
+    /^\/(?:ko|en|ja)\/information\/data\/(?:nickname|player-detail)\/?$/,
 ];
 
 /**

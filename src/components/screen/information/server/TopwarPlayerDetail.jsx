@@ -280,7 +280,7 @@ export default function TopwarPlayerDetail() {
             <Helmet>
                 <title>{seoTitle}</title>
                 <meta name="description" content={seoDescription} />
-                <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+                <meta name="robots" content="noindex,follow" />
                 <meta name="keywords" content="TopWar, Top War, 탑워, 플레이어 검색, 닉네임 검색, 서버 이동, 닉네임 변경, 전투력" />
                 <link rel="canonical" href={canonicalUrl} />
                 <meta property="og:type" content="website" />

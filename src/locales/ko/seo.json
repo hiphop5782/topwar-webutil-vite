@@ -132,6 +132,9 @@
     "developer": {
         "title": "개발자 및 사이트 소개"
     },
+    "about": {
+        "title": "사이트 소개와 데이터 운영 원칙"
+    },
 
     "emoji": {
         "create": {

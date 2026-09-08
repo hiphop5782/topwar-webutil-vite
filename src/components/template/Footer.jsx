@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function Footer() {
@@ -13,6 +13,13 @@ function Footer() {
                     </div>
 
                     <div className="d-flex flex-wrap justify-content-center gap-3 small">
+                        <Link
+                            to={`/${currentLang}/about`}
+                            className="text-secondary text-decoration-none"
+                        >
+                            {t("footer.about")}
+                        </Link>
+
                         <Link
                             to={`/${currentLang}/privacy`}
                             className="text-secondary text-decoration-none"
