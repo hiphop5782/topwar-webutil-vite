@@ -2142,5 +2142,29 @@
         ,"comparison": { "selected": "{{count}}件選択", "clear": "すべて解除", "remove": "{{name}}を比較から削除", "goToResults": "比較結果へ移動", "goToSearch": "検索一覧へ移動" }
         ,"kartz": { "title": "Kartzランキング", "playerHistory": "個人Kartz順位推移", "allianceHistory": "連盟Kartz順位推移", "serverHistory": "サーバー実戦総合順位推移", "unranked": "ランキング圏外" }
         ,"performance": { "title": "実戦成績", "short": "実戦", "overallRank": "総合", "top100": "Top 100", "top500": "Top 500", "averageRound": "平均ラウンド", "efficiency": "アクティブ比進出率", "change": "前回比", "appearances": "ランクイン回数", "formula": "各回は個人順位35%・平均ラウンド20%・上位層15%・連盟スコア20%で計算し、総合順位は各回平均90%・継続性10%で算出します。" }
+    },
+    "serverDirectory": {
+        "title": "サーバー一覧",
+        "description": "シーズン・グループ別にサーバーを検索し、サーバー情報を確認できます。",
+        "search": "サーバー番号・シーズン・グループを検索",
+        "total": "全サーバー",
+        "seasons": "シーズン",
+        "results": "検索結果",
+        "count": "{{count}}サーバー",
+        "overlap": "合計と検索結果は重複を除いたサーバー数です。同じサーバーが複数のシーズンやグループに含まれる場合があります。",
+        "loading": "サーバー一覧を読み込み中…",
+        "error": "サーバー一覧を読み込めませんでした。",
+        "retry": "再試行",
+        "empty": "検索結果がありません。",
+        "updated": "一覧更新日時",
+        "dates": "元データにはサーバー作成日がありません。更新日や初回観測日はサーバー作成日とは異なります。",
+        "source": "元データ",
+        "entry": "エントリーシーズン",
+        "champion": "チャンピオンシーズン",
+        "season": "シーズン{{number}}",
+        "normal": "通常",
+        "aurora": "オーロラ",
+        "eternalLand": "悠久の地",
+        "detail": "サーバー{{server}}の情報"
     }
 }

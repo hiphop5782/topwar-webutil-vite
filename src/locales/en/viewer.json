@@ -2151,5 +2151,29 @@
         ,"comparison": { "selected": "{{count}} selected", "clear": "Clear all", "remove": "Remove {{name}} from comparison", "goToResults": "Go to comparison", "goToSearch": "Go to search list" }
         ,"kartz": { "title": "Kartz ranking", "playerHistory": "Player Kartz rank history", "allianceHistory": "Alliance Kartz rank history", "serverHistory": "Server performance rank history", "unranked": "Not ranked" }
         ,"performance": { "title": "Battle performance", "short": "Perf", "overallRank": "Overall", "top100": "Top 100", "top500": "Top 500", "averageRound": "Avg. round", "efficiency": "Active-entry rate", "change": "vs previous", "appearances": "Appearances", "formula": "Each period uses player ranks 35%, average round 20%, roster depth 15%, and alliance score 20%. Overall ranking uses the period average 90% and consistency 10%." }
+    },
+    "serverDirectory": {
+        "title": "Server directory",
+        "description": "Search servers by season and group and open their server information.",
+        "search": "Search server number, season or group",
+        "total": "Total servers",
+        "seasons": "Seasons",
+        "results": "Search results",
+        "count": "{{count}} servers",
+        "overlap": "Total and search results count unique servers. A server may belong to multiple seasons or groups.",
+        "loading": "Loading servers…",
+        "error": "Unable to load servers.",
+        "retry": "Retry",
+        "empty": "No servers found.",
+        "updated": "Directory updated",
+        "dates": "Server creation dates are not provided in the source. Update dates and first observations are not server creation dates.",
+        "source": "Source data",
+        "entry": "Entry season",
+        "champion": "Champion season",
+        "season": "Season {{number}}",
+        "normal": "Normal",
+        "aurora": "Aurora",
+        "eternalLand": "Eternal Land",
+        "detail": "Server {{server}} information"
     }
 }

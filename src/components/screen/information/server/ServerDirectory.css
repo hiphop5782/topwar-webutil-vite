@@ -1,0 +1,17 @@
+.server-group-link {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--server-group-color);
+    --bs-btn-border-color: var(--server-group-color);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--server-group-color);
+    --bs-btn-hover-border-color: var(--server-group-color);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--server-group-color);
+    --bs-btn-active-border-color: var(--server-group-color);
+}
+.server-group-link:hover { text-decoration: underline; }
+.server-group-link:focus-visible { outline: 3px solid var(--server-group-color); outline-offset: 3px; }
+.server-group-label { display: block; font-size: 0.65rem; line-height: 1.25; }
+.server-group-panel { border-left: 4px solid var(--server-group-color); padding-left: 0.75rem; }
+.server-group-panel > summary { font-weight: 600; }
+.server-group-panel > summary::marker { color: var(--server-group-color); }

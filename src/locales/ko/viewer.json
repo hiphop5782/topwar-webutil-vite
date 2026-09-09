@@ -2153,5 +2153,29 @@
         ,"comparison": { "selected": "{{count}}개 선택", "clear": "전체 해제", "remove": "{{name}} 비교에서 제거", "goToResults": "비교 결과로 이동", "goToSearch": "검색 목록으로 이동" }
         ,"kartz": { "title": "카르츠 랭킹", "playerHistory": "개인 카르츠 순위 추이", "allianceHistory": "연맹 카르츠 순위 추이", "serverHistory": "서버 실전 종합 순위 추이", "unranked": "순위권 밖" }
         ,"performance": { "title": "실전 성적", "short": "실전", "overallRank": "종합", "top100": "Top 100", "top500": "Top 500", "averageRound": "평균 라운드", "efficiency": "활성 대비 진입률", "change": "직전 대비", "appearances": "진입 회차", "formula": "개인 순위 35% · 평균 라운드 20% · 상위권 선수층 15% · 연맹 점수 20%를 회차별로 계산하고, 전체 회차 평균 90% · 지속성 10%로 종합 순위를 산출합니다." }
+    },
+    "serverDirectory": {
+        "title": "서버 목록",
+        "description": "시즌과 그룹별 서버를 검색하고 서버 정보를 확인하세요.",
+        "search": "서버 번호 · 시즌 · 그룹 검색",
+        "total": "전체 서버",
+        "seasons": "시즌",
+        "results": "검색 결과",
+        "count": "{{count}}개",
+        "overlap": "전체와 검색 결과는 중복을 제거한 서버 수입니다. 한 서버가 여러 시즌이나 그룹에 포함될 수 있습니다.",
+        "loading": "서버 목록을 불러오는 중입니다.",
+        "error": "서버 목록을 불러오지 못했습니다.",
+        "retry": "다시 시도",
+        "empty": "검색 결과가 없습니다.",
+        "updated": "목록 갱신",
+        "dates": "서버 생성일은 원본 데이터에 제공되지 않습니다. 목록 갱신일이나 최초 관측일은 서버 생성일과 다릅니다.",
+        "source": "원본 데이터",
+        "entry": "엔트리 시즌",
+        "champion": "챔피언 시즌",
+        "season": "{{number}}시즌",
+        "normal": "일반",
+        "aurora": "오로라",
+        "eternalLand": "영원의 땅",
+        "detail": "{{server}} 서버 정보"
     }
 }

@@ -48,6 +48,7 @@
         },
 
         "data": {
+            "servers": {"title":"サーバー一覧","description":"シーズン・グループ別にサーバーを検索し、サーバー情報を確認できます。"},
             "player": {
                 "title": "Top War プレイヤーデータ検索"
             },

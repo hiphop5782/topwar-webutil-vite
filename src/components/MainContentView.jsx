@@ -1,3 +1,4 @@
+import ServerDirectory from "@src/components/screen/information/server/ServerDirectory";
 import { Route, Routes } from "react-router-dom";
 import PageNotFound from "./error/PageNotFound";
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
@@ -112,6 +113,7 @@ export default function MainContentView() {
                     <Route path="information/data" element={<TopwarDataViewer/>}>
                         <Route index element={<TopwarPlayerDataViewer/>}></Route>
                         <Route path="overall" element={<TopwarDataOverAll/>}></Route>
+                        <Route path="servers" element={<ServerDirectory/>}/>
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
                         <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7}/>}></Route>

@@ -22,6 +22,7 @@ const fixedRoutes = [
     "/information/el",
     "/information/data",
     "/information/data/overall",
+    "/information/data/servers",
     "/information/data/player-detail",
     "/information/kartz",
     "/information/ssc",

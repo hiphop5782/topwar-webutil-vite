@@ -48,6 +48,7 @@
         },
 
         "data": {
+            "servers": {"title":"Server directory","description":"Search servers by season and group and open their server information."},
             "player": {
                 "title": "Top War Player Data Search"
             },

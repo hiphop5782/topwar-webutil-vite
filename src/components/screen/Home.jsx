@@ -292,7 +292,7 @@ function Home() {
                     <div className="home-hero-summary">
 
                         <HeroMetric
-                            to="/information/data/server"
+                            to="/information/data/servers"
                             value={formatNumber(server.count)}
                             label={t("home.kpi.server.title")}
                         />
@@ -343,7 +343,7 @@ function Home() {
                 <div className="dashboard-kpi-grid">
 
                     <KpiCard
-                        to="/information/data/server"
+                        to="/information/data/servers"
                         title={t("home.kpi.server.title")}
                         value={formatNumber(server.count)}
                         description={
@@ -904,7 +904,7 @@ function Home() {
                     <div className="col-lg-7">
 
                         <DashboardPanel
-                            to="/information/data/server"
+                            to="/information/data/servers"
                             title={
                                 t("home.serverTrend.title")
                             }

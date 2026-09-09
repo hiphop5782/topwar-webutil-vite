@@ -21,6 +21,9 @@ export default function TopwarDataViewer() {
     return (<>
         <div className="row mb-4">
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <LanguageRouterLink to="/information/data/servers" className={getBtnClass("/information/data/servers")}>{t("serverDirectory.title")}</LanguageRouterLink>
+            </div>
+            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink to={`/information/data`} className={getBtnClass("/information/data")}>{t(`TopwarDataViewer.btn-player-data`)}</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">

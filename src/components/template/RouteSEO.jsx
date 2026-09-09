@@ -17,6 +17,7 @@ const routeSeo = [
     [/^\/information\/el\/darkforce$/, "information.el.darkforce"],
     [/^\/information\/el\/score$/, "information.el.score"],
     [/^\/information\/data$/, "information.data.player"],
+    [/^\/information\/data\/servers$/, "information.data.servers"],
     [/^\/information\/data\/server$/, "information.data.server"],
     [/^\/information\/data\/alliance$/, "information.data.alliance"],
     [/^\/information\/data\/move$/, "information.data.move"],
@@ -72,7 +73,7 @@ export default function RouteSEO() {
     const noindex = matched?.[2] ?? !matched;
     const serverId = routePath.match(/^\/vip\/([^/]+)$/)?.[1];
     const title = t(`${key}.title`, { serverId });
-    const description = t("default.description", { title });
+    const description = t(`${key}.description`, { defaultValue: t("default.description", { title }) });
     const canonical = createSiteUrl(`/${language}${routePath === "/" ? "" : routePath}`);
 
     const alternates = useMemo(() => [

@@ -1,4 +1,5 @@
 export const allowedPaths = [
+    { path: "/information/data/servers", label: "서버 목록", examples: ["전체 서버", "시즌별 서버", "서버 그룹", "server list", "サーバー一覧"], chatbot: true, queryParams: { q: { type: "string", required: false, description: "검색할 서버 번호 또는 시즌/그룹 이름" } } },
     { 
         path: "/", 
         label: "홈",

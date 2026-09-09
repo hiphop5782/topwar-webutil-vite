@@ -481,3 +481,10 @@ export function clearTopwarDataCache() {
 }
 
 export const topwarDataBaseUrl = BASE_URL;
+
+export function loadServerDirectory() {
+    return requestJson("servers/servers-object.json", {
+        revision: Date.now(),
+        noStore: true,
+    });
+}

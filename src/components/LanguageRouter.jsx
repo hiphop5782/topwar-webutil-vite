@@ -127,28 +127,32 @@ function WithLanguageRouter() {
         const isHomePage =
             normalizedPath === `/${lang}`;
 
-        if (!isHomePage) {
+        const isServerDirectory = normalizedPath === `/${lang}/information/data/servers`;
+        const readyKey = isServerDirectory ? "serverDirectoryReady" : "homeStatisticsReady";
+        const readyEvent = isServerDirectory ? "server-directory-ready" : "home-statistics-ready";
+
+        if (!isHomePage && !isServerDirectory) {
             dispatchPrerenderReady();
             return;
         }
 
         if (
             document.documentElement.dataset
-                .homeStatisticsReady === "true"
+                [readyKey] === "true"
         ) {
             dispatchPrerenderReady();
             return;
         }
 
         document.addEventListener(
-            "home-statistics-ready",
+            readyEvent,
             dispatchPrerenderReady,
             { once: true }
         );
 
         return () => {
             document.removeEventListener(
-                "home-statistics-ready",
+                readyEvent,
                 dispatchPrerenderReady
             );
         };
