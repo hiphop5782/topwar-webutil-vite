@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import AppearanceItem from './AppearanceItem';
 import { buffLines, categoryIds, normalizeItems, relativePath } from './appearanceData';
 import { createAppearanceSource } from './appearanceSource';
+import { createAppearanceSearch } from './appearanceSearch';
 import './AppearanceGallery.css';
 
 export default function AppearanceGallery({ baseUrl }) {
@@ -37,9 +38,9 @@ export default function AppearanceGallery({ baseUrl }) {
     }, [source, category, attempt]);
 
     const items = useMemo(() => {
-        const search = query.trim().toLocaleLowerCase();
-        return (state.items || []).filter(item => [item.id, item.name, item.nameKey,
-            ...buffLines(item.equipBuff), ...buffLines(item.ownBuff)].join(' ').toLocaleLowerCase().includes(search));
+        const search = createAppearanceSearch(query);
+        return (state.items || []).filter(item => !search || search.test([item.id, item.name, item.nameKey,
+            ...buffLines(item.equipBuff), ...buffLines(item.ownBuff)].join(' ')));
     }, [state.items, query]);
 
     return <section className="appearance-gallery">
@@ -76,7 +77,7 @@ export default function AppearanceGallery({ baseUrl }) {
                 : <><p role="status" className="small text-body-secondary">{labels.results}: {items.length} / {state.items.length}</p>
                     {!items.length ? <p className="alert alert-light border">{state.items.length ? labels.noResults : labels.empty}</p>
                         : <div className={`appearance-results ${view === 'list' ? 'appearance-list' : ''}`}>
-                            {items.map((item, index) => <AppearanceItem key={`${category}-${item.id}-${index}`} item={item} image={source.image(state.path, item.image)} labels={labels} />)}
+                            {items.map((item, index) => <AppearanceItem key={`${category}-${item.id}-${index}`} item={item} image={source.image(state.path, item.image)} labels={labels} query={query.trim()} />)}
                         </div>}</>}
         </div>
     </section>;

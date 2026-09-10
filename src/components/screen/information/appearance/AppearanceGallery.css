@@ -2,6 +2,7 @@
 .appearance-gallery .appearance-image { height: 190px; display: flex; align-items: center; justify-content: center; padding: 1rem; }
 .appearance-gallery .appearance-image img { width: 100%; height: 100%; object-fit: contain; }
 .appearance-gallery .appearance-item { min-width: 0; overflow-wrap: anywhere; }
+.appearance-gallery .appearance-search-match { background-color: #ffe08a; color: #212529; padding: 0; border-radius: .15rem; }
 .appearance-gallery .appearance-list { grid-template-columns: 1fr; }
 .appearance-gallery .appearance-list .appearance-item { flex-direction: row; }
 .appearance-gallery .appearance-list .appearance-image { width: 160px; flex-shrink: 0; }
