@@ -5,7 +5,6 @@ import PageNotFound from "./error/PageNotFound";
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
 import LegacyEmoji from '@src/components/screen/emoji/LegacyEmoji';
 import Home from '@src/components/screen/Home';
-import BaseInformation from '@src/components/screen/information/BaseInformation';
 import FormationPerk from '@src/components/screen/simulator/FormationPerk';
 import JobInformation from '@src/components/screen/information/JobInformation';
 import KartzSpecInformation from '@src/components/screen/information/kartz/KartzSpecInformation';
@@ -98,7 +97,6 @@ export default function MainContentView() {
                     <Route path="post/:folder" element={<Post/>}></Route>
 
                     <Route path="information/appearance" element={<AppearanceGallery />} />
-                    <Route path="information/base" element={<BaseInformation />}></Route>
                     <Route path="information/job" element={<JobInformation />}></Route>
                     {/* <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route> */}
                     {/* <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route> */}

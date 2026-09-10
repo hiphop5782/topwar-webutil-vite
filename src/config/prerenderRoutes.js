@@ -17,7 +17,6 @@ const fixedRoutes = [
     "/",
     "/post",
 
-    "/information/base",
     "/information/job",
     "/information/el",
     "/information/data",

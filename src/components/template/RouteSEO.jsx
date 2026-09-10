@@ -11,7 +11,6 @@ const routeSeo = [
     [/^\/$/, "home"],
     [/^\/post$/, "post.list"],
     [/^\/post\/[^/]+$/, "post.detail"],
-    [/^\/information\/base$/, "information.base"],
     [/^\/information\/job$/, "information.job"],
     [/^\/information\/kartz-statistics$/, "information.kartzStatistics"],
     [/^\/information\/el$/, "information.el.home"],

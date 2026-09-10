@@ -186,7 +186,6 @@ function Menu() {
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:info.label`)}</a>
                             <div className="dropdown-menu">
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/information/base`}>{t(`menu:info.sub.base`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to="/information/appearance">{t('menu:appearance.title')}</LanguageRouterLink>
                                 {/* <LanguageRouterLink className="dropdown-item" to="/information/decor">장식 정보</LanguageRouterLink> */}
                                 {/* <LanguageRouterLink className="dropdown-item" to="/information/hero">영웅 정보</LanguageRouterLink> */}

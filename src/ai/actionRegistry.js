@@ -7,12 +7,6 @@ export const allowedPaths = [
         chatbot: true,
     },
     { 
-        path: "/information/base", 
-        label: "기지",
-        examples: ["기지", "베이스"],
-        chatbot: true,
-    },
-    { 
         path: "/information/job", 
         label: "직업 정보",
         examples: ["직업", "직업 정보", "전투 직업", "기계 직업", "연구 직업", "직상"],
