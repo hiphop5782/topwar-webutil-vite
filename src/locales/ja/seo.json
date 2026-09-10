@@ -16,6 +16,7 @@
     },
 
     "information": {
+        "appearance": { "title": "Top War 外観図鑑", "description": "基地と進軍の外観、装備効果・所持効果を確認できます。" },
         "base": {
             "title": "Top War 基地効果・入手情報"
         },

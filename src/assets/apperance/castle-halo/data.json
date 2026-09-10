@@ -1,0 +1,118 @@
+{
+  "category": "castle-halo",
+  "name": "기지 오라",
+  "generatedAt": "2026-09-10T05:32:17.973Z",
+  "count": 2,
+  "items": [
+    {
+      "id": 1,
+      "name": "castle_halotname001",
+      "nameKey": "castle_halotname001",
+      "image": "images/1.png",
+      "spriteFrame": "Castle_halo_1_pic",
+      "equipBuff": [
+        {
+          "buffId": 9301160,
+          "rawValue": 2000,
+          "detail": null,
+          "raw": "9301160,2000",
+          "name": "전체 공격력 증가",
+          "value": "+20%",
+          "text": "전체 공격력 증가 +20%",
+          "resolved": true
+        },
+        {
+          "buffId": 9301170,
+          "rawValue": 2000,
+          "detail": null,
+          "raw": "9301170,2000",
+          "name": "전체 생명력 증가",
+          "value": "+20%",
+          "text": "전체 생명력 증가 +20%",
+          "resolved": true
+        }
+      ],
+      "ownBuff": [
+        {
+          "buffId": 9301160,
+          "rawValue": 3000,
+          "detail": null,
+          "raw": "9301160,3000",
+          "name": "전체 공격력 증가",
+          "value": "+30%",
+          "text": "전체 공격력 증가 +30%",
+          "resolved": true
+        },
+        {
+          "buffId": 990202,
+          "rawValue": 400,
+          "detail": null,
+          "raw": "990202,400",
+          "name": "전체 방어도 증가",
+          "value": "+4%",
+          "text": "전체 방어도 증가 +4%",
+          "resolved": true
+        }
+      ],
+      "suppressedEffects": [],
+      "ownBuffSourceId": 1,
+      "raw": {
+        "id": 1,
+        "anim": "castle_halo_1_anim",
+        "pic": "Castle_halo_1_pic",
+        "sale_btn": 1,
+        "get_pram": 79101250,
+        "name": "castle_halotname001",
+        "desc": "castle_halodesc001",
+        "equip_buff": "9301160,2000|9301170,2000",
+        "own_buff": "9301160,3000|990202,400",
+        "ui_cell_offset": "",
+        "userui_cell_offset": "",
+        "world_offset1": "",
+        "world_offset2": "",
+        "is_show": 1,
+        "is_temporarily": 0,
+        "time": "",
+        "endtime": "",
+        "order": 0,
+        "use_power": 40000,
+        "have_power": 40000,
+        "itemBg": 0
+      }
+    },
+    {
+      "id": 0,
+      "name": "castle_halotname000",
+      "nameKey": "castle_halotname000",
+      "image": "images/0.png",
+      "spriteFrame": "Castle_Effect_0_pic",
+      "equipBuff": [],
+      "ownBuff": [],
+      "suppressedEffects": [],
+      "ownBuffSourceId": 0,
+      "raw": {
+        "id": 0,
+        "anim": "",
+        "pic": "Castle_Effect_0_pic",
+        "sale_btn": 0,
+        "get_pram": 0,
+        "name": "castle_halotname000",
+        "desc": "castle_halodesc000",
+        "equip_buff": "",
+        "own_buff": "",
+        "ui_cell_offset": "",
+        "userui_cell_offset": "",
+        "world_offset1": "",
+        "world_offset2": "",
+        "is_show": 1,
+        "is_temporarily": 0,
+        "time": "",
+        "endtime": "",
+        "order": 0,
+        "use_power": 0,
+        "have_power": 0,
+        "itemBg": 0
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@
     },
 
     "information": {
+        "appearance": { "title": "Top War 외형 도감", "description": "기지와 대열 외형의 이미지 및 장착·보유 효과를 확인하세요." },
         "base": {
             "title": "Top War 기지 효과 및 획득 정보"
         },

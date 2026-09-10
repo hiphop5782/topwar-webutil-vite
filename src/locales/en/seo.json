@@ -16,6 +16,7 @@
     },
 
     "information": {
+        "appearance": { "title": "Top War Appearance catalog", "description": "Explore base and march appearances, equip effects and collection effects." },
         "base": {
             "title": "Top War Base Effects & Acquisition"
         },

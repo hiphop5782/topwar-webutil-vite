@@ -7,6 +7,7 @@ import { createSiteUrl } from "@src/utils/siteUrl";
 import SEO from "./SEO";
 
 const routeSeo = [
+    [/^\/information\/appearance$/, 'information.appearance'],
     [/^\/$/, "home"],
     [/^\/post$/, "post.list"],
     [/^\/post\/[^/]+$/, "post.detail"],

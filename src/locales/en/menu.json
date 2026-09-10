@@ -1,4 +1,28 @@
 {
+    "appearance": {
+  "placeholder": "Search name, ID or effect",
+  "noBuff": "No effects", "missingBuff": "Effect description not collected",
+  "equip": "Equip effects",
+  "list": "List",
+  "view": "Display",
+  "search": "Search",
+  "empty": "No appearance data available.",
+  "categories": "Appearance categories",
+  "description": "Explore base and march appearances, equip effects and collection effects.",
+  "own": "Collection effects",
+  "results": "Results",
+  "retry": "Retry",
+  "cards": "Cards",
+  "castle": "Base skins",
+  "city-effect": "Base effects",
+  "castle-halo": "Base auras",
+  "error": "Unable to load appearance data.",
+  "noImage": "No image",
+  "army-line": "March skins",
+  "title": "Appearance catalog",
+  "loading": "Loading appearances…",
+  "noResults": "No matching appearances."
+},
   "info": {
     "label": "Information",
     "sub": {

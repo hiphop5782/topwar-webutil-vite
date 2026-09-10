@@ -1,3 +1,4 @@
+import AppearanceGallery from './screen/information/appearance/AppearanceGallery';
 import ServerDirectory from "@src/components/screen/information/server/ServerDirectory";
 import { Route, Routes } from "react-router-dom";
 import PageNotFound from "./error/PageNotFound";
@@ -96,6 +97,7 @@ export default function MainContentView() {
                     <Route path="post" element={<PostList/>}></Route>
                     <Route path="post/:folder" element={<Post/>}></Route>
 
+                    <Route path="information/appearance" element={<AppearanceGallery />} />
                     <Route path="information/base" element={<BaseInformation />}></Route>
                     <Route path="information/job" element={<JobInformation />}></Route>
                     {/* <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route> */}

@@ -1,4 +1,28 @@
 {
+    "appearance": {
+  "placeholder": "名前・ID・効果を検索",
+  "noBuff": "効果なし", "missingBuff": "効果説明が未収集です",
+  "equip": "装備効果",
+  "list": "リスト",
+  "view": "表示方法",
+  "search": "検索",
+  "empty": "外観データがありません。",
+  "categories": "外観カテゴリー",
+  "description": "基地と進軍の外観、装備効果・所持効果を確認できます。",
+  "own": "所持効果",
+  "results": "検索結果",
+  "retry": "再試行",
+  "cards": "カード",
+  "castle": "基地外観",
+  "city-effect": "基地エフェクト",
+  "castle-halo": "基地オーラ",
+  "error": "外観データを読み込めませんでした。",
+  "noImage": "画像なし",
+  "army-line": "進軍外観",
+  "title": "外観図鑑",
+  "loading": "外観データを読み込み中…",
+  "noResults": "検索結果がありません。"
+},
   "info": {
     "label": "情報",
     "sub": {

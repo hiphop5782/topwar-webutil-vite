@@ -1,4 +1,28 @@
 {
+    "appearance": {
+  "placeholder": "이름, ID, 효과 검색",
+  "noBuff": "효과 없음", "missingBuff": "효과 설명 미수집",
+  "equip": "장착 효과",
+  "list": "목록",
+  "view": "표시 방식",
+  "search": "검색",
+  "empty": "등록된 외형 데이터가 없습니다.",
+  "categories": "외형 카테고리",
+  "description": "기지와 대열 외형의 이미지 및 장착·보유 효과를 확인하세요.",
+  "own": "보유 효과",
+  "results": "검색 결과",
+  "retry": "다시 시도",
+  "cards": "카드",
+  "castle": "기지 외관",
+  "city-effect": "기지 효과",
+  "castle-halo": "기지 오라",
+  "error": "외형 데이터를 불러오지 못했습니다.",
+  "noImage": "이미지 없음",
+  "army-line": "대열 외관",
+  "title": "외형 도감",
+  "loading": "외형 데이터를 불러오는 중입니다…",
+  "noResults": "검색 결과가 없습니다."
+},
     "info":{
         "label":"정보",
         "sub":{
