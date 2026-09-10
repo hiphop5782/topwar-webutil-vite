@@ -72,12 +72,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/history/ssc-2026/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/en/information/base/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/base/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/base/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/base/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/en/information/data/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/" />
@@ -88,6 +82,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/overall/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/en/information/data/servers/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/servers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/servers/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/servers/" />
   </url>
   <url>
     <loc>https://www.progamer.info/en/information/el/</loc>
@@ -204,6 +204,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/en/post/2026-09-10-001-Kartz-Diamond-Buffs/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/en/privacy/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/privacy/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/privacy/" />
@@ -295,12 +301,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/history/ssc-2026/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ja/information/base/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/base/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/base/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/base/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ja/information/data/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/" />
@@ -311,6 +311,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/overall/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ja/information/data/servers/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/servers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/servers/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/servers/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ja/information/el/</loc>
@@ -427,6 +433,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/" />
   </url>
   <url>
+    <loc>https://www.progamer.info/ja/post/2026-09-10-001-Kartz-Diamond-Buffs/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+  </url>
+  <url>
     <loc>https://www.progamer.info/ja/privacy/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/privacy/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/privacy/" />
@@ -518,12 +530,6 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/history/ssc-2026/" />
   </url>
   <url>
-    <loc>https://www.progamer.info/ko/information/base/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/base/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/base/" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/base/" />
-  </url>
-  <url>
     <loc>https://www.progamer.info/ko/information/data/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/" />
@@ -534,6 +540,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/overall/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/overall/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/information/data/servers/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/information/data/servers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/information/data/servers/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/information/data/servers/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/information/el/</loc>
@@ -648,6 +660,12 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-08-001-Server-Status/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-08-001-Server-Status/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-08-001-Server-Status/" />
+  </url>
+  <url>
+    <loc>https://www.progamer.info/ko/post/2026-09-10-001-Kartz-Diamond-Buffs/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.progamer.info/ko/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.progamer.info/en/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.progamer.info/ja/post/2026-09-10-001-Kartz-Diamond-Buffs/" />
   </url>
   <url>
     <loc>https://www.progamer.info/ko/privacy/</loc>
