@@ -69,12 +69,6 @@ export const allowedPaths = [
         chatbot: true,
     },
     {
-        path: "/information/kartz/user",
-        label: "카르츠 유저 기록",
-        examples: ["카르츠 유저 기록", "카르츠 개인 기록"],
-        chatbot: true,
-    },
-    {
         path: "/information/kartz-statistics",
         label: "카르츠 통계",
         examples: ["카르츠 통계"],

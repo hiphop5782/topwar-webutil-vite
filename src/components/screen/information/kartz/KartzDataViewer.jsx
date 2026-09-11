@@ -32,9 +32,6 @@ export default function KartzDataViewer() {
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink to={`/information/kartz/server`} className={getBtnClass("/information/kartz/server")}>{t("KartzDataViewer.server")}</LanguageRouterLink>
             </div>
-            {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/kartz/user`} className={getBtnClass("/information/kartz/user")}>유저 히스토리(미구현)</LanguageRouterLink>
-            </div> */}
         </div>
 
         <SupportBanner className="mb-4" />

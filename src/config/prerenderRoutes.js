@@ -24,7 +24,7 @@ const fixedRoutes = [
     "/information/data/servers",
     "/information/data/player-detail",
     "/information/kartz",
-    "/information/ssc",
+    "/information/appearance",
 
     "/calculator/vital",
     "/calculator/skill",

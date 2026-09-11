@@ -27,7 +27,6 @@ const routeSeo = [
     [/^\/information\/data\/overall$/, "information.data.overall"],
     [/^\/information\/kartz$/, "information.kartz.home"],
     [/^\/information\/kartz\/rank$/, "information.kartz.rank"],
-    [/^\/information\/kartz\/user$/, "information.kartz.user"],
     [/^\/information\/kartz\/server$/, "information.kartz.server"],
     [/^\/calculator\/vital$/, "calculator.vital"],
     [/^\/calculator\/skill$/, "calculator.skill"],

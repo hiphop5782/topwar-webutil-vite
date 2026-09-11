@@ -5,7 +5,6 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-import fm from "front-matter";
 import { useTranslation } from "react-i18next";
 // import { ko, enUS, ja } from "date-fns/locale";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
@@ -16,8 +15,10 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import "./MarkdownRenderer.css";
 import SEO from "@src/components/template/SEO";
+import PageNotFound from "@src/components/error/PageNotFound";
+import { publicPosts } from './publicPosts';
+import { postAssetUrl } from './postAssets';
 
-const ALL_MODULES = import.meta.glob("/src/assets/md/*/readme.md", { query: "?raw" });
 // const localeMap = { ko, en: enUS, ja };
 
 // ✅ 리딩 바 (내부 상태 격리)
@@ -48,39 +49,18 @@ const ReadingBar = () => {
 export default function Post() {
     const { folder } = useParams();
     const { t } = useTranslation();
-    const [post, setPost] = useState({ attributes: {}, body: "" });
-    const [pagination, setPagination] = useState({ prev: null, next: null });
+    const currentIndex = publicPosts.findIndex(post => post.folder === folder);
+    const post = publicPosts[currentIndex];
+    const pagination = {
+        prev: publicPosts[currentIndex - 1],
+        next: publicPosts[currentIndex + 1],
+    };
 
     useEffect(() => {
-        const loadPageData = async () => {
-            const keys = Object.keys(ALL_MODULES).sort();
-            const targetPath = `/src/assets/md/${folder}/readme.md`;
-            const currentIndex = keys.findIndex(path => path.includes(`/${folder}/`));
-
-            if (ALL_MODULES[targetPath]) {
-                const mod = await ALL_MODULES[targetPath]();
-                const { attributes, body } = fm(mod.default);
-                setPost({ attributes, body });
-                window.scrollTo(0, 0);
-            }
-
-            const getPostInfo = async (path) => {
-                if (!path) return null;
-                const mod = await ALL_MODULES[path]();
-                const { attributes } = fm(mod.default);
-                const pathParts = path.split("/");
-                const fName = pathParts[pathParts.length - 2];
-                return { folder: fName, title: attributes.title || fName };
-            };
-
-            const [prevInfo, nextInfo] = await Promise.all([
-                getPostInfo(keys[currentIndex - 1]),
-                getPostInfo(keys[currentIndex + 1])
-            ]);
-            setPagination({ prev: prevInfo, next: nextInfo });
-        };
-        loadPageData();
+        window.scrollTo(0, 0);
     }, [folder]);
+
+    if (!post) return <PageNotFound />;
 
     return (<>
         <SEO
@@ -129,6 +109,7 @@ export default function Post() {
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeKatex]}
                         components={{
+                            a: ({ href, children }) => <a href={postAssetUrl(folder, href)}>{children}</a>,
                             code({ node, inline, className, children, ...props }) {
                                 void node;
                                 const match = /language-(\w+)/.exec(className || "");
@@ -144,9 +125,7 @@ export default function Post() {
                                 // 1. URL 인코딩된 한글을 다시 원래 한글로 변환 (decodeURI 사용)
                                 const decodedSrc = decodeURI(src);
 
-                                const imagePath = decodedSrc.startsWith('./')
-                                    ? new URL(`/src/assets/md/${folder}/${decodedSrc.replace('./', '')}`, import.meta.url).pathname
-                                    : decodedSrc;
+                                const imagePath = postAssetUrl(folder, decodedSrc);
 
                                 return (
                                     <img

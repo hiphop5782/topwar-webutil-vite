@@ -1,36 +1,19 @@
 import { useMemo } from "react";
-import fm from "front-matter";
-import { format, formatDistanceToNow } from "date-fns";
-import { ko, enUS, ja } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 import SafeImage from "@src/components/template/SafeImage";
 import SEO from "../../template/SEO";
+import { publicPosts } from './publicPosts';
+import { postAssetUrl } from './postAssets';
 
-const localeMap = { ko, en: enUS, ja };
 
-const modules = import.meta.glob("/src/assets/md/*/readme.md", { eager: true, query: "?raw" });
 
 export default function PostList() {
-    const { t, i18n } = useTranslation();
-
-    // i18n.language가 'ko-KR'처럼 올 수 있으므로 앞의 두 글자만 자르는 것이 안전합니다.
-    const currentLang = i18n.language.split('-')[0];
-    const currentLocale = localeMap[currentLang] || enUS; // 매핑 실패 시 영어 기본
+    const { t } = useTranslation();
 
     const posts = useMemo(() => {
-        return Object.keys(modules).sort((a, b) => b.localeCompare(a))
-            .filter(path => {
-                const pathParts = path.split("/");
-                const folderName = pathParts[pathParts.length - 2];
-                console.log(folderName, folderName.startsWith("9999-99-99") === false);
-                return folderName.startsWith("9999-99-99") === false;
-            })
-            .map((path, index) => {
-                const pathParts = path.split("/");
-                const folderName = pathParts[pathParts.length - 2];
-                const rawContent = modules[path].default || "";
-                const { attributes, body } = fm(rawContent);
+        return [...publicPosts].reverse()
+            .map(({ folder: folderName, attributes, body }, index) => {
 
                 // 본문에서 첫 번째 Markdown 이미지 추출
                 const imgRegex =
@@ -52,22 +35,8 @@ export default function PostList() {
                         ""
                     );
 
-                    if (src.startsWith("./")) {
-                        thumbnailUrl = new URL(
-                            `/src/assets/md/${folderName}/${src.slice(2)}`,
-                            import.meta.url
-                        ).href;
-                    } else {
-                        thumbnailUrl = src;
-                    }
+                    thumbnailUrl = postAssetUrl(folderName, src);
 
-                    console.log({
-                        markdownImage: match[0],
-                        anglePath: match[1],
-                        normalPath: match[2],
-                        src,
-                        thumbnailUrl,
-                    });
                 }
 
                 return {
@@ -80,7 +49,7 @@ export default function PostList() {
                     thumbnail: thumbnailUrl,
                 }
             });
-    }, [modules]);
+    }, []);
 
     return (<>
         <SEO title={t("seo:post.list.title")}/>
@@ -123,9 +92,6 @@ export default function PostList() {
                                         }}>
                                             {post.summary}
                                         </p>
-                                        {/* <div className="text-muted text-end mt-3 small">
-                                            {post.date && formatDistanceToNow(new Date(post.date), { addSuffix: true, locale: currentLocale })}
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>

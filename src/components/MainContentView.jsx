@@ -21,7 +21,6 @@ import KartzStatistics from "@src/components/screen/information/KartzStatistics"
 import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "@src/components/screen/information/el/ELScoreCalculator";
 import KakaoAds from "@src/components/adsense/KakaoAds";
-import { useIsMobile } from "@src/hooks/useIsMobile";
 import EternalLandScore from "@src/components/screen/information/el/EternalLandScore";
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
 import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCreator";
@@ -39,7 +38,6 @@ import TopwarPlayerDetail from "@src/components/screen/information/server/Topwar
 import KartzDataViewer from "@src/components/screen/information/kartz/KartzDataViewer";
 import KartzRankViewer from "@src/components/screen/information/kartz/KartzRankViewer";
 import KartzServerHistoryViewer from "@src/components/screen/information/kartz/KartzServerHistoryViewer";
-import KartzUserHistoryViewer from "@src/components/screen/information/kartz/KartzUserHistoryViewer";
 import PostList from "@src/components/screen/post/PostList";
 import Post from "@src/components/screen/post/Post";
 import TopwarSscPointViewer from "@src/components/screen/history/2026-ssc/TopwarSscPointViewer";
@@ -63,7 +61,6 @@ import RouteSEO from "@src/components/template/RouteSEO";
 import RouteAnalytics from "@src/components/template/RouteAnalytics";
 
 export default function MainContentView() {
-    const isMobile = useIsMobile(1200);
 
     return (
         <div className="row mb-5 pb-5">
@@ -126,7 +123,6 @@ export default function MainContentView() {
                     <Route path="information/kartz" element={<KartzDataViewer/>}>
                         <Route index element={<KartzSpecInformation/>}></Route>
                         <Route path="rank" element={<KartzRankViewer/>}></Route>
-                        <Route path="user" element={<KartzUserHistoryViewer/>}></Route>
                         <Route path="server" element={<KartzServerHistoryViewer/>}></Route>
                     </Route>
 
