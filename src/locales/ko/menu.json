@@ -1,5 +1,7 @@
 {
     "appearance": {
+  "premium": "고급 외관",
+  "specialSkill": "전용 스킬",
   "placeholder": "이름, ID, 효과 검색",
   "noBuff": "효과 없음", "missingBuff": "효과 설명 미수집",
   "equip": "장착 효과",

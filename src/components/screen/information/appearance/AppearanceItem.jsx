@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { effectState } from './appearanceData';
+import { appearanceHighlights, effectState } from './appearanceData';
 import { createAppearanceSearch } from './appearanceSearch';
 
 function HighlightText({ text, query }) {
@@ -25,15 +25,20 @@ function Effects({ title, item, field, labels, query }) {
         {empty && <p className="small text-body-secondary mb-0">{labels.noBuff}</p>}
     </section>;
 }
-export default function AppearanceItem({ item, image, labels, query = '' }) {
+export default function AppearanceItem({ item, category, image, labels, query = '' }) {
     const [failedUrl, setFailedUrl] = useState(null);
-    return <article className="card h-100 appearance-item">
+    const { premium, hasSkill } = appearanceHighlights(item, category);
+    return <article className={`card h-100 appearance-item${premium ? ' appearance-premium' : hasSkill ? ' appearance-skilled' : ''}`}>
         <div className="appearance-image bg-body-tertiary rounded-top">
             {image && failedUrl !== image
                 ? <img src={image} alt={String(item.name || item.id)} loading="lazy" onError={() => setFailedUrl(image)} />
                 : <span className="small text-body-secondary">{labels.noImage}</span>}
         </div>
         <div className="card-body">
+            {(premium || hasSkill) && <div className="appearance-badges">
+                {premium && <span className="appearance-badge appearance-premium-badge"><span aria-hidden="true">✦</span> {labels.premium}</span>}
+                {hasSkill && <span className="appearance-badge appearance-skill-badge"><span aria-hidden="true">✧</span> {labels.specialSkill}</span>}
+            </div>}
             <h2 className="h5 mb-1"><HighlightText text={String(item.name || item.id)} query={query} /></h2>
 
             <Effects title={labels.equip} item={item} field="equipBuff" labels={labels} query={query} />

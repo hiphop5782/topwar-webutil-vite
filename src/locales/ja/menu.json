@@ -1,5 +1,7 @@
 {
     "appearance": {
+  "premium": "プレミアム",
+  "specialSkill": "専用スキル",
   "placeholder": "名前・ID・効果を検索",
   "noBuff": "効果なし", "missingBuff": "効果説明が未収集です",
   "equip": "装備効果",

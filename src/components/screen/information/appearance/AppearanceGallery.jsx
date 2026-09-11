@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppearanceItem from './AppearanceItem';
-import { buffLines, categoryIds, normalizeItems, relativePath } from './appearanceData';
+import { appearanceHighlights, buffLines, categoryIds, normalizeItems, relativePath } from './appearanceData';
 import { createAppearanceSource } from './appearanceSource';
 import { createAppearanceSearch } from './appearanceSearch';
 import './AppearanceGallery.css';
@@ -39,9 +39,14 @@ export default function AppearanceGallery({ baseUrl }) {
 
     const items = useMemo(() => {
         const search = createAppearanceSearch(query);
+        const priority = item => {
+            const { premium, hasSkill } = appearanceHighlights(item, category);
+            return premium ? 0 : hasSkill ? 1 : 2;
+        };
         return (state.items || []).filter(item => !search || search.test([item.id, item.name, item.nameKey,
-            ...buffLines(item.equipBuff), ...buffLines(item.ownBuff)].join(' ')));
-    }, [state.items, query]);
+            ...buffLines(item.equipBuff), ...buffLines(item.ownBuff)].join(' ')))
+            .sort((a, b) => priority(a) - priority(b));
+    }, [state.items, query, category]);
 
     return <section className="appearance-gallery">
         <h1 className="h3 fw-bold">{labels.title}</h1>
@@ -77,7 +82,7 @@ export default function AppearanceGallery({ baseUrl }) {
                 : <><p role="status" className="small text-body-secondary">{labels.results}: {items.length} / {state.items.length}</p>
                     {!items.length ? <p className="alert alert-light border">{state.items.length ? labels.noResults : labels.empty}</p>
                         : <div className={`appearance-results ${view === 'list' ? 'appearance-list' : ''}`}>
-                            {items.map((item, index) => <AppearanceItem key={`${category}-${item.id}-${index}`} item={item} image={source.image(state.path, item.image)} labels={labels} query={query.trim()} />)}
+                            {items.map((item, index) => <AppearanceItem key={`${category}-${item.id}-${index}`} item={item} category={category} image={source.image(state.path, item.image)} labels={labels} query={query.trim()} />)}
                         </div>}</>}
         </div>
     </section>;

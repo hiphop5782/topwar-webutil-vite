@@ -1,5 +1,7 @@
 {
     "appearance": {
+  "premium": "Premium",
+  "specialSkill": "Special skill",
   "placeholder": "Search name, ID or effect",
   "noBuff": "No effects", "missingBuff": "Effect description not collected",
   "equip": "Equip effects",

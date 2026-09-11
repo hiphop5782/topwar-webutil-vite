@@ -1,5 +1,15 @@
 export const categoryIds = ['castle', 'army-line', 'city-effect', 'castle-halo'];
 
+export function appearanceHighlights(item, category) {
+    const raw = item.raw || {};
+    // The catalog groups premium bases/marches at order 1000+, including ID 0 defaults.
+    const premium = Number(item.id) !== 0 && (
+        (['castle', 'army-line'].includes(category) && Number(raw.order) >= 1000)
+        || (category === 'city-effect' && Number(raw.ultimate_skin_frame) === 1)
+    );
+    return { premium, hasSkill: category === 'castle' && Number(raw.city_skill_id) > 0 };
+}
+
 // Resolve only local descendants; reject traversal, schemes and encoded separators.
 export function relativePath(baseFile, path) {
     if (typeof path !== 'string' || !path) throw new Error('Invalid relative path');

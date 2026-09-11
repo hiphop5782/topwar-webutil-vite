@@ -3,6 +3,23 @@
 .appearance-gallery .appearance-image img { width: 100%; height: 100%; object-fit: contain; }
 .appearance-gallery .appearance-item { min-width: 0; overflow-wrap: anywhere; }
 .appearance-gallery .appearance-search-match { background-color: #ffe08a; color: #212529; padding: 0; border-radius: .15rem; }
+.appearance-gallery .appearance-premium {
+    border: 2px solid #c99728;
+    box-shadow: 0 0 0 2px rgba(223, 177, 64, .14), 0 5px 16px rgba(126, 86, 14, .12);
+}
+.appearance-gallery .appearance-premium .appearance-image {
+    background: radial-gradient(ellipse at center, #fff4ca 0%, #f6e2a6 58%, #e9c879 100%) !important;
+    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, .45);
+}
+.appearance-gallery .appearance-skilled { border-color: #91afd0; box-shadow: 0 2px 8px rgba(49, 92, 138, .08); }
+.appearance-gallery .appearance-skilled .appearance-image {
+    background: linear-gradient(145deg, #f0f6fc, #dae7f5) !important;
+}
+.appearance-gallery .appearance-badges { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .65rem; }
+.appearance-gallery .appearance-badge { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .55rem; border-radius: .4rem; font-size: .75rem; font-weight: 700; line-height: 1.5; }
+.appearance-gallery .appearance-premium-badge { color: #694608; background: linear-gradient(135deg, #fff0b5, #f3d16c); border: 1px solid #d6ad49; }
+.appearance-gallery .appearance-skill-badge { color: #294f78; background: #e9f1fb; border: 1px solid #b8cee5; }
+.appearance-gallery .appearance-item .card-body { min-width: 0; }
 .appearance-gallery .appearance-list { grid-template-columns: 1fr; }
 .appearance-gallery .appearance-list .appearance-item { flex-direction: row; }
 .appearance-gallery .appearance-list .appearance-image { width: 160px; flex-shrink: 0; }
