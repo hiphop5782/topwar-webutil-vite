@@ -1,3 +1,4 @@
+import ResearchHub from './screen/post/ResearchHub';
 import AppearanceGallery from './screen/information/appearance/AppearanceGallery';
 import ServerDirectory from "@src/components/screen/information/server/ServerDirectory";
 import { Route, Routes } from "react-router-dom";
@@ -84,6 +85,8 @@ export default function MainContentView() {
                         */}
                     </div>
                 </div>
+
+                <ResearchHub contextual />
 
                 {/* routes */}
                 <Routes>

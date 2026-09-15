@@ -14,42 +14,50 @@ const markdownDirectory = path.resolve(
 );
 
 const fixedRoutes = [
+    "/information/appearance",
     "/",
     "/post",
-
     "/information/job",
+    "/information/kartz-statistics",
     "/information/el",
+    "/information/el/darkforce",
+    "/information/el/score",
     "/information/data",
-    "/information/data/overall",
     "/information/data/servers",
+    "/information/data/server",
+    "/information/data/alliance",
+    "/information/data/move",
+    "/information/data/nickname",
     "/information/data/player-detail",
+    "/information/data/realpower",
+    "/information/data/overall",
     "/information/kartz",
-    "/information/appearance",
-
+    "/information/kartz/rank",
+    "/information/kartz/server",
     "/calculator/vital",
     "/calculator/skill",
     "/calculator/value-pack",
     "/calculator/cost",
-
+    "/simulator/formation-perk",
     "/simulator/titan-research",
     "/simulator/titan-refine",
-    "/simulator/formation-perk",
-
+    "/developer",
+    "/about",
     "/emoji/create",
     "/emoji/list",
-
-    "/history/ssc-2026",
-    "/history/liondance",
-
+    "/account/viewer",
+    "/account/profile",
+    "/account/creator",
     "/vote/create",
-    "/vote/cast",
-    "/vote/manage",
-
+    "/history/ssc-2026",
+    "/history/ssc-2026/users",
+    "/history/liondance",
+    "/event/city-reward",
     "/privacy",
     "/contact",
     "/disclaimer",
-    "/about",
-    "/developer"
+    "/vote/cast",
+    "/vote/manage"
 ];
 
 const postRoutes = readdirSync(markdownDirectory, {
@@ -81,6 +89,3 @@ export const prerenderRoutes = [
         ...postRoutes,
     ]),
 ];
-
-console.log("프리렌더 고정 경로:", fixedRoutes);
-console.log("프리렌더 게시물 경로:", postRoutes);

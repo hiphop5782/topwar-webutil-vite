@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "clean": "rimraf dist",
-    "build": "npm run clean && cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build && npm run copy:default-page && npm run sitemap"
+    "build": "npm run clean && cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build && npm run copy:default-page && npm run sitemap",
+    "verify:search": "node scripts/verify-search.mjs",
+    "verify:content": "node scripts/verify-public-content.mjs"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
@@ -73,6 +75,7 @@
     "puppeteer": "^25.2.0",
     "rimraf": "^6.1.3",
     "sass-embedded": "^1.97.3",
-    "vite": "^6.3.1"
+    "vite": "^6.3.1",
+    "@babel/parser": "^7.27.0"
   }
 }

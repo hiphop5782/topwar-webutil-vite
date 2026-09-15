@@ -183,6 +183,10 @@ function Menu() {
                 </button>
                 <div ref={collapseRef} className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto">
+                        <li className="nav-item">
+                            <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
+                        </li>
+
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:info.label`)}</a>
                             <div className="dropdown-menu">
@@ -260,9 +264,6 @@ function Menu() {
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/creator`}>{t(`menu:account.sub.creator`)} (구현중)</LanguageRouterLink>
                             </div>
                         </li> */}
-                        <li className="nav-item">
-                            <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
-                        </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:vip-lounge.label`)}</a>
                             <div className="dropdown-menu">

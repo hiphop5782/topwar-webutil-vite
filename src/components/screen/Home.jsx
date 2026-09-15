@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useLayoutEffect, useState } from "react";
 
+import ResearchHub from './post/ResearchHub';
 import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
 import { loadHomeStatistics } from "@src/services/topwarDataRepository";
 
@@ -289,44 +290,11 @@ function Home() {
                     </p>
 
 
-                    <div className="home-hero-summary">
-
-                        <HeroMetric
-                            to="/information/data/servers"
-                            value={formatNumber(server.count)}
-                            label={t("home.kpi.server.title")}
-                        />
-
-                        <HeroMetric
-                            to="/information/data"
-                            value={formatNumber(player.tracked)}
-                            label={t("home.kpi.player.title")}
-                        />
-
-                        <HeroMetric
-                            to="/information/data"
-                            value={formatRate(
-                                activity.within1dRate
-                            )}
-                            label={t("home.kpi.active24h.title")}
-                        />
-
-                        <HeroMetric
-                            to="/information/data"
-                            value={formatNumber(player.online)}
-                            label={t("home.kpi.online.title")}
-                        />
-
+                    <div className="d-flex flex-wrap gap-2 mb-4">
+                        <LanguageRouterLink to="/post" className="btn btn-light">{t("home.research.read")}</LanguageRouterLink>
+                        <LanguageRouterLink to="/about" className="btn btn-outline-light">{t("home.research.method")}</LanguageRouterLink>
                     </div>
 
-
-                    <div className="home-updated">
-
-                        {t("home.hero.dataAsOf")}
-                        {" "}
-                        {formatDateTime(snapshotAt)}
-
-                    </div>
 
                 </div>
 
@@ -334,6 +302,11 @@ function Home() {
 
 
 
+            <ResearchHub compact />
+
+            {statisticsState === "error" && <p role="status" className="alert alert-warning">{t("home.research.unavailable")}</p>}
+            {statisticsState === "success" && <>
+            <p className="small text-secondary">{t("home.hero.dataAsOf")} {formatDateTime(snapshotAt)}</p>
             {/* ========================================
                 KPI
             ======================================== */}
@@ -962,6 +935,8 @@ function Home() {
 
 
 
+            </>}
+
             {/* ========================================
                 NOTICE
             ======================================== */}
@@ -982,33 +957,6 @@ function Home() {
 
         </main>
     </>);
-}
-
-
-
-function HeroMetric({
-    to,
-    value,
-    label,
-}) {
-
-    const content = (
-        <span>
-
-            <strong>
-                {value}
-            </strong>
-
-            {label}
-
-        </span>
-    );
-
-    return to ? (
-        <LanguageRouterLink className="hero-metric-link" to={to}>
-            {content}
-        </LanguageRouterLink>
-    ) : content;
 }
 
 

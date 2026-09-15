@@ -14,6 +14,7 @@ import rehypeKatex from "rehype-katex";
 
 import "katex/dist/katex.min.css";
 import "./MarkdownRenderer.css";
+import ResearchHub from './ResearchHub';
 import SEO from "@src/components/template/SEO";
 import PageNotFound from "@src/components/error/PageNotFound";
 import { publicPosts } from './publicPosts';
@@ -103,12 +104,15 @@ export default function Post() {
             </div>
 
             {/* 2. 마크다운 본문 섹션 */}
-            <div className="container-fluid my-5" style={{ maxWidth: '900px' }}>
+            <article lang="ko" className="container-fluid my-5" style={{ maxWidth: '900px' }}>
+                <header className="px-3 mb-4"><h1>{post.attributes.title}</h1><p className="text-secondary">작성·운영: Progamer.info · 게시: {folder.slice(0, 10)}</p></header>
+                {folder.startsWith("2026-07-02") && <aside className="alert alert-info">이 글은 초기 추정 또는 개별 실험 기록입니다. 후속 실측과 해석은 <LanguageRouterLink to="/post/2026-07-04-001-Damage3">전투 공식 실측 분석 총정리</LanguageRouterLink>에서 함께 확인하세요.</aside>}
                 <div className="markdown-body text-start px-3">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeKatex]}
                         components={{
+                            h1: ({ children, id }) => <h2 id={id}>{children}</h2>,
                             a: ({ href, children }) => <a href={postAssetUrl(folder, href)}>{children}</a>,
                             code({ node, inline, className, children, ...props }) {
                                 void node;
@@ -145,7 +149,8 @@ export default function Post() {
                         {post.body}
                     </ReactMarkdown>
                 </div>
-            </div>
+                <ResearchHub contextual folder={folder} />
+            </article>
         </div>
     </>);
 }

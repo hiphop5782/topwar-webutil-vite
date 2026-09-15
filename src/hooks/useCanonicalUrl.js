@@ -4,8 +4,10 @@ import {
     createSiteUrl,
 } from "@src/utils/siteUrl";
 
+import { getRoutePolicy } from '@src/config/routePolicy';
+
 export function useCanonicalUrl() {
     const { pathname } = useLocation();
 
-    return createSiteUrl(pathname);
+    return createSiteUrl(getRoutePolicy(pathname).canonicalPath);
 }

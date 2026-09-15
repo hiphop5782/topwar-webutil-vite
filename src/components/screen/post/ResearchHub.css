@@ -1,0 +1,4 @@
+.research-hub .text-secondary { color: #536273 !important; }
+.research-hub a { color: #174eaa; text-underline-offset: 0.15em; }
+.research-hub a:hover { color: #103773; }
+.research-hub li { overflow-wrap: anywhere; }

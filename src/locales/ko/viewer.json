@@ -1,9 +1,14 @@
 {
     "home": {
+        "research": {
+            "read": "조사·분석 글 읽기",
+            "method": "수집 방법과 운영자",
+            "unavailable": "현재 통계를 불러오지 못했습니다. 아래 분석 글의 관측 시점과 원천 자료를 확인할 수 있습니다."
+        },
         "hero": {
-            "eyebrow": "TOPWAR DATA OVERVIEW",
-            "title": "Topwar 데이터 현황",
-            "description": "수집된 서버 및 플레이어 데이터를 기반으로 Topwar의 전반적인 동향을 확인합니다.",
+            "eyebrow": "TOP WAR RESEARCH",
+            "title": "직접 조사하고 실측하는 Top War",
+            "description": "서버 관측 데이터와 전투 실험을 바탕으로 분석과 공략을 정리합니다. 각 글의 수집 시점, 계산 근거와 한계를 확인하고 필요한 데이터·계산 도구로 이어가세요.",
             "dataAsOf": "데이터 기준",
             "generatedAt": "통계 생성"
         },

@@ -1,9 +1,14 @@
 {
     "home": {
+        "research": {
+            "read": "調査・分析を読む（韓国語）",
+            "method": "収集方法と運営者",
+            "unavailable": "現在の統計を読み込めませんでした。分析記事の観測時点と元データは引き続き確認できます。"
+        },
         "hero": {
-            "eyebrow": "TOPWAR DATA OVERVIEW",
-            "title": "Topwar データ概要",
-            "description": "収集したサーバーおよびプレイヤーデータをもとに、Topwarの全体的な傾向を表示しています。",
+            "eyebrow": "TOP WAR RESEARCH",
+            "title": "調査と実測で読み解く Top War",
+            "description": "サーバーの観測データと戦闘実験をもとに分析と攻略をまとめています。各記事の観測時点・算定方法・限界を確認し、データや計算ツールをご利用ください。分析記事は韓国語です。",
             "dataAsOf": "データ基準時刻",
             "generatedAt": "統計生成"
         },

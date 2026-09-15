@@ -1,0 +1,668 @@
+{
+  "observedAt": "2026-09-15",
+  "scope": "C:/Users/user1/vscode-workspace/topwar-webutil-vite",
+  "routeTypes": [
+    {
+      "url": "/{ko|en|ja}/information/appearance/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "검색·분류 카탈로그. 원격 데이터 로딩 완료를 기다리지 않는 프리렌더로 현재는 정적 핵심 콘텐츠 미보장."
+    },
+    {
+      "url": "/{ko|en|ja}/",
+      "type": "content",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "통계 중심 홈 → 원문 분석 CTA·주제별 자료·수집 방법 진입점. 관측 통계는 보조 자료."
+    },
+    {
+      "url": "/{ko|en|ja}/post/",
+      "type": "content",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "/ko/post/",
+      "hreflang": "없음",
+      "sitemap": "ko만",
+      "reason": "날짜순 목록 → 네 가지 주제의 분석·근거 데이터·도구 허브."
+    },
+    {
+      "url": "/{ko|en|ja}/information/job/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "/ko/information/job/",
+      "hreflang": "없음",
+      "sitemap": "ko만",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/information/kartz-statistics/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "몬스터 데이터·랭킹·서버 이력의 가변 조회 화면. 카르츠 버프 원문과 연결."
+    },
+    {
+      "url": "/{ko|en|ja}/information/el/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/information/el/darkforce/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/information/el/score/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/servers/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/server/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/alliance/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/move/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/nickname/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/player-detail/",
+      "type": "search",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/realpower/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/data/overall/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "서버/플레이어/연맹 검색·조회·가변 집계. 고정 관측 시점의 원문 분석을 검색 진입점으로 두고 기능은 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/information/kartz/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "몬스터 데이터·랭킹·서버 이력의 가변 조회 화면. 카르츠 버프 원문과 연결."
+    },
+    {
+      "url": "/{ko|en|ja}/information/kartz/rank/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "몬스터 데이터·랭킹·서버 이력의 가변 조회 화면. 카르츠 버프 원문과 연결."
+    },
+    {
+      "url": "/{ko|en|ja}/information/kartz/server/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "몬스터 데이터·랭킹·서버 이력의 가변 조회 화면. 카르츠 버프 원문과 연결."
+    },
+    {
+      "url": "/{ko|en|ja}/calculator/vital/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/calculator/skill/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/calculator/value-pack/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/calculator/cost/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/simulator/formation-perk/",
+      "type": "tool",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "캔버스 그래프와 입력 중심, 본문도 한국어 고정. 그래프 밖 결과·방법을 정적으로 제공하기 전 검색 제외."
+    },
+    {
+      "url": "/{ko|en|ja}/simulator/titan-research/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/simulator/titan-refine/",
+      "type": "tool",
+      "action": "IMPROVE",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "계산 기능과 기존 사용법·가정/FAQ를 유지하고 관련 분석·자료 연결. 입력 변형은 기본 URL로 canonical 통합."
+    },
+    {
+      "url": "/{ko|en|ja}/developer/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "운영자 소개는 사용자에게 유지. 사이트 수집 방법과 신뢰 정보의 주 진입점은 /about/."
+    },
+    {
+      "url": "/{ko|en|ja}/about/",
+      "type": "system",
+      "action": "KEEP",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "운영·연락·개인정보·면책 정보를 찾을 수 있는 고정 페이지 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/emoji/create/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/emoji/list/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/account/viewer/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/account/profile/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/account/creator/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/vote/create/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/history/ssc-2026/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "라운드/서버/시즌 필터 중심 집계. 당시 해석은 날짜를 가진 분석 원문에서 제공."
+    },
+    {
+      "url": "/{ko|en|ja}/history/ssc-2026/users/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "라운드/서버/시즌 필터 중심 집계. 당시 해석은 날짜를 가진 분석 원문에서 제공."
+    },
+    {
+      "url": "/{ko|en|ja}/history/liondance/",
+      "type": "data",
+      "action": "NOINDEX",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "라운드/서버/시즌 필터 중심 집계. 당시 해석은 날짜를 가진 분석 원문에서 제공."
+    },
+    {
+      "url": "/{ko|en|ja}/event/city-reward/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/privacy/",
+      "type": "system",
+      "action": "KEEP",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "운영·연락·개인정보·면책 정보를 찾을 수 있는 고정 페이지 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/contact/",
+      "type": "system",
+      "action": "KEEP",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "운영·연락·개인정보·면책 정보를 찾을 수 있는 고정 페이지 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/disclaimer/",
+      "type": "system",
+      "action": "KEEP",
+      "beforeIndex": "index",
+      "beforePrerender": true,
+      "afterIndex": "index, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "ko/en/ja/x-default",
+      "sitemap": "3개 언어",
+      "reason": "운영·연락·개인정보·면책 정보를 찾을 수 있는 고정 페이지 유지."
+    },
+    {
+      "url": "/{ko|en|ja}/vote/cast/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/vote/manage/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": true,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·경로, query/hash 제거, trailing slash",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "개인 입력·작업·관리·결과 화면. 검색 진입 콘텐츠로 사용하지 않고 직접 이용은 보존."
+    },
+    {
+      "url": "/{ko|en|ja}/vote/cast/:voteId/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·동적 경로, query/hash 제거",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "사용자별 작업·결과. GitHub Pages 404→SPA bridge를 이 세 종류에만 제한. 동적 무한 URL 프리렌더 안 함."
+    },
+    {
+      "url": "/{ko|en|ja}/vote/manage/:voteId/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·동적 경로, query/hash 제거",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "사용자별 작업·결과. GitHub Pages 404→SPA bridge를 이 세 종류에만 제한. 동적 무한 URL 프리렌더 안 함."
+    },
+    {
+      "url": "/{ko|en|ja}/vip/:serverId/",
+      "type": "system",
+      "action": "NOINDEX",
+      "beforeIndex": "noindex",
+      "beforePrerender": false,
+      "afterIndex": "noindex, follow",
+      "canonical": "동일 언어·동적 경로, query/hash 제거",
+      "hreflang": "없음",
+      "sitemap": "제외",
+      "reason": "사용자별 작업·결과. GitHub Pages 404→SPA bridge를 이 세 종류에만 제한. 동적 무한 URL 프리렌더 안 함."
+    }
+  ],
+  "posts": [
+    {
+      "url": "/ko/post/2026-03-04-001-Heavy-Trooper/",
+      "title": "메카(Heavy Trooper)",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    },
+    {
+      "url": "/ko/post/2026-03-06-001-HT-Chips/",
+      "title": "메카 칩",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    },
+    {
+      "url": "/ko/post/2026-03-06-002-Attack-speed/",
+      "title": "전투 순서와 공격속도 중요성",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    },
+    {
+      "url": "/ko/post/2026-05-09-001-World-Boss/",
+      "title": "월드보스 공격 설정",
+      "action": "IMPROVE",
+      "reason": "원본 이미지 설명 자료 유지, 장비/전장 묶음과 관련 도구 연결. 이미지 내용의 접근성·본문 설명은 후속 편집 과제."
+    },
+    {
+      "url": "/ko/post/2026-05-10-001-Storm-eye-battle/",
+      "title": "폭풍의 눈 공략",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    },
+    {
+      "url": "/ko/post/2026-06-30-001-Server-Tier/",
+      "title": "2026년 6월 서버 티어와 EL 예측",
+      "action": "IMPROVE",
+      "reason": "관측 날짜·표본·추정 기준을 유지. 서버 조사 묶음과 현재 조회값의 차이를 드러냄."
+    },
+    {
+      "url": "/ko/post/2026-07-02-001-Damage/",
+      "title": "데미지 계산 공식과 효율성",
+      "action": "IMPROVE",
+      "reason": "개별 실험/초기 추정 기록 보존. 후속 종합 실측 문서를 상단 안내로 연결."
+    },
+    {
+      "url": "/ko/post/2026-07-02-002-Damage2/",
+      "title": "공격력 수치에 따른 데미지 변화 분석",
+      "action": "IMPROVE",
+      "reason": "개별 실험/초기 추정 기록 보존. 후속 종합 실측 문서를 상단 안내로 연결."
+    },
+    {
+      "url": "/ko/post/2026-07-02-003-Damage3/",
+      "title": "데미지 증가 수치에 따른 피해량 변화 분석",
+      "action": "IMPROVE",
+      "reason": "개별 실험/초기 추정 기록 보존. 후속 종합 실측 문서를 상단 안내로 연결."
+    },
+    {
+      "url": "/ko/post/2026-07-04-001-Damage3/",
+      "title": "Top War 전투 공식 실측 분석 총정리",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    },
+    {
+      "url": "/ko/post/2026-08-18-001-Titan-Canyon/",
+      "title": "거인의 협곡(Titan Canyon)",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    },
+    {
+      "url": "/ko/post/2026-08-20-001-Chip-Specialization/",
+      "title": "칩 전문화(Chip Specialization)",
+      "action": "IMPROVE",
+      "reason": "원본 이미지 설명 자료 유지, 장비/전장 묶음과 관련 도구 연결. 이미지 내용의 접근성·본문 설명은 후속 편집 과제."
+    },
+    {
+      "url": "/ko/post/2026-08-20-002-Titan-Refine/",
+      "title": "타이탄 재련(Titan Refine)",
+      "action": "IMPROVE",
+      "reason": "원본 이미지 설명 자료 유지, 장비/전장 묶음과 관련 도구 연결. 이미지 내용의 접근성·본문 설명은 후속 편집 과제."
+    },
+    {
+      "url": "/ko/post/2026-08-20-003-SvS/",
+      "title": "서버전(SvS) 알아보기",
+      "action": "IMPROVE",
+      "reason": "원본 이미지 설명 자료 유지, 장비/전장 묶음과 관련 도구 연결. 이미지 내용의 접근성·본문 설명은 후속 편집 과제."
+    },
+    {
+      "url": "/ko/post/2026-09-08-001-Server-Status/",
+      "title": "서버별 현황 분석 (2026/09) , AI 사용",
+      "action": "IMPROVE",
+      "reason": "관측 날짜·표본·추정 기준을 유지. 서버 조사 묶음과 현재 조회값의 차이를 드러냄."
+    },
+    {
+      "url": "/ko/post/2026-09-10-001-Kartz-Diamond-Buffs/",
+      "title": "카르츠 다이아 등급 몬스터를 잡기 위한 버프 전략",
+      "action": "KEEP",
+      "reason": "독립 주제와 원문 근거를 보존하고 관련 자료를 연결."
+    }
+  ]
+}

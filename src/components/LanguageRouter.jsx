@@ -15,6 +15,8 @@ import {
     ToastContainer,
 } from "react-toastify";
 
+import { getRoutePolicy } from '@src/config/routePolicy';
+import PageNotFound from './error/PageNotFound';
 import Menu from "./Menu";
 import MainContentView from "./MainContentView";
 
@@ -137,8 +139,7 @@ function WithLanguageRouter() {
         }
 
         if (
-            document.documentElement.dataset
-                [readyKey] === "true"
+            document.documentElement.dataset[readyKey] === "true"
         ) {
             dispatchPrerenderReady();
             return;
@@ -165,12 +166,7 @@ function WithLanguageRouter() {
 
 
     if (!isSupportedLanguage) {
-        return (
-            <Navigate
-                to={`/${defaultLng}`}
-                replace
-            />
-        );
+        return <WithoutLanguageRouter />;
     }
 
 
@@ -218,10 +214,12 @@ function WithoutLanguageRouter() {
             ? ""
             : currentPath;
 
+    if (getRoutePolicy(currentPath).key === 'notFound') return <PageNotFound />;
+
     return (
         <Navigate
             to={
-                `/${defaultLng}${normalizedPath}`
+                `/${defaultLng}${normalizedPath}${location.search}${location.hash}`
             }
             replace
         />

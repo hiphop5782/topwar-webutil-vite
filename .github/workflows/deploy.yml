@@ -31,7 +31,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       # Puppeteer가 설치한 Chrome 캐시 복원
@@ -217,7 +217,6 @@ jobs:
               )
 
           required_urls = {
-              "https://www.progamer.info/",
               "https://www.progamer.info/ko/",
               "https://www.progamer.info/en/",
               "https://www.progamer.info/ja/",
@@ -389,6 +388,9 @@ jobs:
             | head -30
 
           echo "사이트맵 검증 완료"
+
+      - name: Verify search architecture
+        run: npm run verify:search
 
       # Jekyll 변환을 비활성화
       - name: Create nojekyll file

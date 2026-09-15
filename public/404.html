@@ -2,7 +2,8 @@
 <html>
   <head>
       <meta charset="utf-8">
-      <title>Single Page Apps for GitHub Pages</title>
+      <title>페이지를 찾을 수 없습니다 | Progamer.info</title>
+      <meta name="robots" content="noindex, follow">
       <script type="text/javascript">
           // Single Page Apps for GitHub Pages
           // https://github.com/rafrex/spa-github-pages
@@ -26,7 +27,7 @@
           var segmentCount = 0;
 
           var l = window.location;
-          l.replace(
+          if (/^\/(ko|en|ja)\/(vote\/(cast|manage)\/[^/]+|vip\/[^/]+)\/?$/.test(l.pathname)) l.replace(
               l.protocol + '//' + l.hostname + (l.port ?   ':' + l.port : '') +
               l.pathname.split('/').slice(0, 1 +  segmentCount).join('/') + '/?p=/' +
               l.pathname.slice(1).split('/').slice  (segmentCount).join('/').replace(/&/g,  '~and~') +
@@ -37,5 +38,7 @@
       </script>
   </head>
   <body>
+    <h1>페이지를 찾을 수 없습니다</h1>
+    <p><a href="/ko/post/">Top War 분석·공략</a> · <a href="/ko/">홈</a></p>
   </body>
 </html>

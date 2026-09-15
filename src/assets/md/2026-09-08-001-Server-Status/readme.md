@@ -21,6 +21,10 @@ description: 2026년 9월 8일 GitHub 최신 revision을 고정해 서버 활동
 
 `revision`은 데이터 생성 파이프라인이 가리키는 재현 기준이며, Git 저장소의 main HEAD와는 역할이 다릅니다. 이 글은 로컬에 남아 있던 과거 스냅샷을 재사용하지 않고 당일 원격 main을 새로 받아 계산했습니다.
 
+원천 데이터: [분석 당시 저장소와 파일 목록](https://github.com/hiphop5782/topwar-json/tree/5cbeb29f0f157070516fec534da91f522e01dd7c). 현재 조회값은 이후 수집으로 달라질 수 있으므로, 이 글을 재현할 때는 위 관측 시점과 revision을 사용하세요.
+
+[현재 서버 목록](/ko/information/data/servers/) · [현재 통합 데이터](/ko/information/data/overall/) · [분석 자료실](/ko/post/)
+
 ## 한눈에 보는 결과
 
 티어 산정 대상 728개 서버에서 7일 활성 인원은 **88,746명**, 활성 플레이어 전력 합계는 **3.9T**입니다. 서버별 관측 인원 중앙값은 **173명**, 활성 인원 중앙값은 **96명**입니다.

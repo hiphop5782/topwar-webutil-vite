@@ -14,7 +14,7 @@ const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
 assert.ok(!sitemap.includes('9999-99-99'));
 assert.ok(!sitemap.includes('/information/ssc'));
 assert.ok(!sitemap.includes('/information/kartz/user'));
-assert.ok(sitemap.includes('/information/appearance'));
+assert.ok(!sitemap.includes('/information/appearance'));
 for (const asset of (await readdir(path.join(dist, 'assets'))).filter(file => file.endsWith('.js'))) {
     const source = await readFile(path.join(dist, 'assets', asset), 'utf8');
     assert.ok(!source.includes('/src/assets/md/9999-99-99'), `Draft module leaked into ${asset}`);

@@ -1,9 +1,14 @@
 {
     "home": {
+        "research": {
+            "read": "Read research (Korean)",
+            "method": "Methods and site operator",
+            "unavailable": "Current statistics are unavailable. The research articles remain available with their observation dates and source data."
+        },
         "hero": {
-            "eyebrow": "TOPWAR DATA OVERVIEW",
-            "title": "Topwar Data Overview",
-            "description": "An overview of Topwar trends based on collected server and player data.",
+            "eyebrow": "TOP WAR RESEARCH",
+            "title": "Top War research and field measurements",
+            "description": "Explore analyses and guides built from server observations and combat experiments. Check each article’s date, methods and limitations, then use the data and calculation tools. Research articles are in Korean.",
             "dataAsOf": "Data as of",
             "generatedAt": "Statistics generated"
         },

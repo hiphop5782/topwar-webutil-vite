@@ -1,3 +1,4 @@
+import ResearchHub from './ResearchHub';
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
@@ -55,7 +56,10 @@ export default function PostList() {
         <SEO title={t("seo:post.list.title")}/>
 
         <div className="container-fluid mb-5">
-            <h1>포스트 ({posts.length})</h1>
+            <h1>Top War 조사·분석·공략</h1>
+            <p>서버 관측과 전투 실험의 근거를 확인하고 관련 데이터·도구로 이어지는 자료실입니다. 글마다 관측 시점과 적용 조건이 다릅니다.</p>
+            <ResearchHub />
+            <h2 className="h4">전체 자료 ({posts.length})</h2>
 
             <hr />
 
@@ -79,7 +83,7 @@ export default function PostList() {
                                 )}
                                 <div className={post.thumbnail ? "col-sm-10" : "col-12"}>
                                     <div className="p-4 h-100 d-flex flex-column">
-                                        <h3 className="text-truncate mb-3 fw-bold">
+                                        <h3 className="mb-3 fw-bold">
                                             <LanguageRouterLink to={`/post/${post.folder}`} className="text-primary text-decoration-none">
                                                 {post.title}
                                             </LanguageRouterLink>

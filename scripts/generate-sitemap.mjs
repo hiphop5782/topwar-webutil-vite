@@ -11,6 +11,8 @@ import {
     supportedLngs,
 } from "../src/config/languages.js";
 
+import { getRoutePolicy } from '../src/config/routePolicy.js';
+
 const DIST_DIRECTORY = path.resolve("dist");
 
 const env = loadEnv(
@@ -20,9 +22,9 @@ const env = loadEnv(
 );
 
 const publicUrl =
-    env.VITE_PUBLIC_URL.startsWith("//")
+    (env.VITE_PUBLIC_URL || "https://www.progamer.info").startsWith("//")
         ? `https:${env.VITE_PUBLIC_URL}`
-        : env.VITE_PUBLIC_URL;
+        : (env.VITE_PUBLIC_URL || "https://www.progamer.info");
 
 const SITE_ORIGIN =
     new URL(publicUrl).origin;
@@ -194,7 +196,7 @@ function extractCanonical(html) {
  * URL이 사이트맵 제외 대상인지 검사합니다.
  */
 function isExcluded(pathname) {
-    return EXCLUDED_PATH_PATTERNS.some(
+    return !/^\/(ko|en|ja)(?:\/|$)/.test(pathname) || !getRoutePolicy(pathname).sitemap || EXCLUDED_PATH_PATTERNS.some(
         (pattern) =>
             pattern.test(pathname)
     );
@@ -299,7 +301,7 @@ function createUrlElement(
                 localized.localizedPath
             );
 
-        if (variants) {
+        if (variants && variants.size > 1) {
             for (
                 const language
                 of supportedLngs
@@ -318,15 +320,14 @@ function createUrlElement(
             }
 
             /*
-             * 루트 페이지가 언어 선택 또는 자동 이동 페이지라면
-             * 언어별 홈에만 x-default를 추가합니다.
+             * HTML과 동일하게 한국어 canonical을 x-default로 사용합니다.
              */
             if (
-                localized.localizedPath === "/"
+                variants.has("ko")
             ) {
                 lines.push(
                     "    " +
-                    `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}/" />`
+                    `<xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(variants.get("ko"))}" />`
                 );
             }
         }
@@ -390,8 +391,8 @@ async function generateSitemap() {
                 pathname
             );
 
-        const normalizedUrl =
-            new URL(url);
+        if (!canonical || url !== new URL(pathname, SITE_ORIGIN).href) throw new Error('Missing or non-self canonical: ' + pathname);
+        const normalizedUrl = new URL(url);
 
         pages.push({
             pathname:

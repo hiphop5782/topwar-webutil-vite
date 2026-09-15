@@ -3,7 +3,8 @@
         "description": "Explore Top War data and tools on {{title}}."
     },
     "home": {
-        "title": "Top War Data, Guides & Calculators"
+        "title": "Top War research, guides and data",
+        "description": "Explore analyses and guides built from server observations and combat experiments. Check each article’s date, methods and limitations, then use the data and calculation tools. Research articles are in Korean."
     },
 
     "post": {

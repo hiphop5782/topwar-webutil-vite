@@ -7,19 +7,19 @@ export default function SEO({
     alternates = [],
     image,
     type = "website",
-    noindex = false,
+    noindex,
 }) {
     const fullTitle = title
         ? `${title} | Progamer.info`
         : "Progamer.info";
-    const robots = noindex
+    const robots = noindex === undefined ? undefined : noindex
         ? "noindex, follow"
         : "index, follow";
 
     return (
         <Helmet>
             <title>{fullTitle}</title>
-            <meta name="robots" content={robots} />
+            {robots && <meta name="robots" content={robots} />}
 
             {description && (
                 <meta name="description" content={description} />
