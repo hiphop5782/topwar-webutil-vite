@@ -1,5 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Allow crawling so noindex on search and utility pages can be read.
 
 Sitemap: https://www.progamer.info/sitemap.xml
