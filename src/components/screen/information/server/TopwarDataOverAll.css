@@ -229,6 +229,9 @@
 
 .overall-viewer__result-meta {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
     justify-content: space-between;
     margin: 1rem 0 .5rem;
     color: var(--bs-secondary-color);

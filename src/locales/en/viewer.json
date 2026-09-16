@@ -2145,7 +2145,8 @@
             "nickname": "Search nickname", "nicknameLabel": "Search player nickname",
             "server": "Server number", "alliance": "Alliance name", "allianceLabel": "Search alliance name",
             "advanced": "Advanced", "reset": "Reset", "source": "Data source",
-            "movementLoading": "Loading movement history...", "serverOut": "Server OUT", "serverOutLabel": "Previous server number", "movedOnly": "Moved players only"
+            "movementLoading": "Loading movement history...", "serverOut": "Server OUT", "serverOutLabel": "Previous server number", "movedOnly": "Moved players only",
+            "level80Only": "Show only level 80+ players"
         },
         "source": { "all": "All sources", "both": "Top 100 + Map", "power": "Top 100", "realpower": "Map", "powerOnly": "Top 100 only", "realpowerOnly": "Map only" },
         "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power" },

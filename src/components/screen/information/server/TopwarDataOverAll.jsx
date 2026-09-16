@@ -142,6 +142,15 @@ export default function TopwarDataOverAll() {
     const [kartzLoading, setKartzLoading] = useState(true);
     const [relativeTimeNow, setRelativeTimeNow] = useState(Date.now);
     const [searchParams, setSearchParams] = useSearchParams();
+    const level80Only = searchParams.get("minLevel") === "80";
+    const setLevel80Only = (enabled) => {
+        setSearchParams(current => {
+            const next = new URLSearchParams(current);
+            if (enabled) next.set("minLevel", "80");
+            else next.delete("minLevel");
+            return next;
+        });
+    };
     const lastTrackedSearchRef = useRef("");
 
     useEffect(() => {
@@ -319,6 +328,7 @@ export default function TopwarDataOverAll() {
         const serverOutNumber = serverOut === "" ? null : Number(serverOut);
 
         return searchablePlayers.filter((player) => {
+                if (level80Only && !(Number(player.level) >= 80)) return false;
                 if (source !== "all" && player.source !== source) return false;
                 if (serverNumber != null && Number(player.server) !== serverNumber) return false;
                 if (keyword && !player.nicknameSearchText.includes(keyword)) return false;
@@ -331,7 +341,7 @@ export default function TopwarDataOverAll() {
 
                 return true;
             });
-    }, [searchablePlayers, deferredQuery, deferredAllianceQuery, server, source, serverOut, movedOnly, movementHistory]);
+    }, [searchablePlayers, deferredQuery, deferredAllianceQuery, server, source, serverOut, movedOnly, movementHistory, level80Only]);
 
     const statistics = useMemo(() => {
         const counts = { total: filteredPlayers.length, both: 0, power: 0, realpower: 0 };
@@ -347,7 +357,7 @@ export default function TopwarDataOverAll() {
     useEffect(() => {
         const activeFilterCount = [
             deferredQuery, deferredAllianceQuery, server, serverOut,
-            source !== "all", movedOnly,
+            source !== "all", movedOnly, level80Only,
         ].filter(Boolean).length;
         if (view !== "players" || activeFilterCount === 0) return undefined;
 
@@ -358,6 +368,7 @@ export default function TopwarDataOverAll() {
             hasServerOut: Boolean(serverOut),
             source,
             movedOnly,
+            level80Only,
             resultCount: filteredPlayers.length,
         });
         if (signature === lastTrackedSearchRef.current) return undefined;
@@ -372,11 +383,12 @@ export default function TopwarDataOverAll() {
                 has_server_out_filter: Boolean(serverOut),
                 source_filter: source,
                 moved_only: movedOnly,
+                level_80_only: level80Only,
                 result_count: filteredPlayers.length,
             });
         }, 800);
         return () => window.clearTimeout(timer);
-    }, [view, deferredQuery, deferredAllianceQuery, server, serverOut, source, movedOnly, filteredPlayers.length]);
+    }, [view, deferredQuery, deferredAllianceQuery, server, serverOut, source, movedOnly, level80Only, filteredPlayers.length]);
 
     const resetFilters = () => {
         trackAnalyticsEvent("overall_filter_reset", { view: "players" });
@@ -386,6 +398,7 @@ export default function TopwarDataOverAll() {
         setSource("all");
         setServerOut("");
         setMovedOnly(false);
+        setLevel80Only(false);
     };
 
     const togglePlayer = (uid, analyticsData) => {
@@ -578,6 +591,15 @@ export default function TopwarDataOverAll() {
             </div>
 
             <div className="overall-viewer__result-meta">
+                <label className="overall-viewer__movement-check">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        checked={level80Only}
+                        onChange={event => setLevel80Only(event.target.checked)}
+                    />
+                    <span>{t("filters.level80Only")}</span>
+                </label>
                 <span>{t("resultCount", { count: formatNumber(filteredPlayers.length, locale) })}</span>
             </div>
 

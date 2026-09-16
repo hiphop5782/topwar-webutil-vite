@@ -2136,7 +2136,8 @@
             "nickname": "ニックネーム検索", "nicknameLabel": "プレイヤーのニックネーム検索",
             "server": "サーバー番号", "alliance": "連盟名", "allianceLabel": "連盟名検索",
             "advanced": "詳細オプション", "reset": "リセット", "source": "データソース",
-            "movementLoading": "移動履歴を読込中...", "serverOut": "サーバーOUT", "serverOutLabel": "移動前のサーバー番号", "movedOnly": "移動履歴のあるプレイヤーのみ"
+            "movementLoading": "移動履歴を読込中...", "serverOut": "サーバーOUT", "serverOutLabel": "移動前のサーバー番号", "movedOnly": "移動履歴のあるプレイヤーのみ",
+            "level80Only": "レベル80以上のみ表示"
         },
         "source": { "all": "すべてのソース", "both": "Top 100 + マップ", "power": "Top 100", "realpower": "マップ", "powerOnly": "Top 100のみ", "realpowerOnly": "マップのみ" },
         "columns": { "server": "サーバー", "player": "プレイヤー", "alliance": "連盟", "power": "戦力" },

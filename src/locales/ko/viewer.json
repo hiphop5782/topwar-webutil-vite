@@ -2147,7 +2147,8 @@
             "nickname": "닉네임 검색", "nicknameLabel": "플레이어 닉네임 검색",
             "server": "서버 번호", "alliance": "연맹명", "allianceLabel": "연맹명 검색",
             "advanced": "상세 옵션", "reset": "초기화", "source": "데이터 출처",
-            "movementLoading": "이동내역 로딩 중...", "serverOut": "서버 OUT", "serverOutLabel": "이동 전 서버 번호", "movedOnly": "이동한 인원만"
+            "movementLoading": "이동내역 로딩 중...", "serverOut": "서버 OUT", "serverOutLabel": "이동 전 서버 번호", "movedOnly": "이동한 인원만",
+            "level80Only": "레벨 80 이상만 보기"
         },
         "source": { "all": "모든 출처", "both": "Top 100 + 지도", "power": "Top 100", "realpower": "지도", "powerOnly": "Top 100만", "realpowerOnly": "지도만" },
         "columns": { "server": "서버", "player": "플레이어", "alliance": "연맹", "power": "전투력" },

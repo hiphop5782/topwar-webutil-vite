@@ -352,7 +352,7 @@ function Home() {
 
 
                     <KpiCard
-                        to="/information/data/player-detail"
+                        to="/information/data/overall?minLevel=80"
                         title={t("home.kpi.player.title")}
                         value={playerCountState === "success"
                             ? formatNumber(investigatedPlayerCount)
