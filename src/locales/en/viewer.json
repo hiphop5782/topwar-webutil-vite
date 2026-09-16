@@ -19,21 +19,21 @@
                 "change7d": "7-day change"
             },
             "player": {
-                "title": "Tracked Players",
-                "description": "Based on ranking data"
+                "title": "Tracked Players (Lv.80+)",
+                "description": "Players at level 80 or above in seasonal survey data"
             },
             "active24h": {
-                "title": "Active in Last 24h",
+                "title": "Active in Last 24h (Lv.80+)",
                 "description": "Based on last login records"
             },
             "online": {
-                "title": "Online at Scan",
+                "title": "Online at Scan (Lv.80+)",
                 "description": "Observed during data collection"
             }
         },
         "activity": {
             "title": "Player Activity",
-            "description": "Based on last login records of tracked players",
+            "description": "Based on online status and last login records of tracked players at level 80 or above",
             "within1d": "Within 24h",
             "within3d": "Within 3 days",
             "within7d": "Within 7 days",
@@ -51,7 +51,7 @@
         },
         "power": {
             "title": "Power Distribution",
-            "description": "Based on the power of tracked players",
+            "description": "Based on the power of tracked players at level 80 or above",
             "average": "Average",
             "median": "Median",
             "top10": "Top 10% Threshold",
@@ -61,6 +61,7 @@
         },
         "playerComposition": {
             "title": "Player Data Breakdown",
+            "description": "Based on tracked players at level 80 or above",
             "level100": "Lv.100",
             "allianceJoined": "In Alliance",
             "uniqueUid": "Unique Players",

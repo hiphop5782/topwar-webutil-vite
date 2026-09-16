@@ -511,15 +511,18 @@ export async function loadInvestigatedHomeStatistics() {
                 && (!snapshotAt || exportedAt > snapshotAt)) snapshotAt = exportedAt;
             const grade = data?.summary?.serverActivity?.grade || "UNKNOWN";
             activityGrades[grade in activityGrades ? grade : "UNKNOWN"] += 1;
-            tracked += players.length;
-            for (const player of players) {
+            const eligiblePlayers = players.filter(player => Number(player.level) >= 80);
+            tracked += eligiblePlayers.length;
+            for (const player of eligiblePlayers) {
                 if (player.uid != null) uids.add(String(player.uid));
                 const isOnline = player.isOnline === true || Number(player.isOnline) === 1;
                 if (isOnline) online += 1;
                 if (Number(player.level) === 100) level100 += 1;
                 if (player.allianceId != null && String(player.allianceId) !== "0") allianceJoined += 1;
                 const power = Number(player.power);
-                if (Number.isFinite(power) && power >= 0) powers.push(power);
+                if (Number.isFinite(power) && power >= 0) {
+                    powers.push(power);
+                }
                 const login = Number(player.lastLogin ?? player.lastShowTime);
                 activityObservations.push({
                     isOnline,

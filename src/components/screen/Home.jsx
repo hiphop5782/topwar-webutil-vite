@@ -629,6 +629,7 @@ function Home() {
                                     "home.playerComposition.title"
                                 )
                             }
+                            description={t("home.playerComposition.description")}
                         >
 
                             <MetricRow

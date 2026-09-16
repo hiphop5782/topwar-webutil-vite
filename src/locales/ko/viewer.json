@@ -19,21 +19,21 @@
                 "change7d": "7일간 변화"
             },
             "player": {
-                "title": "추적 플레이어",
-                "description": "랭킹 데이터 기준"
+                "title": "추적 플레이어 (Lv.80 이상)",
+                "description": "시즌별 조사 데이터의 레벨 80 이상 유저 기준"
             },
             "active24h": {
-                "title": "최근 24시간 활동",
+                "title": "최근 24시간 활동 (Lv.80 이상)",
                 "description": "마지막 로그인 기록 기준"
             },
             "online": {
-                "title": "수집 시점 온라인",
+                "title": "수집 시점 온라인 (Lv.80 이상)",
                 "description": "데이터 수집 시 확인된 상태"
             }
         },
         "activity": {
             "title": "플레이어 활동 현황",
-            "description": "추적 플레이어의 마지막 로그인 기록 기준",
+            "description": "레벨 80 이상 추적 플레이어의 온라인 상태와 마지막 로그인 기록 기준",
             "within1d": "24시간 이내",
             "within3d": "3일 이내",
             "within7d": "7일 이내",
@@ -51,7 +51,7 @@
         },
         "power": {
             "title": "전투력 분포",
-            "description": "추적 플레이어의 전투력 기준",
+            "description": "추적 플레이어 중 레벨 80 이상 유저의 전투력 기준",
             "average": "평균",
             "median": "중앙값",
             "top10": "상위 10% 기준",
@@ -61,6 +61,7 @@
         },
         "playerComposition": {
             "title": "플레이어 데이터 구성",
+            "description": "레벨 80 이상 추적 플레이어 기준",
             "level100": "Lv.100",
             "allianceJoined": "연맹 가입",
             "uniqueUid": "고유 플레이어",
