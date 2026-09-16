@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 
 import ResearchHub from './post/ResearchHub';
 import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
-import { loadHomeStatistics, loadInvestigatedPlayerCount } from "@src/services/topwarDataRepository";
+import { loadHomeStatistics, loadInvestigatedHomeStatistics } from "@src/services/topwarDataRepository";
 
 import "./Home.css";
 import SEO from "../template/SEO";
@@ -38,31 +38,31 @@ function Home() {
 
     useEffect(() => {
         let mounted = true;
-        loadInvestigatedPlayerCount()
-            .then(count => {
-                if (mounted) {
-                    setInvestigatedPlayerCount(count);
-                    setPlayerCountState("success");
-                }
-            })
-            .catch(error => {
-                console.error("Failed to count investigated players", error);
-                if (mounted) setPlayerCountState("error");
-            });
-        return () => { mounted = false; };
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
 
         loadHomeStatistics()
-            .then((data) => {
-                if (mounted && data && typeof data === "object") {
-                    setStatistics(data);
-                    setStatisticsState("success");
-                } else if (mounted) {
-                    setStatistics(EMPTY_STATISTICS);
-                    setStatisticsState("error");
+            .then(async (baseStatistics) => {
+                if (!baseStatistics || typeof baseStatistics !== "object") {
+                    throw new Error("Invalid home statistics");
+                }
+                if (!mounted) return;
+                setStatistics(baseStatistics);
+                setStatisticsState("success");
+
+                try {
+                    const data = await loadInvestigatedHomeStatistics();
+                    if (!mounted) return;
+                    setInvestigatedPlayerCount(data.player.tracked);
+                    setStatistics({
+                        ...baseStatistics,
+                        snapshotAt: data.snapshotAt || baseStatistics.snapshotAt,
+                        player: data.player,
+                        power: data.power,
+                        realPower: data.realPower,
+                    });
+                    setPlayerCountState("success");
+                } catch (error) {
+                    console.error("Failed to load investigated home statistics", error);
+                    if (mounted) setPlayerCountState("error");
                 }
             })
             .catch((error) => {
@@ -79,7 +79,7 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        if (statisticsState === "loading") {
+        if (statisticsState === "loading" || playerCountState === "loading") {
             return;
         }
 
@@ -93,7 +93,7 @@ function Home() {
         return () => {
             window.cancelAnimationFrame(frameId);
         };
-    }, [statisticsState]);
+    }, [statisticsState, playerCountState]);
 
     const {
         generatedAt,
@@ -270,8 +270,8 @@ function Home() {
         <main
             className={`home-dashboard ${
                 statisticsState === "loading" ? "is-loading" : ""
-            }`}
-            aria-busy={statisticsState === "loading"}
+            } ${playerCountState === "loading" ? "is-investigated-loading" : ""}`}
+            aria-busy={statisticsState === "loading" || playerCountState === "loading"}
         >
 
             {/* ========================================
@@ -354,13 +354,7 @@ function Home() {
                     <KpiCard
                         to="/information/data/player-detail"
                         title={t("home.kpi.player.title")}
-                        value={playerCountState === "loading" ? (
-                            <span
-                                className="spinner-border kpi-loading-spinner"
-                                role="status"
-                                aria-label="Loading"
-                            />
-                        ) : playerCountState === "success"
+                        value={playerCountState === "success"
                             ? formatNumber(investigatedPlayerCount)
                             : "-"}
                         description={

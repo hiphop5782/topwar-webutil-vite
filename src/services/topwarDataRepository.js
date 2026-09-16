@@ -420,20 +420,26 @@ export async function loadHomeStatistics() {
     return {
         ...statistics,
         server: { ...statistics.server, count, change7d },
-        // Top 100 기반으로 생성된 기존 tracked 값을 실제 조사 수로 오인하지 않는다.
-        player: { ...statistics.player, tracked: null },
+        // 시즌별 실제 조사 결과가 도착하기 전에는 기존 Top 100 통계를 노출하지 않는다.
+        player: {},
+        power: {},
+        realPower: {},
     };
 }
 
-function countSeasonServers(directory) {
+function getSeasonServerIds(directory) {
     const seasons = directory?.seasons;
     if (!seasons || directory.ok === false
         || !Object.values(seasons).every(season => Array.isArray(season.servers))) {
         throw new Error("Invalid season server directory");
     }
-    return new Set(Object.values(seasons)
+    return [...new Set(Object.values(seasons)
         .flatMap(season => season.servers.map(Number))
-        .filter(Number.isInteger)).size;
+        .filter(Number.isInteger))];
+}
+
+function countSeasonServers(directory) {
+    return getSeasonServerIds(directory).length;
 }
 
 async function loadHistoricalSeasonServerCount() {
@@ -459,16 +465,35 @@ async function loadHistoricalSeasonServerCount() {
     return countSeasonServers(await historical.json());
 }
 
-export async function loadInvestigatedPlayerCount() {
-    const index = await loadDataIndex();
-    const ids = [...new Set(index?.datasets?.realpower?.serverIds ?? [])];
+export async function loadInvestigatedHomeStatistics() {
+    const [index, directory] = await Promise.all([
+        loadDataIndex(),
+        loadServerDirectory(),
+    ]);
+    const availableIds = new Set(index?.datasets?.realpower?.serverIds ?? []);
+    const ids = getSeasonServerIds(directory).filter(id => availableIds.has(id));
     if (ids.length === 0) {
         throw new Error("No investigated servers in TopWar index");
     }
     const pattern = index?.datasets?.realpower?.pattern
         || "realpower/{serverId}.json";
     let next = 0;
-    let total = 0;
+    let snapshotAt = null;
+    let tracked = 0;
+    let online = 0;
+    let level100 = 0;
+    let allianceJoined = 0;
+    const uids = new Set();
+    const powers = [];
+    const activityObservations = [];
+    const activityGrades = {
+        VERY_ACTIVE: 0,
+        ACTIVE: 0,
+        NORMAL: 0,
+        QUIET: 0,
+        DEAD: 0,
+        UNKNOWN: 0,
+    };
 
     async function worker() {
         while (next < ids.length) {
@@ -477,16 +502,80 @@ export async function loadInvestigatedPlayerCount() {
                 pattern.replace("{serverId}", String(id)),
                 { revision: index.revision },
             );
-            const count = Number(data?.summary?.players);
-            if (!Number.isSafeInteger(count) || count < 0) {
-                throw new Error(`Invalid investigated player count: ${id}`);
+            const players = data?.players;
+            if (!Array.isArray(players)) {
+                throw new Error(`Invalid investigated players: ${id}`);
             }
-            total += count;
+            const exportedAt = Date.parse(data.exportedAt);
+            if (Number.isFinite(exportedAt)
+                && (!snapshotAt || exportedAt > snapshotAt)) snapshotAt = exportedAt;
+            const grade = data?.summary?.serverActivity?.grade || "UNKNOWN";
+            activityGrades[grade in activityGrades ? grade : "UNKNOWN"] += 1;
+            tracked += players.length;
+            for (const player of players) {
+                if (player.uid != null) uids.add(String(player.uid));
+                const isOnline = player.isOnline === true || Number(player.isOnline) === 1;
+                if (isOnline) online += 1;
+                if (Number(player.level) === 100) level100 += 1;
+                if (player.allianceId != null && String(player.allianceId) !== "0") allianceJoined += 1;
+                const power = Number(player.power);
+                if (Number.isFinite(power) && power >= 0) powers.push(power);
+                const login = Number(player.lastLogin ?? player.lastShowTime);
+                activityObservations.push({
+                    isOnline,
+                    login: Number.isFinite(login) && login > 0 ? login * 1000 : null,
+                });
+            }
         }
     }
 
     await Promise.all(Array.from({ length: Math.min(8, ids.length) }, worker));
-    return total;
+    powers.sort((a, b) => a - b);
+    const referenceTime = snapshotAt || Date.now();
+    const within = days => activityObservations.filter(({ isOnline, login }) =>
+        isOnline || (login !== null
+            && login <= referenceTime
+            && referenceTime - login <= days * 86400000)
+    ).length;
+    const rate = value => tracked ? value / tracked * 100 : 0;
+    const percentile = percent => powers.length
+        ? powers[Math.ceil(powers.length * percent) - 1]
+        : null;
+    const activity = Object.fromEntries([1, 3, 7, 14, 30].flatMap(days => {
+        const value = within(days);
+        return [[`within${days}d`, value], [`within${days}dRate`, rate(value)]];
+    }));
+    const average = powers.length
+        ? powers.reduce((sum, value) => sum + value, 0) / powers.length
+        : null;
+
+    return {
+        snapshotAt: snapshotAt ? new Date(snapshotAt).toISOString() : null,
+        player: {
+            tracked,
+            unique: uids.size,
+            online,
+            onlineRate: rate(online),
+            level100,
+            level100Rate: rate(level100),
+            allianceJoined,
+            allianceJoinedRate: rate(allianceJoined),
+            activity,
+        },
+        power: {
+            average,
+            median: percentile(0.5),
+            top25Threshold: percentile(0.75),
+            top10Threshold: percentile(0.9),
+            top5Threshold: percentile(0.95),
+            top1Threshold: percentile(0.99),
+            max: powers.at(-1) ?? null,
+        },
+        realPower: {
+            analyzedServers: ids.length,
+            activityGrades,
+        },
+    };
 }
 
 export async function loadPlayerSearchManifest() {

@@ -508,15 +508,6 @@
     margin-top: 0.75rem;
 }
 
-.kpi-value .kpi-loading-spinner {
-    width: 1.8rem;
-    height: 1.8rem;
-    margin-left: 0;
-    border-width: 0.2rem;
-    color: var(--bs-primary);
-    font-size: inherit;
-}
-
 
 /* ==================================================
    KARTZ
@@ -785,7 +776,15 @@
 .home-dashboard.is-loading .metric-row strong,
 .home-dashboard.is-loading .change-value,
 .home-dashboard.is-loading .server-change strong,
-.home-dashboard.is-loading .server-grade-header strong {
+.home-dashboard.is-loading .server-grade-header strong,
+.home-dashboard.is-investigated-loading .dashboard-kpi-grid > :nth-child(2) .kpi-value,
+.home-dashboard.is-investigated-loading .dashboard-kpi-grid > :nth-child(3) .kpi-value,
+.home-dashboard.is-investigated-loading .dashboard-kpi-grid > :nth-child(4) .kpi-value,
+.home-dashboard.is-investigated-loading .activity-progress-header > span,
+.home-dashboard.is-investigated-loading .power-card strong,
+.home-dashboard.is-investigated-loading .metric-row strong,
+.home-dashboard.is-investigated-loading .metric-row small,
+.home-dashboard.is-investigated-loading .server-grade-header strong {
     display: inline-block;
     min-width: 3.5rem;
     color: transparent !important;
@@ -801,7 +800,9 @@
 }
 
 .home-dashboard.is-loading .activity-progress-bar,
-.home-dashboard.is-loading .grade-progress-bar {
+.home-dashboard.is-loading .grade-progress-bar,
+.home-dashboard.is-investigated-loading .activity-progress-bar,
+.home-dashboard.is-investigated-loading .grade-progress-bar {
     width: 0 !important;
 }
 
@@ -822,7 +823,15 @@
     .home-dashboard.is-loading .metric-row strong,
     .home-dashboard.is-loading .change-value,
     .home-dashboard.is-loading .server-change strong,
-    .home-dashboard.is-loading .server-grade-header strong {
+    .home-dashboard.is-loading .server-grade-header strong,
+    .home-dashboard.is-investigated-loading .dashboard-kpi-grid > :nth-child(2) .kpi-value,
+    .home-dashboard.is-investigated-loading .dashboard-kpi-grid > :nth-child(3) .kpi-value,
+    .home-dashboard.is-investigated-loading .dashboard-kpi-grid > :nth-child(4) .kpi-value,
+    .home-dashboard.is-investigated-loading .activity-progress-header > span,
+    .home-dashboard.is-investigated-loading .power-card strong,
+    .home-dashboard.is-investigated-loading .metric-row strong,
+    .home-dashboard.is-investigated-loading .metric-row small,
+    .home-dashboard.is-investigated-loading .server-grade-header strong {
         animation: none;
     }
 }
