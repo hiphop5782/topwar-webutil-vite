@@ -26,6 +26,7 @@ function Home() {
     const [statistics, setStatistics] = useState(EMPTY_STATISTICS);
     const [statisticsState, setStatisticsState] = useState("loading");
     const [investigatedPlayerCount, setInvestigatedPlayerCount] = useState(null);
+    const [playerCountState, setPlayerCountState] = useState("loading");
 
     useLayoutEffect(() => {
         document.documentElement.dataset.homeStatisticsReady = "false";
@@ -39,9 +40,15 @@ function Home() {
         let mounted = true;
         loadInvestigatedPlayerCount()
             .then(count => {
-                if (mounted) setInvestigatedPlayerCount(count);
+                if (mounted) {
+                    setInvestigatedPlayerCount(count);
+                    setPlayerCountState("success");
+                }
             })
-            .catch(error => console.error("Failed to count investigated players", error));
+            .catch(error => {
+                console.error("Failed to count investigated players", error);
+                if (mounted) setPlayerCountState("error");
+            });
         return () => { mounted = false; };
     }, []);
 
@@ -345,9 +352,17 @@ function Home() {
 
 
                     <KpiCard
-                        to="/information/data"
+                        to="/information/data/player-detail"
                         title={t("home.kpi.player.title")}
-                        value={investigatedPlayerCount === null ? "…" : formatNumber(investigatedPlayerCount)}
+                        value={playerCountState === "loading" ? (
+                            <span
+                                className="spinner-border kpi-loading-spinner"
+                                role="status"
+                                aria-label="Loading"
+                            />
+                        ) : playerCountState === "success"
+                            ? formatNumber(investigatedPlayerCount)
+                            : "-"}
                         description={
                             t("home.kpi.player.description")
                         }
