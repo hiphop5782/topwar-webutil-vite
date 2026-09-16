@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 
 import ResearchHub from './post/ResearchHub';
 import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
-import { loadHomeStatistics } from "@src/services/topwarDataRepository";
+import { loadHomeStatistics, loadInvestigatedPlayerCount } from "@src/services/topwarDataRepository";
 
 import "./Home.css";
 import SEO from "../template/SEO";
@@ -25,6 +25,7 @@ function Home() {
     const { t, i18n } = useTranslation("viewer");
     const [statistics, setStatistics] = useState(EMPTY_STATISTICS);
     const [statisticsState, setStatisticsState] = useState("loading");
+    const [investigatedPlayerCount, setInvestigatedPlayerCount] = useState(null);
 
     useLayoutEffect(() => {
         document.documentElement.dataset.homeStatisticsReady = "false";
@@ -32,6 +33,16 @@ function Home() {
         return () => {
             delete document.documentElement.dataset.homeStatisticsReady;
         };
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+        loadInvestigatedPlayerCount()
+            .then(count => {
+                if (mounted) setInvestigatedPlayerCount(count);
+            })
+            .catch(error => console.error("Failed to count investigated players", error));
+        return () => { mounted = false; };
     }, []);
 
     useEffect(() => {
@@ -336,7 +347,7 @@ function Home() {
                     <KpiCard
                         to="/information/data"
                         title={t("home.kpi.player.title")}
-                        value={formatNumber(player.tracked)}
+                        value={investigatedPlayerCount === null ? "…" : formatNumber(investigatedPlayerCount)}
                         description={
                             t("home.kpi.player.description")
                         }

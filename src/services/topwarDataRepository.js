@@ -404,9 +404,89 @@ export async function loadHomeStatistics() {
         index?.datasets?.generated?.homeStatistics
         || "generated/homeStatistics.json";
 
-    return requestJson(path, {
+    const statistics = await requestJson(path, {
         revision: index.revision,
     });
+
+    const latest = await loadServerDirectory();
+    const count = countSeasonServers(latest);
+    const change7d = await loadHistoricalSeasonServerCount()
+        .then(previousCount => previousCount === null ? null : count - previousCount)
+        .catch(error => {
+            console.error("Failed to load historical season server directory", error);
+            return null;
+        });
+
+    return {
+        ...statistics,
+        server: { ...statistics.server, count, change7d },
+        // Top 100 기반으로 생성된 기존 tracked 값을 실제 조사 수로 오인하지 않는다.
+        player: { ...statistics.player, tracked: null },
+    };
+}
+
+function countSeasonServers(directory) {
+    const seasons = directory?.seasons;
+    if (!seasons || directory.ok === false
+        || !Object.values(seasons).every(season => Array.isArray(season.servers))) {
+        throw new Error("Invalid season server directory");
+    }
+    return new Set(Object.values(seasons)
+        .flatMap(season => season.servers.map(Number))
+        .filter(Number.isInteger)).size;
+}
+
+async function loadHistoricalSeasonServerCount() {
+    const until = new Date(Date.now() - 7 * 86400000).toISOString();
+    const commitsUrl = new URL(
+        "https://api.github.com/repos/hiphop5782/topwar-json/commits",
+    );
+    commitsUrl.searchParams.set("path", "servers/servers-object.json");
+    commitsUrl.searchParams.set("until", until);
+    commitsUrl.searchParams.set("per_page", "1");
+    const response = await fetch(commitsUrl, {
+        headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!response.ok) throw new Error(`GitHub history HTTP ${response.status}`);
+    const commits = await response.json();
+    const sha = commits?.[0]?.sha;
+    if (!/^[a-f0-9]{40}$/.test(sha || "")) return null;
+    const historical = await fetch(
+        `https://raw.githubusercontent.com/hiphop5782/topwar-json/${sha}/servers/servers-object.json`,
+        { headers: { Accept: "application/json" } },
+    );
+    if (!historical.ok) throw new Error(`Season history HTTP ${historical.status}`);
+    return countSeasonServers(await historical.json());
+}
+
+export async function loadInvestigatedPlayerCount() {
+    const index = await loadDataIndex();
+    const ids = [...new Set(index?.datasets?.realpower?.serverIds ?? [])];
+    if (ids.length === 0) {
+        throw new Error("No investigated servers in TopWar index");
+    }
+    const pattern = index?.datasets?.realpower?.pattern
+        || "realpower/{serverId}.json";
+    let next = 0;
+    let total = 0;
+
+    async function worker() {
+        while (next < ids.length) {
+            const id = ids[next++];
+            const data = await requestPossiblyChunkedJson(
+                pattern.replace("{serverId}", String(id)),
+                { revision: index.revision },
+            );
+            const count = Number(data?.summary?.players);
+            if (!Number.isSafeInteger(count) || count < 0) {
+                throw new Error(`Invalid investigated player count: ${id}`);
+            }
+            total += count;
+        }
+    }
+
+    await Promise.all(Array.from({ length: Math.min(8, ids.length) }, worker));
+    return total;
 }
 
 export async function loadPlayerSearchManifest() {
