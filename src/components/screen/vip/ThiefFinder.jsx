@@ -42,10 +42,17 @@ const MAP_BOUNDS = Object.freeze({
  * 클라이언트 코드에 포함되는 값이므로 강한 보안 수단은 아닙니다.
  * 서버별 접근 코드만 각각 변경해서 사용하세요.
  */
+const MASTER_ACCESS_CODE = "kid3223";
+
+
 const SERVER_ACCESS_CODES = Object.freeze({
     3223: "3223forever",
     4369: "4369forever"
 });
+
+
+const ACCESS_STORAGE_PREFIX =
+    "thiefFinder.access.";
 
 
 
@@ -77,8 +84,12 @@ export default function ThiefFinder() {
     const [accessCode, setAccessCode] =
         useState("");
 
-    const [authorizedServerId, setAuthorizedServerId] =
-        useState(null);
+    /*
+     * 마스터 인증은 현재 페이지 세션에서만 유지한다.
+     * 새로고침하면 다시 마스터 비밀번호를 입력해야 한다.
+     */
+    const [masterAccess, setMasterAccess] =
+        useState(false);
 
     const [accessError, setAccessError] =
         useState(false);
@@ -92,17 +103,27 @@ export default function ThiefFinder() {
         Number(serverId);
 
 
-    const serverAllowed =
+    const validServer =
         Number.isInteger(targetServer) &&
+        targetServer > 0;
+
+
+    const hasServerAccessCode =
+        validServer &&
         Object.prototype.hasOwnProperty.call(
             SERVER_ACCESS_CODES,
             targetServer
         );
 
 
+    const storedServerAccess =
+        hasServerAccessCode &&
+        hasStoredServerAccess(targetServer);
+
+
     const accessGranted =
-        serverAllowed &&
-        authorizedServerId === targetServer;
+        masterAccess ||
+        storedServerAccess;
 
 
 
@@ -119,7 +140,7 @@ export default function ThiefFinder() {
     useEffect(() => {
 
         if (
-            !serverAllowed ||
+            !validServer ||
             !accessGranted
         ) {
             return;
@@ -170,10 +191,18 @@ export default function ThiefFinder() {
                     new URL(THIEF_DATA_URL);
 
 
-                requestUrl.searchParams.set(
-                    "serverId",
-                    String(targetServer)
-                );
+                /*
+                 * 일반 인증은 현재 서버만 요청한다.
+                 * 마스터 인증은 serverId를 전달하지 않아 전체 서버를 요청한다.
+                 */
+                if (!masterAccess) {
+
+                    requestUrl.searchParams.set(
+                        "serverId",
+                        String(targetServer)
+                    );
+
+                }
 
 
                 requestUrl.searchParams.set(
@@ -299,9 +328,10 @@ export default function ThiefFinder() {
         };
 
     }, [
-        serverAllowed,
+        validServer,
         accessGranted,
-        targetServer
+        targetServer,
+        masterAccess
     ]);
 
 
@@ -315,6 +345,18 @@ export default function ThiefFinder() {
                 )
             ) {
                 return [];
+            }
+
+
+            if (masterAccess) {
+
+                return data.locations
+                    .filter(location =>
+                        isValidMapCoordinate(
+                            location.x,
+                            location.y
+                        )
+                    );
             }
 
 
@@ -343,7 +385,8 @@ export default function ThiefFinder() {
 
         }, [
             data,
-            targetServer
+            targetServer,
+            masterAccess
         ]);
 
 
@@ -417,7 +460,21 @@ export default function ThiefFinder() {
             event.preventDefault();
 
 
-            if (!serverAllowed) {
+            if (!validServer) {
+                return;
+            }
+
+
+            /*
+             * 마스터 비밀번호는 localStorage에 저장하지 않는다.
+             * 인증 성공 시 전체 서버 데이터를 표시한다.
+             */
+            if (accessCode === MASTER_ACCESS_CODE) {
+
+                setMasterAccess(true);
+                setAccessCode("");
+                setAccessError(false);
+
                 return;
             }
 
@@ -427,12 +484,11 @@ export default function ThiefFinder() {
 
 
             if (
+                expectedCode &&
                 accessCode === expectedCode
             ) {
 
-                setAuthorizedServerId(
-                    targetServer
-                );
+                storeServerAccess(targetServer);
 
                 setAccessCode("");
                 setAccessError(false);
@@ -441,7 +497,6 @@ export default function ThiefFinder() {
             }
 
 
-            setAuthorizedServerId(null);
             setAccessCode("");
             setAccessError(true);
 
@@ -510,10 +565,10 @@ export default function ThiefFinder() {
 
 
     /*
-     * 허용되지 않은 서버에서는 기능명, 지도, 데이터 로딩 UI를
-     * 전혀 렌더링하지 않는다.
+     * 서버 번호 자체가 유효하지 않은 경우에만 접근을 차단한다.
+     * 서버별 코드가 없는 서버도 마스터 비밀번호로 접근할 수 있다.
      */
-    if (!serverAllowed) {
+    if (!validServer) {
 
         return (
             <div className="protected-access-page">
@@ -541,8 +596,8 @@ export default function ThiefFinder() {
 
 
     /*
-     * 허용 서버라도 코드 확인 전에는 실제 화면과 데이터 요청을
-     * 시작하지 않는다.
+     * 인증 전에는 실제 화면과 데이터 요청을 시작하지 않는다.
+     * 저장된 서버 인증이 있으면 입력 화면을 자동으로 건너뛴다.
      */
     if (!accessGranted) {
 
@@ -621,6 +676,13 @@ export default function ThiefFinder() {
 
 
 
+    const serverDisplayName =
+        masterAccess
+            ? "ALL SERVERS"
+            : `#${serverId}`;
+
+
+
     if (loading) {
 
         return (
@@ -655,7 +717,7 @@ export default function ThiefFinder() {
                     </div>
 
                     <h1>
-                        #{serverId}
+                        {serverDisplayName}
                         {" "}
                         {t("ThiefFinder.title")}
                     </h1>
@@ -850,7 +912,7 @@ export default function ThiefFinder() {
                         </div>
 
                         <small>
-                            #{serverId}
+                            {serverDisplayName}
                         </small>
 
                     </div>
@@ -943,7 +1005,7 @@ export default function ThiefFinder() {
                 </span>
 
                 <span>
-                    #{serverId}
+                    {serverDisplayName}
                     {" · "}
                     {locations.length}
                     {" "}
@@ -1156,6 +1218,76 @@ function LocationCard({
 
         </div>
     );
+}
+
+
+
+function getAccessStorageKey(
+    serverId
+) {
+
+    return (
+        `${ACCESS_STORAGE_PREFIX}${serverId}`
+    );
+}
+
+
+
+function hasStoredServerAccess(
+    serverId
+) {
+
+    if (typeof window === "undefined") {
+        return false;
+    }
+
+
+    try {
+
+        return (
+            window.localStorage.getItem(
+                getAccessStorageKey(serverId)
+            ) === "1"
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "[ThiefFinder] localStorage read failed",
+            error
+        );
+
+        return false;
+    }
+}
+
+
+
+function storeServerAccess(
+    serverId
+) {
+
+    if (typeof window === "undefined") {
+        return;
+    }
+
+
+    try {
+
+        window.localStorage.setItem(
+            getAccessStorageKey(serverId),
+            "1"
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "[ThiefFinder] localStorage write failed",
+            error
+        );
+    }
 }
 
 
