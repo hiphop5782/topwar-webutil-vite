@@ -81,7 +81,7 @@ export const useFirebase = () => {
         });
     }, []);
 
-    const castVote = async (voteId, choiceNo, userInfo) => {
+    const castVote = async (voteId, choiceNo, userInfo, onError) => {
         const voteRef = doc(db, "votes", voteId);
 
         try {
@@ -150,7 +150,8 @@ export const useFirebase = () => {
             });
             return true;
         } catch (error) {
-            alert(error);
+            if (onError) onError(error);
+            else alert(error);
             return false;
         }
     };

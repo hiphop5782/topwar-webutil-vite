@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFirebase } from "@src/hooks/useFirebase";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import { FaVoteYea } from "react-icons/fa";
 import { FaGear, FaUsers, FaXmark } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { translateTexts, translationLanguages as languages, voteText } from "./voteTranslation";
+import koreanViewer from "@src/locales/ko/viewer.json";
 import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
@@ -23,54 +24,66 @@ function getChoicePlayers(choice) {
 }
 
 export default function AttendanceVoteReader() {
-    const { t } = useTranslation("viewer"); 
+    const { t: baseT } = useTranslation("viewer");
+    const [translation, setTranslation] = useState(null);
+    const t = (key) => translation?.texts[key] ?? baseT(key);
+    const extraText = {
+        manage: "이 투표 관리 페이지로 이동", voters: "투표한 사람 명단", people: "명",
+        empty: "아직 투표한 사람이 없습니다.", mine: "내 투표", morale: "기합", urgent: "응시",
+        original: "원문 보기", failed: "번역하지 못했습니다. 잠시 후 다시 시도해주세요.",
+        notFound: "투표가 존재하지 않습니다.", closed: "관리자에 의해 마감이 완료된 투표입니다.",
+        expired: "투표 기간이 종료되었습니다.", duplicate: "이미 해당 항목에 투표하셨습니다.",
+        full: "선택한 항목의 정원이 가득 찼습니다.", voteFailed: "투표 처리 중 오류가 발생했습니다. 다시 시도해주세요.",
+    };
+    const label = (key) => translation?.texts[`ui.${key}`] ?? extraText[key];
     const { voteId } = useParams();
 
     const [uuid, setUuid] = useState(voteId);
     const [vote, setVote] = useState(null);
-    const [voteTranslated, setVoteTranslated] = useState(null);
+    const requestRef = useRef(null);
+    const sourceRef = useRef("");
+    const [reload, setReload] = useState(0);
+    const source = voteText(vote);
+    const voteTranslated = useMemo(() => {
+        if (!vote) return null;
+        if (translation?.source !== voteText(vote)) return vote;
+        return { ...vote, title: translation.texts["vote.title"], choices: vote.choices.map((choice, index) => ({
+            ...choice, content: translation.texts[`vote.choice.${index}`],
+        })) };
+    }, [vote, translation]);
 
     const { getVote, castVote } = useFirebase();
 
     const [translateLoading, setTranslateLoading] = useState(false);
 
-    useEffect(()=>{
-        if(uuid) {
-            loadVote();
-        }
-    }, [uuid]);
-
-    const loadVote = useCallback(() => {
-        getVote(uuid, (data) => {
-            if (data === null) {
-                toast.error(t("AttendanceVoteReader.title"));
+    useEffect(() => {
+        requestRef.current?.abort();
+        requestRef.current = null;
+        setTranslateLoading(false);
+        setTranslation(null);
+        setVote(null);
+        setChoiceNo(null);
+        sourceRef.current = "";
+        const unsubscribe = uuid ? getVote(uuid, (data) => {
+            const nextSource = voteText(data);
+            if (nextSource !== sourceRef.current) {
+                requestRef.current?.abort();
+                requestRef.current = null;
+                setTranslateLoading(false);
+                setTranslation(null);
+                setChoiceNo(null);
+                sourceRef.current = nextSource;
             }
-            // 1. 원본 데이터는 항상 최신으로 유지
             setVote(data);
-
-            // 2. 번역된 상태(voteTranslated) 업데이트 로직
-            setVoteTranslated(prev => {
-                // 만약 처음 불러오는 거라면(null) 그냥 원본 데이터를 넣음
-                if (!prev) return data;
-
-                // 이미 번역된 데이터가 있다면? 
-                // 텍스트(title, content)는 유지하고 숫자(currentCount, players)만 업데이트함
-                return {
-                    ...prev, // 이전 상태(번역된 텍스트 포함) 유지
-                    closed: data.closed, // 마감 여부는 최신화
-                    choices: prev.choices.map((choice, index) => {
-                        // Firebase에서 온 같은 순서의 최신 선택지 데이터 찾기
-                        const latestChoice = data.choices[index];
-                        return {
-                            ...choice, // 번역된 텍스트(content) 유지
-                            currentCount: latestChoice.currentCount, // 최신 투표수 업데이트
-                            players: latestChoice.players, // 실시간 참여자 목록 업데이트
-                        };
-                    })
-                };
-            });
-        });
-    }, [uuid, getVote]);
+            if (!data) toast.error(baseT("AttendanceVoteReader.message-notfound"));
+        }) : undefined;
+        return () => {
+            unsubscribe?.();
+            requestRef.current?.abort();
+            requestRef.current = null;
+        };
+    }, [uuid, reload, getVote, baseT]);
+    const loadVote = () => setReload(value => value + 1);
 
     const [choiceNo, setChoiceNo] = useState(null);
 
@@ -93,13 +106,13 @@ export default function AttendanceVoteReader() {
                 )
             } : {})
         }))
-    }, []);
+    }, [setUserInfo]);
     const changeUserNumberInfo = useCallback(e => {
         const { name, value } = e.target;
         const replacement = value.replace(/[^0-9]/g, "");
         const number = replacement.length === 0 ? "" : parseInt(replacement);
         setUserInfo(prev => ({ ...prev, [name]: number }))
-    }, []);
+    }, [setUserInfo]);
 
     const writeUserInfoComplete = useMemo(() => {
         if (userInfo.nickname.trim().length === 0) return false;
@@ -107,14 +120,17 @@ export default function AttendanceVoteReader() {
         return true;
     }, [userInfo]);
 
-    const submitVote = useCallback(async () => {
-        if (writeUserInfoComplete === false) return toast.error("내 정보를 모두 작성해야 투표가 가능합니다!");
+    const submitVote = async () => {
+        if (writeUserInfoComplete === false) return toast.error(t("AttendanceVoteReader.message-require-info"));
 
-        const success = await castVote(uuid, choiceNo, userInfo);
+        const success = await castVote(uuid, choiceNo, userInfo, (error) => {
+            const key = Object.keys(extraText).find(key => extraText[key] === error);
+            toast.error(label(key ?? "voteFailed"));
+        });
         if (success) {
-            toast.success("투표가 완료되었습니다!");
+            toast.success(t("AttendanceVoteReader.message-complete"));
         }
-    }, [uuid, userInfo, writeUserInfoComplete, choiceNo]);
+    };
 
     // 투표 마감 상태 계산
     const isVoteExpired = useMemo(() => {
@@ -126,48 +142,31 @@ export default function AttendanceVoteReader() {
         return false;
     }, [vote]);
 
-    const [languages, setLanguages] = useState([]);
-    useEffect(() => {
-        if (vote == null) return;
-        loadTranslationLanguages();
-    }, [vote]);
-    const loadTranslationLanguages = useCallback(async () => {
-        const { data } = await axios.get("https://script.google.com/macros/s/AKfycbwXtgjDeK8fKh9z8FhnCglgyKU_5rJuxaC5vTAKklfOdLVd9_KOhYWuD4eCnop2vAPgfg/exec?action=languages");
-        setLanguages(data);
-    }, []);
-
-    const translateVote = useCallback(async (language) => {
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXtgjDeK8fKh9z8FhnCglgyKU_5rJuxaC5vTAKklfOdLVd9_KOhYWuD4eCnop2vAPgfg/exec";
+    const translateVote = async (language) => {
+        if (!vote) return;
+        requestRef.current?.abort();
+        const controller = new AbortController();
+        requestRef.current = controller;
         setTranslateLoading(true);
+        const texts = {
+            ...Object.fromEntries(Object.entries(koreanViewer.AttendanceVoteReader).map(([key, value]) => [`AttendanceVoteReader.${key}`, value])),
+            ...Object.fromEntries(Object.entries(extraText).map(([key, value]) => [`ui.${key}`, value])),
+            "vote.title": vote.title ?? "",
+            ...Object.fromEntries(vote.choices.map((choice, index) => [`vote.choice.${index}`, choice.content ?? ""])),
+        };
+        const timeout = setTimeout(() => controller.abort(), 120000);
         try {
-            const response = await fetch(SCRIPT_URL, {
-                method: "POST",
-                // CORS 에러 방지를 위해 헤더 생략 혹은 단순 텍스트 전송 방식을 선호함
-                body: JSON.stringify({
-                    action: "translate_all",
-                    target: language.code,
-                    data: vote
-                })
-            });
-
-            const result = await response.json();
-
-            if (result.error) {
-                console.error("서버 에러:", result.error);
-                return;
+            const translated = await translateTexts(texts, language, controller.signal);
+            if (!controller.signal.aborted && sourceRef.current === source) {
+                setTranslation({ source, language: language.code, texts: translated });
             }
-
-            // 결과 데이터를 투표 상태값에 반영
-            setVoteTranslated(result);
-            //console.log("번역 완료:", result);
-
-        } catch (error) {
-            console.error("네트워크/CORS 에러:", error);
+        } catch {
+            if (requestRef.current === controller && sourceRef.current === source) toast.error(label("failed"));
+        } finally {
+            clearTimeout(timeout);
+            if (requestRef.current === controller) setTranslateLoading(false);
         }
-        finally {
-            setTranslateLoading(false);
-        }
-    }, [vote]);
+    };
 
     const totalCount = useMemo(()=>{
         if(vote === null) return 0;
@@ -201,7 +200,7 @@ export default function AttendanceVoteReader() {
                         to={`/vote/manage/${encodeURIComponent(String(uuid).trim())}`}
                     >
                         <FaGear />
-                        <span>이 투표 관리 페이지로 이동</span>
+                        <span>{label("manage")}</span>
                     </LanguageRouterLink>
                 </div>
             </div>
@@ -246,6 +245,31 @@ export default function AttendanceVoteReader() {
             </div>
         </div>
 
+        {vote && (<>
+                <div className="row mt-4">
+                    <div className="col d-flex flex-wrap align-items-center gap-2">
+                        <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => {
+                            requestRef.current?.abort();
+                            requestRef.current = null;
+                            setTranslateLoading(false);
+                            setTranslation(null);
+                        }}>{label("original")}</button>
+                        {languages.length === 0 ? (
+                            <span className="shimmer-text">{t("AttendanceVoteReader.message-language-search")}<span className="dots"></span></span>
+                        ) : (<>
+                            {languages.map(language => (
+                                <button type="button" key={language.code} className="btn btn-sm btn-outline-secondary"
+                                    title={language.name} aria-label={language.name} aria-pressed={translation?.language === language.code}
+                                    disabled={translateLoading} onClick={() => translateVote(language)}>
+                                    <FlagWithTooltip lang={language} selected={translation?.language === language.code} />
+                                    <span className="ms-1">{language.name}</span>
+                                </button>
+                            ))}
+                        </>)}
+                    </div>
+                </div>
+        </>)}
+
         {isVoteExpired ? (<>
             <hr />
             <div className="row mt-4">
@@ -256,17 +280,6 @@ export default function AttendanceVoteReader() {
         </>) : (<>
             {voteTranslated !== null && (<>
                 <hr />
-                <div className="row mt-4">
-                    <div className="col d-flex gap-1">
-                        {languages.length === 0 ? (
-                            <span className="shimmer-text">{t("AttendanceVoteReader.message-language-search")}<span className="dots"></span></span>
-                        ) : (<>
-                            {languages.map(language => (
-                                <FlagWithTooltip key={language.name} lang={language} onClick={() => translateVote(language)} />
-                            ))}
-                        </>)}
-                    </div>
-                </div>
                 <div className="row mt-4">
                     <div className="col">
                         <h3>
@@ -314,15 +327,15 @@ export default function AttendanceVoteReader() {
                                         {isMyChoice && (
                                         <span className="badge bg-danger text-light ms-4 glow-effect">
                                             <FaVoteYea className="me-2" />
-                                            <span>{t("AttendanceVoteReader.message-mychoice")}</span> 
+                                            <span>{t("AttendanceVoteReader.message-mychoice")}</span>
                                         </span>
                                         )}
                                     </div>
                                     <div className="position-absolute" style={
                                         {
-                                            top:"90%", left:0, bottom:0, right:0, zIndex:0, 
+                                            top:"90%", left:0, bottom:0, right:0, zIndex:0,
                                             background: "linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%)",
-                                            width:`${choice.currentCount * 100 / totalCount}%`
+                                            width:`${totalCount ? choice.currentCount * 100 / totalCount : 0}%`
                                         }
                                     }></div>
                                 </li>
@@ -349,8 +362,8 @@ export default function AttendanceVoteReader() {
                 <section className="attendance-voters mt-3" aria-labelledby="attendance-voters-title">
                     <h4 id="attendance-voters-title" className="attendance-voters-title">
                         <FaUsers />
-                        <span>투표한 사람 명단</span>
-                        <span className="badge rounded-pill bg-secondary">{totalCount}명</span>
+                        <span>{label("voters")}</span>
+                        <span className="badge rounded-pill bg-secondary">{totalCount} {label("people")}</span>
                     </h4>
                     <div className="attendance-voter-groups">
                         {voteTranslated.choices.map((choice) => {
@@ -363,10 +376,10 @@ export default function AttendanceVoteReader() {
                                 <details className="attendance-voter-group" key={choice.no}>
                                     <summary>
                                         <span>{choice.content}</span>
-                                        <strong>{players.length}명</strong>
+                                        <strong>{players.length} {label("people")}</strong>
                                     </summary>
                                     {players.length === 0 ? (
-                                        <p className="attendance-voter-empty">아직 투표한 사람이 없습니다.</p>
+                                        <p className="attendance-voter-empty">{label("empty")}</p>
                                     ) : (
                                         <ul className="attendance-voter-list">
                                             {players.map((player, playerIndex) => (
@@ -383,14 +396,14 @@ export default function AttendanceVoteReader() {
                                                         <span>{player.nickname}</span>
                                                         {String(player.nickname ?? "").trim()
                                                             === String(userInfo.nickname ?? "").trim() && (
-                                                            <span className="badge rounded-pill bg-danger">내 투표</span>
+                                                            <span className="badge rounded-pill bg-danger">{label("mine")}</span>
                                                         )}
                                                     </strong>
                                                     <span className={`badge rounded-pill ${player.job === "CE" ? "bg-primary" : "bg-success"}`}>
                                                         {player.job || "-"}
                                                     </span>
                                                     <span>{Number(player.cp ?? 0).toLocaleString()}M</span>
-                                                    <span>{player.job === "CE" ? "기합" : "응시"} {player.skill ?? "-"}</span>
+                                                    <span>{player.job === "CE" ? label("morale") : label("urgent")} {player.skill ?? "-"}</span>
                                                 </li>
                                             ))}
                                         </ul>
