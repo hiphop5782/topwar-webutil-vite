@@ -94,6 +94,13 @@ export default function ThiefFinder() {
     const [accessError, setAccessError] =
         useState(false);
 
+    /*
+     * ALL SERVERS 모드에서 선택한 서버 필터.
+     * null이면 모든 서버를 표시한다.
+     */
+    const [selectedServerFilter, setSelectedServerFilter] =
+        useState(null);
+
 
     const locationCardRefs =
         useRef(new Map());
@@ -132,6 +139,7 @@ export default function ThiefFinder() {
         setAccessCode("");
         setAccessError(false);
         setSelectedKey(null);
+        setSelectedServerFilter(null);
 
     }, [serverId]);
 
@@ -336,7 +344,7 @@ export default function ThiefFinder() {
 
 
 
-    const locations =
+    const allValidLocations =
         useMemo(() => {
 
             if (
@@ -348,14 +356,85 @@ export default function ThiefFinder() {
             }
 
 
+            return data.locations
+                .filter(location =>
+                    Number.isFinite(
+                        Number(location.serverId)
+                    )
+                )
+                .filter(location =>
+                    isValidMapCoordinate(
+                        location.x,
+                        location.y
+                    )
+                );
+
+        }, [data]);
+
+
+
+    const serverSummaries =
+        useMemo(() => {
+
+            if (!masterAccess) {
+                return [];
+            }
+
+
+            const counts =
+                new Map();
+
+
+            allValidLocations.forEach(location => {
+
+                const locationServerId =
+                    Number(location.serverId);
+
+
+                if (!Number.isFinite(locationServerId)) {
+                    return;
+                }
+
+
+                counts.set(
+                    locationServerId,
+                    (counts.get(locationServerId) ?? 0) + 1
+                );
+
+            });
+
+
+            return Array.from(
+                counts.entries()
+            )
+                .sort(([a], [b]) => a - b)
+                .map(([serverId, count]) => ({
+                    serverId,
+                    count,
+                    color: getServerColor(serverId)
+                }));
+
+        }, [
+            masterAccess,
+            allValidLocations
+        ]);
+
+
+
+    const locations =
+        useMemo(() => {
+
             if (masterAccess) {
 
-                return data.locations
+                if (selectedServerFilter == null) {
+                    return allValidLocations;
+                }
+
+
+                return allValidLocations
                     .filter(location =>
-                        isValidMapCoordinate(
-                            location.x,
-                            location.y
-                        )
+                        Number(location.serverId) ===
+                        selectedServerFilter
                     );
             }
 
@@ -369,24 +448,19 @@ export default function ThiefFinder() {
             }
 
 
-            return data.locations
+            return allValidLocations
                 .filter(location =>
                     Number(
                         location.serverId
                     ) ===
                     targetServer
-                )
-                .filter(location =>
-                    isValidMapCoordinate(
-                        location.x,
-                        location.y
-                    )
                 );
 
         }, [
-            data,
+            allValidLocations,
             targetServer,
-            masterAccess
+            masterAccess,
+            selectedServerFilter
         ]);
 
 
@@ -678,7 +752,11 @@ export default function ThiefFinder() {
 
     const serverDisplayName =
         masterAccess
-            ? "ALL SERVERS"
+            ? (
+                selectedServerFilter == null
+                    ? "ALL SERVERS"
+                    : `#${selectedServerFilter}`
+            )
             : `#${serverId}`;
 
 
@@ -763,6 +841,89 @@ export default function ThiefFinder() {
             </div>
 
 
+            {masterAccess && (
+
+                <div
+                    className="thief-server-filter-bar"
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        overflowX: "auto",
+                        padding: "10px 2px 14px",
+                        marginBottom: "6px",
+                        scrollbarWidth: "thin"
+                    }}
+                >
+
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSelectedServerFilter(null);
+                            setSelectedKey(null);
+                        }}
+                        style={
+                            getServerFilterButtonStyle(
+                                selectedServerFilter == null,
+                                null
+                            )
+                        }
+                    >
+                        <span>ALL</span>
+                        <strong>{allValidLocations.length}</strong>
+                    </button>
+
+
+                    {serverSummaries.map(summary => (
+
+                        <button
+                            key={summary.serverId}
+                            type="button"
+                            onClick={() => {
+                                setSelectedServerFilter(
+                                    summary.serverId
+                                );
+                                setSelectedKey(null);
+                            }}
+                            style={
+                                getServerFilterButtonStyle(
+                                    selectedServerFilter ===
+                                        summary.serverId,
+                                    summary.color
+                                )
+                            }
+                        >
+
+                            <span
+                                aria-hidden="true"
+                                style={{
+                                    width: "10px",
+                                    height: "10px",
+                                    flex: "0 0 auto",
+                                    borderRadius: "50%",
+                                    background: summary.color,
+                                    boxShadow:
+                                        `0 0 0 1px ${summary.color}`
+                                }}
+                            />
+
+                            <span>
+                                #{summary.serverId}
+                            </span>
+
+                            <strong>
+                                {summary.count}
+                            </strong>
+
+                        </button>
+
+                    ))}
+
+                </div>
+
+            )}
+
+
             <div className="thief-content-layout">
 
                 <div className="thief-map-scroll">
@@ -806,6 +967,14 @@ export default function ThiefFinder() {
                                         );
 
 
+                                    const markerColor =
+                                        masterAccess
+                                            ? getServerColor(
+                                                location.serverId
+                                            )
+                                            : null;
+
+
                                     return (
                                         <button
                                             key={key}
@@ -821,10 +990,17 @@ export default function ThiefFinder() {
                                                 left:
                                                     `${position.left}%`,
                                                 top:
-                                                    `${position.top}%`
+                                                    `${position.top}%`,
+                                                opacity:
+                                                    masterAccess &&
+                                                    selectedKey !== key
+                                                        ? 0.78
+                                                        : 1
                                             }}
                                             title={
-                                                `${location.x}:${location.y}`
+                                                masterAccess
+                                                    ? `#${location.serverId} · ${location.x}:${location.y}`
+                                                    : `${location.x}:${location.y}`
                                             }
                                             onClick={() =>
                                                 handleMarkerClick(
@@ -848,6 +1024,13 @@ export default function ThiefFinder() {
                                                             C12 22 20 15.5 20 10
                                                             C20 5.6 16.4 2 12 2Z
                                                         "
+                                                        style={
+                                                            markerColor
+                                                                ? {
+                                                                    fill: markerColor
+                                                                }
+                                                                : undefined
+                                                        }
                                                     />
 
                                                     <circle
@@ -1288,6 +1471,78 @@ function storeServerAccess(
             error
         );
     }
+}
+
+
+
+/*
+ * 서버 번호로부터 항상 같은 색상을 만든다.
+ * 서버가 추가되어도 별도의 색상 테이블을 관리할 필요가 없다.
+ */
+function getServerColor(
+    serverId
+) {
+
+    const numericServerId =
+        Number(serverId);
+
+    const seed =
+        Number.isFinite(numericServerId)
+            ? numericServerId
+            : 0;
+
+    const hue =
+        ((seed * 137.508) % 360 + 360) % 360;
+
+
+    return (
+        `hsl(${hue.toFixed(1)}, 78%, 52%)`
+    );
+}
+
+
+
+function getServerFilterButtonStyle(
+    active,
+    serverColor
+) {
+
+    const borderColor =
+        serverColor ??
+        "rgba(127, 127, 127, 0.75)";
+
+
+    return {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "6px",
+        flex: "0 0 auto",
+        minHeight: "34px",
+        padding: "6px 10px",
+        borderRadius: "999px",
+        border:
+            active
+                ? `2px solid ${borderColor}`
+                : "1px solid rgba(127, 127, 127, 0.35)",
+        background:
+            active
+                ? "rgba(127, 127, 127, 0.18)"
+                : "rgba(127, 127, 127, 0.06)",
+        color: "inherit",
+        fontSize: "0.82rem",
+        lineHeight: 1,
+        fontWeight:
+            active
+                ? 700
+                : 500,
+        cursor: "pointer",
+        whiteSpace: "nowrap",
+        boxShadow:
+            active && serverColor
+                ? `0 0 0 1px ${serverColor}`
+                : "none"
+    };
 }
 
 
