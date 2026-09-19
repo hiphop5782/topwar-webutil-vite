@@ -184,11 +184,13 @@
   color: var(--bs-secondary-color);
   line-height: 1.65;
   white-space: nowrap;
+  opacity: 0.3;
 }
 
 .attendance-roster-name.has-voted {
   color: var(--choice-color);
   font-weight: 800;
+  opacity: 1;
 }
 
 .attendance-vote-dot {
