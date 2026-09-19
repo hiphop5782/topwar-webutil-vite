@@ -181,6 +181,21 @@
     font-weight: 700;
 }
 
+.attendance-copy-name {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.attendance-copy-target { text-align: left; color: inherit; cursor: pointer; }
+.attendance-copy-name:hover { text-decoration: underline; }
+.attendance-copy-name:focus-visible,
+.attendance-copy-target:focus-visible { outline: 2px solid var(--bs-primary); outline-offset: 3px; }
+
 .attendance-choice-count strong {
     margin-top: 0.2rem;
     color: var(--choice-color, inherit);

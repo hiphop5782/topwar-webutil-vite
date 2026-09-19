@@ -65,6 +65,7 @@ export default function AttendanceVoteReader() {
         exported: "CSV 파일을 만들었습니다. Google 스프레드시트에서 열 수 있습니다.",
         allianceOnly: "길드 전용 투표", rosterSnapshot: "최신 서버 조사 명단 기준", unverified: "명단 미확인",
         eligiblePeople: "전체 대상", notVoted: "미참여",
+        copyNames: "닉네임 복사", copiedNames: "닉네임이 복사되었습니다.", copyFailed: "복사하지 못했습니다. 다시 시도해주세요.", noNames: "복사할 닉네임이 없습니다.",
     };
     const t = key => translation?.texts[key] ?? baseT(key);
     const label = key => translation?.texts[`ui.${key}`] ?? extraText[key];
@@ -187,6 +188,27 @@ export default function AttendanceVoteReader() {
         finally { clearTimeout(timeout); if (requestRef.current === controller) setTranslateLoading(false); }
     };
 
+    const copyNames = async players => {
+        const text = [...players].sort(byCpDescending).map(playerName).filter(Boolean).join(",");
+        if (!text) { toast.info(label("noNames")); return; }
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+            } else {
+                const previousFocus = document.activeElement;
+                const input = document.createElement("textarea");
+                input.value = text;
+                input.style.cssText = "position:fixed;left:-9999px;top:0";
+                document.body.appendChild(input);
+                try {
+                    input.select();
+                    if (!document.execCommand("copy")) throw new Error("Clipboard copy failed");
+                } finally { input.remove(); previousFocus?.focus(); }
+            }
+            toast.success(label("copiedNames"));
+        } catch { toast.error(label("copyFailed")); }
+    };
+
     const exportForSheets = () => {
         const voted = new Map(participants.map(player => [normalizeNicknameForSearch(playerName(player)), player]));
         const all = new Map(roster.map(player => [normalizeNicknameForSearch(playerName(player)), player]));
@@ -224,14 +246,14 @@ export default function AttendanceVoteReader() {
             <section className="attendance-voters mt-4"><div className="attendance-voters-toolbar"><h4 className="attendance-voters-title"><FaUsers />{label("voters")} <span className="badge bg-secondary">{totalCount} {label("people")}</span></h4><div className="btn-group btn-group-sm"><button className={`btn ${listMode === "nickname" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setListMode("nickname")}>{label("nicknameView")}</button><button className={`btn ${listMode === "group" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setListMode("group")}>{label("groupView")}</button></div></div>
                 <div className="attendance-choice-counts">
                     <div className="attendance-choice-count is-total"><span>{label("eligiblePeople")}</span><strong>{rosterBoard.length} {label("people")}</strong></div>
-                    {shownVote.choices.map((choice, index) => <div className="attendance-choice-count" key={choice.no} style={{ "--choice-color": COLORS[index % COLORS.length] }}><span>{choice.content}</span><strong>{choice.currentCount || 0} {label("people")}</strong></div>)}
+                    {shownVote.choices.map((choice, index) => <button type="button" className="attendance-choice-count attendance-copy-target" key={choice.no} title={label("copyNames")} onClick={() => copyNames(choicePlayers(choice))} style={{ "--choice-color": COLORS[index % COLORS.length] }}><span>{choice.content}</span><strong>{choice.currentCount || 0} {label("people")}</strong></button>)}
                     <div className="attendance-choice-count is-unvoted"><span>{label("notVoted")}</span><strong>{Math.max(0, rosterBoard.length - totalCount)} {label("people")}</strong></div>
                 </div>
                 {listMode === "nickname" ? <div className="attendance-roster-board">{rosterBoard.map((player, index) => <div className={`attendance-roster-name ${player.voted ? "has-voted" : ""}`} key={`${playerName(player)}-${index}`} style={player.voted ? { "--choice-color": player.color } : undefined} title={player.voted ? player.choiceContent : label("notVoted")}>
-                    {player.voted && <span className="attendance-vote-dot" aria-hidden="true" />}<span>{playerName(player)}</span>
+                    {player.voted && <span className="attendance-vote-dot" aria-hidden="true" />}<button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={() => copyNames([player])}>{playerName(player)}</button>
                     {vote.targetScope === "alliance" && !rosterKeys.has(normalizeNicknameForSearch(playerName(player))) && <small>{label("unverified")}</small>}
                 </div>)}</div> :
-                <div className="attendance-voter-groups">{shownVote.choices.map((choice, index) => { const players = [...choicePlayers(choice)].sort(byCpDescending); return <details className="attendance-voter-group" open key={choice.no}><summary style={{ borderLeft: `5px solid ${COLORS[index % COLORS.length]}` }}><span>{choice.content}</span><strong>{players.length} {label("people")}</strong></summary>{players.length ? <ul className="attendance-voter-list">{players.map((player, i) => <li key={`${playerName(player)}-${i}`}><strong>{playerName(player)}</strong><span>CP {formatCp(playerCp(player))}</span><span>{player.allianceTag || player.allianceName || "-"}</span></li>)}</ul> : <p className="attendance-voter-empty">{label("empty")}</p>}</details>; })}</div>}
+                <div className="attendance-voter-groups">{shownVote.choices.map((choice, index) => { const players = [...choicePlayers(choice)].sort(byCpDescending); return <details className="attendance-voter-group" open key={choice.no}><summary style={{ borderLeft: `5px solid ${COLORS[index % COLORS.length]}` }}><button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={event => { event.preventDefault(); copyNames(players); }}>{choice.content}</button><strong>{players.length} {label("people")}</strong></summary>{players.length ? <ul className="attendance-voter-list">{players.map((player, i) => <li key={`${playerName(player)}-${i}`}><strong><button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={() => copyNames([player])}>{playerName(player)}</button></strong><span>CP {formatCp(playerCp(player))}</span><span>{player.allianceTag || player.allianceName || "-"}</span></li>)}</ul> : <p className="attendance-voter-empty">{label("empty")}</p>}</details>; })}</div>}
                 <button className="btn btn-success w-100 mt-3" onClick={exportForSheets}><FaDownload className="me-2" />{label("exportSheet")}</button>
             </section><div className="mt-3 text-end"><LanguageRouterLink className="btn btn-sm btn-outline-secondary" to={routeServerId ? `/vote/${routeServerId}/${uuid}/manage` : `/vote/manage/${uuid}`}>{label("manage")}</LanguageRouterLink></div>
         </>}
