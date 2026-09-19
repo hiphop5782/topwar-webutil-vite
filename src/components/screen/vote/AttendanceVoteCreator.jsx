@@ -94,7 +94,7 @@ export default function AttendanceVoteCreator() {
         setAllianceLoading(true);
         try {
             const data = await loadRealPower(vote.serverId);
-            setServerPlayers(Array.isArray(data?.players) ? data.players : []);
+            setServerPlayers(Array.isArray(data?.players) ? data.players.filter(player => Number(player.level) >= 80) : []);
         } catch {
             setServerPlayers([]);
             toast.error("서버의 길드 명단을 불러오지 못했습니다");
@@ -132,6 +132,7 @@ export default function AttendanceVoteCreator() {
     }, [vote, saveVote, alliances]);
 
     const { i18n } = useTranslation();
+    const votePath = `/${i18n.language}/vote/cast/${encodeURIComponent(vote.uuid)}`;
 
     const copyToClipboard = useCallback((text, message) => {
         if (navigator.clipboard && window.isSecureContext) {
@@ -156,10 +157,8 @@ export default function AttendanceVoteCreator() {
         copyToClipboard(vote.uuid, "투표ID가 복사되었습니다\n원하는 곳에 붙여넣으세요");
     }, [vote.uuid, copyToClipboard]);
     const copyLinkToClipboard = useCallback(()=>{
-        if (!vote.serverId) return toast.error("서버 번호를 입력하세요");
-        const lang = i18n.language;
-        copyToClipboard(`${window.location.origin}/${lang}/vote/${vote.serverId}/${vote.uuid}`, "공유 링크가 복사되었습니다\n원하는 곳에 붙여넣으세요");
-    }, [vote.uuid, vote.serverId, i18n.language, copyToClipboard]);
+        copyToClipboard(`${window.location.origin}${votePath}`, "공유 링크가 복사되었습니다\n원하는 곳에 붙여넣으세요");
+    }, [votePath, copyToClipboard]);
 
     //render
     return (<>
@@ -207,7 +206,7 @@ export default function AttendanceVoteCreator() {
                 <div className="col-sm-9">
                     <input type="text" inputMode="numeric" className="form-control" placeholder="예: 3453"
                         value={vote.serverId} onChange={e => { setServerPlayers([]); setVote(prev => ({ ...prev, serverId: e.target.value.replace(/[^0-9]/g, ""), allianceId: "" })); }} />
-                    {vote.serverId && <small className="text-muted">공유 주소: /{i18n.language}/vote/{vote.serverId}/{vote.uuid}</small>}
+                    <small className="text-muted">공유 주소: {votePath}</small>
                 </div>
             </div>
 

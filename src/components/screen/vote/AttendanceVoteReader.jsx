@@ -93,7 +93,12 @@ export default function AttendanceVoteReader() {
         loadRealPower(serverId).then(data => {
             if (!active) return;
             const unique = new Map();
-            for (const player of Array.isArray(data?.players) ? data.players : []) { const name = playerName(player); const key = normalizeNicknameForSearch(name); if (name && !unique.has(key)) unique.set(key, player); }
+            for (const player of Array.isArray(data?.players) ? data.players : []) {
+                if (!(Number(player.level) >= 80)) continue;
+                const name = playerName(player);
+                const key = normalizeNicknameForSearch(name);
+                if (name && !unique.has(key)) unique.set(key, player);
+            }
             const players = [...unique.values()];
             setRoster((vote?.targetScope === "alliance"
                 ? players.filter(player => String(player.allianceId ?? "") === String(vote.allianceId ?? ""))
