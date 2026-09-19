@@ -24,13 +24,18 @@ export default function ServerDirectory() {
     }, []);
     useEffect(() => {
         let active = true;
+        const timeout = setTimeout(() => {
+            if (!active) return;
+            active = false;
+            setStatus("error");
+        }, 15000);
         loadServerDirectory().then(value => {
             if (!value?.seasons || value.ok === false || !Object.values(value.seasons).every(season => Array.isArray(season.servers))) {
                 throw new Error("Invalid server directory");
             }
             if (active) { setData(value); setStatus("success"); }
-        }).catch(() => { if (active) setStatus("error"); });
-        return () => { active = false; };
+        }).catch(() => { if (active) setStatus("error"); }).finally(() => clearTimeout(timeout));
+        return () => { active = false; clearTimeout(timeout); };
     }, [attempt]);
     useEffect(() => {
         if (status === "loading") return;

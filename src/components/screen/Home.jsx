@@ -38,6 +38,13 @@ function Home() {
 
     useEffect(() => {
         let mounted = true;
+        const building = window.__PRERENDER_INJECTED?.building === true;
+        const timeout = setTimeout(() => {
+            if (!mounted) return;
+            mounted = false;
+            setStatisticsState(state => state === "loading" ? "error" : state);
+            setPlayerCountState(state => state === "loading" ? "error" : state);
+        }, 15000);
 
         loadHomeStatistics()
             .then(async (baseStatistics) => {
@@ -47,6 +54,12 @@ function Home() {
                 if (!mounted) return;
                 setStatistics(baseStatistics);
                 setStatisticsState("success");
+
+                // Full-server aggregation is interactive enrichment, not a build prerequisite.
+                if (building) {
+                    setPlayerCountState("error");
+                    return;
+                }
 
                 try {
                     const data = await loadInvestigatedHomeStatistics();
@@ -70,11 +83,13 @@ function Home() {
                 if (mounted) {
                     setStatistics(EMPTY_STATISTICS);
                     setStatisticsState("error");
+                    setPlayerCountState("error");
                 }
             });
 
         return () => {
             mounted = false;
+            clearTimeout(timeout);
         };
     }, []);
 

@@ -54,6 +54,10 @@ export default defineConfig({
                 "@prerenderer/renderer-puppeteer",
 
             rendererOptions: {
+                inject: { building: true },
+                pageSetup(page, route) {
+                    page.on("pageerror", error => console.error(`[prerender:${route}]`, error));
+                },
                 /*
                  * LanguageRouter에서 번역과 렌더링이 끝난 뒤
                  * 발생시키는 이벤트를 기다립니다.
