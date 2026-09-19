@@ -151,11 +151,40 @@
 }
 
 .attendance-choice-count {
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--choice-color, var(--bs-border-color));
-  border-top: 4px solid var(--choice-color, var(--bs-secondary));
-  border-radius: 0.55rem;
-  background: var(--bs-body-bg);
+    padding: 0.65rem 0.75rem;
+
+    border: 1px solid color-mix(
+        in srgb,
+        var(--choice-color, var(--bs-border-color)) 55%,
+        transparent
+    );
+
+    border-top: 5px solid var(--choice-color, var(--bs-secondary));
+
+    border-radius: 0.55rem;
+
+    background: color-mix(
+        in srgb,
+        var(--choice-color, var(--bs-body-bg)) 12%,
+        var(--bs-body-bg)
+    );
+
+    box-shadow: 0 0 8px color-mix(
+        in srgb,
+        var(--choice-color, transparent) 20%,
+        transparent
+    );
+}
+
+.attendance-choice-count span {
+    color: var(--choice-color, inherit);
+    font-weight: 700;
+}
+
+.attendance-choice-count strong {
+    margin-top: 0.2rem;
+    color: var(--choice-color, inherit);
+    font-weight: 900;
 }
 
 .attendance-choice-count span,
@@ -200,6 +229,7 @@
     flex: 0 0 auto;
     border-radius: 50%;
     background: var(--choice-color);
+    margin-right: 0.5em;
 
     /* 중심 발광 */
     box-shadow:
