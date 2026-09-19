@@ -154,8 +154,10 @@ export default function MainContentView() {
                     <Route path="vote/create" element={<AttendanceVoteCreator/>}></Route>
                     <Route path="vote/cast" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route>
+                    <Route path="vote/:serverId/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
+                    <Route path="vote/:serverId/:voteId/manage" element={<AttendanceVoteManager/>}></Route>
 
                     {/* history */}
                     <Route path="history/ssc-2026" element={<SealStoneChaos/>}>

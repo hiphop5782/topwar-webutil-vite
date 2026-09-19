@@ -1,9 +1,12 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFirebase } from "@src/hooks/useFirebase";
 import { useParams } from "react-router-dom";
 import { FaPlay, FaStop, FaUpload, FaXmark } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
+
+const cpInMillions = value => Math.abs(Number(value ?? 0)) >= 1_000_000 ? Number(value) / 1_000_000 : Number(value ?? 0);
+const formatCp = value => `${cpInMillions(value).toLocaleString(undefined, { maximumFractionDigits: 2 })}M`;
 
 export default function AttendanceVoteManager() {
     const {voteId} = useParams();
@@ -11,11 +14,13 @@ export default function AttendanceVoteManager() {
     const [uuid, setUuid] = useState(voteId);   
     const [password, setPassword] = useState("");
     const [vote, setVote] = useState(null);
+    const unsubscribeRef = useRef(null);
 
     const { getVoteManager, closeVoteManually, openVoteManually, deletePlayerFromVote } = useFirebase();
 
     const loadVote = useCallback(()=>{
-            const unsubscribe = getVoteManager(uuid, password, (data)=>{
+            unsubscribeRef.current?.();
+            unsubscribeRef.current = getVoteManager(uuid, password, (data)=>{
                 if(data === null) {
                     toast.error("투표가 존재하지 않습니다");
                     setVote(null);
@@ -29,6 +34,8 @@ export default function AttendanceVoteManager() {
                 }
             });
     }, [uuid, password, getVoteManager]);
+
+    useEffect(() => () => unsubscribeRef.current?.(), []);
 
     const totalCount = useMemo(()=>{
         if(vote === null) return 0;
@@ -125,6 +132,15 @@ export default function AttendanceVoteManager() {
                 {vote.title}
             </div>
         </div>
+
+        <div className="row mt-2">
+            <label className="col-form-label col-sm-3">투표 대상</label>
+            <div className="col-sm-9">
+                {vote.targetScope === "alliance"
+                    ? `${vote.serverId} 서버 · [${vote.allianceTag || "-"}] ${vote.allianceName || vote.allianceId} · 최신 조사 명단 기준`
+                    : `${vote.serverId || "-"} 서버 전체`}
+            </div>
+        </div>
         <hr/>
         {vote.choices.map((choice, index)=>(
         <div className="row mt-1" key={choice.no}>
@@ -157,25 +173,17 @@ export default function AttendanceVoteManager() {
                         <h4>{choice.content} ({choice.currentCount}명)</h4>
                         <ul className="list-group">
                             {choice.players.length === 0 && (<li className="list-group-item text-nowrap">투표한 사람 없음</li>)}
-                            {choice.players.sort((a,b)=>{
-                                if(a.job === b.job) {
-                                    return b.cp - a.cp;
-                                }
-                                return a.job.localeCompare(b.job);
-                            }).map(player=>(
+                            {[...choice.players].sort((a,b)=>cpInMillions(b.cp) - cpInMillions(a.cp) || String(a.nickname ?? "").localeCompare(String(b.nickname ?? ""), undefined, { sensitivity: "base", numeric: true })).map(player=>(
                                 <li className="list-group-item text-nowrap" key={player.nickname}>
                                     <div className="row">
                                         <div className="col-5">
                                             <span>{player.nickname}</span>
                                         </div>
-                                        <div className="col-2">
-                                            <span className={`badge rounded-pill ${player.job === "CE" ? "bg-primary" : "bg-success"} me-2`}>{player.job}</span>
+                                        <div className="col-3">
+                                            <span>CP {formatCp(player.cp)}</span>
                                         </div>
-                                        <div className="col-2">
-                                            <span className="ms-2">{player.cp}M</span>
-                                        </div>
-                                        <div className={`col-2 ${player.job === "MM" && player.skill >= 3 ? "text-danger fw-bold" : ""}`}>
-                                            {player.job === "CE" ? "기합" : "응시"} {player.skill}
+                                        <div className="col-3 text-truncate" title={player.allianceName || player.allianceTag || ""}>
+                                            {player.allianceTag || player.allianceName || "-"}
                                         </div>
                                         {/* X 버튼 추가 */}
                                         <div className="col-1 text-end">

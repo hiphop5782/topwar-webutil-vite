@@ -1,7 +1,8 @@
 // useFirebase.js (훅 예시)
 import { useCallback } from "react";
 import { db } from "../db/firebase";
-import { doc, onSnapshot, runTransaction, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, query, runTransaction, setDoc, updateDoc, where, writeBatch } from "firebase/firestore";
+import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 
 export const useFirebase = () => {
     const saveVote = async (voteData) => {
@@ -11,6 +12,11 @@ export const useFirebase = () => {
 
             // "votes" 컬렉션에 UUID를 문서 ID로 사용
             const voteRef = doc(db, "votes", voteData.uuid);
+
+            const existingVote = await getDoc(voteRef);
+            if (existingVote.exists()) {
+                throw new Error("DUPLICATE_VOTE_ID");
+            }
 
             // Firebase에 저장할 데이터 가공 (currentCount 초기화 등)
             const finalData = {
@@ -112,7 +118,7 @@ export const useFirebase = () => {
                 // 1. 기존에 투표한 기록이 있는지 확인 (닉네임 기준)
                 let previousChoiceIndex = -1;
                 newChoices.forEach((c, idx) => {
-                    if (c.players && c.players.some(p => p.nickname === userInfo.nickname)) {
+                    if (c.players && c.players.some(p => normalizeNicknameForSearch(p.nickname) === normalizeNicknameForSearch(userInfo.nickname))) {
                         previousChoiceIndex = idx;
                     }
                 });
@@ -128,7 +134,7 @@ export const useFirebase = () => {
                     newChoices[previousChoiceIndex] = {
                         ...prevChoice,
                         currentCount: Math.max(0, prevChoice.currentCount - 1),
-                        players: prevChoice.players.filter(p => p.nickname !== userInfo.nickname)
+                        players: prevChoice.players.filter(p => normalizeNicknameForSearch(p.nickname) !== normalizeNicknameForSearch(userInfo.nickname))
                     };
                 }
 
