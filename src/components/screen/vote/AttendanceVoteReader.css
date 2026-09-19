@@ -194,12 +194,38 @@
 }
 
 .attendance-vote-dot {
-  width: 0.48rem;
-  height: 0.48rem;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--choice-color);
-  box-shadow: 0 0 0.35rem var(--choice-color);
+    position: relative;
+    width: 0.55rem;
+    height: 0.55rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--choice-color);
+
+    /* 중심 발광 */
+    box-shadow:
+        0 0 4px var(--choice-color),
+        0 0 8px var(--choice-color);
+}
+
+/* 도트 주변을 회전하는 강조 링 */
+.attendance-vote-dot::after {
+    content: "";
+    position: absolute;
+    inset: -0.3rem;
+    border-radius: 50%;
+
+    border: 2px solid transparent;
+    border-top-color: var(--choice-color);
+
+    filter: drop-shadow(0 0 3px var(--choice-color));
+
+    animation: vote-dot-spin 1s linear infinite;
+}
+
+@keyframes vote-dot-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .attendance-roster-name small {
