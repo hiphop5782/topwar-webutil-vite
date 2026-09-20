@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import VoteTemplates from "@src/assets/json/vote/vote-template.json";
 import { Helmet } from "react-helmet-async";
 import { loadRealPower } from "@src/services/topwarDataRepository";
+import { randomVoteColor, validVoteColor } from "./voteColors";
 
 export default function AttendanceVoteCreator() {
     const { saveVote } = useFirebase();
@@ -120,7 +121,7 @@ export default function AttendanceVoteCreator() {
 
         try {
             const selectedAlliance = alliances.find(alliance => alliance.id === vote.allianceId);
-            const success = await saveVote({ ...vote, allianceTag: selectedAlliance?.tag || "", allianceName: selectedAlliance?.name || "",
+            const success = await saveVote({ ...vote, choices: vote.choices.map(choice => ({ ...choice, color: validVoteColor(choice.color) ? choice.color : randomVoteColor() })), allianceTag: selectedAlliance?.tag || "", allianceName: selectedAlliance?.name || "",
                 rosterSource: "live" });
             if (success) {
                 toast.success("투표가 성공적으로 등록되었습니다");
@@ -276,6 +277,13 @@ export default function AttendanceVoteCreator() {
                     <div className="col-sm-9">
                         <input type="text" className="form-control" placeholder="투표 항목 입력"
                             value={choice.content} onChange={e => changeChoiceContent(e, choice)} />
+                        <div className="d-flex align-items-center gap-2 mt-2">
+                            <label htmlFor={`choice-color-${choice.no}`}>항목 색상</label>
+                            <input id={`choice-color-${choice.no}`} type="color" className="form-control form-control-color" value={choice.color || "#0d6efd"}
+                                onChange={e => { const color = e.target.value; setVote(prev => ({ ...prev, choices: prev.choices.map(item => item.no === choice.no ? { ...item, color } : item) })); }} />
+                            <span>{choice.color ? "직접 선택" : "미지정 · 저장 시 랜덤"}</span>
+                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => setVote(prev => ({ ...prev, choices: prev.choices.map(item => item.no === choice.no ? { ...item, color: "" } : item) }))}>랜덤으로 설정</button>
+                        </div>
                         <div className="d-flex align-items-center mt-1">
                             <label className="me-2">
                                 <input type="checkbox" className="me-2" inputMode="numeric" checked={choice.limit} onChange={e => changeChoiceLimit(e, choice)} />

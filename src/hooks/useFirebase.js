@@ -236,13 +236,14 @@ export const useFirebase = () => {
                 if (choiceIndex === -1) throw "해당 항목을 찾을 수 없습니다.";
 
                 const targetChoice = newChoices[choiceIndex];
-                const updatedPlayers = targetChoice.players.filter(p => p.nickname !== nickname);
+                const players = Object.values(targetChoice.players || {});
+                const updatedPlayers = players.filter(p => p.nickname !== nickname);
 
-                if (updatedPlayers.length === targetChoice.players.length) return;
+                if (updatedPlayers.length === players.length) throw "이미 삭제되었거나 해당 항목에 없는 투표입니다.";
 
                 newChoices[choiceIndex] = {
                     ...targetChoice,
-                    currentCount: Math.max(0, targetChoice.currentCount - 1),
+                    currentCount: updatedPlayers.length,
                     players: updatedPlayers
                 };
 
