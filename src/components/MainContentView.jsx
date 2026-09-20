@@ -183,7 +183,7 @@ export default function MainContentView() {
             {/* <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}> */}
             <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start">
                 {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
-                <KakaoAds id="DAN-WwP4DvEIbCS6Wv93"/>
+                <KakaoAds id="DAN-WwP4DvEIbCS6Wv93" display="block"/>
             </div>
         </div>
     ) 

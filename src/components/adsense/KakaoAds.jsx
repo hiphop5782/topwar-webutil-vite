@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function KakaoAds({ id , width=160 , height=600 }) {
+export default function KakaoAds({ id, width=160, height=600, display="none" }) {
     //ref
     const adRef = useRef(null);
 
@@ -13,7 +13,7 @@ export default function KakaoAds({ id , width=160 , height=600 }) {
 
         const ins = document.createElement("ins");
         ins.className = "kakao_ad_area";
-        ins.style.display = "none";
+        ins.style.display = display;
         ins.setAttribute("data-ad-unit", id);
         ins.setAttribute("data-ad-width", `${width}`);
         ins.setAttribute("data-ad-height", `${height}`);
@@ -29,7 +29,7 @@ export default function KakaoAds({ id , width=160 , height=600 }) {
                 adRef.current.innerHTML = "";
             }
         };
-    }, [id]);
+    }, [id, width, height, display]);
 
     //render
     return <div ref={adRef} style={{position:"sticky", top:100}}/>;
