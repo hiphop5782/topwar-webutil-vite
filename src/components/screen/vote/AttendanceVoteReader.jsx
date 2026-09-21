@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import ScreenErrorBoundary from "@src/components/error/ScreenErrorBoundary";
+import { normalizeVoteDisplay, normalizeVoteUser, voteExpiry } from "./voteSafety";
 import { useFirebase } from "@src/hooks/useFirebase";
 import useLocalStorage from "@src/hooks/useLocalStorage";
 import { FaVoteYea } from "react-icons/fa";
@@ -33,6 +35,11 @@ const formatCp = value => {
 };
 
 export default function AttendanceVoteReader() {
+    const { pathname } = useLocation();
+    return <ScreenErrorBoundary key={pathname}><VoteReader /></ScreenErrorBoundary>;
+}
+
+function VoteReader() {
     const { t: baseT } = useTranslation("viewer");
     const { voteId, serverId: routeServerId } = useParams();
     const { getVote, castVote } = useFirebase();
@@ -42,6 +49,9 @@ export default function AttendanceVoteReader() {
     const [translateLoading, setTranslateLoading] = useState(false);
     const [choiceNo, setChoiceNo] = useState(null);
     const [reload, setReload] = useState(0);
+    const [loadError, setLoadError] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const submittingRef = useRef(false);
     const [roster, setRoster] = useState([]);
     const [rosterLoading, setRosterLoading] = useState(false);
     const [rosterError, setRosterError] = useState(false);
@@ -71,7 +81,12 @@ export default function AttendanceVoteReader() {
     const label = key => translation?.texts[`ui.${key}`] ?? extraText[key];
     const source = voteText(vote);
     const serverId = String(routeServerId || vote?.serverId || "").trim();
-    const [userInfo, setUserInfo] = useLocalStorage("vote-user-info", { nickname: "", cp: "" });
+    const [storedUserInfo, setStoredUserInfo] = useLocalStorage("vote-user-info", { nickname: "", cp: "" });
+    const userInfo = useMemo(() => normalizeVoteUser(storedUserInfo), [storedUserInfo]);
+    const setUserInfo = useCallback(update => setStoredUserInfo(previous => {
+        const safe = normalizeVoteUser(previous);
+        return normalizeVoteUser(typeof update === "function" ? update(safe) : update);
+    }), [setStoredUserInfo]);
 
     const shownVote = useMemo(() => {
         if (!vote || translation?.source !== voteText(vote)) return vote;
@@ -79,13 +94,23 @@ export default function AttendanceVoteReader() {
     }, [vote, translation]);
 
     useEffect(() => {
-        requestRef.current?.abort(); setTranslation(null); setVote(null); setChoiceNo(null); sourceRef.current = "";
+        let active = true;
+        const onError = error => {
+            console.error("투표 불러오기 실패", error);
+            if (active) { setLoadError(true); setVote(null); setChoiceNo(null); }
+        };
+        requestRef.current?.abort(); setTranslateLoading(false); setTranslation(null); setVote(null); setChoiceNo(null); setLoadError(false); sourceRef.current = "";
         const unsubscribe = uuid ? getVote(uuid, data => {
-            const nextSource = voteText(data);
-            if (nextSource !== sourceRef.current) { requestRef.current?.abort(); setTranslation(null); setChoiceNo(null); sourceRef.current = nextSource; }
-            setVote(data); if (!data) toast.error(baseT("AttendanceVoteReader.message-notfound"));
-        }) : undefined;
-        return () => { unsubscribe?.(); requestRef.current?.abort(); };
+            if (!active) return;
+            try {
+                const safeVote = normalizeVoteDisplay(data);
+                const nextSource = voteText(safeVote);
+                if (nextSource !== sourceRef.current) { requestRef.current?.abort(); setTranslateLoading(false); setTranslation(null); setChoiceNo(null); sourceRef.current = nextSource; }
+                setLoadError(false); setVote(safeVote);
+                if (!data) toast.error(baseT("AttendanceVoteReader.message-notfound"));
+            } catch (error) { onError(error); }
+        }, onError) : undefined;
+        return () => { active = false; unsubscribe?.(); requestRef.current?.abort(); };
     }, [uuid, reload, getVote, baseT]);
 
     useEffect(() => {
@@ -94,8 +119,9 @@ export default function AttendanceVoteReader() {
         loadRealPower(serverId).then(data => {
             if (!active) return;
             const unique = new Map();
-            for (const player of Array.isArray(data?.players) ? data.players : []) {
-                if (!(Number(player.level) >= 80)) continue;
+            for (const rawPlayer of Array.isArray(data?.players) ? data.players : []) {
+                if (!rawPlayer || !(Number(rawPlayer.level) >= 80)) continue;
+                const player = { ...rawPlayer, ...normalizeVoteUser(rawPlayer) };
                 const name = playerName(player);
                 const key = normalizeNicknameForSearch(name);
                 if (name && !unique.has(key)) unique.set(key, player);
@@ -166,14 +192,21 @@ export default function AttendanceVoteReader() {
         });
         return [...all.values()].sort(byCpDescending).map(player => ({ ...player, voted: votedByName.has(normalizeNicknameForSearch(playerName(player))) }));
     }, [roster, participants]);
-    const isExpired = useMemo(() => vote?.closed || (vote?.expiresAt && new Date() > vote.expiresAt.toDate()), [vote]);
+    const isExpired = useMemo(() => vote?.closed || (vote?.expiresAt != null && new Date() > voteExpiry(vote.expiresAt)), [vote]);
 
     const submitVote = async () => {
+        if (submittingRef.current || loadError || !vote) return;
         if (!userInfo.nickname?.trim() || userInfo.cp === "" || choiceNo === null) return toast.error(t("AttendanceVoteReader.message-require-info"));
-        const success = await castVote(uuid, choiceNo, userInfo, error => {
-            const key = Object.keys(extraText).find(item => extraText[item] === error); toast.error(label(key ?? "voteFailed"));
-        });
-        if (success) toast.success(t("AttendanceVoteReader.message-complete"));
+        submittingRef.current = true; setSubmitting(true);
+        try {
+            const success = await castVote(uuid, choiceNo, userInfo, error => {
+                const key = Object.keys(extraText).find(item => extraText[item] === error); toast.error(label(key ?? "voteFailed"));
+            });
+            if (success) toast.success(t("AttendanceVoteReader.message-complete"));
+        } catch (error) {
+            console.error("투표 제출 실패", error);
+            toast.error(label("voteFailed"));
+        } finally { submittingRef.current = false; setSubmitting(false); }
     };
 
     const translateVote = async language => {
@@ -223,6 +256,10 @@ export default function AttendanceVoteReader() {
     return <>
         <Helmet><meta name="robots" content="noindex, follow" /></Helmet><h1>{t("AttendanceVoteReader.title")}</h1><hr />
         {!voteId && <div className="row mt-4"><label className="col-form-label col-sm-3">{t("AttendanceVoteReader.id-label")}</label><div className="col d-flex"><input className="form-control" value={uuid} onChange={e => setUuid(e.target.value)} /><button className="btn btn-primary ms-2" onClick={() => setReload(value => value + 1)}>{t("AttendanceVoteReader.id-load-btn")}</button></div></div>}
+        {loadError && <div className="alert alert-danger mt-3" role="alert">
+            <p>투표 정보를 불러오지 못했습니다. 다시 불러온 뒤 참여자 목록에서 투표 반영 여부를 확인해 주세요.</p>
+            <button type="button" className="btn btn-outline-danger" onClick={() => setReload(value => value + 1)}>다시 불러오기</button>
+        </div>}
         {vote && <>
             {vote.targetScope === "alliance" && <div className="alert alert-primary d-flex justify-content-between align-items-center gap-2 flex-wrap">
                 <strong>{label("allianceOnly")}: [{vote.allianceTag || "-"}] {vote.allianceName || vote.allianceId}</strong>
@@ -242,7 +279,7 @@ export default function AttendanceVoteReader() {
             </section>
             <hr /><h3>{shownVote?.title}</h3>{isExpired ? <h3 className="text-danger">{t("AttendanceVoteReader.message-closed")}</h3> : <>
                 <ul className="list-group">{shownVote.choices.map((choice, index) => { const mine = choicePlayers(choice).some(player => normalizeNicknameForSearch(playerName(player)) === normalizeNicknameForSearch(userInfo.nickname)); return <li className="list-group-item" key={choice.no} style={{ borderLeft: `5px solid ${choiceColor(choice, index)}` }}><label><input type="radio" className="form-check-input me-2" checked={choiceNo === choice.no} onChange={() => setChoiceNo(choice.no)} />{choice.content}</label><span className="badge bg-secondary ms-3">{choice.limit ? `${choice.currentCount} / ${choice.count}` : `${choice.currentCount} ${label("people")}`}</span>{mine && <span className="badge bg-danger ms-2"><FaVoteYea className="me-1" />{t("AttendanceVoteReader.message-mychoice")}</span>}</li>; })}</ul>
-                <button className={`btn ${choiceNo === null ? "btn-danger" : "btn-primary"} w-100 fs-4 p-3 mt-4`} disabled={choiceNo === null} onClick={submitVote}>{choiceNo === null ? <><FaXmark className="me-2" />{t("AttendanceVoteReader.btn-need-choice")}</> : <><FaVoteYea className="me-2" />{t("AttendanceVoteReader.btn-vote")}</>}</button></>}
+                <button className={`btn ${choiceNo === null ? "btn-danger" : "btn-primary"} w-100 fs-4 p-3 mt-4`} disabled={choiceNo === null || submitting} aria-busy={submitting} onClick={submitVote}>{submitting ? "투표 처리 중…" : choiceNo === null ? <><FaXmark className="me-2" />{t("AttendanceVoteReader.btn-need-choice")}</> : <><FaVoteYea className="me-2" />{t("AttendanceVoteReader.btn-vote")}</>}</button></>}
             <section className="attendance-voters mt-4"><div className="attendance-voters-toolbar"><h4 className="attendance-voters-title"><FaUsers />{label("voters")} <span className="badge bg-secondary">{totalCount} {label("people")}</span></h4><div className="btn-group btn-group-sm"><button className={`btn ${listMode === "nickname" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setListMode("nickname")}>{label("nicknameView")}</button><button className={`btn ${listMode === "group" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setListMode("group")}>{label("groupView")}</button></div></div>
                 <div className="attendance-choice-counts">
                     <div className="attendance-choice-count is-total"><span>{label("eligiblePeople")}</span><strong>{rosterBoard.length} {label("people")}</strong></div>

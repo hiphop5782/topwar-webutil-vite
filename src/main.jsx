@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import ScreenErrorBoundary from './components/error/ScreenErrorBoundary'
 import { createRoot } from 'react-dom/client'
 import 'pretendard/dist/web/static/pretendard.css';
 import './index.css'
@@ -8,7 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
     <HelmetProvider>
-      <App />
+      <ScreenErrorBoundary><App /></ScreenErrorBoundary>
     </HelmetProvider>
   // </StrictMode>,
 )

@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { db } from "../db/firebase";
 import { collection, doc, getDoc, getDocs, onSnapshot, query, runTransaction, setDoc, updateDoc, where, writeBatch } from "firebase/firestore";
 import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
+import { normalizeVoteUser, validateVote, voteExpiry } from "@src/components/screen/vote/voteSafety";
 
 export const useFirebase = () => {
     const saveVote = async (voteData) => {
@@ -40,20 +41,19 @@ export const useFirebase = () => {
 
     // 2. 투표 데이터 실시간 불러오기 (추가된 부분)
     // callback을 사용하여 리렌더링 시 함수 재생성을 방지합니다.
-    const getVote = useCallback((uuid, callback) => {
+    const getVote = useCallback((uuid, callback, onError) => {
         if (!uuid) return;
-
-        const voteRef = doc(db, "votes", uuid);
-
-        return onSnapshot(voteRef, (docSnap) => {
-            if (docSnap.exists()) {
-                callback(docSnap.data());
-            } else {
-                callback(null);
-            }
-        }, (error) => {
+        const reportError = error => {
             console.error("Firebase 읽기 에러:", error);
-        });
+            onError?.(error);
+        };
+        try {
+            const voteRef = doc(db, "votes", uuid);
+            return onSnapshot(voteRef, docSnap => {
+                try { callback(docSnap.exists() ? docSnap.data() : null); }
+                catch (error) { reportError(error); }
+            }, reportError);
+        } catch (error) { reportError(error); }
     }, []);
     const getVoteManager = useCallback((uuid, password, callback) => {
         if (!uuid) return;
@@ -88,14 +88,15 @@ export const useFirebase = () => {
     }, []);
 
     const castVote = async (voteId, choiceNo, userInfo, onError) => {
-        const voteRef = doc(db, "votes", voteId);
-
         try {
+            const voteRef = doc(db, "votes", voteId);
+            const voter = normalizeVoteUser(userInfo);
+            if (!voter.nickname.trim() || voter.cp === "" || choiceNo == null) throw new Error("INVALID_VOTER");
             await runTransaction(db, async (transaction) => {
                 const voteDoc = await transaction.get(voteRef);
                 if (!voteDoc.exists()) throw "투표가 존재하지 않습니다.";
 
-                const data = voteDoc.data();
+                const data = validateVote(voteDoc.data());
                 // --- 마감 로직 추가 ---
                 // 1. 수동 마감 여부 체크
                 if (data.closed) {
@@ -103,9 +104,9 @@ export const useFirebase = () => {
                 }
 
                 // 2. 시간 만료 여부 체크 (설정된 경우)
-                if (data.expiresAt) {
+                if (data.expiresAt != null) {
                     const now = new Date();
-                    const expiry = data.expiresAt.toDate(); // Firestore Timestamp를 Date로 변환
+                    const expiry = voteExpiry(data.expiresAt);
                     if (now > expiry) {
                         throw "투표 기간이 종료되었습니다.";
                     }
@@ -113,12 +114,19 @@ export const useFirebase = () => {
                 // ----------------------
 
 
-                const newChoices = [...data.choices];
+                const newChoices = data.choices.map(choice => {
+                    if (choice.players != null && typeof choice.players !== "object") throw new Error("INVALID_VOTE_PLAYERS");
+                    const players = Object.values(choice.players || {});
+                    if (players.some(player => !player || typeof player.nickname !== "string")) throw new Error("INVALID_VOTE_PLAYERS");
+                    if (!Number.isInteger(choice.currentCount) || choice.currentCount < 0
+                        || (choice.limit && (!Number.isInteger(choice.count) || choice.count < 0))) throw new Error("INVALID_VOTE_COUNT");
+                    return { ...choice, players };
+                });
 
                 // 1. 기존에 투표한 기록이 있는지 확인 (닉네임 기준)
                 let previousChoiceIndex = -1;
                 newChoices.forEach((c, idx) => {
-                    if (c.players && c.players.some(p => normalizeNicknameForSearch(p.nickname) === normalizeNicknameForSearch(userInfo.nickname))) {
+                    if (c.players.some(p => normalizeNicknameForSearch(p.nickname) === normalizeNicknameForSearch(voter.nickname))) {
                         previousChoiceIndex = idx;
                     }
                 });
@@ -134,13 +142,14 @@ export const useFirebase = () => {
                     newChoices[previousChoiceIndex] = {
                         ...prevChoice,
                         currentCount: Math.max(0, prevChoice.currentCount - 1),
-                        players: prevChoice.players.filter(p => normalizeNicknameForSearch(p.nickname) !== normalizeNicknameForSearch(userInfo.nickname))
+                        players: prevChoice.players.filter(p => normalizeNicknameForSearch(p.nickname) !== normalizeNicknameForSearch(voter.nickname))
                     };
                 }
 
                 // 4. 새 항목 추가 및 인원 제한 확인
                 const newChoiceIndex = newChoices.findIndex(c => c.no === choiceNo);
                 const targetChoice = newChoices[newChoiceIndex];
+                if (!targetChoice) throw new Error("VOTE_CHOICE_REMOVED");
 
                 if (targetChoice.limit && targetChoice.currentCount >= targetChoice.count) {
                     throw "선택한 항목의 정원이 가득 찼습니다.";
@@ -149,13 +158,14 @@ export const useFirebase = () => {
                 newChoices[newChoiceIndex] = {
                     ...targetChoice,
                     currentCount: targetChoice.currentCount + 1,
-                    players: [...(targetChoice.players || []), { ...userInfo, votedAt: new Date() }]
+                    players: [...targetChoice.players, { ...voter, votedAt: new Date() }]
                 };
 
                 transaction.update(voteRef, { choices: newChoices });
             });
             return true;
         } catch (error) {
+            console.error("투표 처리 실패", error);
             if (onError) onError(error);
             else alert(error);
             return false;
