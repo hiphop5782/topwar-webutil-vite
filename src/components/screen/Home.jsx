@@ -25,7 +25,6 @@ function Home() {
     const { t, i18n } = useTranslation("viewer");
     const [statistics, setStatistics] = useState(EMPTY_STATISTICS);
     const [statisticsState, setStatisticsState] = useState("loading");
-    const [investigatedPlayerCount, setInvestigatedPlayerCount] = useState(null);
     const [playerCountState, setPlayerCountState] = useState("loading");
 
     useLayoutEffect(() => {
@@ -41,9 +40,9 @@ function Home() {
         const building = window.__PRERENDER_INJECTED?.building === true;
         const timeout = setTimeout(() => {
             if (!mounted) return;
-            mounted = false;
             setStatisticsState(state => state === "loading" ? "error" : state);
-            setPlayerCountState(state => state === "loading" ? "error" : state);
+            // A slow request can still succeed. Only unmounting discards its result.
+            setPlayerCountState(state => state === "loading" ? "delayed" : state);
         }, 15000);
 
         loadHomeStatistics()
@@ -57,14 +56,13 @@ function Home() {
 
                 // Full-server aggregation is interactive enrichment, not a build prerequisite.
                 if (building) {
-                    setPlayerCountState("error");
+                    setPlayerCountState("deferred");
                     return;
                 }
 
                 try {
                     const data = await loadInvestigatedHomeStatistics();
                     if (!mounted) return;
-                    setInvestigatedPlayerCount(data.player.tracked);
                     setStatistics({
                         ...baseStatistics,
                         snapshotAt: data.snapshotAt || baseStatistics.snapshotAt,
@@ -124,6 +122,9 @@ function Home() {
 
     const activity =
         player.activity ?? {};
+
+    const hasPlayerStatistics = playerCountState === "success";
+    const playerStatisticsPending = playerCountState === "loading" || playerCountState === "delayed";
 
 
     const localeMap = {
@@ -340,6 +341,18 @@ function Home() {
             {statisticsState === "error" && <p role="status" className="alert alert-warning">{t("home.research.unavailable")}</p>}
             {statisticsState === "success" && <>
             <p className="small text-secondary">{t("home.hero.dataAsOf")} {formatDateTime(snapshotAt)}</p>
+            {!hasPlayerStatistics && (
+                <div className="alert alert-info home-statistics-status" role="status">
+                    <p className="mb-2">{t(`home.research.statistics${
+                        playerCountState === "deferred" ? "Deferred"
+                            : playerCountState === "error" ? "Unavailable"
+                                : playerCountState === "delayed" ? "Delayed" : "Loading"
+                    }`)}</p>
+                    {!playerStatisticsPending && <LanguageRouterLink to="/information/data/overall?minLevel=80">
+                        {t("home.research.viewPlayerData")}
+                    </LanguageRouterLink>}
+                </div>
+            )}
             {/* ========================================
                 KPI
             ======================================== */}
@@ -366,12 +379,11 @@ function Home() {
                     />
 
 
+                    {hasPlayerStatistics && <>
                     <KpiCard
                         to="/information/data/overall?minLevel=80"
                         title={t("home.kpi.player.title")}
-                        value={playerCountState === "success"
-                            ? formatNumber(investigatedPlayerCount)
-                            : "-"}
+                        value={formatNumber(player.tracked)}
                         description={
                             t("home.kpi.player.description")
                         }
@@ -406,6 +418,7 @@ function Home() {
                         }
                         accent="primary"
                     />
+                    </>}
 
                 </div>
 
@@ -417,6 +430,7 @@ function Home() {
                 PLAYER ACTIVITY / SERVER ACTIVITY
             ======================================== */}
 
+            {hasPlayerStatistics && <>
             <section className="dashboard-section">
 
                 <div className="row g-4">
@@ -728,6 +742,8 @@ function Home() {
                 KARTZ
             ======================================== */}
 
+            </>}
+
             {kartz && (
                 <section className="dashboard-section">
 
@@ -872,7 +888,6 @@ function Home() {
                                     changes
                                         .movement
                                         ?.count
-                                    ?? 0
                                 }
                                 date={
                                     changes
@@ -893,7 +908,6 @@ function Home() {
                                     changes
                                         .nickname
                                         ?.count
-                                    ?? 0
                                 }
                                 date={
                                     changes

@@ -3,7 +3,12 @@
         "research": {
             "read": "Read research (Korean)",
             "method": "Methods and site operator",
-            "unavailable": "Current statistics are unavailable. The research articles remain available with their observation dates and source data."
+            "unavailable": "Current statistics are unavailable. The research articles remain available with their observation dates and source data.",
+            "statisticsLoading": "Calculating player counts, activity, power and server activity distribution. Only completed results will be shown.",
+            "statisticsDelayed": "Player and server activity statistics are taking longer than usual. Results will appear automatically when ready.",
+            "statisticsDeferred": "Player and server activity statistics are calculated after opening this page. Unavailable values are not shown as zero.",
+            "statisticsUnavailable": "Player and server activity statistics could not be loaded, so their values are not shown. Other available statistics and research remain accessible.",
+            "viewPlayerData": "View player survey data"
         },
         "hero": {
             "eyebrow": "TOP WAR RESEARCH",
