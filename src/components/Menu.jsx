@@ -8,12 +8,6 @@ import {
     useParams,
 } from "react-router-dom";
 
-const countryCodeMap = {
-    ko: 'kr',
-    en: 'us',
-    ja: 'jp'
-};
-
 function Menu() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -241,10 +235,6 @@ function Menu() {
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/create`}>{t(`menu:util.sub.emoji.create`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu:util.sub.emoji.list`)}</LanguageRouterLink>
-                                <div className="dropdown-divider"></div>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/create`}>{t(`menu:util.sub.vote.create`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/cast`}>{t(`menu:util.sub.vote.cast`)}</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vote/manage`}>{t(`menu:util.sub.vote.manage`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="nav-link" to={`/${lang}/event/city-reward`}>{t(`menu:util.sub.reward-finder`)}🔥</LanguageRouterLink>
                             </div>

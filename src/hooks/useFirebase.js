@@ -1,16 +1,14 @@
 // useFirebase.js (훅 예시)
 import { useCallback } from "react";
 import { db } from "../db/firebase";
-import { collection, doc, getDoc, getDocs, onSnapshot, query, runTransaction, setDoc, updateDoc, where, writeBatch } from "firebase/firestore";
-import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
+import { collection, doc, getDoc, onSnapshot, query, runTransaction, where } from "firebase/firestore";
 import { normalizeVoteUser, validateVote, voteExpiry } from "@src/components/screen/vote/voteSafety";
+import { finalVote, sameVoter } from "@src/components/screen/vote/voteHistory";
+import { loadArchivedVote } from "@src/services/voteArchiveRepository";
 
 export const useFirebase = () => {
     const saveVote = async (voteData) => {
         try {
-            //오래된 투표 제거
-            await cleanupOldVotes();
-
             // "votes" 컬렉션에 UUID를 문서 ID로 사용
             const voteRef = doc(db, "votes", voteData.uuid);
 
@@ -20,18 +18,30 @@ export const useFirebase = () => {
             }
 
             // Firebase에 저장할 데이터 가공 (currentCount 초기화 등)
+            const { roster, ...settings } = voteData;
+            const createdAt = new Date();
             const finalData = {
-                ...voteData,
+                ...settings,
                 choices: voteData.choices.map(choice => ({
                     ...choice,
                     currentCount: 0, // 투표 시작 시 0명으로 시작
                     players: []//참여 인원은 비어있도록 설정
                 })),
-                createdAt: new Date(),
+                createdAt,
+                rosterCapturedAt: createdAt,
+                status: "active",
+                schemaVersion: 2,
                 closed: false,
             };
 
-            await setDoc(voteRef, finalData);
+            if (!Array.isArray(roster) || !roster.length || roster.some(p => !/^\d+$/.test(String(p.uid)))) throw new Error("UID_REQUIRED");
+            // Leave ample room beneath Firestore's 1 MiB document limit (JSON is only an estimate).
+            if (new TextEncoder().encode(JSON.stringify(roster)).length > 700000) throw new Error("대상 명단이 너무 큽니다.");
+            await runTransaction(db, async transaction => {
+                if ((await transaction.get(voteRef)).exists()) throw new Error("DUPLICATE_VOTE_ID");
+                transaction.set(voteRef, finalData);
+                transaction.set(doc(db, "votes", voteData.uuid, "snapshots", "roster"), { players: roster, capturedAt: createdAt });
+            });
             return true;
         } catch (error) {
             console.error("Firebase 저장 에러:", error);
@@ -49,10 +59,21 @@ export const useFirebase = () => {
         };
         try {
             const voteRef = doc(db, "votes", uuid);
-            return onSnapshot(voteRef, docSnap => {
-                try { callback(docSnap.exists() ? docSnap.data() : null); }
+            let active = true;
+            let generation = 0;
+            const unsubscribe = onSnapshot(voteRef, docSnap => {
+                const current = ++generation;
+                try {
+                    const data = docSnap.exists() ? docSnap.data() : null;
+                    if (data?.status === "archived") {
+                        loadArchivedVote(data.archivePath, uuid, data.archiveCommit).then(archive => {
+                            if (active && generation === current) callback(archive);
+                        }).catch(error => { if (active && generation === current) reportError(error); });
+                    } else callback(data);
+                }
                 catch (error) { reportError(error); }
             }, reportError);
+            return () => { active = false; unsubscribe(); };
         } catch (error) { reportError(error); }
     }, []);
     const getVoteManager = useCallback((uuid, password, callback) => {
@@ -60,20 +81,29 @@ export const useFirebase = () => {
 
         const voteRef = doc(db, "votes", uuid);
 
-        return onSnapshot(voteRef, (docSnap) => {
+        let active = true;
+        let generation = 0;
+        const unsubscribe = onSnapshot(voteRef, (docSnap) => {
+            const current = ++generation;
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 const dbPassword = data.password;
+                const deliver = () => {
+                    if (data.status !== "archived") return callback(data);
+                    loadArchivedVote(data.archivePath, uuid, data.archiveCommit).then(archive => {
+                        if (active && generation === current) callback(archive);
+                    }).catch(() => { if (active && generation === current) callback({ error: "ARCHIVE_LOAD", message: "보관 자료를 읽지 못했습니다. 다시 불러와 주세요." }); });
+                };
 
                 // [케이스 1] DB에 비밀번호가 아예 없는 경우 -> 누구나 관리 가능 (Public)
                 if (!dbPassword) {
-                    callback(data);
+                    deliver();
                     return;
                 }
 
                 // [케이스 2] 비밀번호가 있는 경우 -> 입력값과 대조 (Admin Mode)
                 if (dbPassword === password) {
-                    callback(data);
+                    deliver();
                 } else {
                     // 비밀번호가 틀렸을 때 처리
                     console.warn("관리 권한이 없습니다.");
@@ -84,7 +114,20 @@ export const useFirebase = () => {
             }
         }, (error) => {
             console.error("Firebase 읽기 에러:", error);
+            callback({ error: "LOAD_ERROR", message: "투표를 읽지 못했습니다." });
         });
+        return () => { active = false; unsubscribe(); };
+    }, []);
+
+    const getVoteHistory = useCallback((serverId, callback, onError) => onSnapshot(
+        query(collection(db, "votes"), where("serverId", "in", [String(serverId), Number(serverId)])),
+        snapshot => callback(snapshot.docs.map(item => ({ ...item.data(), uuid: item.id }))), onError), []);
+    const getVoteRoster = useCallback(async uuid => {
+        const snapshot = await getDoc(doc(db, "votes", uuid, "snapshots", "roster"));
+        if (!snapshot.exists()) throw new Error("대상자 스냅샷이 없습니다.");
+        const players = snapshot.data().players;
+        if (!Array.isArray(players)) throw new Error("대상자 스냅샷 형식이 잘못되었습니다.");
+        return players;
     }, []);
 
     const castVote = async (voteId, choiceNo, userInfo, onError) => {
@@ -97,6 +140,8 @@ export const useFirebase = () => {
                 if (!voteDoc.exists()) throw "투표가 존재하지 않습니다.";
 
                 const data = validateVote(voteDoc.data());
+                if (finalVote(data)) throw new Error("최종 종료된 투표입니다.");
+                if (data.schemaVersion >= 2 && !/^\d+$/.test(voter.uid)) throw new Error("UID를 입력하거나 조사 명단에서 닉네임을 선택하세요.");
                 // --- 마감 로직 추가 ---
                 // 1. 수동 마감 여부 체크
                 if (data.closed) {
@@ -126,7 +171,7 @@ export const useFirebase = () => {
                 // 1. 기존에 투표한 기록이 있는지 확인 (닉네임 기준)
                 let previousChoiceIndex = -1;
                 newChoices.forEach((c, idx) => {
-                    if (c.players.some(p => normalizeNicknameForSearch(p.nickname) === normalizeNicknameForSearch(voter.nickname))) {
+                    if (c.players.some(p => sameVoter(p, voter))) {
                         previousChoiceIndex = idx;
                     }
                 });
@@ -142,7 +187,7 @@ export const useFirebase = () => {
                     newChoices[previousChoiceIndex] = {
                         ...prevChoice,
                         currentCount: Math.max(0, prevChoice.currentCount - 1),
-                        players: prevChoice.players.filter(p => normalizeNicknameForSearch(p.nickname) !== normalizeNicknameForSearch(voter.nickname))
+                        players: prevChoice.players.filter(p => !sameVoter(p, voter))
                     };
                 }
 
@@ -172,59 +217,34 @@ export const useFirebase = () => {
         }
     };
 
-    // 오래된 투표 자동 삭제 함수 (예: 30일 기준)
-    const cleanupOldVotes = async () => {
+    // Lifecycle changes use transactions so stale clients cannot resume an archived vote.
+    const changeVoteState = async (voteId, password, action) => {
+        const voteRef = doc(db, "votes", voteId);
         try {
-            const daysLimit = 30; // 30일 지난 데이터 삭제
-            const threshold = new Date();
-            threshold.setDate(threshold.getDate() - daysLimit);
-
-            // 1. 오래된 투표 찾기 (createdAt이 threshold보다 작은 문서)
-            const votesRef = collection(db, "votes");
-            const q = query(votesRef, where("createdAt", "<", threshold));
-            const querySnapshot = await getDocs(q);
-
-            if (querySnapshot.empty) return;
-
-            // 2. 배치(Batch) 작업을 통해 한꺼번에 삭제 (성능 최적화)
-            const batch = writeBatch(db);
-            querySnapshot.forEach((doc) => {
-                batch.delete(doc.ref);
+            await runTransaction(db, async transaction => {
+                const snapshot = await transaction.get(voteRef);
+                if (!snapshot.exists()) throw new Error("투표가 없습니다.");
+                const data = snapshot.data();
+                if (data.password && data.password !== password) throw new Error("관리자 비밀번호가 일치하지 않습니다.");
+                if (finalVote(data)) throw new Error("최종 종료된 투표는 재개하거나 수정할 수 없습니다.");
+                if (action === "archive" && !/^\d+$/.test(String(data.serverId))) throw new Error("서버 정보가 없어 보관할 수 없습니다.");
+                if (action === "active" && data.expiresAt && voteExpiry(data.expiresAt) <= new Date()) throw new Error("투표 기한이 지났습니다.");
+                transaction.update(voteRef, action === "archive"
+                    ? { closed: true, status: "archiving", endedAt: new Date() }
+                    : { closed: action === "paused", status: action });
             });
-
-            await batch.commit();
-            console.log(`${querySnapshot.size}개의 오래된 투표가 정리되었습니다.`);
-        } catch (error) {
-            console.error("정리 작업 중 에러:", error);
-        }
-    };
-
-    // 관리자용 수동 마감 함수
-    const closeVoteManually = async (voteId) => {
-        const voteRef = doc(db, "votes", voteId);
-        try {
-            await updateDoc(voteRef, { closed: true });
             return true;
         } catch (error) {
-            console.error("마감 처리 중 에러:", error);
+            alert(error.message || error);
             return false;
         }
     };
-
-    //관리자용 수동 오픈 함수
-    const openVoteManually = async (voteId) => {
-        const voteRef = doc(db, "votes", voteId);
-        try {
-            await updateDoc(voteRef, { closed: false });
-            return true;
-        } catch (error) {
-            console.error("마감 처리 중 에러:", error);
-            return false;
-        }
-    };
+    const closeVoteManually = (id, password) => changeVoteState(id, password, "paused");
+    const openVoteManually = (id, password) => changeVoteState(id, password, "active");
+    const endVote = (id, password) => changeVoteState(id, password, "archive");
 
     //관리자용 삭제 함수
-    const deletePlayerFromVote = async (voteId, choiceNo, nickname, inputPassword) => {
+    const deletePlayerFromVote = async (voteId, choiceNo, nickname, inputPassword, uid) => {
         const voteRef = doc(db, "votes", voteId);
 
         try {
@@ -233,6 +253,7 @@ export const useFirebase = () => {
                 if (!voteDoc.exists()) throw "투표가 존재하지 않습니다.";
 
                 const data = voteDoc.data();
+                if (finalVote(data)) throw "최종 종료된 투표는 수정할 수 없습니다.";
 
                 // --- 비밀번호 검사 로직 추가 ---
                 // DB에 비밀번호가 설정되어 있는데, 입력한 비밀번호와 다르면 에러 발생
@@ -247,7 +268,7 @@ export const useFirebase = () => {
 
                 const targetChoice = newChoices[choiceIndex];
                 const players = Object.values(targetChoice.players || {});
-                const updatedPlayers = players.filter(p => p.nickname !== nickname);
+                const updatedPlayers = players.filter(p => uid ? String(p.uid) !== String(uid) : p.nickname !== nickname);
 
                 if (updatedPlayers.length === players.length) throw "이미 삭제되었거나 해당 항목에 없는 투표입니다.";
 
@@ -268,5 +289,5 @@ export const useFirebase = () => {
         }
     };
 
-    return { saveVote, getVote, getVoteManager, castVote, closeVoteManually, openVoteManually, deletePlayerFromVote};
+    return { saveVote, getVote, getVoteManager, getVoteHistory, getVoteRoster, castVote, closeVoteManually, openVoteManually, endVote, deletePlayerFromVote};
 };

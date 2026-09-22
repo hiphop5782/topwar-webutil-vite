@@ -6,6 +6,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import * as safety from '../src/components/screen/vote/voteSafety.js';
 import { normalizeNicknameForSearch } from '../src/utils/normalizeNicknameForSearch.js';
+import * as history from '../src/components/screen/vote/voteHistory.js';
 
 const require = createRequire(import.meta.url);
 async function loadWithMocks(path, mocks) {
@@ -43,8 +44,10 @@ assert.equal(display.choices[0].players[0].allianceTag, '');
 assert.equal(raw.choices[0].players.one, null, 'Display normalization must not mutate database data');
 
 let data, writes, docError, transactionError, snapshotError, unsubscribeCalled;
+let voteExists = true, sets = [];
 const firestore = {
     doc: () => { if (docError) throw docError; return {}; },
+    getDoc: async () => ({ exists: () => voteExists, data: () => data }),
     onSnapshot: (ref, next, error) => {
         if (snapshotError) error(snapshotError);
         else next({ exists: () => true, data: () => data });
@@ -52,13 +55,15 @@ const firestore = {
     },
     runTransaction: async (db, callback) => {
         if (transactionError) throw transactionError;
-        await callback({ get: async () => ({ exists: () => true, data: () => data }), update: (ref, update) => writes.push(update) });
+        await callback({ get: async () => ({ exists: () => voteExists, data: () => data }), update: (ref, update) => writes.push(update), set: (ref, value) => sets.push(value) });
     },
 };
 const { useFirebase } = await loadWithMocks('../src/hooks/useFirebase.js', {
     react: { useCallback: callback => callback }, '../db/firebase': { db: {} }, 'firebase/firestore': firestore,
     '@src/utils/normalizeNicknameForSearch': { normalizeNicknameForSearch },
     '@src/components/screen/vote/voteSafety': safety,
+    '@src/components/screen/vote/voteHistory': history,
+    '@src/services/voteArchiveRepository': { loadArchivedVote: async () => { throw new Error('not configured'); } },
 });
 const api = useFirebase();
 const originalError = console.error;
@@ -79,6 +84,9 @@ try {
         () => { data.choices[0].players = [null]; },
         () => { data.choices[0].currentCount = 'bad'; },
         () => { data.closed = true; },
+        () => { data.status = 'archiving'; },
+        () => { data.status = 'archived'; },
+        () => { data.schemaVersion = 2; },
         () => { data.expiresAt = new Date(0); },
         () => { data.choices[0].limit = true; data.choices[0].count = 0; },
     ]) {
@@ -104,6 +112,43 @@ try {
         assert.ok(reported, `${type} errors must reach the screen`);
     }
     reset(); api.getVote('id', () => {})(); assert.equal(unsubscribeCalled, true);
+    reset(); data.schemaVersion = 2;
+    data.choices = [{ ...choice, players: [{ uid: '123', nickname: 'old name', cp: 10 }], currentCount: 1 }, { ...choice, no: 2 }];
+    assert.equal(await api.castVote('id', 2, { uid: '123', nickname: 'new name', cp: 20 }), true);
+    assert.equal(writes[0].choices[0].players.length, 0);
+    assert.equal(writes[0].choices[1].players[0].uid, '123');
+    reset(); data.schemaVersion = 2;
+    data.choices[0].players = [{ uid: '111', nickname: 'same name', cp: 1 }]; data.choices[0].currentCount = 1;
+    assert.equal(await api.castVote('id', 1, { uid: '222', nickname: 'same name', cp: 2 }), true);
+    assert.equal(writes[0].choices[0].players.length, 2, 'Different UIDs are never merged by nickname');
+    const originalAlert = globalThis.alert;
+    globalThis.alert = () => {};
+    try {
+        reset(); data.serverId = '3223'; data.password = 'secret';
+        assert.equal(await api.endVote('id', 'wrong'), false); assert.equal(writes.length, 0);
+        assert.equal(await api.closeVoteManually('id', 'secret'), true); assert.equal(writes.at(-1).status, 'paused');
+        assert.equal(await api.endVote('id', 'secret'), true); assert.equal(writes.at(-1).status, 'archiving');
+        assert.ok(writes.at(-1).endedAt instanceof Date);
+        for (const status of ['archiving', 'archived']) {
+            reset(); data.status = status;
+            assert.equal(await api.openVoteManually('id', ''), false);
+            assert.equal(await api.closeVoteManually('id', ''), false);
+            assert.equal(await api.endVote('id', ''), false);
+            assert.equal(await api.deletePlayerFromVote('id', 1, 'tester', '', '123'), false);
+            assert.equal(writes.length, 0);
+        }
+    } finally { globalThis.alert = originalAlert; }
+    reset(); voteExists = false; sets = [];
+    const creating = { ...poll(), uuid: 'NEWCODE1', rosterSource: 'snapshot', roster: [{ uid: '123', nickname: 'member', power: 1000000 }] };
+    assert.equal(await api.saveVote(creating), true);
+    assert.equal(sets.length, 2, 'Vote and snapshot must be written in the same transaction');
+    assert.equal(sets[0].schemaVersion, 2); assert.equal(sets[0].roster, undefined);
+    assert.equal(sets[1].players[0].uid, '123');
+    voteExists = true; sets = [];
+    await assert.rejects(api.saveVote(creating), /DUPLICATE/); assert.equal(sets.length, 0);
+    voteExists = false;
+    await assert.rejects(api.saveVote({ ...creating, roster: [{ nickname: 'missing UID' }] }), /UID_REQUIRED/);
+    assert.equal(sets.length, 0); voteExists = true;
 } finally { console.error = originalError; }
 
 const { default: Boundary } = await loadWithMocks('../src/components/error/ScreenErrorBoundary.jsx', {});

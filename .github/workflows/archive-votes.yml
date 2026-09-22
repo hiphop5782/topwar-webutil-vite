@@ -1,0 +1,28 @@
+name: Archive ended votes
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '3-58/5 * * * *'
+permissions:
+  contents: read
+concurrency:
+  group: vote-archive-writer
+  cancel-in-progress: false
+jobs:
+  archive:
+    if: vars.VOTE_ARCHIVE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: automation/package-lock.json
+      - run: npm ci --prefix automation
+      - name: Archive and verify before removing Firestore detail
+        run: node automation/archive-votes.mjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          VOTE_ARCHIVE_TOKEN: ${{ secrets.VOTE_ARCHIVE_TOKEN }}

@@ -1,0 +1,8 @@
+{
+  "name": "topwar-vote-archive-worker",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@google-cloud/firestore": "^9.2.0"
+  }
+}

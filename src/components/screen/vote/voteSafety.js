@@ -8,6 +8,7 @@ export function normalizeVoteUser(value) {
         nickname: text(user.nickname),
         cp: cp !== "" && Number.isFinite(Number(cp)) && Number(cp) >= 0 ? cp : "",
         allianceTag: text(user.allianceTag), allianceName: text(user.allianceName), uid: text(user.uid),
+        cpUnit: ["raw", "million"].includes(user.cpUnit) ? user.cpUnit : "legacy",
     };
 }
 

@@ -38,6 +38,7 @@ export const routePolicies = [
     { pattern: /^\/account\/profile$/, key: "account.profile", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/account\/creator$/, key: "account.creator", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vote\/create$/, key: "vote.create", category: 'system', index: false, languages: supportedLngs },
+    { pattern: /^\/vote\/cast\/[^/]+\/[^/]+$/, key: "vote.cast", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vote\/cast(?:\/[^/]+)?$/, key: "vote.cast", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vote\/manage(?:\/[^/]+)?$/, key: "vote.manage", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vote\/[^/]+\/[^/]+$/, key: "vote.cast", category: 'system', index: false, languages: supportedLngs },

@@ -7,6 +7,7 @@ import VoteTemplates from "@src/assets/json/vote/vote-template.json";
 import { Helmet } from "react-helmet-async";
 import { loadRealPower } from "@src/services/topwarDataRepository";
 import { randomVoteColor, validVoteColor } from "./voteColors";
+import { buildRoster } from "./voteHistory";
 
 export default function AttendanceVoteCreator() {
     const { saveVote } = useFirebase();
@@ -17,6 +18,8 @@ export default function AttendanceVoteCreator() {
     const [showPwd, setShowPwd] = useState(false);
     const [serverPlayers, setServerPlayers] = useState([]);
     const [allianceLoading, setAllianceLoading] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [savedPath, setSavedPath] = useState("");
 
     const createShortCode = useCallback(() => {
         const alphabet = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
@@ -25,6 +28,8 @@ export default function AttendanceVoteCreator() {
     }, []);
 
     const createVoteByTemplate = useCallback((template)=>{
+        setSavedPath("");
+        setServerPlayers([]);
         setVote({
             ...template.vote, 
             uuid:createShortCode(),
@@ -120,20 +125,24 @@ export default function AttendanceVoteCreator() {
         if (vote.choices.some(c => c.content.length === 0)) return toast.error("모든 항목의 내용을 작성하세요");
 
         try {
+            setSaving(true);
+            const serverId = String(Number(vote.serverId));
+            const data = await loadRealPower(serverId);
+            const roster = buildRoster(data?.players, { ...vote, serverId });
             const selectedAlliance = alliances.find(alliance => alliance.id === vote.allianceId);
-            const success = await saveVote({ ...vote, choices: vote.choices.map(choice => ({ ...choice, color: validVoteColor(choice.color) ? choice.color : randomVoteColor() })), allianceTag: selectedAlliance?.tag || "", allianceName: selectedAlliance?.name || "",
-                rosterSource: "live" });
+            const success = await saveVote({ ...vote, serverId, roster, choices: vote.choices.map(choice => ({ ...choice, color: validVoteColor(choice.color) ? choice.color : randomVoteColor() })), allianceTag: selectedAlliance?.tag || roster[0]?.allianceTag || "", allianceName: selectedAlliance?.name || roster[0]?.allianceName || "",
+                rosterSource: "snapshot" });
             if (success) {
+                setSavedPath(`/vote/cast/${serverId}/${encodeURIComponent(vote.uuid)}`);
                 toast.success("투표가 성공적으로 등록되었습니다");
             }
         }
-        catch {
-            toast.error("저장 오류가 발생했습니다");
-        }
+        catch (error) { toast.error(error.message || "저장 오류가 발생했습니다"); }
+        finally { setSaving(false); }
     }, [vote, saveVote, alliances]);
 
     const { i18n } = useTranslation();
-    const votePath = `/${i18n.language}/vote/cast/${encodeURIComponent(vote.uuid)}`;
+    const votePath = `/${i18n.language}${savedPath || `/vote/cast/${Number(vote.serverId) || "서버번호"}/${encodeURIComponent(vote.uuid)}`}`;
 
     const copyToClipboard = useCallback((text, message) => {
         if (navigator.clipboard && window.isSecureContext) {
@@ -231,7 +240,7 @@ export default function AttendanceVoteCreator() {
                                 [{alliance.tag || "-"}] {alliance.name || alliance.id} ({alliance.count}명)
                             </option>)}
                         </select>}
-                        <small className="text-muted d-block mt-1">길드원 명단은 투표 화면을 열 때 최신 조사 자료에서 불러옵니다.</small>
+                        <small className="text-muted d-block mt-1">생성 당시 레벨 80 이상 대상자의 UID·닉네임·CP를 보존합니다. 변동 인원은 UID와 함께 직접 입력할 수 있습니다.</small>
                     </div>}
                 </div>
             </div>
@@ -311,9 +320,10 @@ export default function AttendanceVoteCreator() {
 
             <div className="row mb-4">
                 <div className="offset-sm-3 col-sm-9">
-                    <button className="btn btn-primary w-100" onClick={saveToDatabase}>
+                    <p className="text-muted">최종 종료 시 대상 명단(UID·닉네임·CP)과 개인별 투표 내역이 공개 GitHub 저장소에 보관됩니다. 관리자 비밀번호는 공개하지 않습니다.</p>
+                    <button className="btn btn-primary w-100" disabled={saving || Boolean(savedPath)} onClick={saveToDatabase}>
                         <FaFloppyDisk className="me-2" />
-                        <span>최종 저장</span>
+                        <span>{saving ? "명단 확인 및 저장 중…" : savedPath ? "저장 완료" : "최종 저장"}</span>
                     </button>
                 </div>
             </div>

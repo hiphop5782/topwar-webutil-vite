@@ -5,20 +5,23 @@ import { FaPlay, FaStop, FaUpload, FaXmark } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 import { loadRealPower } from "@src/services/topwarDataRepository";
-import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 import { choiceColor } from "./voteColors";
+import { finalVote, sameVoter } from "./voteHistory";
+import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
 const cpInMillions = value => Math.abs(Number(value ?? 0)) >= 1_000_000 ? Number(value) / 1_000_000 : Number(value ?? 0);
 
 
 export default function AttendanceVoteManager() {
     const {voteId} = useParams();
+    const { getVoteManager, getVoteRoster, closeVoteManually, openVoteManually, endVote, deletePlayerFromVote } = useFirebase();
 
     const [uuid, setUuid] = useState(voteId || "");
     const [password, setPassword] = useState("");
     const [loadedAccess, setLoadedAccess] = useState(null);
     const [view, setView] = useState("all");
     const [deleting, setDeleting] = useState(false);
+    const [changing, setChanging] = useState(false);
     const [vote, setVote] = useState(null);
     const unsubscribeRef = useRef(null);
     const [roster, setRoster] = useState([]);
@@ -27,6 +30,13 @@ export default function AttendanceVoteManager() {
     useEffect(() => {
         let active = true;
         setRoster([]);
+        if (vote?.status === "archived") { setRoster(vote.roster || []); setRosterStatus(vote.rosterSource === "unavailable" ? "missing" : "ready"); return; }
+        if (vote?.rosterSource === "snapshot") {
+            setRosterStatus("loading");
+            getVoteRoster(loadedAccess.uuid).then(players => { if (active) { setRoster(players); setRosterStatus("ready"); } })
+                .catch(() => { if (active) setRosterStatus("error"); });
+            return () => { active = false; };
+        }
         if (!vote?.serverId) { setRosterStatus("missing"); return; }
         setRosterStatus("loading");
         loadRealPower(vote.serverId).then(data => {
@@ -38,15 +48,12 @@ export default function AttendanceVoteManager() {
             setRosterStatus("ready");
         }).catch(() => { if (active) setRosterStatus("error"); });
         return () => { active = false; };
-    }, [vote?.serverId, vote?.targetScope, vote?.allianceId, rosterAttempt]);
+    }, [vote?.serverId, vote?.targetScope, vote?.allianceId, vote?.status, vote?.rosterSource, vote?.roster, loadedAccess?.uuid, getVoteRoster, rosterAttempt]);
     const nonVoters = useMemo(() => {
         const voters = (vote?.choices || []).flatMap(choice => Object.values(choice.players || {}));
-        return roster.filter(player => !voters.some(voter =>
-            (player.uid && voter.uid && String(player.uid) === String(voter.uid)) ||
-            normalizeNicknameForSearch(player.nickname || player.username) === normalizeNicknameForSearch(voter.nickname)));
+        return roster.filter(player => !voters.some(voter => sameVoter(player, voter)));
     }, [vote, roster]);
 
-    const { getVoteManager, closeVoteManually, openVoteManually, deletePlayerFromVote } = useFirebase();
 
     const loadVote = useCallback(()=>{
             unsubscribeRef.current?.();
@@ -76,7 +83,9 @@ export default function AttendanceVoteManager() {
 
     const closeVote = useCallback(async ()=>{
         if(window.confirm("이 투표를 중지하시겠습니까?")) {
-            const success = await closeVoteManually(loadedAccess.uuid);
+            setChanging(true);
+            const success = await closeVoteManually(loadedAccess.uuid, loadedAccess.password);
+            setChanging(false);
             if(success) {
                 toast.error("투표가 중지되었습니다");
             }
@@ -85,12 +94,21 @@ export default function AttendanceVoteManager() {
 
     const openVote = useCallback(async ()=>{
         if(window.confirm("이 투표를 다시 시작하시겠습니까?")) {
-            const success = await openVoteManually(loadedAccess.uuid);
+            setChanging(true);
+            const success = await openVoteManually(loadedAccess.uuid, loadedAccess.password);
+            setChanging(false);
             if(success) {
                 toast.success("투표가 다시 시작되었습니다");
             }
         }
     }, [openVoteManually, loadedAccess]);
+
+    const finishVote = async () => {
+        if (!window.confirm("투표를 최종 종료하시겠습니까? 재개하거나 응답을 삭제할 수 없습니다. 대상자의 UID·닉네임·CP와 개인별 투표 결과가 공개 GitHub 저장소에 보관됩니다.")) return;
+        setChanging(true);
+        try { if (await endVote(loadedAccess.uuid, loadedAccess.password)) toast.success("최종 종료되었습니다. 자동 보관 작업이 완료될 때까지 원본을 유지합니다."); }
+        finally { setChanging(false); }
+    };
 
     const handleDeletePlayer = useCallback(async (choiceNo, player) => {
         // 1차 확인창
@@ -99,7 +117,7 @@ export default function AttendanceVoteManager() {
             // 훅에서 수정한 함수 호출 (uuid, 항목번호, 닉네임, 현재입력된 비밀번호)
             setDeleting(true);
             let success;
-            try { success = await deletePlayerFromVote(loadedAccess.uuid, choiceNo, player.nickname, loadedAccess.password); } finally { setDeleting(false); }
+            try { success = await deletePlayerFromVote(loadedAccess.uuid, choiceNo, player.nickname, loadedAccess.password, player.uid); } finally { setDeleting(false); }
             
             if (success) {
                 toast.success(`${player.nickname} 님의 투표 기록을 삭제했습니다.`);
@@ -114,7 +132,7 @@ export default function AttendanceVoteManager() {
         ...player, choiceNo: choice.no, choiceTitle: choice.content, color: choiceColor(choice, index),
     })));
     const cpOf = player => player.power != null || player.score != null
-        ? Number(player.score ?? player.power) / 1000000 : cpInMillions(player.cp);
+        ? Number(player.score ?? player.power) / 1000000 : player.cpUnit === "million" ? Number(player.cp) : player.cpUnit === "raw" ? Number(player.cp) / 1000000 : cpInMillions(player.cp);
     const sortPlayers = players => [...players].sort((a, b) => cpOf(b) - cpOf(a) || nameOf(a).localeCompare(nameOf(b)));
     const allPlayers = [...voters, ...nonVoters];
     const copyPlayers = async players => {
@@ -148,7 +166,7 @@ export default function AttendanceVoteManager() {
                 title="닉네임 복사" onClick={() => copyPlayers([player])}>{nameOf(player)}</button>
             {player.choiceNo != null && <span className="badge rounded-pill bg-success">✓ 투표 완료</span>}
             <span className="small">{player.choiceTitle || "미참여"} · CP {cpOf(player).toLocaleString(undefined, { maximumFractionDigits: 2 })}M</span>
-            {player.choiceNo != null && <button type="button" disabled={deleting} className="btn btn-sm btn-outline-danger ms-auto"
+            {player.choiceNo != null && !finalVote(vote) && <button type="button" disabled={deleting || changing} className="btn btn-sm btn-outline-danger ms-auto"
                 aria-label={`${nameOf(player)} 투표 삭제`} onClick={() => handleDeletePlayer(player.choiceNo, player)}><FaXmark /> 삭제</button>}
         </li>)}</ul>
     </section>;
@@ -186,22 +204,27 @@ export default function AttendanceVoteManager() {
         </div>
 
         {vote !== null && (<>
+        <div className="d-flex gap-2 mt-3">
+            {vote.serverId && <LanguageRouterLink className="btn btn-outline-primary" to={`/vote/cast/${vote.serverId}`}>서버 투표 내역</LanguageRouterLink>}
+            <LanguageRouterLink className="btn btn-outline-secondary" to={vote.serverId ? `/vote/cast/${vote.serverId}/${loadedAccess.uuid}` : `/vote/cast/${loadedAccess.uuid}`}>투표 화면</LanguageRouterLink>
+        </div>
         <div className="row mt-4">
             <label className="col-form-label col-sm-3">투표 상태</label>
             <div className="col-sm-9 fs-4">
-                {vote.closed === true ? (<>
-                    <span className="text-danger">투표 마감됨</span>
-                    <button className="btn btn-primary ms-2 d-inline-flex justify-content-center align-items-center" onClick={openVote}>
+                {finalVote(vote) ? <div className="alert alert-secondary fs-6">{vote.status === "archived" ? "최종 종료 · GitHub 보관 완료" : "최종 종료 · GitHub 보관 대기 (자동 작업은 지연될 수 있습니다. 원본 유지 중)"}</div> : vote.closed === true ? (<>
+                    <span className="text-warning">일시정지</span>
+                    <button disabled={changing} className="btn btn-primary ms-2 d-inline-flex justify-content-center align-items-center" onClick={openVote}>
                         <FaPlay/>
                         <span className="ms-2">재개</span>
                     </button>
                 </>) : (<>
                     <span className="text-primary">투표 진행중</span>
-                    <button className="btn btn-danger ms-2 d-inline-flex justify-content-center align-items-center" onClick={closeVote}>
+                    <button disabled={changing} className="btn btn-warning ms-2 d-inline-flex justify-content-center align-items-center" onClick={closeVote}>
                         <FaStop/>
-                        <span className="ms-2">중지</span>
+                        <span className="ms-2">일시정지</span>
                     </button>
                 </>)}
+                {!finalVote(vote) && <button disabled={changing || deleting} className="btn btn-danger ms-2" onClick={finishVote}>투표 최종 종료 · GitHub 보관</button>}
             </div>
         </div>
 
@@ -216,7 +239,7 @@ export default function AttendanceVoteManager() {
             <label className="col-form-label col-sm-3">투표 대상</label>
             <div className="col-sm-9">
                 {vote.targetScope === "alliance"
-                    ? `${vote.serverId} 서버 · [${vote.allianceTag || "-"}] ${vote.allianceName || vote.allianceId} · 최신 조사 명단 기준`
+                    ? `${vote.serverId} 서버 · [${vote.allianceTag || "-"}] ${vote.allianceName || vote.allianceId} · ${vote.rosterSource === "snapshot" ? "생성 당시 명단" : "기존 기록"}`
                     : `${vote.serverId || "-"} 서버 전체`}
             </div>
         </div>
@@ -249,7 +272,7 @@ export default function AttendanceVoteManager() {
                     <button key={key} className={`btn ${view === key ? "btn-primary" : "btn-outline-primary"}`} aria-pressed={view === key} onClick={() => setView(key)}>{title}</button>)}
             </div>
             <p className="text-muted">CP 높은 순 · 닉네임을 누르면 개별 복사, 그룹 복사는 닉네임만 쉼표로 구분합니다. 불참 항목에 투표한 사람도 투표 참여자로 집계됩니다.</p>
-            {rosterStatus === "missing" && <p>서버 정보가 없어 기존 투표자만 표시합니다. 미참여 명단은 확인할 수 없습니다.</p>}
+            {rosterStatus === "missing" && <p>당시 대상 명단이 없어 기존 투표자만 표시합니다. 미참여 명단은 확인할 수 없습니다.</p>}
             {rosterStatus === "loading" && <p>대상자 명단을 불러오는 중입니다.</p>}
             {rosterStatus === "error" && <p>대상자 명단을 불러오지 못했습니다. <button className="btn btn-outline-secondary" onClick={() => setRosterAttempt(n => n + 1)}>다시 시도</button></p>}
             {view === "all" && renderGroup(rosterStatus === "ready" ? "전체 대상" : "확인된 투표자", allPlayers)}

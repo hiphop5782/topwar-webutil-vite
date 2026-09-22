@@ -27,6 +27,7 @@ import EternalLandDarkforce from "@src/components/screen/information/el/EternalL
 import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCreator";
 import AttendanceVoteReader from "@src/components/screen/vote/AttendanceVoteReader";
 import AttendanceVoteManager from "@src/components/screen/vote/AttendanceVoteManager";
+import AttendanceVoteHistory from "@src/components/screen/vote/AttendanceVoteHistory";
 import EmojiCreator from "@src/components/screen/emoji/EmojiCreator";
 import TopwarDataViewer from "@src/components/screen/information/server/TopwarDataViewer";
 import TopwarPlayerDataViewer from "@src/components/screen/information/server/TopwarPlayerDataViewer";
@@ -153,7 +154,8 @@ export default function MainContentView() {
                     }></Route>
                     <Route path="vote/create" element={<AttendanceVoteCreator/>}></Route>
                     <Route path="vote/cast" element={<AttendanceVoteReader/>}></Route>
-                    <Route path="vote/cast/:voteId" element={<AttendanceVoteReader/>}></Route>
+                    <Route path="vote/cast/:voteId" element={<AttendanceVoteHistory/>}></Route>
+                    <Route path="vote/cast/:serverId/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/:serverId/:voteId" element={<AttendanceVoteReader/>}></Route>
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
