@@ -13,7 +13,7 @@
     "build": "npm run clean && cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build && npm run copy:default-page && npm run sitemap",
     "verify:search": "node scripts/verify-search.mjs",
     "verify:content": "node scripts/verify-public-content.mjs",
-    "verify:vote": "node scripts/verify-vote-safety.mjs && node scripts/verify-vote-history.mjs && node scripts/verify-vote-translation.mjs"
+    "verify:vote": "node scripts/verify-vote-safety.mjs && node scripts/verify-vote-history.mjs && node scripts/verify-vote-translation.mjs && node scripts/verify-nickname-search.mjs"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",

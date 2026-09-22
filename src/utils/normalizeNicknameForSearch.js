@@ -84,3 +84,10 @@ export function normalizeNicknameForSearch(value) {
         .replace(/\s+/g, " ")
         .trim();
 }
+
+// Search only: decomposed Hangul lets an unfinished syllable match its completed form
+// (호 → 홍시, 홍ㅅ → 홍시). Keep identity/deduplication normalization unchanged.
+export function matchesNicknameSearch(nickname, query) {
+    return normalizeNicknameForSearch(nickname).normalize("NFD")
+        .includes(normalizeNicknameForSearch(query).normalize("NFD"));
+}

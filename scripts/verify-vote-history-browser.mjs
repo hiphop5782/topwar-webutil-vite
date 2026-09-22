@@ -62,7 +62,7 @@ try {
     await page.setViewport({ width: 412, height: 915 });
     await page.evaluateOnNewDocument(() => {
         window.roster = [{ uid:'1001',nickname:'높은CP',power:150000000,level:80,serverId:3223,allianceId:'1' },
-            { uid:'1002',nickname:'낮은CP',power:300000,level:80,serverId:3223,allianceId:'1' }];
+            { uid:'1002',nickname:'홍시',power:300000,level:80,serverId:3223,allianceId:'1' }];
         window.fixture = { uuid:'NEWCODE1',title:'Newest vote',serverId:'3223',schemaVersion:2,rosterSource:'snapshot',
             targetScope:'server',createdAt:'2026-09-22',status:'active',closed:false,
             choices:[{no:1,content:'Yes',color:'#00aa00',currentCount:1,players:[{uid:'1001',nickname:'ChangedName',cp:150,cpUnit:'million'}]}] };
@@ -85,12 +85,44 @@ try {
     assert.equal(await page.$$eval('a.card.border-primary', nodes => nodes.length), 1);
     await page.click('a.card');
     await page.waitForSelector('.vote-nickname-picker input');
+    assert.equal(await page.$$eval('.vote-nickname-results button', nodes => nodes.length), 2, 'Results visible without focusing search');
+    await page.click('input[type=radio]');
+    assert.equal(await page.$eval('button[aria-busy]', node => node.disabled), true, 'Typing alone cannot submit a cached identity');
+    assert.equal(await page.$eval('.vote-nickname-results', node => getComputedStyle(node).position), 'static');
     await page.click('.vote-nickname-picker input');
-    await page.waitForSelector('[role=option]');
-    assert.equal(await page.$eval('[role=option]', node=>node.textContent.includes('150M')), true);
-    assert.equal(await page.$$eval('[role=option]', nodes=>nodes[1].textContent.includes('0.3M')), true);
+    await page.waitForSelector('.vote-nickname-results button');
+    assert.equal(await page.$eval('.vote-nickname-results button', node=>node.textContent.includes('150M')), true);
+    assert.equal(await page.$$eval('.vote-nickname-results button', nodes=>nodes[1].textContent.includes('0.3M')), true);
+    const buttonSize = await page.$eval('.vote-nickname-results button', node => ({ height: node.getBoundingClientRect().height, width: node.getBoundingClientRect().width, container: node.parentElement.clientWidth }));
+    assert.ok(buttonSize.height <= 44 && buttonSize.width < buttonSize.container, 'Compact result buttons should not fill a mobile row');
+    const cdp = await page.createCDPSession();
+    await cdp.send('Input.imeSetComposition', { text: '호', selectionStart: 1, selectionEnd: 1 });
+    await page.waitForFunction(() => document.querySelectorAll('.vote-nickname-results button').length === 1 && document.querySelector('.vote-nickname-results button strong')?.textContent === '홍시');
+    assert.equal(await page.$eval('.vote-nickname-picker input', node => node.value), '호', 'Unfinished IME text filters results before committing');
+    await cdp.send('Input.imeSetComposition', { text: '', selectionStart: 0, selectionEnd: 0 });
+    await page.waitForFunction(() => document.querySelectorAll('.vote-nickname-results button').length === 2);
     await page.keyboard.press('ArrowDown'); await page.keyboard.press('Enter');
     await page.waitForSelector('.vote-selected-player');
+    assert.equal(await page.$eval('button[aria-busy]', node => node.disabled), false);
+    await page.click('h1');
+    assert.ok(await page.$('.vote-nickname-results button'), 'Outside click must not hide result buttons');
+    await page.click('.vote-nickname-picker input');
+    await page.type('.vote-nickname-picker input', 'unknown');
+    assert.equal(await page.$eval('button[aria-busy]', node => node.disabled), true, 'Editing search invalidates previous selection');
+    await clickText('직접 입력하겠습니다');
+    assert.equal(await page.$('.vote-nickname-results'), null);
+    const manual = await page.$$('.vote-profile-card input');
+    assert.equal(await manual[0].evaluate(node => node.value), '높은CPunknown');
+    assert.equal(await manual[1].evaluate(node => node.value), '', 'Do not reuse another player CP');
+    assert.equal(await manual[2].evaluate(node => node.value), '', 'Do not reuse another player UID');
+    await clickText('조사 명단에서 선택');
+    await page.focus('.vote-nickname-picker input');
+    await page.keyboard.down('Control');
+    await page.keyboard.press('A');
+    await page.keyboard.up('Control');
+    await page.keyboard.press('Backspace');
+    await page.waitForSelector('.vote-nickname-results button');
+    await page.click('.vote-nickname-results button');
     assert.equal(await page.$eval('.vote-selected-player', node=>node.textContent.includes('150M')), true);
     assert.equal(await page.$$eval('.attendance-roster-name', nodes=>nodes.length), 2, 'Renamed UID does not create a duplicate');
     await clickText('← 서버 투표 내역'); await page.waitForSelector('a.card');

@@ -9,7 +9,7 @@ import { FaDownload, FaGlobe, FaMagnifyingGlass, FaUsers, FaXmark } from "react-
 import { toast } from "react-toastify";
 import { translateTexts, translationLanguages as languages, voteText } from "./voteTranslation";
 import { loadRealPower } from "@src/services/topwarDataRepository";
-import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
+import { matchesNicknameSearch } from "@src/utils/normalizeNicknameForSearch";
 import koreanViewer from "@src/locales/ko/viewer.json";
 import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
@@ -64,19 +64,18 @@ function VoteReader() {
     const [rosterError, setRosterError] = useState(false);
     const [manualEntry, setManualEntry] = useState(false);
     const [nicknameQuery, setNicknameQuery] = useState("");
-    const [showSuggestions, setShowSuggestions] = useState(false);
-    const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+    const [profileConfirmed, setProfileConfirmed] = useState(false);
     const [listMode, setListMode] = useState("nickname");
     const requestRef = useRef(null);
     const sourceRef = useRef("");
-    const nicknamePickerRef = useRef(null);
     const extraText = {
         manage: "이 투표 관리 페이지로 이동", voters: "참여자 목록", people: "명", empty: "아직 투표한 사람이 없습니다.", mine: "내 투표",
         original: "원문 보기", failed: "번역하지 못했습니다. 잠시 후 다시 시도해주세요.", notFound: "투표가 존재하지 않습니다.",
         closed: "관리자에 의해 마감이 완료된 투표입니다.", expired: "투표 기간이 종료되었습니다.", duplicate: "이미 해당 항목에 투표하셨습니다.",
         full: "선택한 항목의 정원이 가득 찼습니다.", voteFailed: "투표 처리 중 오류가 발생했습니다. 다시 시도해주세요.",
         translateTitle: "다른 언어로 보기", translateHelp: "언어를 누르면 투표 내용과 화면 안내가 번역됩니다.", searchNickname: "조사된 닉네임 검색",
-        searchHelp: "닉네임 일부를 입력하세요.", directInput: "직접 입력", selectFromData: "조사 명단에서 선택", noNickname: "일치하는 닉네임이 없습니다. 직접 입력을 이용해주세요.",
+        searchHelp: "닉네임 일부를 입력하세요.", directInput: "직접 입력하겠습니다", selectFromData: "조사 명단에서 선택", noNickname: "일치하는 닉네임이 없습니다. 직접 입력을 이용해주세요.",
+        selectResult: "아래 검색 결과에서 본인의 닉네임 버튼을 눌러주세요.", selected: "선택 완료", selectRequired: "닉네임 버튼을 선택하거나 직접 입력을 선택해주세요.",
         loadingRoster: "서버 조사 명단을 불러오는 중입니다.", rosterFailed: "조사 명단을 불러오지 못했습니다. 직접 입력해주세요.", cp: "CP (기지 전투력, M)",
         nicknameView: "CP 높은 순", groupView: "선택 항목별", exportSheet: "Google 스프레드시트용 내보내기",
         exported: "CSV 파일을 만들었습니다. Google 스프레드시트에서 열 수 있습니다.",
@@ -174,55 +173,32 @@ function VoteReader() {
             setRoster((vote?.targetScope === "alliance"
                 ? players.filter(player => String(player.allianceId ?? "") === String(vote.allianceId ?? ""))
                 : players).sort(byCpDescending));
-        }).catch(() => { if (active) { setRoster([]); setRosterError(true); setManualEntry(true); } })
+        }).catch(() => { if (active) { setRoster([]); setRosterError(true); } })
             .finally(() => { if (active) setRosterLoading(false); });
         return () => { active = false; };
     }, [serverId, vote?.targetScope, vote?.allianceId, rosterSource, status, archivedRoster, uuid, getVoteRoster, hasVote]);
 
     const suggestions = useMemo(() => {
-        const query = normalizeNicknameForSearch(nicknameQuery);
-        return roster.filter(player => !query || normalizeNicknameForSearch(playerName(player)).includes(query)).slice(0, 20);
+        return roster.filter(player => matchesNicknameSearch(playerName(player), nicknameQuery)).slice(0, 20);
     }, [nicknameQuery, roster]);
 
-    useEffect(() => {
-        const closeOnOutsideClick = event => {
-            if (nicknamePickerRef.current && !nicknamePickerRef.current.contains(event.target)) {
-                setShowSuggestions(false);
-                setActiveSuggestionIndex(-1);
-            }
-        };
-        document.addEventListener("pointerdown", closeOnOutsideClick);
-        return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-    }, []);
-
-    useEffect(() => {
-        if (!showSuggestions || activeSuggestionIndex < 0) return;
-        document.getElementById(`vote-nickname-option-${activeSuggestionIndex}`)?.scrollIntoView({ block: "nearest" });
-    }, [showSuggestions, activeSuggestionIndex]);
-
-    const handleNicknameKeyDown = event => {
-        if (event.key === "Escape") {
-            event.preventDefault();
-            setShowSuggestions(false);
-            setActiveSuggestionIndex(-1);
-            return;
-        }
-        if (event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Enter") return;
-        if (!showSuggestions) {
-            if (event.key === "Enter") return;
-            setShowSuggestions(true);
-        }
-        if (suggestions.length === 0) return;
+    const handleNicknameKeyDown = (event, index = -1) => {
+        if (event.nativeEvent.isComposing || !["ArrowDown", "ArrowUp"].includes(event.key) || !suggestions.length) return;
         event.preventDefault();
-        if (event.key === "ArrowDown") setActiveSuggestionIndex(index => index >= suggestions.length - 1 ? 0 : index + 1);
-        if (event.key === "ArrowUp") setActiveSuggestionIndex(index => index <= 0 ? suggestions.length - 1 : index - 1);
-        if (event.key === "Enter") selectPlayer(suggestions[Math.max(0, activeSuggestionIndex)]);
+        const next = event.key === "ArrowDown" ? (index + 1) % suggestions.length : (index <= 0 ? suggestions.length - 1 : index - 1);
+        document.getElementById(`vote-nickname-option-${next}`)?.focus();
     };
     const selectPlayer = useCallback(player => {
         const nickname = playerName(player);
         setUserInfo({ nickname, cp: playerCp(player), cpUnit: "million", allianceTag: player.allianceTag || "", allianceName: player.allianceName || "", uid: player.uid || "" });
-        setNicknameQuery(nickname); setShowSuggestions(false); setActiveSuggestionIndex(-1);
+        setNicknameQuery(nickname); setProfileConfirmed(true);
     }, [setUserInfo]);
+
+    const startManualEntry = () => {
+        setUserInfo({ nickname: nicknameQuery.trim(), cp: "", cpUnit: "million", uid: "" });
+        setProfileConfirmed(false);
+        setManualEntry(true);
+    };
 
     const totalCount = useMemo(() => vote?.choices?.reduce((sum, choice) => sum + Number(choice.currentCount || 0), 0) || 0, [vote]);
     const participants = useMemo(() => (shownVote?.choices || []).flatMap((choice, index) => choicePlayers(choice).map(player => ({ ...player, choiceContent: choice.content, color: choiceColor(choice, index) }))), [shownVote]);
@@ -239,6 +215,7 @@ function VoteReader() {
     const isExpired = useMemo(() => vote?.closed || (vote?.expiresAt != null && new Date() > voteExpiry(vote.expiresAt)), [vote]);
 
     const submitVote = async () => {
+        if (!manualEntry && !profileConfirmed) return toast.error(label("selectRequired"));
         if (vote?.schemaVersion >= 2 && !/^\d+$/.test(userInfo.uid)) return toast.error(label("uidRequired"));
         if (submittingRef.current || loadError || !vote) return;
         if (!userInfo.nickname?.trim() || userInfo.cp === "" || choiceNo === null) return toast.error(t("AttendanceVoteReader.message-require-info"));
@@ -315,17 +292,19 @@ function VoteReader() {
                 {languages.map(language => <button type="button" key={language.code} className={`btn btn-sm ${translation?.language === language.code ? "btn-primary" : "btn-light"}`} disabled={translateLoading} onClick={() => translateVote(language)}><FlagWithTooltip lang={language} selected={translation?.language === language.code} /> <span>{language.name}</span></button>)}
                 {translateLoading && <span className="shimmer-text">{t("AttendanceVoteReader.message-translate")}<span className="dots" /></span>}
             </div></div>
-            {!isExpired && <section className="vote-profile-card mt-4"><div className="d-flex justify-content-between align-items-center gap-2 flex-wrap"><h3 className="m-0">{t("AttendanceVoteReader.myinfo-title")}</h3><button className="btn btn-sm btn-outline-secondary" onClick={() => setManualEntry(value => !value)}>{manualEntry ? label("selectFromData") : label("directInput")}</button></div>
+            {!isExpired && <section className="vote-profile-card mt-4"><div className="d-flex justify-content-between align-items-center gap-2 flex-wrap"><h3 className="m-0">{t("AttendanceVoteReader.myinfo-title")}</h3>{manualEntry && <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => { setManualEntry(false); setProfileConfirmed(false); }}>{label("selectFromData")}</button>}</div>
                 {manualEntry ? <><label className="form-label mt-3">{t("AttendanceVoteReader.myinfo-nickname")}</label><input className="form-control" value={userInfo.nickname || ""} onChange={e => setUserInfo(prev => ({ ...prev, nickname: e.target.value, uid: "", allianceTag: "", allianceName: "" }))} /><label className="form-label mt-3">{label("cp")}</label><input inputMode="numeric" className="form-control" value={userInfo.cp ?? ""} onChange={e => setUserInfo(prev => ({ ...prev, cp: e.target.value.replace(/[^0-9.]/g, ""), cpUnit: "million" }))} />{vote.targetScope === "alliance" && <small className="text-warning d-block mt-2">{label("unverified")}</small>}</> :
-                <div className="vote-nickname-picker mt-3" ref={nicknamePickerRef}><label className="form-label">{label("searchNickname")}</label><div className="input-group"><span className="input-group-text"><FaMagnifyingGlass /></span><input className="form-control" role="combobox" aria-autocomplete="list" aria-expanded={showSuggestions} aria-controls="vote-nickname-results" aria-activedescendant={activeSuggestionIndex >= 0 ? `vote-nickname-option-${activeSuggestionIndex}` : undefined} placeholder={label("searchHelp")} value={nicknameQuery} onFocus={() => setShowSuggestions(true)} onKeyDown={handleNicknameKeyDown} onChange={e => { setNicknameQuery(e.target.value); setShowSuggestions(true); setActiveSuggestionIndex(-1); }} /></div>
+                <div className="vote-nickname-picker mt-3"><label className="form-label" htmlFor="vote-nickname-search">{label("searchNickname")}</label><div className="input-group"><span className="input-group-text"><FaMagnifyingGlass /></span><input id="vote-nickname-search" className="form-control" aria-describedby="vote-nickname-help" placeholder={label("searchHelp")} value={nicknameQuery} onKeyDown={handleNicknameKeyDown} onChange={e => { setNicknameQuery(e.target.value); setProfileConfirmed(false); }} /></div>
+                    <p id="vote-nickname-help" className="fw-semibold mt-3 mb-2">{label("selectResult")}</p>
                     {rosterLoading && <p className="text-muted mt-2 mb-0">{label("loadingRoster")}</p>}{rosterError && <p className="text-danger mt-2 mb-0">{label("rosterFailed")}</p>}
-                    {showSuggestions && !rosterLoading && <div className="vote-nickname-results" id="vote-nickname-results" role="listbox">{suggestions.length ? suggestions.map((player, index) => <button type="button" role="option" aria-selected={activeSuggestionIndex === index} id={`vote-nickname-option-${index}`} className={activeSuggestionIndex === index ? "is-active" : ""} key={`${player.uid}-${playerName(player)}`} onMouseEnter={() => setActiveSuggestionIndex(index)} onClick={() => selectPlayer(player)}><strong>{playerName(player)}</strong><span>{label("cp")} {formatCp(playerCp(player))}</span><small>{player.allianceTag || player.allianceName || "-"}</small></button>) : <p>{label("noNickname")}</p>}</div>}
-                    {userInfo.nickname && <div className="vote-selected-player"><strong>{userInfo.nickname}</strong><span>{label("cp")} {formatCp(playerCp(userInfo))}</span><span>{userInfo.allianceTag || userInfo.allianceName || ""}</span></div>}</div>}
+                    {!rosterLoading && <div className="vote-nickname-results" id="vote-nickname-results" role="group" aria-label={label("searchNickname")}>{suggestions.length ? suggestions.map((player, index) => <button type="button" aria-pressed={profileConfirmed && sameVoter(player, userInfo)} id={`vote-nickname-option-${index}`} key={`${player.uid}-${playerName(player)}`} onKeyDown={event => handleNicknameKeyDown(event, index)} onClick={() => selectPlayer(player)}><strong>{playerName(player)}</strong><span>CP {formatCp(playerCp(player))}</span><small>{player.allianceTag || player.allianceName || "-"}</small></button>) : <p>{label("noNickname")}</p>}</div>}
+                    <div className="mt-3"><button type="button" className="btn btn-outline-secondary w-100" onClick={startManualEntry}>{label("directInput")}</button></div>
+                    {profileConfirmed && userInfo.nickname && <div className="vote-selected-player"><strong>✓ {label("selected")}: {userInfo.nickname}</strong><span>{label("cp")} {formatCp(playerCp(userInfo))}</span><span>{userInfo.allianceTag || userInfo.allianceName || ""}</span></div>}</div>}
                 {manualEntry && <><label className="form-label mt-3">{label("uid")}{vote.schemaVersion >= 2 ? " *" : ""}</label><input className="form-control" inputMode="numeric" value={userInfo.uid} onChange={e => setUserInfo(prev => ({ ...prev, uid: e.target.value.replace(/[^0-9]/g, "") }))} /></>}
             </section>}
             <hr /><h3>{shownVote?.title}</h3>{isExpired ? <h3 className="text-danger">{t("AttendanceVoteReader.message-closed")}</h3> : <>
                 <ul className="list-group">{shownVote.choices.map((choice, index) => { const mine = choicePlayers(choice).some(player => sameVoter(player, userInfo)); return <li className="list-group-item" key={choice.no} style={{ borderLeft: `5px solid ${choiceColor(choice, index)}` }}><label><input type="radio" className="form-check-input me-2" checked={choiceNo === choice.no} onChange={() => setChoiceNo(choice.no)} />{choice.content}</label><span className="badge bg-secondary ms-3">{choice.limit ? `${choice.currentCount} / ${choice.count}` : `${choice.currentCount} ${label("people")}`}</span>{mine && <span className="badge bg-danger ms-2"><FaVoteYea className="me-1" />{t("AttendanceVoteReader.message-mychoice")}</span>}</li>; })}</ul>
-                <button className={`btn ${choiceNo === null ? "btn-danger" : "btn-primary"} w-100 fs-4 p-3 mt-4`} disabled={choiceNo === null || submitting} aria-busy={submitting} onClick={submitVote}>{submitting ? "투표 처리 중…" : choiceNo === null ? <><FaXmark className="me-2" />{t("AttendanceVoteReader.btn-need-choice")}</> : <><FaVoteYea className="me-2" />{t("AttendanceVoteReader.btn-vote")}</>}</button></>}
+                <button className={`btn ${choiceNo === null ? "btn-danger" : "btn-primary"} w-100 fs-4 p-3 mt-4`} disabled={choiceNo === null || submitting || (!manualEntry && !profileConfirmed)} aria-busy={submitting} onClick={submitVote}>{submitting ? "투표 처리 중…" : !manualEntry && !profileConfirmed ? label("selectRequired") : choiceNo === null ? <><FaXmark className="me-2" />{t("AttendanceVoteReader.btn-need-choice")}</> : <><FaVoteYea className="me-2" />{t("AttendanceVoteReader.btn-vote")}</>}</button></>}
             <section className="attendance-voters mt-4"><div className="attendance-voters-toolbar"><h4 className="attendance-voters-title"><FaUsers />{label("voters")} <span className="badge bg-secondary">{totalCount} {label("people")}</span></h4><div className="btn-group btn-group-sm"><button className={`btn ${listMode === "nickname" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setListMode("nickname")}>{label("nicknameView")}</button><button className={`btn ${listMode === "group" ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setListMode("group")}>{label("groupView")}</button></div></div>
                 <div className="attendance-choice-counts">
                     <div className="attendance-choice-count is-total"><span>{label("eligiblePeople")}</span><strong>{rosterBoard.length} {label("people")}</strong></div>
