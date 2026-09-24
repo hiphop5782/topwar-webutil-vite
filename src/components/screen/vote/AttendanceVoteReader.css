@@ -110,6 +110,12 @@
   gap: 0.4rem;
 }
 
+.vote-admin-dialog { width: min(26rem, calc(100% - 2rem)); padding: 1.25rem; border: 1px solid var(--bs-border-color); border-radius: 0.75rem; color: var(--bs-body-color); background: var(--bs-body-bg); }
+.vote-admin-dialog::backdrop { background: rgb(0 0 0 / 50%); }
+.vote-remove-player { display: inline-flex; align-items: center; justify-content: center; min-width: 1.75rem; min-height: 1.75rem; padding: 0.2rem; border: 1px solid var(--bs-danger); border-radius: 0.35rem; background: var(--bs-body-bg); color: var(--bs-danger); flex-shrink: 0; }
+.vote-remove-player:focus-visible { outline: 2px solid var(--bs-danger); outline-offset: 2px; }
+.vote-remove-player:disabled { opacity: 0.5; }
+
 .vote-nickname-results button {
   display: inline-flex;
   align-items: center;

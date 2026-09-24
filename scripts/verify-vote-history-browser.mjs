@@ -41,9 +41,9 @@ const server = await createServer({ configFile: false, root: process.cwd(), cach
           getVoteHistory:useCallback((id,next)=>{queueMicrotask(()=>next(window.live));return ()=>{};},[]),
           getVote:useCallback((id,next)=>{window.emitVote=next;queueMicrotask(()=>next(window.fixture));return ()=>{};},[]),
           getVoteRoster:useCallback(async()=>window.roster,[]),
-          getVoteManager:useCallback((id,password,next)=>{window.emitManager=next;next(window.fixture);return ()=>{};},[]),
+          getVoteManager:useCallback((id,password,next)=>{window.emitManager=next;next(window.requiredPassword && password!==window.requiredPassword ? {error:'FORBIDDEN',message:'비밀번호가 일치하지 않습니다.'} : window.fixture);return ()=>{if(window.emitManager===next)window.emitManager=null;};},[]),
           closeVoteManually:()=>change('paused'),openVoteManually:()=>change('active'),endVote:()=>change('archiving'),
-          deletePlayerFromVote:async()=>{window.deleted=true;return true;},
+          deletePlayerFromVote:async(id,choiceNo,nickname,password,uid)=>{window.deleted={id,choiceNo,nickname,password,uid};window.fixture={...window.fixture,choices:window.fixture.choices.map(c=>c.no===choiceNo?{...c,players:c.players.filter(p=>p.uid!==uid),currentCount:c.players.filter(p=>p.uid!==uid).length}:c)};window.emitVote?.(window.fixture);return true;},
           saveVote:async vote=>{window.savedVote=vote;return true;},castVote:async()=>true
         };}`;
     }, configureServer(vite) { vite.middlewares.use('/__history_test', async (req, res) => {
@@ -143,6 +143,36 @@ try {
     await page.waitForFunction(()=>!document.querySelector('.vote-profile-card'));
     assert.equal(await page.$('input[type=radio]'), null);
     assert.equal(await page.$$eval('.attendance-roster-name', nodes=>nodes.length), 2);
+    await open('/ko/vote/cast/3223/NEWCODE1');
+    await page.evaluate(()=>{window.requiredPassword='secret';});
+    assert.equal(await page.$('.vote-remove-player'), null);
+    await clickText('투표 관리');
+    await page.waitForSelector('dialog[open]');
+    await page.type('#vote-admin-password','wrong');
+    await clickText('관리모드 시작');
+    await page.waitForSelector('dialog [role=alert]');
+    assert.equal(await page.$('.vote-remove-player'), null);
+    await page.focus('#vote-admin-password');
+    await page.keyboard.down('Control'); await page.keyboard.press('A'); await page.keyboard.up('Control');
+    await page.type('#vote-admin-password','secret');
+    await clickText('관리모드 시작');
+    await page.waitForSelector('.vote-remove-player');
+    assert.equal(await page.$('dialog[open]'), null);
+    assert.equal(await page.$$eval('.vote-remove-player', nodes=>nodes.length), 1, 'Nonvoters must not have removal controls');
+    await clickText('선택 항목별');
+    await page.waitForSelector('.attendance-voter-list .vote-remove-player');
+    await page.click('.attendance-voter-list .vote-remove-player');
+    await page.waitForFunction(()=>Boolean(window.deleted));
+    assert.deepEqual(await page.evaluate(()=>window.deleted), {id:'NEWCODE1',choiceNo:1,nickname:'ChangedName',password:'secret',uid:'1001'});
+    await clickText('CP 높은 순');
+    await page.waitForSelector('.attendance-roster-name');
+    assert.equal(await page.$$eval('.attendance-roster-name', nodes=>nodes.length), 2, 'Removing a response preserves the roster');
+    assert.equal(await page.$('.vote-remove-player'), null);
+    await clickText('관리모드 종료');
+    assert.ok(await page.$('.vote-profile-card'), 'Reader remains on the same page after leaving management');
+    await clickText('투표 관리');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.$('dialog[open]'), null);
     await open('/ko/vote/create');
     await clickText('서버전(SvS)');
     await page.waitForSelector('input[placeholder="예: 3453"]');

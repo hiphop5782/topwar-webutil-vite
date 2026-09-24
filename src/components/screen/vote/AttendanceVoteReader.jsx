@@ -19,7 +19,8 @@ import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 
 import { choiceColor } from "./voteColors";
-import { identityOf, sameVoter } from "./voteHistory";
+import { identityOf, sameVoter, finalVote } from "./voteHistory";
+import VoteInlineManagement from "./VoteInlineManagement";
 import { loadVoteHistory, loadArchivedVote } from "@src/services/voteArchiveRepository";
 const choicePlayers = choice => Array.isArray(choice?.players) ? choice.players : choice?.players && typeof choice.players === "object" ? Object.values(choice.players) : [];
 const playerName = player => String(player?.nickname || player?.username || "").trim();
@@ -49,7 +50,10 @@ export default function AttendanceVoteReader() {
 function VoteReader() {
     const { t: baseT } = useTranslation("viewer");
     const { voteId, serverId: routeServerId } = useParams();
-    const { getVote, getVoteRoster, castVote } = useFirebase();
+    const { getVote, getVoteRoster, castVote, deletePlayerFromVote } = useFirebase();
+    const [managerAccess, setManagerAccess] = useState(null);
+    const [deleting, setDeleting] = useState(false);
+    const deletingRef = useRef(false);
     const [uuid, setUuid] = useState(voteId || "");
     const [vote, setVote] = useState(null);
     const [translation, setTranslation] = useState(null);
@@ -201,7 +205,7 @@ function VoteReader() {
     };
 
     const totalCount = useMemo(() => vote?.choices?.reduce((sum, choice) => sum + Number(choice.currentCount || 0), 0) || 0, [vote]);
-    const participants = useMemo(() => (shownVote?.choices || []).flatMap((choice, index) => choicePlayers(choice).map(player => ({ ...player, choiceContent: choice.content, color: choiceColor(choice, index) }))), [shownVote]);
+    const participants = useMemo(() => (shownVote?.choices || []).flatMap((choice, index) => choicePlayers(choice).map(player => ({ ...player, choiceNo: choice.no, choiceContent: choice.content, color: choiceColor(choice, index) }))), [shownVote]);
     const rosterKeys = useMemo(() => new Set(roster.map(identityOf)), [roster]);
     const rosterBoard = useMemo(() => {
         const all = new Map(roster.map(player => [identityOf(player), { ...player, voted: false }]));
@@ -272,8 +276,21 @@ function VoteReader() {
         const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `vote-${serverId || "server"}-${uuid}.csv`; link.click(); URL.revokeObjectURL(link.href); toast.success(label("exported"));
     };
 
+    const access = managerAccess?.uuid === uuid ? managerAccess : null;
+    const removePlayer = async (player, choiceNo) => {
+        if (!access || finalVote(vote) || deletingRef.current) return;
+        if (!window.confirm(`[${playerName(player)}] 님의 투표 내역을 삭제하시겠습니까? 대상자 명단은 유지되고 미참여 상태로 돌아갑니다.`)) return;
+        deletingRef.current = true; setDeleting(true);
+        try {
+            if (await deletePlayerFromVote(uuid, choiceNo, playerName(player), access.password, player.uid)) toast.success("투표 내역을 삭제했습니다.");
+        } catch { toast.error("삭제하지 못했습니다. 다시 확인해 주세요."); }
+        finally { deletingRef.current = false; setDeleting(false); }
+    };
+    const deleteButton = (player, choiceNo) => access && !finalVote(vote) && choiceNo != null && <button type="button" className="vote-remove-player" disabled={deleting} aria-label={`${playerName(player)} 투표 삭제`} title="투표 내역 삭제" onClick={() => removePlayer(player, choiceNo)}><FaXmark /></button>;
+
     return <>
         <Helmet><meta name="robots" content="noindex, follow" /></Helmet><h1>{t("AttendanceVoteReader.title")}</h1><hr />
+        {vote && <VoteInlineManagement key={uuid} uuid={uuid} vote={vote} access={access} onAccess={setManagerAccess} deleting={deleting} />}
         {serverId && <LanguageRouterLink className="btn btn-outline-primary mb-3" to={`/vote/cast/${serverId}`}>← {label("history")}</LanguageRouterLink>}
         {!voteId && <div className="row mt-4"><label className="col-form-label col-sm-3">{t("AttendanceVoteReader.id-label")}</label><div className="col d-flex"><input className="form-control" value={uuid} onChange={e => setUuid(e.target.value)} /><button className="btn btn-primary ms-2" onClick={() => setReload(value => value + 1)}>{t("AttendanceVoteReader.id-load-btn")}</button></div></div>}
         {loadError && <div className="alert alert-danger mt-3" role="alert">
@@ -313,11 +330,12 @@ function VoteReader() {
                 </div>
                 {listMode === "nickname" ? <div className="attendance-roster-board">{rosterBoard.map((player, index) => <div className={`attendance-roster-name ${player.voted ? "has-voted" : ""}`} key={`${playerName(player)}-${index}`} style={player.voted ? { "--choice-color": player.color } : undefined} title={player.voted ? player.choiceContent : label("notVoted")}>
                     {player.voted && <span className="attendance-vote-dot" aria-hidden="true" />}<button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={() => copyNames([player])}>{playerName(player)}</button>
+                    {player.voted && deleteButton(player, player.choiceNo)}
                     {vote.targetScope === "alliance" && !rosterKeys.has(identityOf(player)) && <small>{label("unverified")}</small>}
                 </div>)}</div> :
-                <div className="attendance-voter-groups">{shownVote.choices.map((choice, index) => { const players = [...choicePlayers(choice)].sort(byCpDescending); return <details className="attendance-voter-group" open key={choice.no}><summary style={{ borderLeft: `5px solid ${choiceColor(choice, index)}` }}><button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={event => { event.preventDefault(); copyNames(players); }}>{choice.content}</button><strong>{players.length} {label("people")}</strong></summary>{players.length ? <ul className="attendance-voter-list">{players.map((player, i) => <li key={`${playerName(player)}-${i}`}><strong><button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={() => copyNames([player])}>{playerName(player)}</button></strong><span>CP {formatCp(playerCp(player))}</span><span>{player.allianceTag || player.allianceName || "-"}</span></li>)}</ul> : <p className="attendance-voter-empty">{label("empty")}</p>}</details>; })}</div>}
+                <div className="attendance-voter-groups">{shownVote.choices.map((choice, index) => { const players = [...choicePlayers(choice)].sort(byCpDescending); return <details className="attendance-voter-group" open key={choice.no}><summary style={{ borderLeft: `5px solid ${choiceColor(choice, index)}` }}><button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={event => { event.preventDefault(); copyNames(players); }}>{choice.content}</button><strong>{players.length} {label("people")}</strong></summary>{players.length ? <ul className="attendance-voter-list">{players.map((player, i) => <li key={`${playerName(player)}-${i}`}><strong><button type="button" className="attendance-copy-name" title={label("copyNames")} onClick={() => copyNames([player])}>{playerName(player)}</button></strong><span>CP {formatCp(playerCp(player))}</span><span>{player.allianceTag || player.allianceName || "-"}</span>{deleteButton(player, choice.no)}</li>)}</ul> : <p className="attendance-voter-empty">{label("empty")}</p>}</details>; })}</div>}
                 <button className="btn btn-success w-100 mt-3" onClick={exportForSheets}><FaDownload className="me-2" />{label("exportSheet")}</button>
-            </section><div className="mt-3 text-end"><LanguageRouterLink className="btn btn-sm btn-outline-secondary" to={routeServerId ? `/vote/${routeServerId}/${uuid}/manage` : `/vote/manage/${uuid}`}>{label("manage")}</LanguageRouterLink></div>
+            </section>
         </>}
     </>;
 }
