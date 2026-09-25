@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Virtuoso } from "react-virtuoso";
 import { FaArrowDown, FaArrowUp, FaXmark } from "react-icons/fa6";
 import { trackAnalyticsEvent } from "@src/db/firebase";
+import { useParamState } from "@src/hooks/useParamState";
 import KartzTrend from "./TopwarKartzTrend";
 import { findAllianceKartz } from "./topwarKartzUtils";
 
@@ -36,8 +37,12 @@ function barWidth(value, maximum) {
 export default function TopwarOverallGroupView({ type, players, movementHistory, kartzIndexes, kartzLoading }) {
     const { t, i18n } = useTranslation("viewer", { keyPrefix: "TopwarDataOverAll" });
     const locale = i18n.resolvedLanguage?.startsWith("ja") ? "ja-JP" : i18n.resolvedLanguage?.startsWith("en") ? "en-US" : "ko-KR";
-    const [query, setQuery] = useState("");
-    const [serverQuery, setServerQuery] = useState("");
+    const [serverQueryParam, setServerQueryParam] = useParamState("server");
+    const [allianceQuery, setAllianceQuery] = useParamState("alliance");
+    const query = type === "servers" ? serverQueryParam : allianceQuery;
+    const setQuery = type === "servers" ? setServerQueryParam : setAllianceQuery;
+    const serverQuery = type === "alliances" ? serverQueryParam : "";
+    const setServerQuery = setServerQueryParam;
     const [selectedKeys, setSelectedKeys] = useState([]);
     const toolbarRef = useRef(null);
     const comparisonRef = useRef(null);

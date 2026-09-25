@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 
 import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
 import { trackAnalyticsEvent } from "@src/db/firebase";
+import { useParamState } from "@src/hooks/useParamState";
 import TopwarOverallGroupView from "./TopwarOverallGroupView";
 import KartzTrend from "./TopwarKartzTrend";
 import { buildKartzIndexes, findPlayerKartz } from "./topwarKartzUtils";
@@ -126,13 +127,21 @@ export default function TopwarDataOverAll() {
     const [document, setDocument] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [query, setQuery] = useState("");
-    const [allianceQuery, setAllianceQuery] = useState("");
-    const [server, setServer] = useState("");
-    const [source, setSource] = useState("all");
-    const [serverOut, setServerOut] = useState("");
-    const [movedOnly, setMovedOnly] = useState(false);
-    const [advancedOpen, setAdvancedOpen] = useState(false);
+    const [query, setQuery] = useParamState("nickname");
+    const [allianceQuery, setAllianceQuery] = useParamState("alliance");
+    const [server, setServer] = useParamState("server");
+    const [sourceParam, setSourceParam] = useParamState("source");
+    const source = ["both", "power", "realpower"].includes(sourceParam)
+        ? sourceParam
+        : "all";
+    const setSource = (value) => setSourceParam(value === "all" ? "" : value);
+    const [serverOut, setServerOut] = useParamState("serverOut");
+    const [movedOnlyParam, setMovedOnlyParam] = useParamState("movedOnly");
+    const movedOnly = movedOnlyParam === "1";
+    const setMovedOnly = (enabled) => setMovedOnlyParam(enabled ? "1" : "");
+    const [advancedOpen, setAdvancedOpen] = useState(() => (
+        Boolean(sourceParam || serverOut || movedOnly)
+    ));
     const [expandedPlayers, setExpandedPlayers] = useState(() => new Set());
     const [nicknameHistory, setNicknameHistory] = useState(() => new Map());
     const [historyLoading, setHistoryLoading] = useState(true);
@@ -152,6 +161,10 @@ export default function TopwarDataOverAll() {
         });
     };
     const lastTrackedSearchRef = useRef("");
+
+    useEffect(() => {
+        if (sourceParam || serverOut || movedOnly) setAdvancedOpen(true);
+    }, [sourceParam, serverOut, movedOnly]);
 
     useEffect(() => {
         const timer = window.setInterval(() => setRelativeTimeNow(Date.now()), 60_000);
