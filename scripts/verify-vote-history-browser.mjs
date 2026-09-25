@@ -125,6 +125,11 @@ try {
     await page.click('.vote-nickname-results button');
     assert.equal(await page.$eval('.vote-selected-player', node=>node.textContent.includes('150M')), true);
     assert.equal(await page.$$eval('.attendance-roster-name', nodes=>nodes.length), 2, 'Renamed UID does not create a duplicate');
+    assert.equal(await page.$eval('.attendance-roster-board', node => getComputedStyle(node).gridTemplateColumns.split(' ').length), 2, 'Mobile roster uses two aligned columns');
+    await page.setViewport({ width: 1024, height: 915 });
+    const columns = await page.$eval('.attendance-roster-board', node => getComputedStyle(node).gridTemplateColumns.split(' ').length);
+    assert.ok(columns >= 3 && columns <= 5, 'Desktop roster has fewer, evenly spaced columns');
+    await page.setViewport({ width: 412, height: 915 });
     await clickText('← 서버 투표 내역'); await page.waitForSelector('a.card');
     await open('/ko/vote/cast/NEWCODE1'); await page.waitForSelector('.vote-profile-card');
     await open('/ko/vote/manage/NEWCODE1');
