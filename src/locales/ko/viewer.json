@@ -2156,7 +2156,7 @@
             "level80Only": "레벨 80 이상만 보기"
         },
         "source": { "all": "모든 출처", "both": "Top 100 + 지도", "power": "Top 100", "realpower": "지도", "powerOnly": "Top 100만", "realpowerOnly": "지도만" },
-        "columns": { "server": "서버", "player": "플레이어", "alliance": "연맹", "power": "전투력" },
+        "columns": { "server": "서버", "player": "플레이어", "alliance": "연맹", "power": "전투력", "observed": "조사 시점" },
         "activity": { "unknown": "접속일 미확인", "stop": "비활성 · {{count}}일 전", "pause": "휴면 · {{count}}일 전", "today": "활동 · 오늘", "active": "활동 · {{count}}일 전" },
         "details": { "previous": "이전 관측", "source": "출처", "observed": "관측", "activity": "접속 상태", "armyPower": "부대 전투력", "baseLocation": "기지 위치", "recentMove": "최근 이동", "movementHistory": "서버 이동 이력", "nicknameHistory": "닉네임 변경 이력" },
         "history": { "loading": "불러오는 중...", "empty": "변경 이력 없음", "movementEmpty": "이동 이력 없음", "more": "+{{count}}건" }

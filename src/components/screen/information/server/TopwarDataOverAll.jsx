@@ -624,6 +624,7 @@ export default function TopwarDataOverAll() {
                             <span>{t("columns.player")}</span>
                             <span>{t("columns.alliance")}</span>
                             <span className="text-end">{t("columns.power")}</span>
+                            <span className="text-end">{t("columns.observed")}</span>
                             <span />
                         </div>
                     <Virtuoso
@@ -691,6 +692,13 @@ export default function TopwarDataOverAll() {
                                         <strong className="text-end" title={formatNumber(player.power, locale)}>
                                             {formatCompactNumber(player.power)}
                                         </strong>
+                                        <time
+                                            className="overall-viewer__observed-at"
+                                            dateTime={player.observedAt || undefined}
+                                            title={formatDate(player.observedAt, locale)}
+                                        >
+                                            {formatRelativeDate(player.observedAt, locale, relativeTimeNow)}
+                                        </time>
                                         <span
                                             className="overall-viewer__expand-button"
                                             aria-hidden="true"

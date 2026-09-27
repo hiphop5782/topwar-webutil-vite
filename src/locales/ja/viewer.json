@@ -2145,7 +2145,7 @@
             "level80Only": "レベル80以上のみ表示"
         },
         "source": { "all": "すべてのソース", "both": "Top 100 + マップ", "power": "Top 100", "realpower": "マップ", "powerOnly": "Top 100のみ", "realpowerOnly": "マップのみ" },
-        "columns": { "server": "サーバー", "player": "プレイヤー", "alliance": "連盟", "power": "戦力" },
+        "columns": { "server": "サーバー", "player": "プレイヤー", "alliance": "連盟", "power": "戦力", "observed": "調査時点" },
         "activity": { "unknown": "ログイン日不明", "stop": "非アクティブ · {{count}}日前", "pause": "休眠 · {{count}}日前", "today": "アクティブ · 今日", "active": "アクティブ · {{count}}日前" },
         "details": { "previous": "以前の観測", "source": "ソース", "observed": "観測", "activity": "活動状態", "armyPower": "部隊戦力", "baseLocation": "基地位置", "recentMove": "最近の移動", "movementHistory": "サーバー移動履歴", "nicknameHistory": "ニックネーム変更履歴" },
         "history": { "loading": "読込中...", "empty": "変更履歴なし", "movementEmpty": "移動履歴なし", "more": "+{{count}}件" }

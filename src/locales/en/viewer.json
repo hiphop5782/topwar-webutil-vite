@@ -2154,7 +2154,7 @@
             "level80Only": "Show only level 80+ players"
         },
         "source": { "all": "All sources", "both": "Top 100 + Map", "power": "Top 100", "realpower": "Map", "powerOnly": "Top 100 only", "realpowerOnly": "Map only" },
-        "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power" },
+        "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power", "observed": "Observed" },
         "activity": { "unknown": "Login unknown", "stop": "Inactive · {{count}}d ago", "pause": "Dormant · {{count}}d ago", "today": "Active · Today", "active": "Active · {{count}}d ago" },
         "details": { "previous": "Previous", "source": "Source", "observed": "Observed", "activity": "Activity", "armyPower": "Army power", "baseLocation": "Base location", "recentMove": "Recent move", "movementHistory": "Server movement history", "nicknameHistory": "Nickname history" },
         "history": { "loading": "Loading...", "empty": "No nickname changes", "movementEmpty": "No server movements", "more": "+{{count}} more" }
