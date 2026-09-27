@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="ja"><head><style type="text/css">:root{--toastify-color-light: #fff;--toastify-color-dark: #121212;--toastify-color-info: #3498db;--toastify-color-success: #07bc0c;--toastify-color-warning: #f1c40f;--toastify-color-error: hsl(6, 78%, 57%);--toastify-color-transparent: rgba(255, 255, 255, .7);--toastify-icon-color-info: var(--toastify-color-info);--toastify-icon-color-success: var(--toastify-color-success);--toastify-icon-color-warning: var(--toastify-color-warning);--toastify-icon-color-error: var(--toastify-color-error);--toastify-container-width: fit-content;--toastify-toast-width: 320px;--toastify-toast-offset: 16px;--toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));--toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));--toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));--toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));--toastify-toast-background: #fff;--toastify-toast-padding: 14px;--toastify-toast-min-height: 64px;--toastify-toast-max-height: 800px;--toastify-toast-bd-radius: 6px;--toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);--toastify-font-family: sans-serif;--toastify-z-index: 9999;--toastify-text-color-light: #757575;--toastify-text-color-dark: #fff;--toastify-text-color-info: #fff;--toastify-text-color-success: #fff;--toastify-text-color-warning: #fff;--toastify-text-color-error: #fff;--toastify-spinner-color: #616161;--toastify-spinner-color-empty-area: #e0e0e0;--toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);--toastify-color-progress-dark: #bb86fc;--toastify-color-progress-info: var(--toastify-color-info);--toastify-color-progress-success: var(--toastify-color-success);--toastify-color-progress-warning: var(--toastify-color-warning);--toastify-color-progress-error: var(--toastify-color-error);--toastify-color-progress-bgo: .2}.Toastify__toast-container{z-index:var(--toastify-z-index);-webkit-transform:translate3d(0,0,var(--toastify-z-index));position:fixed;width:var(--toastify-container-width);box-sizing:border-box;color:#fff;display:flex;flex-direction:column}.Toastify__toast-container--top-left{top:var(--toastify-toast-top);left:var(--toastify-toast-left)}.Toastify__toast-container--top-center{top:var(--toastify-toast-top);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--top-right{top:var(--toastify-toast-top);right:var(--toastify-toast-right);align-items:end}.Toastify__toast-container--bottom-left{bottom:var(--toastify-toast-bottom);left:var(--toastify-toast-left)}.Toastify__toast-container--bottom-center{bottom:var(--toastify-toast-bottom);left:50%;transform:translate(-50%);align-items:center}.Toastify__toast-container--bottom-right{bottom:var(--toastify-toast-bottom);right:var(--toastify-toast-right);align-items:end}.Toastify__toast{--y: 0;position:relative;touch-action:none;width:var(--toastify-toast-width);min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:var(--toastify-toast-padding);border-radius:var(--toastify-toast-bd-radius);box-shadow:var(--toastify-toast-shadow);max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);z-index:0;display:flex;flex:1 auto;align-items:center;word-break:break-word}@media only screen and (max-width: 480px){.Toastify__toast-container{width:100vw;left:env(safe-area-inset-left);margin:0}.Toastify__toast-container--top-left,.Toastify__toast-container--top-center,.Toastify__toast-container--top-right{top:env(safe-area-inset-top);transform:translate(0)}.Toastify__toast-container--bottom-left,.Toastify__toast-container--bottom-center,.Toastify__toast-container--bottom-right{bottom:env(safe-area-inset-bottom);transform:translate(0)}.Toastify__toast-container--rtl{right:env(safe-area-inset-right);left:initial}.Toastify__toast{--toastify-toast-width: 100%;margin-bottom:0;border-radius:0}}.Toastify__toast-container[data-stacked=true]{width:var(--toastify-toast-width)}.Toastify__toast--stacked{position:absolute;width:100%;transform:translate3d(0,var(--y),0) scale(var(--s));transition:transform .3s}.Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,.Toastify__toast--stacked[data-collapsed] .Toastify__close-button{transition:opacity .1s}.Toastify__toast--stacked[data-collapsed=false]{overflow:visible}.Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>*{opacity:0}.Toastify__toast--stacked:after{content:"";position:absolute;left:0;right:0;height:calc(var(--g) * 1px);bottom:100%}.Toastify__toast--stacked[data-pos=top]{top:0}.Toastify__toast--stacked[data-pos=bot]{bottom:0}.Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before{transform-origin:top}.Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before{transform-origin:bottom}.Toastify__toast--stacked:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;transform:scaleY(3);z-index:-1}.Toastify__toast--rtl{direction:rtl}.Toastify__toast--close-on-click{cursor:pointer}.Toastify__toast-icon{margin-inline-end:10px;width:22px;flex-shrink:0;display:flex}.Toastify--animate{animation-fill-mode:both;animation-duration:.5s}.Toastify--animate-icon{animation-fill-mode:both;animation-duration:.3s}.Toastify__toast-theme--dark{background:var(--toastify-color-dark);color:var(--toastify-text-color-dark)}.Toastify__toast-theme--light,.Toastify__toast-theme--colored.Toastify__toast--default{background:var(--toastify-color-light);color:var(--toastify-text-color-light)}.Toastify__toast-theme--colored.Toastify__toast--info{color:var(--toastify-text-color-info);background:var(--toastify-color-info)}.Toastify__toast-theme--colored.Toastify__toast--success{color:var(--toastify-text-color-success);background:var(--toastify-color-success)}.Toastify__toast-theme--colored.Toastify__toast--warning{color:var(--toastify-text-color-warning);background:var(--toastify-color-warning)}.Toastify__toast-theme--colored.Toastify__toast--error{color:var(--toastify-text-color-error);background:var(--toastify-color-error)}.Toastify__progress-bar-theme--light{background:var(--toastify-color-progress-light)}.Toastify__progress-bar-theme--dark{background:var(--toastify-color-progress-dark)}.Toastify__progress-bar--info{background:var(--toastify-color-progress-info)}.Toastify__progress-bar--success{background:var(--toastify-color-progress-success)}.Toastify__progress-bar--warning{background:var(--toastify-color-progress-warning)}.Toastify__progress-bar--error{background:var(--toastify-color-progress-error)}.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--error{background:var(--toastify-color-transparent)}.Toastify__close-button{color:#fff;position:absolute;top:6px;right:6px;background:transparent;outline:none;border:none;padding:0;cursor:pointer;opacity:.7;transition:.3s ease;z-index:1}.Toastify__toast--rtl .Toastify__close-button{left:6px;right:unset}.Toastify__close-button--light{color:#000;opacity:.3}.Toastify__close-button>svg{fill:currentColor;height:16px;width:14px}.Toastify__close-button:hover,.Toastify__close-button:focus{opacity:1}@keyframes Toastify__trackProgress{0%{transform:scaleX(1)}to{transform:scaleX(0)}}.Toastify__progress-bar{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:1;opacity:.7;transform-origin:left}.Toastify__progress-bar--animated{animation:Toastify__trackProgress linear 1 forwards}.Toastify__progress-bar--controlled{transition:transform .2s}.Toastify__progress-bar--rtl{right:0;left:initial;transform-origin:right;border-bottom-left-radius:initial}.Toastify__progress-bar--wrp{position:absolute;overflow:hidden;bottom:0;left:0;width:100%;height:5px;border-bottom-left-radius:var(--toastify-toast-bd-radius);border-bottom-right-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp[data-hidden=true]{opacity:0}.Toastify__progress-bar--bg{opacity:var(--toastify-color-progress-bgo);width:100%;height:100%}.Toastify__spinner{width:20px;height:20px;box-sizing:border-box;border:2px solid;border-radius:100%;border-color:var(--toastify-spinner-color-empty-area);border-right-color:var(--toastify-spinner-color);animation:Toastify__spin .65s linear infinite}@keyframes Toastify__bounceInRight{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutRight{20%{opacity:1;transform:translate3d(-20px,var(--y),0)}to{opacity:0;transform:translate3d(2000px,var(--y),0)}}@keyframes Toastify__bounceInLeft{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutLeft{20%{opacity:1;transform:translate3d(20px,var(--y),0)}to{opacity:0;transform:translate3d(-2000px,var(--y),0)}}@keyframes Toastify__bounceInUp{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}to{transform:translateZ(0)}}@keyframes Toastify__bounceOutUp{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes Toastify__bounceInDown{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}to{transform:none}}@keyframes Toastify__bounceOutDown{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,2000px,0)}}.Toastify__bounce-enter--top-left,.Toastify__bounce-enter--bottom-left{animation-name:Toastify__bounceInLeft}.Toastify__bounce-enter--top-right,.Toastify__bounce-enter--bottom-right{animation-name:Toastify__bounceInRight}.Toastify__bounce-enter--top-center{animation-name:Toastify__bounceInDown}.Toastify__bounce-enter--bottom-center{animation-name:Toastify__bounceInUp}.Toastify__bounce-exit--top-left,.Toastify__bounce-exit--bottom-left{animation-name:Toastify__bounceOutLeft}.Toastify__bounce-exit--top-right,.Toastify__bounce-exit--bottom-right{animation-name:Toastify__bounceOutRight}.Toastify__bounce-exit--top-center{animation-name:Toastify__bounceOutUp}.Toastify__bounce-exit--bottom-center{animation-name:Toastify__bounceOutDown}@keyframes Toastify__zoomIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes Toastify__zoomOut{0%{opacity:1}50%{opacity:0;transform:translate3d(0,var(--y),0) scale3d(.3,.3,.3)}to{opacity:0}}.Toastify__zoom-enter{animation-name:Toastify__zoomIn}.Toastify__zoom-exit{animation-name:Toastify__zoomOut}@keyframes Toastify__flipIn{0%{transform:perspective(400px) rotateX(90deg);animation-timing-function:ease-in;opacity:0}40%{transform:perspective(400px) rotateX(-20deg);animation-timing-function:ease-in}60%{transform:perspective(400px) rotateX(10deg);opacity:1}80%{transform:perspective(400px) rotateX(-5deg)}to{transform:perspective(400px)}}@keyframes Toastify__flipOut{0%{transform:translate3d(0,var(--y),0) perspective(400px)}30%{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(-20deg);opacity:1}to{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(90deg);opacity:0}}.Toastify__flip-enter{animation-name:Toastify__flipIn}.Toastify__flip-exit{animation-name:Toastify__flipOut}@keyframes Toastify__slideInRight{0%{transform:translate3d(110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInLeft{0%{transform:translate3d(-110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInUp{0%{transform:translate3d(0,110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInDown{0%{transform:translate3d(0,-110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideOutRight{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(110%,var(--y),0)}}@keyframes Toastify__slideOutLeft{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(-110%,var(--y),0)}}@keyframes Toastify__slideOutDown{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,500px,0)}}@keyframes Toastify__slideOutUp{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,-500px,0)}}.Toastify__slide-enter--top-left,.Toastify__slide-enter--bottom-left{animation-name:Toastify__slideInLeft}.Toastify__slide-enter--top-right,.Toastify__slide-enter--bottom-right{animation-name:Toastify__slideInRight}.Toastify__slide-enter--top-center{animation-name:Toastify__slideInDown}.Toastify__slide-enter--bottom-center{animation-name:Toastify__slideInUp}.Toastify__slide-exit--top-left,.Toastify__slide-exit--bottom-left{animation-name:Toastify__slideOutLeft;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-right,.Toastify__slide-exit--bottom-right{animation-name:Toastify__slideOutRight;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-center{animation-name:Toastify__slideOutUp;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-center{animation-name:Toastify__slideOutDown;animation-timing-function:ease-in;animation-duration:.3s}@keyframes Toastify__spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+  <meta charset="UTF-8">
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <link rel="icon" type="image/ico" href="/kid-rounded.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page metadata is owned by React Helmet and prerendered into HTML. -->
+
+  <!-- Google Tag Manager -->
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9&amp;cx=c&amp;gtm=4e69n1"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MKHJT6LZ"></script><script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MKHJT6LZ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ1GRHTM9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-ZGZ1GRHTM9');
+  </script>
+
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
+  <title>초능력 동물과 영역 | Progamer.info</title>
+  <script type="module" crossorigin="" src="/assets/index-CUhHOsu3.js"></script>
+  <link rel="stylesheet" crossorigin="" href="/assets/index-CzE3CC1K.css">
+<style></style><style></style><style></style><style></style><style></style><style></style><style></style><style></style><link rel="canonical" href="https://www.progamer.info/ko/post/2026-09-28-001-Enigma/" data-rh="true"><meta name="robots" content="index, follow" data-rh="true"><meta property="og:url" content="https://www.progamer.info/ko/post/2026-09-28-001-Enigma/" data-rh="true"><meta name="description" content="초능력 동물의 종류, 효과와 영역별 특징에 대해서 살펴봅니다." data-rh="true"><meta property="og:site_name" content="Progamer.info" data-rh="true"><meta property="og:type" content="article" data-rh="true"><meta property="og:title" content="초능력 동물과 영역 | Progamer.info" data-rh="true"><meta property="og:description" content="초능력 동물의 종류, 효과와 영역별 특징에 대해서 살펴봅니다." data-rh="true"><meta name="twitter:card" content="summary" data-rh="true"><meta name="twitter:title" content="초능력 동물과 영역 | Progamer.info" data-rh="true"><meta name="twitter:description" content="초능력 동물의 종류, 효과와 영역별 특징에 대해서 살펴봅니다." data-rh="true"></head>
+
+<body>
+  <div id="root"><div class="container-fluid mt-5 pt-4"><nav class="navbar navbar-expand-lg app-navbar fixed-top"><div class="container-fluid"><a class="navbar-brand" href="/ja/">Topwar Helper</a><button class="navbar-toggler" type="button" aria-controls="navbarColor01" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarColor01"><ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="/ko/post/">調査・分析・攻略</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">情報</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/information/appearance/">外観図鑑</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ko/information/job/">専門職強化</a><a class="dropdown-item" href="/ja/information/el/">悠久の地</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/information/data/">サーバー・プレイヤー情報</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/information/kartz/">カルツの試練</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">計算機</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/calculator/vital/">体力回復速度計算機</a><a class="dropdown-item" href="/ja/calculator/skill/">専用スキル破片計算機</a><a class="dropdown-item" href="/ja/calculator/value-pack/">特別ギフト単価計算機</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/calculator/cost/">コスト計算機</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">シミュレーター</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/simulator/titan-research/">タイタン製造</a><a class="dropdown-item" href="/ja/simulator/titan-refine/">タイタン洗練</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/ja/simulator/formation-perk/">軍陣特性</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ユーティリティ</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/emoji/create/">新規絵文字作成</a><a class="dropdown-item" href="/ja/emoji/list/">絵文字一覧</a><div class="dropdown-divider"></div><a class="nav-link" href="/ja/event/city-reward/">報酬を探す🔥</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">記録</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/history/ssc-2026/">封印石カオス(2026)</a><a class="dropdown-item" href="/ja/history/liondance/">連盟対抗戦（獅子舞</a></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VIPラウンジ</a><div class="dropdown-menu"><a class="dropdown-item" href="/ja/vip/3223/">s3223専用🔥</a><a class="dropdown-item" href="/ja/vip/4369/">s4369専用🔥</a></div></li><li class="nav-item"><a class="nav-link" href="/ja/developer/">開発者</a></li><div class="dropdown ms-lg-2 mt-2 mt-lg-0"><button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"><span class="fi fi-jp me-2"></span>JA</button><ul class="dropdown-menu dropdown-menu-dark shadow"><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-kr me-2"></span> 한국어</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-us me-2"></span> English</button></li><li><button class="dropdown-item d-flex align-items-center"><span class="fi fi-jp me-2"></span> 日本語</button></li></ul></div></ul></div></div></nav><div class="row mb-5 pb-5"><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-2TYGu5OktHTg0aW6" data-ad-width="160" data-ad-height="600" style="display: none;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div><div class="col-md-8"><div class="row mb-4"><div class="col d-flex justify-content-center align-items-center"></div></div><div class="container-fluid p-0"><div class="sticky-top bg-white border-bottom shadow-sm" style="top: 56px; z-index: 1020;"><div class="container-fluid py-2" style="max-width: 1000px;"><div class="d-flex justify-content-between align-items-center px-3"><h5 class="fw-bold m-0 text-truncate text-start" style="max-width: 60%;">초능력 동물과 영역</h5><div class="d-flex gap-2 flex-shrink-0"><a class="btn btn-sm btn-outline-secondary" href="/ko/post/2026-09-10-001-Kartz-Diamond-Buffs/"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path></svg></a><a class="btn btn-sm btn-outline-dark px-3" href="/ko/post/"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z"></path></svg></a><a class="btn btn-sm btn-light disabled" href="/ja/post/2026-09-28-001-Enigma"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path></svg></a></div></div></div><div style="width: 100%; height: 4px; background-color: rgba(0, 0, 0, 0.05);"><div style="width: 0%; height: 100%; background: linear-gradient(90deg, rgb(79, 172, 254) 0%, rgb(0, 242, 254) 100%); transition: width 0.1s ease-out;"></div></div></div><article lang="ko" class="container-fluid my-5" style="max-width: 900px;"><header class="px-3 mb-4"><h1>초능력 동물과 영역</h1><p class="text-secondary">작성·운영: Progamer.info · 게시: 2026-09-28</p></header><div class="markdown-body text-start px-3"><h2 id="초능력-동물">초능력 동물</h2>
+<p>초능력 동물은 2024년 하반기에 타이탄 기어에 이어 새롭게 등장한 시스템입니다.<br>
+주요 구성요소는 다음과 같습니다.</p>
+<ul>
+<li>초능력 동물</li>
+<li>초능력 영역</li>
+</ul>
+<h2 id="기본-컨셉">기본 컨셉</h2>
+<p>탑워는 타이탄을 거치면서 <strong>기존 유저와 신규 유저를 모두 놓치는</strong> 초유의 사태가 발생하게 되었습니다.<br>
+기존 유저는 기껏 다 올려놨더니 갑자기 듣도보도 못한 유저들이 타이탄 둘둘말고 와서 패배하는 경험을, 신규 유저는 게임 시작했더니 몇백, 몇천씩 과금을 유도당하는 경험을 하게 되었죠.</p>
+<p>초능력 동물은 <strong>기존 요소들을 업그레이드 하는 초능력 영역</strong>과 <strong>신규 스펙을 올려주는 초능력 동물</strong> 두 가지로 출시되어 이러한 불만 요소들을 잠재우려고 노력하는 모습을 보입니다.</p>
+<h2 id="주요-건물">주요 건물</h2>
+<p>초능력 동물과 관련된 건물은 총 네 가지가 있습니다.</p>
+<ol>
+<li>초능력 육성 기지</li>
+<li>초능력 생태 공원</li>
+<li>초능력 영역</li>
+<li>초능력 전시관</li>
+</ol>
+<h2 id="1-초능력-육성-기지">1. 초능력 육성 기지</h2>
+<p><img src="/assets/%EC%B4%88%EB%8A%A5%EB%A0%A5%EC%9C%A1%EC%84%B1%EA%B8%B0%EC%A7%80-BbDU7UZq.png" alt="초능력육성기지" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>다른 유저와 초능력 동물을 육성할 수 있는 건물입니다.<br>
+1일 1회는 무료 육성 가능하며, 육성에 소요되는 시간은 14시간입니다. 응원을 통해 이 시간을 단축시킬 수 있습니다. (1회에 30분씩 단축되며 총 10회 가능합니다)</p>
+<p>과금을 통해 1회 더 육성할 수 있는 기회를 얻을 수 있지만, 타이밍을 맞추는 것이 쉽지 않으며 권장하지 않습니다.</p>
+<p><img src="/assets/%EC%9C%A1%EC%84%B1%ED%9A%9F%EC%88%98%EA%B5%AC%EB%A7%A4-XY57J5bt.png" alt="육성횟수구매" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>육성에 사용되는 동물만 결과로 얻을 수 있으며, 서로 다른 동물을 교배하는 경우 육성 완료 시 각 50% 확률로 둘 중 하나를 얻을 수 있습니다. 등급별 확률은 다음과 같습니다.</p>
+<p><img src="/assets/%EC%9C%A1%EC%84%B1%EB%93%B1%EA%B8%89%EB%B3%84%ED%99%95%EB%A5%A0-ANd4P_pw.png" alt="육성등급별확률" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<h2 id="2-초능력-생태-공원">2. 초능력 생태 공원</h2>
+<p>보유한 초능력 동물을 모두 확인할 수 있으며, 성급 강화 및 레벨업을 할 수 있습니다.</p>
+<p><img src="/assets/%EC%B4%88%EB%8A%A5%EB%A0%A5%EC%83%9D%ED%83%9C%EA%B3%B5%EC%9B%90-DcotVu1G.png" alt="초능력생태공원" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p><img src="/assets/%EC%B4%88%EB%8A%A5%EB%A0%A5%EC%83%9D%ED%83%9C%EA%B3%B5%EC%9B%902-uPXDlI_O.png" alt="초능력생태공원2" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>초능력 동물은 5성까지 강화가 가능하며, 중요한 옵션의 동물을 획득하면 <strong>자동 잠금</strong> 처리되므로 걱정하지 않으셔도 됩니다.<br>
+(중요 옵션 : 데미지 증가/감면, 방어도, 출정)</p>
+<p>초능력 동물 강화에 소요되는 동물 수는 다음과 같습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-responsive my-4"><table class="table table-bordered table-striped"><thead><tr><th>성급</th><th>마리수</th><th>비고</th></tr></thead><tbody><tr><td>1성</td><td>1마리</td><td></td></tr><tr><td>2성</td><td>3마리</td><td>1 + 2</td></tr><tr><td>3성</td><td>7마리</td><td>1 + 2 + 4</td></tr><tr><td>4성</td><td>13마리</td><td>1 + 2 + 4 + 6</td></tr><tr><td>5성</td><td>21마리</td><td>1 + 2 + 4 + 6 + 8</td></tr></tbody></table></div>
+<blockquote>
+<p>추후 경험치 부분도 정리할 수 있다면 하겠습니다 (큰 의미 없어 보입니다)</p>
+</blockquote>
+<h2 id="3-초능력-영역">3. 초능력 영역</h2>
+<p>초능력 영역은 실제 동물을 배치하고 활성화된 영역을 강화시켜 기존 보유 효과들을 강화시킬 수 있는 시스템입니다.</p>
+<ul>
+<li><code>1</code>영역 : 전문강화 영역</li>
+<li><code>2</code>영역 : 방어도 및 군진 강화 영역</li>
+<li><code>3</code>영역 : 무기 장비 및 개조 강화 영역</li>
+<li><code>4</code>영역 : 무기 장비 및 타이탄 강화 영역 <span style="color: red;">(1,2,3영역 슬롯 레벨 합계 <code>40</code> 필요)</span></li>
+<li><code>5</code>영역 : 무기 장비 및 타이탄 강화 영역 <span style="color: red;">(1,2,3영역 슬롯 레벨 합계 <code>150</code> 필요)</span></li>
+</ul>
+<p>최초 오픈 시 <code>3</code>개의 영역이 생성되며, 이 영역을 얼마나 강화시키느냐에 따라 <code>4</code>, <code>5</code>번째 영역이 활성화 됩니다.<br>
+각 영역마다, 영역 내부의 슬롯마다 특정 능력치를 강화시키는 옵션이 탑재되어 있으며, 장착할 수 있는 동물이 정해져 있습니다.</p>
+<p>영역 내에서 동물 배치 조건이 일정 조건을 만족하면 각 영역의 옵션이 활성화되며 이때부터 슬롯의 레벨에 따라 고유 옵션이 강화됩니다.</p>
+<ul>
+<li><code>1</code>영역
+<ul>
+<li>슬롯 <code>1</code>번
+<ul>
+<li>동물 조건 : <span style="color: red; font-weight: bold;">아무 동물이나 장착 가능</span></li>
+<li>고유 능력 : 전문강화 <span style="color: red; font-weight: bold;">5</span>단계 능력치 강화 (전체 공격력/생명력 증가)</li>
+<li>활성화 조건 : 모든 슬롯에 동물을 장착</li>
+</ul>
+</li>
+<li>슬롯 <code>2</code>
+<ul>
+<li>동물 조건 : 땅 속성 사슴 (매직 등급 이상) or 스라소니</li>
+<li>고유 능력 : 전문강화 <span style="color: red; font-weight: bold;">10</span>단계 능력치 강화 (전체 데미지 감면/생명력 증가)</li>
+<li>활성화 조건 : 장착된 동물 중 에픽 등급이 <code>1</code>마리 이상 포함</li>
+</ul>
+</li>
+<li>슬롯 <code>3</code>
+<ul>
+<li>동물 조건 : 불 속성 가오리 (레어 등급 이상) or 스라소니</li>
+<li>고유 능력 : 해군 전문강화 <span style="color: red; font-weight: bold;">15</span>단계 능력치 강화 (전체 데미지 증가/공격력 증가)</li>
+<li>활성화 조건 : 장착된 동물 중 에픽 등급이 <code>2</code>마리 이상 포함</li>
+</ul>
+</li>
+<li>슬롯 <code>4</code>
+<ul>
+<li>동물 조건 : 물 속성 독수리 (유니크 등급 이상) or 스라소니</li>
+<li>고유 능력 : 공군 전문강화 <span style="color: red; font-weight: bold;">15</span>단계 능력치 강화 (전체 데미지 증가/공격력 증가)</li>
+<li>활성화 조건 : 장착된 동물 중 에픽 등급이 <code>3</code>마리 이상 포함</li>
+</ul>
+</li>
+<li>슬롯 <code>5</code>
+<ul>
+<li>동물 조건 : 바람 속성 곰 (유니크 등급 이상) or 스라소니</li>
+<li>고유 능력 : 육군 전문강화 <span style="color: red; font-weight: bold;">15</span>단계 능력치 강화 (전체 데미지 증가/공격력 증가)</li>
+<li>활성화 조건 : 장착된 동물 중 에픽 등급이 <code>4</code>마리 이상 포함</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>2</code>영역</li>
+<li><code>3</code>영역</li>
+<li><code>4</code>영역</li>
+<li><code>5</code>영역</li>
+</ul>
+<h2 id="초능력-동물-종류">초능력 동물 종류</h2>
+<p>초능력 동물의 <strong>종류</strong>는 총 네 가지이다.</p>
+<ul>
+<li>사슴 - <strong>출정 최대치</strong>를 포함한 데미지 증가 및 감면 메인 옵션 보유</li>
+<li>가오리 - <strong>방어도</strong> 메인 옵션 보유</li>
+<li>독수리 - <strong>데미지 증가</strong> 메인 옵션 보유</li>
+<li>곰 - <strong>데미지 감면</strong> 메인 옵션 보유</li>
+</ul>
+<p>잠재력이 높을 수록 더 높은 수치를 가지며 <strong>등급</strong>에 따라 다른 잠재력 수치를 가진다.</p>
+<ul>
+<li>에픽 - 최대 16000</li>
+<li>유니크 - 최대 8000</li>
+</ul>
+<p>초능력 동물은 총 네 가지 속성(불/물/바람/땅)을 가질 수 있으며, 속성에 따라 배치 가능한 초능력 영역의 자리가 결정된다.</p>
+<p>초능력 생태공원에서 동물을 누르면 다음과 같이 동물의 정보가 나온다.</p>
+<p><img src="https://static.wikidocs.net/images/page/257813/초능력동물화면설명.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>동물의 등급은 일반,
+<span style="color: green;">정예</span>,
+<span style="color: dodgerblue;">희귀</span>,
+<span style="color: purple;">유니크</span>,
+<span style="color: gold;">에픽</span>
+로 나눠지며, 대부분 유니크 이상이 필요하다.</p>
+<p><span style="color: dodgerblue;">희귀</span> 동물 중에서도 간혹 옵션이 좋은 것들이 있다면 보관하는 것을 권장한다.</p>
+<p><img src="https://static.wikidocs.net/images/page/257813/희귀동물괜찮은옵션.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>위와 같지는 않더라도 최소한 다음 두 가지는 만족해야 쓸 만한 동물이다.</p>
+<ol>
+<li>메인 옵션이 자신의 주력 군종에 부합할 것 <span style="color: red;">(단, 공격 시 또는 방어 시는 제외)</span></li>
+<li>서브 옵션 중에서 <strong>1개 이상의 주력 군종 관련 데미지 옵션</strong>이 존재할 것</li>
+<li>만약 2번이 없다면 <strong>공격력, 생명력 2가지의 주력 군종 관련 옵션</strong>이 존재할 것</li>
+<li><span style="color: red;">원소 관련 옵션</span>이 존재하지 않을 것 (있더라도 최대 1개)</li>
+</ol>
+<h2 id="초능력-동물-강화">초능력 동물 강화</h2>
+<p>초능력 동물은 두 가지 강화가 가능하다.</p>
+<ol>
+<li>성급 강화 (메인옵션과 서브옵션 수치가 모두 상승)</li>
+<li>레벨 강화 (서브옵션 수치만 상승)</li>
+</ol>
+<p>초능력 생태공원의 동물 화면에서 강화 또는 성급 강화를 눌러 진행할 수 있다.</p>
+<ul>
+<li>강화의 최대 레벨은 동물의 등급에 따라 다르다.
+<ul>
+<li><span style="color: green;">정예</span> 등급 동물은 최대 레벨이 <strong>40</strong>이다.</li>
+<li><span style="color: dodgerblue;">희귀</span> 등급 동물은 최대 레벨이 <strong>60</strong>이다.</li>
+<li><span style="color: purple;">유니크</span> 등급 동물은 최대 레벨이 <strong>80</strong>이다.</li>
+<li><span style="color: gold;">에픽</span> 등급 동물은 최대 레벨이 <strong>100</strong>이다.</li>
+<li>강화에는 동물 또는 경험치 칩이 필요하다.</li>
+<li>동물은 초록 동물까지만 레벨업 재료로 사용하는 것을 추천한다.</li>
+<li><span style="color: red;">(중요) 메인 옵션만 좋은 경우 굳이 레벨업을 많이 할 필요가 없다</span></li>
+</ul>
+</li>
+<li>성급 강화에는 같은 종류의 동물이 필요하다.
+<ul>
+<li>1성 → 2성 : 2개</li>
+<li>2성 → 3성 : 4개</li>
+<li>3성 → 4성 : 6개</li>
+<li>4성 → 5성 : 8개</li>
+<li>5성을 만들기 위해 같은 종류의 동물 총 20개가 필요하다.</li>
+<li>불/물/바람/땅 속성은 상관없다.</li>
+<li>만약 1성이 아닌 2성 이상의 동물을 재료로 사용한다면 실제로 합쳐진 동물 수만큼 계산하고 남은 동물은 원소 옵션을 가진 동물로 반환해준다. <span style="color: red;">즉, 손실이 전혀 없다.</span></li>
+</ul>
+</li>
+</ul>
+<h2 id="초능력-영역">초능력 영역</h2>
+<p>초능력 영역은 동물을 배치할 수 있는 공간이며 배치하여 두 가지를 얻을 수 있다.</p>
+<ol>
+<li>동물이 가지는 고유 옵션</li>
+<li>영역이 가지는 기존 항목에 대한 강화 옵션</li>
+</ol>
+<p><img src="https://static.wikidocs.net/images/page/257813/초능력영역동물배치.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>1번의 경우 배치하기만 하면 해당 동물의 옵션을 모두 가질 수 있다.<br>
+하지만 2번의 경우 요구조건을 맞춰 슬롯을 활성화 시켜야 적용되며, 슬롯 레벨이 증가할 수록 효과가 강해진다.</p>
+<p>슬롯 강화에는 당연히 캐시 아이템인 <strong>초능력 중계기</strong>가 필요하다. 아주 많이...</p>
+<p><img src="https://static.wikidocs.net/images/page/257813/초능력중계기.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<h2 id="그래서-뭘-어떻게-해야되나">그래서 뭘 어떻게 해야되나?</h2>
+<p>주말 초능력 전장 정도만 진행한다고 가정하고 어떻게 세팅하는것이 효율적일지에 대해서 살펴보겠다.</p>
+<h2 id="동물-준비">동물 준비</h2>
+<p>동물은 다음과 같이 준비한다.</p>
+<ul>
+<li>메인 옵션이 무조건 자신의 주력 군종인 동물</li>
+<li>서브 옵션에 전체 혹은 주력 군종의 데미지 옵션이 1개 이상 있는 동물</li>
+<li><span style="color: dodgerblue;">희귀 동물</span>은 최대 3마리까지 배치 가능하지만 가급적 가장 옵션이 좋은 1마리만 배치 (종류 무관)</li>
+<li><span style="color: purple;">유니크 동물</span>이 스펙업의 핵심이며 많으면 많을수록 좋다</li>
+<li><span style="color: gold;">에픽 동물</span>은 옵션보다 슬롯을 활성화시키기 위해서 사용</li>
+</ul>
+<h2 id="첫-번째-영역---전문강화">첫 번째 영역 - 전문강화</h2>
+<p>과금량이 적을 수록 첫 번째 영역을 알차게 올려야 한다.</p>
+<p>일단 가장 먼저 해야할 일은 모든 자리의 동물을 다 채우는 것이다.<br>
+이것이 해결되지 않을 경우 그냥 옵션 좋은 동물 중 장착 가능한 것만 끼우면 된다.</p>
+<p>만약 모든 슬롯에 동물을 되는대로 끼웠다면 최소 슬롯 1번이 활성화 될 것이다.<br>
+1번 슬롯은 5레벨 전문 강화의 효과를 증폭시키는 역할을 한다. (전체공격력 + 전체생명력)</p>
+<p>이후부터는 자신의 전문 강화 레벨을 확인해봐야 한다.<br>
+전문 강화가 10레벨 미만이라면 첫 번째 옵션만 활성화 시키면 된다.<br>
+전문 강화가 15레벨 미만이라면 두 번째 옵션까지 활성화 시키면 된다.<br>
+전문 강화가 15레벨 이상이라면 15레벨 이상인 옵션을 활성화 시켜야 된다.</p>
+<p>많은 슬롯을 활성화할수록 에픽 동물이 많이 필요하며, 그만큼 옵션의 퀄리티가 떨어진다.</p>
+<p><img src="https://static.wikidocs.net/images/page/257813/초능력영역-1번.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>초능력 중계기의 경우 가급적 사용하는 영역을 <strong>5레벨</strong>까지 맞추는 것을 목표로 진행한다.</p>
+<h2 id="두-번째-영역---군진">두 번째 영역 - 군진</h2>
+<p>대부분의 소과금 유저들은 샤크 군진을 사용중이다.<br>
+가장 먼저 나와서 꾸준히 게임만 했다면 <strong>5티어</strong> 이상을 보유하고 있을 것이기 때문이다.<br>
+군진에 과금을 하지 않았다면 스콜피온이나 이글은 5티어 미만이기 때문에 영역에서 계산할 필요가 없다.</p>
+<p>샤크 티어까지 효과를 받게 하기 위해서 이 영역에서는 <strong>에픽 동물 2마리</strong>가 필요하다.</p>
+<p><img src="https://static.wikidocs.net/images/page/257813/초능력영역-2번.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p>초능력 중계기의 경우 첫 번째 슬롯에 집중한다.<br>
+특히 첫 번째 슬롯이 4에서 5레벨이 되면 방어군진이 만렙인 경우 <strong>전체 방어도 3%</strong> 가 올라간다.</p>
+<p>[[TIP]]
+스콜피온이나 이글 군진을 주력을 쓰는 분들은 다 계획이 있을 것이기 때문에 스스로 공략을 찾는 것이 좋다.
+[[/TIP]]</p>
+<h2 id="세-번째-영역---개조">세 번째 영역 - 개조</h2>
+<p>소과금의 경우 개조를 시작하지도 않았을 가능성이 크다.<br>
+따라서 세 번째 영역은 슬롯 3까지만 활성화 시키고 최대한 좋은 옵션으로 동물을 채우는 것에 집중해야 한다.</p>
+<p>슬롯 3까지 활성화 시키려면 <span style="color: gold;">에픽 동물</span> 2마리가 배치되어야 한다.
+자신이 사용하는 군종에 따라 에픽 동물의 배치 개수가 달라진다.</p>
+<p><img src="https://static.wikidocs.net/images/page/257813/초능력영역-3번.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p>
+<p><strong>초능력 중계기</strong>로 하는 슬롯 업그레이드는 앞선 두 영역을 어느정도 마친 후 진행한다.</p>
+<h2 id="좋은-동물-옵션의-예시">좋은 동물 옵션의 예시</h2>
+<p><img src="https://static.wikidocs.net/images/page/257813/동물-예시1.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;">
+<img src="https://static.wikidocs.net/images/page/257813/동물-예시2.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;">
+<img src="https://static.wikidocs.net/images/page/257813/동물-예시3.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;">
+<img src="https://static.wikidocs.net/images/page/257813/동물-예시4.png" alt="" style="max-width: 100%; border-radius: 8px; margin: 20px 0px;"></p></div></article></div></div><div class="col-md-2 d-none d-md-flex justify-content-center align-items-start"><div style="position: sticky; top: 100px;"><ins class="kakao_ad_area" data-ad-unit="DAN-WwP4DvEIbCS6Wv93" data-ad-width="160" data-ad-height="600" style="display: block;"></ins><script async="" type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script></div></div></div><footer class="border-top bg-body py-4 mt-5"><div class="container"><div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"><div class="small text-secondary">© 2026 Progamer.info</div><div class="d-flex flex-wrap justify-content-center gap-3 small"><a class="text-secondary text-decoration-none" href="/ja/about">サイト紹介</a><a class="text-secondary text-decoration-none" href="/ja/privacy">プライバシーポリシー</a><a class="text-secondary text-decoration-none" href="/ja/contact">お問い合わせ</a><a class="text-secondary text-decoration-none" href="/ja/disclaimer">免責事項</a></div></div></div></footer><section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text" aria-label="Notifications Alt+T"></section></div><button type="button" class="btn btn-primary chatbot-floating-btn" aria-label="AI 에이전트 열기" title="AI 에이전트 열기 (F1)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"></path></svg></button></div>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKHJT6LZ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+
+</body></html>
