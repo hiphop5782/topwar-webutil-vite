@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { doc, getDoc, onSnapshot, runTransaction } from "firebase/firestore";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { collection, doc, getDoc, onSnapshot, orderBy, query, runTransaction } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { db } from "@src/db/firebase";
+import { translateTexts, translationLanguages } from "@src/components/screen/vote/voteTranslation";
 import {
     assignedItemIds,
     hashPlanPassword,
     matchesPlanPlayer,
     planAccessStorageKey,
-    responseLabel,
     shuffled,
 } from "./planUtils";
 import "./PlanViewer.css";
@@ -27,6 +28,7 @@ export default function PlanViewer() {
     const [checking, setChecking] = useState(true);
     const [role, setRole] = useState("");
     const [plan, setPlan] = useState(null);
+    const [archives, setArchives] = useState([]);
     const [loadError, setLoadError] = useState("");
 
     const verifyHash = useCallback(async (hash, persist = false) => {
@@ -64,10 +66,14 @@ export default function PlanViewer() {
     useEffect(() => {
         if (!role || !serverId) return undefined;
         setLoadError("");
-        return onSnapshot(doc(db, "plans", serverId), snapshot => {
+        const unsubscribePlan = onSnapshot(doc(db, "plans", serverId), snapshot => {
             if (!snapshot.exists()) { setLoadError("등록된 계획이 없습니다."); setPlan(null); return; }
             setPlan({ id: snapshot.id, ...snapshot.data() });
         }, error => { console.error(error); setLoadError("계획을 불러오지 못했습니다."); });
+        const unsubscribeArchives = onSnapshot(query(collection(db, "planArchives", serverId, "entries"), orderBy("archivedAt", "desc")), snapshot => {
+            setArchives(snapshot.docs.map(item => ({ id: item.id, ...item.data() })));
+        }, error => console.error("계획 이전 내역을 불러오지 못했습니다.", error));
+        return () => { unsubscribePlan(); unsubscribeArchives(); };
     }, [role, serverId]);
 
     const enter = async event => {
@@ -93,23 +99,25 @@ export default function PlanViewer() {
     if (loadError) return <div className="plan-page"><div className="alert alert-danger">{loadError}</div><button className="btn btn-outline-secondary" onClick={leave}>나가기</button></div>;
     if (!plan) return <div className="plan-page"><div className="plan-loading">계획을 불러오는 중...</div></div>;
 
-    return <PlanBoard plan={plan} serverId={serverId} role={role} leave={leave} />;
+    return <PlanBoard plan={plan} archives={archives} serverId={serverId} role={role} leave={leave} />;
 }
 
 function PasswordGate({ serverId, password, setPassword, remember, setRemember, checking, enter }) {
+    const { t } = useTranslation("plan");
     return <div className="plan-page plan-gate">
         <form className="plan-card plan-gate-card" onSubmit={enter}>
             <span className="plan-kicker">PRIVATE BATTLE PLAN</span>
-            <h1>{serverId || "-"} 서버 작전</h1>
-            <p>공유받은 사용자 또는 관리자 비밀번호를 입력하세요.</p>
+            <h1>{t("auth.title", { server: serverId || "-" })}</h1>
+            <p>{t("auth.help")}</p>
             <input autoFocus type="password" className="form-control form-control-lg" value={password} onChange={event => setPassword(event.target.value)} autoComplete="current-password" />
-            <label className="plan-check"><input type="checkbox" checked={remember} onChange={event => setRemember(event.target.checked)} /> 이 기기에서 기억하기</label>
-            <button className="btn btn-primary btn-lg w-100" disabled={checking || !password}>{checking ? "확인 중..." : "입장"}</button>
+            <label className="plan-check"><input type="checkbox" checked={remember} onChange={event => setRemember(event.target.checked)} /> {t("auth.remember")}</label>
+            <button className="btn btn-primary btn-lg w-100" disabled={checking || !password}>{checking ? t("auth.checking") : t("auth.enter")}</button>
         </form>
     </div>;
 }
 
-function PlanBoard({ plan, serverId, role, leave }) {
+function PlanBoard({ plan, archives, serverId, role, leave }) {
+    const { t, i18n } = useTranslation("plan");
     const admin = role === "admin";
     const roster = useMemo(() => Array.isArray(plan.roster) ? plan.roster : [], [plan.roster]);
     const items = useMemo(() => [...(plan.items || [])].sort((a, b) => Number(a.order) - Number(b.order)), [plan.items]);
@@ -117,6 +125,8 @@ function PlanBoard({ plan, serverId, role, leave }) {
     const assignments = useMemo(() => plan.assignments || {}, [plan.assignments]);
     const [voteSearch, setVoteSearch] = useState("");
     const [selectedVoter, setSelectedVoter] = useState("");
+    const [manualVote, setManualVote] = useState(false);
+    const [manualVoter, setManualVoter] = useState({ uid: "", nickname: "" });
     const [adminSearch, setAdminSearch] = useState("");
     const [filter, setFilter] = useState("all");
     const [selected, setSelected] = useState(() => new Set());
@@ -124,9 +134,51 @@ function PlanBoard({ plan, serverId, role, leave }) {
     const [bulkStatus, setBulkStatus] = useState("attending");
     const [autoTargets, setAutoTargets] = useState(() => new Set());
     const [powerRange, setPowerRange] = useState({ min: "", max: "" });
+    const [showAdvancedSelection, setShowAdvancedSelection] = useState(false);
+    const [bulkMode, setBulkMode] = useState("");
     const [editingItemId, setEditingItemId] = useState("");
     const [itemDraft, setItemDraft] = useState({ title: "", status: "", memo: "", color: "#f59e0b", capacity: "" });
+    const [showHistory, setShowHistory] = useState(false);
+    const [contentTranslation, setContentTranslation] = useState(null);
+    const [translating, setTranslating] = useState(false);
+    const itemElements = useRef(new Map());
     const planRef = useMemo(() => doc(db, "plans", serverId), [serverId]);
+    const targetLanguage = translationLanguages.find(language => language.code === i18n.language);
+    const translatedItems = contentTranslation?.items || {};
+    const shownTitle = contentTranslation?.title || plan.title;
+    const shownDescription = contentTranslation?.description || plan.description;
+    const statusLabel = status => t(`stats.${status === "attending" ? "attending" : status === "absent" ? "absent" : "unanswered"}`);
+    const myAssignedItems = useMemo(() => selectedVoter ? items.filter(item => (assignments[item.id] || []).includes(selectedVoter)) : [], [assignments, items, selectedVoter]);
+
+    useEffect(() => {
+        setContentTranslation(current => current?.revision === (plan.contentRevision || 1) ? current : null);
+    }, [plan.contentRevision]);
+
+    useEffect(() => { setContentTranslation(null); }, [i18n.language]);
+
+    useEffect(() => {
+        if (admin || !selectedVoter || !myAssignedItems.length) return;
+        myAssignedItems.forEach(item => { const element = itemElements.current.get(item.id); if (element) element.open = true; });
+        const first = itemElements.current.get(myAssignedItems[0].id);
+        window.requestAnimationFrame(() => first?.scrollIntoView({ behavior: "smooth", block: "center" }));
+    }, [admin, myAssignedItems, selectedVoter]);
+
+    const translatePlan = async () => {
+        if (!targetLanguage) return;
+        setTranslating(true);
+        try {
+            const texts = { title: plan.title || "", description: plan.description || "" };
+            items.forEach(item => { texts[`item.${item.id}.title`] = item.title || ""; texts[`item.${item.id}.status`] = item.status || ""; texts[`item.${item.id}.memo`] = item.memo || ""; });
+            const translated = await translateTexts(texts, targetLanguage);
+            setContentTranslation({
+                revision: plan.contentRevision || 1,
+                title: translated.title,
+                description: translated.description,
+                items: Object.fromEntries(items.map(item => [item.id, { title: translated[`item.${item.id}.title`], status: translated[`item.${item.id}.status`], memo: translated[`item.${item.id}.memo`] }])),
+            });
+        } catch (error) { console.error(error); toast.error("번역하지 못했습니다."); }
+        finally { setTranslating(false); }
+    };
 
     const transact = async updater => {
         try {
@@ -141,8 +193,30 @@ function PlanBoard({ plan, serverId, role, leave }) {
 
     const voteResults = useMemo(() => roster.filter(player => matchesPlanPlayer(player, voteSearch)).slice(0, 20), [roster, voteSearch]);
     const castResponse = async status => {
-        if (!selectedVoter) return toast.error("명단에서 본인을 선택하세요.");
-        if (await transact(data => ({ responses: { ...(data.responses || {}), [selectedVoter]: { status, updatedAt: Date.now() } } }))) toast.success("응답을 저장했습니다.");
+        const manualUid = manualVoter.uid.trim();
+        const uid = manualVote ? manualUid : selectedVoter;
+        if (plan.status === "paused") return toast.error("종료된 계획에는 응답할 수 없습니다.");
+        if (!manualVote && !uid) return toast.error("명단에서 본인을 선택하세요.");
+        if (manualVote && (!/^\d+$/.test(manualUid) || !manualVoter.nickname.trim())) return toast.error("UID와 닉네임을 입력하세요.");
+        const saved = await transact(data => {
+            const exists = (data.roster || []).some(player => player.uid === uid);
+            return {
+                roster: manualVote && !exists ? [...(data.roster || []), { uid, nickname: manualVoter.nickname.trim(), power: 0, allianceId: "", allianceTag: "", allianceName: "", source: "user-manual" }] : (data.roster || []),
+                responses: { ...(data.responses || {}), [uid]: { status, updatedAt: Date.now() } },
+            };
+        });
+        if (saved) { toast.success("응답을 저장했습니다."); setSelectedVoter(uid); setManualVote(false); setVoteSearch(manualVoter.nickname || voteSearch); }
+    };
+
+    const changePlanState = async nextStatus => {
+        const label = nextStatus === "paused" ? "종료" : "재개";
+        if (!window.confirm(`이 계획을 ${label}할까요?`)) return;
+        const saved = await transact(data => ({
+            status: nextStatus,
+            endedAt: nextStatus === "paused" ? new Date() : null,
+            history: [...(data.history || []), { action: nextStatus === "paused" ? "paused" : "resumed", at: Date.now() }],
+        }));
+        if (saved) toast.success(`계획을 ${label}했습니다.`);
     };
 
     const counts = useMemo(() => roster.reduce((result, player) => {
@@ -166,7 +240,7 @@ function PlanBoard({ plan, serverId, role, leave }) {
         const title = window.prompt("새 항목 이름");
         if (!title?.trim()) return;
         const item = { id: crypto.randomUUID(), title: title.trim(), status: "", memo: "", color: "#f59e0b", capacity: null, order: items.length };
-        await transact(data => ({ items: [...(data.items || []), item] }));
+        await transact(data => ({ contentRevision: (data.contentRevision || 1) + 1, items: [...(data.items || []), item] }));
     };
     const startEditItem = item => {
         setEditingItemId(item.id);
@@ -174,7 +248,7 @@ function PlanBoard({ plan, serverId, role, leave }) {
     };
     const saveItem = async item => {
         if (!itemDraft.title.trim()) return toast.error("항목 이름을 입력하세요.");
-        const saved = await transact(data => ({ items: (data.items || []).map(current => current.id === item.id ? {
+        const saved = await transact(data => ({ contentRevision: (data.contentRevision || 1) + 1, items: (data.items || []).map(current => current.id === item.id ? {
             ...current,
             title: itemDraft.title.trim(),
             status: itemDraft.status.trim(),
@@ -192,7 +266,7 @@ function PlanBoard({ plan, serverId, role, leave }) {
     };
     const deleteItem = async item => {
         if (!window.confirm(`'${item.title}' 항목과 배정을 삭제할까요?`)) return;
-        await transact(data => { const next = { ...(data.assignments || {}) }; delete next[item.id]; return { items: (data.items || []).filter(current => current.id !== item.id), assignments: next }; });
+        await transact(data => { const next = { ...(data.assignments || {}) }; delete next[item.id]; return { contentRevision: (data.contentRevision || 1) + 1, items: (data.items || []).filter(current => current.id !== item.id), assignments: next }; });
     };
 
     const assignSelected = async () => {
@@ -253,7 +327,7 @@ function PlanBoard({ plan, serverId, role, leave }) {
             else next[player.uid] = { status, updatedAt: Date.now(), changedByAdmin: true };
             return { responses: next };
         });
-        if (saved) toast.success(`${player.nickname}님의 상태를 ${responseLabel(status)}으로 변경했습니다.`);
+        if (saved) toast.success(`${player.nickname}님의 상태를 ${statusLabel(status)}으로 변경했습니다.`);
     };
     const changeSelectedResponses = async () => {
         if (!selected.size) return toast.error("상태를 변경할 인원을 선택하세요.");
@@ -266,7 +340,7 @@ function PlanBoard({ plan, serverId, role, leave }) {
             });
             return { responses: next };
         });
-        if (saved) toast.success(`${selectedUids.length}명의 상태를 ${responseLabel(bulkStatus)}으로 변경했습니다.`);
+        if (saved) toast.success(`${selectedUids.length}명의 상태를 ${statusLabel(bulkStatus)}으로 변경했습니다.`);
     };
 
     const randomAssign = async () => {
@@ -290,29 +364,34 @@ function PlanBoard({ plan, serverId, role, leave }) {
 
     return <div className="plan-page">
         <header className="plan-heading">
-            <div><span className="plan-kicker">SERVER {serverId}</span><h1>{plan.title}</h1><p>{plan.description}</p></div>
-            <div className="plan-heading-actions"><span className={`badge text-bg-${admin ? "warning" : "info"}`}>{admin ? "관리자 모드" : "사용자 모드"}</span><button className="btn btn-sm btn-outline-secondary" onClick={leave}>나가기</button></div>
+            <div><span className="plan-kicker">SERVER {serverId}</span><h1>{shownTitle}</h1><p>{shownDescription}</p></div>
+            <div className="plan-heading-actions"><span className={`badge text-bg-${plan.status === "paused" ? "secondary" : admin ? "warning" : "info"}`}>{plan.status === "paused" ? t("header.ended") : admin ? t("header.admin") : t("header.user")}</span>{(plan.sourceLanguage || "ko") !== i18n.language && (contentTranslation ? <button className="btn btn-sm btn-outline-primary" onClick={() => setContentTranslation(null)}>{t("header.original")}</button> : <button className="btn btn-sm btn-outline-primary" disabled={translating} onClick={translatePlan}>{translating ? t("header.translating") : t("header.translate", { language: targetLanguage?.name || i18n.language })}</button>)}<button className="btn btn-sm btn-outline-primary" onClick={() => setShowHistory(true)}>{t("header.history")}</button>{admin && <button className={`btn btn-sm ${plan.status === "paused" ? "btn-success" : "btn-outline-danger"}`} onClick={() => changePlanState(plan.status === "paused" ? "active" : "paused")}>{plan.status === "paused" ? t("header.resume") : t("header.end")}</button>}<button className="btn btn-sm btn-outline-secondary" onClick={leave}>{t("header.leave")}</button></div>
         </header>
 
         <section className="plan-stats">
-            <Stat label="전체" value={roster.length} /><Stat label="참여" value={counts.attending} tone="green" /><Stat label="불참" value={counts.absent} tone="red" /><Stat label="미응답" value={counts.unanswered} /><Stat label="참여·미배정" value={counts.unassigned} tone="orange" />
+            <Stat label={t("stats.all")} value={roster.length} /><Stat label={t("stats.attending")} value={counts.attending} tone="green" /><Stat label={t("stats.absent")} value={counts.absent} tone="red" /><Stat label={t("stats.unanswered")} value={counts.unanswered} /><Stat label={t("stats.unassigned")} value={counts.unassigned} tone="orange" />
         </section>
 
         {!admin && <section className="plan-card plan-vote">
-            <div><h2>참여 여부</h2><p>명단에서 본인을 선택한 후 응답하세요.</p></div>
-            <input className="form-control" placeholder="닉네임 검색" value={voteSearch} onChange={event => setVoteSearch(event.target.value)} />
-            {voteSearch && <div className="plan-search-results">{voteResults.map(player => <button key={player.uid} className={`plan-search-option ${selectedVoter === player.uid ? "selected" : ""}`} onClick={() => { setSelectedVoter(player.uid); setVoteSearch(player.nickname); }}><b>{player.nickname}</b><span>{responseLabel(responses[player.uid]?.status)}</span></button>)}</div>}
-            {selectedVoter && <div className="plan-vote-actions"><strong>{playerByUid(selectedVoter).nickname}</strong><button className="btn btn-success" onClick={() => castResponse("attending")}>참여</button><button className="btn btn-outline-danger" onClick={() => castResponse("absent")}>불참</button></div>}
+            <div><h2>{t("vote.title")}</h2><p>{plan.status === "paused" ? t("vote.closed") : t("vote.help")}</p></div>
+            <>
+                {!manualVote && <><input className="form-control" placeholder={t("vote.search")} value={voteSearch} onChange={event => { setVoteSearch(event.target.value); setSelectedVoter(""); }} /><div className="plan-voter-buttons">{voteSearch && voteResults.map(player => <button key={player.uid} className={selectedVoter === player.uid ? "selected" : ""} onClick={() => { setSelectedVoter(player.uid); setVoteSearch(player.nickname); }}><b>{player.nickname}</b><span>{statusLabel(responses[player.uid]?.status)}</span></button>)}{plan.status !== "paused" && <button className="manual" onClick={() => { setManualVote(true); setSelectedVoter(""); }}>{t("vote.manual")}</button>}</div></>}
+                {manualVote && <div className="plan-manual-voter"><input className="form-control" inputMode="numeric" placeholder={t("vote.uid")} value={manualVoter.uid} onChange={event => setManualVoter(current => ({ ...current, uid: event.target.value.replace(/\D/g, "") }))} /><input className="form-control" placeholder={t("vote.nickname")} value={manualVoter.nickname} onChange={event => setManualVoter(current => ({ ...current, nickname: event.target.value }))} /><button className="btn btn-outline-secondary" onClick={() => setManualVote(false)}>{t("vote.back")}</button></div>}
+                {(selectedVoter || manualVote) && <div className="plan-vote-actions"><strong>{manualVote ? manualVoter.nickname || t("vote.manual") : playerByUid(selectedVoter).nickname}</strong>{plan.status !== "paused" && <><button className="btn btn-success" onClick={() => castResponse("attending")}>{t("vote.yes")}</button><button className="btn btn-outline-danger" onClick={() => castResponse("absent")}>{t("vote.no")}</button></>}</div>}
+                {selectedVoter && <aside className={`plan-my-assignment ${myAssignedItems.length ? "assigned" : "unassigned"}`}><b>{myAssignedItems.length ? t("vote.myAssignment", { count: myAssignedItems.length }) : t("vote.notAssigned")}</b>{myAssignedItems.length > 0 && <div>{myAssignedItems.map(item => <button key={item.id} onClick={() => { const element = itemElements.current.get(item.id); if (element) { element.open = true; element.scrollIntoView({ behavior: "smooth", block: "center" }); } }}><span style={{ background: item.color }} />{translatedItems[item.id]?.title || item.title}</button>)}</div>}</aside>}
+            </>
         </section>}
 
-        <section className="plan-section-head"><div><h2>작전 항목</h2><p>항목을 눌러 배정 인원을 확인하세요.</p></div>{admin && <button className="btn btn-primary" onClick={addItem}>항목 추가</button>}</section>
+        {showHistory && <div className="plan-modal-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setShowHistory(false); }}><section className="plan-history-modal" role="dialog" aria-modal="true" aria-labelledby="plan-history-title"><header><div><h2 id="plan-history-title">{t("history.title")}</h2><p>{t("history.help")}</p></div><button onClick={() => setShowHistory(false)} aria-label={t("history.close")}>×</button></header><div className="plan-history-scroll"><article className="plan-archive-row current"><span><b>{plan.title || t("history.untitled")}</b><small>{t("history.summary", { type: t("history.current"), attending: counts.attending, items: items.length })}</small></span><em>{plan.status === "paused" ? t("history.ended") : t("history.active")}</em></article>{archives.map(archive => <article className="plan-archive-row" key={archive.id}><span><b>{archive.title || t("history.untitled")}</b><small>{t("history.summary", { type: t("history.previous"), attending: Object.values(archive.responses || {}).filter(response => response.status === "attending").length, items: (archive.items || []).length })}</small></span><time>{archive.archivedAt?.toDate?.().toLocaleString(i18n.language) || t("history.archiving")}</time></article>)}{!archives.length && <p className="plan-history-empty">{t("history.empty")}</p>}{!!(plan.history || []).length && <details className="plan-lifecycle"><summary>{t("history.changes", { count: (plan.history || []).length })}</summary><div>{[...(plan.history || [])].reverse().map((entry, index) => <p key={`${entry.at}-${index}`}><b>{t(`history.actions.${entry.action === "created" ? "created" : entry.action === "paused" ? "paused" : "resumed"}`)}</b><time>{new Date(entry.at).toLocaleString(i18n.language)}</time></p>)}</div></details>}</div></section></div>}
+
+        <section className="plan-section-head"><div><h2>{t("items.title")}</h2><p>{t("items.help")}</p></div>{admin && plan.status !== "paused" && <button className="btn btn-primary" onClick={addItem}>{t("items.add")}</button>}</section>
         <div className="plan-items">
-            {items.length === 0 && <div className="plan-empty">아직 등록된 작전 항목이 없습니다.</div>}
-            {items.map((item, index) => <details className="plan-item" key={item.id}>
-                <summary><span className="plan-color" style={{ background: item.color }} /><span className="plan-item-main"><b>{item.title}</b><small>{[item.status, item.memo].filter(Boolean).join(" · ") || "상세 메모 없음"}</small></span><span className="plan-count">{(assignments[item.id] || []).length}{item.capacity ? ` / ${item.capacity}` : "명"}</span></summary>
+            {items.length === 0 && <div className="plan-empty">{t("items.empty")}</div>}
+            {items.map((item, index) => { const shownItem = translatedItems[item.id] || item; const includesSelectedVoter = !admin && selectedVoter && (assignments[item.id] || []).includes(selectedVoter); return <details ref={element => { if (element) itemElements.current.set(item.id, element); else itemElements.current.delete(item.id); }} className={`plan-item ${includesSelectedVoter ? "plan-item-mine" : ""}`} key={item.id}>
+                <summary><span className="plan-color" style={{ background: item.color }} /><span className="plan-item-main"><b>{shownItem.title}</b><small>{[shownItem.status, shownItem.memo].filter(Boolean).join(" · ") || t("items.noMemo")}</small></span><span className="plan-count">{(assignments[item.id] || []).length}{item.capacity ? ` / ${item.capacity}` : "명"}</span></summary>
                 <div className="plan-item-body">
-                    {(assignments[item.id] || []).length === 0 ? <p className="text-muted">배정된 인원이 없습니다.</p> : <div className="plan-assigned-list">{(assignments[item.id] || []).map(uid => { const player = playerByUid(uid); const status = responses[uid]?.status; return <span key={uid} className={`plan-person ${status === "absent" ? "conflict" : ""}`}>{player.nickname}<em>{responseLabel(status)}</em>{admin && <button onClick={() => unassign(item.id, uid)} aria-label="배정 해제">×</button>}</span>; })}</div>}
-                    {admin && <>
+                    {(assignments[item.id] || []).length === 0 ? <p className="text-muted">{t("items.none")}</p> : <div className="plan-assigned-list">{(assignments[item.id] || []).map(uid => { const player = playerByUid(uid); const status = responses[uid]?.status || "unanswered"; return <span key={uid} className={`plan-person status-${status} ${uid === selectedVoter && !admin ? "plan-person-me" : ""}`} title={`${player.nickname} · ${statusLabel(status)}`} aria-label={`${player.nickname}, ${statusLabel(status)}`}>{player.nickname}{uid === selectedVoter && !admin && <em>{t("vote.me")}</em>}{admin && <button onClick={() => unassign(item.id, uid)} aria-label={t("items.unassign", { name: player.nickname })}>×</button>}</span>; })}</div>}
+                    {admin && plan.status !== "paused" && <>
                         <div className="plan-item-controls"><button onClick={() => moveItem(item, -1)} disabled={index === 0}>↑ 위로</button><button onClick={() => moveItem(item, 1)} disabled={index === items.length - 1}>↓ 아래로</button><button onClick={() => editingItemId === item.id ? setEditingItemId("") : startEditItem(item)}>{editingItemId === item.id ? "편집 닫기" : "상태·색상·메모 편집"}</button><button className="danger" onClick={() => deleteItem(item)}>삭제</button></div>
                         {editingItemId === item.id && <div className="plan-item-editor">
                             <label>항목 이름<input className="form-control" value={itemDraft.title} onChange={event => setItemDraft(current => ({ ...current, title: event.target.value }))} /></label>
@@ -324,22 +403,17 @@ function PlanBoard({ plan, serverId, role, leave }) {
                         </div>}
                     </>}
                 </div>
-            </details>)}
+            </details>; })}
         </div>
 
-        {admin && <section className="plan-card plan-admin">
+        {admin && plan.status !== "paused" && <section className="plan-card plan-admin">
             <div className="plan-section-head"><div><h2>인원 배정</h2><p>검색과 상태 필터를 함께 사용할 수 있습니다.</p></div><button className="btn btn-outline-primary" onClick={addManualPlayer}>인원 직접 추가</button></div>
-            <input className="form-control" placeholder="닉네임·초성·자모·유니코드 검색" value={adminSearch} onChange={event => setAdminSearch(event.target.value)} />
             <div className="plan-filters">
                 {[["all", `전체 ${roster.length}`], ["attending", `참여 ${counts.attending}`], ["absent", `불참 ${counts.absent}`], ["unanswered", `미응답 ${counts.unanswered}`], ["unassigned", `참여·미배정 ${counts.unassigned}`], ["assigned", "배정됨"], ["conflict", "상태 충돌"]].map(([key, label]) => <button key={key} className={filter === key ? "active" : ""} onClick={() => setFilter(key)}>{label}</button>)}
             </div>
-            <div className="plan-select-tools">
-                <div className="plan-select-buttons">
-                    <button className="btn btn-sm btn-primary" onClick={selectAllRoster}>전체 명단 선택</button>
-                    <button className="btn btn-sm btn-outline-primary" onClick={selectVisible}>현재 결과 전체 선택</button>
-                    <button className="btn btn-sm btn-outline-secondary" onClick={deselectVisible}>현재 결과 전체 해제</button>
-                    <button className="btn btn-sm btn-outline-secondary" onClick={() => setSelected(new Set())}>모든 선택 해제</button>
-                </div>
+            <div className="plan-roster-search"><input className="form-control" placeholder="닉네임·초성·자모·유니코드 검색" value={adminSearch} onChange={event => setAdminSearch(event.target.value)} /><button className={`btn ${showAdvancedSelection ? "btn-secondary" : "btn-outline-secondary"}`} onClick={() => setShowAdvancedSelection(value => !value)}>고급 선택</button></div>
+            <div className="plan-roster-tools"><span>{visibleRoster.length}명 표시</span><button onClick={selectVisible}>현재 결과 전체 선택</button><button onClick={deselectVisible}>현재 결과 선택 해제</button><button onClick={selectAllRoster}>전체 명단 선택</button></div>
+            {showAdvancedSelection && <div className="plan-select-tools">
                 <div className="plan-power-select">
                     <span>전투력 구간</span>
                     <input className="form-control form-control-sm" type="number" min="0" step="1" placeholder="최소 M" value={powerRange.min} onChange={event => setPowerRange(current => ({ ...current, min: event.target.value }))} />
@@ -348,20 +422,14 @@ function PlanBoard({ plan, serverId, role, leave }) {
                     <button className="btn btn-sm btn-warning" onClick={selectPowerRange}>구간 선택</button>
                 </div>
                 <small>전투력 구간 선택은 현재 검색·상태 필터 결과에 적용되며 기존 선택은 유지됩니다.</small>
-            </div>
-            <div className="plan-bulk-bar">
-                <b>{selected.size}명 선택</b>
-                <div className="plan-bulk-targets">
-                    <div className="plan-target-heading"><span>배정할 항목 {assignmentTargets.size}개 선택</span><button onClick={() => setAssignmentTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAssignmentTargets(new Set())}>전체 해제</button></div>
-                    <div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={assignmentTargets.has(item.id)} onChange={event => setAssignmentTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div>
-                    <button className="btn btn-primary" onClick={assignSelected} disabled={!selected.size || !assignmentTargets.size}>선택된 모든 항목에 배정</button>
-                </div>
-                <div className="plan-bulk-action"><select className="form-select" value={bulkStatus} onChange={event => setBulkStatus(event.target.value)}><option value="attending">참여</option><option value="absent">불참</option><option value="unanswered">미응답</option></select><button className="btn btn-warning" onClick={changeSelectedResponses} disabled={!selected.size}>선택 인원 상태 변경</button></div>
-                <button className="btn btn-outline-secondary" onClick={() => setSelected(new Set())}>선택 해제</button>
-                <small>상태를 일괄 변경한 뒤 선택을 유지한 채 배정할 수 있습니다. 한 명을 여러 항목에 반복 배정할 수 있습니다.</small>
-            </div>
+            </div>}
             <div className="plan-roster-list">{visibleRoster.map(player => { const status = responses[player.uid]?.status || "unanswered"; const assigned = assignedItemIds(assignments, player.uid); return <div className="plan-roster-row" key={player.uid}><input type="checkbox" aria-label={`${player.nickname} 선택`} checked={selected.has(player.uid)} onChange={event => setSelected(current => { const next = new Set(current); event.target.checked ? next.add(player.uid) : next.delete(player.uid); return next; })} /><span className="plan-roster-name"><b>{player.nickname}</b><small>CP {formatPower(player.power)}</small></span><select className={`form-select form-select-sm plan-status-select plan-status-${status}`} aria-label={`${player.nickname} 참여 상태`} value={status} onChange={event => changePlayerResponse(player, event.target.value)}><option value="attending">참여</option><option value="absent">불참</option><option value="unanswered">미응답</option></select><span className="plan-roster-assignments">{assigned.length ? assigned.map(id => items.find(item => item.id === id)?.title).filter(Boolean).join(", ") : "미배정"}{status === "absent" && assigned.length > 0 && <strong>상태 충돌</strong>}</span><button type="button" className="plan-delete-player" onClick={() => deletePlayer(player)}>삭제</button></div>; })}</div>
-            <div className="plan-random-box"><div><h3>랜덤 균등 배치</h3><p>참여로 응답하고 아직 배정되지 않은 인원을 선택 항목에 고르게 배치합니다.</p></div><div className="plan-target-heading"><span>배치할 항목 {autoTargets.size}개</span><button onClick={() => setAutoTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAutoTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={autoTargets.has(item.id)} onChange={event => setAutoTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-warning" onClick={randomAssign} disabled={!autoTargets.size}>랜덤 균등 배치</button></div>
+            {selected.size > 0 && <div className="plan-selection-bar">
+                <div className="plan-selection-summary"><b>{selected.size}명 선택</b><button className={bulkMode === "status" ? "active" : ""} onClick={() => setBulkMode(mode => mode === "status" ? "" : "status")}>상태 변경</button><button className={bulkMode === "assignment" ? "active" : ""} onClick={() => setBulkMode(mode => mode === "assignment" ? "" : "assignment")}>항목 배정</button><button onClick={() => { setSelected(new Set()); setBulkMode(""); }}>선택 해제</button></div>
+                {bulkMode === "status" && <div className="plan-selection-panel"><select className="form-select" value={bulkStatus} onChange={event => setBulkStatus(event.target.value)}><option value="attending">참여</option><option value="absent">불참</option><option value="unanswered">미응답</option></select><button className="btn btn-warning" onClick={changeSelectedResponses}>선택 인원 상태 변경</button></div>}
+                {bulkMode === "assignment" && <div className="plan-selection-panel plan-bulk-targets"><div className="plan-target-heading"><span>배정할 항목 {assignmentTargets.size}개</span><button onClick={() => setAssignmentTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAssignmentTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={assignmentTargets.has(item.id)} onChange={event => setAssignmentTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-primary" onClick={assignSelected} disabled={!assignmentTargets.size}>선택된 모든 항목에 배정</button></div>}
+            </div>}
+            <details className="plan-random-box"><summary>랜덤 균등 배치</summary><div className="plan-random-content"><p>참여로 응답하고 아직 배정되지 않은 인원을 선택 항목에 고르게 배치합니다.</p><div className="plan-target-heading"><span>배치할 항목 {autoTargets.size}개</span><button onClick={() => setAutoTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAutoTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={autoTargets.has(item.id)} onChange={event => setAutoTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-warning" onClick={randomAssign} disabled={!autoTargets.size}>랜덤 균등 배치</button></div></details>
         </section>}
     </div>;
 }

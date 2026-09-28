@@ -63,8 +63,10 @@ import RouteSEO from "@src/components/template/RouteSEO";
 import RouteAnalytics from "@src/components/template/RouteAnalytics";
 import PlanCreator from "@src/components/screen/plan/PlanCreator";
 import PlanViewer from "@src/components/screen/plan/PlanViewer";
+import { useIsMobile } from "@src/hooks/useIsMobile";
 
 export default function MainContentView() {
+    const isMobile = useIsMobile();
 
     return (
         <div className="row mb-5 pb-5">
@@ -79,13 +81,11 @@ export default function MainContentView() {
                 {/* 카카오 애드핏 수평 광고 */}
                 <div className="row mb-4">
                     <div className="col d-flex justify-content-center align-items-center">
-                        {/*
                         {isMobile ? (
-                            <KakaoAds id="DAN-lZUjWtUlP8hglGID" width={320} height={50} />
+                            <KakaoAds id="DAN-lZUjWtUlP8hglGID" width={320} height={50} display="block" />
                         ) : (
-                            <KakaoAds id="DAN-Z2S2sYjDqUqroYxO" width={728} height={90} />
+                            <KakaoAds id="DAN-Z2S2sYjDqUqroYxO" width={728} height={90} display="block" />
                         )}
-                        */}
                     </div>
                 </div>
 

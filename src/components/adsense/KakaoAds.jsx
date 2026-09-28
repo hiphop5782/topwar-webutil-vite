@@ -6,6 +6,7 @@ export default function KakaoAds({ id, width=160, height=600, display="none" }) 
 
     //effect
     useEffect(()=>{
+        const container = adRef.current;
         const script = document.createElement("script");
         script.async = true;
         script.type = "text/javascript";
@@ -18,15 +19,15 @@ export default function KakaoAds({ id, width=160, height=600, display="none" }) 
         ins.setAttribute("data-ad-width", `${width}`);
         ins.setAttribute("data-ad-height", `${height}`);
 
-        if(adRef.current) {
-            adRef.current.appendChild(ins);
-            adRef.current.appendChild(script);
+        if(container) {
+            container.appendChild(ins);
+            container.appendChild(script);
         }
 
         //clean-up
         return ()=>{
-            if(adRef.current) {
-                adRef.current.innerHTML = "";
+            if(container) {
+                container.innerHTML = "";
             }
         };
     }, [id, width, height, display]);

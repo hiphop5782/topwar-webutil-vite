@@ -11,7 +11,7 @@ import "./PlanViewer.css";
 
 export default function PlanCreator() {
     const navigate = useNavigate();
-    const { i18n } = useTranslation();
+    const { i18n, t } = useTranslation("plan");
     const [form, setForm] = useState({ serverId: "", minLevel: "80", title: "", description: "", viewerPassword: "", adminPassword: "" });
     const [players, setPlayers] = useState([]);
     const [loadingRoster, setLoadingRoster] = useState(false);
@@ -46,16 +46,28 @@ export default function PlanCreator() {
         try {
             const serverId = String(Number(form.serverId));
             const planRef = doc(db, "plans", serverId);
-            if ((await getDoc(planRef)).exists() && !window.confirm("이 서버의 기존 계획을 새 계획으로 교체할까요?")) return;
+            const existingPlan = await getDoc(planRef);
+            if (existingPlan.exists() && !window.confirm("기존 계획을 이전 내역에 보관하고 새 계획을 시작할까요?")) return;
             const [viewerHash, adminHash] = await Promise.all([
                 hashPlanPassword(form.viewerPassword),
                 hashPlanPassword(form.adminPassword),
             ]);
             const accessVersion = Date.now();
             const batch = writeBatch(db);
+            if (existingPlan.exists()) {
+                const archiveId = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
+                batch.set(doc(db, "planArchives", serverId, "entries", archiveId), {
+                    ...existingPlan.data(),
+                    archiveId,
+                    archivedAt: serverTimestamp(),
+                    archiveStatus: "pending",
+                });
+            }
             batch.set(planRef, {
                 schemaVersion: 1,
                 serverId,
+                sourceLanguage: i18n.language,
+                contentRevision: 1,
                 minLevel: Number(form.minLevel),
                 title: form.title.trim(),
                 description: form.description.trim(),
@@ -63,6 +75,8 @@ export default function PlanCreator() {
                 responses: {},
                 items: [],
                 assignments: {},
+                status: "active",
+                history: [{ action: "created", at: Date.now() }],
                 accessVersion,
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
@@ -83,25 +97,25 @@ export default function PlanCreator() {
 
     return <div className="plan-page">
         <div className="plan-heading">
-            <div><span className="plan-kicker">BATTLE PLAN</span><h1>새 작전 계획</h1></div>
+            <div><span className="plan-kicker">BATTLE PLAN</span><h1>{t("creator.title")}</h1></div>
         </div>
         <form className="plan-card plan-form" onSubmit={save}>
-            <label>서버 번호<input className="form-control" inputMode="numeric" value={form.serverId} onChange={e => { update("serverId", e.target.value.replace(/\D/g, "")); setPlayers([]); }} placeholder="3223" /></label>
-            <label>명단 최소 레벨
+            <label>{t("creator.server")}<input className="form-control" inputMode="numeric" value={form.serverId} onChange={e => { update("serverId", e.target.value.replace(/\D/g, "")); setPlayers([]); }} placeholder="3223" /></label>
+            <label>{t("creator.minLevel")}
                 <input className="form-control" type="number" inputMode="numeric" min="1" max="80" value={form.minLevel} onChange={e => { update("minLevel", e.target.value.replace(/\D/g, "")); setPlayers([]); }} />
-                <small className="text-muted">기본값은 80입니다. 계획에 포함할 대상에 맞춰 1~80 사이에서 조정할 수 있으며, 입력한 레벨 이상의 사용자만 명단에 포함됩니다.</small>
+                <small className="text-muted">{t("creator.minLevelHelp")}</small>
             </label>
-            <label>계획 제목<input className="form-control" value={form.title} onChange={e => update("title", e.target.value)} placeholder="이번 주 대형 전투" /></label>
-            <label>전체 메모<textarea className="form-control" rows="3" value={form.description} onChange={e => update("description", e.target.value)} /></label>
+            <label>{t("creator.planTitle")}<input className="form-control" value={form.title} onChange={e => update("title", e.target.value)} /></label>
+            <label>{t("creator.memo")}<textarea className="form-control" rows="3" value={form.description} onChange={e => update("description", e.target.value)} /></label>
             <div className="plan-form-grid">
-                <label>사용자 비밀번호<input type="password" className="form-control" value={form.viewerPassword} onChange={e => update("viewerPassword", e.target.value)} /></label>
-                <label>관리자 비밀번호<input type="password" className="form-control" value={form.adminPassword} onChange={e => update("adminPassword", e.target.value)} /></label>
+                <label>{t("creator.viewerPassword")}<input type="password" className="form-control" value={form.viewerPassword} onChange={e => update("viewerPassword", e.target.value)} /></label>
+                <label>{t("creator.adminPassword")}<input type="password" className="form-control" value={form.adminPassword} onChange={e => update("adminPassword", e.target.value)} /></label>
             </div>
             <div className="plan-roster-load">
-                <button type="button" className="btn btn-outline-primary" onClick={loadRoster} disabled={loadingRoster}>{loadingRoster ? "불러오는 중..." : "서버 명단 불러오기"}</button>
+                <button type="button" className="btn btn-outline-primary" onClick={loadRoster} disabled={loadingRoster}>{loadingRoster ? t("creator.loading") : t("creator.loadRoster")}</button>
                 <span>{players.length ? `레벨 ${form.minLevel} 이상 ${players.length}명` : "최소 레벨을 확인한 뒤 명단을 불러오세요."}</span>
             </div>
-            <button className="btn btn-primary btn-lg" disabled={!canSave || saving}>{saving ? "생성 중..." : "계획 생성"}</button>
+            <button className="btn btn-primary btn-lg" disabled={!canSave || saving}>{saving ? t("creator.saving") : t("creator.create")}</button>
         </form>
     </div>;
 }
