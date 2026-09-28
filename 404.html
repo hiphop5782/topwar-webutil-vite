@@ -27,7 +27,7 @@
           var segmentCount = 0;
 
           var l = window.location;
-          if (/^\/(ko|en|ja)\/(vote\/(cast|manage)\/[^/]+|vip\/[^/]+)\/?$/.test(l.pathname)) l.replace(
+          if (/^\/(ko|en|ja)\/(vote\/(cast|manage)\/[^/]+|vip\/[^/]+|plan\/[^/]+)\/?$/.test(l.pathname)) l.replace(
               l.protocol + '//' + l.hostname + (l.port ?   ':' + l.port : '') +
               l.pathname.split('/').slice(0, 1 +  segmentCount).join('/') + '/?p=/' +
               l.pathname.slice(1).split('/').slice  (segmentCount).join('/').replace(/&/g,  '~and~') +
