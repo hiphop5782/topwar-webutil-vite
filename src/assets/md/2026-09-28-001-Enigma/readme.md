@@ -372,13 +372,13 @@ description: 초능력 동물의 종류, 효과와 영역별 특징에 대해서
 ![](https://static.wikidocs.net/images/page/257813/%EC%B4%88%EB%8A%A5%EB%A0%A5%EB%8F%99%EB%AC%BC%ED%99%94%EB%A9%B4%EC%84%A4%EB%AA%85.png)
 
 동물의 등급은 일반,
-<span style="color:green">정예</span>,
-<span style="color:dodgerblue">희귀</span>,
+<span style="color:green">매직</span>,
+<span style="color:dodgerblue">레어</span>,
 <span style="color:purple">유니크</span>,
 <span style="color:gold">에픽</span>
 로 나눠지며, 대부분 유니크 이상이 필요하다.
 
-<span style="color:dodgerblue">희귀</span> 동물 중에서도 간혹 옵션이 좋은 것들이 있다면 보관하는 것을 권장한다.
+<span style="color:dodgerblue">레어</span> 동물 중에서도 간혹 옵션이 좋은 것들이 있다면 보관하는 것을 권장한다.
 
 ![](https://static.wikidocs.net/images/page/257813/%ED%9D%AC%EA%B7%80%EB%8F%99%EB%AC%BC%EA%B4%9C%EC%B0%AE%EC%9D%80%EC%98%B5%EC%85%98.png)
 
