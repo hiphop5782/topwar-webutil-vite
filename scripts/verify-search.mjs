@@ -107,7 +107,7 @@ try {
  await page.waitForFunction(()=>location.pathname==='/ko/information/data/server/');
  assert.equal(new URL(page.url()).search,'?server=3223');
  assert.equal(new URL(page.url()).hash,'#details');
- for(const url of ['/en/vote/cast/test-record/','/ja/vip/3223/']) {
+ for(const url of ['/en/vote/cast/test-record/','/ja/vip/3223/','/ko/plan/3396/']) {
   await page.goto(local+url);
   await page.waitForFunction(url=>location.pathname===url&&!!document.querySelector('link[rel="canonical"]'),{},url);
   await page.waitForFunction(()=>document.querySelector('meta[name="robots"]')?.content.includes('noindex'));
