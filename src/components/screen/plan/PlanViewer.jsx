@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { db } from "@src/db/firebase";
 import { translateTexts, translationLanguages } from "@src/components/screen/vote/voteTranslation";
+import { getPlanTranslationCache, setPlanTranslationCache } from "./planTranslationCache";
 import {
     assignedItemIds,
     hashPlanPassword,
@@ -169,7 +170,9 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         try {
             const texts = { title: plan.title || "", description: plan.description || "" };
             items.forEach(item => { texts[`item.${item.id}.title`] = item.title || ""; texts[`item.${item.id}.status`] = item.status || ""; texts[`item.${item.id}.memo`] = item.memo || ""; });
-            const translated = await translateTexts(texts, targetLanguage);
+            const cached = await getPlanTranslationCache(targetLanguage.code, texts);
+            const translated = cached || await translateTexts(texts, targetLanguage);
+            if (!cached) await setPlanTranslationCache(targetLanguage.code, texts, translated);
             setContentTranslation({
                 revision: plan.contentRevision || 1,
                 title: translated.title,

@@ -1,4 +1,3 @@
-import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 import { getPlayerNicknameSearchKeys, getPlayerSearchQuery } from "@src/utils/playerSearchIndex";
 
 export async function hashPlanPassword(value) {
@@ -19,9 +18,7 @@ export function matchesPlanPlayer(player, rawQuery) {
     const keys = getPlayerNicknameSearchKeys(nickname);
     const parsed = getPlayerSearchQuery(query);
     const target = String(keys[parsed.field] ?? "");
-    if (target.includes(parsed.key)) return true;
-
-    return normalizeNicknameForSearch(player?.uid).includes(normalizeNicknameForSearch(query));
+    return target.includes(parsed.key);
 }
 
 export function responseLabel(value) {

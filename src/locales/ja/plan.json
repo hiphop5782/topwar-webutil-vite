@@ -3,7 +3,7 @@
   "auth": { "title": "サーバー{{server}} 作戦", "help": "共有されたユーザーまたは管理者パスワードを入力してください。", "remember": "この端末に保存", "enter": "入場", "checking": "確認中..." },
   "header": { "admin": "管理者モード", "user": "ユーザーモード", "ended": "終了", "history": "履歴", "end": "計画を終了", "resume": "計画を再開", "leave": "退出", "translate": "{{language}}に翻訳", "original": "原文を表示", "translating": "翻訳中..." },
   "stats": { "all": "全体", "attending": "参加", "absent": "不参加", "unanswered": "未回答", "unassigned": "参加・未配置" },
-  "vote": { "title": "参加可否", "help": "名簿から自分を選択して回答してください。", "closed": "終了した計画です。配置結果のみ確認できます。", "search": "ニックネームまたはUID検索", "manual": "名簿にありません・直接入力", "uid": "ゲームUID", "nickname": "ニックネーム", "back": "名簿検索に戻る", "yes": "参加", "no": "不参加", "myAssignment": "自分の配置先 {{count}}か所", "notAssigned": "まだ配置先がありません。", "me": "自分" },
+  "vote": { "title": "参加可否", "help": "名簿から自分を選択して回答してください。", "closed": "終了した計画です。配置結果のみ確認できます。", "search": "ニックネーム検索", "manual": "名簿にありません・直接入力", "uid": "ゲームUID", "nickname": "ニックネーム", "back": "名簿検索に戻る", "yes": "参加", "no": "不参加", "myAssignment": "自分の配置先 {{count}}か所", "notAssigned": "まだ配置先がありません。", "me": "自分" },
   "items": { "title": "作戦項目", "help": "項目を選択すると配置メンバーを確認できます。", "add": "項目を追加", "empty": "作戦項目はまだありません。", "none": "配置されたメンバーはいません。", "noMemo": "詳細メモなし", "unassign": "{{name}}の配置を解除" },
   "history": { "title": "履歴", "help": "現在の計画と以前に置き換えられた計画です。", "current": "現在の計画", "previous": "以前の計画", "active": "進行中", "ended": "終了", "empty": "保存された以前の計画はまだありません。同じサーバーで新しい計画を作成すると、現在の計画がここに表示されます。", "close": "閉じる", "untitled": "無題の計画", "summary": "{{type}}・参加{{attending}}名・項目{{items}}件", "archiving": "保存中", "changes": "現在の計画の変更履歴 {{count}}件", "actions": { "created": "計画作成", "paused": "計画終了", "resumed": "計画再開" } }
 }
