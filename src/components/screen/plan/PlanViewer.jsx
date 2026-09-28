@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { doc, getDoc, onSnapshot, runTransaction } from "firebase/firestore";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
 import { db } from "@src/db/firebase";
 import {
@@ -99,7 +98,6 @@ export default function PlanViewer() {
 
 function PasswordGate({ serverId, password, setPassword, remember, setRemember, checking, enter }) {
     return <div className="plan-page plan-gate">
-        <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
         <form className="plan-card plan-gate-card" onSubmit={enter}>
             <span className="plan-kicker">PRIVATE BATTLE PLAN</span>
             <h1>{serverId || "-"} 서버 작전</h1>
@@ -291,7 +289,6 @@ function PlanBoard({ plan, serverId, role, leave }) {
     const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: "삭제된 사용자" };
 
     return <div className="plan-page">
-        <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
         <header className="plan-heading">
             <div><span className="plan-kicker">SERVER {serverId}</span><h1>{plan.title}</h1><p>{plan.description}</p></div>
             <div className="plan-heading-actions"><span className={`badge text-bg-${admin ? "warning" : "info"}`}>{admin ? "관리자 모드" : "사용자 모드"}</span><button className="btn btn-sm btn-outline-secondary" onClick={leave}>나가기</button></div>

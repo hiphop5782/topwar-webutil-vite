@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { doc, getDoc, serverTimestamp, writeBatch } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
 import { db } from "@src/db/firebase";
 import { loadRealPower } from "@src/services/topwarDataRepository";
 import { buildRoster } from "@src/components/screen/vote/voteHistory";
@@ -83,7 +82,6 @@ export default function PlanCreator() {
     };
 
     return <div className="plan-page">
-        <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
         <div className="plan-heading">
             <div><span className="plan-kicker">BATTLE PLAN</span><h1>새 작전 계획</h1></div>
         </div>

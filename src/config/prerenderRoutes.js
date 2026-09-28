@@ -49,6 +49,7 @@ const fixedRoutes = [
     "/account/profile",
     "/account/creator",
     "/vote/create",
+    "/plan/create",
     "/history/ssc-2026",
     "/history/ssc-2026/users",
     "/history/liondance",
