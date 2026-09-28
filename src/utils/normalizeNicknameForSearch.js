@@ -24,6 +24,14 @@ const CONFUSABLES = new Map(Object.entries({
     "α": "a", "β": "b", "ε": "e", "ι": "i", "κ": "k",
     "ο": "o", "ρ": "p", "τ": "t", "υ": "y", "χ": "x",
     "ϲ": "c", "ϳ": "j",
+
+    // Latin small capitals commonly used for decorative nicknames.
+    // Unicode compatibility normalization intentionally leaves these intact.
+    "ᴀ": "a", "ʙ": "b", "ᴄ": "c", "ᴅ": "d", "ᴇ": "e",
+    "ꜰ": "f", "ɢ": "g", "ʜ": "h", "ɪ": "i", "ᴊ": "j",
+    "ᴋ": "k", "ʟ": "l", "ᴍ": "m", "ɴ": "n", "ᴏ": "o",
+    "ᴘ": "p", "ʀ": "r", "ꜱ": "s", "ᴛ": "t", "ᴜ": "u",
+    "ᴠ": "v", "ᴡ": "w", "ʏ": "y", "ᴢ": "z",
 }));
 
 // 각 유니코드 10진 숫자 블록에서 숫자 0의 코드 포인트입니다.
