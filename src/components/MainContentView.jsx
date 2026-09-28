@@ -61,6 +61,8 @@ import CityRewardEvent from "@src/components/screen/event/CityRewardEvent";
 import ThiefFinder from "@src/components/screen/vip/ThiefFinder";
 import RouteSEO from "@src/components/template/RouteSEO";
 import RouteAnalytics from "@src/components/template/RouteAnalytics";
+import PlanCreator from "@src/components/screen/plan/PlanCreator";
+import PlanViewer from "@src/components/screen/plan/PlanViewer";
 
 export default function MainContentView() {
 
@@ -160,6 +162,8 @@ export default function MainContentView() {
                     <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
                     <Route path="vote/:serverId/:voteId/manage" element={<AttendanceVoteManager/>}></Route>
+                    <Route path="plan/create" element={<PlanCreator/>}></Route>
+                    <Route path="plan/:serverId" element={<PlanViewer/>}></Route>
 
                     {/* history */}
                     <Route path="history/ssc-2026" element={<SealStoneChaos/>}>

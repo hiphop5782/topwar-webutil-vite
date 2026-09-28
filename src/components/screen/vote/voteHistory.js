@@ -21,9 +21,10 @@ export function voteState(vote, now = Date.now()) {
 }
 export function buildRoster(players, vote) {
     if (!Array.isArray(players)) throw new Error("조사 명단을 불러오지 못했습니다.");
+    const minLevel = Number.isFinite(Number(vote?.minLevel)) ? Number(vote.minLevel) : 80;
     const roster = new Map();
     for (const player of players) {
-        if (Number(player.level) < 80 || !Number.isFinite(Number(player.level))) continue;
+        if (Number(player.level) < minLevel || !Number.isFinite(Number(player.level))) continue;
         if (player.serverId != null && String(player.serverId) !== String(vote.serverId)) continue;
         if (vote.targetScope === "alliance" && String(player.allianceId) !== String(vote.allianceId)) continue;
         const uid = uidOf(player);
@@ -33,7 +34,7 @@ export function buildRoster(players, vote) {
         roster.set(uid, { uid, nickname, power: Number.isFinite(power) ? power : 0,
             allianceId: String(player.allianceId ?? ""), allianceTag: String(player.allianceTag || ""), allianceName: String(player.allianceName || "") });
     }
-    if (!roster.size) throw new Error("레벨 80 이상인 투표 대상자가 없습니다.");
+    if (!roster.size) throw new Error(`레벨 ${minLevel} 이상인 대상자가 없습니다.`);
     return [...roster.values()].sort((a, b) => b.power - a.power || a.uid.localeCompare(b.uid));
 }
 export function mergeHistory(live, archived) {

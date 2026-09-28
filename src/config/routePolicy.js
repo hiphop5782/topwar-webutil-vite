@@ -43,6 +43,8 @@ export const routePolicies = [
     { pattern: /^\/vote\/manage(?:\/[^/]+)?$/, key: "vote.manage", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vote\/[^/]+\/[^/]+$/, key: "vote.cast", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vote\/[^/]+\/[^/]+\/manage$/, key: "vote.manage", category: 'system', index: false, languages: supportedLngs },
+    { pattern: /^\/plan\/create$/, key: "plan.create", category: 'system', index: false, languages: supportedLngs },
+    { pattern: /^\/plan\/\d+$/, key: "plan.view", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/history\/ssc-2026$/, key: "history.ssc2026.home", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/history\/ssc-2026\/users$/, key: "history.ssc2026.users", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/history\/liondance$/, key: "history.liondance", category: 'data', index: false, languages: supportedLngs },
