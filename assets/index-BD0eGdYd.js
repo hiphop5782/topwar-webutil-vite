@@ -6686,7 +6686,7 @@ description: 초능력 동물의 종류, 효과와 영역별 특징에 대해서
 | 4성 | 13마리 | 1 + 2 + 4 + 6 |
 | 5성 | 21마리 | 1 + 2 + 4 + 6 + 8 |
 
-> 추후 경험치 부분도 정리할 수 있다면 하겠습니다 (큰 의미 없어 보입니다)
+> 추후 경험치 부분도 정리할 수 있다면 하겠습니다
 
 ## 3. 초능력 영역
 
@@ -6703,32 +6703,157 @@ description: 초능력 동물의 종류, 효과와 영역별 특징에 대해서
 
 영역 내에서 동물 배치 조건이 일정 조건을 만족하면 각 영역의 옵션이 활성화되며 이때부터 슬롯의 레벨에 따라 고유 옵션이 강화됩니다.
 
-- \`1\`영역 
+- \`1\`영역 (총 5개 슬롯)
   - 슬롯 \`1\`번
     - 동물 조건 : <span style="color:red;font-weight:bold">아무 동물이나 장착 가능</span>
     - 고유 능력 : 전문강화 <span style="color:red;font-weight:bold">5</span>단계 능력치 강화 (전체 공격력/생명력 증가)
     - 활성화 조건 : 모든 슬롯에 동물을 장착
-  - 슬롯 \`2\` 
+  - <span style="color:red;font-weight:bold">슬롯 \`2\`</span>
     - 동물 조건 : 땅 속성 사슴 (매직 등급 이상) or 스라소니
     - 고유 능력 : 전문강화 <span style="color:red;font-weight:bold">10</span>단계 능력치 강화 (전체 데미지 감면/생명력 증가)
-    - 활성화 조건 : 장착된 동물 중 에픽 등급이 \`1\`마리 이상 포함    
-  - 슬롯 \`3\` 
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`1\`마리 이상 포함    
+  - <span style="color:red;font-weight:bold">슬롯 \`3\`</span>
     - 동물 조건 : 불 속성 가오리 (레어 등급 이상) or 스라소니
     - 고유 능력 : 해군 전문강화 <span style="color:red;font-weight:bold">15</span>단계 능력치 강화 (전체 데미지 증가/공격력 증가)
-    - 활성화 조건 : 장착된 동물 중 에픽 등급이 \`2\`마리 이상 포함    
-  - 슬롯 \`4\` 
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`2\`마리 이상 포함    
+  - <span style="color:red;font-weight:bold">슬롯 \`4\`</span>
     - 동물 조건 : 물 속성 독수리 (유니크 등급 이상) or 스라소니
     - 고유 능력 : 공군 전문강화 <span style="color:red;font-weight:bold">15</span>단계 능력치 강화 (전체 데미지 증가/공격력 증가)
-    - 활성화 조건 : 장착된 동물 중 에픽 등급이 \`3\`마리 이상 포함    
-  - 슬롯 \`5\` 
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`3\`마리 이상 포함    
+  - <span style="color:red;font-weight:bold">슬롯 \`5\`</span>
     - 동물 조건 : 바람 속성 곰 (유니크 등급 이상) or 스라소니
     - 고유 능력 : 육군 전문강화 <span style="color:red;font-weight:bold">15</span>단계 능력치 강화 (전체 데미지 증가/공격력 증가)
-    - 활성화 조건 : 장착된 동물 중 에픽 등급이 \`4\`마리 이상 포함    
-- \`2\`영역
-- \`3\`영역
-- \`4\`영역
-- \`5\`영역
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`4\`마리 이상 포함    
+- \`2\`영역 (총 7개 슬롯)
+  - <span style="color:red;font-weight:bold">슬롯 \`1\`</span>
+    - 동물 조건 : <span style="color:red;font-weight:bold">종류 무관</span> (유니크 등급 이상) 
+    - 고유 능력 : 방어 군진 강화 (방어도 증가)
+    - 활성화 조건 : 모든 슬롯에 동물 장착
+  - 슬롯 \`2\`
+    - 동물 조건 : 불 속성 사슴 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 샤크 군진 티어 효과 강화 (유닛 공격력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`2\`마리 이상 포함
+  - 슬롯 \`3\`
+    - 동물 조건 : 물 속성 가오리 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 스콜피온 군진 티어 효과 강화 (유닛 생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`3\`마리 이상 포함
+  - 슬롯 \`4\`
+    - 동물 조건 : 바람 속성 독수리 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 이글 군진 티어 효과 강화 (유닛 생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`4\`마리 이상 포함
+  - 슬롯 \`5\`
+    - 동물 조건 : 땅 속성 곰 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 샤크 군진 슬롯 능력치 효과 강화 (데미지 증가/감면 증가, 유닛 공격력/생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 \`2\`성 이상 에픽 등급 \`5\`마리 이상 포함
+  - 슬롯 \`6\`
+    - 동물 조건 : 물 속성 사슴 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 스콜피온 군진 슬롯 능력치 효과 강화 (데미지 증가/감면 증가, 유닛 공격력/생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 \`2\`성 이상 에픽 등급 \`6\`마리 이상 포함
+  - 슬롯 \`7\`
+    - 동물 조건 : 바람 속성 가오리 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 이글 군진 슬롯 능력치 효과 강화 (데미지 증가/감면 증가, 유닛 공격력/생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 \`2\`성 이상 에픽 등급 \`7\`마리 이상 포함
+- \`3\`영역 (총 6개 슬롯)
+  - 슬롯 \`1\`
+    - 동물 조건 : 땅 속성 독수리 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 육군 장비(무기) 효과 강화 (육군 공격력/생명력 증가)
+    - 활성화 조건 : 모든 슬롯에 동물 장착
+  - 슬롯 \`2\`
+    - 동물 조건 : 불 속성 곰 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 공군 장비(무기) 효과 강화 (공군 공격력/생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`1\`마리 이상 포함
+  - 슬롯 \`3\`
+    - 동물 조건 : 바람 속성 사슴 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 해군 장비(무기) 효과 강화 (해군 공격력/생명력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 에픽 등급 \`2\`마리 이상 포함
+  - 슬롯 \`4\` <span style="color:red;font-weight:bold">(육군개조 32단 이상 필요)</span>
+    - 동물 조건 : 땅 속성 가오리 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 육군 장비 개조 32단 효과 강화 (육군 공격력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 \`2\`성 이상 에픽 등급 \`5\`마리 이상 포함
+  - 슬롯 \`5\`
+    - 동물 조건 : 불 속성 독수리 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 해군 장비 개조 32단 효과 강화 (해군 공격력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 \`2\`성 이상 에픽 등급 \`5\`마리 이상 포함
+  - 슬롯 \`6\`
+    - 동물 조건 : 물 속성 곰 (유니크 등급 이상) or 스라소니
+    - 고유 능력 : 공군 장비 개조 32단 효과 강화 (공군 공격력 증가)
+    - 활성화 조건 : 영역 내 장착된 동물 중 \`2\`성 이상 에픽 등급 \`5\`마리 이상 포함
+- \`4\`영역 (총 9개 슬롯, 1/2/3영역 강화 합계 40이상일 경우 개방)
+  - 슬롯 \`1\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`2\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`3\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`4\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`5\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`6\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`7\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`8\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`9\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+- \`5\`영역 (총 9개 슬롯, 1/2/3영역 강화 합계 150이상일 경우 개방)
+  - 슬롯 \`1\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`2\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`3\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`4\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`5\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`6\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`7\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`8\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
+  - 슬롯 \`9\`
+    - 동물 조건 : 
+    - 고유 능력 : 
+    - 활성화 조건 : 
 
+<div style="display:none;">
 # 초능력 동물 종류
 
 초능력 동물의 **종류**는 총 네 가지이다.
@@ -6877,7 +7002,8 @@ description: 초능력 동물의 종류, 효과와 영역별 특징에 대해서
 ![](https://static.wikidocs.net/images/page/257813/%EB%8F%99%EB%AC%BC-%EC%98%88%EC%8B%9C1.png)
 ![](https://static.wikidocs.net/images/page/257813/%EB%8F%99%EB%AC%BC-%EC%98%88%EC%8B%9C2.png)
 ![](https://static.wikidocs.net/images/page/257813/%EB%8F%99%EB%AC%BC-%EC%98%88%EC%8B%9C3.png)
-![](https://static.wikidocs.net/images/page/257813/%EB%8F%99%EB%AC%BC-%EC%98%88%EC%8B%9C4.png)`;var _C={exports:{}},Pi={},ky={},Zm={},Q1e;function b7(){if(Q1e)return Zm;Q1e=1;function e(i){return typeof i>"u"||i===null}function r(i){return typeof i=="object"&&i!==null}function t(i){return Array.isArray(i)?i:e(i)?[]:[i]}function n(i,o){var l,c,d,h;if(o)for(h=Object.keys(o),l=0,c=h.length;l<c;l+=1)d=h[l],i[d]=o[d];return i}function s(i,o){var l="",c;for(c=0;c<o;c+=1)l+=i;return l}function a(i){return i===0&&Number.NEGATIVE_INFINITY===1/i}return Zm.isNothing=e,Zm.isObject=r,Zm.toArray=t,Zm.repeat=s,Zm.isNegativeZero=a,Zm.extend=n,Zm}var kB,J1e;function ZE(){if(J1e)return kB;J1e=1;function e(r,t){Error.call(this),this.name="YAMLException",this.reason=r,this.mark=t,this.message=(this.reason||"(unknown reason)")+(this.mark?" "+this.mark.toString():""),Error.captureStackTrace?Error.captureStackTrace(this,this.constructor):this.stack=new Error().stack||""}return e.prototype=Object.create(Error.prototype),e.prototype.constructor=e,e.prototype.toString=function(t){var n=this.name+": ";return n+=this.reason||"(unknown reason)",!t&&this.mark&&(n+=" "+this.mark.toString()),n},kB=e,kB}var SB,ehe;function Mur(){if(ehe)return SB;ehe=1;var e=b7();function r(t,n,s,a,i){this.name=t,this.buffer=n,this.position=s,this.line=a,this.column=i}return r.prototype.getSnippet=function(n,s){var a,i,o,l,c;if(!this.buffer)return null;for(n=n||4,s=s||75,a="",i=this.position;i>0&&`\0\r
+![](https://static.wikidocs.net/images/page/257813/%EB%8F%99%EB%AC%BC-%EC%98%88%EC%8B%9C4.png)
+</div>`;var _C={exports:{}},Pi={},ky={},Zm={},Q1e;function b7(){if(Q1e)return Zm;Q1e=1;function e(i){return typeof i>"u"||i===null}function r(i){return typeof i=="object"&&i!==null}function t(i){return Array.isArray(i)?i:e(i)?[]:[i]}function n(i,o){var l,c,d,h;if(o)for(h=Object.keys(o),l=0,c=h.length;l<c;l+=1)d=h[l],i[d]=o[d];return i}function s(i,o){var l="",c;for(c=0;c<o;c+=1)l+=i;return l}function a(i){return i===0&&Number.NEGATIVE_INFINITY===1/i}return Zm.isNothing=e,Zm.isObject=r,Zm.toArray=t,Zm.repeat=s,Zm.isNegativeZero=a,Zm.extend=n,Zm}var kB,J1e;function ZE(){if(J1e)return kB;J1e=1;function e(r,t){Error.call(this),this.name="YAMLException",this.reason=r,this.mark=t,this.message=(this.reason||"(unknown reason)")+(this.mark?" "+this.mark.toString():""),Error.captureStackTrace?Error.captureStackTrace(this,this.constructor):this.stack=new Error().stack||""}return e.prototype=Object.create(Error.prototype),e.prototype.constructor=e,e.prototype.toString=function(t){var n=this.name+": ";return n+=this.reason||"(unknown reason)",!t&&this.mark&&(n+=" "+this.mark.toString()),n},kB=e,kB}var SB,ehe;function Mur(){if(ehe)return SB;ehe=1;var e=b7();function r(t,n,s,a,i){this.name=t,this.buffer=n,this.position=s,this.line=a,this.column=i}return r.prototype.getSnippet=function(n,s){var a,i,o,l,c;if(!this.buffer)return null;for(n=n||4,s=s||75,a="",i=this.position;i>0&&`\0\r
 \u2028\u2029`.indexOf(this.buffer.charAt(i-1))===-1;)if(i-=1,this.position-i>s/2-1){a=" ... ",i+=5;break}for(o="",l=this.position;l<this.buffer.length&&`\0\r
 \u2028\u2029`.indexOf(this.buffer.charAt(l))===-1;)if(l+=1,l-this.position>s/2-1){o=" ... ",l-=5;break}return c=this.buffer.slice(i,l),e.repeat(" ",n)+a+c+o+`
 `+e.repeat(" ",n+this.position-i+a.length)+"^"},r.prototype.toString=function(n){var s,a="";return this.name&&(a+='in "'+this.name+'" '),a+="at line "+(this.line+1)+", column "+(this.column+1),n||(s=this.getSnippet(),s&&(a+=`:
