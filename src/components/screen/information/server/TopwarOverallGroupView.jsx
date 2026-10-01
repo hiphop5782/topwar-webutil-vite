@@ -4,6 +4,7 @@ import { Virtuoso } from "react-virtuoso";
 import { FaArrowDown, FaArrowUp, FaXmark } from "react-icons/fa6";
 import { trackAnalyticsEvent } from "@src/db/firebase";
 import { useParamState } from "@src/hooks/useParamState";
+import CompositionSearchInput from "@src/components/template/CompositionSearchInput";
 import KartzTrend from "./TopwarKartzTrend";
 import { findAllianceKartz } from "./topwarKartzUtils";
 
@@ -185,20 +186,20 @@ export default function TopwarOverallGroupView({ type, players, movementHistory,
         <section className="overall-group-view">
             <div className="overall-group-view__toolbar" ref={toolbarRef}>
                 <div className="overall-group-view__searches">
-                    <input
+                    <CompositionSearchInput
                         className="form-control"
                         type="search"
                         value={query}
-                        onChange={(event) => setQuery(event.target.value)}
+                        onValueChange={setQuery}
                         placeholder={t(serverView ? "groups.serverSearch" : "groups.allianceSearch")}
                     />
                     {!serverView && (
-                        <input
+                        <CompositionSearchInput
                             className="form-control"
                             type="search"
                             inputMode="numeric"
                             value={serverQuery}
-                            onChange={(event) => setServerQuery(event.target.value)}
+                            onValueChange={setServerQuery}
                             placeholder={t("groups.allianceServerSearch")}
                         />
                     )}

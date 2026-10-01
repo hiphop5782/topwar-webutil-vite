@@ -5,8 +5,10 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
+import CompositionSearchInput from "@src/components/template/CompositionSearchInput";
 import { trackAnalyticsEvent } from "@src/db/firebase";
 import { useParamState } from "@src/hooks/useParamState";
+import { normalizeOverallSearch as normalize } from "@src/utils/normalizeOverallSearch";
 import TopwarOverallGroupView from "./TopwarOverallGroupView";
 import KartzTrend from "./TopwarKartzTrend";
 import { buildKartzIndexes, findPlayerKartz } from "./topwarKartzUtils";
@@ -18,16 +20,6 @@ import {
 } from "@src/services/topwarDataRepository";
 
 import "./TopwarDataOverAll.css";
-
-function normalize(value) {
-    return String(value ?? "")
-        .normalize("NFKD")
-        .replace(/\p{M}+/gu, "")
-        .toLocaleLowerCase("ko-KR")
-        .replaceAll("ß", "ss")
-        .replaceAll("ς", "σ")
-        .trim();
-}
 
 function formatNumber(value, locale) {
     const number = Number(value);
@@ -524,10 +516,10 @@ export default function TopwarDataOverAll() {
             <div className="overall-viewer__filters">
                 <label className="overall-viewer__search">
                     <FaMagnifyingGlass aria-hidden="true" />
-                    <input
+                    <CompositionSearchInput
                         type="search"
                         value={query}
-                        onChange={(event) => setQuery(event.target.value)}
+                        onValueChange={setQuery}
                         placeholder={t("filters.nickname")}
                         aria-label={t("filters.nicknameLabel")}
                     />
@@ -541,11 +533,11 @@ export default function TopwarDataOverAll() {
                     placeholder={t("filters.server")}
                     aria-label={t("filters.server")}
                 />
-                <input
+                <CompositionSearchInput
                     className="form-control"
                     type="search"
                     value={allianceQuery}
-                    onChange={(event) => setAllianceQuery(event.target.value)}
+                    onValueChange={setAllianceQuery}
                     placeholder={t("filters.alliance")}
                     aria-label={t("filters.allianceLabel")}
                 />

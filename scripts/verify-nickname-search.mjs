@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { matchesNicknameSearch, normalizeNicknameForSearch } from '../src/utils/normalizeNicknameForSearch.js';
+import { normalizeOverallSearch } from '../src/utils/normalizeOverallSearch.js';
 
 for (const query of ['', 'ㅎ', '호', '홍', '홍ㅅ', '홍시', '호']) {
     assert.equal(matchesNicknameSearch('🍊홍시🍊', query), true, query);
@@ -11,6 +12,17 @@ assert.equal(matchesNicknameSearch('Ａｌｐｈａ１２３', 'alpha123'), true
 assert.equal(matchesNicknameSearch('Player١٢٣', 'PLAYER123'), true);
 assert.equal(matchesNicknameSearch('ɴɪʙʙʟᴇꜱ', 'nibbles'), true);
 assert.equal(normalizeNicknameForSearch('ɴɪʙʙʟᴇꜱ'), 'nibbles');
+for (const [nickname, query] of [
+    ['ᴍᴇᴍᴏʀʏ', 'memory'],
+    ['ɴɪʙʙʟᴇꜱ', 'nibbles'],
+    ['✨ᴍᴇᴍᴏʀʏ✨', 'MEMORY'],
+    ['홍시', '홍ㅅ'],
+    ['Crème', 'creme'],
+    ['Straße', 'strasse'],
+]) {
+    assert.equal(normalizeOverallSearch(nickname).includes(normalizeOverallSearch(query)), true, `${nickname} / ${query}`);
+}
+assert.equal(normalizeOverallSearch('ᴍᴇᴍᴏʀʏ').includes(normalizeOverallSearch('memories')), false);
 assert.equal(matchesNicknameSearch('홍시', '홍시'), true);
 assert.notEqual(normalizeNicknameForSearch('호'), normalizeNicknameForSearch('홍'), 'Do not change identity normalization');
 console.log('Nickname search passed: incomplete Hangul, decomposed input, Unicode case/digits/small capitals and negative matches.');
