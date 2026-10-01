@@ -69,6 +69,7 @@ jobs:
         env:
           CI: false
           PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
+          VITE_CITY_REWARD_API_URL: ${{ vars.VITE_CITY_REWARD_API_URL }}
 
       - name: Verify vote lifecycle and archives
         run: npm run verify:vote

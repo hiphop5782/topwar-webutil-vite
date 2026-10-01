@@ -3,9 +3,14 @@ import { Trans, useTranslation } from "react-i18next";
 
 import "./CityRewardEvent.css";
 
-const DATA_URL = "https://raw.githubusercontent.com/hiphop5782/topwar-reward-finder/refs/heads/main/data/city-rewards.json";
+const BACKEND_DATA_URL =
+  import.meta.env.VITE_CITY_REWARD_API_URL ||
+  "https://datahub.progamer.info/api/v1/data/city-rewards";
 
-const POLLING_INTERVAL = 30000;
+const FALLBACK_DATA_URL =
+  "https://raw.githubusercontent.com/hiphop5782/topwar-reward-finder/refs/heads/main/data/city-rewards.json";
+
+const POLLING_INTERVAL = 5000;
 const REWARD_DURATION = 30 * 60 * 1000;
 const CLOCK_INTERVAL = 1000;
 
@@ -25,6 +30,28 @@ const REWARD_TYPES = {
 };
 const REWARD_ITEM_IDS = Object.keys(REWARD_TYPES);
 
+async function fetchRewardData(url, signal) {
+  const separator = url.includes("?") ? "&" : "?";
+  const response = await fetch(
+    `${url}${separator}t=${Date.now()}`,
+    {
+      signal,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  if (!data || !Array.isArray(data.locations)) {
+    throw new Error("Invalid city reward response");
+  }
+
+  return data;
+}
+
 const CityRwardEvent = () => {
   const { t, i18n } = useTranslation("viewer");
 
@@ -43,7 +70,7 @@ const CityRwardEvent = () => {
   const copyTimerRef = useRef(null);
 
   /**
-   * 5초 Polling
+   * 백엔드를 5초마다 조회하고, 장애 시 기존 GitHub 데이터로 폴백한다.
    */
   useEffect(() => {
     let stopped = false;
@@ -54,19 +81,28 @@ const CityRwardEvent = () => {
       controller = new AbortController();
 
       try {
-        const response = await fetch(
-          `${DATA_URL}?t=${Date.now()}`,
-          {
-            cache: "no-store",
-            signal: controller.signal,
+        let data;
+
+        try {
+          data = await fetchRewardData(
+            BACKEND_DATA_URL,
+            controller.signal
+          );
+        } catch (backendError) {
+          if (backendError.name === "AbortError") {
+            throw backendError;
           }
-        );
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
+          console.warn(
+            "City reward backend fetch failed; using GitHub fallback",
+            backendError
+          );
+
+          data = await fetchRewardData(
+            FALLBACK_DATA_URL,
+            controller.signal
+          );
         }
-
-        const data = await response.json();
 
         if (stopped) return;
 
