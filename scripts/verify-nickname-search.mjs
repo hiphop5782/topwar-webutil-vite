@@ -32,5 +32,6 @@ for (const nickname of ['JohnLee', '스파클💦', 'MℛՇ ჯℯℛ', 'Thắn
 }
 assert.equal(matchesPlanPlayer({ nickname: 'JohnLeeExtra' }, pastedPlanNames), false, 'Pasted lists use exact normalized nickname matches');
 assert.equal(matchesPlanPlayer({ nickname: 'ＫＩＤ³²²³' }, 'kid3223,홍시'), true, 'Full-width and superscript characters in pasted lists');
+assert.equal(matchesPlanPlayer({ nickname: 'baepd' }, 'DisneyUK,bae,joker'), false, 'Short names in pasted lists must not partially match');
 assert.equal(hasMultiplePlanSearchQueries('JohnLee，홍시'), true);
 console.log('Nickname search passed: incomplete Hangul, decomposed input, Unicode case/digits/small capitals and negative matches.');

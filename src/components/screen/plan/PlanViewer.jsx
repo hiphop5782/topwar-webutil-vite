@@ -291,7 +291,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         setSelected(new Set());
     };
     const selectAllRoster = () => setSelected(new Set(roster.map(player => player.uid)));
-    const selectVisible = () => setSelected(current => new Set([...current, ...visibleRoster.map(player => player.uid)]));
+    const selectVisible = () => setSelected(new Set(visibleRoster.map(player => player.uid)));
     const deselectVisible = () => setSelected(current => {
         const next = new Set(current);
         visibleRoster.forEach(player => next.delete(player.uid));
@@ -418,7 +418,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             <div className="plan-filters">
                 {[["all", `전체 ${roster.length}`], ["attending", `참여 ${counts.attending}`], ["absent", `불참 ${counts.absent}`], ["unanswered", `미응답 ${counts.unanswered}`], ["unassigned", `참여·미배정 ${counts.unassigned}`], ["assigned", "배정됨"], ["conflict", "상태 충돌"]].map(([key, label]) => <button key={key} className={filter === key ? "active" : ""} onClick={() => setFilter(key)}>{label}</button>)}
             </div>
-            <div className="plan-roster-search"><input className="form-control" placeholder="닉네임·초성·자모 검색 (여러 명은 쉼표로 구분)" value={adminSearch} onChange={event => { const value = event.target.value; setAdminSearch(value); if (hasMultiplePlanSearchQueries(value)) setFilter("all"); }} /><button className={`btn ${showAdvancedSelection ? "btn-secondary" : "btn-outline-secondary"}`} onClick={() => setShowAdvancedSelection(value => !value)}>고급 선택</button></div>
+            <div className="plan-roster-search"><input className="form-control" placeholder="닉네임·초성·자모 검색 (여러 명은 쉼표로 구분)" value={adminSearch} onPaste={() => { setSelected(new Set()); setBulkMode(""); }} onChange={event => { const value = event.target.value; setAdminSearch(value); if (hasMultiplePlanSearchQueries(value)) setFilter("all"); }} /><button className={`btn ${showAdvancedSelection ? "btn-secondary" : "btn-outline-secondary"}`} onClick={() => setShowAdvancedSelection(value => !value)}>고급 선택</button></div>
             <div className="plan-roster-tools"><span>{visibleRoster.length}명 표시</span><button onClick={selectVisible}>현재 결과 전체 선택</button><button onClick={deselectVisible}>현재 결과 선택 해제</button><button onClick={selectAllRoster}>전체 명단 선택</button></div>
             {showAdvancedSelection && <div className="plan-select-tools">
                 <div className="plan-power-select">
