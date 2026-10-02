@@ -1,4 +1,4 @@
-import { getPlayerNicknameSearchKeys, getPlayerSearchQuery } from "@src/utils/playerSearchIndex";
+import { getPlayerNicknameSearchKeys, getPlayerSearchQuery } from "../../../utils/playerSearchIndex.js";
 
 export async function hashPlanPassword(value) {
     const bytes = new TextEncoder().encode(String(value));
@@ -19,11 +19,16 @@ export function matchesPlanPlayer(player, rawQuery) {
 
     const nickname = String(player?.nickname ?? "");
     const keys = getPlayerNicknameSearchKeys(nickname);
+    const exact = queries.length > 1;
     return queries.some(query => {
         const parsed = getPlayerSearchQuery(query);
         const target = String(keys[parsed.field] ?? "");
-        return target.includes(parsed.key);
+        return exact ? target === parsed.key : target.includes(parsed.key);
     });
+}
+
+export function hasMultiplePlanSearchQueries(rawQuery) {
+    return /[,，;；\n]/.test(String(rawQuery ?? ""));
 }
 
 export function responseLabel(value) {
