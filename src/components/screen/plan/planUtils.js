@@ -11,14 +11,19 @@ export function planAccessStorageKey(serverId) {
 }
 
 export function matchesPlanPlayer(player, rawQuery) {
-    const query = String(rawQuery ?? "").trim();
-    if (!query) return true;
+    const queries = String(rawQuery ?? "")
+        .split(/[,，;；\n]+/)
+        .map(value => value.trim())
+        .filter(Boolean);
+    if (!queries.length) return true;
 
     const nickname = String(player?.nickname ?? "");
     const keys = getPlayerNicknameSearchKeys(nickname);
-    const parsed = getPlayerSearchQuery(query);
-    const target = String(keys[parsed.field] ?? "");
-    return target.includes(parsed.key);
+    return queries.some(query => {
+        const parsed = getPlayerSearchQuery(query);
+        const target = String(keys[parsed.field] ?? "");
+        return target.includes(parsed.key);
+    });
 }
 
 export function responseLabel(value) {
