@@ -3,9 +3,12 @@ import { collection, doc, getDoc, onSnapshot, orderBy, query, runTransaction } f
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { FaGlobe } from "react-icons/fa6";
 import { db } from "@src/db/firebase";
 import { translateTexts, translationLanguages } from "@src/components/screen/vote/voteTranslation";
+import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
 import { getPlanTranslationCache, setPlanTranslationCache } from "./planTranslationCache";
+import "flag-icons/css/flag-icons.min.css";
 import {
     assignedItemIds,
     hashPlanPassword,
@@ -140,12 +143,13 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
     const [bulkMode, setBulkMode] = useState("");
     const [editingItemId, setEditingItemId] = useState("");
     const [itemDraft, setItemDraft] = useState({ title: "", status: "", memo: "", color: "#f59e0b", capacity: "" });
+    const [editingPlan, setEditingPlan] = useState(false);
+    const [planDraft, setPlanDraft] = useState({ title: "", description: "" });
     const [showHistory, setShowHistory] = useState(false);
     const [contentTranslation, setContentTranslation] = useState(null);
     const [translating, setTranslating] = useState(false);
     const itemElements = useRef(new Map());
     const planRef = useMemo(() => doc(db, "plans", serverId), [serverId]);
-    const targetLanguage = translationLanguages.find(language => language.code === i18n.language);
     const translatedItems = contentTranslation?.items || {};
     const shownTitle = contentTranslation?.title || plan.title;
     const shownDescription = contentTranslation?.description || plan.description;
@@ -165,22 +169,23 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         window.requestAnimationFrame(() => first?.scrollIntoView({ behavior: "smooth", block: "center" }));
     }, [admin, myAssignedItems, selectedVoter]);
 
-    const translatePlan = async () => {
-        if (!targetLanguage) return;
+    const translatePlan = async language => {
+        if (!language) return;
         setTranslating(true);
         try {
             const texts = { title: plan.title || "", description: plan.description || "" };
             items.forEach(item => { texts[`item.${item.id}.title`] = item.title || ""; texts[`item.${item.id}.status`] = item.status || ""; texts[`item.${item.id}.memo`] = item.memo || ""; });
-            const cached = await getPlanTranslationCache(targetLanguage.code, texts);
-            const translated = cached || await translateTexts(texts, targetLanguage);
-            if (!cached) await setPlanTranslationCache(targetLanguage.code, texts, translated);
+            const cached = await getPlanTranslationCache(language.code, texts);
+            const translated = cached || await translateTexts(texts, language);
+            if (!cached) await setPlanTranslationCache(language.code, texts, translated);
             setContentTranslation({
                 revision: plan.contentRevision || 1,
+                language: language.code,
                 title: translated.title,
                 description: translated.description,
                 items: Object.fromEntries(items.map(item => [item.id, { title: translated[`item.${item.id}.title`], status: translated[`item.${item.id}.status`], memo: translated[`item.${item.id}.memo`] }])),
             });
-        } catch (error) { console.error(error); toast.error("번역하지 못했습니다."); }
+        } catch (error) { console.error(error); toast.error(t("translation.failed")); }
         finally { setTranslating(false); }
     };
 
@@ -224,6 +229,25 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             history: [...(data.history || []), { action: nextStatus === "paused" ? "paused" : "resumed", at: Date.now() }],
         }));
         if (saved) toast.success(`계획을 ${label}했습니다.`);
+    };
+
+    const startPlanEdit = () => {
+        setPlanDraft({ title: plan.title || "", description: plan.description || "" });
+        setEditingPlan(true);
+    };
+
+    const savePlanDetails = async () => {
+        const title = planDraft.title.trim();
+        if (!title) return toast.error(t("planEdit.titleRequired"));
+        const saved = await transact(data => ({
+            title,
+            description: planDraft.description.trim(),
+            contentRevision: (data.contentRevision || 1) + 1,
+        }));
+        if (saved) {
+            setEditingPlan(false);
+            toast.success(t("planEdit.saved"));
+        }
     };
 
     const counts = useMemo(() => roster.reduce((result, player) => {
@@ -369,11 +393,26 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
 
     const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: "삭제된 사용자" };
 
-    return <div className="plan-page">
+    return <div className="plan-page" aria-busy={translating}>
         <header className="plan-heading">
-            <div><span className="plan-kicker">SERVER {serverId}</span><h1>{shownTitle}</h1><p>{shownDescription}</p></div>
-            <div className="plan-heading-actions"><span className={`badge text-bg-${plan.status === "paused" ? "secondary" : admin ? "warning" : "info"}`}>{plan.status === "paused" ? t("header.ended") : admin ? t("header.admin") : t("header.user")}</span>{(plan.sourceLanguage || "ko") !== i18n.language && (contentTranslation ? <button className="btn btn-sm btn-outline-primary" onClick={() => setContentTranslation(null)}>{t("header.original")}</button> : <button className="btn btn-sm btn-outline-primary" disabled={translating} onClick={translatePlan}>{translating ? t("header.translating") : t("header.translate", { language: targetLanguage?.name || i18n.language })}</button>)}<button className="btn btn-sm btn-outline-primary" onClick={() => setShowHistory(true)}>{t("header.history")}</button>{admin && <button className={`btn btn-sm ${plan.status === "paused" ? "btn-success" : "btn-outline-danger"}`} onClick={() => changePlanState(plan.status === "paused" ? "active" : "paused")}>{plan.status === "paused" ? t("header.resume") : t("header.end")}</button>}<button className="btn btn-sm btn-outline-secondary" onClick={leave}>{t("header.leave")}</button></div>
+            <div><span className="plan-kicker">SERVER {serverId}</span><h1>{translating ? <span className="plan-text-skeleton plan-title-skeleton" aria-hidden="true" /> : shownTitle}</h1>{translating ? <p><span className="plan-text-skeleton plan-description-skeleton" aria-hidden="true" /></p> : <p>{shownDescription}</p>}</div>
+            <div className="plan-heading-actions"><span className={`badge text-bg-${plan.status === "paused" ? "secondary" : admin ? "warning" : "info"}`}>{plan.status === "paused" ? t("header.ended") : admin ? t("header.admin") : t("header.user")}</span>{admin && plan.status !== "paused" && <button className={`btn btn-sm ${editingPlan ? "btn-secondary" : "btn-outline-primary"}`} onClick={() => editingPlan ? setEditingPlan(false) : startPlanEdit()}>{editingPlan ? t("planEdit.close") : t("planEdit.open")}</button>}<button className="btn btn-sm btn-outline-primary" onClick={() => setShowHistory(true)}>{t("header.history")}</button>{admin && <button className={`btn btn-sm ${plan.status === "paused" ? "btn-success" : "btn-outline-danger"}`} onClick={() => changePlanState(plan.status === "paused" ? "active" : "paused")}>{plan.status === "paused" ? t("header.resume") : t("header.end")}</button>}<button className="btn btn-sm btn-outline-secondary" onClick={leave}>{t("header.leave")}</button></div>
         </header>
+
+        {admin && editingPlan && plan.status !== "paused" && <section className="plan-card plan-details-editor">
+            <label>{t("planEdit.title")}<input className="form-control" value={planDraft.title} onChange={event => setPlanDraft(current => ({ ...current, title: event.target.value }))} /></label>
+            <label>{t("planEdit.description")}<textarea className="form-control" rows="4" value={planDraft.description} onChange={event => setPlanDraft(current => ({ ...current, description: event.target.value }))} /></label>
+            <div><button className="btn btn-primary" onClick={savePlanDetails}>{t("planEdit.save")}</button><button className="btn btn-outline-secondary" onClick={() => setEditingPlan(false)}>{t("planEdit.cancel")}</button></div>
+        </section>}
+
+        {!admin && <section className="plan-translation-card">
+            <div className="plan-translation-heading"><FaGlobe /><div><strong>{t("translation.title")}</strong><small>{t("translation.help")}</small></div></div>
+            <div className="plan-translation-buttons">
+                <button type="button" className={`btn btn-sm ${contentTranslation ? "btn-light" : "btn-primary"}`} onClick={() => setContentTranslation(null)}>{t("translation.original")}</button>
+                {translationLanguages.map(language => <button type="button" key={language.code} className={`btn btn-sm ${contentTranslation?.language === language.code ? "btn-primary" : "btn-light"}`} disabled={translating} onClick={() => translatePlan(language)}><FlagWithTooltip lang={language} selected={contentTranslation?.language === language.code} /> <span>{language.name}</span></button>)}
+                {translating && <span className="plan-translation-loading" role="status" aria-live="polite"><span className="plan-translation-spinner" aria-hidden="true" />{t("translation.loading")}</span>}
+            </div>
+        </section>}
 
         <section className="plan-stats">
             <Stat label={t("stats.all")} value={roster.length} /><Stat label={t("stats.attending")} value={counts.attending} tone="green" /><Stat label={t("stats.absent")} value={counts.absent} tone="red" /><Stat label={t("stats.unanswered")} value={counts.unanswered} /><Stat label={t("stats.unassigned")} value={counts.unassigned} tone="orange" />
@@ -395,7 +434,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         <div className="plan-items">
             {items.length === 0 && <div className="plan-empty">{t("items.empty")}</div>}
             {items.map((item, index) => { const shownItem = translatedItems[item.id] || item; const includesSelectedVoter = !admin && selectedVoter && (assignments[item.id] || []).includes(selectedVoter); return <details ref={element => { if (element) itemElements.current.set(item.id, element); else itemElements.current.delete(item.id); }} className={`plan-item ${includesSelectedVoter ? "plan-item-mine" : ""}`} key={item.id}>
-                <summary><span className="plan-color" style={{ background: item.color }} /><span className="plan-item-main"><b>{shownItem.title}</b><small>{[shownItem.status, shownItem.memo].filter(Boolean).join(" · ") || t("items.noMemo")}</small></span><span className="plan-count">{(assignments[item.id] || []).length}{item.capacity ? ` / ${item.capacity}` : "명"}</span></summary>
+                <summary><span className="plan-color" style={{ background: item.color }} /><span className="plan-item-main"><b>{translating ? <span className="plan-text-skeleton plan-item-title-skeleton" aria-hidden="true" /> : shownItem.title}</b><small>{translating ? <span className="plan-text-skeleton plan-item-detail-skeleton" aria-hidden="true" /> : [shownItem.status, shownItem.memo].filter(Boolean).join(" · ") || t("items.noMemo")}</small></span>{includesSelectedVoter && <span className="plan-mine-badge">✓ {t("vote.assignedHere")}</span>}<span className="plan-count">{(assignments[item.id] || []).length}{item.capacity ? ` / ${item.capacity}` : "명"}</span></summary>
                 <div className="plan-item-body">
                     {(assignments[item.id] || []).length === 0 ? <p className="text-muted">{t("items.none")}</p> : <div className="plan-assigned-list">{(assignments[item.id] || []).map(uid => { const player = playerByUid(uid); const status = responses[uid]?.status || "unanswered"; return <span key={uid} className={`plan-person status-${status} ${uid === selectedVoter && !admin ? "plan-person-me" : ""}`} title={`${player.nickname} · ${statusLabel(status)}`} aria-label={`${player.nickname}, ${statusLabel(status)}`}>{player.nickname}{uid === selectedVoter && !admin && <em>{t("vote.me")}</em>}{admin && <button onClick={() => unassign(item.id, uid)} aria-label={t("items.unassign", { name: player.nickname })}>×</button>}</span>; })}</div>}
                     {admin && plan.status !== "paused" && <>
