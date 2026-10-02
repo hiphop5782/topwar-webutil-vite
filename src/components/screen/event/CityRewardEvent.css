@@ -2,6 +2,19 @@
     cursor: pointer;
 }
 
+.city-reward-row-new > td {
+    --bs-table-bg: rgba(var(--bs-primary-rgb), 0.12);
+    --bs-table-hover-bg: rgba(var(--bs-primary-rgb), 0.2);
+}
+
+.city-reward-row-new > td:first-child {
+    box-shadow: inset 0.25rem 0 0 var(--bs-primary);
+}
+
+.city-reward-new-badge {
+    vertical-align: middle;
+}
+
 .coordinate-cell {
     display: inline-flex;
     align-items: center;

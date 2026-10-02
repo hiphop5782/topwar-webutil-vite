@@ -12,6 +12,7 @@ const FALLBACK_DATA_URL =
 
 const POLLING_INTERVAL = 5000;
 const REWARD_DURATION = 30 * 60 * 1000;
+const NEW_HIGHLIGHT_DURATION = 60 * 1000;
 const CLOCK_INTERVAL = 1000;
 
 const REWARD_TYPES = {
@@ -29,6 +30,41 @@ const REWARD_TYPES = {
   },
 };
 const REWARD_ITEM_IDS = Object.keys(REWARD_TYPES);
+
+function getLocationId(item) {
+  return String(
+    item.cityReward?.instanceId ??
+    item.pointId ??
+    [
+      item.serverId,
+      item.x,
+      item.y,
+      item.cityReward?.itemId,
+      item.cityReward?.endTimeMilli,
+    ].join(":")
+  );
+}
+
+function getRewardCreatedAt(item) {
+  const endTime = Number(item.cityReward?.endTimeMilli);
+
+  if (!Number.isFinite(endTime)) return null;
+
+  return endTime - REWARD_DURATION;
+}
+
+function getRewardSeenAt(item) {
+  const seenAt = Date.parse(
+    item.cityRewardSeenAt ??
+    item.foundAt ??
+    item.cityRewardCreatedAt ??
+    ""
+  );
+
+  if (Number.isFinite(seenAt)) return seenAt;
+
+  return getRewardCreatedAt(item);
+}
 
 async function fetchRewardData(url, signal) {
   const separator = url.includes("?") ? "&" : "?";
@@ -56,11 +92,13 @@ const CityRwardEvent = () => {
   const { t, i18n } = useTranslation("viewer");
 
   const [locations, setLocations] = useState([]);
+  const [newLocationSeenAt, setNewLocationSeenAt] = useState({});
   const [updatedAt, setUpdatedAt] = useState(null);
   const [now, setNow] = useState(() => Date.now());
 
   const [selectedServer, setSelectedServer] = useState("all");
   const [selectedReward, setSelectedReward] = useState("all");
+  const [sortMode, setSortMode] = useState("remaining");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,6 +106,7 @@ const CityRwardEvent = () => {
   const [copiedId, setCopiedId] = useState(null);
 
   const copyTimerRef = useRef(null);
+  const knownLocationIdsRef = useRef(null);
 
   /**
    * 백엔드를 5초마다 조회하고, 장애 시 기존 GitHub 데이터로 폴백한다.
@@ -106,7 +145,39 @@ const CityRwardEvent = () => {
 
         if (stopped) return;
 
-        setLocations(data.locations ?? []);
+        const nextLocations = data.locations ?? [];
+        const observedAt = Date.now();
+        const nextLocationIds = new Set(
+          nextLocations.map(getLocationId)
+        );
+
+        // 첫 응답은 기존 목록으로 등록하고, 이후 추가된 항목만 NEW로 표시한다.
+        if (knownLocationIdsRef.current !== null) {
+          setNewLocationSeenAt((previous) => {
+            const next = {};
+
+            for (const [id, seenAt] of Object.entries(previous)) {
+              if (
+                nextLocationIds.has(id) &&
+                observedAt - seenAt < NEW_HIGHLIGHT_DURATION
+              ) {
+                next[id] = seenAt;
+              }
+            }
+
+            for (const id of nextLocationIds) {
+              if (!knownLocationIdsRef.current.has(id)) {
+                next[id] = observedAt;
+              }
+            }
+
+            return next;
+          });
+        }
+
+        knownLocationIdsRef.current = nextLocationIds;
+
+        setLocations(nextLocations);
         setUpdatedAt(data.updatedAt ?? null);
         setError(null);
       } catch (e) {
@@ -204,8 +275,7 @@ const CityRwardEvent = () => {
   }, [activeLocations]);
 
   /**
-   * 서버 + 상자 종류 필터
-   * 이후 최근 발견순 정렬
+   * 서버 + 상자 종류 필터 후 선택한 기준으로 정렬
    */
   const filteredLocations = useMemo(() => {
     return [...activeLocations]
@@ -218,24 +288,21 @@ const CityRwardEvent = () => {
         }
         return REWARD_ITEM_IDS.includes(item.cityReward?.itemId?.toString());
       })
-      .sort(
-        (a, b) =>
-          Number(b.cityReward.endTimeMilli) -
-          Number(a.cityReward.endTimeMilli)
-      );
+      .sort((a, b) => {
+        if (sortMode === "discovered") {
+          return Number(getRewardSeenAt(b)) -
+            Number(getRewardSeenAt(a));
+        }
+
+        return Number(b.cityReward.endTimeMilli) -
+          Number(a.cityReward.endTimeMilli);
+      });
   }, [
     activeLocations,
     selectedServer,
     selectedReward,
+    sortMode,
   ]);
-
-  const getRewardCreatedAt = (item) => {
-    const endTime = Number(item.cityReward?.endTimeMilli);
-
-    if (!Number.isFinite(endTime)) return null;
-
-    return endTime - REWARD_DURATION;
-  };
 
   /**
    * 상자 이름
@@ -292,9 +359,7 @@ const CityRwardEvent = () => {
       textarea.remove();
     }
 
-    const id =
-      item.cityReward?.instanceId ??
-      item.pointId;
+    const id = getLocationId(item);
 
     setCopiedId(id);
 
@@ -534,6 +599,40 @@ const CityRwardEvent = () => {
       </div>
 
 
+      {/* 정렬 기준 */}
+      <div className="mb-4">
+        <div className="small text-secondary mb-2">
+          {t("cityReward.sort.label")}
+        </div>
+
+        <div className="btn-group" role="group">
+          <button
+            type="button"
+            className={
+              sortMode === "discovered"
+                ? "btn btn-primary btn-sm"
+                : "btn btn-outline-secondary btn-sm"
+            }
+            onClick={() => setSortMode("discovered")}
+          >
+            {t("cityReward.sort.discovered")}
+          </button>
+
+          <button
+            type="button"
+            className={
+              sortMode === "remaining"
+                ? "btn btn-primary btn-sm"
+                : "btn btn-outline-secondary btn-sm"
+            }
+            onClick={() => setSortMode("remaining")}
+          >
+            {t("cityReward.sort.remaining")}
+          </button>
+        </div>
+      </div>
+
+
       {/* Polling 오류 */}
       {error && (
         <div
@@ -591,26 +690,33 @@ const CityRwardEvent = () => {
           <tbody>
             {filteredLocations.map(
               (item) => {
-                const id =
-                  item.cityReward
-                    ?.instanceId ??
-                  item.pointId;
+                const id = getLocationId(item);
 
                 const copied =
                   copiedId === id;
 
+                const isNew =
+                  newLocationSeenAt[id] != null &&
+                  now - newLocationSeenAt[id] <
+                    NEW_HIGHLIGHT_DURATION;
+
                 const rewardItemId =
                   item.cityReward?.itemId;
 
-                const rewardCreatedAt =
-                  getRewardCreatedAt(item);
+                const rewardSeenAt =
+                  getRewardSeenAt(item);
 
                 return (
                   <tr
                     key={id}
                     role="button"
                     tabIndex={0}
-                    className="city-reward-row"
+                    className={[
+                      "city-reward-row",
+                      isNew
+                        ? "city-reward-row-new"
+                        : "",
+                    ].filter(Boolean).join(" ")}
                     title={t(
                       "cityReward.copyTitle",
                       {
@@ -640,6 +746,12 @@ const CityRwardEvent = () => {
                       <span className="badge text-bg-dark">
                         #{item.serverId}
                       </span>
+
+                      {isNew && (
+                        <span className="badge text-bg-primary ms-1 city-reward-new-badge">
+                          NEW
+                        </span>
+                      )}
                     </td>
 
                     {/* 좌표 */}
@@ -692,9 +804,9 @@ const CityRwardEvent = () => {
                     {/* 발견 시각 */}
                     <td className="text-secondary">
                       <small>
-                        {formatRelativeTime(rewardCreatedAt)}
+                        {formatRelativeTime(rewardSeenAt)}
                         {" "}
-                        ({formatTime(rewardCreatedAt)})
+                        ({formatTime(rewardSeenAt)})
                       </small>
                     </td>
                   </tr>

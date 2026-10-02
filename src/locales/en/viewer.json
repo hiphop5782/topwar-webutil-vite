@@ -2029,13 +2029,18 @@
         "title": "City Rewards",
         "supportNotice": "If the page is not working properly, please send a DM to <strong>🍌Minion</strong> on server 3223.",
         "loading": "Loading city reward data...",
-        "polling": "Auto refresh every 30 seconds",
+        "polling": "Auto refresh every 5 seconds",
         "lastUpdated": "Last updated",
         "resultCount": "{{count}} rewards",
         "filter": {
             "server": "Server",
             "reward": "Reward Type",
             "all": "All"
+        },
+        "sort": {
+            "label": "Sort",
+            "discovered": "Newest discovered",
+            "remaining": "Most time remaining"
         },
         "reward": {
             "treasure": "Treasure",
