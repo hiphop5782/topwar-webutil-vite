@@ -2053,7 +2053,8 @@
             "coordinate": "Coordinate",
             "nickname": "Nickname",
             "type": "Type",
-            "foundAt": "Found"
+            "foundAt": "Discovered",
+            "remaining": "Time Remaining"
         },
         "copied": "Copied",
         "copyTitle": "Copy {{coordinate}}",
@@ -2063,7 +2064,9 @@
             "showingCached": "Showing the previous data."
         },
         "time": {
-            "justNow": "just now"
+            "justNow": "just now",
+            "lessThanMinuteRemaining": "Less than 1 min left",
+            "minutesRemaining": "{{count}} min left"
         }
     },
     "ThiefFinder": {

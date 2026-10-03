@@ -2053,7 +2053,8 @@
             "coordinate": "좌표",
             "nickname": "닉네임",
             "type": "종류",
-            "foundAt": "발견"
+            "foundAt": "발견시간",
+            "remaining": "남은시간"
         },
         "copied": "복사됨",
         "copyTitle": "{{coordinate}} 복사",
@@ -2063,7 +2064,9 @@
             "showingCached": "기존 데이터를 표시하고 있습니다."
         },
         "time": {
-            "justNow": "방금 전"
+            "justNow": "방금 전",
+            "lessThanMinuteRemaining": "1분 미만 남음",
+            "minutesRemaining": "{{count}}분 남음"
         }
     },
     "ThiefFinder": {

@@ -2,17 +2,50 @@
     cursor: pointer;
 }
 
-.city-reward-row-new > td {
-    --bs-table-bg: rgba(var(--bs-primary-rgb), 0.12);
-    --bs-table-hover-bg: rgba(var(--bs-primary-rgb), 0.2);
+.city-reward-table > tbody > tr.city-reward-row-new > td {
+    animation: city-reward-new-pulse 2s ease-in-out infinite;
 }
 
-.city-reward-row-new > td:first-child {
-    box-shadow: inset 0.25rem 0 0 var(--bs-primary);
+.city-reward-table > tbody > tr.city-reward-row-new > td:first-child {
+    border-left: 0.25rem solid var(--bs-primary);
 }
 
 .city-reward-new-badge {
     vertical-align: middle;
+    animation: city-reward-new-badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes city-reward-new-pulse {
+    0%,
+    100% {
+        background-color: rgba(var(--bs-primary-rgb), 0.08);
+    }
+
+    50% {
+        background-color: rgba(var(--bs-primary-rgb), 0.28);
+    }
+}
+
+@keyframes city-reward-new-badge-pulse {
+    0%,
+    100% {
+        opacity: 0.78;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .city-reward-table > tbody > tr.city-reward-row-new > td {
+        animation: none;
+        background-color: rgba(var(--bs-primary-rgb), 0.18);
+    }
+
+    .city-reward-new-badge {
+        animation: none;
+    }
 }
 
 .coordinate-cell {

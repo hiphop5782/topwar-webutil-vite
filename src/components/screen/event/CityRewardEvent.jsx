@@ -436,6 +436,22 @@ const CityRwardEvent = () => {
     return formatter.format(-days, "day");
   };
 
+  const formatRemainingTime = (item) => {
+    const endTime = Number(item.cityReward?.endTimeMilli);
+
+    if (!Number.isFinite(endTime)) return "-";
+
+    const remaining = Math.max(0, endTime - now);
+
+    if (remaining < 60 * 1000) {
+      return t("cityReward.time.lessThanMinuteRemaining");
+    }
+
+    return t("cityReward.time.minutesRemaining", {
+      count: Math.ceil(remaining / (60 * 1000)),
+    });
+  };
+
   if (loading) {
     return (
       <div className="text-center py-5 text-secondary">
@@ -684,6 +700,12 @@ const CityRwardEvent = () => {
                   "cityReward.column.foundAt"
                 )}
               </th>
+
+              <th>
+                {t(
+                  "cityReward.column.remaining"
+                )}
+              </th>
             </tr>
           </thead>
 
@@ -695,16 +717,24 @@ const CityRwardEvent = () => {
                 const copied =
                   copiedId === id;
 
-                const isNew =
-                  newLocationSeenAt[id] != null &&
-                  now - newLocationSeenAt[id] <
-                    NEW_HIGHLIGHT_DURATION;
-
                 const rewardItemId =
                   item.cityReward?.itemId;
 
                 const rewardSeenAt =
                   getRewardSeenAt(item);
+
+                const seenElapsed =
+                  now - Number(rewardSeenAt);
+
+                const isNew =
+                  (
+                    newLocationSeenAt[id] != null &&
+                    now - newLocationSeenAt[id] <
+                      NEW_HIGHLIGHT_DURATION
+                  ) || (
+                    seenElapsed >= 0 &&
+                    seenElapsed < NEW_HIGHLIGHT_DURATION
+                  );
 
                 return (
                   <tr
@@ -809,6 +839,13 @@ const CityRwardEvent = () => {
                         ({formatTime(rewardSeenAt)})
                       </small>
                     </td>
+
+                    {/* 남은 시간 */}
+                    <td>
+                      <span className="badge text-bg-light border text-dark">
+                        {formatRemainingTime(item)}
+                      </span>
+                    </td>
                   </tr>
                 );
               }
@@ -818,7 +855,7 @@ const CityRwardEvent = () => {
               0 && (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     className="text-center text-secondary py-5"
                   >
                     {t(

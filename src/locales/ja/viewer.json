@@ -2044,7 +2044,8 @@
             "coordinate": "座標",
             "nickname": "ニックネーム",
             "type": "種類",
-            "foundAt": "発見"
+            "foundAt": "発見時刻",
+            "remaining": "残り時間"
         },
         "copied": "コピー済み",
         "copyTitle": "{{coordinate}} をコピー",
@@ -2054,7 +2055,9 @@
             "showingCached": "以前のデータを表示しています。"
         },
         "time": {
-            "justNow": "さっき"
+            "justNow": "さっき",
+            "lessThanMinuteRemaining": "残り1分未満",
+            "minutesRemaining": "残り{{count}}分"
         }
     },
     "ThiefFinder": {
