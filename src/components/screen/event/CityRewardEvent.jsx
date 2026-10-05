@@ -32,9 +32,8 @@ const REWARD_TYPES = {
 const REWARD_ITEM_IDS = Object.keys(REWARD_TYPES);
 
 function getLocationId(item) {
-  return String(
+  return `${item.serverId}:` + String(
     item.cityReward?.instanceId ??
-    item.pointId ??
     [
       item.serverId,
       item.x,
@@ -112,7 +111,8 @@ const CityRwardEvent = () => {
   const [copiedId, setCopiedId] = useState(null);
 
   const copyTimerRef = useRef(null);
-  const knownLocationIdsRef = useRef(null);
+  const rewardHistoryRef = useRef(new Map());
+  const initializedRewardsRef = useRef(false);
 
   /**
    * 백엔드를 5초마다 조회하고, 장애 시 기존 GitHub 데이터로 폴백한다.
@@ -151,37 +151,41 @@ const CityRwardEvent = () => {
 
         if (stopped) return;
 
-        const nextLocations = data.locations ?? [];
         const observedAt = Date.now();
-        const nextLocationIds = new Set(
-          nextLocations.map(getLocationId)
-        );
+        const highlights = {};
+        // 일시적인 누락이나 폴백에도 화면을 연 동안 같은 보상의 이력을 유지한다.
+        const nextLocations = data.locations.map((item) => {
+          const id = getLocationId(item);
+          let history = rewardHistoryRef.current.get(id);
+          const incomingSeenAt = getRewardSeenAt(item);
 
-        // 첫 응답은 기존 목록으로 등록하고, 이후 추가된 항목만 NEW로 표시한다.
-        if (knownLocationIdsRef.current !== null) {
-          setNewLocationSeenAt((previous) => {
-            const next = {};
+          if (!history) {
+            const recentlySeen = incomingSeenAt != null &&
+              observedAt >= incomingSeenAt &&
+              observedAt - incomingSeenAt < NEW_HIGHLIGHT_DURATION;
+            history = {
+              seenAt: incomingSeenAt,
+              highlightAt: initializedRewardsRef.current || recentlySeen
+                ? observedAt : null,
+            };
+            rewardHistoryRef.current.set(id, history);
+          } else if (incomingSeenAt != null) {
+            // 조사기의 재전송으로 발견시각이 늦춰지지 않도록 가장 이른 값을 유지한다.
+            history.seenAt = history.seenAt == null
+              ? incomingSeenAt : Math.min(history.seenAt, incomingSeenAt);
+          }
 
-            for (const [id, seenAt] of Object.entries(previous)) {
-              if (
-                nextLocationIds.has(id) &&
-                observedAt - seenAt < NEW_HIGHLIGHT_DURATION
-              ) {
-                next[id] = seenAt;
-              }
-            }
-
-            for (const id of nextLocationIds) {
-              if (!knownLocationIdsRef.current.has(id)) {
-                next[id] = observedAt;
-              }
-            }
-
-            return next;
-          });
-        }
-
-        knownLocationIdsRef.current = nextLocationIds;
+          if (history.highlightAt != null &&
+              observedAt - history.highlightAt < NEW_HIGHLIGHT_DURATION) {
+            highlights[id] = history.highlightAt;
+          }
+          return history.seenAt == null ? item : {
+            ...item,
+            cityRewardSeenAt: new Date(history.seenAt).toISOString(),
+          };
+        });
+        initializedRewardsRef.current = true;
+        setNewLocationSeenAt(highlights);
 
         setLocations(nextLocations);
         setUpdatedAt(data.updatedAt ?? null);
@@ -725,18 +729,10 @@ const CityRwardEvent = () => {
                 const rewardSeenAt =
                   getRewardSeenAt(item);
 
-                const seenElapsed =
-                  now - Number(rewardSeenAt);
-
                 const isNew =
-                  (
                     newLocationSeenAt[id] != null &&
                     now - newLocationSeenAt[id] <
-                      NEW_HIGHLIGHT_DURATION
-                  ) || (
-                    seenElapsed >= 0 &&
-                    seenElapsed < NEW_HIGHLIGHT_DURATION
-                  );
+                      NEW_HIGHLIGHT_DURATION;
 
                 return (
                   <tr
