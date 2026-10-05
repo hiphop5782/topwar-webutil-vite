@@ -2053,8 +2053,8 @@
             "coordinate": "좌표",
             "nickname": "닉네임",
             "type": "종류",
-            "foundAt": "발견시간",
-            "remaining": "남은시간"
+            "discoveredFirst": "발견시간 (남은시간)",
+            "remainingFirst": "남은시간 (발견시간)"
         },
         "copied": "복사됨",
         "copyTitle": "{{coordinate}} 복사",

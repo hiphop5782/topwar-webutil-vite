@@ -2053,8 +2053,8 @@
             "coordinate": "Coordinate",
             "nickname": "Nickname",
             "type": "Type",
-            "foundAt": "Discovered",
-            "remaining": "Time Remaining"
+            "discoveredFirst": "Discovered (Time Remaining)",
+            "remainingFirst": "Time Remaining (Discovered)"
         },
         "copied": "Copied",
         "copyTitle": "Copy {{coordinate}}",

@@ -2044,8 +2044,8 @@
             "coordinate": "座標",
             "nickname": "ニックネーム",
             "type": "種類",
-            "foundAt": "発見時刻",
-            "remaining": "残り時間"
+            "discoveredFirst": "発見時刻（残り時間）",
+            "remainingFirst": "残り時間（発見時刻）"
         },
         "copied": "コピー済み",
         "copyTitle": "{{coordinate}} をコピー",

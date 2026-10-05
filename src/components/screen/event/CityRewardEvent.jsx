@@ -46,6 +46,12 @@ function getLocationId(item) {
 }
 
 function getRewardCreatedAt(item) {
+  const createdAt = Date.parse(
+    item.cityRewardCreatedAt ?? ""
+  );
+
+  if (Number.isFinite(createdAt)) return createdAt;
+
   const endTime = Number(item.cityReward?.endTimeMilli);
 
   if (!Number.isFinite(endTime)) return null;
@@ -697,13 +703,9 @@ const CityRwardEvent = () => {
 
               <th>
                 {t(
-                  "cityReward.column.foundAt"
-                )}
-              </th>
-
-              <th>
-                {t(
-                  "cityReward.column.remaining"
+                  sortMode === "discovered"
+                    ? "cityReward.column.discoveredFirst"
+                    : "cityReward.column.remainingFirst"
                 )}
               </th>
             </tr>
@@ -831,20 +833,31 @@ const CityRwardEvent = () => {
                       </span>
                     </td>
 
-                    {/* 발견 시각 */}
-                    <td className="text-secondary">
-                      <small>
-                        {formatRelativeTime(rewardSeenAt)}
-                        {" "}
-                        ({formatTime(rewardSeenAt)})
-                      </small>
-                    </td>
-
-                    {/* 남은 시간 */}
+                    {/* 정렬 기준에 따른 시간 표시 */}
                     <td>
-                      <span className="badge text-bg-light border text-dark">
-                        {formatRemainingTime(item)}
-                      </span>
+                      {sortMode === "discovered" ? (
+                        <>
+                          <div>
+                            {formatRelativeTime(rewardSeenAt)}
+                            {" "}
+                            <small className="text-secondary">
+                              ({formatTime(rewardSeenAt)})
+                            </small>
+                          </div>
+                          <small className="text-secondary">
+                            ({formatRemainingTime(item)})
+                          </small>
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            {formatRemainingTime(item)}
+                          </div>
+                          <small className="text-secondary">
+                            ({formatRelativeTime(rewardSeenAt)} · {formatTime(rewardSeenAt)})
+                          </small>
+                        </>
+                      )}
                     </td>
                   </tr>
                 );
@@ -855,7 +868,7 @@ const CityRwardEvent = () => {
               0 && (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={5}
                     className="text-center text-secondary py-5"
                   >
                     {t(
