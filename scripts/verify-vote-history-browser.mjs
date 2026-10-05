@@ -36,11 +36,14 @@ const server = await createServer({ configFile: false, root: process.cwd(), cach
         if (id === '\0fixture:services/voteArchiveRepository') return 'export const loadVoteHistory=async()=>window.archived; export const loadArchivedVote=async()=>window.archiveDetail;';
         if (id !== '\0fixture:hooks/useFirebase') return;
         return `import {useCallback} from 'react';
+        import {planGuildChange,guildChangeRevision} from '/src/components/screen/vote/voteGuildScope.js';
         const change=async status=>{window.fixture={...window.fixture,status,closed:status!=='active'};window.emitManager(window.fixture);return true;};
         export function useFirebase(){return {
           getVoteHistory:useCallback((id,next)=>{queueMicrotask(()=>next(window.live));return ()=>{};},[]),
           getVote:useCallback((id,next)=>{window.emitVote=next;queueMicrotask(()=>next(window.fixture));return ()=>{};},[]),
           getVoteRoster:useCallback(async()=>window.roster,[]),
+          getGuildChangePreview:async()=>({vote:window.fixture,roster:window.roster,revision:guildChangeRevision(window.fixture,window.roster)}),
+          restrictVoteToGuild:async(id,password,request)=>{const plan=planGuildChange(window.fixture,window.roster,request.allianceId);window.roster=plan.roster;window.fixture={...window.fixture,targetScope:'alliance',allianceId:request.allianceId,choices:plan.choices};window.scopeRequest=request;window.emitVote?.(window.fixture);window.emitManager?.(window.fixture);return true;},
           getVoteManager:useCallback((id,password,next)=>{window.emitManager=next;next(window.requiredPassword && password!==window.requiredPassword ? {error:'FORBIDDEN',message:'비밀번호가 일치하지 않습니다.'} : window.fixture);return ()=>{if(window.emitManager===next)window.emitManager=null;};},[]),
           closeVoteManually:()=>change('paused'),openVoteManually:()=>change('active'),endVote:()=>change('archiving'),
           deletePlayerFromVote:async(id,choiceNo,nickname,password,uid)=>{window.deleted={id,choiceNo,nickname,password,uid};window.fixture={...window.fixture,choices:window.fixture.choices.map(c=>c.no===choiceNo?{...c,players:c.players.filter(p=>p.uid!==uid),currentCount:c.players.filter(p=>p.uid!==uid).length}:c)};window.emitVote?.(window.fixture);return true;},
@@ -178,6 +181,20 @@ try {
     await clickText('투표 관리');
     await page.keyboard.press('Escape');
     assert.equal(await page.$('dialog[open]'), null);
+    await open('/ko/vote/cast/3223/NEWCODE1');
+    await page.evaluate(()=>{window.roster[1].allianceId='2';});
+    await clickText('투표 관리'); await clickText('관리모드 시작');
+    await page.waitForSelector('.vote-remove-player');
+    await clickText('길드 대상으로 변경');
+    await page.waitForSelector('#vote-target-guild');
+    await page.select('#vote-target-guild','2');
+    await page.waitForFunction(()=>document.body.textContent.includes('응답 1건 제거'));
+    await clickText('확인 후 길드 대상으로 변경');
+    await page.waitForFunction(()=>Boolean(window.scopeRequest));
+    await page.waitForFunction(()=>document.querySelectorAll('.attendance-roster-name').length===1);
+    assert.equal(await page.evaluate(()=>window.fixture.serverId),'3223');
+    assert.equal(await page.evaluate(()=>window.fixture.choices[0].players.length),0);
+    assert.equal(await page.evaluate(()=>window.roster[0].uid),'1002');
     await open('/ko/vote/create');
     await clickText('서버전(SvS)');
     await page.waitForSelector('input[placeholder="예: 3453"]');

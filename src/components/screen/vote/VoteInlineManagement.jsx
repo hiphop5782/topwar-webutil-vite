@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useFirebase } from "@src/hooks/useFirebase";
 import { finalVote } from "./voteHistory";
 import { toast } from "react-toastify";
+import VoteGuildScopeChange from "./VoteGuildScopeChange";
 
 export default function VoteInlineManagement({ uuid, vote, access, onAccess, deleting }) {
     const { getVoteManager, closeVoteManually, openVoteManually, endVote } = useFirebase();
@@ -68,6 +69,7 @@ export default function VoteInlineManagement({ uuid, vote, access, onAccess, del
             </> : <button type="button" className="btn btn-primary" onClick={() => { setError(""); dialog.current.showModal(); }}>투표 관리</button>}
         </div>
         {access && <p className="small text-muted mt-2 mb-0">{finalVote(vote) ? "최종 종료된 투표는 조회만 가능합니다." : "하단 명단에서 ×를 누르면 해당 사용자의 투표 내역만 삭제됩니다. 대상자 명단은 유지됩니다."}</p>}
+        {access && !finalVote(vote) && vote.targetScope === "server" && <VoteGuildScopeChange uuid={uuid} access={access} disabled={changing || deleting} onBusy={setChanging} />}
         <dialog className="vote-admin-dialog" ref={dialog} aria-labelledby="vote-admin-title" onCancel={event => { event.preventDefault(); cancel(); }} onClick={event => { if (event.target === dialog.current) { const box = dialog.current.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) cancel(); } }}>
             <form onSubmit={login}>
                 <h2 id="vote-admin-title" className="h5">관리모드로 전환</h2>

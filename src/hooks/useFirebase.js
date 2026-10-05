@@ -5,6 +5,7 @@ import { collection, doc, getDoc, onSnapshot, query, runTransaction, where } fro
 import { normalizeVoteUser, validateVote, voteExpiry } from "@src/components/screen/vote/voteSafety";
 import { finalVote, sameVoter } from "@src/components/screen/vote/voteHistory";
 import { loadArchivedVote } from "@src/services/voteArchiveRepository";
+import { validateGuildChange, guildChangeRevision, planGuildChange } from "@src/components/screen/vote/voteGuildScope";
 
 export const useFirebase = () => {
     const saveVote = async (voteData) => {
@@ -243,6 +244,29 @@ export const useFirebase = () => {
     const openVoteManually = (id, password) => changeVoteState(id, password, "active");
     const endVote = (id, password) => changeVoteState(id, password, "archive");
 
+    const guildChangeTransaction = async (voteId, password, request) => runTransaction(db, async transaction => {
+        const voteRef = doc(db, "votes", voteId);
+        const rosterRef = doc(db, "votes", voteId, "snapshots", "roster");
+        const voteDoc = await transaction.get(voteRef);
+        const rosterDoc = await transaction.get(rosterRef);
+        if (!voteDoc.exists() || !rosterDoc.exists()) throw new Error("투표 또는 생성 당시 스냅샷이 없습니다.");
+        const data = voteDoc.data();
+        if (data.password && data.password !== password) throw new Error("관리자 비밀번호가 일치하지 않습니다.");
+        const roster = rosterDoc.data().players;
+        validateGuildChange(data, roster);
+        const revision = guildChangeRevision(data, roster);
+        if (!request) return { vote: data, roster, revision };
+        if (String(data.serverId) !== String(request.serverId)) throw new Error("다른 서버로 변경할 수 없습니다.");
+        if (revision !== request.revision) throw new Error("명단 또는 응답이 변경되었습니다. 미리보기를 다시 불러온 후 확인해 주세요.");
+        const plan = planGuildChange(data, roster, request.allianceId);
+        transaction.update(voteRef, { targetScope: "alliance", allianceId: plan.guild.id, allianceTag: plan.guild.tag,
+            allianceName: plan.guild.name, choices: plan.choices, scopeUpdatedAt: new Date() });
+        transaction.update(rosterRef, { players: plan.roster });
+        return true;
+    });
+    const getGuildChangePreview = (id, password) => guildChangeTransaction(id, password);
+    const restrictVoteToGuild = (id, password, request) => guildChangeTransaction(id, password, request);
+
     //관리자용 삭제 함수
     const deletePlayerFromVote = async (voteId, choiceNo, nickname, inputPassword, uid) => {
         const voteRef = doc(db, "votes", voteId);
@@ -289,5 +313,5 @@ export const useFirebase = () => {
         }
     };
 
-    return { saveVote, getVote, getVoteManager, getVoteHistory, getVoteRoster, castVote, closeVoteManually, openVoteManually, endVote, deletePlayerFromVote};
+    return { saveVote, getVote, getVoteManager, getVoteHistory, getVoteRoster, castVote, closeVoteManually, openVoteManually, endVote, deletePlayerFromVote, getGuildChangePreview, restrictVoteToGuild};
 };

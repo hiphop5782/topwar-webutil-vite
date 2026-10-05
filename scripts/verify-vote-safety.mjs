@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import * as safety from '../src/components/screen/vote/voteSafety.js';
 import { normalizeNicknameForSearch } from '../src/utils/normalizeNicknameForSearch.js';
 import * as history from '../src/components/screen/vote/voteHistory.js';
+import * as guildScope from '../src/components/screen/vote/voteGuildScope.js';
 
 const require = createRequire(import.meta.url);
 async function loadWithMocks(path, mocks) {
@@ -45,8 +46,9 @@ assert.equal(raw.choices[0].players.one, null, 'Display normalization must not m
 
 let data, writes, docError, transactionError, snapshotError, unsubscribeCalled;
 let voteExists = true, sets = [];
+let scopeRoster = null;
 const firestore = {
-    doc: () => { if (docError) throw docError; return {}; },
+    doc: (...parts) => { if (docError) throw docError; return { roster: parts.includes('snapshots') }; },
     getDoc: async () => ({ exists: () => voteExists, data: () => data }),
     onSnapshot: (ref, next, error) => {
         if (snapshotError) error(snapshotError);
@@ -55,7 +57,7 @@ const firestore = {
     },
     runTransaction: async (db, callback) => {
         if (transactionError) throw transactionError;
-        await callback({ get: async () => ({ exists: () => voteExists, data: () => data }), update: (ref, update) => writes.push(update), set: (ref, value) => sets.push(value) });
+        return await callback({ get: async ref => ({ exists: () => voteExists, data: () => ref.roster ? {players:scopeRoster} : data }), update: (ref, update) => writes.push(update), set: (ref, value) => sets.push(value) });
     },
 };
 const { useFirebase } = await loadWithMocks('../src/hooks/useFirebase.js', {
@@ -63,6 +65,7 @@ const { useFirebase } = await loadWithMocks('../src/hooks/useFirebase.js', {
     '@src/utils/normalizeNicknameForSearch': { normalizeNicknameForSearch },
     '@src/components/screen/vote/voteSafety': safety,
     '@src/components/screen/vote/voteHistory': history,
+    '@src/components/screen/vote/voteGuildScope': guildScope,
     '@src/services/voteArchiveRepository': { loadArchivedVote: async () => { throw new Error('not configured'); } },
 });
 const api = useFirebase();
@@ -149,6 +152,25 @@ try {
     voteExists = false;
     await assert.rejects(api.saveVote({ ...creating, roster: [{ nickname: 'missing UID' }] }), /UID_REQUIRED/);
     assert.equal(sets.length, 0); voteExists = true;
+    reset(); data = { ...poll(), password:'secret', serverId:'3223', targetScope:'server', rosterSource:'snapshot' };
+    scopeRoster = [{uid:'1',allianceId:'10'}, {uid:'2',allianceId:'20'}];
+    data.choices[0].players = [{uid:'1',nickname:'one'}, {uid:'2',nickname:'two'}, {uid:'999',nickname:'manual'}];
+    data.choices[0].currentCount = 3;
+    const preview = await api.getGuildChangePreview('id','secret');
+    assert.equal(writes.length,0);
+    const request = {serverId:'3223',allianceId:'10',revision:preview.revision};
+    await assert.rejects(api.restrictVoteToGuild('id','wrong',request));
+    await assert.rejects(api.restrictVoteToGuild('id','secret',{...request,serverId:'3224'}));
+    await assert.rejects(api.restrictVoteToGuild('id','secret',{...request,allianceId:'99'}));
+    data.choices[0].players.push({uid:'777',nickname:'concurrent'});
+    await assert.rejects(api.restrictVoteToGuild('id','secret',request), /미리보기/);
+    assert.equal(writes.length,0);
+    data.choices[0].players.pop();
+    assert.equal(await api.restrictVoteToGuild('id','secret',request),true);
+    assert.equal(writes.length,2);
+    assert.equal(writes[0].targetScope,'alliance'); assert.equal(writes[0].choices[0].currentCount,1);
+    assert.equal(writes[0].serverId,undefined,'Server must not be rewritten');
+    assert.deepEqual(writes[1],{players:[{uid:'1',allianceId:'10'}]});
 } finally { console.error = originalError; }
 
 const { default: Boundary } = await loadWithMocks('../src/components/error/ScreenErrorBoundary.jsx', {});
