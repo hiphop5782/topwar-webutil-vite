@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet-async";
 import { loadRealPower } from "@src/services/topwarDataRepository";
 import { randomVoteColor, validVoteColor } from "./voteColors";
 import { buildRoster } from "./voteHistory";
+import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
 export default function AttendanceVoteCreator() {
     const { saveVote } = useFirebase();
@@ -325,6 +326,19 @@ export default function AttendanceVoteCreator() {
                         <FaFloppyDisk className="me-2" />
                         <span>{saving ? "명단 확인 및 저장 중…" : savedPath ? "저장 완료" : "최종 저장"}</span>
                     </button>
+                    {savedPath && (
+                        <div className="alert alert-success mt-3 vote-created-links" aria-label="생성된 투표 바로가기">
+                            <p className="mb-2" role="status">투표가 생성되었습니다.</p>
+                            <div className="d-flex flex-wrap gap-2">
+                                <LanguageRouterLink className="btn btn-outline-success" to={savedPath.slice(0, savedPath.lastIndexOf("/"))}>
+                                    해당 서버 투표 목록으로 이동
+                                </LanguageRouterLink>
+                                <LanguageRouterLink className="btn btn-success" to={savedPath}>
+                                    생성한 투표로 이동
+                                </LanguageRouterLink>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </>)}
