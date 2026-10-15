@@ -20,6 +20,7 @@ export const routePolicies = [
     { pattern: /^\/information\/data\/player-detail$/, key: "information.data.playerDetail", category: 'search', index: false, languages: supportedLngs },
     { pattern: /^\/information\/data\/realpower$/, key: "information.data.realpower", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/information\/data\/overall$/, key: "information.data.overall", category: 'data', index: false, languages: supportedLngs },
+    { pattern: /^\/information\/data\/troops$/, key: "information.data.troops", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/information\/kartz$/, key: "information.kartz.home", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/information\/kartz\/rank$/, key: "information.kartz.rank", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/information\/kartz\/server$/, key: "information.kartz.server", category: 'data', index: false, languages: supportedLngs },

@@ -74,6 +74,9 @@
             },
             "overall": {
                 "title": "Top War All-in-One Player, Server & Alliance Search"
+            },
+            "troops": {
+                "title": "Top War Troop Data", "description": "View observed troop counts, power, heroes, and mecha formations."
             }
         },
 

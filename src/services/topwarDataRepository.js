@@ -341,6 +341,10 @@ export async function loadOverallLatest() {
     });
 }
 
+export async function loadCrossPvpTop100() {
+    return requestJson("cross-pvp/top100.json", { noStore: true });
+}
+
 export async function listOverallHistoryFiles(type) {
     if (type !== "movement" && type !== "nickname") {
         throw new Error(

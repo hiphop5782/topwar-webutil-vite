@@ -74,6 +74,9 @@
             },
             "overall": {
                 "title": "Top War プレイヤー・サーバー・連盟一括検索"
+            },
+            "troops": {
+                "title": "Top War 兵力情報", "description": "調査された実兵力、戦力、英雄、メカ編成を確認できます。"
             }
         },
 

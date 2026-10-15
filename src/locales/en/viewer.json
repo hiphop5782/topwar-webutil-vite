@@ -139,6 +139,7 @@
     "TopwarDataViewer": {
         "btn-player-data": "Player Data",
         "btn-overall": "All-in-One Search",
+        "btn-troops": "Troop Data",
         "btn-server-data": "Server Data",
         "btn-alliance-data": "Alliance Data",
         "btn-server-move": "Server Transfer History",
@@ -2140,6 +2141,12 @@
             "history": "Nickname Change History",
             "unknown": "Unknown"
         }
+    },
+    "TopwarTPViewer": {
+        "eyebrow": "OBSERVED FORMATION DATA", "title": "Troop Data", "description": "View observed players' actual troop counts, power, heroes, and mecha formations from cross-server battles.",
+        "loading": "Loading troop data.", "loadError": "Failed to load troop data.", "collectedAt": "Collected at",
+        "nickname": "Nickname", "nicknamePlaceholder": "Search current or previous nickname", "server": "Server", "allServers": "All servers", "reset": "Reset", "resultCount": "{{count}} observed players", "noResults": "No observed players match these filters.",
+        "combatPower": "Power", "totalArmy": "Total troops", "formation": "Formation", "formationPower": "Formation power", "mecha": "Mecha", "heroes": "Heroes", "position": "Position", "unit": "Unit", "count": "Count", "hp": "HP"
     },
     "TopwarDataOverAll": {
         "title": "Live Kindly",

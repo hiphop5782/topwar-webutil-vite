@@ -31,6 +31,7 @@ const fixedRoutes = [
     "/information/data/player-detail",
     "/information/data/realpower",
     "/information/data/overall",
+    "/information/data/troops",
     "/information/kartz",
     "/information/kartz/rank",
     "/information/kartz/server",

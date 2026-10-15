@@ -45,6 +45,7 @@ import Post from "@src/components/screen/post/Post";
 import TopwarSscPointViewer from "@src/components/screen/history/2026-ssc/TopwarSscPointViewer";
 import TopwarRealPowerViewer from "@src/components/screen/information/server/TopwarRealPowerViewer";
 import TopwarDataOverAll from "@src/components/screen/information/server/TopwarDataOverAll";
+import TopwarTPViewer from "@src/components/screen/information/server/TopwarTPViewer";
 
 import SscDashboard from "@src/components/screen/history/2026-ssc/SscDashboard";
 import LionDanceRanking from "@src/components/screen/history/liondance/LionDanceRanking";
@@ -116,6 +117,7 @@ export default function MainContentView() {
                     <Route path="information/data" element={<TopwarDataViewer/>}>
                         <Route index element={<TopwarPlayerDataViewer/>}></Route>
                         <Route path="overall" element={<TopwarDataOverAll/>}></Route>
+                        <Route path="troops" element={<TopwarTPViewer/>}></Route>
                         <Route path="servers" element={<ServerDirectory/>}/>
                         <Route path="server" element={<TopwarServerDataViewer/>}></Route>
                         <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>

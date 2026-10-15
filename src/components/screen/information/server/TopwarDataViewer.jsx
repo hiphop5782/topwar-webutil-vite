@@ -36,6 +36,9 @@ export default function TopwarDataViewer() {
                 </LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
+                <LanguageRouterLink to="/information/data/troops" className={getBtnClass("/information/data/troops")}>{t("TopwarDataViewer.btn-troops")}</LanguageRouterLink>
+            </div>
+            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink to={`/information/data/player-detail`} className={getBtnClass("/information/data/player-detail")}>플레이어 통합 조회</LanguageRouterLink>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
