@@ -27,6 +27,14 @@ const date = (value, locale) => {
         : "-";
 };
 
+const formatMillions = (value, locale) => {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return "-";
+    return `${(parsed / 1_000_000).toLocaleString(locale, {
+        maximumFractionDigits: 1,
+    })}M`;
+};
+
 const identity = (item) => String(item?.uid ?? "");
 
 function PortraitPlaceholder({ label, code, kind }) {
@@ -66,7 +74,12 @@ function Formation({ formation, t, locale }) {
                         {heroes.map((hero, index) => (
                             <div key={`${hero.id}-${index}`}>
                                 <PortraitPlaceholder label={hero.name} code={hero.id} kind="hero" />
-                                <small>Lv.{hero.level ?? "-"} · ★{hero.star ?? "-"}{hero.awakenLevel ? ` · +${hero.awakenLevel}` : ""}</small>
+                                <div className="tp-viewer__hero-meta">
+                                    <small>Lv.{hero.level ?? "-"} · ★{hero.star ?? "-"}</small>
+                                    <strong className={`tp-viewer__awaken${Number(hero.awakenLevel) > 0 ? " is-awakened" : ""}`}>
+                                        {t("awakenLevel")} +{hero.awakenLevel ?? 0}
+                                    </strong>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -91,7 +104,7 @@ function Formation({ formation, t, locale }) {
                                 <td>{slot.position ?? "-"}</td>
                                 <td><span className="tp-viewer__slot-unit" title={slot.name || String(slot.armyId)} aria-label={slot.name || String(slot.armyId)} /></td>
                                 <td>×{number(slot.count, locale)}</td>
-                                <td>{number(Math.round(Number(slot.hp)), locale)}</td>
+                                <td>{formatMillions(slot.hp, locale)}</td>
                             </tr>
                         ))}</tbody>
                     </table>
