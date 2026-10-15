@@ -164,7 +164,10 @@ export default function TopwarTPViewer() {
                 player.username,
                 ...(nicknameHistory.get(identity(player)) ?? []),
             ].map(normalize).join("\u0000"),
-        }));
+        })).sort((left, right) =>
+            Number(right.rankingPower ?? 0) - Number(left.rankingPower ?? 0)
+            || identity(left).localeCompare(identity(right)),
+        );
     }, [document, nicknameHistory]);
 
     const players = useMemo(() => {
@@ -209,7 +212,6 @@ export default function TopwarTPViewer() {
                     const isOpen = expanded.has(uid);
                     return <article className="tp-viewer__player" key={uid || player.rank}>
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
-                            <span className="tp-viewer__rank">#{player.rank ?? "-"}</span>
                             <span className="tp-viewer__identity"><strong>{player.username || uid}</strong><small>s{player.serverId}</small></span>
                             <span><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>
                             <span><small>{t("totalArmy")}</small><strong>{number(player.totalArmy, locale)}</strong></span>
