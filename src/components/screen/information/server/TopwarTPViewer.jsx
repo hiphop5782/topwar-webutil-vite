@@ -1,6 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaChevronDown, FaMagnifyingGlass, FaRotateRight } from "react-icons/fa6";
+import { Virtuoso } from "react-virtuoso";
 
 import CompositionSearchInput from "@src/components/template/CompositionSearchInput";
 import DataLoadingPlaceholder from "@src/components/template/DataLoadingPlaceholder";
@@ -49,10 +50,6 @@ function Formation({ formation, t, locale }) {
                     <strong>#{formation?.formationId ?? "-"}</strong>
                 </div>
                 <div>
-                    <span className="tp-viewer__label">{t("formationPower")}</span>
-                    <strong>{formation?.power ? number(formation.power, locale) : "-"}</strong>
-                </div>
-                <div>
                     <span className="tp-viewer__label">{t("totalArmy")}</span>
                     <strong>{number(formation?.totalArmy, locale)}</strong>
                 </div>
@@ -78,9 +75,10 @@ function Formation({ formation, t, locale }) {
 
             <div className="tp-viewer__army-summary">
                 {army.map((unit, index) => (
-                    <span key={`${unit.armyId}-${index}`}>
-                        <strong>{unit.name || unit.armyId}</strong> × {number(unit.count, locale)}
-                    </span>
+                    <div key={`${unit.armyId}-${index}`} className="tp-viewer__army-item" title={unit.name || String(unit.armyId)} aria-label={`${unit.name || unit.armyId} ×${unit.count}`}>
+                        <span className="tp-viewer__army-image" aria-hidden="true" />
+                        <strong>×{number(unit.count, locale)}</strong>
+                    </div>
                 ))}
             </div>
 
@@ -91,8 +89,8 @@ function Formation({ formation, t, locale }) {
                         <tbody>{slots.map((slot, index) => (
                             <tr key={`${slot.position}-${index}`}>
                                 <td>{slot.position ?? "-"}</td>
-                                <td>{slot.name || slot.armyId || "-"}</td>
-                                <td>{number(slot.count, locale)}</td>
+                                <td><span className="tp-viewer__slot-unit" title={slot.name || String(slot.armyId)} aria-label={slot.name || String(slot.armyId)} /></td>
+                                <td>×{number(slot.count, locale)}</td>
                                 <td>{number(Math.round(Number(slot.hp)), locale)}</td>
                             </tr>
                         ))}</tbody>
@@ -144,7 +142,7 @@ export default function TopwarTPViewer() {
         return () => { cancelled = true; };
     }, []);
 
-    const players = useMemo(() => {
+    const allPlayers = useMemo(() => {
         const rawByUid = new Map((document?.results ?? []).map((item) => [identity(item), item]));
         const source = Array.isArray(document?.mappedResults) && document.mappedResults.length
             ? document.mappedResults.map((mapped) => {
@@ -160,17 +158,23 @@ export default function TopwarTPViewer() {
                 };
             })
             : document?.results ?? [];
+        return source.map((player) => ({
+            ...player,
+            nicknameSearchText: [
+                player.username,
+                ...(nicknameHistory.get(identity(player)) ?? []),
+            ].map(normalize).join("\u0000"),
+        }));
+    }, [document, nicknameHistory]);
+
+    const players = useMemo(() => {
         const keyword = normalize(deferredQuery);
         const serverNumber = server === "" ? null : Number(server);
-        return source.filter((player) => {
+        return allPlayers.filter((player) => {
             if (serverNumber != null && Number(player.serverId) !== serverNumber) return false;
-            const names = [player.username, ...(nicknameHistory.get(identity(player)) ?? [])];
-            return !keyword || names.some((name) => normalize(name).includes(keyword));
+            return !keyword || player.nicknameSearchText.includes(keyword);
         });
-    }, [document, deferredQuery, server, nicknameHistory]);
-
-    const servers = useMemo(() => [...new Set((document?.mappedResults ?? document?.results ?? []).map((item) => Number(item.serverId)))]
-        .filter(Number.isFinite).sort((a, b) => a - b), [document]);
+    }, [allPlayers, deferredQuery, server]);
 
     const toggle = (uid) => setExpanded((current) => {
         const next = new Set(current);
@@ -190,27 +194,31 @@ export default function TopwarTPViewer() {
 
             <div className="tp-viewer__filters">
                 <label><span>{t("nickname")}</span><div className="input-group"><span className="input-group-text"><FaMagnifyingGlass /></span><CompositionSearchInput className="form-control" value={query} onValueChange={setQuery} placeholder={t("nicknamePlaceholder")} /></div></label>
-                <label><span>{t("server")}</span><select className="form-select" value={server} onChange={(event) => setServer(event.target.value)}><option value="">{t("allServers")}</option>{servers.map((id) => <option key={id} value={id}>s{id}</option>)}</select></label>
+                <label><span>{t("server")}</span><input className="form-control" type="number" min="1" inputMode="numeric" value={server} onChange={(event) => setServer(event.target.value)} placeholder={t("serverPlaceholder")} /></label>
                 <button type="button" className="btn btn-outline-secondary" onClick={() => { setQuery(""); setServer(""); }}><FaRotateRight /> {t("reset")}</button>
             </div>
 
             <p className="tp-viewer__result-count">{t("resultCount", { count: players.length })}</p>
-            <div className="tp-viewer__list">
-                {players.map((player) => {
+            {players.length > 0 && <Virtuoso
+                className="tp-viewer__list"
+                style={{ height: "min(72vh, 900px)" }}
+                data={players}
+                computeItemKey={(_, player) => identity(player) || player.rank}
+                itemContent={(_, player) => {
                     const uid = identity(player);
                     const isOpen = expanded.has(uid);
                     return <article className="tp-viewer__player" key={uid || player.rank}>
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
                             <span className="tp-viewer__rank">#{player.rank ?? "-"}</span>
-                            <span className="tp-viewer__identity"><strong>{player.username || uid}</strong><small>s{player.serverId} · UID {uid}</small></span>
+                            <span className="tp-viewer__identity"><strong>{player.username || uid}</strong><small>s{player.serverId}</small></span>
                             <span><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>
                             <span><small>{t("totalArmy")}</small><strong>{number(player.totalArmy, locale)}</strong></span>
                             <FaChevronDown className={isOpen ? "is-open" : ""} />
                         </button>
                         {isOpen && <div className="tp-viewer__details">{(player.formations ?? []).map((formation, index) => <Formation key={`${formation.formationId}-${index}`} formation={formation} t={t} locale={locale} />)}</div>}
                     </article>;
-                })}
-            </div>
+                }}
+            />}
             {players.length === 0 && <div className="alert alert-light text-center">{t("noResults")}</div>}
         </section>
     );

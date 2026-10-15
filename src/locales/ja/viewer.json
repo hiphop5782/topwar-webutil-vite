@@ -2136,7 +2136,7 @@
     "TopwarTPViewer": {
         "eyebrow": "調査済み編成データ", "title": "兵力情報", "description": "クロスサーバー戦で調査されたプレイヤーの実兵力、戦力、英雄、メカ編成を確認できます。",
         "loading": "兵力情報を読み込んでいます。", "loadError": "兵力情報を読み込めませんでした。", "collectedAt": "調査日時",
-        "nickname": "ニックネーム", "nicknamePlaceholder": "現在・過去のニックネームを検索", "server": "サーバー", "allServers": "全サーバー", "reset": "リセット", "resultCount": "調査結果 {{count}}名", "noResults": "検索条件に一致する調査結果がありません。",
+        "nickname": "ニックネーム", "nicknamePlaceholder": "現在・過去のニックネームを検索", "server": "サーバー", "serverPlaceholder": "サーバー番号を直接入力", "allServers": "全サーバー", "reset": "リセット", "resultCount": "調査結果 {{count}}名", "noResults": "検索条件に一致する調査結果がありません。",
         "combatPower": "戦力", "totalArmy": "総兵力", "formation": "編成", "formationPower": "編成戦力", "mecha": "メカ", "heroes": "英雄", "position": "位置", "unit": "兵種", "count": "数量", "hp": "HP"
     },
     "TopwarDataOverAll": {
