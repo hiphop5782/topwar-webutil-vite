@@ -2146,7 +2146,7 @@
         "eyebrow": "OBSERVED FORMATION DATA", "title": "Troop Data", "description": "View observed players' actual troop counts, power, heroes, and mecha formations from cross-server battles.",
         "loading": "Loading troop data.", "loadError": "Failed to load troop data.", "collectedAt": "Collected at",
         "nickname": "Nickname", "nicknamePlaceholder": "Search current or previous nickname", "server": "Server", "serverPlaceholder": "Enter exact server number", "allServers": "All servers", "reset": "Reset", "resultCount": "{{count}} observed players", "noResults": "No observed players match these filters.",
-        "combatPower": "Power", "totalArmy": "Total troops", "formation": "Formation", "formationPower": "Formation power", "mecha": "Mecha", "heroes": "Heroes", "awakenLevel": "Awaken", "position": "Position", "unit": "Unit", "count": "Count", "hp": "HP"
+        "combatPower": "Power", "totalArmy": "Total troops", "formation": "Formation", "formationPower": "Formation power", "formationLayout": "3×3 troop formation", "mecha": "Mecha", "heroes": "Heroes", "awakenLevel": "Awaken", "position": "Position", "unit": "Unit", "count": "Count", "hp": "HP"
     },
     "TopwarDataOverAll": {
         "title": "Live Kindly",

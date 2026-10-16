@@ -27,15 +27,37 @@ const date = (value, locale) => {
         : "-";
 };
 
-const formatMillions = (value, locale) => {
+const formatCompactStat = (value, locale) => {
     const parsed = Number(value);
     if (!Number.isFinite(parsed)) return "-";
-    return `${(parsed / 1_000_000).toLocaleString(locale, {
+
+    const fixedUnits = ["", "K", "M", "B", "T"];
+    const absolute = Math.abs(parsed);
+    if (absolute < 1_000) return number(parsed, locale);
+
+    let scaled = absolute;
+    let unitIndex = 0;
+    while (scaled >= 1_000) {
+        scaled /= 1_000;
+        unitIndex += 1;
+    }
+
+    let suffix;
+    if (unitIndex < fixedUnits.length) {
+        suffix = fixedUnits[unitIndex];
+    } else {
+        const alphabetIndex = unitIndex - fixedUnits.length;
+        const letter = String.fromCharCode(97 + Math.min(alphabetIndex, 25));
+        suffix = `${letter}${letter}`;
+    }
+
+    return `${parsed < 0 ? "-" : ""}${scaled.toLocaleString(locale, {
         maximumFractionDigits: 1,
-    })}M`;
+    })}${suffix}`;
 };
 
 const identity = (item) => String(item?.uid ?? "");
+const SLOT_ORDER = [1, 2, 3, 11, 12, 13, 21, 22, 23];
 
 function PortraitPlaceholder({ label, code, kind }) {
     return (
@@ -49,6 +71,7 @@ function Formation({ formation, t, locale }) {
     const heroes = Array.isArray(formation?.heroes) ? formation.heroes : [];
     const army = Array.isArray(formation?.army) ? formation.army : [];
     const slots = Array.isArray(formation?.slots) ? formation.slots : [];
+    const slotsByPosition = new Map(slots.map((slot) => [Number(slot.position), slot]));
 
     return (
         <section className="tp-viewer__formation">
@@ -96,18 +119,26 @@ function Formation({ formation, t, locale }) {
             </div>
 
             {slots.length > 0 && (
-                <div className="table-responsive">
-                    <table className="table table-sm align-middle mb-0">
-                        <thead><tr><th>{t("position")}</th><th>{t("unit")}</th><th>{t("count")}</th><th>{t("hp")}</th></tr></thead>
-                        <tbody>{slots.map((slot, index) => (
-                            <tr key={`${slot.position}-${index}`}>
-                                <td>{slot.position ?? "-"}</td>
-                                <td><span className="tp-viewer__slot-unit" title={slot.name || String(slot.armyId)} aria-label={slot.name || String(slot.armyId)} /></td>
-                                <td>×{number(slot.count, locale)}</td>
-                                <td>{formatMillions(slot.hp, locale)}</td>
-                            </tr>
-                        ))}</tbody>
-                    </table>
+                <div className="tp-viewer__formation-grid" aria-label={t("formationLayout")}>
+                    {SLOT_ORDER.map((position) => {
+                        const slot = slotsByPosition.get(position);
+                        return (
+                            <div
+                                className={`tp-viewer__formation-cell${slot ? "" : " is-empty"}`}
+                                key={position}
+                                title={slot?.name || (slot?.armyId ? String(slot.armyId) : undefined)}
+                            >
+                                <span className="tp-viewer__slot-position">{position}</span>
+                                {slot ? <>
+                                    <span className="tp-viewer__slot-main">
+                                        <span className="tp-viewer__slot-unit" aria-hidden="true" />
+                                        <strong className="tp-viewer__slot-count">×{number(slot.count, locale)}</strong>
+                                    </span>
+                                    <small className="tp-viewer__slot-hp">{formatCompactStat(slot.hp, locale)}</small>
+                                </> : <span className="tp-viewer__slot-empty">—</span>}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </section>
