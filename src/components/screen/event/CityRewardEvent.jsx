@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import AdsterraBanner from "@src/components/adsense/AdsterraBanner";
+import { useIsMobile } from "@src/hooks/useIsMobile";
 
 import "./CityRewardEvent.css";
 
@@ -73,9 +75,11 @@ function getRewardSeenAt(item) {
 
 async function fetchRewardData(url, signal) {
   const separator = url.includes("?") ? "&" : "?";
+  const isBackendRequest = url === BACKEND_DATA_URL;
   const response = await fetch(
     `${url}${separator}t=${Date.now()}`,
     {
+      credentials: isBackendRequest ? "include" : "omit",
       signal,
     }
   );
@@ -95,6 +99,7 @@ async function fetchRewardData(url, signal) {
 
 const CityRwardEvent = () => {
   const { t, i18n } = useTranslation("viewer");
+  const useCompactAd = useIsMobile(1091);
 
   const [locations, setLocations] = useState([]);
   const [newLocationSeenAt, setNewLocationSeenAt] = useState({});
@@ -674,6 +679,33 @@ const CityRwardEvent = () => {
             )}
         </div>
       )}
+
+
+      {/* 도시보상 전용 Adsterra 광고 */}
+      <aside
+        className="city-reward-ad"
+        aria-label="Advertisement"
+      >
+        <div className="city-reward-ad-label">
+          AD
+        </div>
+
+        {useCompactAd ? (
+          <AdsterraBanner
+            key="city-reward-mobile"
+            adKey="f02fa16ea5caa91326c99eb1c1d9c826"
+            width={320}
+            height={50}
+          />
+        ) : (
+          <AdsterraBanner
+            key="city-reward-desktop"
+            adKey="0ebcf48ecbb8ee85e2238f7220bdd6db"
+            width={728}
+            height={90}
+          />
+        )}
+      </aside>
 
 
       {/* 데이터 */}

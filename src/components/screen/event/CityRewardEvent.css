@@ -77,3 +77,19 @@
 .city-reward-table th {
     white-space: nowrap;
 }
+
+.city-reward-ad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0;
+    overflow: hidden;
+}
+
+.city-reward-ad-label {
+    margin-bottom: 0.25rem;
+    color: var(--bs-secondary-color);
+    font-size: 0.625rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
+}

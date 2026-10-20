@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function KakaoAds({ id, width=160, height=600, display="none" }) {
+export default function KakaoAds({ id, width=160, height=600, display="block" }) {
     //ref
     const adRef = useRef(null);
 
@@ -33,5 +33,16 @@ export default function KakaoAds({ id, width=160, height=600, display="none" }) 
     }, [id, width, height, display]);
 
     //render
-    return <div ref={adRef} style={{position:"sticky", top:100}}/>;
+    return (
+        <div
+            ref={adRef}
+            style={{
+                position: "sticky",
+                top: 100,
+                width,
+                height,
+                lineHeight: 0,
+            }}
+        />
+    );
 }
