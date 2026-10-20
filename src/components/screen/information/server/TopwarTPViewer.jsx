@@ -15,6 +15,29 @@ import {
 
 import "./TopwarTPViewer.css";
 
+const createImageMap = (modules) => Object.fromEntries(
+    Object.entries(modules).flatMap(([filePath, source]) => {
+        const fileName = filePath.split("/").pop();
+        const id = fileName?.replace(/\.webp$/i, "");
+        return id ? [[id, source]] : [];
+    }),
+);
+
+const HERO_IMAGES = createImageMap(import.meta.glob(
+    "../../../../assets/images/heros/*.webp",
+    { eager: true, import: "default" },
+));
+
+const HT_IMAGES = createImageMap(import.meta.glob(
+    "../../../../assets/images/ht/*.webp",
+    { eager: true, import: "default" },
+));
+
+const UNIT_IMAGES = createImageMap(import.meta.glob(
+    "../../../../assets/images/units/*.webp",
+    { eager: true, import: "default" },
+));
+
 const number = (value, locale) => {
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed.toLocaleString(locale) : "-";
@@ -58,6 +81,68 @@ const formatCompactStat = (value, locale) => {
 
 const identity = (item) => String(item?.uid ?? "");
 const SLOT_ORDER = [1, 2, 3, 11, 12, 13, 21, 22, 23];
+const BRANCH_META = {
+    army: { icon: "◆", translationKey: "branchArmy" },
+    navy: { icon: "⚓", translationKey: "branchNavy" },
+    air: { icon: "✈", translationKey: "branchAir" },
+    mixed: { icon: "◈", translationKey: "branchMixed" },
+    unknown: { icon: "?", translationKey: "branchUnknown" },
+};
+
+const detectBranch = (value) => {
+    const text = String(value ?? "").normalize("NFKC").toLocaleLowerCase();
+    if (!text) return null;
+    if (/(?:육군|陸軍|陆军|\barmy\b|\bland\b)/u.test(text)) return "army";
+    if (/(?:해군|海軍|海军|\bnavy\b|\bnaval\b)/u.test(text)) return "navy";
+    if (/(?:공군|空軍|空军|\bair(?:\s*force)?\b)/u.test(text)) return "air";
+    return null;
+};
+
+const detectBaseUnitBranch = (armyId) => {
+    const id = String(armyId ?? "").trim();
+    if (/^1\d{4,}$/u.test(id)) return "army";
+    if (/^2\d{4,}$/u.test(id)) return "navy";
+    if (/^3\d{4,}$/u.test(id)) return "air";
+    return null;
+};
+
+const getFormationBranch = (formation) => {
+    const units = [
+        ...(Array.isArray(formation?.army) ? formation.army : []),
+        ...(Array.isArray(formation?.slots) ? formation.slots : []),
+    ];
+    const branches = new Set();
+
+    units.forEach((unit) => {
+        const branch = detectBranch(
+            unit?.branch
+            || unit?.armyType
+            || unit?.unitType
+            || unit?.name,
+        ) || detectBaseUnitBranch(unit?.armyId);
+        if (branch) branches.add(branch);
+    });
+
+    if (branches.size === 0) return "unknown";
+    if (branches.size > 1) return "mixed";
+    return branches.values().next().value;
+};
+
+const getPlayerBranch = (formations) => {
+    const branches = new Set(
+        (formations ?? [])
+            .map(getFormationBranch)
+            .filter((branch) => branch !== "unknown"),
+    );
+
+    if (branches.size === 0) return "unknown";
+    if (branches.size > 1) return "mixed";
+    return branches.values().next().value;
+};
+
+const isMechaArmyUnit = (unit) => /^5\d{4,}$/u.test(
+    String(unit?.armyId ?? "").trim(),
+);
 
 function PortraitPlaceholder({ label, code, kind }) {
     return (
@@ -67,14 +152,85 @@ function PortraitPlaceholder({ label, code, kind }) {
     );
 }
 
+function UnitImage({ unit, className, mechaSource }) {
+    const unitId = String(unit?.armyId ?? "").trim();
+    const isMecha = isMechaArmyUnit(unit) && Boolean(mechaSource);
+    const source = isMecha ? mechaSource : UNIT_IMAGES[unitId];
+
+    return (
+        <span
+            className={`${className}${source ? " has-image" : ""}${isMecha ? " is-mecha" : ""}`}
+            aria-hidden="true"
+        >
+            {source && (
+                <img
+                    src={source}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                />
+            )}
+        </span>
+    );
+}
+
+function HeroPortrait({ hero }) {
+    const [failed, setFailed] = useState(false);
+    const heroId = String(hero?.id ?? "").trim();
+    const label = hero?.name || heroId;
+    const source = HERO_IMAGES[heroId];
+
+    if (!heroId || !source || failed) {
+        return <PortraitPlaceholder label={hero?.name} code={heroId} kind="hero" />;
+    }
+
+    return (
+        <div className="tp-viewer__portrait tp-viewer__portrait--hero">
+            <img
+                src={source}
+                alt={label}
+                loading="lazy"
+                decoding="async"
+                onError={() => setFailed(true)}
+            />
+        </div>
+    );
+}
+
+function MechaPortrait({ formation }) {
+    const [failed, setFailed] = useState(false);
+    const mechaId = String(formation?.mechaId ?? "").trim();
+    const label = formation?.mecha || mechaId;
+    const source = HT_IMAGES[mechaId];
+
+    if (!mechaId || !source || failed) {
+        return <PortraitPlaceholder label={formation?.mecha} code={mechaId} kind="mecha" />;
+    }
+
+    return (
+        <div className="tp-viewer__portrait tp-viewer__portrait--mecha">
+            <img
+                src={source}
+                alt={label}
+                loading="lazy"
+                decoding="async"
+                onError={() => setFailed(true)}
+            />
+        </div>
+    );
+}
+
 function Formation({ formation, t, locale }) {
     const heroes = Array.isArray(formation?.heroes) ? formation.heroes : [];
     const army = Array.isArray(formation?.army) ? formation.army : [];
     const slots = Array.isArray(formation?.slots) ? formation.slots : [];
     const slotsByPosition = new Map(slots.map((slot) => [Number(slot.position), slot]));
+    const branch = getFormationBranch(formation);
+    const branchMeta = BRANCH_META[branch];
+    const mechaSource = HT_IMAGES[String(formation?.mechaId ?? "").trim()];
 
     return (
-        <section className="tp-viewer__formation">
+        <section className={`tp-viewer__formation tp-viewer__formation--${branch}`}>
             <div className="tp-viewer__formation-head">
                 <div>
                     <span className="tp-viewer__label">{t("formation")}</span>
@@ -84,19 +240,27 @@ function Formation({ formation, t, locale }) {
                     <span className="tp-viewer__label">{t("totalArmy")}</span>
                     <strong>{number(formation?.totalArmy, locale)}</strong>
                 </div>
+                <div
+                    className={`tp-viewer__branch tp-viewer__branch--${branch}`}
+                    title={t("branchSource")}
+                >
+                    <span aria-hidden="true">{branchMeta.icon}</span>
+                    <small>{t("branch")}</small>
+                    <strong>{t(branchMeta.translationKey)}</strong>
+                </div>
             </div>
 
             <div className="tp-viewer__showcase">
                 <div>
                     <h3>{t("mecha")}</h3>
-                    <PortraitPlaceholder label={formation?.mecha} code={formation?.mechaId} kind="mecha" />
+                    <MechaPortrait formation={formation} />
                 </div>
                 <div className="tp-viewer__heroes">
                     <h3>{t("heroes")}</h3>
                     <div className="tp-viewer__portrait-row">
                         {heroes.map((hero, index) => (
                             <div key={`${hero.id}-${index}`}>
-                                <PortraitPlaceholder label={hero.name} code={hero.id} kind="hero" />
+                                <HeroPortrait hero={hero} />
                                 <div className="tp-viewer__hero-meta">
                                     <small>Lv.{hero.level ?? "-"} · ★{hero.star ?? "-"}</small>
                                     <strong className={`tp-viewer__awaken${Number(hero.awakenLevel) > 0 ? " is-awakened" : ""}`}>
@@ -112,7 +276,7 @@ function Formation({ formation, t, locale }) {
             <div className="tp-viewer__army-summary">
                 {army.map((unit, index) => (
                     <div key={`${unit.armyId}-${index}`} className="tp-viewer__army-item" title={unit.name || String(unit.armyId)} aria-label={`${unit.name || unit.armyId} ×${unit.count}`}>
-                        <span className="tp-viewer__army-image" aria-hidden="true" />
+                        <UnitImage unit={unit} className="tp-viewer__army-image" mechaSource={mechaSource} />
                         <strong>×{number(unit.count, locale)}</strong>
                     </div>
                 ))}
@@ -131,7 +295,7 @@ function Formation({ formation, t, locale }) {
                                 <span className="tp-viewer__slot-position">{position}</span>
                                 {slot ? <>
                                     <span className="tp-viewer__slot-main">
-                                        <span className="tp-viewer__slot-unit" aria-hidden="true" />
+                                        <UnitImage unit={slot} className="tp-viewer__slot-unit" mechaSource={mechaSource} />
                                         <strong className="tp-viewer__slot-count">×{number(slot.count, locale)}</strong>
                                     </span>
                                     <small className="tp-viewer__slot-hp">{formatCompactStat(slot.hp, locale)}</small>
@@ -254,7 +418,8 @@ export default function TopwarTPViewer() {
                 itemContent={(_, player) => {
                     const uid = identity(player);
                     const isOpen = expanded.has(uid);
-                    return <article className="tp-viewer__player" key={uid || player.rank}>
+                    const playerBranch = getPlayerBranch(player.formations);
+                    return <article className={`tp-viewer__player tp-viewer__player--${playerBranch}`} key={uid || player.rank}>
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
                             <span className="tp-viewer__identity"><strong>{player.username || uid}</strong><small>s{player.serverId}</small></span>
                             <span><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>

@@ -413,6 +413,22 @@
     white-space: nowrap;
 }
 
+.overall-viewer__history-toggle {
+    width: max-content;
+    padding: 0;
+    border: 0;
+    color: var(--bs-primary);
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.overall-viewer__history-toggle:hover,
+.overall-viewer__history-toggle:focus-visible {
+    text-decoration: underline;
+}
+
 .overall-viewer__server {
     display: inline-flex;
     align-items: center;

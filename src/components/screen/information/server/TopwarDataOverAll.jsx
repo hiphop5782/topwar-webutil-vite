@@ -135,6 +135,7 @@ export default function TopwarDataOverAll() {
         Boolean(sourceParam || serverOut || movedOnly)
     ));
     const [expandedPlayers, setExpandedPlayers] = useState(() => new Set());
+    const [expandedNicknameHistories, setExpandedNicknameHistories] = useState(() => new Set());
     const [nicknameHistory, setNicknameHistory] = useState(() => new Map());
     const [historyLoading, setHistoryLoading] = useState(true);
     const [movementHistory, setMovementHistory] = useState(null);
@@ -419,6 +420,15 @@ export default function TopwarDataOverAll() {
         });
     };
 
+    const toggleNicknameHistory = (uid) => {
+        setExpandedNicknameHistories((current) => {
+            const next = new Set(current);
+            if (next.has(uid)) next.delete(uid);
+            else next.add(uid);
+            return next;
+        });
+    };
+
     const changeView = (nextView) => {
         trackAnalyticsEvent("overall_view_change", {
             from_view: view,
@@ -628,6 +638,7 @@ export default function TopwarDataOverAll() {
                         itemContent={(_index, player) => {
                             const expanded = expandedPlayers.has(player.uid);
                             const playerNicknameHistory = nicknameHistory.get(String(player.uid)) ?? [];
+                            const nicknameHistoryExpanded = expandedNicknameHistories.has(String(player.uid));
                             const playerMovementHistory = movementHistory?.get(String(player.uid)) ?? [];
                             const activity = getActivity(player.lastLogin, t);
                             const recentInbound = getRecentInbound(
@@ -752,7 +763,7 @@ export default function TopwarDataOverAll() {
                                                     <span>{t("history.movementEmpty")}</span>
                                                 )}
                                                 {playerMovementHistory.length > 3 && (
-                                                    <small>{t("history.more", { count: playerMovementHistory.length - 3 })}</small>
+                                                    <small>{t("history.remaining", { count: playerMovementHistory.length - 3 })}</small>
                                                 )}
                                             </div>
                                             <div className="overall-viewer__nickname-history">
@@ -760,17 +771,32 @@ export default function TopwarDataOverAll() {
                                                 {historyLoading ? (
                                                     <span>{t("history.loading")}</span>
                                                 ) : playerNicknameHistory.length > 0 ? (
-                                                    playerNicknameHistory.slice(0, 3).map((history, index) => (
+                                                    playerNicknameHistory
+                                                        .slice(0, nicknameHistoryExpanded ? playerNicknameHistory.length : 3)
+                                                        .map((history, index) => (
                                                         <span key={`${history.detectedAt ?? history.date}-${index}`}>
                                                             <time>{history.date}</time>
                                                             {history.fromNickname || "-"} → {history.toNickname || "-"}
                                                         </span>
-                                                    ))
+                                                        ))
                                                 ) : (
                                                     <span>{t("history.empty")}</span>
                                                 )}
                                                 {playerNicknameHistory.length > 3 && (
-                                                    <small>{t("history.more", { count: playerNicknameHistory.length - 3 })}</small>
+                                                    <button
+                                                        type="button"
+                                                        className="overall-viewer__history-toggle"
+                                                        aria-expanded={nicknameHistoryExpanded}
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                            toggleNicknameHistory(String(player.uid));
+                                                        }}
+                                                        onKeyDown={(event) => event.stopPropagation()}
+                                                    >
+                                                        {nicknameHistoryExpanded
+                                                            ? t("history.less")
+                                                            : t("history.more", { count: playerNicknameHistory.length - 3 })}
+                                                    </button>
                                                 )}
                                             </div>
                                             <KartzTrend

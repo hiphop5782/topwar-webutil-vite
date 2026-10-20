@@ -2146,7 +2146,8 @@
         "eyebrow": "조사된 편성 데이터", "title": "병력 정보", "description": "교차 서버 대전에서 조사된 플레이어의 실제 병력, 전투력, 영웅과 메카 편성을 조회합니다.",
         "loading": "병력 정보를 불러오는 중입니다.", "loadError": "병력 정보를 불러오지 못했습니다.", "collectedAt": "조사 시각",
         "nickname": "닉네임", "nicknamePlaceholder": "현재·이전 닉네임 검색", "server": "서버", "serverPlaceholder": "서버 번호 직접 입력", "allServers": "전체 서버", "reset": "초기화", "resultCount": "조사 결과 {{count}}명", "noResults": "검색 조건에 맞는 조사 결과가 없습니다.",
-        "combatPower": "전투력", "totalArmy": "총 병력", "formation": "편성", "formationPower": "편성 전투력", "formationLayout": "3×3 병력 배치", "mecha": "메카", "heroes": "영웅", "awakenLevel": "각성", "position": "위치", "unit": "병력", "count": "수량", "hp": "체력"
+        "combatPower": "전투력", "totalArmy": "총 병력", "formation": "편성", "formationPower": "편성 전투력", "formationLayout": "3×3 병력 배치", "mecha": "메카", "heroes": "영웅", "awakenLevel": "각성", "position": "위치", "unit": "병력", "count": "수량", "hp": "체력",
+        "branch": "군종", "branchArmy": "육군", "branchNavy": "해군", "branchAir": "공군", "branchMixed": "혼합", "branchUnknown": "미확인", "branchSource": "유닛 정보를 기준으로 판별한 군종"
     },
     "TopwarDataOverAll": {
         "title": "착하게 살자",
@@ -2174,7 +2175,7 @@
         "columns": { "server": "서버", "player": "플레이어", "alliance": "연맹", "power": "전투력", "observed": "조사 시점" },
         "activity": { "unknown": "접속일 미확인", "stop": "비활성 · {{count}}일 전", "pause": "휴면 · {{count}}일 전", "today": "활동 · 오늘", "active": "활동 · {{count}}일 전" },
         "details": { "previous": "이전 관측", "source": "출처", "observed": "관측", "activity": "접속 상태", "armyPower": "부대 전투력", "baseLocation": "기지 위치", "recentMove": "최근 이동", "movementHistory": "서버 이동 이력", "nicknameHistory": "닉네임 변경 이력" },
-        "history": { "loading": "불러오는 중...", "empty": "변경 이력 없음", "movementEmpty": "이동 이력 없음", "more": "+{{count}}건" }
+        "history": { "loading": "불러오는 중...", "empty": "변경 이력 없음", "movementEmpty": "이동 이력 없음", "remaining": "+{{count}}건", "more": "+{{count}}건 더 보기", "less": "접기" }
         ,"views": { "label": "통합 데이터 보기", "players": "플레이어", "servers": "서버 비교", "alliances": "연맹 비교" }
         ,"groups": { "serverSearch": "서버 번호 검색", "allianceSearch": "연맹명 또는 태그 검색", "allianceServerSearch": "서버 번호 검색", "count": "{{count}}개 항목", "players": "인원", "averagePower": "평균 전투력", "active": "활성", "inactive": "비활성", "activeRate": "활성률", "inactiveRate": "비활성률", "alliances": "연맹 수", "coverage": "Top/지도/양쪽", "coverageTitle": "Top 100 포함 / 지도 조사 포함 / 양쪽 확인" }
         ,"comparison": { "selected": "{{count}}개 선택", "clear": "전체 해제", "remove": "{{name}} 비교에서 제거", "goToResults": "비교 결과로 이동", "goToSearch": "검색 목록으로 이동" }

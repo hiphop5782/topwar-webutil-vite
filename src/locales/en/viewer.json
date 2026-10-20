@@ -2146,7 +2146,8 @@
         "eyebrow": "OBSERVED FORMATION DATA", "title": "Troop Data", "description": "View observed players' actual troop counts, power, heroes, and mecha formations from cross-server battles.",
         "loading": "Loading troop data.", "loadError": "Failed to load troop data.", "collectedAt": "Collected at",
         "nickname": "Nickname", "nicknamePlaceholder": "Search current or previous nickname", "server": "Server", "serverPlaceholder": "Enter exact server number", "allServers": "All servers", "reset": "Reset", "resultCount": "{{count}} observed players", "noResults": "No observed players match these filters.",
-        "combatPower": "Power", "totalArmy": "Total troops", "formation": "Formation", "formationPower": "Formation power", "formationLayout": "3×3 troop formation", "mecha": "Mecha", "heroes": "Heroes", "awakenLevel": "Awaken", "position": "Position", "unit": "Unit", "count": "Count", "hp": "HP"
+        "combatPower": "Power", "totalArmy": "Total troops", "formation": "Formation", "formationPower": "Formation power", "formationLayout": "3×3 troop formation", "mecha": "Mecha", "heroes": "Heroes", "awakenLevel": "Awaken", "position": "Position", "unit": "Unit", "count": "Count", "hp": "HP",
+        "branch": "Troop type", "branchArmy": "Army", "branchNavy": "Navy", "branchAir": "Air Force", "branchMixed": "Mixed", "branchUnknown": "Unknown", "branchSource": "Troop type detected from unit data"
     },
     "TopwarDataOverAll": {
         "title": "Live Kindly",
@@ -2172,7 +2173,7 @@
         "columns": { "server": "Server", "player": "Player", "alliance": "Alliance", "power": "Power", "observed": "Observed" },
         "activity": { "unknown": "Login unknown", "stop": "Inactive · {{count}}d ago", "pause": "Dormant · {{count}}d ago", "today": "Active · Today", "active": "Active · {{count}}d ago" },
         "details": { "previous": "Previous", "source": "Source", "observed": "Observed", "activity": "Activity", "armyPower": "Army power", "baseLocation": "Base location", "recentMove": "Recent move", "movementHistory": "Server movement history", "nicknameHistory": "Nickname history" },
-        "history": { "loading": "Loading...", "empty": "No nickname changes", "movementEmpty": "No server movements", "more": "+{{count}} more" }
+        "history": { "loading": "Loading...", "empty": "No nickname changes", "movementEmpty": "No server movements", "remaining": "+{{count}} more", "more": "Show {{count}} more", "less": "Show less" }
         ,"views": { "label": "Unified data view", "players": "Players", "servers": "Server comparison", "alliances": "Alliance comparison" }
         ,"groups": { "serverSearch": "Search server number", "allianceSearch": "Search alliance name or tag", "allianceServerSearch": "Search server number", "count": "{{count}} items", "players": "Players", "averagePower": "Avg. power", "active": "Active", "inactive": "Inactive", "activeRate": "Active rate", "inactiveRate": "Inactive rate", "alliances": "Alliances", "coverage": "Top/Map/Both", "coverageTitle": "Top 100 included / Map included / Both sources" }
         ,"comparison": { "selected": "{{count}} selected", "clear": "Clear all", "remove": "Remove {{name}} from comparison", "goToResults": "Go to comparison", "goToSearch": "Go to search list" }

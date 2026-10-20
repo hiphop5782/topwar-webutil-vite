@@ -1,0 +1,716 @@
+{
+  "version": 1,
+  "count": 142,
+  "heroes": {
+    "101": {
+      "file": "101.webp",
+      "frameName": "hero_icon001",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/09/0940b7d1-b7e5-4bce-acec-d21c13270932.5409c.png"
+    },
+    "102": {
+      "file": "102.webp",
+      "frameName": "hero_icon002",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/e7/e7faf0ad-f3de-4c13-b957-fee7db3770a2.74e59.png"
+    },
+    "103": {
+      "file": "103.webp",
+      "frameName": "hero_icon003",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/19/193d3bea-bab2-4d7d-ade1-256c7fefeec5.7fc75.png"
+    },
+    "104": {
+      "file": "104.webp",
+      "frameName": "hero_icon004",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/0f/0f66863d-221d-453c-ad17-a00a46071810.917c8.png"
+    },
+    "105": {
+      "file": "105.webp",
+      "frameName": "hero_icon005",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/26/2641266e-a93e-4742-a6d2-de009b11da4b.ff934.png"
+    },
+    "106": {
+      "file": "106.webp",
+      "frameName": "hero_icon20106",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/9c/9c921ed1-6ec1-4d17-b2bd-fc9ea0c5ff2e.9a4b6.png"
+    },
+    "107": {
+      "file": "107.webp",
+      "frameName": "hero_icon019",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/88/889f9cef-6b35-47ab-b0d2-b8bbdbdd9226.1dcdf.png"
+    },
+    "108": {
+      "file": "108.webp",
+      "frameName": "hero_icon108",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a4/a4c96c39-3082-448f-a350-605df54d8f5f.3e8b3.png"
+    },
+    "109": {
+      "file": "109.webp",
+      "frameName": "hero_icon109",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/76/765e46b5-c6d5-4fde-8079-7a1cca52ebf1.dd444.png"
+    },
+    "110": {
+      "file": "110.webp",
+      "frameName": "hero_icon110",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/51/51844620-3cd8-4686-8168-fb976af56fd8.d2931.png"
+    },
+    "111": {
+      "file": "111.webp",
+      "frameName": "hero_icon111",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c3/c3aa7ec9-8644-4950-9cf6-5a4c09814f52.e536e.png"
+    },
+    "112": {
+      "file": "112.webp",
+      "frameName": "hero_icon112",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/21/218c9f29-436c-4337-b4a9-629efec9f707.52c72.png"
+    },
+    "113": {
+      "file": "113.webp",
+      "frameName": "hero_icon113",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/12/12e035fe-656c-40fb-9da5-5f77efe48b60.dc85d.png"
+    },
+    "114": {
+      "file": "114.webp",
+      "frameName": "hero_icon114",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a1/a1742f2a-6d89-445d-ab8b-078cfc9f6893.83459.png"
+    },
+    "115": {
+      "file": "115.webp",
+      "frameName": "hero_icon115",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/7a/7a0b0ad3-95f2-4a0f-93cf-5b7a0f5209bc.84f8a.png"
+    },
+    "116": {
+      "file": "116.webp",
+      "frameName": "hero_icon116",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/51/51220319-dc7b-4ca6-b04b-fbd4be1b4a20.14a2c.png"
+    },
+    "117": {
+      "file": "117.webp",
+      "frameName": "hero_icon117",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/81/81bd5c1f-f047-41c4-a79c-3a1cc1695fac.b857f.png"
+    },
+    "118": {
+      "file": "118.webp",
+      "frameName": "hero_icon118",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/19/1941ac48-063e-47e4-bb07-f2e11dc14c7c.830bd.png"
+    },
+    "119": {
+      "file": "119.webp",
+      "frameName": "hero_icon119",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/87/87d698bd-91bf-4c36-a167-998b036c7a41.9984f.png"
+    },
+    "120": {
+      "file": "120.webp",
+      "frameName": "hero_icon120",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/05/05748910-c421-4e62-b734-c316217087e8.a517d.png"
+    },
+    "121": {
+      "file": "121.webp",
+      "frameName": "hero_icon121",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/42/4253a534-d180-4bb5-84a8-228b8ae4fe49.6bd8f.png"
+    },
+    "122": {
+      "file": "122.webp",
+      "frameName": "hero_icon122",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f7/f7e67576-347e-4132-8881-2cfa1f63d406.10ea5.png"
+    },
+    "123": {
+      "file": "123.webp",
+      "frameName": "hero_icon123",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/6b/6ba53cba-a258-4cdc-8da7-add1911bd2d6.a6906.png"
+    },
+    "124": {
+      "file": "124.webp",
+      "frameName": "hero_icon124",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a0/a0852056-c9ff-41d9-842f-92f6c55fe972.fda0f.png"
+    },
+    "125": {
+      "file": "125.webp",
+      "frameName": "hero_icon125",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/0a/0acfae41-fc05-4941-a60e-4eacbf522d68.2c3b2.png"
+    },
+    "129": {
+      "file": "129.webp",
+      "frameName": "hero_icon129",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/13/13511de0-8145-44b2-bb3c-de77853826fa.ce2c8.png"
+    },
+    "135": {
+      "file": "135.webp",
+      "frameName": "hero_icon135",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a0/a03ba005-26af-4421-9908-ac8fa5d8371f.0c8de.png"
+    },
+    "136": {
+      "file": "136.webp",
+      "frameName": "hero_icon136",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/b9/b95b0813-7c50-4ed6-a95d-1d8b93f9f37f.f06ee.png"
+    },
+    "137": {
+      "file": "137.webp",
+      "frameName": "hero_icon137",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/06/068c4621-7c16-4b13-9d85-11184e6cabcc.db23e.png"
+    },
+    "140": {
+      "file": "140.webp",
+      "frameName": "hero_icon140",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/50/50d3b7d5-64ed-401a-b4a5-c55396f27d5e.ae4c2.png"
+    },
+    "141": {
+      "file": "141.webp",
+      "frameName": "hero_icon141",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f0/f06273a2-2f3f-4034-8c61-55cce45cbb5e.fd371.png"
+    },
+    "142": {
+      "file": "142.webp",
+      "frameName": "hero_icon142",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/14/1464c91f-403e-4187-9046-e9450deb67f8.cb18e.png"
+    },
+    "143": {
+      "file": "143.webp",
+      "frameName": "hero_icon143",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c6/c6d491a3-648f-43f3-8016-61d96cbc64f4.a6036.png"
+    },
+    "144": {
+      "file": "144.webp",
+      "frameName": "hero_icon144",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/cb/cb79df00-d703-4f31-ad12-e29f80cba66e.5915f.png"
+    },
+    "145": {
+      "file": "145.webp",
+      "frameName": "hero_icon145",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/86/8677df9c-c726-44a9-8702-a4bc72ce4644.99f33.png"
+    },
+    "146": {
+      "file": "146.webp",
+      "frameName": "hero_icon146",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d6/d67e0a65-c5c5-48fc-a937-d87133973c98.0fc97.png"
+    },
+    "147": {
+      "file": "147.webp",
+      "frameName": "hero_icon147",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/e5/e57c8e5c-0b06-4044-82a2-29f8c76bb4d8.0bff4.png"
+    },
+    "148": {
+      "file": "148.webp",
+      "frameName": "hero_icon148",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/03/03b26c8e-d9ac-4c2a-a59c-09626c0f20f9.f5887.png"
+    },
+    "149": {
+      "file": "149.webp",
+      "frameName": "hero_icon149",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/8d/8d635a7b-0ccb-4ee6-84b4-f51b1f52499b.318bf.png"
+    },
+    "150": {
+      "file": "150.webp",
+      "frameName": "hero_icon150",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/b6/b6d44a7b-9053-4302-acd0-d810b6f7e1ba.bd4c8.png"
+    },
+    "151": {
+      "file": "151.webp",
+      "frameName": "hero_icon151",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/13/13d9794f-7fed-4ffe-a1f1-b82fd7b1fcab.7ee6e.png"
+    },
+    "152": {
+      "file": "152.webp",
+      "frameName": "hero_icon152",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d6/d65215c1-adda-4186-9dd6-75fab9765763.70bfe.png"
+    },
+    "153": {
+      "file": "153.webp",
+      "frameName": "hero_icon153",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/3a/3acbfe8a-2f5a-48ae-9171-68cbb341de5c.d707d.png"
+    },
+    "154": {
+      "file": "154.webp",
+      "frameName": "hero_icon154",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/35/35118451-64c9-4859-9116-b66be7aed327.dca8c.png"
+    },
+    "155": {
+      "file": "155.webp",
+      "frameName": "hero_icon155",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/b7/b7601f5f-e1f6-4490-a0b6-1faec03a0639.cbb79.png"
+    },
+    "156": {
+      "file": "156.webp",
+      "frameName": "hero_icon156",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/2f/2fa61c34-32f6-4682-9ffa-ac6677bff046.e205c.png"
+    },
+    "157": {
+      "file": "157.webp",
+      "frameName": "hero_icon157",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/28/2870c8cb-3b26-40f2-9f8b-6cfa390bc0b3.92824.png"
+    },
+    "158": {
+      "file": "158.webp",
+      "frameName": "hero_icon158",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/e3/e3c0e1ec-4d2b-412f-b3fa-7151649a1568.220df.png"
+    },
+    "159": {
+      "file": "159.webp",
+      "frameName": "hero_icon159",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/e4/e4177b3f-9492-406d-a631-97256b3504fe.2f04c.png"
+    },
+    "160": {
+      "file": "160.webp",
+      "frameName": "hero_icon160",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/05/05443eff-25e7-4326-a3e7-f5d685704c7b.f06d5.png"
+    },
+    "161": {
+      "file": "161.webp",
+      "frameName": "hero_icon161",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f4/f4eec21c-e70b-4574-853e-8fdf1d2c33f8.2eab0.png"
+    },
+    "162": {
+      "file": "162.webp",
+      "frameName": "hero_icon162",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/da/dafe79b7-c1fd-47a2-88e4-f64a5976ce53.2a7c9.png"
+    },
+    "163": {
+      "file": "163.webp",
+      "frameName": "hero_icon163",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/1d/1daf52e2-9f08-4937-ab5e-907727b631a4.e7bc6.png"
+    },
+    "164": {
+      "file": "164.webp",
+      "frameName": "hero_icon164",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/37/3719d4fa-8160-477e-a10a-c85f41fc2b66.0717b.png"
+    },
+    "165": {
+      "file": "165.webp",
+      "frameName": "hero_icon165",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/10/104589a2-8e97-45b0-8b2c-88ff25235e97.dc1c3.png"
+    },
+    "166": {
+      "file": "166.webp",
+      "frameName": "hero_icon166",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/35/35ca93d0-9f4f-40b6-b3ad-3a5b20953f98.ebf86.png"
+    },
+    "167": {
+      "file": "167.webp",
+      "frameName": "hero_icon167",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/86/86cb681b-cba9-4497-b249-9348c44b878a.667c8.png"
+    },
+    "168": {
+      "file": "168.webp",
+      "frameName": "hero_icon168",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/ca/caed4948-3d76-4eeb-95aa-e124f18cd062.ec993.png"
+    },
+    "169": {
+      "file": "169.webp",
+      "frameName": "hero_awakeicon169",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/1e/1e57dacf-3f02-4d94-a44d-26f9e9018a5d.a17ed.png"
+    },
+    "170": {
+      "file": "170.webp",
+      "frameName": "hero_icon170",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/88/882552dc-8172-4ca0-aa99-aff94965ec39.f5bb1.png"
+    },
+    "171": {
+      "file": "171.webp",
+      "frameName": "hero_icon171",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a8/a8af5fd8-975c-4725-90e6-3e5ed02691bc.9ec12.png"
+    },
+    "172": {
+      "file": "172.webp",
+      "frameName": "hero_icon172",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/96/96456cfa-b3c8-4237-b8cd-b9de59d227f8.4366f.png"
+    },
+    "173": {
+      "file": "173.webp",
+      "frameName": "hero_icon173",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/bb/bbb9dbd6-317d-4b7b-94da-0d3e1bdd0be4.fb490.png"
+    },
+    "174": {
+      "file": "174.webp",
+      "frameName": "hero_icon174",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d8/d8a2f1cb-6453-46ab-a11d-39428d70ac04.fd0f8.png"
+    },
+    "201": {
+      "file": "201.webp",
+      "frameName": "hero_icon007",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d3/d31c8aa7-c34a-4abf-8f4d-febf059e06fa.4bfe9.png"
+    },
+    "202": {
+      "file": "202.webp",
+      "frameName": "hero_icon008",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/92/927f11e7-42da-4d15-8109-467830601f06.6acc7.png"
+    },
+    "203": {
+      "file": "203.webp",
+      "frameName": "hero_icon009",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/97/974a0967-d18a-47cf-8e10-3563c452c42f.27020.png"
+    },
+    "204": {
+      "file": "204.webp",
+      "frameName": "hero_icon010",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/37/3778a361-eafd-4eca-8310-d5e80a5850ca.80e2f.png"
+    },
+    "205": {
+      "file": "205.webp",
+      "frameName": "hero_icon011",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c3/c3049fac-cd86-421c-839b-1c13b6c09feb.c926b.png"
+    },
+    "206": {
+      "file": "206.webp",
+      "frameName": "hero_icon012",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/dc/dcc02bb1-c8b1-4129-8232-783cc24706af.d902f.png"
+    },
+    "207": {
+      "file": "207.webp",
+      "frameName": "hero_icon20207",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/07/0721fac4-3f37-4443-96d2-6152ef493734.7479c.png"
+    },
+    "208": {
+      "file": "208.webp",
+      "frameName": "hero_icon20208",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/2b/2bec342a-a757-46de-a898-992ec479ab97.0699c.png"
+    },
+    "210": {
+      "file": "210.webp",
+      "frameName": "hero_icon210",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/da/dafc9801-4972-450a-9f7a-09ef625e54f4.1ac1f.png"
+    },
+    "211": {
+      "file": "211.webp",
+      "frameName": "hero_icon211",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/80/80178f49-41e1-4e54-b38c-6cad91a75e4a.a1be0.png"
+    },
+    "212": {
+      "file": "212.webp",
+      "frameName": "hero_icon212",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a4/a4a1f5b3-5dc8-438e-8646-3b1c42d55cc5.28511.png"
+    },
+    "213": {
+      "file": "213.webp",
+      "frameName": "hero_icon213",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/2b/2b243dc8-426e-4c9d-a8cb-66c481a37a50.5ee64.png"
+    },
+    "214": {
+      "file": "214.webp",
+      "frameName": "hero_icon214",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a4/a4eae259-59dc-4617-98e5-6ed9c256bccf.ea090.png"
+    },
+    "215": {
+      "file": "215.webp",
+      "frameName": "hero_icon215",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/88/88525cf9-d5e4-4690-8df2-ece2fb6daabc.e8edb.png"
+    },
+    "216": {
+      "file": "216.webp",
+      "frameName": "hero_icon216",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/3f/3fe968f8-dfa5-4b75-9042-5be00d981c5a.d293e.png"
+    },
+    "217": {
+      "file": "217.webp",
+      "frameName": "hero_icon217",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/46/4624f74c-d621-4f83-8592-d894189df290.91a0a.png"
+    },
+    "218": {
+      "file": "218.webp",
+      "frameName": "hero_icon218",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/61/617dc523-2409-441a-8643-d832fcc89379.e9543.png"
+    },
+    "219": {
+      "file": "219.webp",
+      "frameName": "hero_icon219",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/42/42f07ee6-8c99-4761-8fc9-999efc732c16.6c906.png"
+    },
+    "220": {
+      "file": "220.webp",
+      "frameName": "hero_icon220",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d2/d261dfdc-a702-4a4d-88ce-cc710422ef46.a4b2e.png"
+    },
+    "221": {
+      "file": "221.webp",
+      "frameName": "hero_icon221",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/eb/eb24051f-4553-4a71-ab04-7701485ee077.64c4e.png"
+    },
+    "222": {
+      "file": "222.webp",
+      "frameName": "hero_icon222",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/8c/8c1aff35-a528-4eaa-8b09-52afb5f444c1.be895.png"
+    },
+    "223": {
+      "file": "223.webp",
+      "frameName": "hero_icon223",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/31/31792d09-4c33-4fa3-a904-bcb23522876d.8db05.png"
+    },
+    "224": {
+      "file": "224.webp",
+      "frameName": "hero_icon224",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/9d/9d8f3413-a840-4ab5-a13f-09c228b9ad31.be1ba.png"
+    },
+    "225": {
+      "file": "225.webp",
+      "frameName": "hero_icon225",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f8/f823e2cf-730d-412e-8a83-26c73717447b.1f61d.png"
+    },
+    "226": {
+      "file": "226.webp",
+      "frameName": "hero_icon226",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a3/a39b924f-6573-4639-866c-d38404890f03.5fa1f.png"
+    },
+    "227": {
+      "file": "227.webp",
+      "frameName": "hero_icon227",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a8/a85bae7f-beda-4dfe-9020-0cd47f215050.e67a0.png"
+    },
+    "228": {
+      "file": "228.webp",
+      "frameName": "hero_icon228",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/36/36c52dc2-1c39-427a-847c-43f918cafeb1.9630f.png"
+    },
+    "229": {
+      "file": "229.webp",
+      "frameName": "hero_icon229",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c8/c830ea60-195a-4bd7-a966-3212782cbed7.3092e.png"
+    },
+    "230": {
+      "file": "230.webp",
+      "frameName": "hero_icon230",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/5c/5c131b78-d070-4982-8ee5-700d41da5406.e7c65.png"
+    },
+    "231": {
+      "file": "231.webp",
+      "frameName": "hero_icon231",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/18/18579bbd-e4b0-42df-b77f-6a8226de4b0e.58a53.png"
+    },
+    "232": {
+      "file": "232.webp",
+      "frameName": "hero_icon232",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/82/828c9e11-84bc-410b-b20f-97ba4438cfce.f4d3e.png"
+    },
+    "233": {
+      "file": "233.webp",
+      "frameName": "hero_icon233",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/21/2130ccf7-59ab-4404-94ba-1d6b207c8131.6cc2e.png"
+    },
+    "234": {
+      "file": "234.webp",
+      "frameName": "hero_icon234",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f9/f950876f-5f21-4d82-af1b-31e0d8290856.2de6a.png"
+    },
+    "235": {
+      "file": "235.webp",
+      "frameName": "hero_icon235",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d6/d6d7eeca-aac4-4319-a7b1-e04dfd9aa599.2eb9a.png"
+    },
+    "236": {
+      "file": "236.webp",
+      "frameName": "hero_icon236",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/00/00f0d0e7-0156-41a8-9ffb-9aa8824be5a4.4c802.png"
+    },
+    "237": {
+      "file": "237.webp",
+      "frameName": "hero_icon237",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/10/108e5712-5119-485f-8542-57b72d9afe3f.6cf13.png"
+    },
+    "238": {
+      "file": "238.webp",
+      "frameName": "hero_icon238",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/3a/3a6b44b4-e0d9-4314-8e1d-73c6842e40d1.d4ab8.png"
+    },
+    "239": {
+      "file": "239.webp",
+      "frameName": "hero_icon239",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/93/93ffce4b-705d-484e-9178-e143308881fe.8c913.png"
+    },
+    "240": {
+      "file": "240.webp",
+      "frameName": "hero_icon240",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c6/c621d691-f24d-4e3f-b255-6b643a2c65fa.5ee16.png"
+    },
+    "241": {
+      "file": "241.webp",
+      "frameName": "hero_icon241",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f5/f55f8bc4-2bad-4257-8261-d93d3d53c631.5bcac.png"
+    },
+    "301": {
+      "file": "301.webp",
+      "frameName": "hero_icon013",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d0/d011c724-3c0d-462c-9faf-db6430460829.3f8ae.png"
+    },
+    "302": {
+      "file": "302.webp",
+      "frameName": "hero_icon014",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/0e/0e600ffe-4fef-42e9-958b-da50ad752d42.914e4.png"
+    },
+    "303": {
+      "file": "303.webp",
+      "frameName": "hero_icon015",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/d3/d3e2ed7f-643d-4582-a783-63297fbe2ba9.551e8.png"
+    },
+    "304": {
+      "file": "304.webp",
+      "frameName": "hero_icon016",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/ca/caed55f7-40fe-4adb-bcd9-2516ff0cc8d0.b21a4.png"
+    },
+    "305": {
+      "file": "305.webp",
+      "frameName": "hero_icon017",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c6/c6dd6b54-eab3-4dea-990a-001ae42b4660.31b2c.png"
+    },
+    "306": {
+      "file": "306.webp",
+      "frameName": "hero_icon018",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/20/20c0cc3b-75a5-48ca-8d0b-a312183004cc.75b98.png"
+    },
+    "307": {
+      "file": "307.webp",
+      "frameName": "hero_icon022",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/26/264b930c-1377-4f48-941f-4f51826e90e2.e06e2.png"
+    },
+    "308": {
+      "file": "308.webp",
+      "frameName": "hero_icon308",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/b2/b22681c3-936a-49bb-9272-7927355ce87f.7d148.png"
+    },
+    "309": {
+      "file": "309.webp",
+      "frameName": "hero_icon1309",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/28/283c5613-2e4f-4fd1-b67b-69f6f6a5269b.887c7.png"
+    },
+    "310": {
+      "file": "310.webp",
+      "frameName": "hero_icon310",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/48/48dc0ea3-9461-4743-97bb-01f946e8df69.56188.png"
+    },
+    "312": {
+      "file": "312.webp",
+      "frameName": "hero_icon312",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/08/08c021fd-5b53-48f9-950b-73233c5a04f7.3e68b.png"
+    },
+    "313": {
+      "file": "313.webp",
+      "frameName": "hero_icon313",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/a0/a00eaa7e-a095-4754-b795-7338ac5419f8.a4f12.png"
+    },
+    "314": {
+      "file": "314.webp",
+      "frameName": "hero_icon314",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/c7/c718f1c9-a71e-480e-8fdb-e75dd9f9bfd8.c852a.png"
+    },
+    "315": {
+      "file": "315.webp",
+      "frameName": "hero_icon315",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/7e/7eeda600-e53a-43db-8fc8-356c2e4c5ac6.2e615.png"
+    },
+    "316": {
+      "file": "316.webp",
+      "frameName": "hero_icon316",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f2/f22f7fb7-2e48-4397-aca9-340872bec868.5b0be.png"
+    },
+    "317": {
+      "file": "317.webp",
+      "frameName": "hero_icon317",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/43/431bd72e-0885-4e95-ad40-9f2c48ba39b3.1893a.png"
+    },
+    "318": {
+      "file": "318.webp",
+      "frameName": "hero_icon318",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/85/85442872-2f42-4994-9287-c4fbc6f39d58.5837d.png"
+    },
+    "319": {
+      "file": "319.webp",
+      "frameName": "hero_icon319",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/5b/5bef2d06-858a-453f-85c6-998d3a772584.b1e27.png"
+    },
+    "320": {
+      "file": "320.webp",
+      "frameName": "hero_icon320",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/95/95ef6941-2849-40db-9e0c-28e19c0d0f64.6b20c.png"
+    },
+    "321": {
+      "file": "321.webp",
+      "frameName": "hero_icon321",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/9b/9bef7b04-e205-4497-9f72-e059ecc4b76d.1c850.png"
+    },
+    "322": {
+      "file": "322.webp",
+      "frameName": "hero_icon322",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/30/30f9701a-6507-4d5f-8510-0aa19ce414ff.1d7d2.png"
+    },
+    "323": {
+      "file": "323.webp",
+      "frameName": "hero_icon323",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/97/9704c063-d090-4307-9ffd-600a78a319c8.ebcdf.png"
+    },
+    "324": {
+      "file": "324.webp",
+      "frameName": "hero_icon324",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/16/167322ce-08ab-4a0e-b149-e3199fe0a58d.b371f.png"
+    },
+    "325": {
+      "file": "325.webp",
+      "frameName": "hero_icon325",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/5f/5fdaac74-5e5c-48e0-b48f-0a56863828fc.16b03.png"
+    },
+    "326": {
+      "file": "326.webp",
+      "frameName": "hero_icon326",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/89/892762b3-44dc-43ae-a887-88f8ac71b92f.f2703.png"
+    },
+    "327": {
+      "file": "327.webp",
+      "frameName": "hero_icon327",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/6c/6cbf7a8d-ad5c-4d74-9a28-1a36cb7de24a.444a1.png"
+    },
+    "328": {
+      "file": "328.webp",
+      "frameName": "hero_icon328",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/f8/f83f4f81-f928-4e18-9f9e-cce92cbd8eb9.15a92.png"
+    },
+    "329": {
+      "file": "329.webp",
+      "frameName": "hero_icon329",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/44/440d76ac-9d9e-40c9-8920-65907414b7e7.b960e.png"
+    },
+    "330": {
+      "file": "330.webp",
+      "frameName": "hero_icon330",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/70/702a942b-bf9d-482f-b00c-d7b15b9a81fb.9a83c.png"
+    },
+    "331": {
+      "file": "331.webp",
+      "frameName": "hero_icon331",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/3f/3fc6e446-d7f9-46dc-8503-786cdfae9e46.32bed.png"
+    },
+    "332": {
+      "file": "332.webp",
+      "frameName": "hero_icon332",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/32/32424b8f-d919-472b-9366-47c916726798.885a5.png"
+    },
+    "333": {
+      "file": "333.webp",
+      "frameName": "hero_icon333",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/2d/2d09cba3-6e02-46a4-8a2a-9c89ffc35c58.49920.png"
+    },
+    "334": {
+      "file": "334.webp",
+      "frameName": "hero_icon334",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/46/46f36915-ec88-4a40-a92e-775316336332.53de8.png"
+    },
+    "335": {
+      "file": "335.webp",
+      "frameName": "hero_icon335",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/58/58eae454-5361-472b-8c1c-536df27ce8dc.ec0ad.png"
+    },
+    "336": {
+      "file": "336.webp",
+      "frameName": "hero_icon336",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/2f/2fd62d10-38de-4699-bce7-b5e25c0b9669.022ad.png"
+    },
+    "337": {
+      "file": "337.webp",
+      "frameName": "hero_icon337",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/36/36407444-ba5c-42f0-a538-44486a605cec.d0174.png"
+    },
+    "338": {
+      "file": "338.webp",
+      "frameName": "hero_icon338",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/00/00c2d4cd-7101-45c1-ac9d-7bca85b3a297.1d6bb.png"
+    },
+    "1209": {
+      "file": "1209.webp",
+      "frameName": "hero_icon1209_KASTUKAMI_1",
+      "sourceURL": "https://h5.topwargame.com/h5game/assets/resources/native/cc/cca16d7f-b37d-4e51-b1ce-cc4e522d8f52.abf38.png"
+    }
+  }
+}
