@@ -1,6 +1,6 @@
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FaChevronDown, FaMagnifyingGlass, FaRotateRight } from "react-icons/fa6";
+import { FaChevronDown, FaMagnifyingGlass, FaRotateRight, FaTriangleExclamation } from "react-icons/fa6";
 import { Virtuoso } from "react-virtuoso";
 
 import CompositionSearchInput from "@src/components/template/CompositionSearchInput";
@@ -396,12 +396,25 @@ export default function TopwarTPViewer() {
     if (loading) return <section className="tp-viewer"><h1>{t("title")}</h1><p className="text-muted">{t("loading")}</p><DataLoadingPlaceholder /></section>;
     if (error || !document) return <section className="tp-viewer"><h1>{t("title")}</h1><div className="alert alert-danger">{t("loadError")}<br/><small>{error?.message}</small></div></section>;
 
+    const observedAt = document.collectedAt || document.receivedAt || document.updatedAt;
+
     return (
         <section className="tp-viewer">
             <header className="tp-viewer__header">
                 <div><p className="tp-viewer__eyebrow">{t("eyebrow")}</p><h1>{t("title")}</h1><p className="text-muted mb-0">{t("description")}</p></div>
-                <div className="tp-viewer__updated"><span>{t("collectedAt")}</span><strong>{date(document.collectedAt || document.receivedAt, locale)}</strong></div>
             </header>
+
+            <aside className="tp-viewer__snapshot-alert" role="note" aria-label={t("snapshotNoticeTitle")}>
+                <FaTriangleExclamation className="tp-viewer__snapshot-icon" aria-hidden="true" />
+                <div className="tp-viewer__snapshot-copy">
+                    <strong>{t("snapshotNoticeTitle")}</strong>
+                    <p>{t("snapshotNotice")}</p>
+                </div>
+                <div className="tp-viewer__snapshot-time">
+                    <span>{t("collectedAt")}</span>
+                    <time dateTime={observedAt || undefined}>{date(observedAt, locale)}</time>
+                </div>
+            </aside>
 
             <div className="tp-viewer__filters">
                 <label><span>{t("nickname")}</span><div className="input-group"><span className="input-group-text"><FaMagnifyingGlass /></span><CompositionSearchInput className="form-control" value={query} onValueChange={setQuery} placeholder={t("nicknamePlaceholder")} /></div></label>
