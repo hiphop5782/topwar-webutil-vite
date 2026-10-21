@@ -50,6 +50,19 @@ const date = (value, locale) => {
         : "-";
 };
 
+const compactDate = (value, locale) => {
+    const parsed = Date.parse(value ?? "");
+    return Number.isFinite(parsed)
+        ? new Intl.DateTimeFormat(locale, {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+        }).format(parsed)
+        : "-";
+};
+
 const formatCompactStat = (value, locale) => {
     const parsed = Number(value);
     if (!Number.isFinite(parsed)) return "-";
@@ -432,11 +445,17 @@ export default function TopwarTPViewer() {
                     const uid = identity(player);
                     const isOpen = expanded.has(uid);
                     const playerBranch = getPlayerBranch(player.formations);
+                    const playerObservedAt = player.collectedAt || player.receivedAt || observedAt;
                     return <article className={`tp-viewer__player tp-viewer__player--${playerBranch}`} key={uid || player.rank}>
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
-                            <span className="tp-viewer__identity"><strong>{player.username || uid}</strong><small>s{player.serverId}</small></span>
-                            <span><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>
-                            <span><small>{t("totalArmy")}</small><strong>{number(player.totalArmy, locale)}</strong></span>
+                            <span className="tp-viewer__identity"><strong>{player.username || uid}</strong></span>
+                            <span className="tp-viewer__head-server"><small>{t("serverShort")}</small><strong>{player.serverId}</strong></span>
+                            <span className="tp-viewer__head-stat tp-viewer__head-power"><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>
+                            <span className="tp-viewer__head-stat tp-viewer__head-army"><small>{t("totalArmy")}</small><strong>{number(player.totalArmy, locale)}</strong></span>
+                            <span className="tp-viewer__head-time" title={`${t("collectedAt")}: ${date(playerObservedAt, locale)}`}>
+                                <small>{t("collectedAtShort")}</small>
+                                <time dateTime={playerObservedAt || undefined}>{compactDate(playerObservedAt, locale)}</time>
+                            </span>
                             <FaChevronDown className={isOpen ? "is-open" : ""} />
                         </button>
                         {isOpen && <div className="tp-viewer__details">{(player.formations ?? []).map((formation, index) => <Formation key={`${formation.formationId}-${index}`} formation={formation} t={t} locale={locale} />)}</div>}

@@ -2144,8 +2144,8 @@
     },
     "TopwarTPViewer": {
         "eyebrow": "OBSERVED FORMATION DATA", "title": "Troop Data", "description": "View observed players' actual troop counts, power, heroes, and mecha formations from cross-server battles.",
-        "loading": "Loading troop data.", "loadError": "Failed to load troop data.", "collectedAt": "Observed at", "snapshotNoticeTitle": "Snapshot as of the observation time", "snapshotNotice": "This may not reflect the current state and is not guaranteed to be the latest data. Troops, power, and formations may have changed since observation.",
-        "nickname": "Nickname", "nicknamePlaceholder": "Search current or previous nickname", "server": "Server", "serverPlaceholder": "Enter exact server number", "allServers": "All servers", "reset": "Reset", "resultCount": "{{count}} observed players", "noResults": "No observed players match these filters.",
+        "loading": "Loading troop data.", "loadError": "Failed to load troop data.", "collectedAt": "Observed at", "collectedAtShort": "Observed", "snapshotNoticeTitle": "Snapshot as of the observation time", "snapshotNotice": "This may not reflect the current state and is not guaranteed to be the latest data. Troops, power, and formations may have changed since observation.",
+        "nickname": "Nickname", "nicknamePlaceholder": "Search current or previous nickname", "server": "Server", "serverShort": "S", "serverPlaceholder": "Enter exact server number", "allServers": "All servers", "reset": "Reset", "resultCount": "{{count}} observed players", "noResults": "No observed players match these filters.",
         "combatPower": "Power", "totalArmy": "Total troops", "formation": "Formation", "formationPower": "Formation power", "formationLayout": "3×3 troop formation", "mecha": "Mecha", "heroes": "Heroes", "awakenLevel": "Awaken", "position": "Position", "unit": "Unit", "count": "Count", "hp": "HP",
         "branch": "Troop type", "branchArmy": "Army", "branchNavy": "Navy", "branchAir": "Air Force", "branchMixed": "Mixed", "branchUnknown": "Unknown", "branchSource": "Troop type detected from unit data"
     },
