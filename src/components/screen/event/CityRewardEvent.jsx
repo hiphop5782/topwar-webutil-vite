@@ -10,7 +10,7 @@ const BACKEND_DATA_URL =
   "https://datahub.progamer.info/api/v1/data/city-rewards";
 
 const FALLBACK_DATA_URL =
-  "https://raw.githubusercontent.com/hiphop5782/topwar-reward-finder/refs/heads/main/data/city-rewards.json";
+  "https://reward.progamer.info/data/city-rewards.json";
 
 const POLLING_INTERVAL = 5000;
 const REWARD_DURATION = 30 * 60 * 1000;
@@ -120,7 +120,7 @@ const CityRwardEvent = () => {
   const initializedRewardsRef = useRef(false);
 
   /**
-   * 백엔드를 5초마다 조회하고, 장애 시 기존 GitHub 데이터로 폴백한다.
+   * 백엔드를 5초마다 조회하고, 장애 시 reward 도메인의 JSON으로 폴백한다.
    */
   useEffect(() => {
     let stopped = false;
@@ -144,7 +144,7 @@ const CityRwardEvent = () => {
           }
 
           console.warn(
-            "City reward backend fetch failed; using GitHub fallback",
+            "City reward backend fetch failed; using reward JSON fallback",
             backendError
           );
 
