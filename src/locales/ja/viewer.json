@@ -17,6 +17,16 @@
             "dataAsOf": "データ基準時刻",
             "generatedAt": "統計生成"
         },
+        "thiefMap": {
+            "eyebrow": "THIEF DISTRIBUTION",
+            "title": "泥棒の出現分布",
+            "mapAlt": "泥棒の累積出現座標を表示したサーバーマップ",
+            "loading": "出現座標を読み込んでいます。",
+            "error": "出現座標を読み込めませんでした。",
+            "legend": "累積出現位置",
+            "events": "観測 {{count}}回",
+            "coordinates": "{{count}}座標"
+        },
         "kpi": {
             "server": {
                 "title": "収集サーバー",

@@ -17,6 +17,16 @@
             "dataAsOf": "Data as of",
             "generatedAt": "Statistics generated"
         },
+        "thiefMap": {
+            "eyebrow": "THIEF DISTRIBUTION",
+            "title": "Thief Spawn Distribution",
+            "mapAlt": "Server map showing accumulated thief spawn coordinates",
+            "loading": "Loading spawn coordinates.",
+            "error": "Spawn coordinates could not be loaded.",
+            "legend": "Observed spawn",
+            "events": "{{count}} observations",
+            "coordinates": "{{count}} coordinates"
+        },
         "kpi": {
             "server": {
                 "title": "Tracked Servers",

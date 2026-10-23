@@ -8,6 +8,7 @@ import { loadHomeStatistics, loadInvestigatedHomeStatistics } from "@src/service
 import "./Home.css";
 import SEO from "../template/SEO";
 import LanguageRouterLink from "../template/LanguageRouterLink";
+import ThiefHeatmapCard from "./home/ThiefHeatmapCard";
 
 const EMPTY_STATISTICS = Object.freeze({
     generatedAt: null,
@@ -336,7 +337,12 @@ function Home() {
 
 
 
-            <ResearchHub compact />
+            <div className="home-intro-grid">
+                <div className="home-intro-research">
+                    <ResearchHub compact />
+                </div>
+                <ThiefHeatmapCard />
+            </div>
 
             {statisticsState === "error" && <p role="status" className="alert alert-warning">{t("home.research.unavailable")}</p>}
             {statisticsState === "success" && <>

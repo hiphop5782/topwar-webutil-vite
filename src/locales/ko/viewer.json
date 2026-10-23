@@ -17,6 +17,16 @@
             "dataAsOf": "데이터 기준",
             "generatedAt": "통계 생성"
         },
+        "thiefMap": {
+            "eyebrow": "THIEF DISTRIBUTION",
+            "title": "도둑 출현 분포",
+            "mapAlt": "누적 도둑 출현 좌표가 표시된 서버 지도",
+            "loading": "출현 좌표를 불러오는 중입니다.",
+            "error": "출현 좌표를 불러오지 못했습니다.",
+            "legend": "누적 출현 위치",
+            "events": "총 {{count}}회 관측",
+            "coordinates": "{{count}}개 좌표"
+        },
         "kpi": {
             "server": {
                 "title": "수집 서버",

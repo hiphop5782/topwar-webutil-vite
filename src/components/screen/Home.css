@@ -95,6 +95,163 @@
 
 
 /* ==================================================
+   INTRO / THIEF DISTRIBUTION MAP
+================================================== */
+
+.home-intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 320px);
+    gap: 1rem;
+    align-items: start;
+}
+
+.home-intro-research {
+    min-width: 0;
+}
+
+.home-thief-map-card {
+    min-width: 0;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1rem;
+    background: var(--bs-body-bg);
+    box-shadow: 0 0.45rem 1.25rem rgba(0, 0, 0, 0.08);
+}
+
+.home-thief-map-header {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 0.9rem;
+}
+
+.home-thief-map-header > div {
+    min-width: 0;
+}
+
+.home-thief-map-header span {
+    display: block;
+    margin-bottom: 0.15rem;
+    color: var(--bs-secondary-color);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.home-thief-map-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.home-thief-map-header strong {
+    flex: 0 0 auto;
+    min-width: 2.3rem;
+    padding: 0.28rem 0.48rem;
+    border-radius: 999px;
+    background: rgba(255, 4, 26, 0.14);
+    color: #f00027;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.home-thief-map-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #8f8568;
+    line-height: 0;
+}
+
+.home-thief-map-stage img,
+.home-thief-map-stage canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.home-thief-map-stage img {
+    object-fit: fill;
+    user-select: none;
+    pointer-events: none;
+}
+
+.home-thief-map-stage canvas {
+    z-index: 1;
+    opacity: 0.94;
+    filter:
+        drop-shadow(0 0 2px rgba(255, 0, 34, 0.75))
+        drop-shadow(0 0 5px rgba(255, 0, 34, 0.38));
+    animation: home-thief-map-pulse 2.4s ease-in-out infinite;
+    will-change: opacity, filter;
+    pointer-events: none;
+}
+
+@keyframes home-thief-map-pulse {
+    0%,
+    100% {
+        opacity: 0.9;
+        filter:
+            drop-shadow(0 0 1px rgba(255, 0, 34, 0.58))
+            drop-shadow(0 0 3px rgba(255, 0, 34, 0.28));
+    }
+
+    50% {
+        opacity: 1;
+        filter:
+            drop-shadow(0 0 3px rgba(255, 0, 34, 0.92))
+            drop-shadow(0 0 8px rgba(255, 0, 34, 0.58));
+    }
+}
+
+.home-thief-map-status {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(10, 12, 16, 0.45);
+    color: #fff;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.home-thief-map-footer {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    color: var(--bs-secondary-color);
+    font-size: 0.67rem;
+}
+
+.home-thief-map-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.home-thief-map-legend i {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: rgba(255, 4, 26, 0.68);
+    box-shadow: 0 0 0.4rem rgba(255, 4, 26, 0.6);
+}
+
+
+/* ==================================================
    SECTION
 ================================================== */
 
@@ -716,6 +873,21 @@
 }
 
 
+@media (max-width: 767.98px) {
+
+    .home-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .home-thief-map-card {
+        width: min(100%, 459px);
+        margin: 0 auto 1.5rem;
+    }
+
+}
+
+
 @media (max-width: 575.98px) {
 
     .home-hero {
@@ -817,6 +989,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .home-thief-map-stage canvas {
+        animation: none;
+    }
+
     .home-dashboard.is-loading .home-hero-summary strong,
     .home-dashboard.is-loading .kpi-value,
     .home-dashboard.is-loading .power-card strong,
