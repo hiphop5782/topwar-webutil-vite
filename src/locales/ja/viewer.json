@@ -25,7 +25,9 @@
             "error": "出現座標を読み込めませんでした。",
             "legend": "累積出現位置",
             "events": "観測 {{count}}回",
-            "coordinates": "{{count}}座標"
+            "coordinates": "{{count}}座標",
+            "expand": "拡大表示",
+            "close": "拡大マップを閉じる"
         },
         "kpi": {
             "server": {

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
-import ServerMapImage from "@src/assets/images/map/servermap.png";
+import ServerMapImage from "@src/assets/images/map/servermap-realview.png";
 
 
 const INITIAL_SUMMARY = Object.freeze({
@@ -12,12 +13,12 @@ const INITIAL_SUMMARY = Object.freeze({
 
 export default function ThiefHeatmapCard() {
     const { t, i18n } = useTranslation("viewer");
-    const canvasRef = useRef(null);
-    const stageRef = useRef(null);
     const pointsRef = useRef(null);
-    const rendererRef = useRef(null);
+    const closeButtonRef = useRef(null);
+    const previousFocusedElementRef = useRef(null);
     const [status, setStatus] = useState("loading");
     const [summary, setSummary] = useState(INITIAL_SUMMARY);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const locale = {
         ko: "ko-KR",
@@ -29,32 +30,6 @@ export default function ThiefHeatmapCard() {
         value => new Intl.NumberFormat(locale).format(value),
         [locale]
     );
-
-    const renderPoints = useCallback(() => {
-        const canvas = canvasRef.current;
-        const stage = stageRef.current;
-        const points = pointsRef.current;
-
-        if (!canvas || !stage || !points) return;
-
-        const width = stage.clientWidth;
-        const height = stage.clientHeight;
-        if (!width || !height) return;
-
-        let renderer = rendererRef.current;
-
-        if (!renderer) {
-            renderer = createPointRenderer(canvas);
-            rendererRef.current = renderer;
-        }
-
-        if (!renderer) {
-            setStatus("error");
-            return;
-        }
-
-        renderer.draw(points, width, height);
-    }, []);
 
     useEffect(() => {
         if (typeof Worker === "undefined") {
@@ -77,7 +52,6 @@ export default function ThiefHeatmapCard() {
                     coordinateCount: message.coordinateCount,
                 });
                 setStatus("success");
-                window.requestAnimationFrame(renderPoints);
                 return;
             }
 
@@ -90,13 +64,189 @@ export default function ThiefHeatmapCard() {
         worker.postMessage({ type: "load" });
 
         return () => worker.terminate();
-    }, [renderPoints]);
+    }, []);
+
+    useEffect(() => {
+        if (!isExpanded) return undefined;
+
+        const previousOverflow = document.body.style.overflow;
+        const focusFrame = window.requestAnimationFrame(() => {
+            closeButtonRef.current?.focus();
+        });
+        const handleKeyDown = event => {
+            if (event.key === "Escape") setIsExpanded(false);
+        };
+
+        document.body.style.overflow = "hidden";
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.cancelAnimationFrame(focusFrame);
+            window.removeEventListener("keydown", handleKeyDown);
+            document.body.style.overflow = previousOverflow;
+            previousFocusedElementRef.current?.focus?.();
+        };
+    }, [isExpanded]);
+
+    const openExpandedMap = useCallback(() => {
+        previousFocusedElementRef.current = document.activeElement;
+        setIsExpanded(true);
+    }, []);
+
+    const closeExpandedMap = useCallback(() => setIsExpanded(false), []);
+
+    const formattedEvents = formatNumber(summary.totalEvents);
+    const formattedCoordinates = formatNumber(summary.coordinateCount);
+
+    return (
+        <>
+            <aside className="home-thief-map-card" aria-labelledby="home-thief-map-title">
+                <MapHeader
+                    id="home-thief-map-title"
+                    t={t}
+                    status={status}
+                    formattedEvents={formattedEvents}
+                />
+
+                <HeatmapStage
+                    points={pointsRef.current}
+                    status={status}
+                    mapAlt={t("home.thiefMap.mapAlt")}
+                    statusText={t(`home.thiefMap.${status}`)}
+                    expandLabel={t("home.thiefMap.expand")}
+                    onOpen={openExpandedMap}
+                />
+
+                <MapFooter
+                    t={t}
+                    status={status}
+                    formattedCoordinates={formattedCoordinates}
+                />
+            </aside>
+
+            {isExpanded && typeof document !== "undefined" && createPortal(
+                <div
+                    className="home-thief-map-modal-backdrop"
+                    onMouseDown={event => {
+                        if (event.target === event.currentTarget) closeExpandedMap();
+                    }}
+                >
+                    <section
+                        className="home-thief-map-modal"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="home-thief-map-modal-title"
+                    >
+                        <MapHeader
+                            id="home-thief-map-modal-title"
+                            t={t}
+                            status={status}
+                            formattedEvents={formattedEvents}
+                        >
+                            <button
+                                ref={closeButtonRef}
+                                type="button"
+                                className="home-thief-map-modal-close"
+                                onClick={closeExpandedMap}
+                                aria-label={t("home.thiefMap.close")}
+                            >
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </MapHeader>
+
+                        <HeatmapStage
+                            points={pointsRef.current}
+                            status={status}
+                            mapAlt={t("home.thiefMap.mapAlt")}
+                            statusText={t(`home.thiefMap.${status}`)}
+                        />
+
+                        <MapFooter
+                            t={t}
+                            status={status}
+                            formattedCoordinates={formattedCoordinates}
+                        />
+                    </section>
+                </div>,
+                document.body
+            )}
+        </>
+    );
+}
+
+
+function MapHeader({ id, t, status, formattedEvents, children }) {
+    return (
+        <header className="home-thief-map-header">
+            <div>
+                <span>{t("home.thiefMap.eyebrow")}</span>
+                <h2 id={id}>{t("home.thiefMap.title")}</h2>
+            </div>
+
+            <div className="home-thief-map-header-actions">
+                {status === "success" && (
+                    <strong title={t("home.thiefMap.events", { count: formattedEvents })}>
+                        {formattedEvents}
+                    </strong>
+                )}
+                {children}
+            </div>
+        </header>
+    );
+}
+
+
+function MapFooter({ t, status, formattedCoordinates }) {
+    if (status !== "success") return null;
+
+    return (
+        <footer className="home-thief-map-footer">
+            <span className="home-thief-map-legend">
+                <i aria-hidden="true" />
+                {t("home.thiefMap.legend")}
+            </span>
+            <span>
+                {t("home.thiefMap.coordinates", { count: formattedCoordinates })}
+            </span>
+        </footer>
+    );
+}
+
+
+function HeatmapStage({ points, status, mapAlt, statusText, expandLabel, onOpen }) {
+    const canvasRef = useRef(null);
+    const stageRef = useRef(null);
+    const rendererRef = useRef(null);
+
+    const renderPoints = useCallback(() => {
+        const canvas = canvasRef.current;
+        const stage = stageRef.current;
+
+        if (!canvas || !stage || !points) return;
+
+        const width = stage.clientWidth;
+        const height = stage.clientHeight;
+        if (!width || !height) return;
+
+        let renderer = rendererRef.current;
+
+        if (!renderer) {
+            renderer = createPointRenderer(canvas);
+            rendererRef.current = renderer;
+        }
+
+        renderer?.draw(points, width, height);
+    }, [points]);
+
+    useEffect(() => {
+        renderPoints();
+    }, [renderPoints, status]);
 
     useEffect(() => {
         const stage = stageRef.current;
         if (!stage || typeof ResizeObserver === "undefined") return undefined;
 
-        const observer = new ResizeObserver(() => renderPoints());
+        const observer = new ResizeObserver(renderPoints);
         observer.observe(stage);
 
         return () => observer.disconnect();
@@ -107,51 +257,41 @@ export default function ThiefHeatmapCard() {
         rendererRef.current = null;
     }, []);
 
+    const Stage = onOpen ? "button" : "div";
+
     return (
-        <aside className="home-thief-map-card" aria-labelledby="home-thief-map-title">
-            <header className="home-thief-map-header">
-                <div>
-                    <span>{t("home.thiefMap.eyebrow")}</span>
-                    <h2 id="home-thief-map-title">{t("home.thiefMap.title")}</h2>
-                </div>
+        <Stage
+            ref={stageRef}
+            className={`home-thief-map-stage${onOpen ? " home-thief-map-stage-trigger" : ""}`}
+            {...(onOpen ? {
+                type: "button",
+                onClick: onOpen,
+                title: expandLabel,
+                "aria-label": expandLabel,
+                "aria-haspopup": "dialog",
+            } : {})}
+        >
+            <img
+                src={ServerMapImage}
+                alt={mapAlt}
+                draggable={false}
+                onLoad={renderPoints}
+            />
+            <canvas ref={canvasRef} aria-hidden="true" />
 
-                {status === "success" && (
-                    <strong title={t("home.thiefMap.events", { count: formatNumber(summary.totalEvents) })}>
-                        {formatNumber(summary.totalEvents)}
-                    </strong>
-                )}
-            </header>
-
-            <div className="home-thief-map-stage" ref={stageRef}>
-                <img
-                    src={ServerMapImage}
-                    alt={t("home.thiefMap.mapAlt")}
-                    draggable={false}
-                    onLoad={renderPoints}
-                />
-                <canvas ref={canvasRef} aria-hidden="true" />
-
-                {status !== "success" && (
-                    <div className="home-thief-map-status" role="status">
-                        {t(`home.thiefMap.${status}`)}
-                    </div>
-                )}
-            </div>
-
-            {status === "success" && (
-                <footer className="home-thief-map-footer">
-                    <span className="home-thief-map-legend">
-                        <i aria-hidden="true" />
-                        {t("home.thiefMap.legend")}
-                    </span>
-                    <span>
-                        {t("home.thiefMap.coordinates", {
-                            count: formatNumber(summary.coordinateCount),
-                        })}
-                    </span>
-                </footer>
+            {status !== "success" && (
+                <span className="home-thief-map-status" role="status">
+                    {statusText}
+                </span>
             )}
-        </aside>
+
+            {onOpen && (
+                <span className="home-thief-map-expand-hint" aria-hidden="true">
+                    <b>⛶</b>
+                    {expandLabel}
+                </span>
+            )}
+        </Stage>
     );
 }
 
@@ -175,7 +315,7 @@ function createPointRenderer(canvas) {
 
         void main() {
             gl_Position = vec4(a_position, 0.0, 1.0);
-            gl_PointSize = (u_base_size + min(a_weight, 6.0) * 2.0) * u_pixel_ratio;
+            gl_PointSize = (u_base_size + min(a_weight, 6.0) * 1.1) * u_pixel_ratio;
             v_alpha = min(0.54 + a_weight * 0.07, 0.86);
         }
     `);
@@ -242,7 +382,7 @@ function createPointRenderer(canvas) {
             gl.enableVertexAttribArray(weightLocation);
             gl.vertexAttribPointer(weightLocation, 1, gl.FLOAT, false, 12, 8);
 
-            gl.uniform1f(baseSizeLocation, Math.min(17, Math.max(7, cssWidth * 0.035)));
+            gl.uniform1f(baseSizeLocation, Math.min(11, Math.max(5, cssWidth * 0.022)));
             gl.uniform1f(pixelRatioLocation, pixelRatio);
 
             gl.enable(gl.BLEND);

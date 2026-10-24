@@ -25,7 +25,9 @@
             "error": "Spawn coordinates could not be loaded.",
             "legend": "Observed spawn",
             "events": "{{count}} observations",
-            "coordinates": "{{count}} coordinates"
+            "coordinates": "{{count}} coordinates",
+            "expand": "View larger",
+            "close": "Close enlarged map"
         },
         "kpi": {
             "server": {
