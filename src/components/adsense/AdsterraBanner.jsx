@@ -40,6 +40,7 @@ export default function AdsterraBanner({ adKey, width, height }) {
             height={height}
             scrolling="no"
             loading="lazy"
+            sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
             referrerPolicy="strict-origin-when-cross-origin"
             style={{
                 display: "block",
