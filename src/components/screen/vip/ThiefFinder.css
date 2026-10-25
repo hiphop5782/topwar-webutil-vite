@@ -160,6 +160,7 @@
 
     width: 100%;
     max-width: min(100%, 78dvh, 900px);
+    aspect-ratio: 1 / 1;
 
     min-width: 0;
 
@@ -177,7 +178,7 @@
     width: 100%;
     max-width: 100%;
 
-    height: auto;
+    height: 100%;
 
     margin: 0;
 

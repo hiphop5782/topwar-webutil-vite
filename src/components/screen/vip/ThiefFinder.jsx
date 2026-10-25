@@ -14,7 +14,7 @@ import {
 } from "react-i18next";
 
 import ServerMapImage
-    from "@src/assets/images/map/servermap.png";
+    from "@src/assets/images/map/servermap-realview.png";
 
 import "./ThiefFinder.css";
 
