@@ -108,7 +108,7 @@ const CityRwardEvent = () => {
 
   const [selectedServer, setSelectedServer] = useState("all");
   const [selectedReward, setSelectedReward] = useState("all");
-  const [sortMode, setSortMode] = useState("remaining");
+  const [sortMode, setSortMode] = useState("discovered");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -352,7 +352,7 @@ const CityRwardEvent = () => {
    */
   const copyCoordinate = async (item) => {
     const coordinate =
-      `${item.x}:${item.y}`;
+      `s${item.serverId}, x${item.x}, y${item.y}`;
 
     try {
       await navigator.clipboard.writeText(
@@ -781,7 +781,7 @@ const CityRwardEvent = () => {
                       "cityReward.copyTitle",
                       {
                         coordinate:
-                          `${item.x}:${item.y}`,
+                          `s${item.serverId}, x${item.x}, y${item.y}`,
                       }
                     )}
                     onClick={() =>
@@ -867,10 +867,6 @@ const CityRwardEvent = () => {
                         <>
                           <div>
                             {formatRelativeTime(rewardSeenAt)}
-                            {" "}
-                            <small className="text-secondary">
-                              ({formatTime(rewardSeenAt)})
-                            </small>
                           </div>
                           <small className="text-secondary">
                             ({formatRemainingTime(item)})
@@ -882,7 +878,7 @@ const CityRwardEvent = () => {
                             {formatRemainingTime(item)}
                           </div>
                           <small className="text-secondary">
-                            ({formatRelativeTime(rewardSeenAt)} · {formatTime(rewardSeenAt)})
+                            ({formatRelativeTime(rewardSeenAt)})
                           </small>
                         </>
                       )}
