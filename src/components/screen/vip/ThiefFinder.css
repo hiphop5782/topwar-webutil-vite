@@ -172,6 +172,57 @@
 }
 
 
+.thief-map-mode-selector {
+    position: absolute;
+    z-index: 20;
+    top: 0.75rem;
+    left: 0.75rem;
+
+    display: inline-flex;
+    gap: 0.2rem;
+
+    padding: 0.2rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 0.55rem;
+
+    background: rgba(8, 11, 15, 0.82);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+
+    line-height: 1.2;
+}
+
+
+.thief-map-mode-selector button {
+    padding: 0.38rem 0.62rem;
+
+    border: 0;
+    border-radius: 0.38rem;
+
+    background: transparent;
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.thief-map-mode-selector button:hover,
+.thief-map-mode-selector button:focus-visible {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+.thief-map-mode-selector button.active {
+    color: #111820;
+    background: #fff;
+}
+
+
 .thief-map-image {
     display: block;
 

@@ -2095,6 +2095,11 @@
         "detectedLocation": "Detected Thief Location",
         "locationCount": "locations",
         "mapAlt": "Server {{serverId}} Map",
+        "mapMode": {
+            "label": "Map mode",
+            "default": "Default Map",
+            "realView": "Real View"
+        },
         "empty": {
             "title": "No Thieves Detected",
             "description": "No locations were detected in the latest scan results."

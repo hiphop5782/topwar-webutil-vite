@@ -2086,6 +2086,11 @@
         "detectedLocation": "泥棒の検出位置",
         "locationCount": "か所",
         "mapAlt": "サーバー{{serverId}}マップ",
+        "mapMode": {
+            "label": "マップモード",
+            "default": "基本マップ",
+            "realView": "リアル表示"
+        },
         "empty": {
             "title": "確認された泥棒はいません",
             "description": "最新の探索結果では位置が検出されていません。"

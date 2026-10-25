@@ -13,7 +13,10 @@ import {
     useTranslation
 } from "react-i18next";
 
-import ServerMapImage
+import ServerMapDefaultImage
+    from "@src/assets/images/map/servermap.png";
+
+import ServerMapRealViewImage
     from "@src/assets/images/map/servermap-realview.png";
 
 import "./ThiefFinder.css";
@@ -100,6 +103,9 @@ export default function ThiefFinder() {
      */
     const [selectedServerFilter, setSelectedServerFilter] =
         useState(null);
+
+    const [mapMode, setMapMode] =
+        useState("realView");
 
 
     const locationCardRefs =
@@ -930,8 +936,61 @@ export default function ThiefFinder() {
 
                     <div className="thief-map-stage">
 
+                        <div
+                            className="thief-map-mode-selector"
+                            role="group"
+                            aria-label={t(
+                                "ThiefFinder.mapMode.label"
+                            )}
+                        >
+
+                            <button
+                                type="button"
+                                className={
+                                    mapMode === "default"
+                                        ? "active"
+                                        : ""
+                                }
+                                aria-pressed={
+                                    mapMode === "default"
+                                }
+                                onClick={() =>
+                                    setMapMode("default")
+                                }
+                            >
+                                {t(
+                                    "ThiefFinder.mapMode.default"
+                                )}
+                            </button>
+
+
+                            <button
+                                type="button"
+                                className={
+                                    mapMode === "realView"
+                                        ? "active"
+                                        : ""
+                                }
+                                aria-pressed={
+                                    mapMode === "realView"
+                                }
+                                onClick={() =>
+                                    setMapMode("realView")
+                                }
+                            >
+                                {t(
+                                    "ThiefFinder.mapMode.realView"
+                                )}
+                            </button>
+
+                        </div>
+
                         <img
-                            src={ServerMapImage}
+                            src={
+                                mapMode === "realView"
+                                    ? ServerMapRealViewImage
+                                    : ServerMapDefaultImage
+                            }
                             alt={
                                 t(
                                     "ThiefFinder.mapAlt",

@@ -2095,6 +2095,11 @@
         "detectedLocation": "도둑 발견 위치",
         "locationCount": "개 위치",
         "mapAlt": "{{serverId}} 서버 지도",
+        "mapMode": {
+            "label": "지도 모드",
+            "default": "기본 지도",
+            "realView": "실사 지도"
+        },
         "empty": {
             "title": "확인된 도둑이 없습니다",
             "description": "최근 탐색 결과에서 발견된 위치가 없습니다."
