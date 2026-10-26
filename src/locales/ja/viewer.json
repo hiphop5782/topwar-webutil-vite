@@ -2155,7 +2155,7 @@
         "loading": "兵力情報を読み込んでいます。", "loadError": "兵力情報を読み込めませんでした。", "collectedAt": "調査日時", "collectedAtShort": "調査", "snapshotNoticeTitle": "調査時点のスナップショット", "snapshotNotice": "現在の状態と異なる場合があり、常に最新の情報とは限りません。兵力・戦力・編成は調査後に変更されている可能性があります。",
         "nickname": "ニックネーム", "nicknamePlaceholder": "現在・過去のニックネームを検索", "server": "サーバー", "serverShort": "S", "serverPlaceholder": "サーバー番号を直接入力", "allServers": "全サーバー", "reset": "リセット", "resultCount": "調査結果 {{count}}名", "noResults": "検索条件に一致する調査結果がありません。",
         "combatPower": "戦力", "totalArmy": "総兵力", "formation": "編成", "formationPower": "編成戦力", "formationLayout": "3×3兵力配置", "mecha": "メカ", "heroes": "英雄", "awakenLevel": "覚醒", "position": "位置", "unit": "兵種", "count": "数量", "hp": "HP",
-        "branch": "兵種", "branchArmy": "陸軍", "branchNavy": "海軍", "branchAir": "空軍", "branchMixed": "混成", "branchUnknown": "不明", "branchSource": "ユニット情報を基に判定した兵種"
+        "branch": "兵種", "branchArmy": "陸軍", "branchNavy": "海軍", "branchAir": "空軍", "branchBalanced": "均衡", "branchMixed": "混成", "branchUnknown": "不明", "branchPower": "編成戦力", "noBranchData": "情報なし", "noFormationData": "収集済みの編成情報なし", "branchSource": "保存された兵種を基準に表示"
     },
     "TopwarDataOverAll": {
         "title": "善く生きよう",

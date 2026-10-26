@@ -63,6 +63,26 @@ const compactDate = (value, locale) => {
         : "-";
 };
 
+const relativeDate = (value, locale, now) => {
+    const parsed = Date.parse(value ?? "");
+    if (!Number.isFinite(parsed)) return null;
+    const difference = parsed - now;
+    const absolute = Math.abs(difference);
+    const units = [
+        ["year", 365 * 24 * 60 * 60 * 1_000],
+        ["month", 30 * 24 * 60 * 60 * 1_000],
+        ["day", 24 * 60 * 60 * 1_000],
+        ["hour", 60 * 60 * 1_000],
+        ["minute", 60 * 1_000],
+        ["second", 1_000],
+    ];
+    const [unit, duration] = units.find(([, threshold]) => absolute >= threshold) ?? units.at(-1);
+    return new Intl.RelativeTimeFormat(locale, { numeric: "auto" }).format(
+        Math.round(difference / duration),
+        unit,
+    );
+};
+
 const formatCompactStat = (value, locale) => {
     const parsed = Number(value);
     if (!Number.isFinite(parsed)) return "-";
@@ -92,12 +112,22 @@ const formatCompactStat = (value, locale) => {
     })}${suffix}`;
 };
 
+const formatMillions = (value, locale) => {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return "-";
+    return `${(parsed / 1_000_000).toLocaleString(locale, {
+        maximumFractionDigits: 1,
+    })}M`;
+};
+
 const identity = (item) => String(item?.uid ?? "");
 const SLOT_ORDER = [1, 2, 3, 11, 12, 13, 21, 22, 23];
+const BRANCH_ORDER = ["army", "navy", "air"];
 const BRANCH_META = {
     army: { icon: "◆", translationKey: "branchArmy" },
     navy: { icon: "⚓", translationKey: "branchNavy" },
     air: { icon: "✈", translationKey: "branchAir" },
+    balanced: { icon: "★", translationKey: "branchBalanced" },
     mixed: { icon: "◈", translationKey: "branchMixed" },
     unknown: { icon: "?", translationKey: "branchUnknown" },
 };
@@ -141,17 +171,113 @@ const getFormationBranch = (formation) => {
     return branches.values().next().value;
 };
 
-const getPlayerBranch = (formations) => {
-    const branches = new Set(
-        (formations ?? [])
-            .map(getFormationBranch)
-            .filter((branch) => branch !== "unknown"),
-    );
-
-    if (branches.size === 0) return "unknown";
-    if (branches.size > 1) return "mixed";
-    return branches.values().next().value;
+const finiteNumber = (value) => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
 };
+
+const mergeFormations = (rawFormations, mappedFormations) => {
+    const rawById = new Map(
+        (Array.isArray(rawFormations) ? rawFormations : [])
+            .map((formation) => [String(formation?.formationId ?? ""), formation]),
+    );
+    const mapped = Array.isArray(mappedFormations) ? mappedFormations : [];
+    if (mapped.length === 0) return Array.isArray(rawFormations) ? rawFormations : [];
+    return mapped.map((formation) => ({
+        ...rawById.get(String(formation?.formationId ?? "")),
+        ...formation,
+    }));
+};
+
+const mergeBranchRecords = (rawBranches, mappedBranches) => {
+    const hasRaw = rawBranches && typeof rawBranches === "object" && !Array.isArray(rawBranches);
+    const hasMapped = mappedBranches && typeof mappedBranches === "object" && !Array.isArray(mappedBranches);
+    if (!hasRaw && !hasMapped) return undefined;
+
+    return Object.fromEntries(BRANCH_ORDER.map((branch) => {
+        const raw = hasRaw ? rawBranches[branch] : null;
+        const mapped = hasMapped ? mappedBranches[branch] : null;
+        if (!raw && !mapped) return [branch, null];
+        return [branch, {
+            ...(raw ?? {}),
+            ...(mapped ?? {}),
+            formations: mergeFormations(raw?.formations, mapped?.formations),
+        }];
+    }));
+};
+
+const normalizeBranchRecord = (record, fallbackCollectedAt) => {
+    if (!record || typeof record !== "object" || Array.isArray(record)) return null;
+    const formations = Array.isArray(record.formations) ? record.formations : [];
+    const formationPowers = formations
+        .map((formation) => finiteNumber(formation?.power))
+        .filter((power) => power != null);
+    const power = finiteNumber(
+        record.power
+        ?? record.combatPower
+        ?? record.formationPower
+        ?? (formationPowers.length ? Math.max(...formationPowers) : null),
+    );
+    const totalArmy = finiteNumber(
+        record.totalArmy
+        ?? (formations.length === 1 ? formations[0]?.totalArmy : null),
+    );
+    const collectedAt = record.collectedAt || fallbackCollectedAt || null;
+    if (power == null && totalArmy == null && formations.length === 0 && !record.collectedAt) return null;
+    return { ...record, power, totalArmy, collectedAt, formations };
+};
+
+const buildBranchSnapshots = (player) => {
+    const hasBranchSchema = player?.branches
+        && typeof player.branches === "object"
+        && !Array.isArray(player.branches);
+    const fallbackCollectedAt = player?.collectedAt || player?.receivedAt || null;
+
+    if (hasBranchSchema) {
+        return Object.fromEntries(BRANCH_ORDER.map((branch) => [
+            branch,
+            normalizeBranchRecord(player.branches[branch], fallbackCollectedAt),
+        ]));
+    }
+
+    const grouped = Object.fromEntries(BRANCH_ORDER.map((branch) => [branch, []]));
+    (Array.isArray(player?.formations) ? player.formations : []).forEach((formation) => {
+        const branch = getFormationBranch(formation);
+        if (grouped[branch]) grouped[branch].push(formation);
+    });
+
+    return Object.fromEntries(BRANCH_ORDER.map((branch) => {
+        const formations = grouped[branch];
+        if (formations.length === 0) return [branch, null];
+        return [branch, normalizeBranchRecord({ formations }, fallbackCollectedAt)];
+    }));
+};
+
+const getDominantBranch = (snapshots) => {
+    const powers = BRANCH_ORDER
+        .map((branch) => ({ branch, power: finiteNumber(snapshots?.[branch]?.power) }))
+        .filter(({ power }) => power != null && power > 0);
+    if (powers.length === 0) return "unknown";
+
+    if (powers.length === BRANCH_ORDER.length) {
+        const values = powers.map(({ power }) => power);
+        const maximum = Math.max(...values);
+        const minimum = Math.min(...values);
+        if (maximum > 0 && (maximum - minimum) / maximum <= 0.1) return "balanced";
+    }
+
+    return powers.sort((left, right) => right.power - left.power)[0].branch;
+};
+
+const getStrongestSnapshot = (snapshots) => BRANCH_ORDER
+    .map((branch) => snapshots?.[branch])
+    .filter(Boolean)
+    .sort((left, right) => (finiteNumber(right.power) ?? -1) - (finiteNumber(left.power) ?? -1))[0] ?? null;
+
+const getLatestSnapshotTime = (snapshots, fallback) => BRANCH_ORDER
+    .map((branch) => snapshots?.[branch]?.collectedAt)
+    .filter(Boolean)
+    .sort((left, right) => (Date.parse(right) || 0) - (Date.parse(left) || 0))[0] ?? fallback;
 
 const isMechaArmyUnit = (unit) => /^5\d{4,}$/u.test(
     String(unit?.armyId ?? "").trim(),
@@ -210,6 +336,27 @@ function HeroPortrait({ hero }) {
     );
 }
 
+function HeroThumbnail({ hero }) {
+    const [failed, setFailed] = useState(false);
+    const heroId = String(hero?.id ?? "").trim();
+    const label = hero?.name || heroId || "-";
+    const source = HERO_IMAGES[heroId];
+
+    return (
+        <span className="tp-viewer__hero-thumbnail" title={label}>
+            {source && !failed
+                ? <img
+                    src={source}
+                    alt={label}
+                    loading="lazy"
+                    decoding="async"
+                    onError={() => setFailed(true)}
+                />
+                : <span>{label}</span>}
+        </span>
+    );
+}
+
 function MechaPortrait({ formation }) {
     const [failed, setFailed] = useState(false);
     const mechaId = String(formation?.mechaId ?? "").trim();
@@ -233,36 +380,16 @@ function MechaPortrait({ formation }) {
     );
 }
 
-function Formation({ formation, t, locale }) {
+function Formation({ formation, t, locale, branchOverride }) {
     const heroes = Array.isArray(formation?.heroes) ? formation.heroes : [];
     const army = Array.isArray(formation?.army) ? formation.army : [];
     const slots = Array.isArray(formation?.slots) ? formation.slots : [];
     const slotsByPosition = new Map(slots.map((slot) => [Number(slot.position), slot]));
-    const branch = getFormationBranch(formation);
-    const branchMeta = BRANCH_META[branch];
+    const branch = branchOverride || getFormationBranch(formation);
     const mechaSource = HT_IMAGES[String(formation?.mechaId ?? "").trim()];
 
     return (
         <section className={`tp-viewer__formation tp-viewer__formation--${branch}`}>
-            <div className="tp-viewer__formation-head">
-                <div>
-                    <span className="tp-viewer__label">{t("formation")}</span>
-                    <strong>#{formation?.formationId ?? "-"}</strong>
-                </div>
-                <div>
-                    <span className="tp-viewer__label">{t("totalArmy")}</span>
-                    <strong>{number(formation?.totalArmy, locale)}</strong>
-                </div>
-                <div
-                    className={`tp-viewer__branch tp-viewer__branch--${branch}`}
-                    title={t("branchSource")}
-                >
-                    <span aria-hidden="true">{branchMeta.icon}</span>
-                    <small>{t("branch")}</small>
-                    <strong>{t(branchMeta.translationKey)}</strong>
-                </div>
-            </div>
-
             <div className="tp-viewer__showcase">
                 <div>
                     <h3>{t("mecha")}</h3>
@@ -322,6 +449,77 @@ function Formation({ formation, t, locale }) {
     );
 }
 
+function BranchRecord({ branch, snapshot, t, locale, now }) {
+    const [expanded, setExpanded] = useState(false);
+    const branchMeta = BRANCH_META[branch];
+    const relativeCollectedAt = relativeDate(snapshot?.collectedAt, locale, now);
+    const heroes = snapshot?.formations
+        ?.flatMap((formation) => Array.isArray(formation?.heroes) ? formation.heroes : [])
+        .filter((hero, index, all) => all.findIndex((candidate) => (
+            String(candidate?.id ?? candidate?.name ?? "") === String(hero?.id ?? hero?.name ?? "")
+        )) === index)
+        .slice(0, 3) ?? [];
+
+    return (
+        <section className={`tp-viewer__branch-record tp-viewer__branch-record--${branch}`}>
+            <button
+                type="button"
+                className="tp-viewer__branch-record-head"
+                onClick={() => setExpanded((current) => !current)}
+                aria-expanded={expanded}
+                disabled={!snapshot}
+            >
+                <span className="tp-viewer__branch-record-name">
+                    <span aria-hidden="true">{branchMeta.icon}</span>
+                    <strong>{t(branchMeta.translationKey)}</strong>
+                </span>
+                {snapshot ? <>
+                    <span className="tp-viewer__branch-stat">
+                        <small>{t("combatPower")}</small>
+                        <strong>{formatMillions(snapshot.power, locale)}</strong>
+                    </span>
+                    <span className="tp-viewer__branch-stat">
+                        <small>{t("totalArmy")}</small>
+                        <strong>{number(snapshot.totalArmy, locale)}</strong>
+                    </span>
+                    {heroes.length > 0 && (
+                        <span className="tp-viewer__branch-heroes">
+                            {heroes.map((hero, index) => (
+                                <HeroThumbnail key={`${hero?.id ?? hero?.name}-${index}`} hero={hero} />
+                            ))}
+                        </span>
+                    )}
+                    <FaChevronDown className={expanded ? "is-open" : ""} aria-hidden="true" />
+                </> : <span className="tp-viewer__branch-no-data">{t("noBranchData")}</span>}
+            </button>
+            {snapshot && expanded && (
+                <div className="tp-viewer__branch-record-body">
+                    <div className="tp-viewer__branch-observed">
+                        <span>{t("collectedAt")}</span>
+                        {relativeCollectedAt
+                            ? <time dateTime={snapshot.collectedAt} title={date(snapshot.collectedAt, locale)}>
+                                <strong>{relativeCollectedAt}</strong>
+                                <span>({date(snapshot.collectedAt, locale)})</span>
+                            </time>
+                            : <strong>{t("noBranchData")}</strong>}
+                    </div>
+                    {snapshot.formations.length > 0
+                        ? snapshot.formations.map((formation, index) => (
+                            <Formation
+                                key={`${formation.formationId}-${index}`}
+                                formation={formation}
+                                t={t}
+                                locale={locale}
+                                branchOverride={branch}
+                            />
+                        ))
+                        : <div className="tp-viewer__branch-empty">{t("noFormationData")}</div>}
+                </div>
+            )}
+        </section>
+    );
+}
+
 export default function TopwarTPViewer() {
     const { t, i18n } = useTranslation("viewer", { keyPrefix: "TopwarTPViewer" });
     const locale = i18n.resolvedLanguage?.startsWith("ja") ? "ja-JP" : i18n.resolvedLanguage?.startsWith("en") ? "en-US" : "ko-KR";
@@ -333,6 +531,7 @@ export default function TopwarTPViewer() {
     const [server, setServer] = useParamState("server");
     const deferredQuery = useDeferredValue(query);
     const [expanded, setExpanded] = useState(new Set());
+    const [relativeNow, setRelativeNow] = useState(() => Date.now());
 
     useEffect(() => {
         let cancelled = false;
@@ -363,29 +562,42 @@ export default function TopwarTPViewer() {
         return () => { cancelled = true; };
     }, []);
 
+    useEffect(() => {
+        const intervalId = window.setInterval(() => setRelativeNow(Date.now()), 60_000);
+        return () => window.clearInterval(intervalId);
+    }, []);
+
     const allPlayers = useMemo(() => {
         const rawByUid = new Map((document?.results ?? []).map((item) => [identity(item), item]));
         const source = Array.isArray(document?.mappedResults) && document.mappedResults.length
             ? document.mappedResults.map((mapped) => {
                 const raw = rawByUid.get(identity(mapped));
-                const rawFormations = new Map((raw?.formations ?? []).map((formation) => [String(formation.formationId), formation]));
                 return {
                     ...raw,
                     ...mapped,
-                    formations: (mapped.formations ?? raw?.formations ?? []).map((formation) => ({
-                        ...rawFormations.get(String(formation.formationId)),
-                        ...formation,
-                    })),
+                    formations: mergeFormations(raw?.formations, mapped?.formations),
+                    branches: mergeBranchRecords(raw?.branches, mapped?.branches),
                 };
             })
             : document?.results ?? [];
-        return source.map((player) => ({
-            ...player,
-            nicknameSearchText: [
-                player.username,
-                ...(nicknameHistory.get(identity(player)) ?? []),
-            ].map(normalize).join("\u0000"),
-        })).sort((left, right) =>
+        return source.map((player) => {
+            const branchSnapshots = buildBranchSnapshots(player);
+            const strongestSnapshot = getStrongestSnapshot(branchSnapshots);
+            return {
+                ...player,
+                branchSnapshots,
+                displayBranch: getDominantBranch(branchSnapshots),
+                displayTotalArmy: strongestSnapshot?.totalArmy ?? player.totalArmy,
+                displayCollectedAt: getLatestSnapshotTime(
+                    branchSnapshots,
+                    player.collectedAt || player.receivedAt,
+                ),
+                nicknameSearchText: [
+                    player.username,
+                    ...(nicknameHistory.get(identity(player)) ?? []),
+                ].map(normalize).join("\u0000"),
+            };
+        }).sort((left, right) =>
             Number(right.rankingPower ?? 0) - Number(left.rankingPower ?? 0)
             || identity(left).localeCompare(identity(right)),
         );
@@ -444,21 +656,32 @@ export default function TopwarTPViewer() {
                 itemContent={(_, player) => {
                     const uid = identity(player);
                     const isOpen = expanded.has(uid);
-                    const playerBranch = getPlayerBranch(player.formations);
-                    const playerObservedAt = player.collectedAt || player.receivedAt || observedAt;
+                    const playerBranch = player.displayBranch;
+                    const playerObservedAt = player.displayCollectedAt || observedAt;
                     return <article className={`tp-viewer__player tp-viewer__player--${playerBranch}`} key={uid || player.rank}>
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
                             <span className="tp-viewer__identity"><strong>{player.username || uid}</strong></span>
                             <span className="tp-viewer__head-server"><small>{t("serverShort")}</small><strong>{player.serverId}</strong></span>
                             <span className="tp-viewer__head-stat tp-viewer__head-power"><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>
-                            <span className="tp-viewer__head-stat tp-viewer__head-army"><small>{t("totalArmy")}</small><strong>{number(player.totalArmy, locale)}</strong></span>
+                            <span className="tp-viewer__head-stat tp-viewer__head-army"><small>{t("totalArmy")}</small><strong>{number(player.displayTotalArmy, locale)}</strong></span>
                             <span className="tp-viewer__head-time" title={`${t("collectedAt")}: ${date(playerObservedAt, locale)}`}>
                                 <small>{t("collectedAtShort")}</small>
                                 <time dateTime={playerObservedAt || undefined}>{compactDate(playerObservedAt, locale)}</time>
                             </span>
                             <FaChevronDown className={isOpen ? "is-open" : ""} />
                         </button>
-                        {isOpen && <div className="tp-viewer__details">{(player.formations ?? []).map((formation, index) => <Formation key={`${formation.formationId}-${index}`} formation={formation} t={t} locale={locale} />)}</div>}
+                        {isOpen && <div className="tp-viewer__details">
+                            {BRANCH_ORDER.map((branch) => (
+                                <BranchRecord
+                                    key={branch}
+                                    branch={branch}
+                                    snapshot={player.branchSnapshots[branch]}
+                                    t={t}
+                                    locale={locale}
+                                    now={relativeNow}
+                                />
+                            ))}
+                        </div>}
                     </article>;
                 }}
             />}
