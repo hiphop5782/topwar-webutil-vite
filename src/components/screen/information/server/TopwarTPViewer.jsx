@@ -209,22 +209,13 @@ const mergeBranchRecords = (rawBranches, mappedBranches) => {
 const normalizeBranchRecord = (record, fallbackCollectedAt) => {
     if (!record || typeof record !== "object" || Array.isArray(record)) return null;
     const formations = Array.isArray(record.formations) ? record.formations : [];
-    const formationPowers = formations
-        .map((formation) => finiteNumber(formation?.power))
-        .filter((power) => power != null);
-    const power = finiteNumber(
-        record.power
-        ?? record.combatPower
-        ?? record.formationPower
-        ?? (formationPowers.length ? Math.max(...formationPowers) : null),
-    );
     const totalArmy = finiteNumber(
         record.totalArmy
         ?? (formations.length === 1 ? formations[0]?.totalArmy : null),
     );
     const collectedAt = record.collectedAt || fallbackCollectedAt || null;
-    if (power == null && totalArmy == null && formations.length === 0 && !record.collectedAt) return null;
-    return { ...record, power, totalArmy, collectedAt, formations };
+    if (totalArmy == null && formations.length === 0 && !record.collectedAt) return null;
+    return { ...record, totalArmy, collectedAt, formations };
 };
 
 const buildBranchSnapshots = (player) => {
@@ -255,7 +246,7 @@ const buildBranchSnapshots = (player) => {
 
 const getDominantBranch = (snapshots) => {
     const powers = BRANCH_ORDER
-        .map((branch) => ({ branch, power: finiteNumber(snapshots?.[branch]?.power) }))
+        .map((branch) => ({ branch, power: finiteNumber(snapshots?.[branch]?.totalArmy) }))
         .filter(({ power }) => power != null && power > 0);
     if (powers.length === 0) return "unknown";
 
@@ -272,7 +263,9 @@ const getDominantBranch = (snapshots) => {
 const getStrongestSnapshot = (snapshots) => BRANCH_ORDER
     .map((branch) => snapshots?.[branch])
     .filter(Boolean)
-    .sort((left, right) => (finiteNumber(right.power) ?? -1) - (finiteNumber(left.power) ?? -1))[0] ?? null;
+    .sort((left, right) => (
+        (finiteNumber(right.totalArmy) ?? -1) - (finiteNumber(left.totalArmy) ?? -1)
+    ))[0] ?? null;
 
 const getLatestSnapshotTime = (snapshots, fallback) => BRANCH_ORDER
     .map((branch) => snapshots?.[branch]?.collectedAt)
@@ -449,7 +442,7 @@ function Formation({ formation, t, locale, branchOverride }) {
     );
 }
 
-function BranchRecord({ branch, snapshot, t, locale, now }) {
+function BranchRecord({ branch, snapshot, rankingPower, t, locale, now }) {
     const [expanded, setExpanded] = useState(false);
     const branchMeta = BRANCH_META[branch];
     const relativeCollectedAt = relativeDate(snapshot?.collectedAt, locale, now);
@@ -476,7 +469,7 @@ function BranchRecord({ branch, snapshot, t, locale, now }) {
                 {snapshot ? <>
                     <span className="tp-viewer__branch-stat">
                         <small>{t("combatPower")}</small>
-                        <strong>{formatMillions(snapshot.power, locale)}</strong>
+                        <strong>{formatMillions(rankingPower, locale)}</strong>
                     </span>
                     <span className="tp-viewer__branch-stat">
                         <small>{t("totalArmy")}</small>
@@ -662,7 +655,7 @@ export default function TopwarTPViewer() {
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
                             <span className="tp-viewer__identity"><strong>{player.username || uid}</strong></span>
                             <span className="tp-viewer__head-server"><small>{t("serverShort")}</small><strong>{player.serverId}</strong></span>
-                            <span className="tp-viewer__head-stat tp-viewer__head-power"><small>{t("combatPower")}</small><strong>{player.TP || number(player.rankingPower, locale)}</strong></span>
+                            <span className="tp-viewer__head-stat tp-viewer__head-power"><small>{t("combatPower")}</small><strong>{player.TP || formatMillions(player.rankingPower, locale)}</strong></span>
                             <span className="tp-viewer__head-stat tp-viewer__head-army"><small>{t("totalArmy")}</small><strong>{number(player.displayTotalArmy, locale)}</strong></span>
                             <span className="tp-viewer__head-time" title={`${t("collectedAt")}: ${date(playerObservedAt, locale)}`}>
                                 <small>{t("collectedAtShort")}</small>
@@ -676,6 +669,7 @@ export default function TopwarTPViewer() {
                                     key={branch}
                                     branch={branch}
                                     snapshot={player.branchSnapshots[branch]}
+                                    rankingPower={player.rankingPower}
                                     t={t}
                                     locale={locale}
                                     now={relativeNow}
