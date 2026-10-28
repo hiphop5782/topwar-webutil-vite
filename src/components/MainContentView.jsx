@@ -155,96 +155,96 @@ export default function MainContentView() {
                     <Route index element={<Home />}></Route>
 
                     {/* 포스트 */}
-                    <Route path="post" element={<PostList/>}></Route>
-                    <Route path="post/:folder" element={<Post/>}></Route>
+                    <Route path="post" element={<PostList />}></Route>
+                    <Route path="post/:folder" element={<Post />}></Route>
 
                     <Route path="information/appearance" element={<AppearanceGallery />} />
                     <Route path="information/job" element={<JobInformation />}></Route>
                     {/* <Route path="information/kartz-spec" element={<KartzSpecInformation/>}></Route> */}
                     {/* <Route path="information/kartz-rank" element={<KartzRankInformation/>}></Route> */}
-                    <Route path="information/kartz-statistics" element={<KartzStatistics/>}></Route>
-                    
-                    <Route path="information/el" element={<EternalLand/>}>
-                        <Route index element={<EternalLandScore/>}/>
+                    <Route path="information/kartz-statistics" element={<KartzStatistics />}></Route>
+
+                    <Route path="information/el" element={<EternalLand />}>
+                        <Route index element={<EternalLandScore />} />
                         {/* <Route path="howto" element={<EternalLandHowto/>}/> */}
                         {/* <Route path="tip" element={<EternalLandTip/>}/> */}
                         {/* <Route path="reward" element={<EternalLandReward/>}/> */}
-                        <Route path="darkforce" element={<EternalLandDarkforce/>}/>
-                        <Route path="score" element={<ELScoreCalculator/>}/>
+                        <Route path="darkforce" element={<EternalLandDarkforce />} />
+                        <Route path="score" element={<ELScoreCalculator />} />
                     </Route>
-                    <Route path="information/data" element={<TopwarDataViewer/>}>
-                        <Route index element={<TopwarPlayerDataViewer/>}></Route>
-                        <Route path="overall" element={<TopwarDataOverAll/>}></Route>
-                        <Route path="troops" element={<TopwarTPViewer/>}></Route>
-                        <Route path="servers" element={<ServerDirectory/>}/>
-                        <Route path="server" element={<TopwarServerDataViewer/>}></Route>
-                        <Route path="alliance" element={<TopwarAllianceDataViewer/>}></Route>
-                        <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7}/>}></Route>
+                    <Route path="information/data" element={<TopwarDataViewer />}>
+                        <Route index element={<TopwarPlayerDataViewer />}></Route>
+                        <Route path="overall" element={<TopwarDataOverAll />}></Route>
+                        <Route path="troops" element={<TopwarTPViewer />}></Route>
+                        <Route path="servers" element={<ServerDirectory />} />
+                        <Route path="server" element={<TopwarServerDataViewer />}></Route>
+                        <Route path="alliance" element={<TopwarAllianceDataViewer />}></Route>
+                        <Route path="move" element={<TopwarPlayerMoveHistory defaultDays={7} />}></Route>
                         <Route path="nickname" element={<TopwarPlayerNicknameHistory />}></Route>
                         <Route path="player-detail" element={<TopwarPlayerDetail />}></Route>
-                        <Route path="realpower" element={<TopwarRealPowerViewer/>}></Route>
+                        <Route path="realpower" element={<TopwarRealPowerViewer />}></Route>
                         {/* <Route path="compare" element={<TopwarCompareViewer/>}></Route> */}
                         {/* <Route path="realtime" element={<TopwarServerRealtimeDataViewer/>}></Route> */}
                     </Route>
-                    <Route path="information/kartz" element={<KartzDataViewer/>}>
-                        <Route index element={<KartzSpecInformation/>}></Route>
-                        <Route path="rank" element={<KartzRankViewer/>}></Route>
-                        <Route path="server" element={<KartzServerHistoryViewer/>}></Route>
+                    <Route path="information/kartz" element={<KartzDataViewer />}>
+                        <Route index element={<KartzSpecInformation />}></Route>
+                        <Route path="rank" element={<KartzRankViewer />}></Route>
+                        <Route path="server" element={<KartzServerHistoryViewer />}></Route>
                     </Route>
 
                     {/* <Route path="information/ssc" element={<TopwarSscPointViewer/>}></Route> */}
-                    
-                    
+
+
                     <Route path="calculator/vital" element={<VitalCalculator />}></Route>
                     <Route path="calculator/skill" element={<SkillCalculator />}></Route>
-                    <Route path="calculator/value-pack" element={<ValuePackCalculator/>}></Route>
-                    <Route path="calculator/cost" element={<ItemLevelCostCalculator/>}></Route>
+                    <Route path="calculator/value-pack" element={<ValuePackCalculator />}></Route>
+                    <Route path="calculator/cost" element={<ItemLevelCostCalculator />}></Route>
 
                     <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
                     <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
                     <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
-                    <Route path="developer" element={<Developer/>}></Route>
+                    <Route path="developer" element={<Developer />}></Route>
                     <Route path="emoji/create" element={<EmojiCreator />}></Route>
                     <Route path="emoji/list" element={<LegacyEmoji />}></Route>
                     {/* <Route path="/blog" element={<Blog />}></Route> */}
-                    <Route path="account/viewer" element={<AccountViewer/>}></Route>
-                    <Route path="account/profile" element={<AccountProfilePage/>}></Route>
+                    <Route path="account/viewer" element={<AccountViewer />}></Route>
+                    <Route path="account/profile" element={<AccountProfilePage />}></Route>
                     <Route path="account/creator" element={
                         <RecoilRoot>
-                            <AccountCreator/>
+                            <AccountCreator />
                         </RecoilRoot>
                     }></Route>
-                    <Route path="vote/create" element={<AttendanceVoteCreator/>}></Route>
-                    <Route path="vote/cast" element={<AttendanceVoteReader/>}></Route>
-                    <Route path="vote/cast/:voteId" element={<AttendanceVoteHistory/>}></Route>
-                    <Route path="vote/cast/:serverId/:voteId" element={<AttendanceVoteReader/>}></Route>
-                    <Route path="vote/:serverId/:voteId" element={<AttendanceVoteReader/>}></Route>
-                    <Route path="vote/manage" element={<AttendanceVoteManager/>}></Route>
-                    <Route path="vote/manage/:voteId" element={<AttendanceVoteManager/>}></Route>
-                    <Route path="vote/:serverId/:voteId/manage" element={<AttendanceVoteManager/>}></Route>
-                    <Route path="plan/create" element={<PlanCreator/>}></Route>
-                    <Route path="plan/:serverId" element={<PlanViewer/>}></Route>
+                    <Route path="vote/create" element={<AttendanceVoteCreator />}></Route>
+                    <Route path="vote/cast" element={<AttendanceVoteReader />}></Route>
+                    <Route path="vote/cast/:voteId" element={<AttendanceVoteHistory />}></Route>
+                    <Route path="vote/cast/:serverId/:voteId" element={<AttendanceVoteReader />}></Route>
+                    <Route path="vote/:serverId/:voteId" element={<AttendanceVoteReader />}></Route>
+                    <Route path="vote/manage" element={<AttendanceVoteManager />}></Route>
+                    <Route path="vote/manage/:voteId" element={<AttendanceVoteManager />}></Route>
+                    <Route path="vote/:serverId/:voteId/manage" element={<AttendanceVoteManager />}></Route>
+                    <Route path="plan/create" element={<PlanCreator />}></Route>
+                    <Route path="plan/:serverId" element={<PlanViewer />}></Route>
 
                     {/* history */}
-                    <Route path="history/ssc-2026" element={<SealStoneChaos/>}>
-                        <Route index element={<SscDashboard/>}/>
-                        <Route path="users" element={<TopwarSscPointViewer/>}/>
+                    <Route path="history/ssc-2026" element={<SealStoneChaos />}>
+                        <Route index element={<SscDashboard />} />
+                        <Route path="users" element={<TopwarSscPointViewer />} />
                     </Route>
-                    <Route path="history/ssc-2027" element={<SealStoneChaos2027/>}>
-                        <Route index element={<Navigate to="train" replace />}/>
-                        <Route path="train" element={<Ssc2TrainAnalyzer/>}/>
+                    <Route path="history/ssc-2027" element={<SealStoneChaos2027 />}>
+                        <Route index element={<Ssc2TrainAnalyzer />} />
+                        <Route path="train" element={<Ssc2TrainAnalyzer />} />
                     </Route>
-                    <Route path="history/liondance" element={<LionDanceRanking/>}/>
+                    <Route path="history/liondance" element={<LionDanceRanking />} />
 
                     {/* event */}
-                    <Route path="event/city-reward" element={<CityRewardEvent/>}></Route>
-                    <Route path="vip/:serverId" element={<ThiefFinder/>}></Route>
+                    <Route path="event/city-reward" element={<CityRewardEvent />}></Route>
+                    <Route path="vip/:serverId" element={<ThiefFinder />}></Route>
 
 
-                    <Route path="privacy" element={<Privacy/>}/>
-                    <Route path="contact" element={<Contact/>}/>
-                    <Route path="disclaimer" element={<Disclaimer/>}/>
-                    <Route path="about" element={<About/>}/>
+                    <Route path="privacy" element={<Privacy />} />
+                    <Route path="contact" element={<Contact />} />
+                    <Route path="disclaimer" element={<Disclaimer />} />
+                    <Route path="about" element={<About />} />
 
                     {/* 404 not found */}
                     <Route path="*" element={<PageNotFound />}></Route>
@@ -272,5 +272,5 @@ export default function MainContentView() {
                 )}
             </div>
         </div>
-    ) 
+    )
 }
