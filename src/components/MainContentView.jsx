@@ -1,7 +1,7 @@
 import ResearchHub from './screen/post/ResearchHub';
 import AppearanceGallery from './screen/information/appearance/AppearanceGallery';
 import ServerDirectory from "@src/components/screen/information/server/ServerDirectory";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PageNotFound from "./error/PageNotFound";
 import VitalCalculator from '@src/components/screen/calculator/VitalCalculator';
 import LegacyEmoji from '@src/components/screen/emoji/LegacyEmoji';
@@ -53,6 +53,8 @@ import LionDanceRanking from "@src/components/screen/history/liondance/LionDance
 
 import ItemLevelCostCalculator from "@src/components/screen/calculator/ItemLevelCostCalculator";
 import SealStoneChaos from "@src/components/screen/history/2026-ssc/SealStoncChaos";
+import SealStoneChaos2027 from "@src/components/screen/history/2027-ssc/SealStoneChaos2027";
+import Ssc2TrainAnalyzer from "@src/components/screen/history/2027-ssc/Ssc2TrainAnalyzer";
 import Privacy from "@src/components/screen/etc/Privacy";
 import Contact from "@src/components/screen/etc/Contact";
 import Disclaimer from "@src/components/screen/etc/Disclaimer";
@@ -227,6 +229,10 @@ export default function MainContentView() {
                     <Route path="history/ssc-2026" element={<SealStoneChaos/>}>
                         <Route index element={<SscDashboard/>}/>
                         <Route path="users" element={<TopwarSscPointViewer/>}/>
+                    </Route>
+                    <Route path="history/ssc-2027" element={<SealStoneChaos2027/>}>
+                        <Route index element={<Navigate to="train" replace />}/>
+                        <Route path="train" element={<Ssc2TrainAnalyzer/>}/>
                     </Route>
                     <Route path="history/liondance" element={<LionDanceRanking/>}/>
 

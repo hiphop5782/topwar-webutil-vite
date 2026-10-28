@@ -383,6 +383,36 @@ export const allowedPaths = [
             },
         },
     },
+    {
+        path: "/history/ssc-2027/train",
+        label: "봉인석 전장(2027) 트럭 현황",
+        examples: ["봉인석 전장 2027", "봉인석 2027", "봉인석 트럭", "설원 열차", "트럭 현황", "ssc2 train"],
+        chatbot: true,
+        queryParams: {
+            view: {
+                type: "string",
+                required: false,
+                description: "조회 화면",
+                pattern: "^(overview|server|compare|ranking|search)$",
+            },
+            server: {
+                type: "number",
+                required: false,
+                description: "조회할 서버 번호",
+            },
+            servers: {
+                type: "string",
+                required: false,
+                description: "비교할 서버 번호 목록. 쉼표로 구분한다.",
+                pattern: "^[1-9][0-9]*(,[1-9][0-9]*)*$",
+            },
+            query: {
+                type: "string",
+                required: false,
+                description: "통합 검색할 닉네임 또는 서버 번호",
+            },
+        },
+    },
     { 
         path: "/history/liondance", 
         label: "길드 대결",
