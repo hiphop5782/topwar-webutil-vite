@@ -53,6 +53,8 @@ const fixedRoutes = [
     "/plan/create",
     "/history/ssc-2026",
     "/history/ssc-2026/users",
+    "/history/ssc-2027",
+    "/history/ssc-2027/train",
     "/history/liondance",
     "/event/city-reward",
     "/privacy",
