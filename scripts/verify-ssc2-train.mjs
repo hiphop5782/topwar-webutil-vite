@@ -58,10 +58,15 @@ try {
         await page.$eval(".ssc2-virtual-frame", element => element.textContent.includes("약탈 수")),
         false,
     );
+    assert.equal(
+        await page.$$eval(".ssc2-summary-card", cards => cards[2]?.querySelector(".numeric-cell")?.textContent.trim()),
+        "923.5B",
+        "Overall power was not converted from M to B",
+    );
     assert.match(
         await page.$eval(".ssc2-virtual-frame tbody tr td:nth-child(3)", element => element.textContent.trim()),
-        /^\d[\d,]*\.\d[MT]$/,
-        "Total power was not rendered with an M/T unit",
+        /^\d[\d,]*\.\d[MBT]$/,
+        "Total power was not rendered with an M/B/T unit",
     );
     assert.equal(
         await page.$eval(".ssc2-overview-virtuoso tbody tr .ssc2-total-power-column", element => {

@@ -566,6 +566,9 @@ export default function Ssc2TrainAnalyzer() {
         if (absoluteValue >= 1_000_000_000_000) {
             return `${powerUnitFormatter.format(numericValue / 1_000_000_000_000)}T`;
         }
+        if (absoluteValue >= 1_000_000_000) {
+            return `${powerUnitFormatter.format(numericValue / 1_000_000_000)}B`;
+        }
         if (absoluteValue >= 1_000_000) {
             return `${powerUnitFormatter.format(numericValue / 1_000_000)}M`;
         }
