@@ -42,6 +42,29 @@
     width: min(100%, 280px);
 }
 
+.ssc2-ranking-toolbar {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+}
+
+.ssc2-ranking-metrics {
+    display: flex;
+    flex: 1 1 auto;
+    gap: 0.4rem;
+    overflow-x: auto;
+    min-width: 0;
+    padding-bottom: 0.2rem;
+    scrollbar-width: thin;
+}
+
+.ssc2-ranking-metrics .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
 .ssc2-server-autocomplete {
     position: relative;
     width: 100%;
@@ -122,6 +145,69 @@
     vertical-align: middle;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table {
+    min-width: 640px;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table th:first-child,
+.ssc2-overview-virtuoso .ssc2-virtual-table td:first-child {
+    width: 4rem;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table th:nth-child(2),
+.ssc2-overview-virtuoso .ssc2-virtual-table td:nth-child(2) {
+    width: 6rem;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table thead th:first-child,
+.ssc2-overview-virtuoso .ssc2-virtual-table thead th:nth-child(2) {
+    z-index: 5;
+    background: #f8fafc;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:first-child,
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:nth-child(2) {
+    position: sticky;
+    z-index: 2;
+    background: #fff;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table th:first-child,
+.ssc2-overview-virtuoso .ssc2-virtual-table td:first-child {
+    left: 0;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table th:nth-child(2),
+.ssc2-overview-virtuoso .ssc2-virtual-table td:nth-child(2) {
+    left: 4rem;
+    box-shadow: 1px 0 0 #e2e8f0;
+}
+
+.ssc2-rank-badge {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: #e2e8f0;
+}
+
+.ssc2-rank-badge.is-top-1 {
+    color: #854d0e;
+    background: #fef08a;
+}
+
+.ssc2-rank-badge.is-top-2 {
+    color: #475569;
+    background: #e2e8f0;
+}
+
+.ssc2-rank-badge.is-top-3 {
+    color: #9a3412;
+    background: #fed7aa;
 }
 
 .ssc2-col-rank {

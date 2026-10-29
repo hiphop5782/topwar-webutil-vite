@@ -474,7 +474,7 @@
         "metrics": { "servers": "조사 서버", "players": "조사 인원", "totalPower": "전체 전투력", "averagePlayers": "서버당 평균 인원" },
         "tabsLabel": "트럭 현황 보기 방식",
         "tabs": { "overview": "전체 랭킹", "server": "서버별 목록", "compare": "서버간 비교", "search": "통합 검색" },
-        "overview": { "title": "전체 서버 랭킹", "description": "전투력 합계와 TOP 5·TOP 10 등 상위 전력을 기준으로 정렬할 수 있습니다." },
+        "overview": { "title": "전체 서버 랭킹", "description": "기준을 선택하면 해당 지표 중심으로 순위와 표가 바뀝니다.", "criteria": "랭킹 기준" },
         "serverSearchPlaceholder": "서버 번호 검색",
         "autocomplete": { "selected": "선택됨", "noResult": "일치하는 서버가 없습니다.", "clear": "서버 번호 입력값 지우기" },
         "table": { "server": "서버", "players": "인원", "totalPower": "전투력 합계", "averagePower": "평균 전투력", "medianPower": "중앙 전투력", "maxPower": "최고 전투력", "top1": "TOP 1", "top5": "TOP 5", "top10": "TOP 10", "top30": "TOP 30", "top50": "TOP 50", "percent": "진행률(원본)", "lootNum": "약탈 수(원본)", "details": "상세", "rank": "순위", "hero": "선두 영웅", "nickname": "닉네임", "branch": "군종", "reportedServer": "응답 서버", "power": "전투력", "armyType": "병종", "marchNum": "행군 수" },

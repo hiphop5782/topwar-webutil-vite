@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { FaMagnifyingGlass, FaPlus, FaTriangleExclamation, FaXmark } from "react-icons/fa6";
+import { useSearchParams } from "react-router-dom";
 import { TableVirtuoso } from "react-virtuoso";
 import {
     CategoryScale,
@@ -403,13 +404,14 @@ function AccessQuestion({ answer, error, inputRef, onAnswerChange, onSubmit, t }
 
 export default function Ssc2TrainAnalyzer() {
     const { t, i18n } = useTranslation("viewer");
+    const [, setRouteSearchParams] = useSearchParams();
     const [accessGranted, setAccessGranted] = useState(readAccessState);
     const [answer, setAnswer] = useState("");
     const [answerError, setAnswerError] = useState(false);
     const answerRef = useRef(null);
     const serverCacheRef = useRef(new Map());
 
-    const [view, setView] = useParamState("view", "server", {
+    const [view, setView] = useParamState("view", "overview", {
         validate: value => VIEW_KEYS.has(value),
     });
     const [selectedServer, setSelectedServer] = useParamState("server", "", {
@@ -554,12 +556,23 @@ export default function Ssc2TrainAnalyzer() {
         () => new Intl.NumberFormat(i18n.language),
         [i18n.language],
     );
-    const compactFormatter = useMemo(
-        () => new Intl.NumberFormat(i18n.language, { notation: "compact", maximumFractionDigits: 1 }),
-        [i18n.language],
+    const powerUnitFormatter = useMemo(
+        () => new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }),
+        [],
     );
     const formatNumber = useCallback(value => numberFormatter.format(Number(value ?? 0)), [numberFormatter]);
-    const formatCompact = useCallback(value => compactFormatter.format(Number(value ?? 0)), [compactFormatter]);
+    const formatPower = useCallback(value => {
+        const numericValue = Number(value ?? 0);
+        if (!Number.isFinite(numericValue)) return "-";
+        const absoluteValue = Math.abs(numericValue);
+        if (absoluteValue >= 1_000_000_000_000) {
+            return `${powerUnitFormatter.format(numericValue / 1_000_000_000_000)}T`;
+        }
+        if (absoluteValue >= 1_000_000) {
+            return `${powerUnitFormatter.format(numericValue / 1_000_000)}M`;
+        }
+        return numberFormatter.format(numericValue);
+    }, [numberFormatter, powerUnitFormatter]);
     const totalPower = useMemo(
         () => servers.reduce((total, server) => total + server.totalPower, 0),
         [servers],
@@ -725,7 +738,7 @@ export default function Ssc2TrainAnalyzer() {
                     title: items => items.length
                         ? t("Ssc2Train.compare.rankTooltip", { rank: items[0].raw.rank })
                         : "",
-                    label: context => `${context.dataset.label}: ${formatCompact(context.parsed.y)}`,
+                    label: context => `${context.dataset.label}: ${formatPower(context.parsed.y)}`,
                 },
             },
         },
@@ -750,10 +763,10 @@ export default function Ssc2TrainAnalyzer() {
             y: {
                 beginAtZero: true,
                 title: { display: true, text: t("Ssc2Train.table.power") },
-                ticks: { callback: value => formatCompact(value) },
+                ticks: { callback: value => formatPower(value) },
             },
         },
-    }), [compareChartMaxRank, formatCompact, t]);
+    }), [compareChartMaxRank, formatPower, t]);
 
     const compareMetricLabels = useMemo(() => ({
         server: t("Ssc2Train.table.server"),
@@ -766,8 +779,8 @@ export default function Ssc2TrainAnalyzer() {
         top50Power: t("Ssc2Train.table.top50"),
     }), [t]);
     const formatCompareBarValue = useCallback(
-        value => compareBarMetric === "playerCount" ? formatNumber(value) : formatCompact(value),
-        [compareBarMetric, formatCompact, formatNumber],
+        value => compareBarMetric === "playerCount" ? formatNumber(value) : formatPower(value),
+        [compareBarMetric, formatNumber, formatPower],
     );
 
     const submitAnswer = useCallback(event => {
@@ -792,7 +805,9 @@ export default function Ssc2TrainAnalyzer() {
     const changeSort = useCallback(key => {
         setOverviewSort(current => ({
             key,
-            direction: current.key === key && current.direction === "asc" ? "desc" : "asc",
+            direction: current.key === key
+                ? (current.direction === "asc" ? "desc" : "asc")
+                : (key === "server" ? "asc" : "desc"),
         }));
     }, []);
 
@@ -805,6 +820,16 @@ export default function Ssc2TrainAnalyzer() {
                 : (key === "server" ? "asc" : "desc"),
         }));
     }, []);
+
+    const openServerRoster = useCallback(server => {
+        const targetServer = String(server);
+        setRouteSearchParams(previous => {
+            const next = new URLSearchParams(previous);
+            next.set("view", "server");
+            next.set("server", targetServer);
+            return next;
+        }, { replace: true });
+    }, [setRouteSearchParams]);
 
     const addCompareServer = useCallback((candidate = compareCandidate) => {
         const candidateServer = String(candidate);
@@ -853,7 +878,7 @@ export default function Ssc2TrainAnalyzer() {
             <div className="row g-3 mb-4">
                 <SummaryCard label={t("Ssc2Train.metrics.servers")} value={formatNumber(indexData.serverCount)} />
                 <SummaryCard label={t("Ssc2Train.metrics.players")} value={formatNumber(indexData.totalPlayers)} />
-                <SummaryCard label={t("Ssc2Train.metrics.totalPower")} value={formatCompact(totalPower)} />
+                <SummaryCard label={t("Ssc2Train.metrics.totalPower")} value={formatPower(totalPower)} />
                 <SummaryCard
                     label={t("Ssc2Train.metrics.averagePlayers")}
                     value={formatNumber(Math.round(indexData.totalPlayers / Math.max(1, indexData.serverCount)))}
@@ -897,48 +922,68 @@ export default function Ssc2TrainAnalyzer() {
                             />
                         </div>
                     </div>
+                    <div className="ssc2-ranking-toolbar border-bottom">
+                        <span className="small fw-bold text-secondary text-nowrap">{t("Ssc2Train.overview.criteria")}</span>
+                        <div className="ssc2-ranking-metrics" role="group" aria-label={t("Ssc2Train.overview.criteria")}>
+                            {COMPARE_METRIC_KEYS.map(key => (
+                                <button
+                                    key={key}
+                                    type="button"
+                                    aria-pressed={overviewSort.key === key}
+                                    className={`btn btn-sm ${overviewSort.key === key ? "btn-primary" : "btn-outline-secondary"}`}
+                                    onClick={() => changeSort(key)}
+                                >
+                                    {compareMetricLabels[key]}
+                                    {overviewSort.key === key ? (overviewSort.direction === "asc" ? " ↑" : " ↓") : ""}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                     <VirtualizedTable
+                        className="ssc2-overview-virtuoso"
                         data={overviewRows}
                         computeItemKey={(_, server) => server.server}
                         headers={<>
                             <th className="ssc2-col-rank">{t("Ssc2Train.table.rank")}</th>
-                            {[
-                                ["server", t("Ssc2Train.table.server")],
-                                ["playerCount", t("Ssc2Train.table.players")],
-                                ["totalPower", t("Ssc2Train.table.totalPower")],
-                                ["top5Power", t("Ssc2Train.table.top5")],
-                                ["top10Power", t("Ssc2Train.table.top10")],
-                                ["top30Power", t("Ssc2Train.table.top30")],
-                            ].map(([key, label]) => (
-                                <th key={key} scope="col">
-                                    <button type="button" className="ssc2-sort-button" onClick={() => changeSort(key)}>
-                                        {label}{overviewSort.key === key ? (overviewSort.direction === "asc" ? " ↑" : " ↓") : ""}
-                                    </button>
-                                </th>
-                            ))}
+                            <th>{t("Ssc2Train.table.server")}</th>
+                            <th>
+                                <button type="button" className="ssc2-sort-button" onClick={() => changeSort(overviewSort.key)}>
+                                    {compareMetricLabels[overviewSort.key]}
+                                    {overviewSort.direction === "asc" ? " ↑" : " ↓"}
+                                </button>
+                            </th>
+                            {overviewSort.key !== "totalPower" && <th>{t("Ssc2Train.table.totalPower")}</th>}
+                            {overviewSort.key !== "playerCount" && <th>{t("Ssc2Train.table.players")}</th>}
                             <th className="ssc2-col-action">{t("Ssc2Train.table.details")}</th>
                         </>}
-                        itemContent={(index, server) => (<>
-                            <td className="numeric-cell fw-bold">{index + 1}</td>
-                            <td><strong>S{server.server}</strong></td>
-                            <td className="numeric-cell">{formatNumber(server.playerCount)}</td>
-                            <td className="numeric-cell fw-semibold">{formatCompact(server.totalPower)}</td>
-                            <td className="numeric-cell">{formatCompact(server.top5Power)}</td>
-                            <td className="numeric-cell">{formatCompact(server.top10Power)}</td>
-                            <td className="numeric-cell">{formatCompact(server.top30Power)}</td>
-                            <td>
-                                <button
-                                    type="button"
-                                    className="btn btn-sm btn-outline-primary text-nowrap"
-                                    onClick={() => {
-                                        setSelectedServer(String(server.server));
-                                        setView("server");
-                                    }}
-                                >
-                                    {t("Ssc2Train.openServer")}
-                                </button>
-                            </td>
-                        </>)}
+                        itemContent={(index, server) => {
+                            const rankClass = index < 3 ? `ssc2-rank-cell-${index + 1}` : "";
+                            const metricValue = overviewSort.key === "playerCount"
+                                ? formatNumber(server.playerCount)
+                                : formatPower(server[overviewSort.key]);
+                            return (<>
+                                <td className={`numeric-cell fw-bold ${rankClass}`}>
+                                    <span className={`ssc2-rank-badge ${index < 3 ? `is-top-${index + 1}` : ""}`}>{index + 1}</span>
+                                </td>
+                                <td className={rankClass}><strong>S{server.server}</strong></td>
+                                <td className={`numeric-cell fs-6 fw-bold ${rankClass}`}>{metricValue}</td>
+                                {overviewSort.key !== "totalPower" && (
+                                    <td className={`numeric-cell ${rankClass}`}>{formatPower(server.totalPower)}</td>
+                                )}
+                                {overviewSort.key !== "playerCount" && (
+                                    <td className={`numeric-cell ${rankClass}`}>{formatNumber(server.playerCount)}</td>
+                                )}
+                                <td className={rankClass}>
+                                    <button
+                                        type="button"
+                                        className="btn btn-sm btn-outline-primary text-nowrap"
+                                        onClick={() => openServerRoster(server.server)}
+                                    >
+                                        {t("Ssc2Train.openServer")}
+                                    </button>
+                                </td>
+                            </>);
+                        }}
                     />
                 </section>
             )}
@@ -988,15 +1033,15 @@ export default function Ssc2TrainAnalyzer() {
                         </div>
                         <div className="row g-3 mb-4">
                             <SummaryCard label={t("Ssc2Train.metrics.players")} value={formatNumber(selectedSummary.playerCount)} />
-                            <SummaryCard label={t("Ssc2Train.metrics.totalPower")} value={formatCompact(selectedSummary.totalPower)} />
-                            <SummaryCard label={t("Ssc2Train.table.top5")} value={formatCompact(selectedSummary.top5Power)} />
-                            <SummaryCard label={t("Ssc2Train.table.top10")} value={formatCompact(selectedSummary.top10Power)} />
+                            <SummaryCard label={t("Ssc2Train.metrics.totalPower")} value={formatPower(selectedSummary.totalPower)} />
+                            <SummaryCard label={t("Ssc2Train.table.top5")} value={formatPower(selectedSummary.top5Power)} />
+                            <SummaryCard label={t("Ssc2Train.table.top10")} value={formatPower(selectedSummary.top10Power)} />
                         </div>
                         <div className="ssc2-server-meta card border-0 shadow-sm mb-4">
                             <div className="card-body">
                                 <div><span>{t("Ssc2Train.table.percent")}</span><strong>{selectedSummary.percent}%</strong></div>
                                 <div><span>{t("Ssc2Train.table.lootNum")}</span><strong>{formatNumber(selectedSummary.lootNum)}</strong></div>
-                                <div><span>{t("Ssc2Train.table.maxPower")}</span><strong>{formatNumber(selectedSummary.maxPower)}</strong></div>
+                                <div><span>{t("Ssc2Train.table.maxPower")}</span><strong>{formatPower(selectedSummary.maxPower)}</strong></div>
                             </div>
                         </div>
                         {selectedSummary.mismatchCount > 0 && (
@@ -1032,7 +1077,7 @@ export default function Ssc2TrainAnalyzer() {
                                         S{player.serverId}
                                         {Number(player.serverId) !== Number(selectedSummary.server) && <span className="badge text-bg-warning ms-2">!</span>}
                                     </td>
-                                    <td className="numeric-cell fw-semibold">{formatNumber(player.numericPower)}</td>
+                                    <td className="numeric-cell fw-semibold">{formatPower(player.numericPower)}</td>
                                     <td className="numeric-cell">{player.marchNum ?? "-"}</td>
                                 </>)}
                             />
@@ -1184,12 +1229,12 @@ export default function Ssc2TrainAnalyzer() {
                                             <tr key={server.server}>
                                                 <td className="fw-bold">S{server.server}</td>
                                                 <td className="numeric-cell">{formatNumber(server.playerCount)}</td>
-                                                <td className="numeric-cell fw-semibold">{formatCompact(server.totalPower)}</td>
-                                                <td className="numeric-cell">{formatCompact(server.maxPower)}</td>
-                                                <td className="numeric-cell">{formatCompact(server.top5Power)}</td>
-                                                <td className="numeric-cell">{formatCompact(server.top10Power)}</td>
-                                                <td className="numeric-cell">{formatCompact(server.top30Power)}</td>
-                                                <td className="numeric-cell">{formatCompact(server.top50Power)}</td>
+                                                <td className="numeric-cell fw-semibold">{formatPower(server.totalPower)}</td>
+                                                <td className="numeric-cell">{formatPower(server.maxPower)}</td>
+                                                <td className="numeric-cell">{formatPower(server.top5Power)}</td>
+                                                <td className="numeric-cell">{formatPower(server.top10Power)}</td>
+                                                <td className="numeric-cell">{formatPower(server.top30Power)}</td>
+                                                <td className="numeric-cell">{formatPower(server.top50Power)}</td>
                                             </tr>
                                         ))}</tbody>
                                     </table>
@@ -1249,7 +1294,7 @@ export default function Ssc2TrainAnalyzer() {
                                     <td className="fw-bold">S{player.s}</td>
                                     <td>S{player.rs}</td>
                                     <td className="numeric-cell">{player.r}</td>
-                                    <td className="numeric-cell fw-semibold">{formatNumber(player.p)}</td>
+                                    <td className="numeric-cell fw-semibold">{formatPower(player.p)}</td>
                                 </>)}
                             />
                             {integratedResults.length >= 300 && <div className="card-footer small text-secondary">{t("Ssc2Train.search.limit")}</div>}

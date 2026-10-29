@@ -33,20 +33,11 @@ try {
     await page.type("#ssc2-access-answer", "500원");
     await page.click('.ssc2-access-dialog button[type="submit"]');
     await page.waitForSelector(".ssc2-train-analyzer");
-    await page.waitForFunction(() => (
-        document.body.textContent.includes("서버 요약정보")
-        && document.body.textContent.includes("전력 목록")
-    ));
+    await page.waitForFunction(() => document.body.textContent.includes("전체 서버 랭킹"));
     await page.waitForFunction(() => {
         const renderedRows = document.querySelectorAll(".ssc2-virtual-table tbody tr").length;
         return renderedRows > 0 && renderedRows < 142;
     });
-
-    await page.evaluate(() => {
-        [...document.querySelectorAll(".ssc2-view-tabs button")]
-            .find(button => button.textContent.includes("전체 랭킹"))?.click();
-    });
-    await page.waitForFunction(() => document.body.textContent.includes("전체 서버 랭킹"));
     await page.waitForFunction(() => {
         const frame = document.querySelector(".ssc2-virtual-frame");
         const renderedRows = frame?.querySelectorAll("tbody tr").length ?? 0;
@@ -69,15 +60,40 @@ try {
     );
     assert.match(
         await page.$eval(".ssc2-virtual-frame tbody tr td:nth-child(3)", element => element.textContent.trim()),
-        /^\d+$/,
-        "Player count column was not rendered in the merged ranking",
+        /^\d[\d,.]*[MT]$/,
+        "Total power was not rendered with an M/T unit",
     );
     assert.match(
         await page.$eval(".ssc2-virtual-frame tbody tr td:nth-child(4)", element => element.textContent.trim()),
-        /[만억조]/,
-        "Total power was not rendered with a Korean upper unit",
+        /^\d+$/,
+        "Player count column was not rendered in the merged ranking",
     );
+    assert.equal(await page.$$(".ssc2-overview-virtuoso thead th").then(headers => headers.length), 5);
+    assert.equal(await page.$$(".ssc2-rank-badge.is-top-1").then(badges => badges.length), 1);
+    await page.evaluate(() => {
+        [...document.querySelectorAll(".ssc2-ranking-metrics button")]
+            .find(button => button.textContent.includes("TOP 5"))?.click();
+    });
+    await page.waitForFunction(() => document.querySelector(".ssc2-overview-virtuoso thead")?.textContent.includes("TOP 5"));
+    assert.equal(await page.$$(".ssc2-overview-virtuoso thead th").then(headers => headers.length), 6);
     assert.equal(await page.$$(".ssc2-view-tabs button").then(buttons => buttons.length), 4);
+
+    const detailTargetServer = await page.$eval(
+        ".ssc2-overview-virtuoso tbody tr",
+        row => row.children[1].textContent.trim().replace(/^S/, ""),
+    );
+    await page.click(".ssc2-overview-virtuoso tbody tr button");
+    await page.waitForFunction(server => {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("view") === "server"
+            && params.get("server") === server
+            && document.body.textContent.includes(`S${server} · 서버 요약정보`);
+    }, {}, detailTargetServer);
+    assert.equal(await page.$eval("#ssc2-server-input", input => input.value), detailTargetServer);
+    await page.waitForFunction(server => (
+        document.querySelector(".ssc2-player-virtuoso tbody tr")
+        && document.body.textContent.includes(`S${server} · 전력 목록`)
+    ), {}, detailTargetServer);
 
     await page.evaluate(() => {
         [...document.querySelectorAll(".ssc2-view-tabs button")]
@@ -167,6 +183,11 @@ try {
     await page.waitForSelector("#ssc2-server-player-query");
     await page.type("#ssc2-server-player-query", "Unholy", { delay: 80 });
     await page.waitForFunction(() => document.body.textContent.includes("Unholy"));
+    assert.match(
+        await page.$eval(".ssc2-player-virtuoso tbody tr td:nth-child(6)", element => element.textContent.trim()),
+        /^\d[\d,.]*M$/,
+        "Player power was not rendered with an M unit",
+    );
     assert.equal(await page.$$(".ssc2-player-virtuoso .ssc2-hero-thumbnail img").then(rows => rows.length), 1);
     assert.equal(
         await page.$eval(".ssc2-player-virtuoso .ssc2-branch-badge", element => element.textContent.includes("육군")),
