@@ -475,11 +475,6 @@ export default function Ssc2TrainAnalyzer() {
     );
 
     useEffect(() => {
-        if (view !== "server" || selectedServer || servers.length === 0) return;
-        setSelectedServer(String(servers[0].server));
-    }, [selectedServer, servers, setSelectedServer, view]);
-
-    useEffect(() => {
         setServerCandidate(String(selectedServer ?? ""));
     }, [selectedServer]);
 
@@ -580,15 +575,17 @@ export default function Ssc2TrainAnalyzer() {
 
     const overviewRows = useMemo(() => {
         const query = overviewQuery.trim();
-        const filtered = query
-            ? servers.filter(server => String(server.server).includes(query))
-            : servers;
         const direction = overviewSort.direction === "asc" ? 1 : -1;
+        const ranked = [...servers]
+            .sort((left, right) => {
+                const difference = Number(left[overviewSort.key] ?? 0) - Number(right[overviewSort.key] ?? 0);
+                return difference !== 0 ? difference * direction : left.server - right.server;
+            })
+            .map((server, index) => ({ ...server, overviewRank: index + 1 }));
 
-        return [...filtered].sort((left, right) => {
-            const difference = Number(left[overviewSort.key] ?? 0) - Number(right[overviewSort.key] ?? 0);
-            return difference !== 0 ? difference * direction : left.server - right.server;
-        });
+        return query
+            ? ranked.filter(server => String(server.server).includes(query))
+            : ranked;
     }, [overviewQuery, overviewSort, servers]);
 
     const selectedSummary = selectedServer ? serverMap.get(String(selectedServer)) : null;
@@ -956,14 +953,16 @@ export default function Ssc2TrainAnalyzer() {
                             {overviewSort.key !== "playerCount" && <th>{t("Ssc2Train.table.players")}</th>}
                             <th className="ssc2-col-action">{t("Ssc2Train.table.details")}</th>
                         </>}
-                        itemContent={(index, server) => {
-                            const rankClass = index < 3 ? `ssc2-rank-cell-${index + 1}` : "";
+                        itemContent={(_, server) => {
+                            const rankClass = server.overviewRank <= 3 ? `ssc2-rank-cell-${server.overviewRank}` : "";
                             const metricValue = overviewSort.key === "playerCount"
                                 ? formatNumber(server.playerCount)
                                 : formatPower(server[overviewSort.key]);
                             return (<>
                                 <td className={`numeric-cell fw-bold ${rankClass}`}>
-                                    <span className={`ssc2-rank-badge ${index < 3 ? `is-top-${index + 1}` : ""}`}>{index + 1}</span>
+                                    <span className={`ssc2-rank-badge ${server.overviewRank <= 3 ? `is-top-${server.overviewRank}` : ""}`}>
+                                        {server.overviewRank}
+                                    </span>
                                 </td>
                                 <td className={rankClass}><strong>S{server.server}</strong></td>
                                 <td className={`numeric-cell fs-6 fw-bold ${rankClass}`}>{metricValue}</td>

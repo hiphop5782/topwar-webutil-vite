@@ -78,6 +78,27 @@ try {
     assert.equal(await page.$$(".ssc2-overview-virtuoso thead th").then(headers => headers.length), 6);
     assert.equal(await page.$$(".ssc2-view-tabs button").then(buttons => buttons.length), 4);
 
+    const searchedRanking = await page.$$eval(".ssc2-overview-virtuoso tbody tr", rows => {
+        const row = rows.find(candidate => (
+            Number(candidate.children[0]?.textContent.trim()) > 1
+            && candidate.children[1]?.textContent.trim().replace(/^S/, "").length === 4
+        ));
+        return row ? {
+            rank: row.children[0].textContent.trim(),
+            server: row.children[1].textContent.trim().replace(/^S/, ""),
+        } : null;
+    });
+    assert.ok(searchedRanking, "Could not find a server for overview rank search verification");
+    await page.type(".ssc2-search-control input", searchedRanking.server);
+    await page.waitForFunction(server => (
+        document.querySelector(".ssc2-overview-virtuoso tbody tr td:nth-child(2)")?.textContent.trim() === `S${server}`
+    ), {}, searchedRanking.server);
+    assert.equal(
+        await page.$eval(".ssc2-overview-virtuoso tbody tr td:first-child", element => element.textContent.trim()),
+        searchedRanking.rank,
+        "Filtering the overview reset the server's rank",
+    );
+
     const detailTargetServer = await page.$eval(
         ".ssc2-overview-virtuoso tbody tr",
         row => row.children[1].textContent.trim().replace(/^S/, ""),
@@ -215,6 +236,20 @@ try {
         await page.evaluate(uid => document.body.textContent.includes(uid), String(mismatchPlayer.uid)),
         false,
         "UID rendered in search results",
+    );
+
+    await page.goto(`${baseUrl}/ko/history/ssc-2027/train?view=server`, { waitUntil: "networkidle0" });
+    await page.waitForSelector("#ssc2-server-input");
+    assert.equal(
+        await page.$eval("#ssc2-server-input", input => input.value),
+        "",
+        "The server list selected a default server",
+    );
+    assert.equal(await page.$$(".ssc2-player-virtuoso").then(elements => elements.length), 0);
+    assert.equal(
+        await page.evaluate(() => document.body.textContent.includes("서버 요약정보")),
+        false,
+        "Server information rendered before a server was selected",
     );
 
     console.log("SSC2 browser verification passed");
