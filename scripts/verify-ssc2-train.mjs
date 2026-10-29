@@ -46,6 +46,7 @@ try {
         [...document.querySelectorAll(".ssc2-view-tabs button")]
             .find(button => button.textContent.includes("전체 랭킹"))?.click();
     });
+    await page.waitForFunction(() => document.body.textContent.includes("전체 서버 랭킹"));
     await page.waitForFunction(() => {
         const frame = document.querySelector(".ssc2-virtual-frame");
         const renderedRows = frame?.querySelectorAll("tbody tr").length ?? 0;
@@ -99,13 +100,70 @@ try {
     );
     assert.equal(await page.$eval(".ssc2-table", element => element.textContent.includes("TOP 5")), true);
     assert.equal(await page.$eval(".ssc2-table", element => element.textContent.includes("평균 전투력")), false);
+    assert.equal(
+        await page.$eval(
+            '[aria-labelledby="ssc2-distribution-title"] .btn-group button.btn-primary',
+            button => button.textContent.trim(),
+        ),
+        "전체",
+        "The comparison chart did not default to the full roster",
+    );
+    assert.equal(
+        await page.evaluate(() => document.body.textContent.includes("50위 이후 저전력 구간은 압축")),
+        true,
+        "Compressed low-power rank guidance was not rendered",
+    );
+    await page.evaluate(() => {
+        [...document.querySelectorAll(".ssc2-table thead button")]
+            .find(button => button.textContent.includes("TOP 5"))?.click();
+    });
+    await page.waitForFunction(() => document.querySelector("#ssc2-bar-title")?.textContent.includes("TOP 5"));
+    assert.equal(
+        await page.evaluate(() => (
+            document.querySelector(".ssc2-table tbody tr td")?.textContent.trim()
+            === document.querySelector(".ssc2-power-row strong")?.textContent.trim()
+        )),
+        true,
+        "Comparison table and bars were not sorted together",
+    );
+    await page.evaluate(() => {
+        [...document.querySelectorAll('[aria-labelledby="ssc2-distribution-title"] .btn-group button')]
+            .find(button => button.textContent.trim() === "TOP 10")?.click();
+    });
+    assert.equal(
+        await page.$eval(
+            '[aria-labelledby="ssc2-distribution-title"] .btn-group button.btn-primary',
+            button => button.textContent.trim(),
+        ),
+        "TOP 10",
+    );
 
     await page.evaluate(() => {
         [...document.querySelectorAll(".ssc2-view-tabs button")]
             .find(button => button.textContent.includes("서버별 목록"))?.click();
     });
-    await page.waitForSelector("#ssc2-server-select");
-    await page.select("#ssc2-server-select", "1677");
+    await page.waitForSelector("#ssc2-server-input");
+    assert.equal(await page.$$("#ssc2-server-select").then(elements => elements.length), 0);
+    await page.click("#ssc2-server-input");
+    await page.type("#ssc2-server-input", "16");
+    await page.waitForSelector("#ssc2-server-input-options");
+    assert.equal(
+        await page.evaluate(() => {
+            const input = document.querySelector("#ssc2-server-input");
+            const menu = document.querySelector("#ssc2-server-input-options");
+            const inputGroup = input?.closest(".input-group");
+            if (!inputGroup || !menu) return false;
+            const inputRect = inputGroup.getBoundingClientRect();
+            const menuRect = menu.getBoundingClientRect();
+            return Math.abs(inputRect.width - menuRect.width) <= 1
+                && menuRect.top >= inputRect.bottom;
+        }),
+        true,
+        "Server autocomplete menu did not match the input width and position",
+    );
+    await page.type("#ssc2-server-input", "77");
+    await page.keyboard.press("Enter");
+    await page.waitForFunction(() => document.querySelector("#ssc2-server-input")?.value === "1677");
     await page.waitForSelector("#ssc2-server-player-query");
     await page.type("#ssc2-server-player-query", "Unholy", { delay: 80 });
     await page.waitForFunction(() => document.body.textContent.includes("Unholy"));

@@ -476,7 +476,8 @@
         "tabs": { "overview": "전체 랭킹", "server": "서버별 목록", "compare": "서버간 비교", "search": "통합 검색" },
         "overview": { "title": "전체 서버 랭킹", "description": "전투력 합계와 TOP 5·TOP 10 등 상위 전력을 기준으로 정렬할 수 있습니다." },
         "serverSearchPlaceholder": "서버 번호 검색",
-        "table": { "server": "서버", "players": "인원", "totalPower": "전투력 합계", "averagePower": "평균 전투력", "medianPower": "중앙 전투력", "maxPower": "최고 전투력", "top5": "TOP 5", "top10": "TOP 10", "top30": "TOP 30", "top50": "TOP 50", "percent": "진행률(원본)", "lootNum": "약탈 수(원본)", "details": "상세", "rank": "순위", "hero": "선두 영웅", "nickname": "닉네임", "branch": "군종", "reportedServer": "응답 서버", "power": "전투력", "armyType": "병종", "marchNum": "행군 수" },
+        "autocomplete": { "selected": "선택됨", "noResult": "일치하는 서버가 없습니다.", "clear": "서버 번호 입력값 지우기" },
+        "table": { "server": "서버", "players": "인원", "totalPower": "전투력 합계", "averagePower": "평균 전투력", "medianPower": "중앙 전투력", "maxPower": "최고 전투력", "top1": "TOP 1", "top5": "TOP 5", "top10": "TOP 10", "top30": "TOP 30", "top50": "TOP 50", "percent": "진행률(원본)", "lootNum": "약탈 수(원본)", "details": "상세", "rank": "순위", "hero": "선두 영웅", "nickname": "닉네임", "branch": "군종", "reportedServer": "응답 서버", "power": "전투력", "armyType": "병종", "marchNum": "행군 수" },
         "heroLabel": "영웅 {{id}}",
         "heroUnknown": "영웅 정보 없음",
         "branches": { "army": "육군", "navy": "해군", "air": "공군", "unknown": "미확인" },
@@ -488,7 +489,7 @@
         "playerSearchPlaceholder": "대소문자·유니코드·한글 자모 검색",
         "serverMismatch": "이 열차에는 응답 서버가 다른 인원이 {{count}}명 있습니다. 열차 서버 기준으로 집계했습니다.",
         "serverRoster": "전력 목록",
-        "compare": { "add": "비교 서버 번호", "placeholder": "서버 번호 입력", "addButton": "비교에 추가", "remove": "서버 {{server}} 비교에서 제거", "empty": "비교할 서버를 최대 20개까지 추가해 주세요.", "title": "서버 전력 비교", "description": "총전력과 TOP 5·TOP 10 등 상위권 전력을 비교합니다.", "distributionTitle": "순위별 전투력 분포", "distributionDescription": "각 서버의 구성원을 전투력순으로 나열했습니다. 선이 높고 완만할수록 상위권 전력층이 두껍습니다.", "distributionError": "전투력 분포 데이터를 불러오지 못했습니다.", "distributionAria": "비교 서버별 순위에 따른 전투력 분포 꺾은선 그래프", "rankAxis": "서버 내 전투력 순위", "rankTooltip": "{{rank}}위" },
+        "compare": { "add": "비교 서버 번호", "placeholder": "서버 번호 입력", "addButton": "비교에 추가", "remove": "서버 {{server}} 비교에서 제거", "empty": "비교할 서버를 최대 20개까지 추가해 주세요.", "title": "서버 전력 비교", "description": "총전력과 TOP 5·TOP 10 등 상위권 전력을 비교합니다.", "distributionTitle": "순위별 전투력 분포", "distributionDescription": "전체 인원을 표시하되 TOP 10은 넓게, 50위 이후 저전력 구간은 압축해 상위권 격차와 전체 전력층을 함께 보여줍니다.", "distributionError": "전투력 분포 데이터를 불러오지 못했습니다.", "distributionAria": "비교 서버별 순위에 따른 전투력 분포 꺾은선 그래프", "rankAxis": "서버 내 전투력 순위 · 50위 이후 압축", "rankTooltip": "{{rank}}위", "chartRange": "그래프 표시 범위", "allRanks": "전체", "barTitle": "{{metric}} 막대 비교", "barMetric": "막대그래프 비교 기준" },
         "search": { "title": "전체 플레이어 검색", "placeholder": "닉네임 일부, 초성, 자모 또는 서버 번호", "help": "영문 대소문자, 유니코드 유사문자와 숫자, 한글 부분 음절·초성을 구분하지 않고 검색합니다.", "empty": "검색어를 입력하면 전체 22,225명에서 찾습니다.", "results": "검색 결과", "limit": "전투력순 상위 300건까지만 표시합니다." }
     },
     "SscDashboard": {

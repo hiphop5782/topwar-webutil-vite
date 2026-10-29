@@ -57,7 +57,23 @@ const ARMY_BRANCHES = {
 };
 
 const COMPARE_COLORS = ["#2563eb", "#dc2626", "#059669", "#d97706", "#7c3aed"];
-const RANK_GUIDES = [10, 30, 50];
+const COMPARE_METRIC_KEYS = ["totalPower", "playerCount", "maxPower", "top5Power", "top10Power", "top30Power", "top50Power"];
+const CHART_LIMITS = [10, 30, 50, 0];
+const RANK_GUIDES = [1, 10, 30, 50];
+const getCompareColor = index => COMPARE_COLORS[index]
+    ?? `hsl(${Math.round(index * 137.508) % 360} 68% 45%)`;
+const rankToChartPosition = rank => {
+    const numericRank = Number(rank);
+    if (numericRank <= 10) return numericRank * 4;
+    if (numericRank <= 50) return 40 + (numericRank - 10);
+    return 80 + (numericRank - 50) * 0.12;
+};
+const chartPositionToRank = position => {
+    const numericPosition = Number(position);
+    if (numericPosition <= 40) return numericPosition / 4;
+    if (numericPosition <= 80) return 10 + (numericPosition - 40);
+    return 50 + (numericPosition - 80) / 0.12;
+};
 const RANK_GUIDE_PLUGIN = {
     id: "ssc2-rank-guides",
     afterDraw(chart) {
@@ -69,16 +85,19 @@ const RANK_GUIDE_PLUGIN = {
         ctx.strokeStyle = "rgba(100, 116, 139, 0.55)";
         ctx.fillStyle = "#64748b";
         ctx.font = "700 11px Pretendard, sans-serif";
-        ctx.textAlign = "center";
-
+        const maxRank = Math.max(
+            0,
+            ...chart.data.datasets.map(dataset => dataset.data.at(-1)?.rank ?? 0),
+        );
         RANK_GUIDES.forEach(rank => {
-            if (rank > chart.data.labels.length) return;
-            const x = scales.x.getPixelForValue(rank - 1);
+            if (rank > maxRank) return;
+            const x = scales.x.getPixelForValue(rankToChartPosition(rank));
             ctx.beginPath();
             ctx.moveTo(x, chartArea.top);
             ctx.lineTo(x, chartArea.bottom);
             ctx.stroke();
-            ctx.fillText(`TOP ${rank}`, x, chartArea.top + 12);
+            ctx.textAlign = rank === 1 ? "left" : "center";
+            ctx.fillText(`TOP ${rank}`, rank === 1 ? x + 5 : x, chartArea.top + 12);
         });
         ctx.restore();
     },
@@ -177,6 +196,159 @@ function matchesPlayerName(name, rawQuery) {
     return String(keys[query.field] ?? "").includes(query.key);
 }
 
+function ServerAutocomplete({
+    id,
+    servers,
+    value,
+    currentServer = "",
+    excludedServers = [],
+    restoreCurrentOnBlur = false,
+    label,
+    placeholder,
+    onInputChange,
+    onSelect,
+    t,
+}) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(-1);
+    const inputRef = useRef(null);
+    const excludedSet = useMemo(
+        () => new Set(excludedServers.map(server => String(server))),
+        [excludedServers],
+    );
+    const filteredServers = useMemo(() => {
+        const keyword = String(value ?? "").trim();
+        const available = servers.filter(server => !excludedSet.has(String(server)));
+        if (!keyword) return available.slice(0, 30);
+
+        const startsWith = [];
+        const includes = [];
+        available.forEach(server => {
+            const text = String(server);
+            if (text.startsWith(keyword)) startsWith.push(text);
+            else if (text.includes(keyword)) includes.push(text);
+        });
+        return [...startsWith, ...includes].slice(0, 30);
+    }, [excludedSet, servers, value]);
+
+    const selectServer = useCallback(server => {
+        onSelect(String(server));
+        setIsOpen(false);
+        setActiveIndex(-1);
+    }, [onSelect]);
+
+    const handleKeyDown = event => {
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            setIsOpen(true);
+            setActiveIndex(current => Math.min(current + 1, filteredServers.length - 1));
+            return;
+        }
+        if (event.key === "ArrowUp") {
+            event.preventDefault();
+            setActiveIndex(current => Math.max(current - 1, 0));
+            return;
+        }
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const activeServer = activeIndex >= 0 ? filteredServers[activeIndex] : null;
+            const exactServer = servers.find(server => String(server) === String(value));
+            const target = activeServer ?? exactServer;
+            if (target !== null && target !== undefined && !excludedSet.has(String(target))) selectServer(target);
+            return;
+        }
+        if (event.key === "Escape") {
+            setIsOpen(false);
+            setActiveIndex(-1);
+        }
+    };
+
+    return (
+        <div className="ssc2-server-autocomplete">
+            <label className="form-label fw-semibold" htmlFor={id}>{label}</label>
+            <div className="input-group">
+                <span className="input-group-text">S</span>
+                <input
+                    ref={inputRef}
+                    id={id}
+                    type="search"
+                    inputMode="numeric"
+                    className="form-control"
+                    value={value}
+                    placeholder={placeholder}
+                    autoComplete="off"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-expanded={isOpen}
+                    aria-controls={`${id}-options`}
+                    aria-activedescendant={activeIndex >= 0 ? `${id}-option-${activeIndex}` : undefined}
+                    onChange={event => {
+                        onInputChange(event.target.value.replace(/\D/g, ""));
+                        setIsOpen(true);
+                        setActiveIndex(-1);
+                    }}
+                    onFocus={event => {
+                        event.currentTarget.select();
+                        if (restoreCurrentOnBlur && String(value) === String(currentServer)) onInputChange("");
+                        setIsOpen(true);
+                    }}
+                    onBlur={() => {
+                        setTimeout(() => {
+                            setIsOpen(false);
+                            setActiveIndex(-1);
+                            if (
+                                restoreCurrentOnBlur
+                                && !servers.some(server => String(server) === String(value))
+                            ) onInputChange(String(currentServer));
+                        }, 120);
+                    }}
+                    onKeyDown={handleKeyDown}
+                />
+                {value && (
+                    <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        aria-label={t("Ssc2Train.autocomplete.clear")}
+                        onMouseDown={event => event.preventDefault()}
+                        onClick={() => {
+                            onInputChange("");
+                            setIsOpen(true);
+                            setActiveIndex(-1);
+                            inputRef.current?.focus();
+                        }}
+                    >
+                        <FaXmark />
+                    </button>
+                )}
+            </div>
+            {isOpen && (
+                <div id={`${id}-options`} className="ssc2-server-autocomplete-menu dropdown-menu show shadow" role="listbox">
+                    {filteredServers.length > 0 ? filteredServers.map((server, index) => (
+                        <button
+                            key={server}
+                            id={`${id}-option-${index}`}
+                            type="button"
+                            role="option"
+                            aria-selected={String(currentServer) === String(server)}
+                            className={`dropdown-item d-flex align-items-center justify-content-between gap-2 ${index === activeIndex ? "active" : ""}`}
+                            onMouseDown={event => event.preventDefault()}
+                            onMouseEnter={() => setActiveIndex(index)}
+                            onClick={() => selectServer(server)}
+                        >
+                            <span>S{server}</span>
+                            {String(currentServer) === String(server) && (
+                                <span className="badge text-bg-primary">{t("Ssc2Train.autocomplete.selected")}</span>
+                            )}
+                        </button>
+                    )) : (
+                        <div className="dropdown-item-text text-secondary">{t("Ssc2Train.autocomplete.noResult")}</div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}
+
 function SummaryCard({ label, value, detail }) {
     return (
         <div className="col-12 col-sm-6 col-xl-3">
@@ -261,7 +433,11 @@ export default function Ssc2TrainAnalyzer() {
     const [compareDistributionError, setCompareDistributionError] = useState(false);
     const [overviewQuery, setOverviewQuery] = useState("");
     const [serverPlayerQuery, setServerPlayerQuery] = useState("");
+    const [serverCandidate, setServerCandidate] = useState("");
     const [compareCandidate, setCompareCandidate] = useState("");
+    const [compareSort, setCompareSort] = useState({ key: "totalPower", direction: "desc" });
+    const [compareBarMetric, setCompareBarMetric] = useState("totalPower");
+    const [compareChartLimit, setCompareChartLimit] = useState(0);
     const [overviewSort, setOverviewSort] = useState({ key: "totalPower", direction: "desc" });
 
     useEffect(() => {
@@ -290,6 +466,7 @@ export default function Ssc2TrainAnalyzer() {
     }, [accessGranted, indexData]);
 
     const servers = useMemo(() => indexData?.servers ?? [], [indexData]);
+    const serverNumbers = useMemo(() => servers.map(server => String(server.server)), [servers]);
     const serverMap = useMemo(
         () => new Map(servers.map(server => [String(server.server), server])),
         [servers],
@@ -299,6 +476,10 @@ export default function Ssc2TrainAnalyzer() {
         if (view !== "server" || selectedServer || servers.length === 0) return;
         setSelectedServer(String(servers[0].server));
     }, [selectedServer, servers, setSelectedServer, view]);
+
+    useEffect(() => {
+        setServerCandidate(String(selectedServer ?? ""));
+    }, [selectedServer]);
 
     useEffect(() => {
         if (!accessGranted || view !== "server" || !selectedServer) {
@@ -413,7 +594,17 @@ export default function Ssc2TrainAnalyzer() {
         () => compareServers.map(server => serverMap.get(String(server))).filter(Boolean).slice(0, 20),
         [compareServers, serverMap],
     );
-    const maxComparedPower = Math.max(1, ...comparedSummaries.map(server => server.totalPower));
+    const sortedComparedSummaries = useMemo(() => {
+        const direction = compareSort.direction === "asc" ? 1 : -1;
+        return [...comparedSummaries].sort((left, right) => {
+            const difference = Number(left[compareSort.key] ?? 0) - Number(right[compareSort.key] ?? 0);
+            return difference !== 0 ? difference * direction : left.server - right.server;
+        });
+    }, [compareSort, comparedSummaries]);
+    const maxComparedMetric = Math.max(
+        1,
+        ...comparedSummaries.map(server => Number(server[compareBarMetric] ?? 0)),
+    );
 
     useEffect(() => {
         if (!accessGranted || view !== "compare" || comparedSummaries.length === 0) {
@@ -482,21 +673,42 @@ export default function Ssc2TrainAnalyzer() {
     }, [deferredSearchText, searchIndex]);
 
     const compareChartData = useMemo(() => {
-        const maxPlayers = Math.max(0, ...compareDistributions.map(item => item.powers.length));
+        const visibleDistributions = compareDistributions.map(item => ({
+            ...item,
+            totalCount: item.powers.length,
+            powers: compareChartLimit ? item.powers.slice(0, compareChartLimit) : item.powers,
+        }));
         return {
-            labels: Array.from({ length: maxPlayers }, (_, index) => index + 1),
-            datasets: compareDistributions.map((item, index) => ({
-                label: `S${item.server}`,
-                data: item.powers,
-                borderColor: COMPARE_COLORS[index % COMPARE_COLORS.length],
-                backgroundColor: COMPARE_COLORS[index % COMPARE_COLORS.length],
-                borderWidth: 2.25,
-                pointRadius: 0,
-                pointHoverRadius: 4,
-                tension: 0.18,
-            })),
+            datasets: visibleDistributions.map((item, index) => {
+                const color = getCompareColor(index);
+                return {
+                    label: `S${item.server} · ${formatNumber(item.totalCount)}명`,
+                    data: item.powers.map((power, powerIndex) => ({
+                        x: rankToChartPosition(powerIndex + 1),
+                        y: power,
+                        rank: powerIndex + 1,
+                    })),
+                    borderColor: color,
+                    backgroundColor: color,
+                    borderWidth: 2.25,
+                    pointRadius: context => context.dataIndex === 0 ? 6 : (context.dataIndex < 10 ? 2 : 0),
+                    pointHoverRadius: 7,
+                    pointHitRadius: 12,
+                    pointBackgroundColor: context => context.dataIndex === 0 ? "#fff" : color,
+                    pointBorderColor: color,
+                    pointBorderWidth: context => context.dataIndex === 0 ? 3 : 1,
+                    tension: 0.18,
+                };
+            }),
         };
-    }, [compareDistributions]);
+    }, [compareChartLimit, compareDistributions, formatNumber]);
+
+    const compareChartMaxRank = useMemo(() => Math.max(
+        0,
+        ...compareDistributions.map(item => (
+            compareChartLimit ? Math.min(compareChartLimit, item.powers.length) : item.powers.length
+        )),
+    ), [compareChartLimit, compareDistributions]);
 
     const compareChartOptions = useMemo(() => ({
         responsive: true,
@@ -510,15 +722,29 @@ export default function Ssc2TrainAnalyzer() {
             },
             tooltip: {
                 callbacks: {
-                    title: items => items.length ? t("Ssc2Train.compare.rankTooltip", { rank: items[0].label }) : "",
+                    title: items => items.length
+                        ? t("Ssc2Train.compare.rankTooltip", { rank: items[0].raw.rank })
+                        : "",
                     label: context => `${context.dataset.label}: ${formatCompact(context.parsed.y)}`,
                 },
             },
         },
         scales: {
             x: {
+                type: "linear",
+                min: 0,
                 title: { display: true, text: t("Ssc2Train.compare.rankAxis") },
-                ticks: { maxTicksLimit: 12, maxRotation: 0 },
+                afterBuildTicks: scale => {
+                    const candidates = [1, 5, 10, 20, 30, 50, 100, 200, 300, 400, 500, compareChartMaxRank];
+                    const ranks = [...new Set(candidates)]
+                        .filter(rank => rank > 0 && rank <= compareChartMaxRank)
+                        .sort((left, right) => left - right);
+                    scale.ticks = ranks.map(rank => ({ value: rankToChartPosition(rank) }));
+                },
+                ticks: {
+                    maxRotation: 0,
+                    callback: value => Math.round(chartPositionToRank(value)),
+                },
                 grid: { display: false },
             },
             y: {
@@ -527,7 +753,22 @@ export default function Ssc2TrainAnalyzer() {
                 ticks: { callback: value => formatCompact(value) },
             },
         },
-    }), [formatCompact, t]);
+    }), [compareChartMaxRank, formatCompact, t]);
+
+    const compareMetricLabels = useMemo(() => ({
+        server: t("Ssc2Train.table.server"),
+        playerCount: t("Ssc2Train.table.players"),
+        totalPower: t("Ssc2Train.table.totalPower"),
+        maxPower: t("Ssc2Train.table.top1"),
+        top5Power: t("Ssc2Train.table.top5"),
+        top10Power: t("Ssc2Train.table.top10"),
+        top30Power: t("Ssc2Train.table.top30"),
+        top50Power: t("Ssc2Train.table.top50"),
+    }), [t]);
+    const formatCompareBarValue = useCallback(
+        value => compareBarMetric === "playerCount" ? formatNumber(value) : formatCompact(value),
+        [compareBarMetric, formatCompact, formatNumber],
+    );
 
     const submitAnswer = useCallback(event => {
         event.preventDefault();
@@ -552,6 +793,16 @@ export default function Ssc2TrainAnalyzer() {
         setOverviewSort(current => ({
             key,
             direction: current.key === key && current.direction === "asc" ? "desc" : "asc",
+        }));
+    }, []);
+
+    const changeCompareSort = useCallback(key => {
+        if (key !== "server") setCompareBarMetric(key);
+        setCompareSort(current => ({
+            key,
+            direction: current.key === key
+                ? (current.direction === "asc" ? "desc" : "asc")
+                : (key === "server" ? "asc" : "desc"),
         }));
     }, []);
 
@@ -697,15 +948,21 @@ export default function Ssc2TrainAnalyzer() {
                     <div className="card border-0 shadow-sm mb-4">
                         <div className="card-body row g-3 align-items-end">
                             <div className="col-md-4">
-                                <label className="form-label fw-semibold" htmlFor="ssc2-server-select">{t("Ssc2Train.selectServer")}</label>
-                                <select
-                                    id="ssc2-server-select"
-                                    className="form-select"
-                                    value={selectedServer}
-                                    onChange={event => setSelectedServer(event.target.value)}
-                                >
-                                    {servers.map(server => <option key={server.server} value={server.server}>S{server.server}</option>)}
-                                </select>
+                                <ServerAutocomplete
+                                    id="ssc2-server-input"
+                                    servers={serverNumbers}
+                                    value={serverCandidate}
+                                    currentServer={selectedServer}
+                                    restoreCurrentOnBlur
+                                    label={t("Ssc2Train.selectServer")}
+                                    placeholder={t("Ssc2Train.serverSearchPlaceholder")}
+                                    onInputChange={setServerCandidate}
+                                    onSelect={server => {
+                                        setServerCandidate(server);
+                                        setSelectedServer(server);
+                                    }}
+                                    t={t}
+                                />
                             </div>
                             <div className="col-md-8">
                                 <label className="form-label fw-semibold" htmlFor="ssc2-server-player-query">{t("Ssc2Train.searchPlayer")}</label>
@@ -790,31 +1047,17 @@ export default function Ssc2TrainAnalyzer() {
                         <div className="card-body">
                             <div className="row g-3 align-items-end">
                                 <div className="col-md-8">
-                                    <label className="form-label fw-semibold" htmlFor="ssc2-compare-input">{t("Ssc2Train.compare.add")}</label>
-                                    <input
+                                    <ServerAutocomplete
                                         id="ssc2-compare-input"
-                                        type="search"
-                                        inputMode="numeric"
-                                        className="form-control"
+                                        servers={serverNumbers}
                                         value={compareCandidate}
-                                        list="ssc2-compare-options"
+                                        excludedServers={compareServers}
+                                        label={t("Ssc2Train.compare.add")}
                                         placeholder={t("Ssc2Train.compare.placeholder")}
-                                        autoComplete="off"
-                                        role="combobox"
-                                        aria-autocomplete="list"
-                                        aria-controls="ssc2-compare-options"
-                                        onChange={event => setCompareCandidate(event.target.value.replace(/\D/g, ""))}
-                                        onKeyDown={event => {
-                                            if (event.key !== "Enter") return;
-                                            event.preventDefault();
-                                            addCompareServer(event.currentTarget.value);
-                                        }}
+                                        onInputChange={setCompareCandidate}
+                                        onSelect={addCompareServer}
+                                        t={t}
                                     />
-                                    <datalist id="ssc2-compare-options">
-                                        {servers.filter(server => !compareServers.includes(String(server.server))).map(server => (
-                                            <option key={server.server} value={server.server}>S{server.server}</option>
-                                        ))}
-                                    </datalist>
                                 </div>
                                 <div className="col-md-4">
                                     <button
@@ -853,9 +1096,23 @@ export default function Ssc2TrainAnalyzer() {
                             </div>
                             <div className="card-body">
                                 <section className="mb-4" aria-labelledby="ssc2-distribution-title">
-                                    <h4 id="ssc2-distribution-title" className="h6 fw-bold mb-1">
-                                        {t("Ssc2Train.compare.distributionTitle")}
-                                    </h4>
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-1">
+                                        <h4 id="ssc2-distribution-title" className="h6 fw-bold mb-0">
+                                            {t("Ssc2Train.compare.distributionTitle")}
+                                        </h4>
+                                        <div className="btn-group btn-group-sm" role="group" aria-label={t("Ssc2Train.compare.chartRange")}>
+                                            {CHART_LIMITS.map(limit => (
+                                                <button
+                                                    key={limit}
+                                                    type="button"
+                                                    className={`btn ${compareChartLimit === limit ? "btn-primary" : "btn-outline-primary"}`}
+                                                    onClick={() => setCompareChartLimit(limit)}
+                                                >
+                                                    {limit ? `TOP ${limit}` : t("Ssc2Train.compare.allRanks")}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                     <p className="small text-secondary mb-3">
                                         {t("Ssc2Train.compare.distributionDescription")}
                                     </p>
@@ -875,31 +1132,60 @@ export default function Ssc2TrainAnalyzer() {
                                         </div>
                                     )}
                                 </section>
-                                <div className="ssc2-power-bars mb-4">
-                                    {comparedSummaries.map(server => (
-                                        <div key={server.server} className="ssc2-power-row">
-                                            <strong>S{server.server}</strong>
-                                            <div className="ssc2-power-track"><span style={{ width: `${server.totalPower / maxComparedPower * 100}%` }} /></div>
-                                            <span className="numeric-cell">{formatCompact(server.totalPower)}</span>
+                                <section className="mb-4" aria-labelledby="ssc2-bar-title">
+                                    <div className="d-flex flex-column gap-2 mb-3">
+                                        <h4 id="ssc2-bar-title" className="h6 fw-bold mb-0">
+                                            {t("Ssc2Train.compare.barTitle", { metric: compareMetricLabels[compareBarMetric] })}
+                                        </h4>
+                                        <div className="ssc2-compare-metric-toolbar" role="group" aria-label={t("Ssc2Train.compare.barMetric")}>
+                                            {COMPARE_METRIC_KEYS.map(key => (
+                                                <button
+                                                    key={key}
+                                                    type="button"
+                                                    className={`btn btn-sm ${compareBarMetric === key ? "btn-primary" : "btn-outline-secondary"}`}
+                                                    onClick={() => changeCompareSort(key)}
+                                                >
+                                                    {compareMetricLabels[key]}
+                                                    {compareSort.key === key ? (compareSort.direction === "asc" ? " ↑" : " ↓") : ""}
+                                                </button>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                    <div className="ssc2-power-bars">
+                                        {sortedComparedSummaries.map(server => (
+                                            <div key={server.server} className="ssc2-power-row">
+                                                <strong>S{server.server}</strong>
+                                                <div className="ssc2-power-track">
+                                                    <span style={{ width: `${Number(server[compareBarMetric] ?? 0) / maxComparedMetric * 100}%` }} />
+                                                </div>
+                                                <span className="numeric-cell">{formatCompareBarValue(server[compareBarMetric])}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
                                 <div className="table-responsive">
                                     <table className="table table-striped align-middle mb-0 ssc2-table">
                                         <thead><tr>
-                                            <th>{t("Ssc2Train.table.server")}</th>
-                                            <th>{t("Ssc2Train.table.players")}</th>
-                                            <th>{t("Ssc2Train.table.totalPower")}</th>
-                                            <th>{t("Ssc2Train.table.top5")}</th>
-                                            <th>{t("Ssc2Train.table.top10")}</th>
-                                            <th>{t("Ssc2Train.table.top30")}</th>
-                                            <th>{t("Ssc2Train.table.top50")}</th>
+                                            {["server", "playerCount", "totalPower", "maxPower", "top5Power", "top10Power", "top30Power", "top50Power"].map(key => (
+                                                <th
+                                                    key={key}
+                                                    aria-sort={compareSort.key === key
+                                                        ? (compareSort.direction === "asc" ? "ascending" : "descending")
+                                                        : "none"}
+                                                >
+                                                    <button type="button" className="ssc2-sort-button" onClick={() => changeCompareSort(key)}>
+                                                        {compareMetricLabels[key]}
+                                                        {compareSort.key === key ? (compareSort.direction === "asc" ? " ↑" : " ↓") : ""}
+                                                    </button>
+                                                </th>
+                                            ))}
                                         </tr></thead>
-                                        <tbody>{comparedSummaries.map(server => (
+                                        <tbody>{sortedComparedSummaries.map(server => (
                                             <tr key={server.server}>
                                                 <td className="fw-bold">S{server.server}</td>
                                                 <td className="numeric-cell">{formatNumber(server.playerCount)}</td>
                                                 <td className="numeric-cell fw-semibold">{formatCompact(server.totalPower)}</td>
+                                                <td className="numeric-cell">{formatCompact(server.maxPower)}</td>
                                                 <td className="numeric-cell">{formatCompact(server.top5Power)}</td>
                                                 <td className="numeric-cell">{formatCompact(server.top10Power)}</td>
                                                 <td className="numeric-cell">{formatCompact(server.top30Power)}</td>
