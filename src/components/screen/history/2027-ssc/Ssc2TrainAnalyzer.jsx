@@ -178,7 +178,7 @@ function parsePlayerInfo(value) {
     }
 }
 
-function displayNameOf(player) {
+function displayNameOf(player, fallbackName) {
     const uid = String(player?.uid ?? "");
     const info = parsePlayerInfo(player?.playerInfo);
     const candidates = [player?.username, info.username, info.nickname, info.name];
@@ -187,7 +187,7 @@ function displayNameOf(player) {
         return value && (!uid || !value.includes(uid));
     });
 
-    return safeName ? String(safeName).trim() : "익명 사용자";
+    return safeName ? String(safeName).trim() : fallbackName;
 }
 
 function matchesPlayerName(name, rawQuery) {
@@ -375,7 +375,7 @@ function AccessQuestion({ answer, error, inputRef, onAnswerChange, onSubmit, t }
                 aria-describedby="ssc2-access-description"
             >
                 <div className="ssc2-access-mark" aria-hidden="true">?</div>
-                <h2 id="ssc2-access-title" className="h3 mb-2">궁금하면..?</h2>
+                <h2 id="ssc2-access-title" className="h3 mb-2">{t("Ssc2Train.accessTitle")}</h2>
                 <p id="ssc2-access-description" className="text-secondary mb-4">
                     {t("Ssc2Train.accessDescription")}
                 </p>
@@ -552,7 +552,10 @@ export default function Ssc2TrainAnalyzer() {
         [i18n.language],
     );
     const powerUnitFormatter = useMemo(
-        () => new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }),
+        () => new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+        }),
         [],
     );
     const formatNumber = useCallback(value => numberFormatter.format(Number(value ?? 0)), [numberFormatter]);
@@ -594,11 +597,11 @@ export default function Ssc2TrainAnalyzer() {
         return serverData.players
             .map(player => ({
                 ...player,
-                displayName: displayNameOf(player),
+                displayName: displayNameOf(player, t("Ssc2Train.anonymousPlayer")),
                 numericPower: Number(player.power ?? 0),
             }))
             .filter(player => matchesPlayerName(player.displayName, serverPlayerQuery));
-    }, [serverData, serverPlayerQuery]);
+    }, [serverData, serverPlayerQuery, t]);
 
     const comparedSummaries = useMemo(
         () => compareServers.map(server => serverMap.get(String(server))).filter(Boolean).slice(0, 20),
@@ -692,7 +695,10 @@ export default function Ssc2TrainAnalyzer() {
             datasets: visibleDistributions.map((item, index) => {
                 const color = getCompareColor(index);
                 return {
-                    label: `S${item.server} · ${formatNumber(item.totalCount)}명`,
+                    label: t("Ssc2Train.compare.datasetLabel", {
+                        server: item.server,
+                        count: formatNumber(item.totalCount),
+                    }),
                     data: item.powers.map((power, powerIndex) => ({
                         x: rankToChartPosition(powerIndex + 1),
                         y: power,
@@ -711,7 +717,7 @@ export default function Ssc2TrainAnalyzer() {
                 };
             }),
         };
-    }, [compareChartLimit, compareDistributions, formatNumber]);
+    }, [compareChartLimit, compareDistributions, formatNumber, t]);
 
     const compareChartMaxRank = useMemo(() => Math.max(
         0,
@@ -943,13 +949,15 @@ export default function Ssc2TrainAnalyzer() {
                         headers={<>
                             <th className="ssc2-col-rank">{t("Ssc2Train.table.rank")}</th>
                             <th>{t("Ssc2Train.table.server")}</th>
-                            <th>
+                            <th className={overviewSort.key === "totalPower" ? "ssc2-total-power-column" : ""}>
                                 <button type="button" className="ssc2-sort-button" onClick={() => changeSort(overviewSort.key)}>
                                     {compareMetricLabels[overviewSort.key]}
                                     {overviewSort.direction === "asc" ? " ↑" : " ↓"}
                                 </button>
                             </th>
-                            {overviewSort.key !== "totalPower" && <th>{t("Ssc2Train.table.totalPower")}</th>}
+                            {overviewSort.key !== "totalPower" && (
+                                <th className="ssc2-total-power-column">{t("Ssc2Train.table.totalPower")}</th>
+                            )}
                             {overviewSort.key !== "playerCount" && <th>{t("Ssc2Train.table.players")}</th>}
                             <th className="ssc2-col-action">{t("Ssc2Train.table.details")}</th>
                         </>}
@@ -965,9 +973,11 @@ export default function Ssc2TrainAnalyzer() {
                                     </span>
                                 </td>
                                 <td className={rankClass}><strong>S{server.server}</strong></td>
-                                <td className={`numeric-cell fs-6 fw-bold ${rankClass}`}>{metricValue}</td>
+                                <td className={`numeric-cell fs-6 fw-bold ${overviewSort.key === "totalPower" ? "ssc2-total-power-column" : ""} ${rankClass}`}>
+                                    {metricValue}
+                                </td>
                                 {overviewSort.key !== "totalPower" && (
-                                    <td className={`numeric-cell ${rankClass}`}>{formatPower(server.totalPower)}</td>
+                                    <td className={`numeric-cell ssc2-total-power-column ${rankClass}`}>{formatPower(server.totalPower)}</td>
                                 )}
                                 {overviewSort.key !== "playerCount" && (
                                     <td className={`numeric-cell ${rankClass}`}>{formatNumber(server.playerCount)}</td>
@@ -1213,6 +1223,7 @@ export default function Ssc2TrainAnalyzer() {
                                             {["server", "playerCount", "totalPower", "maxPower", "top5Power", "top10Power", "top30Power", "top50Power"].map(key => (
                                                 <th
                                                     key={key}
+                                                    className={key === "totalPower" ? "ssc2-total-power-column" : ""}
                                                     aria-sort={compareSort.key === key
                                                         ? (compareSort.direction === "asc" ? "ascending" : "descending")
                                                         : "none"}
@@ -1228,7 +1239,7 @@ export default function Ssc2TrainAnalyzer() {
                                             <tr key={server.server}>
                                                 <td className="fw-bold">S{server.server}</td>
                                                 <td className="numeric-cell">{formatNumber(server.playerCount)}</td>
-                                                <td className="numeric-cell fw-semibold">{formatPower(server.totalPower)}</td>
+                                                <td className="numeric-cell fw-semibold ssc2-total-power-column">{formatPower(server.totalPower)}</td>
                                                 <td className="numeric-cell">{formatPower(server.maxPower)}</td>
                                                 <td className="numeric-cell">{formatPower(server.top5Power)}</td>
                                                 <td className="numeric-cell">{formatPower(server.top10Power)}</td>

@@ -60,8 +60,16 @@ try {
     );
     assert.match(
         await page.$eval(".ssc2-virtual-frame tbody tr td:nth-child(3)", element => element.textContent.trim()),
-        /^\d[\d,.]*[MT]$/,
+        /^\d[\d,]*\.\d[MT]$/,
         "Total power was not rendered with an M/T unit",
+    );
+    assert.equal(
+        await page.$eval(".ssc2-overview-virtuoso tbody tr .ssc2-total-power-column", element => {
+            const style = getComputedStyle(element);
+            return style.textAlign === "right" && style.fontVariantNumeric.includes("tabular-nums");
+        }),
+        true,
+        "Total power values were not right-aligned with tabular digits",
     );
     assert.match(
         await page.$eval(".ssc2-virtual-frame tbody tr td:nth-child(4)", element => element.textContent.trim()),
@@ -70,6 +78,17 @@ try {
     );
     assert.equal(await page.$$(".ssc2-overview-virtuoso thead th").then(headers => headers.length), 5);
     assert.equal(await page.$$(".ssc2-rank-badge.is-top-1").then(badges => badges.length), 1);
+    assert.equal(
+        await page.$$eval(
+            ".ssc2-overview-virtuoso tbody tr:nth-child(-n+3) td:nth-child(-n+2)",
+            cells => cells.length === 6 && cells.every(cell => {
+                const channels = getComputedStyle(cell).backgroundColor.match(/[\d.]+/g)?.map(Number) ?? [];
+                return channels.length === 3 || channels[3] === 1;
+            }),
+        ),
+        true,
+        "Top-three sticky cells used a translucent background",
+    );
     await page.evaluate(() => {
         [...document.querySelectorAll(".ssc2-ranking-metrics button")]
             .find(button => button.textContent.includes("TOP 5"))?.click();
@@ -251,6 +270,56 @@ try {
         false,
         "Server information rendered before a server was selected",
     );
+
+    for (const locale of [
+        {
+            code: "en",
+            accessTitle: "Curious..?",
+            pageTitle: "Seal Stone Battlefield (2027)",
+            analyzerTitle: "Truck Power Analysis",
+            overviewTab: "Overall Rankings",
+            menuLabel: "Seal Stone Battlefield (2027)",
+        },
+        {
+            code: "ja",
+            accessTitle: "気になるなら…？",
+            pageTitle: "封印石戦場（2027）",
+            analyzerTitle: "トラック戦力分析",
+            overviewTab: "総合ランキング",
+            menuLabel: "封印石戦場（2027）",
+        },
+    ]) {
+        await page.evaluate(() => sessionStorage.clear());
+        await page.goto(`${baseUrl}/${locale.code}/history/ssc-2027/train`, { waitUntil: "networkidle0" });
+        await page.waitForSelector(".ssc2-access-dialog");
+        assert.equal(
+            await page.$eval("#ssc2-access-title", element => element.textContent.trim()),
+            locale.accessTitle,
+        );
+        await page.type("#ssc2-access-answer", "500원");
+        await page.click('.ssc2-access-dialog button[type="submit"]');
+        await page.waitForSelector(".ssc2-train-analyzer");
+        assert.equal(await page.$eval("h1", element => element.textContent.trim()), locale.pageTitle);
+        assert.equal(
+            await page.$eval(".ssc2-hero h2", element => element.textContent.trim()),
+            locale.analyzerTitle,
+        );
+        assert.equal(
+            await page.$eval(".ssc2-view-tabs button", element => element.textContent.trim()),
+            locale.overviewTab,
+        );
+        assert.equal(
+            await page.$$eval(
+                "a",
+                (elements, expectedLabel) => elements.some(element => (
+                    element.textContent.trim() === expectedLabel
+                    && element.getAttribute("href")?.includes("/history/ssc-2027/train")
+                )),
+                locale.menuLabel,
+            ),
+            true,
+        );
+    }
 
     console.log("SSC2 browser verification passed");
 } finally {

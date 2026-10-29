@@ -184,6 +184,10 @@
                 "title": "Top War SSC 2026 Player Rankings"
             }
         },
+        "ssc2027": {
+            "home": { "title": "Top War Seal Stone Battlefield (2027)" },
+            "train": { "title": "Top War Seal Stone Battlefield (2027) Truck Status" }
+        },
         "liondance": {
             "title": "Top War Lion Dance Rankings"
         }

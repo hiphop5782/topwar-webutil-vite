@@ -100,6 +100,19 @@
     white-space: nowrap;
 }
 
+.ssc2-total-power-column {
+    width: 10rem;
+    min-width: 10rem;
+    text-align: right !important;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.ssc2-total-power-column .ssc2-sort-button {
+    width: 100%;
+    text-align: right;
+}
+
 .ssc2-virtual-frame {
     height: clamp(34rem, 72vh, 52rem);
     min-height: 0;
@@ -415,6 +428,22 @@
 
 .ssc2-rank-cell-3 {
     background-color: rgba(180, 83, 9, 0.1) !important;
+}
+
+/* 가로 스크롤 콘텐츠가 상위권 고정 열의 반투명 배경을 통해 비치지 않도록 한다. */
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:first-child.ssc2-rank-cell-1,
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:nth-child(2).ssc2-rank-cell-1 {
+    background-color: #fef7da !important;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:first-child.ssc2-rank-cell-2,
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:nth-child(2).ssc2-rank-cell-2 {
+    background-color: #eef0f4 !important;
+}
+
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:first-child.ssc2-rank-cell-3,
+.ssc2-overview-virtuoso .ssc2-virtual-table tbody td:nth-child(2).ssc2-rank-cell-3 {
+    background-color: #f7eee7 !important;
 }
 
 .ssc2-access-layer {

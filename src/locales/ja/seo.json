@@ -184,6 +184,10 @@
                 "title": "Top War SSC 2026 プレイヤーランキング"
             }
         },
+        "ssc2027": {
+            "home": { "title": "Top War 封印石戦場（2027）" },
+            "train": { "title": "Top War 封印石戦場（2027）トラック状況" }
+        },
         "liondance": {
             "title": "Top War Lion Dance ランキング"
         }

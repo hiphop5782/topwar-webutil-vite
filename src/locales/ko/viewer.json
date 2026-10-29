@@ -463,6 +463,7 @@
         "train": "트럭 현황"
     },
     "Ssc2Train": {
+        "accessTitle": "궁금하면..?",
         "accessDescription": "정답을 입력하면 조사 데이터를 불러옵니다.",
         "answerLabel": "정답",
         "wrongAnswer": "정답이 아닙니다.",
@@ -487,9 +488,10 @@
         "serverLoadError": "선택한 서버의 요약정보와 구성원 명단을 불러오지 못했습니다.",
         "searchPlayer": "서버 내 닉네임 검색",
         "playerSearchPlaceholder": "대소문자·유니코드·한글 자모 검색",
+        "anonymousPlayer": "익명 사용자",
         "serverMismatch": "이 열차에는 응답 서버가 다른 인원이 {{count}}명 있습니다. 열차 서버 기준으로 집계했습니다.",
         "serverRoster": "전력 목록",
-        "compare": { "add": "비교 서버 번호", "placeholder": "서버 번호 입력", "addButton": "비교에 추가", "remove": "서버 {{server}} 비교에서 제거", "empty": "비교할 서버를 최대 20개까지 추가해 주세요.", "title": "서버 전력 비교", "description": "총전력과 TOP 5·TOP 10 등 상위권 전력을 비교합니다.", "distributionTitle": "순위별 전투력 분포", "distributionDescription": "전체 인원을 표시하되 TOP 10은 넓게, 50위 이후 저전력 구간은 압축해 상위권 격차와 전체 전력층을 함께 보여줍니다.", "distributionError": "전투력 분포 데이터를 불러오지 못했습니다.", "distributionAria": "비교 서버별 순위에 따른 전투력 분포 꺾은선 그래프", "rankAxis": "서버 내 전투력 순위 · 50위 이후 압축", "rankTooltip": "{{rank}}위", "chartRange": "그래프 표시 범위", "allRanks": "전체", "barTitle": "{{metric}} 막대 비교", "barMetric": "막대그래프 비교 기준" },
+        "compare": { "add": "비교 서버 번호", "placeholder": "서버 번호 입력", "addButton": "비교에 추가", "remove": "서버 {{server}} 비교에서 제거", "empty": "비교할 서버를 최대 20개까지 추가해 주세요.", "title": "서버 전력 비교", "description": "총전력과 TOP 5·TOP 10 등 상위권 전력을 비교합니다.", "datasetLabel": "S{{server}} · {{count}}명", "distributionTitle": "순위별 전투력 분포", "distributionDescription": "전체 인원을 표시하되 TOP 10은 넓게, 50위 이후 저전력 구간은 압축해 상위권 격차와 전체 전력층을 함께 보여줍니다.", "distributionError": "전투력 분포 데이터를 불러오지 못했습니다.", "distributionAria": "비교 서버별 순위에 따른 전투력 분포 꺾은선 그래프", "rankAxis": "서버 내 전투력 순위 · 50위 이후 압축", "rankTooltip": "{{rank}}위", "chartRange": "그래프 표시 범위", "allRanks": "전체", "barTitle": "{{metric}} 막대 비교", "barMetric": "막대그래프 비교 기준" },
         "search": { "title": "전체 플레이어 검색", "placeholder": "닉네임 일부, 초성, 자모 또는 서버 번호", "help": "영문 대소문자, 유니코드 유사문자와 숫자, 한글 부분 음절·초성을 구분하지 않고 검색합니다.", "empty": "검색어를 입력하면 전체 22,225명에서 찾습니다.", "results": "검색 결과", "limit": "전투력순 상위 300건까지만 표시합니다." }
     },
     "SscDashboard": {
