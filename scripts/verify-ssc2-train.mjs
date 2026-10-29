@@ -164,8 +164,27 @@ try {
         "전체",
         "The comparison chart did not default to the full roster",
     );
+    assert.deepEqual(
+        await page.$$eval(
+            '[aria-labelledby="ssc2-distribution-title"] .btn-group button',
+            buttons => buttons.map(button => button.textContent.trim()),
+        ),
+        ["TOP 1", "TOP 5", "TOP 10", "TOP 30", "TOP 50", "전체"],
+    );
+    for (const range of ["TOP 1", "TOP 5"]) {
+        await page.evaluate(label => {
+            [...document.querySelectorAll('[aria-labelledby="ssc2-distribution-title"] .btn-group button')]
+                .find(button => button.textContent.trim() === label)?.click();
+        }, range);
+        await page.waitForFunction(label => (
+            document.querySelector('[aria-labelledby="ssc2-distribution-title"] .btn-group button.btn-primary')
+                ?.textContent.trim() === label
+            && document.querySelector(".ssc2-distribution-chart")?.dataset.yAxisMode === "focused"
+            && Number(document.querySelector(".ssc2-distribution-chart")?.dataset.yAxisMin) > 0
+        ), {}, range);
+    }
     assert.equal(
-        await page.evaluate(() => document.body.textContent.includes("50위 이후 저전력 구간은 압축")),
+        await page.evaluate(() => document.body.textContent.includes("전체 모드는 0부터 표시")),
         true,
         "Compressed low-power rank guidance was not rendered",
     );

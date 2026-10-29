@@ -59,7 +59,7 @@ const ARMY_BRANCHES = {
 
 const COMPARE_COLORS = ["#2563eb", "#dc2626", "#059669", "#d97706", "#7c3aed"];
 const COMPARE_METRIC_KEYS = ["totalPower", "playerCount", "maxPower", "top5Power", "top10Power", "top30Power", "top50Power"];
-const CHART_LIMITS = [10, 30, 50, 0];
+const CHART_LIMITS = [1, 5, 10, 30, 50, 0];
 const RANK_GUIDES = [1, 10, 30, 50];
 const getCompareColor = index => COMPARE_COLORS[index]
     ?? `hsl(${Math.round(index * 137.508) % 360} 68% 45%)`;
@@ -726,6 +726,28 @@ export default function Ssc2TrainAnalyzer() {
         )),
     ), [compareChartLimit, compareDistributions]);
 
+    const compareChartYBounds = useMemo(() => {
+        if (!compareChartLimit) return null;
+
+        const visiblePowers = compareDistributions
+            .flatMap(item => item.powers.slice(0, compareChartLimit))
+            .map(Number)
+            .filter(Number.isFinite);
+        if (visiblePowers.length === 0) return null;
+
+        const lowestPower = Math.min(...visiblePowers);
+        const highestPower = Math.max(...visiblePowers);
+        const spread = highestPower - lowestPower;
+        const padding = spread > 0
+            ? spread * 0.08
+            : Math.max(highestPower * 0.08, 1);
+
+        return {
+            min: Math.max(0, lowestPower - padding),
+            max: highestPower + padding,
+        };
+    }, [compareChartLimit, compareDistributions]);
+
     const compareChartOptions = useMemo(() => ({
         responsive: true,
         maintainAspectRatio: false,
@@ -764,12 +786,14 @@ export default function Ssc2TrainAnalyzer() {
                 grid: { display: false },
             },
             y: {
-                beginAtZero: true,
+                beginAtZero: compareChartLimit === 0,
+                min: compareChartYBounds?.min,
+                max: compareChartYBounds?.max,
                 title: { display: true, text: t("Ssc2Train.table.power") },
                 ticks: { callback: value => formatPower(value) },
             },
         },
-    }), [compareChartMaxRank, formatPower, t]);
+    }), [compareChartLimit, compareChartMaxRank, compareChartYBounds, formatPower, t]);
 
     const compareMetricLabels = useMemo(() => ({
         server: t("Ssc2Train.table.server"),
@@ -1175,7 +1199,11 @@ export default function Ssc2TrainAnalyzer() {
                                         <div className="alert alert-danger mb-0">{t("Ssc2Train.compare.distributionError")}</div>
                                     )}
                                     {!compareDistributionLoading && !compareDistributionError && compareDistributions.length > 0 && (
-                                        <div className="ssc2-distribution-chart">
+                                        <div
+                                            className="ssc2-distribution-chart"
+                                            data-y-axis-mode={compareChartLimit ? "focused" : "zero"}
+                                            data-y-axis-min={compareChartYBounds?.min ?? 0}
+                                        >
                                             <Line
                                                 data={compareChartData}
                                                 options={compareChartOptions}

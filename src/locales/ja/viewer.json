@@ -482,7 +482,7 @@
         "anonymousPlayer": "匿名プレイヤー",
         "serverMismatch": "この列車には応答サーバーが異なるプレイヤーが{{count}}人います。列車サーバーを基準に集計しました。",
         "serverRoster": "戦力名簿",
-        "compare": { "add": "比較サーバー番号", "placeholder": "サーバー番号を入力", "addButton": "比較に追加", "remove": "サーバー{{server}}を比較から削除", "empty": "比較するサーバーを最大20件まで追加してください。", "title": "サーバー戦力比較", "description": "総戦力とTOP 5・TOP 10など上位層の戦力を比較します。", "datasetLabel": "S{{server}} · {{count}}人", "distributionTitle": "順位別戦力分布", "distributionDescription": "全プレイヤーを表示しつつTOP 10を広く、50位以降の低戦力区間を圧縮し、上位層の差と全体の戦力層を同時に確認できます。", "distributionError": "戦力分布データを読み込めませんでした。", "distributionAria": "比較サーバー別の順位に応じた戦力分布折れ線グラフ", "rankAxis": "サーバー内戦力順位 · 50位以降を圧縮", "rankTooltip": "{{rank}}位", "chartRange": "グラフ表示範囲", "allRanks": "全体", "barTitle": "{{metric}} 棒グラフ比較", "barMetric": "棒グラフ比較基準" },
+        "compare": { "add": "比較サーバー番号", "placeholder": "サーバー番号を入力", "addButton": "比較に追加", "remove": "サーバー{{server}}を比較から削除", "empty": "比較するサーバーを最大20件まで追加してください。", "title": "サーバー戦力比較", "description": "総戦力とTOP 5・TOP 10など上位層の戦力を比較します。", "datasetLabel": "S{{server}} · {{count}}人", "distributionTitle": "順位別戦力分布", "distributionDescription": "TOPモードでは選択した上位戦力の範囲に合わせて縦軸を拡大します。全体モードは0から表示し、50位以降の低戦力区間を圧縮します。", "distributionError": "戦力分布データを読み込めませんでした。", "distributionAria": "比較サーバー別の順位に応じた戦力分布折れ線グラフ", "rankAxis": "サーバー内戦力順位 · 50位以降を圧縮", "rankTooltip": "{{rank}}位", "chartRange": "グラフ表示範囲", "allRanks": "全体", "barTitle": "{{metric}} 棒グラフ比較", "barMetric": "棒グラフ比較基準" },
         "search": { "title": "全プレイヤー検索", "placeholder": "ニックネームの一部、韓国語の子音・字母、またはサーバー番号", "help": "英字の大文字・小文字、Unicode類似文字、数字、韓国語の部分音節・頭子音を区別せず検索します。", "empty": "検索語を入力すると全22,225人から検索します。", "results": "検索結果", "limit": "戦力順の上位300件のみ表示します。" }
     },
     "SscDashboard": {
