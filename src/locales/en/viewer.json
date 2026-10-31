@@ -148,6 +148,33 @@
         "message-nolimit": "No Limit",
         "message-countview": "Participants"
     },
+    "AttendanceVoteHistory": {
+        "title": "Server {{serverId}} Vote History",
+        "refresh": "Refresh",
+        "description": "Newest first · Server-wide and alliance votes",
+        "loading": "Loading vote history.",
+        "empty": "No votes have been created yet.",
+        "untitled": "Untitled vote",
+        "created": "Created: {{date}}",
+        "participants_one": "{{count}} participant",
+        "participants_other": "{{count}} participants",
+        "status": {
+            "active": "Active",
+            "paused": "Paused",
+            "expired": "Expired",
+            "archiving": "Ended · Awaiting archive",
+            "archived": "Ended · Archived"
+        },
+        "scope": {
+            "server": "Server-wide vote",
+            "alliance": "Alliance only · [{{allianceTag}}] {{allianceName}}"
+        },
+        "error": {
+            "live": "Could not load the Firebase vote list.",
+            "archive": "Could not load the previous history from GitHub.",
+            "summary": "Only the history currently available is shown. Refresh to try again."
+        }
+    },
     "TopwarDataViewer": {
         "btn-player-data": "Player Data",
         "btn-overall": "All-in-One Search",

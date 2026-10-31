@@ -148,6 +148,32 @@
         "message-nolimit": "制限なし",
         "message-countview": "名が参加中"
     },
+    "AttendanceVoteHistory": {
+        "title": "サーバー{{serverId}}の投票履歴",
+        "refresh": "更新",
+        "description": "作成日の新しい順・サーバー全体および連盟別の投票",
+        "loading": "投票履歴を読み込んでいます。",
+        "empty": "作成された投票はまだありません。",
+        "untitled": "無題の投票",
+        "created": "作成日時: {{date}}",
+        "participants": "参加者 {{count}}人",
+        "status": {
+            "active": "進行中",
+            "paused": "一時停止",
+            "expired": "期限切れ",
+            "archiving": "終了・保存待ち",
+            "archived": "終了・保存済み"
+        },
+        "scope": {
+            "server": "サーバー全体の投票",
+            "alliance": "連盟限定・[{{allianceTag}}] {{allianceName}}"
+        },
+        "error": {
+            "live": "Firebaseの投票一覧を読み込めませんでした。",
+            "archive": "GitHubの過去履歴を読み込めませんでした。",
+            "summary": "現在確認できた履歴のみ表示しています。更新してもう一度お試しください。"
+        }
+    },
     "TopwarSscPointViewer": {
         "title": "封印石カオスー暴風覚醒・個人ランキング",
         "label-input": "サーバー",

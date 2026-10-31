@@ -203,6 +203,32 @@
         "card-weakness": "서버의 약점/위험 신호",
         "card-recommand": "운영 방향 추천"
     },
+    "AttendanceVoteHistory": {
+        "title": "{{serverId}} 서버 투표 내역",
+        "refresh": "새로고침",
+        "description": "생성일 최신순 · 서버 전체 및 길드별 투표",
+        "loading": "투표 내역을 불러오는 중입니다.",
+        "empty": "아직 생성된 투표가 없습니다.",
+        "untitled": "제목 없음",
+        "created": "생성: {{date}}",
+        "participants": "{{count}}명 참여",
+        "status": {
+            "active": "진행 중",
+            "paused": "일시정지",
+            "expired": "기한 만료",
+            "archiving": "최종 종료 · 보관 대기",
+            "archived": "종료 · 보관 완료"
+        },
+        "scope": {
+            "server": "서버 전체 투표",
+            "alliance": "길드 전용 · [{{allianceTag}}] {{allianceName}}"
+        },
+        "error": {
+            "live": "Firebase 목록을 불러오지 못했습니다.",
+            "archive": "GitHub 이전 내역을 불러오지 못했습니다.",
+            "summary": "현재 확인된 내역만 표시합니다. 새로고침으로 다시 시도해 주세요."
+        }
+    },
     "TopwarSscPointViewer": {
         "title": "봉인석 전장 개인 순위",
         "label-input": "서버",
