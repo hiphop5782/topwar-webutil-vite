@@ -2110,7 +2110,7 @@
         "title": "City Rewards",
         "supportNotice": "If the page is not working properly, please send a DM to <strong>🍌Minion</strong> on server 3223.",
         "loading": "Loading city reward data...",
-        "polling": "Auto refresh every 5 seconds",
+        "polling": "Auto refresh every {{seconds}} seconds",
         "lastUpdated": "Last updated",
         "resultCount": "{{count}} rewards",
         "filter": {

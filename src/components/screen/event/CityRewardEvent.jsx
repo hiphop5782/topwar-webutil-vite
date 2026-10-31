@@ -12,7 +12,8 @@ const BACKEND_DATA_URL =
 const FALLBACK_DATA_URL =
   "https://reward.progamer.info/data/city-rewards.json";
 
-const POLLING_INTERVAL = 5000;
+const POLLING_INTERVAL_SECONDS = 20;
+const POLLING_INTERVAL = POLLING_INTERVAL_SECONDS * 1000;
 const REWARD_DURATION = 30 * 60 * 1000;
 const NEW_HIGHLIGHT_DURATION = 60 * 1000;
 const CLOCK_INTERVAL = 1000;
@@ -126,7 +127,7 @@ const CityRwardEvent = () => {
   const initializedRewardsRef = useRef(false);
 
   /**
-   * 백엔드를 5초마다 조회하고, 장애 시 reward 도메인의 JSON으로 폴백한다.
+   * 백엔드를 설정된 주기마다 조회하고, 장애 시 reward 도메인의 JSON으로 폴백한다.
    */
   useEffect(() => {
     let stopped = false;
@@ -510,7 +511,9 @@ const CityRwardEvent = () => {
           </div>
 
           <small className="text-secondary">
-            {t("cityReward.polling")}
+            {t("cityReward.polling", {
+              seconds: POLLING_INTERVAL_SECONDS,
+            })}
 
             {updatedAt && (
               <>
