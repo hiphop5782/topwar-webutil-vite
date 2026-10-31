@@ -33,6 +33,12 @@ const REWARD_TYPES = {
 };
 const REWARD_ITEM_IDS = Object.keys(REWARD_TYPES);
 
+function isSupportedReward(item) {
+  return REWARD_ITEM_IDS.includes(
+    item.cityReward?.itemId?.toString()
+  );
+}
+
 function getLocationId(item) {
   return `${item.serverId}:` + String(
     item.cityReward?.instanceId ??
@@ -242,13 +248,15 @@ const CityRwardEvent = () => {
   }, []);
 
   /**
-   * 종료 시간이 유효하고 아직 유지 시간(30분)이 끝나지 않은 상자 목록
+   * 지원하는 도시 보상 중 종료 시간이 유효하고 아직 만료되지 않은 상자 목록
    */
   const activeLocations = useMemo(() => {
     return locations.filter((item) => {
       const endTime = Number(item.cityReward?.endTimeMilli);
 
-      return Number.isFinite(endTime) && endTime > now;
+      return isSupportedReward(item) &&
+        Number.isFinite(endTime) &&
+        endTime > now;
     });
   }, [locations, now]);
 
@@ -301,7 +309,7 @@ const CityRwardEvent = () => {
         if (selectedReward !== "all" && item.cityReward?.itemId !== selectedReward) {
           return false;
         }
-        return REWARD_ITEM_IDS.includes(item.cityReward?.itemId?.toString());
+        return true;
       })
       .sort((a, b) => {
         if (sortMode === "discovered") {
