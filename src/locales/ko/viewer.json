@@ -520,6 +520,23 @@
         "compare": { "add": "비교 서버 번호", "placeholder": "서버 번호 입력", "addButton": "비교에 추가", "remove": "서버 {{server}} 비교에서 제거", "empty": "비교할 서버를 최대 20개까지 추가해 주세요.", "title": "서버 전력 비교", "description": "총전력과 TOP 5·TOP 10 등 상위권 전력을 비교합니다.", "datasetLabel": "S{{server}} · {{count}}명", "distributionTitle": "순위별 전투력 분포", "distributionDescription": "TOP 모드는 선택한 상위권 전력 범위에 맞춰 세로축을 확대합니다. 전체 모드는 0부터 표시하고 50위 이후 저전력 구간을 압축합니다.", "distributionError": "전투력 분포 데이터를 불러오지 못했습니다.", "distributionAria": "비교 서버별 순위에 따른 전투력 분포 꺾은선 그래프", "rankAxis": "서버 내 전투력 순위 · 50위 이후 압축", "rankTooltip": "{{rank}}위", "chartRange": "그래프 표시 범위", "allRanks": "전체", "barTitle": "{{metric}} 막대 비교", "barMetric": "막대그래프 비교 기준" },
         "search": { "title": "전체 플레이어 검색", "placeholder": "닉네임 일부, 초성, 자모 또는 서버 번호", "help": "영문 대소문자, 유니코드 유사문자와 숫자, 한글 부분 음절·초성을 구분하지 않고 검색합니다.", "empty": "검색어를 입력하면 전체 22,225명에서 찾습니다.", "results": "검색 결과", "limit": "전투력순 상위 300건까지만 표시합니다." }
     },
+    "Ssc2PersonalRank": {
+        "title": "개인 누적 랭킹",
+        "description": "가장 최근 경기 종료 시점의 누적 포인트를 검색하고, 개인별 일자 기록을 확인합니다.",
+        "roundValue": "{{round}} / {{total}} 라운드",
+        "filters": { "nickname": "닉네임", "nicknamePlaceholder": "영문·숫자·유니코드·한글 일부", "server": "서버", "serverPlaceholder": "서버 번호", "minimum": "하한 포인트", "minimumPlaceholder": "최소 포인트", "maximum": "상한 포인트", "maximumPlaceholder": "최대 포인트", "reset": "검색 초기화" },
+        "table": { "rank": "전체 순위", "nickname": "닉네임", "server": "서버", "merit": "누적 포인트", "level": "레벨", "details": "상세", "date": "기록일", "round": "라운드", "change": "전일 대비" },
+        "resultCount": "검색 결과 {{count}}명",
+        "totalCount": "전체 {{count}}명",
+        "noResults": "조건에 맞는 사용자가 없습니다.",
+        "detailsAria": "{{nickname}} 포인트 히스토리 보기",
+        "backToList": "이전 목록으로",
+        "historyEyebrow": "개인 누적 포인트 히스토리",
+        "latestMerit": "최신 누적 포인트",
+        "loadError": "최신 개인 랭킹 데이터를 불러오지 못했습니다.",
+        "historyLoadError": "이 사용자의 일자별 기록을 불러오지 못했습니다.",
+        "retry": "다시 시도"
+    },
     "SscDashboard": {
         "title": "누적 서버 랭킹",
         "description": "선택한 라운드까지의 포인트와 명예를 합산해 누적 순위를 계산합니다.",

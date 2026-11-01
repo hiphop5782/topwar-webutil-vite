@@ -897,14 +897,6 @@ export default function Ssc2TrainAnalyzer() {
 
     return (
         <div className="ssc2-train-analyzer">
-            <header className="ssc2-hero rounded-4 p-4 p-lg-5 mb-4">
-                <div>
-                    <span className="badge text-bg-light mb-2">{t("Ssc2Train.badge")}</span>
-                    <h2 className="h3 mb-2">{t("Ssc2Train.title")}</h2>
-                    <p className="mb-0 opacity-75">{t("Ssc2Train.description")}</p>
-                </div>
-            </header>
-
             <div className="row g-3 mb-4">
                 <SummaryCard label={t("Ssc2Train.metrics.servers")} value={formatNumber(indexData.serverCount)} />
                 <SummaryCard label={t("Ssc2Train.metrics.players")} value={formatNumber(indexData.totalPlayers)} />

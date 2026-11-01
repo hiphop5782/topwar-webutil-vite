@@ -1,8 +1,11 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { FaServer, FaTruckFast, FaUsers } from "react-icons/fa6";
 import { Outlet, useLocation } from "react-router-dom";
 
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
+
+import "./SealStoneChaos2027.css";
 
 export default function SealStoneChaos2027() {
     const location = useLocation();
@@ -16,24 +19,31 @@ export default function SealStoneChaos2027() {
         <h1>{t("Ssc2Main.title")}</h1>
         <p>{t("Ssc2Main.detail")}</p>
 
-        <div className="d-flex flex-wrap gap-2" aria-label={t("Ssc2Main.navigation")}>
-            <button type="button" className="btn btn-outline-secondary" disabled>
-                {t("Ssc2Main.servers")}
-                <span className="badge text-bg-secondary ms-2">{t("Ssc2Main.preparing")}</span>
-            </button>
-            <button type="button" className="btn btn-outline-secondary" disabled>
-                {t("Ssc2Main.users")}
-                <span className="badge text-bg-secondary ms-2">{t("Ssc2Main.preparing")}</span>
+        <nav className="ssc2-section-navigation" aria-label={t("Ssc2Main.navigation")}>
+            <button type="button" className="ssc2-section-tab is-disabled" disabled>
+                <FaServer className="ssc2-section-tab-icon" aria-hidden="true" />
+                <span className="ssc2-section-tab-label">{t("Ssc2Main.servers")}</span>
+                <span className="badge text-bg-secondary">{t("Ssc2Main.preparing")}</span>
             </button>
             <LanguageRouterLink
-                to="/history/ssc-2027/train"
-                className={`btn ${routePath === "/history/ssc-2027/train" ? "btn-secondary" : "btn-outline-secondary"}`}
+                to="/history/ssc-2027/users"
+                aria-current={routePath === "/history/ssc-2027/users" ? "page" : undefined}
+                className={`ssc2-section-tab ${routePath === "/history/ssc-2027/users" ? "is-active" : ""}`}
             >
-                {t("Ssc2Main.train")}
+                <FaUsers className="ssc2-section-tab-icon" aria-hidden="true" />
+                <span className="ssc2-section-tab-label">{t("Ssc2Main.users")}</span>
             </LanguageRouterLink>
-        </div>
+            <LanguageRouterLink
+                to="/history/ssc-2027/train"
+                aria-current={routePath === "/history/ssc-2027/train" ? "page" : undefined}
+                className={`ssc2-section-tab ${routePath === "/history/ssc-2027/train" ? "is-active" : ""}`}
+            >
+                <FaTruckFast className="ssc2-section-tab-icon" aria-hidden="true" />
+                <span className="ssc2-section-tab-label">{t("Ssc2Main.train")}</span>
+            </LanguageRouterLink>
+        </nav>
 
-        <hr />
+        <hr className="ssc2-section-divider" />
         <Outlet />
     </>);
 }

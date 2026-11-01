@@ -55,6 +55,7 @@ const fixedRoutes = [
     "/history/ssc-2026/users",
     "/history/ssc-2027",
     "/history/ssc-2027/train",
+    "/history/ssc-2027/users",
     "/history/liondance",
     "/event/city-reward",
     "/privacy",

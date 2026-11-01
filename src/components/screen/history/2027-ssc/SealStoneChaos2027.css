@@ -1,0 +1,91 @@
+.ssc2-section-navigation {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+    padding: 0.65rem;
+    background: #f1f5f9;
+    border: 1px solid #dbe4ee;
+    border-radius: 0.9rem;
+}
+
+.ssc2-section-tab {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 3.4rem;
+    padding: 0.75rem 0.9rem;
+    color: #334155;
+    font-weight: 700;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.7rem;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    transition: border-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
+}
+
+.ssc2-section-tab:not(.is-disabled):hover {
+    color: #1d4ed8;
+    border-color: #60a5fa;
+    box-shadow: 0 5px 14px rgba(37, 99, 235, 0.12);
+}
+
+.ssc2-section-tab.is-active {
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-color: #1d4ed8;
+    box-shadow: 0 7px 18px rgba(37, 99, 235, 0.24);
+}
+
+.ssc2-section-tab.is-disabled {
+    color: #64748b;
+    cursor: not-allowed;
+    opacity: 0.72;
+}
+
+.ssc2-section-tab-icon {
+    flex: 0 0 auto;
+    font-size: 1.15rem;
+}
+
+.ssc2-section-tab-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ssc2-section-tab .badge {
+    flex: 0 0 auto;
+    font-size: 0.68rem;
+}
+
+.ssc2-section-divider {
+    margin: 1rem 0 1.25rem;
+    color: #cbd5e1;
+    opacity: 1;
+}
+
+@media (max-width: 575.98px) {
+    .ssc2-section-navigation {
+        gap: 0.4rem;
+        padding: 0.45rem;
+    }
+
+    .ssc2-section-tab {
+        flex-direction: column;
+        gap: 0.3rem;
+        min-height: 4.2rem;
+        padding: 0.55rem 0.25rem;
+        font-size: 0.82rem;
+    }
+
+    .ssc2-section-tab.is-disabled .ssc2-section-tab-icon {
+        display: none;
+    }
+
+    .ssc2-section-tab .badge {
+        font-size: 0.6rem;
+    }
+}

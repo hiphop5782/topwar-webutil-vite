@@ -186,7 +186,8 @@
         },
         "ssc2027": {
             "home": { "title": "Top War 封印石戦場（2027）" },
-            "train": { "title": "Top War 封印石戦場（2027）トラック状況" }
+            "train": { "title": "Top War 封印石戦場（2027）トラック状況" },
+            "users": { "title": "Top War 封印石戦場（2027）個人累積ランキング" }
         },
         "liondance": {
             "title": "Top War Lion Dance ランキング"

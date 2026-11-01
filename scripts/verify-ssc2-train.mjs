@@ -33,6 +33,17 @@ try {
     await page.type("#ssc2-access-answer", "500원");
     await page.click('.ssc2-access-dialog button[type="submit"]');
     await page.waitForSelector(".ssc2-train-analyzer");
+    assert.equal(
+        await page.$$(".ssc2-section-navigation .ssc2-section-tab").then(tabs => tabs.length),
+        3,
+        "The SSC2 category navigation is incomplete",
+    );
+    assert.equal(
+        await page.$eval('.ssc2-section-tab[aria-current="page"]', tab => tab.textContent.includes("트럭 현황")),
+        true,
+        "The active SSC2 category is not clear",
+    );
+    assert.equal(await page.$$(".ssc2-hero").then(elements => elements.length), 0, "Train jumbotron still rendered");
     await page.waitForFunction(() => document.body.textContent.includes("전체 서버 랭킹"));
     await page.waitForFunction(() => {
         const renderedRows = document.querySelectorAll(".ssc2-virtual-table tbody tr").length;
@@ -300,7 +311,6 @@ try {
             code: "en",
             accessTitle: "Curious..?",
             pageTitle: "Seal Stone Battlefield (2027)",
-            analyzerTitle: "Truck Power Analysis",
             overviewTab: "Overall Rankings",
             menuLabel: "Seal Stone Battlefield (2027)",
         },
@@ -308,7 +318,6 @@ try {
             code: "ja",
             accessTitle: "気になるなら…？",
             pageTitle: "封印石戦場（2027）",
-            analyzerTitle: "トラック戦力分析",
             overviewTab: "総合ランキング",
             menuLabel: "封印石戦場（2027）",
         },
@@ -324,10 +333,6 @@ try {
         await page.click('.ssc2-access-dialog button[type="submit"]');
         await page.waitForSelector(".ssc2-train-analyzer");
         assert.equal(await page.$eval("h1", element => element.textContent.trim()), locale.pageTitle);
-        assert.equal(
-            await page.$eval(".ssc2-hero h2", element => element.textContent.trim()),
-            locale.analyzerTitle,
-        );
         assert.equal(
             await page.$eval(".ssc2-view-tabs button", element => element.textContent.trim()),
             locale.overviewTab,

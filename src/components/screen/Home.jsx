@@ -9,6 +9,9 @@ import "./Home.css";
 import SEO from "../template/SEO";
 import LanguageRouterLink from "../template/LanguageRouterLink";
 import ThiefHeatmapCard from "./home/ThiefHeatmapCard";
+import EggMoneyDiscountBanner from "@src/components/shopping/EggMoneyDiscountBanner";
+
+const SHOW_EGG_MONEY_DISCOUNT = false;
 
 const EMPTY_STATISTICS = Object.freeze({
     generatedAt: null,
@@ -335,6 +338,7 @@ function Home() {
 
             </section>
 
+            {SHOW_EGG_MONEY_DISCOUNT && i18n.resolvedLanguage === "ko" && <EggMoneyDiscountBanner />}
 
 
             <div className="home-intro-grid">

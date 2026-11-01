@@ -1,0 +1,218 @@
+.egg-money-discounts {
+    position: relative;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid rgba(20, 28, 42, 0.1);
+    border-radius: 1.25rem;
+    background:
+        radial-gradient(circle at 95% 5%, rgba(255, 190, 64, 0.2), transparent 34%),
+        linear-gradient(135deg, #fffdf7 0%, #f5f8ff 100%);
+    box-shadow: 0 12px 32px rgba(28, 38, 58, 0.08);
+    color: #172033;
+}
+
+.egg-money-discounts__intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.egg-money-discounts__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.3rem;
+    color: #697386;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.egg-money-discounts h2 {
+    margin: 0;
+    font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.egg-money-discounts__intro p {
+    margin: 0.35rem 0 0;
+    color: #697386;
+    font-size: 0.9rem;
+}
+
+.egg-money-discounts__checked {
+    flex: 0 0 auto;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(23, 32, 51, 0.07);
+    color: #5e687a;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.egg-money-discounts__bands {
+    display: flex;
+    gap: 0.5rem;
+    margin: -0.15rem 0 0.85rem;
+}
+
+.egg-money-discounts__bands span {
+    padding: 0.4rem 0.65rem;
+    border: 1px solid rgba(23, 32, 51, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.7);
+    color: #606b7e;
+    font-size: 0.75rem;
+}
+
+.egg-money-discounts__bands b {
+    margin-right: 0.25rem;
+    color: #172033;
+}
+
+.egg-money-discounts__bands .egg-money-discounts__band-special {
+    border-color: rgba(255, 132, 41, 0.24);
+    background: rgba(255, 242, 227, 0.84);
+    color: #b24a00;
+}
+
+.egg-money-discounts__bands .egg-money-discounts__band-special b {
+    color: #b24a00;
+}
+
+.egg-money-discounts__offers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.egg-money-offer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "market rate"
+        "price rate"
+        "link rate";
+    align-items: center;
+    gap: 0.1rem 0.8rem;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid rgba(23, 32, 51, 0.09);
+    border-radius: 0.95rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.egg-money-offer:hover,
+.egg-money-offer:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(23, 32, 51, 0.2);
+    box-shadow: 0 10px 22px rgba(23, 32, 51, 0.1);
+    color: inherit;
+}
+
+.egg-money-offer:focus-visible {
+    outline: 3px solid rgba(39, 105, 255, 0.3);
+    outline-offset: 2px;
+}
+
+.egg-money-offer__market {
+    grid-area: market;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.egg-money-offer__best {
+    padding: 0.18rem 0.38rem;
+    border-radius: 0.35rem;
+    background: #172033;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+}
+
+.egg-money-offer__special {
+    padding: 0.18rem 0.38rem;
+    border-radius: 0.35rem;
+    background: #ff822f;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+}
+
+.egg-money-offer__rate {
+    grid-area: rate;
+    font-size: clamp(2rem, 5vw, 2.65rem);
+    font-weight: 900;
+    letter-spacing: -0.07em;
+    line-height: 1;
+}
+
+.egg-money-offer--11st .egg-money-offer__rate {
+    color: #ff2449;
+}
+
+.egg-money-offer--gmarket .egg-money-offer__rate {
+    color: #00a650;
+}
+
+.egg-money-offer__price {
+    grid-area: price;
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.egg-money-offer__price del {
+    color: #929aaa;
+    font-size: 0.72rem;
+}
+
+.egg-money-offer__price b {
+    font-size: 0.92rem;
+}
+
+.egg-money-offer__link {
+    grid-area: link;
+    margin-top: 0.25rem;
+    color: #697386;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.egg-money-discounts__notice {
+    margin: 0.8rem 0 0;
+    color: #747e90;
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 575.98px) {
+    .egg-money-discounts {
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    .egg-money-discounts__intro {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .egg-money-discounts__offers {
+        grid-template-columns: 1fr;
+    }
+
+    .egg-money-discounts__bands {
+        flex-wrap: wrap;
+    }
+}

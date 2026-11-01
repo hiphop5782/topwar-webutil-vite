@@ -514,6 +514,23 @@
         "compare": { "add": "Server to Compare", "placeholder": "Enter server number", "addButton": "Add to Comparison", "remove": "Remove server {{server}} from comparison", "empty": "Add up to 20 servers to compare.", "title": "Server Power Comparison", "description": "Compare total power and top-tier power such as TOP 5 and TOP 10.", "datasetLabel": "S{{server}} · {{count}} players", "distributionTitle": "Power Distribution by Rank", "distributionDescription": "TOP modes zoom the vertical axis to the selected top-tier power range. All mode starts at zero and compresses the lower-power range after rank 50.", "distributionError": "Unable to load the power distribution data.", "distributionAria": "Line chart comparing combat power by rank across servers", "rankAxis": "Power Rank within Server · Compressed after Rank 50", "rankTooltip": "Rank {{rank}}", "chartRange": "Chart Range", "allRanks": "All", "barTitle": "{{metric}} Bar Comparison", "barMetric": "Bar Chart Metric" },
         "search": { "title": "Search All Players", "placeholder": "Nickname fragment, Korean initials or jamo, or server number", "help": "Search ignores Latin letter case and supports Unicode variants, numbers, partial Korean syllables, and Korean initials.", "empty": "Enter a query to search all 22,225 players.", "results": "Search Results", "limit": "Only the top 300 results by power are shown." }
     },
+    "Ssc2PersonalRank": {
+        "title": "Personal Cumulative Rankings",
+        "description": "Search the latest cumulative points recorded after a match and review each player's daily history.",
+        "roundValue": "Round {{round}} / {{total}}",
+        "filters": { "nickname": "Nickname", "nicknamePlaceholder": "Letters, numbers, Unicode, or partial Korean", "server": "Server", "serverPlaceholder": "Server number", "minimum": "Minimum Points", "minimumPlaceholder": "Minimum", "maximum": "Maximum Points", "maximumPlaceholder": "Maximum", "reset": "Reset Search" },
+        "table": { "rank": "Overall Rank", "nickname": "Nickname", "server": "Server", "merit": "Cumulative Points", "level": "Level", "details": "Details", "date": "Date", "round": "Round", "change": "Daily Change" },
+        "resultCount": "{{count}} results",
+        "totalCount": "{{count}} total players",
+        "noResults": "No players match these filters.",
+        "detailsAria": "View point history for {{nickname}}",
+        "backToList": "Back to List",
+        "historyEyebrow": "Personal Cumulative Point History",
+        "latestMerit": "Latest Cumulative Points",
+        "loadError": "Unable to load the latest personal ranking data.",
+        "historyLoadError": "Unable to load this player's daily history.",
+        "retry": "Try Again"
+    },
     "SscDashboard": {
         "title": "Cumulative Server Ranking",
         "description": "Calculates cumulative rankings by adding points and honor earned through the selected round.",

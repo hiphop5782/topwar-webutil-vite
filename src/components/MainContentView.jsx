@@ -54,6 +54,7 @@ import LionDanceRanking from "@src/components/screen/history/liondance/LionDance
 import ItemLevelCostCalculator from "@src/components/screen/calculator/ItemLevelCostCalculator";
 import SealStoneChaos from "@src/components/screen/history/2026-ssc/SealStoncChaos";
 import SealStoneChaos2027 from "@src/components/screen/history/2027-ssc/SealStoneChaos2027";
+import Ssc2PersonalRank from "@src/components/screen/history/2027-ssc/Ssc2PersonalRank";
 import Ssc2TrainAnalyzer from "@src/components/screen/history/2027-ssc/Ssc2TrainAnalyzer";
 import Privacy from "@src/components/screen/etc/Privacy";
 import Contact from "@src/components/screen/etc/Contact";
@@ -233,6 +234,7 @@ export default function MainContentView() {
                     <Route path="history/ssc-2027" element={<SealStoneChaos2027 />}>
                         <Route index element={<Ssc2TrainAnalyzer />} />
                         <Route path="train" element={<Ssc2TrainAnalyzer />} />
+                        <Route path="users" element={<Ssc2PersonalRank />} />
                     </Route>
                     <Route path="history/liondance" element={<LionDanceRanking />} />
 

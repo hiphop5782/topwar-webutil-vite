@@ -50,6 +50,7 @@ export const routePolicies = [
     { pattern: /^\/history\/ssc-2026\/users$/, key: "history.ssc2026.users", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/history\/ssc-2027$/, key: "history.ssc2027.home", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/history\/ssc-2027\/train$/, key: "history.ssc2027.train", category: 'data', index: false, languages: supportedLngs },
+    { pattern: /^\/history\/ssc-2027\/users$/, key: "history.ssc2027.users", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/history\/liondance$/, key: "history.liondance", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/event\/city-reward$/, key: "event.cityReward", category: 'system', index: false, languages: supportedLngs },
     { pattern: /^\/vip\/[^/]+$/, key: "vip.thiefFinder", category: 'system', index: false, languages: supportedLngs },

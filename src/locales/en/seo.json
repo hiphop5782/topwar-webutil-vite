@@ -186,7 +186,8 @@
         },
         "ssc2027": {
             "home": { "title": "Top War Seal Stone Battlefield (2027)" },
-            "train": { "title": "Top War Seal Stone Battlefield (2027) Truck Status" }
+            "train": { "title": "Top War Seal Stone Battlefield (2027) Truck Status" },
+            "users": { "title": "Top War Seal Stone Battlefield (2027) Personal Rankings" }
         },
         "liondance": {
             "title": "Top War Lion Dance Rankings"

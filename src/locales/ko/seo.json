@@ -186,7 +186,8 @@
         },
         "ssc2027": {
             "home": { "title": "Top War 봉인석 전장(2027)" },
-            "train": { "title": "Top War 봉인석 전장(2027) 트럭 현황" }
+            "train": { "title": "Top War 봉인석 전장(2027) 트럭 현황" },
+            "users": { "title": "Top War 봉인석 전장(2027) 개인 누적 랭킹" }
         },
         "liondance": {
             "title": "Top War Lion Dance 랭킹"
