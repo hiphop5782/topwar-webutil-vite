@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { FaGlobe } from "react-icons/fa6";
+import { Helmet } from "react-helmet-async";
 import { db } from "@src/db/firebase";
 import { translateTexts, translationLanguages } from "@src/components/screen/vote/voteTranslation";
 import FlagWithTooltip from "@src/components/template/FlagWithTooltip";
@@ -394,6 +395,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
     const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: "삭제된 사용자" };
 
     return <div className="plan-page" aria-busy={translating}>
+        <Helmet><title>{`${plan.title || t("auth.title", { server: serverId })} | Progamer.info`}</title></Helmet>
         <header className="plan-heading">
             <div><span className="plan-kicker">SERVER {serverId}</span><h1>{translating ? <span className="plan-text-skeleton plan-title-skeleton" aria-hidden="true" /> : shownTitle}</h1>{translating ? <p><span className="plan-text-skeleton plan-description-skeleton" aria-hidden="true" /></p> : <p>{shownDescription}</p>}</div>
             <div className="plan-heading-actions"><span className={`badge text-bg-${plan.status === "paused" ? "secondary" : admin ? "warning" : "info"}`}>{plan.status === "paused" ? t("header.ended") : admin ? t("header.admin") : t("header.user")}</span>{admin && plan.status !== "paused" && <button className={`btn btn-sm ${editingPlan ? "btn-secondary" : "btn-outline-primary"}`} onClick={() => editingPlan ? setEditingPlan(false) : startPlanEdit()}>{editingPlan ? t("planEdit.close") : t("planEdit.open")}</button>}<button className="btn btn-sm btn-outline-primary" onClick={() => setShowHistory(true)}>{t("header.history")}</button>{admin && <button className={`btn btn-sm ${plan.status === "paused" ? "btn-success" : "btn-outline-danger"}`} onClick={() => changePlanState(plan.status === "paused" ? "active" : "paused")}>{plan.status === "paused" ? t("header.resume") : t("header.end")}</button>}<button className="btn btn-sm btn-outline-secondary" onClick={leave}>{t("header.leave")}</button></div>

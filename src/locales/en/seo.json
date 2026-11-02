@@ -175,6 +175,15 @@
         }
     },
 
+    "plan": {
+        "create": {
+            "title": "Create Battle Plan"
+        },
+        "view": {
+            "title": "Server {{serverId}} Battle Plan"
+        }
+    },
+
     "history": {
         "ssc2026": {
             "home": {

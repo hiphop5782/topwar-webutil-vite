@@ -175,6 +175,15 @@
         }
     },
 
+    "plan": {
+        "create": {
+            "title": "새 작전 계획"
+        },
+        "view": {
+            "title": "S{{serverId}} 작전 계획"
+        }
+    },
+
     "history": {
         "ssc2026": {
             "home": {

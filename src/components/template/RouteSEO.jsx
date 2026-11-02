@@ -8,7 +8,7 @@ export default function RouteSEO() {
     const { pathname, search } = useLocation();
     const { t } = useTranslation('seo');
     const policy = getRoutePolicy(pathname, search);
-    const serverId = policy.routePath.startsWith('/vip/') ? policy.routePath.split('/')[2] : undefined;
+    const serverId = /^\/(?:vip|plan)\/(\d+)$/.exec(policy.routePath)?.[1];
     const title = t(policy.key + '.title', { serverId });
     return <SEO title={title}
         description={t(policy.key + '.description', { defaultValue: t('default.description', { title }) })}

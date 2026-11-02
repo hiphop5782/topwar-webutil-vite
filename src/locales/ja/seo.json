@@ -175,6 +175,15 @@
         }
     },
 
+    "plan": {
+        "create": {
+            "title": "新しい作戦計画"
+        },
+        "view": {
+            "title": "サーバー{{serverId}} 作戦計画"
+        }
+    },
+
     "history": {
         "ssc2026": {
             "home": {
