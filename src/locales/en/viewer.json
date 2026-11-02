@@ -483,11 +483,6 @@
         "train": "Truck Status"
     },
     "Ssc2Train": {
-        "accessTitle": "Curious..?",
-        "accessDescription": "Enter the correct answer to load the survey data.",
-        "answerLabel": "Answer",
-        "wrongAnswer": "That answer is incorrect.",
-        "unlock": "View Data",
         "loadError": "Unable to load the truck status data.",
         "badge": "SSC 2027 · Snowfield Train",
         "title": "Truck Power Analysis",

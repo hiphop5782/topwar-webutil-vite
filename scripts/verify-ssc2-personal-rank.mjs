@@ -65,6 +65,26 @@ try {
     );
     assert.equal(await page.$$("#ssc2-personal-nickname").then(elements => elements.length), 1);
     assert.equal(await page.$$("#ssc2-personal-server").then(elements => elements.length), 1);
+    const filterLayout = await page.evaluate(() => {
+        const rectangle = selector => {
+            const bounds = document.querySelector(selector)?.getBoundingClientRect();
+            return bounds ? { top: bounds.top, bottom: bounds.bottom, width: bounds.width } : null;
+        };
+        return {
+            nickname: rectangle("#ssc2-personal-nickname"),
+            server: rectangle("#ssc2-personal-server"),
+            minimum: rectangle("#ssc2-personal-minimum"),
+            maximum: rectangle("#ssc2-personal-maximum"),
+            primaryRow: rectangle(".ssc2-personal-filter-row.is-primary"),
+            rangeRow: rectangle(".ssc2-personal-filter-row.is-range"),
+        };
+    });
+    assert.ok(filterLayout.nickname.width > 150 && filterLayout.server.width > 150, "Primary filters are too narrow");
+    assert.ok(
+        filterLayout.rangeRow.top > filterLayout.primaryRow.bottom
+        && Math.abs(filterLayout.minimum.top - filterLayout.maximum.top) < 4,
+        "Point range filters are not on their own row",
+    );
     assert.equal(
         await page.$eval(".ssc2-personal-result-summary", element => element.textContent.includes("14,746")),
         true,

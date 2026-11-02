@@ -358,59 +358,63 @@ export default function Ssc2PersonalRank() {
 
             <div className="card border-0 shadow-sm mb-3">
                 <div className="card-body ssc2-personal-filters">
-                    <label>
-                        <span>{t("Ssc2PersonalRank.filters.nickname")}</span>
-                        <div className="input-group input-group-sm">
-                            <span className="input-group-text"><FaMagnifyingGlass /></span>
+                    <div className="ssc2-personal-filter-row is-primary">
+                        <label>
+                            <span>{t("Ssc2PersonalRank.filters.nickname")}</span>
+                            <div className="input-group input-group-sm">
+                                <span className="input-group-text"><FaMagnifyingGlass /></span>
+                                <input
+                                    id="ssc2-personal-nickname"
+                                    type="search"
+                                    className="form-control"
+                                    value={nicknameQuery}
+                                    placeholder={t("Ssc2PersonalRank.filters.nicknamePlaceholder")}
+                                    onChange={event => setNicknameQuery(event.target.value)}
+                                />
+                            </div>
+                        </label>
+                        <label>
+                            <span>{t("Ssc2PersonalRank.filters.server")}</span>
                             <input
-                                id="ssc2-personal-nickname"
-                                type="search"
-                                className="form-control"
-                                value={nicknameQuery}
-                                placeholder={t("Ssc2PersonalRank.filters.nicknamePlaceholder")}
-                                onChange={event => setNicknameQuery(event.target.value)}
+                                id="ssc2-personal-server"
+                                type="text"
+                                inputMode="numeric"
+                                className="form-control form-control-sm"
+                                value={serverQuery}
+                                placeholder={t("Ssc2PersonalRank.filters.serverPlaceholder")}
+                                onChange={event => setServerQuery(event.target.value.replace(/\D/g, ""))}
                             />
-                        </div>
-                    </label>
-                    <label>
-                        <span>{t("Ssc2PersonalRank.filters.server")}</span>
-                        <input
-                            id="ssc2-personal-server"
-                            type="text"
-                            inputMode="numeric"
-                            className="form-control form-control-sm"
-                            value={serverQuery}
-                            placeholder={t("Ssc2PersonalRank.filters.serverPlaceholder")}
-                            onChange={event => setServerQuery(event.target.value.replace(/\D/g, ""))}
-                        />
-                    </label>
-                    <label>
-                        <span>{t("Ssc2PersonalRank.filters.minimum")}</span>
-                        <input
-                            id="ssc2-personal-minimum"
-                            type="text"
-                            inputMode="numeric"
-                            className="form-control form-control-sm numeric-cell"
-                            value={minimumMerit}
-                            placeholder={t("Ssc2PersonalRank.filters.minimumPlaceholder")}
-                            onChange={event => setMinimumMerit(event.target.value.replace(/\D/g, ""))}
-                        />
-                    </label>
-                    <label>
-                        <span>{t("Ssc2PersonalRank.filters.maximum")}</span>
-                        <input
-                            id="ssc2-personal-maximum"
-                            type="text"
-                            inputMode="numeric"
-                            className="form-control form-control-sm numeric-cell"
-                            value={maximumMerit}
-                            placeholder={t("Ssc2PersonalRank.filters.maximumPlaceholder")}
-                            onChange={event => setMaximumMerit(event.target.value.replace(/\D/g, ""))}
-                        />
-                    </label>
-                    <button type="button" className="btn btn-outline-secondary btn-sm" onClick={resetFilters}>
-                        <FaRotateRight className="me-2" />{t("Ssc2PersonalRank.filters.reset")}
-                    </button>
+                        </label>
+                    </div>
+                    <div className="ssc2-personal-filter-row is-range">
+                        <label>
+                            <span>{t("Ssc2PersonalRank.filters.minimum")}</span>
+                            <input
+                                id="ssc2-personal-minimum"
+                                type="text"
+                                inputMode="numeric"
+                                className="form-control form-control-sm numeric-cell"
+                                value={minimumMerit}
+                                placeholder={t("Ssc2PersonalRank.filters.minimumPlaceholder")}
+                                onChange={event => setMinimumMerit(event.target.value.replace(/\D/g, ""))}
+                            />
+                        </label>
+                        <label>
+                            <span>{t("Ssc2PersonalRank.filters.maximum")}</span>
+                            <input
+                                id="ssc2-personal-maximum"
+                                type="text"
+                                inputMode="numeric"
+                                className="form-control form-control-sm numeric-cell"
+                                value={maximumMerit}
+                                placeholder={t("Ssc2PersonalRank.filters.maximumPlaceholder")}
+                                onChange={event => setMaximumMerit(event.target.value.replace(/\D/g, ""))}
+                            />
+                        </label>
+                        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={resetFilters}>
+                            <FaRotateRight className="me-2" />{t("Ssc2PersonalRank.filters.reset")}
+                        </button>
+                    </div>
                 </div>
             </div>
 

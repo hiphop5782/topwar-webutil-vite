@@ -438,45 +438,7 @@
     background-color: #f7eee7 !important;
 }
 
-.ssc2-access-layer {
-    position: fixed;
-    z-index: 2000;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    padding: 1rem;
-    background: rgba(2, 6, 23, 0.78);
-    backdrop-filter: blur(8px);
-}
-
-.ssc2-access-dialog {
-    width: min(100%, 430px);
-    padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 1.25rem;
-    background: #fff;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-}
-
-.ssc2-access-mark {
-    display: grid;
-    place-items: center;
-    width: 56px;
-    height: 56px;
-    margin-bottom: 1rem;
-    color: #fff;
-    font-size: 1.8rem;
-    font-weight: 900;
-    border-radius: 1rem;
-    background: linear-gradient(135deg, var(--ssc2-blue), var(--ssc2-cyan));
-    transform: rotate(-4deg);
-}
-
 @media (max-width: 575.98px) {
-    .ssc2-access-dialog {
-        padding: 1.4rem;
-    }
-
     .ssc2-power-row {
         grid-template-columns: 58px minmax(110px, 1fr) 72px;
         gap: 0.5rem;

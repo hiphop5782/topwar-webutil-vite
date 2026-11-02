@@ -480,11 +480,6 @@
         "train": "トラック状況"
     },
     "Ssc2Train": {
-        "accessTitle": "気になるなら…？",
-        "accessDescription": "正解を入力すると調査データを読み込みます。",
-        "answerLabel": "答え",
-        "wrongAnswer": "正解ではありません。",
-        "unlock": "データを見る",
         "loadError": "トラック状況データを読み込めませんでした。",
         "badge": "SSC 2027 · 雪原列車",
         "title": "トラック戦力分析",

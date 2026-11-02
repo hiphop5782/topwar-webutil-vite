@@ -489,11 +489,6 @@
         "train": "트럭 현황"
     },
     "Ssc2Train": {
-        "accessTitle": "궁금하면..?",
-        "accessDescription": "정답을 입력하면 조사 데이터를 불러옵니다.",
-        "answerLabel": "정답",
-        "wrongAnswer": "정답이 아닙니다.",
-        "unlock": "데이터 보기",
         "loadError": "트럭 현황 데이터를 불러오지 못했습니다.",
         "badge": "SSC 2027 · 설원 열차",
         "title": "트럭 전력 분석",

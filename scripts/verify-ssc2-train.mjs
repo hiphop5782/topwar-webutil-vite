@@ -14,25 +14,12 @@ const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] 
 try {
     const page = await browser.newPage();
     await page.setViewport({ width: 824, height: 871 });
-    const dataRequests = [];
     page.on("pageerror", error => console.error("PAGE ERROR", error.message));
-    page.on("request", request => {
-        const url = request.url();
-        if (/CQ26-S|player-search-index/i.test(url)) dataRequests.push(url);
-    });
 
     await page.goto(`${baseUrl}/ko/history/ssc-2027/train`, { waitUntil: "networkidle0" });
-    await page.waitForSelector('[role="dialog"]');
-    assert.equal(dataRequests.length, 0, "Data chunks loaded before the access answer");
-
-    await page.type("#ssc2-access-answer", "100원");
-    await page.click('.ssc2-access-dialog button[type="submit"]');
-    await page.waitForSelector(".ssc2-access-dialog .is-invalid");
-
-    await page.$eval("#ssc2-access-answer", input => { input.value = ""; });
-    await page.type("#ssc2-access-answer", "500원");
-    await page.click('.ssc2-access-dialog button[type="submit"]');
     await page.waitForSelector(".ssc2-train-analyzer");
+    assert.equal(await page.$$(".ssc2-access-dialog").then(elements => elements.length), 0);
+    assert.equal(await page.evaluate(() => document.body.textContent.includes("500원")), false);
     assert.equal(
         await page.$$(".ssc2-section-navigation .ssc2-section-tab").then(tabs => tabs.length),
         3,
@@ -309,30 +296,29 @@ try {
     for (const locale of [
         {
             code: "en",
-            accessTitle: "Curious..?",
             pageTitle: "Seal Stone Battlefield (2027)",
             overviewTab: "Overall Rankings",
+            categories: ["Server Rankings", "Player Rankings", "Truck Status"],
             menuLabel: "Seal Stone Battlefield (2027)",
         },
         {
             code: "ja",
-            accessTitle: "気になるなら…？",
             pageTitle: "封印石戦場（2027）",
             overviewTab: "総合ランキング",
+            categories: ["サーバーランキング", "プレイヤーランキング", "トラック状況"],
             menuLabel: "封印石戦場（2027）",
         },
     ]) {
-        await page.evaluate(() => sessionStorage.clear());
         await page.goto(`${baseUrl}/${locale.code}/history/ssc-2027/train`, { waitUntil: "networkidle0" });
-        await page.waitForSelector(".ssc2-access-dialog");
-        assert.equal(
-            await page.$eval("#ssc2-access-title", element => element.textContent.trim()),
-            locale.accessTitle,
-        );
-        await page.type("#ssc2-access-answer", "500원");
-        await page.click('.ssc2-access-dialog button[type="submit"]');
         await page.waitForSelector(".ssc2-train-analyzer");
         assert.equal(await page.$eval("h1", element => element.textContent.trim()), locale.pageTitle);
+        assert.deepEqual(
+            await page.$$eval(
+                ".ssc2-section-tab-label",
+                elements => elements.map(element => element.textContent.trim()),
+            ),
+            locale.categories,
+        );
         assert.equal(
             await page.$eval(".ssc2-view-tabs button", element => element.textContent.trim()),
             locale.overviewTab,

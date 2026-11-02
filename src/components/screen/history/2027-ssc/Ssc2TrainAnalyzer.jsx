@@ -34,7 +34,6 @@ import "./Ssc2TrainAnalyzer.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const ACCESS_KEY = "ssc2-train-access-v1";
 const VIEW_KEYS = new Set(["overview", "server", "compare", "search"]);
 const SERVER_MODULES = import.meta.glob("/src/assets/json/ssc2/train/CQ26-S*.json");
 
@@ -157,14 +156,6 @@ function ArmyBranch({ armyType, t }) {
             {t(`Ssc2Train.branches.${branch.key}`)}
         </span>
     );
-}
-
-function readAccessState() {
-    try {
-        return sessionStorage.getItem(ACCESS_KEY) === "granted";
-    } catch {
-        return false;
-    }
 }
 
 function parsePlayerInfo(value) {
@@ -364,51 +355,9 @@ function SummaryCard({ label, value, detail }) {
     );
 }
 
-function AccessQuestion({ answer, error, inputRef, onAnswerChange, onSubmit, t }) {
-    return (
-        <div className="ssc2-access-layer" role="presentation">
-            <section
-                className="ssc2-access-dialog"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="ssc2-access-title"
-                aria-describedby="ssc2-access-description"
-            >
-                <div className="ssc2-access-mark" aria-hidden="true">?</div>
-                <h2 id="ssc2-access-title" className="h3 mb-2">{t("Ssc2Train.accessTitle")}</h2>
-                <p id="ssc2-access-description" className="text-secondary mb-4">
-                    {t("Ssc2Train.accessDescription")}
-                </p>
-                <form onSubmit={onSubmit}>
-                    <label className="form-label fw-semibold" htmlFor="ssc2-access-answer">
-                        {t("Ssc2Train.answerLabel")}
-                    </label>
-                    <input
-                        ref={inputRef}
-                        id="ssc2-access-answer"
-                        type="text"
-                        className={`form-control form-control-lg ${error ? "is-invalid" : ""}`}
-                        value={answer}
-                        autoComplete="off"
-                        onChange={onAnswerChange}
-                    />
-                    {error && <div className="invalid-feedback">{t("Ssc2Train.wrongAnswer")}</div>}
-                    <button type="submit" className="btn btn-primary btn-lg w-100 mt-3">
-                        {t("Ssc2Train.unlock")}
-                    </button>
-                </form>
-            </section>
-        </div>
-    );
-}
-
 export default function Ssc2TrainAnalyzer() {
     const { t, i18n } = useTranslation("viewer");
     const [, setRouteSearchParams] = useSearchParams();
-    const [accessGranted, setAccessGranted] = useState(readAccessState);
-    const [answer, setAnswer] = useState("");
-    const [answerError, setAnswerError] = useState(false);
-    const answerRef = useRef(null);
     const serverCacheRef = useRef(new Map());
 
     const [view, setView] = useParamState("view", "overview", {
@@ -443,11 +392,7 @@ export default function Ssc2TrainAnalyzer() {
     const [overviewSort, setOverviewSort] = useState({ key: "totalPower", direction: "desc" });
 
     useEffect(() => {
-        if (!accessGranted) answerRef.current?.focus();
-    }, [accessGranted]);
-
-    useEffect(() => {
-        if (!accessGranted || indexData) return;
+        if (indexData) return;
         let active = true;
         setIndexLoading(true);
         setIndexError(false);
@@ -465,7 +410,7 @@ export default function Ssc2TrainAnalyzer() {
             });
 
         return () => { active = false; };
-    }, [accessGranted, indexData]);
+    }, [indexData]);
 
     const servers = useMemo(() => indexData?.servers ?? [], [indexData]);
     const serverNumbers = useMemo(() => servers.map(server => String(server.server)), [servers]);
@@ -479,7 +424,7 @@ export default function Ssc2TrainAnalyzer() {
     }, [selectedServer]);
 
     useEffect(() => {
-        if (!accessGranted || view !== "server" || !selectedServer) {
+        if (view !== "server" || !selectedServer) {
             setServerData(null);
             setServerError(false);
             return;
@@ -528,10 +473,10 @@ export default function Ssc2TrainAnalyzer() {
             });
 
         return () => { active = false; };
-    }, [accessGranted, selectedServer, serverMap, view]);
+    }, [selectedServer, serverMap, view]);
 
     useEffect(() => {
-        if (!accessGranted || view !== "search" || searchIndex) return;
+        if (view !== "search" || searchIndex) return;
         let active = true;
         setSearchLoading(true);
 
@@ -545,7 +490,7 @@ export default function Ssc2TrainAnalyzer() {
             });
 
         return () => { active = false; };
-    }, [accessGranted, searchIndex, view]);
+    }, [searchIndex, view]);
 
     const numberFormatter = useMemo(
         () => new Intl.NumberFormat(i18n.language),
@@ -623,7 +568,7 @@ export default function Ssc2TrainAnalyzer() {
     );
 
     useEffect(() => {
-        if (!accessGranted || view !== "compare" || comparedSummaries.length === 0) {
+        if (view !== "compare" || comparedSummaries.length === 0) {
             setCompareDistributions([]);
             setCompareDistributionLoading(false);
             setCompareDistributionError(false);
@@ -667,7 +612,7 @@ export default function Ssc2TrainAnalyzer() {
             });
 
         return () => { active = false; };
-    }, [accessGranted, comparedSummaries, view]);
+    }, [comparedSummaries, view]);
 
     const deferredSearchText = useDeferredValue(searchText);
     const integratedResults = useMemo(() => {
@@ -813,25 +758,6 @@ export default function Ssc2TrainAnalyzer() {
         [compareBarMetric, formatNumber, formatPower],
     );
 
-    const submitAnswer = useCallback(event => {
-        event.preventDefault();
-        const normalizedAnswer = answer.normalize("NFKC").replace(/\s+/g, "");
-
-        if (normalizedAnswer !== "500원") {
-            setAnswerError(true);
-            answerRef.current?.focus();
-            return;
-        }
-
-        try {
-            sessionStorage.setItem(ACCESS_KEY, "granted");
-        } catch {
-            // Storage may be unavailable in privacy-restricted browsers.
-        }
-        setAnswerError(false);
-        setAccessGranted(true);
-    }, [answer]);
-
     const changeSort = useCallback(key => {
         setOverviewSort(current => ({
             key,
@@ -871,22 +797,6 @@ export default function Ssc2TrainAnalyzer() {
         setCompareServers([...compareServers, candidateServer]);
         setCompareCandidate("");
     }, [compareCandidate, compareServers, serverMap, setCompareServers]);
-
-    if (!accessGranted) {
-        return (
-            <AccessQuestion
-                answer={answer}
-                error={answerError}
-                inputRef={answerRef}
-                onAnswerChange={event => {
-                    setAnswer(event.target.value);
-                    setAnswerError(false);
-                }}
-                onSubmit={submitAnswer}
-                t={t}
-            />
-        );
-    }
 
     if (indexLoading || !indexData) {
         if (indexError) {
