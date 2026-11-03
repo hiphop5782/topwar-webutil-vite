@@ -211,7 +211,7 @@ const createDefaultOption = (part) => {
     });
 };
 
-const createRandomMaterialOptions = (
+const createRandomTitanOptions = (
     part,
     guaranteedTitle = ""
 ) => {
@@ -429,11 +429,16 @@ export default function TitanRefineSimulator() {
         useState(() => [
             createDefaultOption(initialPart),
         ]);
+    const [gearGuaranteedOptionTitle, setGearGuaranteedOptionTitle] =
+        useState("");
     const [materialOptions, setMaterialOptions] =
         useState(() => [
             createDefaultOption(initialPart),
         ]);
-    const [guaranteedOptionTitle, setGuaranteedOptionTitle] =
+    const [
+        materialGuaranteedOptionTitle,
+        setMaterialGuaranteedOptionTitle,
+    ] =
         useState("");
     const [useStabilizer, setUseStabilizer] =
         useState(false);
@@ -726,10 +731,11 @@ export default function TitanRefineSimulator() {
             setGearOptions([
                 defaultOption,
             ]);
+            setGearGuaranteedOptionTitle("");
             setMaterialOptions([
                 { ...defaultOption },
             ]);
-            setGuaranteedOptionTitle("");
+            setMaterialGuaranteedOptionTitle("");
             setUseStabilizer(false);
             setStabilizedMaterialIndex(0);
             setGearDraft(
@@ -813,6 +819,29 @@ export default function TitanRefineSimulator() {
             gearOptions.length,
             isEditing,
         ]);
+
+    const randomizeGearOptions = useCallback(() => {
+        if (animationPlaying || isEditing) {
+            return;
+        }
+
+        const nextOptions = createRandomTitanOptions(
+            parts,
+            gearGuaranteedOptionTitle
+        );
+
+        if (nextOptions.length === 0) {
+            return;
+        }
+
+        setGearOptions(nextOptions);
+        setSelectedIndex(-1);
+    }, [
+        animationPlaying,
+        gearGuaranteedOptionTitle,
+        isEditing,
+        parts,
+    ]);
 
     const beginGearEdit = useCallback(
         (index) => {
@@ -954,9 +983,9 @@ export default function TitanRefineSimulator() {
             return;
         }
 
-        const nextOptions = createRandomMaterialOptions(
+        const nextOptions = createRandomTitanOptions(
             parts,
-            guaranteedOptionTitle
+            materialGuaranteedOptionTitle
         );
 
         if (nextOptions.length === 0) {
@@ -968,7 +997,7 @@ export default function TitanRefineSimulator() {
         setSelectedMaterialIndex(-1);
     }, [
         animationPlaying,
-        guaranteedOptionTitle,
+        materialGuaranteedOptionTitle,
         isEditing,
         parts,
     ]);
@@ -1452,8 +1481,9 @@ export default function TitanRefineSimulator() {
                         aria-labelledby="refine-gear-title"
                     >
                         <div className="card-body p-4">
-                            <div className="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-3">
-                                <div>
+                            <div className="d-flex flex-column gap-3 mb-3">
+                                <div className="d-flex flex-column flex-sm-row justify-content-between gap-3">
+                                    <div>
                                     <h2
                                         id="refine-gear-title"
                                         className="h4 fw-bold mb-1"
@@ -1468,9 +1498,9 @@ export default function TitanRefineSimulator() {
                                             "TitanRefineSimulator.gear.description"
                                         )}
                                     </p>
-                                </div>
+                                    </div>
 
-                                <div className="d-flex gap-2 align-self-sm-start">
+                                    <div className="d-flex gap-2 align-self-sm-start">
                                     <button
                                         type="button"
                                         className="btn btn-sm btn-outline-primary"
@@ -1504,6 +1534,55 @@ export default function TitanRefineSimulator() {
                                     >
                                         {t(
                                             "TitanRefineSimulator.buttons.removeOption"
+                                        )}
+                                    </button>
+                                    </div>
+                                </div>
+
+                                <div className="input-group input-group-sm">
+                                    <label
+                                        className="input-group-text"
+                                        htmlFor="refine-gear-guaranteed-option"
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.material.guaranteedOption"
+                                        )}
+                                    </label>
+                                    <select
+                                        id="refine-gear-guaranteed-option"
+                                        className="form-select"
+                                        value={gearGuaranteedOptionTitle}
+                                        onChange={(event) =>
+                                            setGearGuaranteedOptionTitle(
+                                                event.target.value
+                                            )
+                                        }
+                                        disabled={animationPlaying || isEditing}
+                                    >
+                                        <option value="">
+                                            {t(
+                                                "TitanRefineSimulator.material.noGuarantee"
+                                            )}
+                                        </option>
+                                        {(gearOptionList[parts] ?? []).map(
+                                            (option) => (
+                                                <option
+                                                    value={option.title}
+                                                    key={option.title}
+                                                >
+                                                    {getOptionName(option.title)}
+                                                </option>
+                                            )
+                                        )}
+                                    </select>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary"
+                                        onClick={randomizeGearOptions}
+                                        disabled={animationPlaying || isEditing}
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.buttons.randomize"
                                         )}
                                     </button>
                                 </div>
@@ -1715,9 +1794,9 @@ export default function TitanRefineSimulator() {
                                     <select
                                         id="refine-guaranteed-option"
                                         className="form-select"
-                                        value={guaranteedOptionTitle}
+                                        value={materialGuaranteedOptionTitle}
                                         onChange={(event) =>
-                                            setGuaranteedOptionTitle(
+                                            setMaterialGuaranteedOptionTitle(
                                                 event.target.value
                                             )
                                         }

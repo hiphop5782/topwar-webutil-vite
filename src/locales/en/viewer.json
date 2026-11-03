@@ -1361,7 +1361,7 @@
         },
         "gear": {
             "title": "Titan Gear Settings",
-            "description": "Configure between one and three options. Select an option to change its type and value.",
+            "description": "Configure one to three options manually or generate them using the crafting rules.",
             "imageAlt": "Gold-grade {{gear}} image",
             "emptySlot": "Empty option slot {{slot}}",
             "max": "MAX"
