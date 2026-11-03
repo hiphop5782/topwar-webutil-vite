@@ -517,7 +517,10 @@
     },
     "Ssc2PersonalRank": {
         "title": "개인 누적 랭킹",
-        "description": "가장 최근 경기 종료 시점의 누적 포인트를 검색하고, 개인별 일자 기록을 확인합니다.",
+        "description": "경기 종료 시점별 누적 포인트를 검색하고, 개인별 일자 기록을 확인합니다.",
+        "dateLabel": "기록일 선택",
+        "dateLoading": "사용 가능한 기록일을 확인하는 중입니다.",
+        "dateUnavailable": "선택한 날짜에는 기록이 없습니다.",
         "roundValue": "{{round}} / {{total}} 라운드",
         "filters": { "nickname": "닉네임", "nicknamePlaceholder": "영문·숫자·유니코드·한글 일부", "server": "서버", "serverPlaceholder": "서버 번호", "minimum": "하한 포인트", "minimumPlaceholder": "최소 포인트", "maximum": "상한 포인트", "maximumPlaceholder": "최대 포인트", "reset": "검색 초기화" },
         "table": { "rank": "전체 순위", "nickname": "닉네임", "server": "서버", "merit": "누적 포인트", "level": "레벨", "details": "상세", "date": "기록일", "round": "라운드", "change": "전일 대비" },
@@ -1370,9 +1373,21 @@
         },
         "material": {
             "title": "재련 재료 설정",
-            "description": "재료 장비가 제공할 옵션 종류와 수치를 설정합니다.",
+            "description": "재료 장비의 옵션을 1개부터 3개까지 직접 설정하거나 제작 규칙에 따라 랜덤으로 생성합니다.",
             "imageAlt": "재련 재료로 사용하는 황금 등급 {{gear}} 이미지",
-            "rule": "재련 시 가능한 옵션 슬롯 중 하나가 무작위로 선택됩니다. 같은 옵션이면 수치가 상승하고, 다른 옵션이면 재료 옵션으로 교체됩니다."
+            "guaranteedOption": "보장 옵션",
+            "noGuarantee": "지정하지 않음",
+            "rule": "안정제를 사용하지 않으면 재료 옵션 하나를 무작위로 선택한 뒤 대상 슬롯을 추첨합니다. 안정제를 사용하면 지정한 재료 옵션으로 바로 재련합니다."
+        },
+        "stabilizer": {
+            "use": "안정제 사용",
+            "description": "사용하면 재료 옵션 하나를 지정하여 나머지 옵션을 잠글 수 있습니다.",
+            "activeDescription": "재련에 사용할 옵션을 선택하세요. 선택하지 않은 재료 옵션은 이번 재련에서 제외됩니다.",
+            "selected": "선택",
+            "locked": "잠금",
+            "selectOption": "안정제로 사용할 옵션 선택",
+            "cost": "안정제 {{count}}개 소모 · 랜덤 옵션 {{count}}개 잠금",
+            "imageAlt": "재련 안정제"
         },
         "editor": {
             "optionLabel": "옵션 종류",
@@ -1382,6 +1397,7 @@
         "buttons": {
             "addOption": "옵션 추가",
             "removeOption": "옵션 제거",
+            "randomize": "랜덤 생성",
             "refine": "재련하기",
             "refining": "재련 중...",
             "reset": "현재 부위 초기화",
@@ -1391,9 +1407,10 @@
         },
         "status": {
             "eligible": "현재 선택 가능한 재련 대상 슬롯: {{count}}개",
+            "eligibleMaterials": "재련에 사용할 수 있는 재료 옵션: {{count}}개",
             "noEligible": "현재 재련 가능한 옵션 슬롯이 없습니다.",
             "finishEditing": "옵션 편집을 적용하거나 취소한 뒤 재련할 수 있습니다.",
-            "allMax": "세 옵션이 모두 같은 종류의 최대 수치라 재련할 수 없습니다. 재료 옵션을 변경하거나 장비 옵션을 수정하세요."
+            "allMax": "선택 가능한 재료 옵션으로 재련할 수 없습니다. 안정제 선택이나 재료·대상 장비 옵션을 변경하세요."
         },
         "statistics": {
             "title": "재련 통계",
@@ -1408,6 +1425,8 @@
             "title": "재련 기록",
             "empty": "아직 재련 기록이 없습니다.",
             "slot": "{{slot}}번 옵션",
+            "material": "선택된 재료: {{option}} {{value}}%",
+            "stabilized": "안정제",
             "added": "{{option}} {{value}}% 옵션이 새로 추가되었습니다.",
             "upgraded": "{{option}} 수치가 {{before}}%에서 {{after}}%로 상승했습니다. (+{{increase}}%)",
             "replaced": "{{beforeOption}} 옵션이 {{afterOption}} {{value}}% 옵션으로 교체되었습니다."
@@ -1417,6 +1436,7 @@
             "introduction1": "타이탄 장비의 일반 옵션과 재련 재료 옵션을 직접 구성한 뒤, 재련 결과가 어떤 방식으로 적용되는지 확인하는 도구입니다.",
             "introduction2": "기존 코드의 재련 규칙과 JSON 데이터에 등록된 옵션 최대치·재련 상승 범위를 사용하며, 결과와 기록은 브라우저에서만 계산됩니다.",
             "rulesTitle": "재련 규칙",
+            "rule0": "안정제를 사용하지 않으면 재료 장비 옵션 중 하나가 무작위로 선택됩니다. 안정제를 사용하면 지정한 옵션만 선택됩니다.",
             "rule1": "장비에 빈 슬롯이 있으면 빈 슬롯도 재련 대상에 포함될 수 있습니다.",
             "rule2": "선택된 슬롯의 옵션과 재료 옵션이 같으면 JSON에 등록된 상승 범위만큼 수치가 증가합니다.",
             "rule3": "선택된 슬롯의 옵션과 재료 옵션이 다르면 기존 옵션이 재료 옵션으로 교체됩니다.",

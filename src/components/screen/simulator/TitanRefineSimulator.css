@@ -256,9 +256,71 @@
 }
 
 .refine-material-option {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 0.65rem;
-    background: rgba(255, 255, 255, 0.06);
+    border-radius: 0;
+}
+
+.refine-option-row.is-stabilized {
+    border-color: #76e889;
+    background: rgba(118, 232, 137, 0.09);
+    box-shadow: 0 0 0 2px rgba(118, 232, 137, 0.18);
+}
+
+.refine-stabilizer-choice {
+    display: flex;
+    flex: 0 0 52px;
+    justify-content: center;
+    align-items: center;
+    min-height: 46px;
+    padding: 0.35rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+}
+
+.refine-stabilizer-choice.is-inactive {
+    background: rgba(92, 142, 205, 0.08);
+}
+
+.refine-stabilizer-mark {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border: 2px solid rgba(148, 184, 228, 0.72);
+    border-radius: 0.25rem;
+    background: rgba(104, 153, 214, 0.2);
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.refine-stabilizer-mark.is-selected {
+    border-color: #7af08b;
+    background: #42bd5a;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.refine-stabilizer-panel {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(253, 152, 67, 0.45);
+    border-radius: 0.85rem;
+    background: rgba(253, 152, 67, 0.08);
+}
+
+.refine-stabilizer-image {
+    flex: 0 0 auto;
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    image-rendering: auto;
 }
 
 .refine-submit-button {
@@ -315,11 +377,7 @@
     }
 }
 
-@media (max-width: 767.98px) {
-    .refine-part-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
+@media (max-width: 1200px) {
     .refine-gear-card,
     .refine-material-card {
         flex-direction: column;
@@ -335,6 +393,17 @@
     .refine-gear-image,
     .refine-material-image {
         max-height: 180px;
+    }
+
+    .refine-gear-content,
+    .refine-material-content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .refine-part-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .refine-option-editor {
@@ -363,6 +432,10 @@
 
     .refine-option-editor {
         grid-template-columns: 1fr;
+    }
+
+    .refine-stabilizer-panel {
+        align-items: flex-start;
     }
 
     .refine-editor-actions,

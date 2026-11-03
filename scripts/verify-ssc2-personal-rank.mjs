@@ -65,6 +65,8 @@ try {
     );
     assert.equal(await page.$$("#ssc2-personal-nickname").then(elements => elements.length), 1);
     assert.equal(await page.$$("#ssc2-personal-server").then(elements => elements.length), 1);
+    assert.equal(await page.$eval("#ssc2-personal-date", input => input.type), "date");
+    assert.equal(await page.$eval("#ssc2-personal-date", input => input.value), latestDate);
     const filterLayout = await page.evaluate(() => {
         const rectangle = selector => {
             const bounds = document.querySelector(selector)?.getBoundingClientRect();
@@ -86,7 +88,11 @@ try {
         "Point range filters are not on their own row",
     );
     assert.equal(
-        await page.$eval(".ssc2-personal-result-summary", element => element.textContent.includes("14,746")),
+        await page.$eval(
+            ".ssc2-personal-result-summary",
+            (element, count) => element.textContent.includes(count),
+            new Intl.NumberFormat("ko-KR").format(players.length),
+        ),
         true,
     );
 
@@ -145,14 +151,18 @@ try {
     assert.equal(await page.$eval("#ssc2-personal-minimum", input => input.value), "");
 
     for (const locale of [
-        { code: "en", title: "Personal Cumulative Rankings" },
-        { code: "ja", title: "個人累積ランキング" },
+        { code: "en", title: "Personal Cumulative Rankings", dateLabel: "Record Date" },
+        { code: "ja", title: "個人累積ランキング", dateLabel: "記録日を選択" },
     ]) {
         await page.goto(`${baseUrl}/${locale.code}/history/ssc-2027/users`, { waitUntil: "networkidle0" });
         await page.waitForSelector(".ssc2-personal-rank-virtuoso", { timeout: 60_000 });
         assert.equal(
             await page.$eval("#ssc2-personal-rank-title", element => element.textContent.trim()),
             locale.title,
+        );
+        assert.equal(
+            await page.$eval(".ssc2-personal-date-picker > span", element => element.textContent.trim()),
+            locale.dateLabel,
         );
     }
 

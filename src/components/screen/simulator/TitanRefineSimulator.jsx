@@ -23,6 +23,9 @@ const MAX_OPTION_COUNT = 3;
 const HISTORY_LIMIT = 50;
 const ANIMATION_STEP_MS = 160;
 const MIN_ANIMATION_STEPS = 8;
+const MATERIAL_ANIMATION_STEPS = 7;
+const OPTION_COUNT_VALUES = [1, 2, 3];
+const OPTION_COUNT_WEIGHTS = [0.4, 0.4, 0.2];
 
 const OPTION_TITLE_KEYS = {
     "육군 공격력 증가": "armyAttack",
@@ -88,6 +91,66 @@ const getRandomItem = (items) => {
     return items[index];
 };
 
+const getWeightedRandomValue = (values, weights) => {
+    const totalWeight = weights.reduce(
+        (total, weight) => total + weight,
+        0
+    );
+
+    if (totalWeight <= 0) {
+        return values[0] ?? null;
+    }
+
+    const target = getRandomUnit() * totalWeight;
+    let accumulated = 0;
+
+    for (let index = 0; index < values.length; index++) {
+        accumulated += weights[index] ?? 0;
+
+        if (target < accumulated) {
+            return values[index];
+        }
+    }
+
+    return values.at(-1) ?? null;
+};
+
+const getGaussianRandomValue = (
+    min,
+    max,
+    mean = (min + max) / 2,
+    standardDeviation = (max - min) / 6
+) => {
+    if (min === max) {
+        return roundToTwo(min);
+    }
+
+    for (let attempt = 0; attempt < 1000; attempt++) {
+        let u = 0;
+        let v = 0;
+
+        while (u === 0) {
+            u = getRandomUnit();
+        }
+
+        while (v === 0) {
+            v = getRandomUnit();
+        }
+
+        const standardNormal =
+            Math.sqrt(-2 * Math.log(u)) *
+            Math.cos(2 * Math.PI * v);
+        const value =
+            standardNormal * standardDeviation + mean;
+
+        if (value >= min && value <= max) {
+            return roundToTwo(value);
+        }
+    }
+
+    return roundToTwo(clamp(mean, min, max));
+};
+
 const getOptionConfig = (part, title) =>
     gearOptionList[part]?.find(
         (option) => option.title === title
@@ -146,6 +209,44 @@ const createDefaultOption = (part) => {
         title: config?.title,
         value: getOptionMidpoint(config),
     });
+};
+
+const createRandomMaterialOptions = (
+    part,
+    guaranteedTitle = ""
+) => {
+    const availableOptions = gearOptionList[part] ?? [];
+
+    if (availableOptions.length === 0) {
+        return [];
+    }
+
+    const optionCount = getWeightedRandomValue(
+        OPTION_COUNT_VALUES,
+        OPTION_COUNT_WEIGHTS
+    );
+    const guaranteedOption = availableOptions.find(
+        (option) => option.title === guaranteedTitle
+    );
+    const selectedConfigs = guaranteedOption
+        ? [guaranteedOption]
+        : [];
+
+    while (selectedConfigs.length < optionCount) {
+        selectedConfigs.push(
+            getRandomItem(availableOptions)
+        );
+    }
+
+    return selectedConfigs.map((option) =>
+        normalizeOption(part, {
+            title: option.title,
+            value: getGaussianRandomValue(
+                Number(option.min),
+                Number(option.max)
+            ),
+        })
+    );
 };
 
 const createDraft = (option) => ({
@@ -230,6 +331,7 @@ const buildRefineResult = ({
                 },
                 increase: 0,
                 capped: incomingOption.max,
+                material: { ...incomingOption },
             },
         };
     }
@@ -255,6 +357,7 @@ const buildRefineResult = ({
                 },
                 increase: 0,
                 capped: incomingOption.max,
+                material: { ...incomingOption },
             },
         };
     }
@@ -306,6 +409,7 @@ const buildRefineResult = ({
             },
             increase: actualIncrease,
             capped: upgradedOption.max,
+            material: { ...incomingOption },
         },
     };
 };
@@ -325,12 +429,16 @@ export default function TitanRefineSimulator() {
         useState(() => [
             createDefaultOption(initialPart),
         ]);
-    const [
-        materialOption,
-        setMaterialOption,
-    ] = useState(() =>
-        createDefaultOption(initialPart)
-    );
+    const [materialOptions, setMaterialOptions] =
+        useState(() => [
+            createDefaultOption(initialPart),
+        ]);
+    const [guaranteedOptionTitle, setGuaranteedOptionTitle] =
+        useState("");
+    const [useStabilizer, setUseStabilizer] =
+        useState(false);
+    const [stabilizedMaterialIndex, setStabilizedMaterialIndex] =
+        useState(0);
 
     const [
         editingGearIndex,
@@ -343,9 +451,9 @@ export default function TitanRefineSimulator() {
             )
         );
     const [
-        editingMaterial,
-        setEditingMaterial,
-    ] = useState(false);
+        editingMaterialIndex,
+        setEditingMaterialIndex,
+    ] = useState(null);
     const [
         materialDraft,
         setMaterialDraft,
@@ -370,6 +478,14 @@ export default function TitanRefineSimulator() {
     const [
         selectedIndex,
         setSelectedIndex,
+    ] = useState(-1);
+    const [
+        materialAnimationIndex,
+        setMaterialAnimationIndex,
+    ] = useState(-1);
+    const [
+        selectedMaterialIndex,
+        setSelectedMaterialIndex,
     ] = useState(-1);
 
     const animationTimerRef = useRef(null);
@@ -430,6 +546,15 @@ export default function TitanRefineSimulator() {
             clearAnimationTimer();
         };
     }, [clearAnimationTimer]);
+
+    useEffect(() => {
+        if (
+            materialOptions.length <= 1 &&
+            useStabilizer
+        ) {
+            setUseStabilizer(false);
+        }
+    }, [materialOptions.length, useStabilizer]);
 
     const formatNumber = useCallback(
         (value) =>
@@ -522,23 +647,48 @@ export default function TitanRefineSimulator() {
         [publicUrl]
     );
 
+    const stabilizerImageUrl =
+        `${publicUrl}/images/titan/titan-stabilizer.png`;
+
     const isEditing =
         editingGearIndex !== null ||
-        editingMaterial;
+        editingMaterialIndex !== null;
 
-    const eligibleIndices = useMemo(
+    const eligibleMaterialIndices = useMemo(
         () =>
-            getEligibleIndices(
-                gearOptions,
-                materialOption
-            ),
-        [gearOptions, materialOption]
+            materialOptions
+                .map((option, index) =>
+                    getEligibleIndices(
+                        gearOptions,
+                        option
+                    ).length > 0
+                        ? index
+                        : -1
+                )
+                .filter((index) => index >= 0),
+        [gearOptions, materialOptions]
     );
+
+    const activeMaterialIndices = useMemo(() => {
+        if (!useStabilizer) {
+            return eligibleMaterialIndices;
+        }
+
+        return eligibleMaterialIndices.includes(
+            stabilizedMaterialIndex
+        )
+            ? [stabilizedMaterialIndex]
+            : [];
+    }, [
+        eligibleMaterialIndices,
+        stabilizedMaterialIndex,
+        useStabilizer,
+    ]);
 
     const canRefine =
         !isEditing &&
         !animationPlaying &&
-        eligibleIndices.length > 0;
+        activeMaterialIndices.length > 0;
 
     const statistics = useMemo(() => {
         const result = {
@@ -563,7 +713,7 @@ export default function TitanRefineSimulator() {
     const cancelAllEditing =
         useCallback(() => {
             setEditingGearIndex(null);
-            setEditingMaterial(false);
+            setEditingMaterialIndex(null);
         }, []);
 
     const resetSimulator = useCallback(
@@ -576,9 +726,12 @@ export default function TitanRefineSimulator() {
             setGearOptions([
                 defaultOption,
             ]);
-            setMaterialOption({
-                ...defaultOption,
-            });
+            setMaterialOptions([
+                { ...defaultOption },
+            ]);
+            setGuaranteedOptionTitle("");
+            setUseStabilizer(false);
+            setStabilizedMaterialIndex(0);
             setGearDraft(
                 createDraft(defaultOption)
             );
@@ -589,6 +742,8 @@ export default function TitanRefineSimulator() {
             setAnimationPlaying(false);
             setAnimationIndex(-1);
             setSelectedIndex(-1);
+            setMaterialAnimationIndex(-1);
+            setSelectedMaterialIndex(-1);
             cancelAllEditing();
         },
         [
@@ -672,7 +827,7 @@ export default function TitanRefineSimulator() {
                 return;
             }
 
-            setEditingMaterial(false);
+            setEditingMaterialIndex(null);
             setEditingGearIndex(index);
             setGearDraft(
                 createDraft(option)
@@ -748,20 +903,96 @@ export default function TitanRefineSimulator() {
             setEditingGearIndex(null);
         }, []);
 
+    const addMaterialOption = useCallback(() => {
+        if (
+            animationPlaying ||
+            isEditing ||
+            materialOptions.length >= MAX_OPTION_COUNT
+        ) {
+            return;
+        }
+
+        setMaterialOptions((previous) => [
+            ...previous,
+            createDefaultOption(parts),
+        ]);
+        setSelectedMaterialIndex(-1);
+    }, [
+        animationPlaying,
+        isEditing,
+        materialOptions.length,
+        parts,
+    ]);
+
+    const removeMaterialOption = useCallback(() => {
+        if (
+            animationPlaying ||
+            isEditing ||
+            materialOptions.length <= 1
+        ) {
+            return;
+        }
+
+        setMaterialOptions((previous) =>
+            previous.slice(0, -1)
+        );
+        setStabilizedMaterialIndex((previous) =>
+            Math.min(
+                previous,
+                materialOptions.length - 2
+            )
+        );
+        setSelectedMaterialIndex(-1);
+    }, [
+        animationPlaying,
+        isEditing,
+        materialOptions.length,
+    ]);
+
+    const randomizeMaterialOptions = useCallback(() => {
+        if (animationPlaying || isEditing) {
+            return;
+        }
+
+        const nextOptions = createRandomMaterialOptions(
+            parts,
+            guaranteedOptionTitle
+        );
+
+        if (nextOptions.length === 0) {
+            return;
+        }
+
+        setMaterialOptions(nextOptions);
+        setStabilizedMaterialIndex(0);
+        setSelectedMaterialIndex(-1);
+    }, [
+        animationPlaying,
+        guaranteedOptionTitle,
+        isEditing,
+        parts,
+    ]);
+
     const beginMaterialEdit =
-        useCallback(() => {
+        useCallback((index) => {
             if (animationPlaying) {
                 return;
             }
 
+            const option = materialOptions[index];
+
+            if (!option) {
+                return;
+            }
+
             setEditingGearIndex(null);
-            setEditingMaterial(true);
+            setEditingMaterialIndex(index);
             setMaterialDraft(
-                createDraft(materialOption)
+                createDraft(option)
             );
         }, [
             animationPlaying,
-            materialOption,
+            materialOptions,
         ]);
 
     const changeMaterialDraftTitle =
@@ -799,19 +1030,34 @@ export default function TitanRefineSimulator() {
 
     const confirmMaterialEdit =
         useCallback(() => {
-            setMaterialOption(
-                normalizeOption(
-                    parts,
-                    materialDraft
+            if (editingMaterialIndex === null) {
+                return;
+            }
+
+            const normalized = normalizeOption(
+                parts,
+                materialDraft
+            );
+
+            setMaterialOptions((previous) =>
+                previous.map((option, index) =>
+                    index === editingMaterialIndex
+                        ? normalized
+                        : option
                 )
             );
-            setEditingMaterial(false);
+            setEditingMaterialIndex(null);
             setSelectedIndex(-1);
-        }, [materialDraft, parts]);
+            setSelectedMaterialIndex(-1);
+        }, [
+            editingMaterialIndex,
+            materialDraft,
+            parts,
+        ]);
 
     const cancelMaterialEdit =
         useCallback(() => {
-            setEditingMaterial(false);
+            setEditingMaterialIndex(null);
         }, []);
 
     const applyRefineResult =
@@ -835,75 +1081,128 @@ export default function TitanRefineSimulator() {
 
     const playRefineAnimation =
         useCallback(
-            (result) => {
+            (result, materialIndex) => {
                 clearAnimationTimer();
                 setAnimationPlaying(true);
                 setSelectedIndex(-1);
                 setAnimationIndex(-1);
+                setSelectedMaterialIndex(-1);
+                setMaterialAnimationIndex(-1);
 
-                const targetIndex =
-                    result.history.slotIndex;
-                let currentIndex = -1;
-                let stepCount = 0;
+                const playTargetAnimation = () => {
+                    setMaterialAnimationIndex(-1);
+                    setSelectedMaterialIndex(materialIndex);
 
-                const nextStep = () => {
-                    currentIndex =
-                        (currentIndex + 1) %
-                        MAX_OPTION_COUNT;
-                    stepCount += 1;
-                    setAnimationIndex(
-                        currentIndex
+                    const targetIndex =
+                        result.history.slotIndex;
+                    let currentIndex = -1;
+                    let stepCount = 0;
+
+                    const nextTargetStep = () => {
+                        currentIndex =
+                            (currentIndex + 1) %
+                            MAX_OPTION_COUNT;
+                        stepCount += 1;
+                        setAnimationIndex(currentIndex);
+
+                        const canFinish =
+                            stepCount >=
+                                MIN_ANIMATION_STEPS &&
+                            currentIndex === targetIndex;
+
+                        if (canFinish) {
+                            animationTimerRef.current =
+                                window.setTimeout(() => {
+                                    applyRefineResult(result);
+                                    setAnimationIndex(-1);
+                                    setAnimationPlaying(false);
+                                    animationTimerRef.current = null;
+                                }, ANIMATION_STEP_MS);
+
+                            return;
+                        }
+
+                        animationTimerRef.current =
+                            window.setTimeout(
+                                nextTargetStep,
+                                ANIMATION_STEP_MS
+                            );
+                    };
+
+                    animationTimerRef.current =
+                        window.setTimeout(
+                            nextTargetStep,
+                            ANIMATION_STEP_MS
+                        );
+                };
+
+                if (
+                    useStabilizer ||
+                    materialOptions.length <= 1
+                ) {
+                    playTargetAnimation();
+                    return;
+                }
+
+                let currentMaterialIndex = -1;
+                let materialStepCount = 0;
+
+                const nextMaterialStep = () => {
+                    currentMaterialIndex =
+                        (currentMaterialIndex + 1) %
+                        materialOptions.length;
+                    materialStepCount += 1;
+                    setMaterialAnimationIndex(
+                        currentMaterialIndex
                     );
 
                     const canFinish =
-                        stepCount >=
-                            MIN_ANIMATION_STEPS &&
-                        currentIndex ===
-                            targetIndex;
+                        materialStepCount >=
+                            MATERIAL_ANIMATION_STEPS &&
+                        currentMaterialIndex === materialIndex;
 
                     if (canFinish) {
                         animationTimerRef.current =
                             window.setTimeout(
-                                () => {
-                                    applyRefineResult(
-                                        result
-                                    );
-                                    setAnimationIndex(
-                                        -1
-                                    );
-                                    setAnimationPlaying(
-                                        false
-                                    );
-                                    animationTimerRef.current =
-                                        null;
-                                },
+                                playTargetAnimation,
                                 ANIMATION_STEP_MS
                             );
-
                         return;
                     }
 
                     animationTimerRef.current =
                         window.setTimeout(
-                            nextStep,
+                            nextMaterialStep,
                             ANIMATION_STEP_MS
                         );
                 };
 
                 animationTimerRef.current =
                     window.setTimeout(
-                        nextStep,
+                        nextMaterialStep,
                         ANIMATION_STEP_MS
                     );
             },
             [
                 applyRefineResult,
                 clearAnimationTimer,
+                materialOptions.length,
+                useStabilizer,
             ]
         );
 
     const refine = useCallback(() => {
         if (!canRefine) {
+            return;
+        }
+
+        const materialIndex = getRandomItem(
+            activeMaterialIndices
+        );
+        const materialOption =
+            materialOptions[materialIndex];
+
+        if (!materialOption) {
             return;
         }
 
@@ -917,19 +1216,25 @@ export default function TitanRefineSimulator() {
             return;
         }
 
+        result.history.materialIndex = materialIndex;
+        result.history.stabilized = useStabilizer;
+
         if (useAnimation) {
-            playRefineAnimation(result);
+            playRefineAnimation(result, materialIndex);
         } else {
+            setSelectedMaterialIndex(materialIndex);
             applyRefineResult(result);
         }
     }, [
         applyRefineResult,
         canRefine,
         gearOptions,
-        materialOption,
+        activeMaterialIndices,
+        materialOptions,
         parts,
         playRefineAnimation,
         useAnimation,
+        useStabilizer,
     ]);
 
     const clearHistory = useCallback(() => {
@@ -1347,20 +1652,105 @@ export default function TitanRefineSimulator() {
                         aria-labelledby="refine-material-title"
                     >
                         <div className="card-body p-4">
-                            <h2
-                                id="refine-material-title"
-                                className="h4 fw-bold mb-1"
-                            >
-                                {t(
-                                    "TitanRefineSimulator.material.title"
-                                )}
-                            </h2>
+                            <div className="d-flex flex-column gap-3 mb-3">
+                                <div>
+                                    <h2
+                                        id="refine-material-title"
+                                        className="h4 fw-bold mb-1"
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.material.title"
+                                        )}
+                                    </h2>
 
-                            <p className="small text-secondary mb-3">
-                                {t(
-                                    "TitanRefineSimulator.material.description"
-                                )}
-                            </p>
+                                    <p className="small text-secondary mb-0">
+                                        {t(
+                                            "TitanRefineSimulator.material.description"
+                                        )}
+                                    </p>
+                                </div>
+
+                                <div className="d-flex flex-wrap gap-2">
+                                    <button
+                                        type="button"
+                                        className="btn btn-sm btn-outline-primary"
+                                        onClick={addMaterialOption}
+                                        disabled={
+                                            animationPlaying ||
+                                            isEditing ||
+                                            materialOptions.length >=
+                                                MAX_OPTION_COUNT
+                                        }
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.buttons.addOption"
+                                        )}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="btn btn-sm btn-outline-danger"
+                                        onClick={removeMaterialOption}
+                                        disabled={
+                                            animationPlaying ||
+                                            isEditing ||
+                                            materialOptions.length <= 1
+                                        }
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.buttons.removeOption"
+                                        )}
+                                    </button>
+                                </div>
+
+                                <div className="input-group input-group-sm">
+                                    <label
+                                        className="input-group-text"
+                                        htmlFor="refine-guaranteed-option"
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.material.guaranteedOption"
+                                        )}
+                                    </label>
+                                    <select
+                                        id="refine-guaranteed-option"
+                                        className="form-select"
+                                        value={guaranteedOptionTitle}
+                                        onChange={(event) =>
+                                            setGuaranteedOptionTitle(
+                                                event.target.value
+                                            )
+                                        }
+                                        disabled={animationPlaying || isEditing}
+                                    >
+                                        <option value="">
+                                            {t(
+                                                "TitanRefineSimulator.material.noGuarantee"
+                                            )}
+                                        </option>
+                                        {(gearOptionList[parts] ?? []).map(
+                                            (option) => (
+                                                <option
+                                                    value={option.title}
+                                                    key={option.title}
+                                                >
+                                                    {getOptionName(option.title)}
+                                                </option>
+                                            )
+                                        )}
+                                    </select>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary"
+                                        onClick={randomizeMaterialOptions}
+                                        disabled={animationPlaying || isEditing}
+                                    >
+                                        {t(
+                                            "TitanRefineSimulator.buttons.randomize"
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
 
                             <article className="refine-material-card">
                                 <div className="refine-material-image-panel">
@@ -1390,51 +1780,200 @@ export default function TitanRefineSimulator() {
                                         {getPartName(parts)}
                                     </h3>
 
-                                    {editingMaterial
-                                        ? renderOptionEditor(
-                                              materialDraft,
-                                              changeMaterialDraftTitle,
-                                              changeMaterialDraftValue,
-                                              confirmMaterialEdit,
-                                              cancelMaterialEdit
-                                          )
-                                        : (
-                                              <button
-                                                  type="button"
-                                                  className="refine-option-display refine-material-option"
-                                                  onClick={
-                                                      beginMaterialEdit
-                                                  }
-                                                  disabled={
-                                                      animationPlaying
-                                                  }
-                                                  title={getOptionName(
-                                                      materialOption.title
-                                                  )}
-                                              >
-                                                  <span className="refine-option-name">
-                                                      {getOptionName(
-                                                          materialOption.title
-                                                      )}
-                                                  </span>
+                                    <div className="refine-option-list">
+                                        {materialOptions.map((option, index) => {
+                                            const isEditingRow =
+                                                editingMaterialIndex === index;
+                                            const isScanning =
+                                                materialAnimationIndex === index;
+                                            const isSelected =
+                                                selectedMaterialIndex === index;
+                                            const isStabilized =
+                                                useStabilizer &&
+                                                stabilizedMaterialIndex === index;
 
-                                                  <span className="refine-option-value">
-                                                      {formatPercent(
-                                                          materialOption.value
-                                                      )}
-                                                  </span>
+                                            return (
+                                                <div
+                                                    className={`refine-option-row ${
+                                                        isScanning
+                                                            ? "is-scanning"
+                                                            : ""
+                                                    } ${
+                                                        isSelected
+                                                            ? "is-selected"
+                                                            : ""
+                                                    } ${
+                                                        isStabilized
+                                                            ? "is-stabilized"
+                                                            : ""
+                                                    }`}
+                                                    key={index}
+                                                >
+                                                    {isEditingRow
+                                                        ? renderOptionEditor(
+                                                              materialDraft,
+                                                              changeMaterialDraftTitle,
+                                                              changeMaterialDraftValue,
+                                                              confirmMaterialEdit,
+                                                              cancelMaterialEdit
+                                                          )
+                                                        : (
+                                                              <>
+                                                                  <button
+                                                                      type="button"
+                                                                      className="refine-option-display refine-material-option"
+                                                                      onClick={() =>
+                                                                          beginMaterialEdit(
+                                                                              index
+                                                                          )
+                                                                      }
+                                                                      disabled={
+                                                                          animationPlaying
+                                                                      }
+                                                                      title={getOptionName(
+                                                                          option.title
+                                                                      )}
+                                                                  >
+                                                                      <span className="refine-option-name">
+                                                                          {getOptionName(
+                                                                              option.title
+                                                                          )}
+                                                                      </span>
+                                                                      <span className="refine-option-value">
+                                                                          {formatPercent(
+                                                                              option.value
+                                                                          )}
+                                                                      </span>
+                                                                      {option.max && (
+                                                                          <span className="badge text-bg-warning refine-max-badge">
+                                                                              {t(
+                                                                                  "TitanRefineSimulator.gear.max"
+                                                                              )}
+                                                                          </span>
+                                                                      )}
+                                                                  </button>
 
-                                                  {materialOption.max && (
-                                                      <span className="badge text-bg-warning refine-max-badge">
-                                                          {t(
-                                                              "TitanRefineSimulator.gear.max"
+                                                                  <label
+                                                                      className={`refine-stabilizer-choice ${
+                                                                          useStabilizer
+                                                                              ? "is-active"
+                                                                              : "is-inactive"
+                                                                      }`}
+                                                                  >
+                                                                      <input
+                                                                          className="visually-hidden"
+                                                                          type="radio"
+                                                                          name="stabilized-material-option"
+                                                                          checked={
+                                                                              isStabilized
+                                                                          }
+                                                                          onChange={() => {
+                                                                              setStabilizedMaterialIndex(
+                                                                                  index
+                                                                              );
+                                                                              setUseStabilizer(
+                                                                                  true
+                                                                              );
+                                                                              setSelectedMaterialIndex(
+                                                                                  -1
+                                                                              );
+                                                                          }}
+                                                                          disabled={
+                                                                              animationPlaying ||
+                                                                              isEditing ||
+                                                                              materialOptions.length <=
+                                                                                  1
+                                                                          }
+                                                                      />
+                                                                      <span
+                                                                          className={`refine-stabilizer-mark ${
+                                                                              isStabilized
+                                                                                  ? "is-selected"
+                                                                                  : ""
+                                                                          }`}
+                                                                          aria-hidden="true"
+                                                                      >
+                                                                          {isStabilized ? (
+                                                                              <FaCheck />
+                                                                          ) : null}
+                                                                      </span>
+                                                                      <span className="visually-hidden">
+                                                                          {isStabilized
+                                                                              ? t(
+                                                                                    "TitanRefineSimulator.stabilizer.selected"
+                                                                                )
+                                                                              : t(
+                                                                                    "TitanRefineSimulator.stabilizer.selectOption"
+                                                                                )}
+                                                                      </span>
+                                                                  </label>
+                                                              </>
                                                           )}
-                                                      </span>
-                                                  )}
-                                              </button>
-                                          )}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </article>
+
+                            <div className="refine-stabilizer-panel mt-3">
+                                <img
+                                    src={stabilizerImageUrl}
+                                    className="refine-stabilizer-image"
+                                    alt={t(
+                                        "TitanRefineSimulator.stabilizer.imageAlt"
+                                    )}
+                                />
+                                <div className="flex-grow-1">
+                                    <div className="form-check form-switch mb-1">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            role="switch"
+                                            id="refine-use-stabilizer"
+                                            checked={useStabilizer}
+                                            onChange={(event) => {
+                                                setUseStabilizer(
+                                                    event.target.checked
+                                                );
+                                                setSelectedMaterialIndex(-1);
+                                            }}
+                                            disabled={
+                                                animationPlaying ||
+                                                isEditing ||
+                                                materialOptions.length <= 1
+                                            }
+                                        />
+                                        <label
+                                            className="form-check-label fw-bold"
+                                            htmlFor="refine-use-stabilizer"
+                                        >
+                                            {t(
+                                                "TitanRefineSimulator.stabilizer.use"
+                                            )}
+                                        </label>
+                                    </div>
+                                    <p className="small text-secondary mb-0">
+                                        {t(
+                                            useStabilizer
+                                                ? "TitanRefineSimulator.stabilizer.activeDescription"
+                                                : "TitanRefineSimulator.stabilizer.description"
+                                        )}
+                                    </p>
+                                    {useStabilizer && (
+                                        <div className="small fw-semibold text-warning mt-1">
+                                            {t(
+                                                "TitanRefineSimulator.stabilizer.cost",
+                                                {
+                                                    count:
+                                                        materialOptions.length -
+                                                        1,
+                                                }
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
 
                             <div className="alert alert-light border small mt-3 mb-0">
                                 {t(
@@ -1481,12 +2020,12 @@ export default function TitanRefineSimulator() {
                             </div>
 
                             <div className="small text-secondary">
-                                {eligibleIndices.length >
+                                {activeMaterialIndices.length >
                                 0
                                     ? t(
-                                          "TitanRefineSimulator.status.eligible",
+                                          "TitanRefineSimulator.status.eligibleMaterials",
                                           {
-                                              count: eligibleIndices.length,
+                                              count: activeMaterialIndices.length,
                                           }
                                       )
                                     : t(
@@ -1524,7 +2063,7 @@ export default function TitanRefineSimulator() {
 
                     {!isEditing &&
                         !animationPlaying &&
-                        eligibleIndices.length ===
+                        activeMaterialIndices.length ===
                             0 && (
                             <div className="alert alert-danger mt-3 mb-0">
                                 {t(
@@ -1666,6 +2205,27 @@ export default function TitanRefineSimulator() {
                                         </time>
                                     </div>
 
+                                    <div className="small text-secondary mb-1">
+                                        {t(
+                                            "TitanRefineSimulator.history.material",
+                                            {
+                                                option: getOptionName(
+                                                    entry.material.title
+                                                ),
+                                                value: formatNumber(
+                                                    entry.material.value
+                                                ),
+                                            }
+                                        )}
+                                        {entry.stabilized && (
+                                            <span className="badge text-bg-warning ms-2">
+                                                {t(
+                                                    "TitanRefineSimulator.history.stabilized"
+                                                )}
+                                            </span>
+                                        )}
+                                    </div>
+
                                     {entry.action ===
                                         "added" && (
                                         <p className="mb-0">
@@ -1788,6 +2348,11 @@ export default function TitanRefineSimulator() {
                     </h2>
 
                     <ol className="lh-lg">
+                        <li>
+                            {t(
+                                "TitanRefineSimulator.guide.rule0"
+                            )}
+                        </li>
                         <li>
                             {t(
                                 "TitanRefineSimulator.guide.rule1"

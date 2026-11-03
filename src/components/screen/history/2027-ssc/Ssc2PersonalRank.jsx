@@ -4,11 +4,13 @@ import {
     useDeferredValue,
     useEffect,
     useMemo,
+    useRef,
     useState,
 } from "react";
 import { useTranslation } from "react-i18next";
 import {
     FaArrowLeft,
+    FaCalendarDays,
     FaChartLine,
     FaMagnifyingGlass,
     FaRotateRight,
@@ -29,6 +31,7 @@ const PERSONAL_DATA_SOURCES = Object.entries(PERSONAL_DATA_MODULES)
     .sort(([left], [right]) => right.localeCompare(left));
 
 let allDocumentsPromise = null;
+let availableDatesPromise = null;
 
 const VIRTUAL_TABLE_COMPONENTS = {
     Scroller: forwardRef(function PersonalRankScroller(props, ref) {
@@ -91,6 +94,15 @@ function normalizeRanking(row, index) {
     };
 }
 
+function normalizeSnapshot(snapshot) {
+    const rankings = (snapshot?.rankings ?? [])
+        .map(normalizeRanking)
+        .filter(Boolean)
+        .sort((left, right) => left.rank - right.rank || right.merit - left.merit);
+
+    return { ...snapshot, rankings };
+}
+
 async function loadLatestSnapshot() {
     for (const [, loadDocument] of PERSONAL_DATA_SOURCES) {
         const document = await loadDocument();
@@ -98,12 +110,7 @@ async function loadLatestSnapshot() {
 
         if (!snapshot) continue;
 
-        const rankings = snapshot.rankings
-            .map(normalizeRanking)
-            .filter(Boolean)
-            .sort((left, right) => left.rank - right.rank || right.merit - left.merit);
-
-        return { ...snapshot, rankings };
+        return normalizeSnapshot(snapshot);
     }
 
     throw new Error("No personal ranking snapshot is available");
@@ -121,6 +128,33 @@ async function loadAllDocuments() {
     return allDocumentsPromise;
 }
 
+async function loadAvailableDates() {
+    if (!availableDatesPromise) {
+        availableDatesPromise = loadAllDocuments()
+            .then(documents => [...new Set(
+                documents.flatMap(document => getDocumentSnapshots(document).map(snapshot => snapshot.date)),
+            )].sort((left, right) => right.localeCompare(left)))
+            .catch(error => {
+                availableDatesPromise = null;
+                throw error;
+            });
+    }
+
+    return availableDatesPromise;
+}
+
+async function loadSnapshotByDate(date) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) return null;
+
+    const documents = await loadAllDocuments();
+    for (const document of documents) {
+        const snapshot = getDocumentSnapshots(document).find(candidate => candidate.date === date);
+        if (snapshot) return normalizeSnapshot(snapshot);
+    }
+
+    return null;
+}
+
 async function loadPlayerHistory(uid) {
     if (!isValidUid(uid)) throw new Error("Invalid player identity");
 
@@ -129,6 +163,7 @@ async function loadPlayerHistory(uid) {
 
     documents.forEach(document => {
         getDocumentSnapshots(document).forEach(snapshot => {
+            if (recordsByDate.has(snapshot.date)) return;
             const player = snapshot.rankings.find(row => String(row?.uid ?? "") === uid);
             if (!player) return;
 
@@ -168,7 +203,11 @@ function LoadingRows({ compact = false }) {
 
 export default function Ssc2PersonalRank() {
     const { t, i18n } = useTranslation("viewer");
-    const [latestSnapshot, setLatestSnapshot] = useState(null);
+    const [activeSnapshot, setActiveSnapshot] = useState(null);
+    const [selectedDate, setSelectedDate] = useState("");
+    const [availableDates, setAvailableDates] = useState([]);
+    const [dateCatalogLoading, setDateCatalogLoading] = useState(false);
+    const [dateError, setDateError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState(false);
     const [nicknameQuery, setNicknameQuery] = useState("");
@@ -179,6 +218,7 @@ export default function Ssc2PersonalRank() {
     const [playerHistory, setPlayerHistory] = useState([]);
     const [historyLoading, setHistoryLoading] = useState(false);
     const [historyError, setHistoryError] = useState(false);
+    const dateRequestRef = useRef(0);
 
     const deferredNicknameQuery = useDeferredValue(nicknameQuery);
     const deferredServerQuery = useDeferredValue(serverQuery);
@@ -189,10 +229,14 @@ export default function Ssc2PersonalRank() {
         let active = true;
         setLoading(true);
         setLoadError(false);
+        setDateError(false);
 
         loadLatestSnapshot()
             .then(snapshot => {
-                if (active) setLatestSnapshot(snapshot);
+                if (!active) return;
+                setActiveSnapshot(snapshot);
+                setSelectedDate(snapshot.date);
+                setAvailableDates(current => current.length > 0 ? current : [snapshot.date]);
             })
             .catch(() => {
                 if (active) setLoadError(true);
@@ -205,6 +249,44 @@ export default function Ssc2PersonalRank() {
     }, []);
 
     useEffect(() => loadLatest(), [loadLatest]);
+
+    const prepareDateCatalog = useCallback(() => {
+        setDateCatalogLoading(true);
+        loadAvailableDates()
+            .then(setAvailableDates)
+            .catch(() => setDateError(true))
+            .finally(() => setDateCatalogLoading(false));
+    }, []);
+
+    const changeSnapshotDate = useCallback(event => {
+        const nextDate = event.target.value;
+        if (!nextDate || nextDate === activeSnapshot?.date) return;
+
+        const requestId = dateRequestRef.current + 1;
+        dateRequestRef.current = requestId;
+        setSelectedDate(nextDate);
+        setDateError(false);
+        setLoading(true);
+
+        loadSnapshotByDate(nextDate)
+            .then(snapshot => {
+                if (dateRequestRef.current !== requestId) return;
+                if (!snapshot) {
+                    setSelectedDate(activeSnapshot?.date ?? "");
+                    setDateError(true);
+                    return;
+                }
+                setActiveSnapshot(snapshot);
+            })
+            .catch(() => {
+                if (dateRequestRef.current !== requestId) return;
+                setSelectedDate(activeSnapshot?.date ?? "");
+                setDateError(true);
+            })
+            .finally(() => {
+                if (dateRequestRef.current === requestId) setLoading(false);
+            });
+    }, [activeSnapshot]);
 
     const numberFormatter = useMemo(
         () => new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 0 }),
@@ -229,7 +311,7 @@ export default function Ssc2PersonalRank() {
         const minimum = deferredMinimumMerit === "" ? null : Number(deferredMinimumMerit);
         const maximum = deferredMaximumMerit === "" ? null : Number(deferredMaximumMerit);
 
-        return (latestSnapshot?.rankings ?? []).filter(player => (
+        return (activeSnapshot?.rankings ?? []).filter(player => (
             (!nicknameNeedle || player.nicknameSearch.includes(nicknameNeedle))
             && (!serverNeedle || String(player.serverId) === serverNeedle)
             && (minimum === null || player.merit >= minimum)
@@ -240,7 +322,7 @@ export default function Ssc2PersonalRank() {
         deferredMinimumMerit,
         deferredNicknameQuery,
         deferredServerQuery,
-        latestSnapshot,
+        activeSnapshot,
     ]);
 
     const resetFilters = useCallback(() => {
@@ -345,13 +427,36 @@ export default function Ssc2PersonalRank() {
                     <h2 id="ssc2-personal-rank-title" className="h4 mb-1">{t("Ssc2PersonalRank.title")}</h2>
                     <p className="text-secondary mb-0">{t("Ssc2PersonalRank.description")}</p>
                 </div>
-                {latestSnapshot && (
-                    <div className="ssc2-personal-snapshot-meta">
-                        <span>{formatDate(latestSnapshot.date)}</span>
-                        <span>{t("Ssc2PersonalRank.roundValue", {
-                            round: latestSnapshot.round,
-                            total: latestSnapshot.totalRound,
+                {activeSnapshot && (
+                    <div className="ssc2-personal-snapshot-controls">
+                        <label className="ssc2-personal-date-picker" htmlFor="ssc2-personal-date">
+                            <span><FaCalendarDays aria-hidden="true" />{t("Ssc2PersonalRank.dateLabel")}</span>
+                            <input
+                                id="ssc2-personal-date"
+                                type="date"
+                                className="form-control form-control-sm"
+                                value={selectedDate}
+                                min={availableDates.at(-1) ?? ""}
+                                max={availableDates[0] ?? ""}
+                                list="ssc2-personal-available-dates"
+                                onFocus={prepareDateCatalog}
+                                onClick={prepareDateCatalog}
+                                onChange={changeSnapshotDate}
+                            />
+                            <datalist id="ssc2-personal-available-dates">
+                                {availableDates.map(date => <option key={date} value={date} />)}
+                            </datalist>
+                        </label>
+                        <span className="ssc2-personal-round-badge">{t("Ssc2PersonalRank.roundValue", {
+                            round: activeSnapshot.round,
+                            total: activeSnapshot.totalRound,
                         })}</span>
+                        {dateCatalogLoading && (
+                            <small className="text-secondary">{t("Ssc2PersonalRank.dateLoading")}</small>
+                        )}
+                        {dateError && (
+                            <small className="text-danger" role="alert">{t("Ssc2PersonalRank.dateUnavailable")}</small>
+                        )}
                     </div>
                 )}
             </header>
@@ -427,11 +532,11 @@ export default function Ssc2PersonalRank() {
                     </button>
                 </div>
             )}
-            {!loading && !loadError && latestSnapshot && (
+            {!loading && !loadError && activeSnapshot && (
                 <div className="card border-0 shadow-sm overflow-hidden">
                     <div className="card-header bg-transparent ssc2-personal-result-summary">
                         <strong>{t("Ssc2PersonalRank.resultCount", { count: formatNumber(filteredPlayers.length) })}</strong>
-                        <span>{t("Ssc2PersonalRank.totalCount", { count: formatNumber(latestSnapshot.rankings.length) })}</span>
+                        <span>{t("Ssc2PersonalRank.totalCount", { count: formatNumber(activeSnapshot.rankings.length) })}</span>
                     </div>
                     {filteredPlayers.length === 0 ? (
                         <div className="ssc2-personal-empty">{t("Ssc2PersonalRank.noResults")}</div>

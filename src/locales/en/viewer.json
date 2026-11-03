@@ -511,7 +511,10 @@
     },
     "Ssc2PersonalRank": {
         "title": "Personal Cumulative Rankings",
-        "description": "Search the latest cumulative points recorded after a match and review each player's daily history.",
+        "description": "Search cumulative points by match date and review each player's daily history.",
+        "dateLabel": "Record Date",
+        "dateLoading": "Checking available record dates.",
+        "dateUnavailable": "No record is available for the selected date.",
         "roundValue": "Round {{round}} / {{total}}",
         "filters": { "nickname": "Nickname", "nicknamePlaceholder": "Letters, numbers, Unicode, or partial Korean", "server": "Server", "serverPlaceholder": "Server number", "minimum": "Minimum Points", "minimumPlaceholder": "Minimum", "maximum": "Maximum Points", "maximumPlaceholder": "Maximum", "reset": "Reset Search" },
         "table": { "rank": "Overall Rank", "nickname": "Nickname", "server": "Server", "merit": "Cumulative Points", "level": "Level", "details": "Details", "date": "Date", "round": "Round", "change": "Daily Change" },
@@ -1365,9 +1368,21 @@
         },
         "material": {
             "title": "Refinement Material Settings",
-            "description": "Set the option type and value supplied by the material gear.",
+            "description": "Configure one to three material options manually or generate them using the crafting rules.",
             "imageAlt": "Gold-grade {{gear}} used as refinement material",
-            "rule": "One eligible option slot is selected at random. A matching option is upgraded, while a different option is replaced by the material option."
+            "guaranteedOption": "Guaranteed option",
+            "noGuarantee": "None",
+            "rule": "Without a Stabilizer, one material option is drawn at random before the target slot. With a Stabilizer, refinement uses the selected material option."
+        },
+        "stabilizer": {
+            "use": "Use Stabilizer",
+            "description": "Choose one material option and lock all the others out of the draw.",
+            "activeDescription": "Select the option to use. All other material options are excluded from this refinement.",
+            "selected": "Selected",
+            "locked": "Locked",
+            "selectOption": "Select this option with a Stabilizer",
+            "cost": "Consume {{count}} Stabilizer(s) · lock {{count}} random option(s)",
+            "imageAlt": "Refinement Stabilizer"
         },
         "editor": {
             "optionLabel": "Option type",
@@ -1377,6 +1392,7 @@
         "buttons": {
             "addOption": "Add Option",
             "removeOption": "Remove Option",
+            "randomize": "Generate Randomly",
             "refine": "Refine",
             "refining": "Refining...",
             "reset": "Reset Current Part",
@@ -1386,9 +1402,10 @@
         },
         "status": {
             "eligible": "Eligible refinement slots: {{count}}",
+            "eligibleMaterials": "Material options available for refinement: {{count}}",
             "noEligible": "No option slot is currently eligible for refinement.",
             "finishEditing": "Apply or cancel the current edit before refining.",
-            "allMax": "All three matching options are already at their maximum values. Change the material option or edit the gear options."
+            "allMax": "None of the selected material options can refine this gear. Change the Stabilizer selection or edit the material or target options."
         },
         "statistics": {
             "title": "Refinement Statistics",
@@ -1403,6 +1420,8 @@
             "title": "Refinement History",
             "empty": "No refinement history yet.",
             "slot": "Option Slot {{slot}}",
+            "material": "Selected material: {{option}} {{value}}%",
+            "stabilized": "Stabilizer",
             "added": "{{option}} {{value}}% was added as a new option.",
             "upgraded": "{{option}} increased from {{before}}% to {{after}}%. (+{{increase}}%)",
             "replaced": "{{beforeOption}} was replaced with {{afterOption}} {{value}}%."
@@ -1412,6 +1431,7 @@
             "introduction1": "This tool lets you configure standard Titan gear options and a material option, then inspect how a refinement result is applied.",
             "introduction2": "It uses the refinement rules from the existing code together with the option caps and increase ranges stored in the JSON data. All results are calculated locally in the browser.",
             "rulesTitle": "Refinement Rules",
+            "rule0": "Without a Stabilizer, one option on the material gear is selected at random. With a Stabilizer, only the designated option can be selected.",
             "rule1": "When the gear has an empty slot, that next empty slot can be selected as a refinement target.",
             "rule2": "When the selected option matches the material option, its value increases by the configured range.",
             "rule3": "When the selected option differs from the material option, it is replaced by the material option.",
