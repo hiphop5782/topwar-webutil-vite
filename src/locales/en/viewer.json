@@ -475,12 +475,22 @@
     },
     "Ssc2Main": {
         "title": "Seal Stone Battlefield (2027)",
-        "detail": "A record of the Snowfield Train survey for the Seal Stone Battlefield continuing through 2027.",
+        "detail": "Server rankings, personal rankings, and Snowfield Train records for the Seal Stone Battlefield continuing through 2027.",
         "navigation": "Seal Stone Battlefield (2027) history menu",
         "servers": "Server Rankings",
         "users": "Player Rankings",
         "preparing": "Coming soon",
         "train": "Truck Status"
+    },
+    "Ssc2ServerRank": {
+        "title": "Cumulative Server Ranking",
+        "description": "Calculates server rankings from the points and honor earned through the selected stage and round.",
+        "stageTitle": "Competition Stage",
+        "stageDescription": "Preview and main-stage records are accumulated separately.",
+        "stages": { "preview": "Preview", "final": "Main Stage" },
+        "roundProgress": "Round {{current}} / {{total}}",
+        "eyebrow": "2027 SSC · {{stage}}",
+        "noData": "No server ranking data is available."
     },
     "Ssc2Train": {
         "loadError": "Unable to load the truck status data.",

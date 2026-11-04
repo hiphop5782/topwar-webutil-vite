@@ -71,6 +71,17 @@ function getDocumentSnapshots(document) {
         .sort((left, right) => right.date.localeCompare(left.date));
 }
 
+function getSourceSnapshots(sourcePath, document) {
+    const snapshots = getDocumentSnapshots(document);
+    const sourceDate = String(sourcePath).match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1];
+
+    if (sourceDate && snapshots.length > 0) {
+        return [{ ...snapshots[0], date: sourceDate }];
+    }
+
+    return snapshots;
+}
+
 function normalizeRanking(row, index) {
     const uid = String(row?.uid ?? "").trim();
     const merit = Number(row?.merit);
@@ -104,9 +115,9 @@ function normalizeSnapshot(snapshot) {
 }
 
 async function loadLatestSnapshot() {
-    for (const [, loadDocument] of PERSONAL_DATA_SOURCES) {
+    for (const [sourcePath, loadDocument] of PERSONAL_DATA_SOURCES) {
         const document = await loadDocument();
-        const [snapshot] = getDocumentSnapshots(document);
+        const [snapshot] = getSourceSnapshots(sourcePath, document);
 
         if (!snapshot) continue;
 
@@ -118,7 +129,9 @@ async function loadLatestSnapshot() {
 
 async function loadAllDocuments() {
     if (!allDocumentsPromise) {
-        allDocumentsPromise = Promise.all(PERSONAL_DATA_SOURCES.map(([, loadDocument]) => loadDocument()))
+        allDocumentsPromise = Promise.all(PERSONAL_DATA_SOURCES.map(
+            async ([sourcePath, loadDocument]) => ({ sourcePath, document: await loadDocument() }),
+        ))
             .catch(error => {
                 allDocumentsPromise = null;
                 throw error;
@@ -132,7 +145,9 @@ async function loadAvailableDates() {
     if (!availableDatesPromise) {
         availableDatesPromise = loadAllDocuments()
             .then(documents => [...new Set(
-                documents.flatMap(document => getDocumentSnapshots(document).map(snapshot => snapshot.date)),
+                documents.flatMap(({ sourcePath, document }) => (
+                    getSourceSnapshots(sourcePath, document).map(snapshot => snapshot.date)
+                )),
             )].sort((left, right) => right.localeCompare(left)))
             .catch(error => {
                 availableDatesPromise = null;
@@ -147,8 +162,8 @@ async function loadSnapshotByDate(date) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) return null;
 
     const documents = await loadAllDocuments();
-    for (const document of documents) {
-        const snapshot = getDocumentSnapshots(document).find(candidate => candidate.date === date);
+    for (const { sourcePath, document } of documents) {
+        const snapshot = getSourceSnapshots(sourcePath, document).find(candidate => candidate.date === date);
         if (snapshot) return normalizeSnapshot(snapshot);
     }
 
@@ -161,8 +176,8 @@ async function loadPlayerHistory(uid) {
     const documents = await loadAllDocuments();
     const recordsByDate = new Map();
 
-    documents.forEach(document => {
-        getDocumentSnapshots(document).forEach(snapshot => {
+    documents.forEach(({ sourcePath, document }) => {
+        getSourceSnapshots(sourcePath, document).forEach(snapshot => {
             if (recordsByDate.has(snapshot.date)) return;
             const player = snapshot.rankings.find(row => String(row?.uid ?? "") === uid);
             if (!player) return;

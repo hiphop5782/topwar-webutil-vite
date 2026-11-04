@@ -20,11 +20,14 @@ export default function SealStoneChaos2027() {
         <p>{t("Ssc2Main.detail")}</p>
 
         <nav className="ssc2-section-navigation" aria-label={t("Ssc2Main.navigation")}>
-            <button type="button" className="ssc2-section-tab is-disabled" disabled>
+            <LanguageRouterLink
+                to="/history/ssc-2027"
+                aria-current={routePath === "/history/ssc-2027" ? "page" : undefined}
+                className={`ssc2-section-tab ${routePath === "/history/ssc-2027" ? "is-active" : ""}`}
+            >
                 <FaServer className="ssc2-section-tab-icon" aria-hidden="true" />
                 <span className="ssc2-section-tab-label">{t("Ssc2Main.servers")}</span>
-                <span className="badge text-bg-secondary">{t("Ssc2Main.preparing")}</span>
-            </button>
+            </LanguageRouterLink>
             <LanguageRouterLink
                 to="/history/ssc-2027/users"
                 aria-current={routePath === "/history/ssc-2027/users" ? "page" : undefined}

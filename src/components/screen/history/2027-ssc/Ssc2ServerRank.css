@@ -1,0 +1,43 @@
+.ssc2-server-stage-card {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid #dbe4ee;
+    border-radius: 0.8rem;
+}
+
+.ssc2-server-stage-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(9.5rem, 1fr));
+    gap: 0.5rem;
+    flex: 0 0 auto;
+}
+
+.ssc2-server-stage-switch .btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+    .ssc2-server-stage-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ssc2-server-stage-switch {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ssc2-server-stage-switch .btn {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        align-items: center;
+    }
+
+    .ssc2-server-stage-switch .btn .small {
+        margin-left: 0 !important;
+    }
+}

@@ -635,7 +635,14 @@ function RankingRaceChart({
     );
 }
 
-function SscDashboardContent({ serverParams, setServerParams }) {
+function SscDashboardContent({
+    serverParams,
+    setServerParams,
+    data,
+    eyebrow,
+    titleKey,
+    descriptionKey,
+}) {
     const { t, i18n } = useTranslation("viewer");
 
     const locale =
@@ -660,7 +667,7 @@ function SscDashboardContent({ serverParams, setServerParams }) {
     };
 
     const normalizedData = useMemo(() => {
-        return mergedData
+        return data
             .map(normalizeItem)
             .filter(
                 (item) =>
@@ -668,7 +675,7 @@ function SscDashboardContent({ serverParams, setServerParams }) {
                     Number.isFinite(item.sid) &&
                     Number.isFinite(item.rank)
             );
-    }, []);
+    }, [data]);
 
     const rounds = useMemo(() => {
         return [
@@ -2114,16 +2121,16 @@ function SscDashboardContent({ serverParams, setServerParams }) {
             <div className="d-flex flex-column flex-xl-row justify-content-between align-items-xl-end gap-3 mb-4">
                 <div>
                     <div className="small fw-bold text-primary mb-1">
-                        2026 SSC
+                        {eyebrow}
                     </div>
 
                     <h1 className="h3 fw-bold mb-2">
-                        {t("SscDashboard.title")}
+                        {t(titleKey)}
                     </h1>
 
                     <p className="text-secondary mb-0">
                         {t(
-                            "SscDashboard.description"
+                            descriptionKey
                         )}
                     </p>
                 </div>
@@ -3067,17 +3074,22 @@ function SscDashboardContent({ serverParams, setServerParams }) {
     );
 }
 
-function SscDashboard() {
+function SscDashboard({
+    data = mergedData,
+    eyebrow = "2026 SSC",
+    titleKey = "SscDashboard.title",
+    descriptionKey = "SscDashboard.description",
+}) {
     const { t } = useTranslation("viewer");
     const [serverParams, setServerParams] = useListParamState("server");
 
     const servers = useMemo(() => {
         return [...new Set(
-            mergedData
+            data
                 .map(item => Number(item.sid))
                 .filter(Number.isFinite)
         )].sort((a, b) => a - b);
-    }, []);
+    }, [data]);
 
     const validServerParams = useMemo(() => {
         const validServers = new Set(servers);
@@ -3115,6 +3127,10 @@ function SscDashboard() {
                 <SscDashboardContent
                     serverParams={validServerParams}
                     setServerParams={setServerParams}
+                    data={data}
+                    eyebrow={eyebrow}
+                    titleKey={titleKey}
+                    descriptionKey={descriptionKey}
                 />
             )}
         </>

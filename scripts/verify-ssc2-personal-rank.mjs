@@ -4,16 +4,28 @@ import puppeteer from "puppeteer";
 
 const baseUrl = process.env.SSC2_VERIFY_URL ?? "http://127.0.0.1:4173";
 const dataDirectory = new URL("../src/assets/json/ssc2/personal/", import.meta.url);
-const newestFile = (await readdir(dataDirectory))
+const dataFiles = (await readdir(dataDirectory))
     .filter(fileName => fileName.endsWith(".json"))
-    .sort()
-    .at(-1);
+    .sort();
+const newestFile = dataFiles.at(-1);
 
 assert.ok(newestFile, "No personal ranking data file found");
 
 const source = JSON.parse(await readFile(new URL(newestFile, dataDirectory), "utf8"));
-const latestDate = Object.keys(source.dates ?? {}).sort().at(-1);
-const latest = source.dates?.[latestDate];
+const oldestFile = dataFiles[0];
+const oldestSource = oldestFile === newestFile
+    ? source
+    : JSON.parse(await readFile(new URL(oldestFile, dataDirectory), "utf8"));
+const latestDate = newestFile.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1]
+    ?? Object.keys(source.dates ?? {}).sort().at(-1);
+const oldestDate = oldestFile.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1]
+    ?? Object.keys(oldestSource.dates ?? {}).sort().at(-1);
+const latest = Object.values(source.dates ?? {}).sort((left, right) => (
+    String(right?.date ?? "").localeCompare(String(left?.date ?? ""))
+))[0];
+const oldest = Object.values(oldestSource.dates ?? {}).sort((left, right) => (
+    String(right?.date ?? "").localeCompare(String(left?.date ?? ""))
+))[0];
 const players = latest?.rankings ?? [];
 const topPlayer = players[0];
 const unicodePlayer = players.find(player => player.nickname === "𝐌") ?? topPlayer;
@@ -67,6 +79,19 @@ try {
     assert.equal(await page.$$("#ssc2-personal-server").then(elements => elements.length), 1);
     assert.equal(await page.$eval("#ssc2-personal-date", input => input.type), "date");
     assert.equal(await page.$eval("#ssc2-personal-date", input => input.value), latestDate);
+    const expectedDates = [...new Set(dataFiles.map(fileName => (
+        fileName.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1]
+    )).filter(Boolean))].sort().reverse();
+    await page.focus("#ssc2-personal-date");
+    await page.waitForFunction(
+        count => document.querySelectorAll("#ssc2-personal-available-dates option").length === count,
+        {},
+        expectedDates.length,
+    );
+    assert.deepEqual(
+        await page.$$eval("#ssc2-personal-available-dates option", options => options.map(option => option.value)),
+        expectedDates,
+    );
     const filterLayout = await page.evaluate(() => {
         const rectangle = selector => {
             const bounds = document.querySelector(selector)?.getBoundingClientRect();
@@ -95,6 +120,29 @@ try {
         ),
         true,
     );
+
+    if (oldestDate !== latestDate) {
+        await replaceInput(page, "#ssc2-personal-date", oldestDate);
+        await page.waitForFunction(
+            (date, count) => (
+                document.querySelector("#ssc2-personal-date")?.value === date
+                && document.querySelector(".ssc2-personal-result-summary")?.textContent.includes(count)
+            ),
+            {},
+            oldestDate,
+            new Intl.NumberFormat("ko-KR").format(oldest?.rankings?.length ?? 0),
+        );
+        await replaceInput(page, "#ssc2-personal-date", latestDate);
+        await page.waitForFunction(
+            (date, count) => (
+                document.querySelector("#ssc2-personal-date")?.value === date
+                && document.querySelector(".ssc2-personal-result-summary")?.textContent.includes(count)
+            ),
+            {},
+            latestDate,
+            new Intl.NumberFormat("ko-KR").format(players.length),
+        );
+    }
 
     const renderedRows = await page.$$(".ssc2-personal-rank-virtuoso tbody tr").then(rows => rows.length);
     assert.ok(renderedRows > 0 && renderedRows < players.length, "Personal ranking was not virtualized");

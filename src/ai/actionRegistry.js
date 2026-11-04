@@ -384,9 +384,35 @@ export const allowedPaths = [
         },
     },
     {
+        path: "/history/ssc-2027",
+        label: "봉인석 전장(2027) 서버 랭킹",
+        examples: ["봉인석 전장 2027", "봉인석 2027", "봉인석 서버 랭킹", "ssc2", "ssc2 server rank"],
+        chatbot: true,
+        queryParams: {
+            stage: {
+                type: "string",
+                required: false,
+                description: "경기 단계. 프리뷰는 preview, 본선은 final",
+                pattern: "^(preview|final)$",
+            },
+            server: {
+                type: "string",
+                required: false,
+                description: "조회하거나 비교할 서버 번호 목록. 여러 서버는 쉼표로 구분한다.",
+                pattern: "^[1-9][0-9]*(,[1-9][0-9]*)*$",
+            },
+            round: {
+                type: "number",
+                required: false,
+                description: "누적 기준 라운드",
+                pattern: "^[0-9]*$",
+            },
+        },
+    },
+    {
         path: "/history/ssc-2027/train",
         label: "봉인석 전장(2027) 트럭 현황",
-        examples: ["봉인석 전장 2027", "봉인석 2027", "봉인석 트럭", "설원 열차", "트럭 현황", "ssc2 train"],
+        examples: ["봉인석 트럭", "설원 열차", "트럭 현황", "ssc2 train"],
         chatbot: true,
         queryParams: {
             view: {

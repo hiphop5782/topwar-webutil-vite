@@ -481,12 +481,22 @@
     },
     "Ssc2Main": {
         "title": "봉인석 전장(2027)",
-        "detail": "2027년까지 이어지는 봉인석 전장 설원 열차 조사 기록입니다.",
+        "detail": "2027년까지 이어지는 봉인석 전장의 서버·개인 랭킹과 설원 열차 기록입니다.",
         "navigation": "봉인석 전장(2027) 기록 메뉴",
         "servers": "서버 랭킹",
         "users": "유저 랭킹",
         "preparing": "준비 중",
         "train": "트럭 현황"
+    },
+    "Ssc2ServerRank": {
+        "title": "누적 서버 랭킹",
+        "description": "선택한 단계와 라운드까지의 포인트와 명예를 합산해 서버 순위를 계산합니다.",
+        "stageTitle": "경기 단계",
+        "stageDescription": "프리뷰와 본선 기록은 서로 분리해 누적합니다.",
+        "stages": { "preview": "프리뷰", "final": "본선" },
+        "roundProgress": "{{current}} / {{total}} 라운드",
+        "eyebrow": "2027 SSC · {{stage}}",
+        "noData": "표시할 서버 랭킹 데이터가 없습니다."
     },
     "Ssc2Train": {
         "loadError": "트럭 현황 데이터를 불러오지 못했습니다.",

@@ -472,12 +472,22 @@
     },
     "Ssc2Main": {
         "title": "封印石戦場（2027）",
-        "detail": "2027年まで続く封印石戦場の雪原列車調査記録です。",
+        "detail": "2027年まで続く封印石戦場のサーバー・個人ランキングと雪原列車の記録です。",
         "navigation": "封印石戦場（2027）記録メニュー",
         "servers": "サーバーランキング",
         "users": "プレイヤーランキング",
         "preparing": "準備中",
         "train": "トラック状況"
+    },
+    "Ssc2ServerRank": {
+        "title": "累積サーバーランキング",
+        "description": "選択したステージとラウンドまでのポイントと名誉を合算してサーバー順位を計算します。",
+        "stageTitle": "競技ステージ",
+        "stageDescription": "プレビューと本戦の記録は分けて累積します。",
+        "stages": { "preview": "プレビュー", "final": "本戦" },
+        "roundProgress": "第{{current}} / {{total}}ラウンド",
+        "eyebrow": "2027 SSC · {{stage}}",
+        "noData": "表示できるサーバーランキングデータがありません。"
     },
     "Ssc2Train": {
         "loadError": "トラック状況データを読み込めませんでした。",
