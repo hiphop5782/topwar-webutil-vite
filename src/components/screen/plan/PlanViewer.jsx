@@ -393,6 +393,56 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
     };
 
     const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: "삭제된 사용자" };
+    const buildPlanExportText = () => {
+        const unassignedAttendees = roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0);
+        const lines = [
+            `[S${serverId}] ${plan.title || "작전 계획"}`,
+            plan.description?.trim() || "",
+            `전체 ${roster.length}명 · 참여 ${counts.attending}명 · 불참 ${counts.absent}명 · 미응답 ${counts.unanswered}명`,
+            "",
+        ];
+
+        items.forEach((item, index) => {
+            const assigned = (assignments[item.id] || []).map(uid => playerByUid(uid).nickname);
+            const itemMeta = [item.status?.trim(), `${assigned.length}${item.capacity ? ` / ${item.capacity}` : ""}명`].filter(Boolean).join(" · ");
+            lines.push(`${index + 1}. ${item.title}${itemMeta ? ` (${itemMeta})` : ""}`);
+            if (item.memo?.trim()) lines.push(`   메모: ${item.memo.trim()}`);
+            lines.push(`   배정: ${assigned.length ? assigned.join(", ") : "없음"}`, "");
+        });
+
+        lines.push(`참여·미배정 (${unassignedAttendees.length}명)`);
+        lines.push(unassignedAttendees.length ? unassignedAttendees.map(player => player.nickname).join(", ") : "없음");
+        return lines.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+    };
+    const copyPlanExport = async () => {
+        const exportText = buildPlanExportText();
+        try {
+            await navigator.clipboard.writeText(exportText);
+            toast.success("전체 배정 결과를 복사했습니다.");
+        } catch {
+            const textarea = document.createElement("textarea");
+            textarea.value = exportText;
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            const copied = document.execCommand("copy");
+            textarea.remove();
+            copied ? toast.success("전체 배정 결과를 복사했습니다.") : toast.error("복사하지 못했습니다. TXT 저장을 이용해 주세요.");
+        }
+    };
+    const downloadPlanExport = () => {
+        const blob = new Blob([`\uFEFF${buildPlanExportText()}`], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = `S${serverId}-${(plan.title || "plan").replace(/[\\/:*?"<>|]/g, "-")}.txt`;
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+        toast.success("전체 배정 결과를 저장했습니다.");
+    };
 
     return <div className="plan-page" aria-busy={translating}>
         <Helmet><title>{`${plan.title || t("auth.title", { server: serverId })} | Progamer.info`}</title></Helmet>
@@ -432,7 +482,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
 
         {showHistory && <div className="plan-modal-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setShowHistory(false); }}><section className="plan-history-modal" role="dialog" aria-modal="true" aria-labelledby="plan-history-title"><header><div><h2 id="plan-history-title">{t("history.title")}</h2><p>{t("history.help")}</p></div><button onClick={() => setShowHistory(false)} aria-label={t("history.close")}>×</button></header><div className="plan-history-scroll"><article className="plan-archive-row current"><span><b>{plan.title || t("history.untitled")}</b><small>{t("history.summary", { type: t("history.current"), attending: counts.attending, items: items.length })}</small></span><em>{plan.status === "paused" ? t("history.ended") : t("history.active")}</em></article>{archives.map(archive => <article className="plan-archive-row" key={archive.id}><span><b>{archive.title || t("history.untitled")}</b><small>{t("history.summary", { type: t("history.previous"), attending: Object.values(archive.responses || {}).filter(response => response.status === "attending").length, items: (archive.items || []).length })}</small></span><time>{archive.archivedAt?.toDate?.().toLocaleString(i18n.language) || t("history.archiving")}</time></article>)}{!archives.length && <p className="plan-history-empty">{t("history.empty")}</p>}{!!(plan.history || []).length && <details className="plan-lifecycle"><summary>{t("history.changes", { count: (plan.history || []).length })}</summary><div>{[...(plan.history || [])].reverse().map((entry, index) => <p key={`${entry.at}-${index}`}><b>{t(`history.actions.${entry.action === "created" ? "created" : entry.action === "paused" ? "paused" : "resumed"}`)}</b><time>{new Date(entry.at).toLocaleString(i18n.language)}</time></p>)}</div></details>}</div></section></div>}
 
-        <section className="plan-section-head"><div><h2>{t("items.title")}</h2><p>{t("items.help")}</p></div>{admin && plan.status !== "paused" && <button className="btn btn-primary" onClick={addItem}>{t("items.add")}</button>}</section>
+        <section className="plan-section-head"><div><h2>{t("items.title")}</h2><p>{t("items.help")}</p></div>{admin && <div className="plan-export-actions"><button className="btn btn-outline-primary" onClick={copyPlanExport}>전체 복사</button><button className="btn btn-outline-secondary" onClick={downloadPlanExport}>TXT 저장</button>{plan.status !== "paused" && <button className="btn btn-primary" onClick={addItem}>{t("items.add")}</button>}</div>}</section>
         <div className="plan-items">
             {items.length === 0 && <div className="plan-empty">{t("items.empty")}</div>}
             {items.map((item, index) => { const shownItem = translatedItems[item.id] || item; const includesSelectedVoter = !admin && selectedVoter && (assignments[item.id] || []).includes(selectedVoter); return <details ref={element => { if (element) itemElements.current.set(item.id, element); else itemElements.current.delete(item.id); }} className={`plan-item ${includesSelectedVoter ? "plan-item-mine" : ""}`} key={item.id}>
