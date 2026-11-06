@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "dataset": "cq26-all-server-merit-history",
   "timezone": "Asia/Seoul",
-  "updatedAt": "2026-11-06T14:19:23.321Z",
+  "updatedAt": "2026-11-06T14:32:11.460Z",
   "dates": {
     "2026-11-02": {
       "date": "2026-11-02",
@@ -215178,8 +215178,8 @@
     },
     "2026-11-06": {
       "date": "2026-11-06",
-      "extractedAt": "2026-11-06T14:19:23.321Z",
-      "extractedAtKst": "2026-11-06 23:19:23",
+      "extractedAt": "2026-11-06T14:32:11.460Z",
+      "extractedAtKst": "2026-11-06 23:32:11",
       "round": 2,
       "totalRound": 4,
       "requestId": 2206,
@@ -224152,7 +224152,7 @@
           "level": null,
           "countryFlag": 114,
           "gender": 0,
-          "headFrameId": 159
+          "headFrameId": 0
         },
         {
           "rank": 771,
@@ -230136,7 +230136,7 @@
           "level": null,
           "countryFlag": 233,
           "gender": 1,
-          "headFrameId": 0
+          "headFrameId": 159
         },
         {
           "rank": 1315,
@@ -248143,7 +248143,7 @@
           "level": null,
           "countryFlag": 38,
           "gender": 2,
-          "headFrameId": 0
+          "headFrameId": 161
         },
         {
           "rank": 2952,
@@ -273344,7 +273344,7 @@
           "level": null,
           "countryFlag": 177,
           "gender": 1,
-          "headFrameId": 0
+          "headFrameId": 49
         },
         {
           "rank": 5243,
@@ -285125,7 +285125,7 @@
           "level": null,
           "countryFlag": 184,
           "gender": 1,
-          "headFrameId": 159
+          "headFrameId": 161
         },
         {
           "rank": 6314,
@@ -286412,7 +286412,7 @@
           "level": null,
           "countryFlag": 114,
           "gender": 2,
-          "headFrameId": 159
+          "headFrameId": 1
         },
         {
           "rank": 6431,
@@ -321095,7 +321095,7 @@
           "level": null,
           "countryFlag": 114,
           "gender": 0,
-          "headFrameId": 56
+          "headFrameId": 159
         },
         {
           "rank": 9584,
@@ -372835,7 +372835,7 @@
           "nickname": "k0zplay",
           "merit": 65723,
           "uid": "8420212084245",
-          "serverId": 3604,
+          "serverId": 2197,
           "level": null,
           "countryFlag": 38,
           "gender": 0,
@@ -373840,7 +373840,7 @@
           "level": null,
           "countryFlag": 114,
           "gender": 0,
-          "headFrameId": 1
+          "headFrameId": 159
         },
         {
           "rank": 14379,
@@ -416571,7 +416571,7 @@
           "nickname": "しろのジロー",
           "merit": 26289,
           "uid": "319123587350",
-          "serverId": 188,
+          "serverId": 707,
           "level": null,
           "countryFlag": 114,
           "gender": 0,
@@ -418210,7 +418210,7 @@
           "nickname": "しろのリキ",
           "merit": 25103,
           "uid": "488957403414",
-          "serverId": 188,
+          "serverId": 707,
           "level": null,
           "countryFlag": 114,
           "gender": 0,
@@ -421558,7 +421558,7 @@
           "level": null,
           "countryFlag": 38,
           "gender": 1,
-          "headFrameId": 80
+          "headFrameId": 159
         },
         {
           "rank": 18717,
