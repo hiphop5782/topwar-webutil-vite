@@ -375,21 +375,52 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         if (saved) toast.success(`${selectedUids.length}명의 상태를 ${statusLabel(bulkStatus)}으로 변경했습니다.`);
     };
 
-    const randomAssign = async () => {
+    const powerBalancedAssign = async () => {
         const targetIds = [...autoTargets];
-        const candidates = shuffled(roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0).map(player => player.uid));
+        const candidates = roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0).sort((a, b) => Number(b.power || 0) - Number(a.power || 0));
         if (!targetIds.length || !candidates.length) return toast.info("배치할 항목 또는 참여·미배정 인원이 없습니다.");
-        if (!window.confirm(`${candidates.length}명을 ${targetIds.length}개 항목에 균등 배치할까요?`)) return;
-        await transact(data => {
+        if (!window.confirm(`전투력 상위 ${candidates.length}명을 ${targetIds.length}개 항목의 총 전투력이 비슷하도록 배치할까요?`)) return;
+        const saved = await transact(data => {
             const next = Object.fromEntries(Object.entries(data.assignments || {}).map(([id, uids]) => [id, [...(uids || [])]]));
-            const targets = targetIds.map(id => ({ item: (data.items || []).find(value => value.id === id), users: next[id] || [] })).filter(target => target.item);
-            for (const uid of candidates) {
-                const available = targets.filter(target => !target.item.capacity || target.users.length < target.item.capacity).sort((a, b) => a.users.length - b.users.length);
+            const currentRoster = data.roster || [];
+            const playerMap = new Map(currentRoster.map(player => [player.uid, player]));
+            const currentAssignments = data.assignments || {};
+            const currentCandidates = currentRoster.filter(player => data.responses?.[player.uid]?.status === "attending" && assignedItemIds(currentAssignments, player.uid).length === 0).sort((a, b) => Number(b.power || 0) - Number(a.power || 0));
+            const targets = targetIds.map((id, order) => {
+                const item = (data.items || []).find(value => value.id === id);
+                const users = next[id] || [];
+                return { item, users, order, totalPower: users.reduce((sum, uid) => sum + Number(playerMap.get(uid)?.power || 0), 0) };
+            }).filter(target => target.item);
+            for (const player of currentCandidates) {
+                const available = targets.filter(target => !target.item.capacity || target.users.length < target.item.capacity).sort((a, b) => a.totalPower - b.totalPower || a.users.length - b.users.length || a.order - b.order);
                 if (!available.length) break;
-                available[0].users.push(uid); next[available[0].item.id] = available[0].users;
+                available[0].users.push(player.uid);
+                available[0].totalPower += Number(player.power || 0);
+                next[available[0].item.id] = available[0].users;
             }
             return { assignments: next };
         });
+        if (saved) toast.success(`${candidates.length}명을 전투력 기준으로 균등 배치했습니다.`);
+    };
+    const randomBalancedAssign = async () => {
+        const targetIds = [...autoTargets];
+        const candidates = roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0);
+        if (!targetIds.length || !candidates.length) return toast.info("배치할 항목 또는 참여·미배정 인원이 없습니다.");
+        if (!window.confirm(`${candidates.length}명을 ${targetIds.length}개 항목에 무작위로 균등 배치할까요?`)) return;
+        const saved = await transact(data => {
+            const next = Object.fromEntries(Object.entries(data.assignments || {}).map(([id, uids]) => [id, [...(uids || [])]]));
+            const currentAssignments = data.assignments || {};
+            const currentCandidates = shuffled((data.roster || []).filter(player => data.responses?.[player.uid]?.status === "attending" && assignedItemIds(currentAssignments, player.uid).length === 0).map(player => player.uid));
+            const targets = targetIds.map((id, order) => ({ item: (data.items || []).find(value => value.id === id), users: next[id] || [], order })).filter(target => target.item);
+            for (const uid of currentCandidates) {
+                const available = targets.filter(target => !target.item.capacity || target.users.length < target.item.capacity).sort((a, b) => a.users.length - b.users.length || a.order - b.order);
+                if (!available.length) break;
+                available[0].users.push(uid);
+                next[available[0].item.id] = available[0].users;
+            }
+            return { assignments: next };
+        });
+        if (saved) toast.success(`${candidates.length}명을 무작위로 균등 배치했습니다.`);
     };
 
     const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: "삭제된 사용자" };
@@ -527,7 +558,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
                 {bulkMode === "status" && <div className="plan-selection-panel"><select className="form-select" value={bulkStatus} onChange={event => setBulkStatus(event.target.value)}><option value="attending">참여</option><option value="absent">불참</option><option value="unanswered">미응답</option></select><button className="btn btn-warning" onClick={changeSelectedResponses}>선택 인원 상태 변경</button></div>}
                 {bulkMode === "assignment" && <div className="plan-selection-panel plan-bulk-targets"><div className="plan-target-heading"><span>배정할 항목 {assignmentTargets.size}개</span><button onClick={() => setAssignmentTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAssignmentTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={assignmentTargets.has(item.id)} onChange={event => setAssignmentTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-primary" onClick={assignSelected} disabled={!assignmentTargets.size}>선택된 모든 항목에 배정</button></div>}
             </div>}
-            <details className="plan-random-box"><summary>랜덤 균등 배치</summary><div className="plan-random-content"><p>참여로 응답하고 아직 배정되지 않은 인원을 선택 항목에 고르게 배치합니다.</p><div className="plan-target-heading"><span>배치할 항목 {autoTargets.size}개</span><button onClick={() => setAutoTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAutoTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={autoTargets.has(item.id)} onChange={event => setAutoTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-warning" onClick={randomAssign} disabled={!autoTargets.size}>랜덤 균등 배치</button></div></details>
+            <details className="plan-balance-box"><summary>자동 균등 배치</summary><div className="plan-balance-content"><p>참여·미배정 인원을 선택한 항목에 배치합니다. 랜덤은 인원수를, 전투력 기준은 기존 배정을 포함한 총 전투력을 고르게 맞춥니다. 항목 정원은 두 방식 모두 적용됩니다.</p><div className="plan-target-heading"><span>배치할 항목 {autoTargets.size}개</span><button onClick={() => setAutoTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAutoTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={autoTargets.has(item.id)} onChange={event => setAutoTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><div className="plan-balance-actions"><button className="btn btn-outline-warning" onClick={randomBalancedAssign} disabled={!autoTargets.size}>랜덤 균등 배치</button><button className="btn btn-warning" onClick={powerBalancedAssign} disabled={!autoTargets.size}>전투력 균등 배치</button></div></div></details>
         </section>}
     </div>;
 }
