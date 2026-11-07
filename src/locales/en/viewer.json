@@ -121,6 +121,7 @@
         "notice": "These statistics are based on independently collected data and may differ from the overall state of the game."
     },
     "AttendanceVoteReader": {
+        "directInput": "If your nickname isn't in the results, click here to enter it manually",
         "title": "Cast Your Vote",
         "level": "Level",
         "id-label": "Vote ID",

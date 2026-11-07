@@ -78,7 +78,7 @@ function VoteReader() {
         closed: "관리자에 의해 마감이 완료된 투표입니다.", expired: "투표 기간이 종료되었습니다.", duplicate: "이미 해당 항목에 투표하셨습니다.",
         full: "선택한 항목의 정원이 가득 찼습니다.", voteFailed: "투표 처리 중 오류가 발생했습니다. 다시 시도해주세요.",
         translateTitle: "다른 언어로 보기", translateHelp: "언어를 누르면 투표 내용과 화면 안내가 번역됩니다.", searchNickname: "조사된 닉네임 검색",
-        searchHelp: "닉네임 일부를 입력하세요.", directInput: "직접 입력하겠습니다", selectFromData: "조사 명단에서 선택", noNickname: "일치하는 닉네임이 없습니다. 직접 입력을 이용해주세요.",
+        searchHelp: "닉네임 일부를 입력하세요.", directInput: koreanViewer.AttendanceVoteReader.directInput, selectFromData: "조사 명단에서 선택", noNickname: "일치하는 닉네임이 없습니다. 직접 입력을 이용해주세요.",
         selectResult: "아래 검색 결과에서 본인의 닉네임 버튼을 눌러주세요.", selected: "선택 완료", selectRequired: "닉네임 버튼을 선택하거나 직접 입력을 선택해주세요.",
         loadingRoster: "서버 조사 명단을 불러오는 중입니다.", rosterFailed: "조사 명단을 불러오지 못했습니다. 직접 입력해주세요.", cp: "CP (기지 전투력, M)",
         nicknameView: "CP 높은 순", groupView: "선택 항목별", exportSheet: "Google 스프레드시트용 내보내기",
@@ -91,7 +91,7 @@ function VoteReader() {
         copyNames: "닉네임 복사", copiedNames: "닉네임이 복사되었습니다.", copyFailed: "복사하지 못했습니다. 다시 시도해주세요.", noNames: "복사할 닉네임이 없습니다.",
     };
     const t = key => translation?.texts[key] ?? baseT(key);
-    const label = key => translation?.texts[`ui.${key}`] ?? extraText[key];
+    const label = key => translation?.texts[`ui.${key}`] ?? (key === "directInput" ? baseT("AttendanceVoteReader.directInput") : extraText[key]);
     const source = voteText(vote);
     const serverId = String(routeServerId || vote?.serverId || "").trim();
     const hasVote = Boolean(vote);

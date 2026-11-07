@@ -13,7 +13,8 @@ import Reader from '/src/components/screen/vote/AttendanceVoteReader.jsx';
 import Manager from '/src/components/screen/vote/AttendanceVoteManager.jsx';
 import Creator from '/src/components/screen/vote/AttendanceVoteCreator.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-await i18n.use(initReactI18next).init({lng:'ko',resources:{ko:{viewer:{}}},defaultNS:'viewer'});
+const {default: viewer} = await import('/src/locales/ko/viewer.json');
+await i18n.use(initReactI18next).init({lng:'ko',resources:{ko:{viewer}},defaultNS:'viewer'});
 const route=new URL(location.href).searchParams.get('route') || '/ko/vote/cast/3223';
 createRoot(document.getElementById('root')).render(React.createElement(HelmetProvider,null,
  React.createElement(MemoryRouter,{initialEntries:[route]},React.createElement(Routes,null,
@@ -112,7 +113,7 @@ try {
     await page.click('.vote-nickname-picker input');
     await page.type('.vote-nickname-picker input', 'unknown');
     assert.equal(await page.$eval('button[aria-busy]', node => node.disabled), true, 'Editing search invalidates previous selection');
-    await clickText('직접 입력하겠습니다');
+    await clickText('닉네임이 결과에 안나오면 여기를 눌러 직접 작성하세요');
     assert.equal(await page.$('.vote-nickname-results'), null);
     const manual = await page.$$('.vote-profile-card input');
     assert.equal(await manual[0].evaluate(node => node.value), '높은CPunknown');

@@ -121,6 +121,7 @@
         "notice": "개인이 수집한 데이터를 기반으로 제공되는 통계이며 실제 게임 전체 현황과 차이가 있을 수 있습니다."
     },
     "AttendanceVoteReader": {
+        "directInput": "닉네임이 결과에 안나오면 여기를 눌러 직접 작성하세요",
         "title": "투표하기",
         "level": "레벨",
         "id-label": "투표ID",
