@@ -530,6 +530,7 @@
         "table": { "rank": "Overall Rank", "nickname": "Nickname", "server": "Server", "merit": "Cumulative Points", "level": "Level", "details": "Details", "date": "Date", "round": "Round", "change": "Daily Change" },
         "resultCount": "{{count}} results",
         "totalCount": "{{count}} total players",
+        "export": { "copy": "Copy for Google Sheets", "copied": "Copied {{count}} players", "error": "Could not copy the search results." },
         "noResults": "No players match these filters.",
         "detailsAria": "View point history for {{nickname}}",
         "backToList": "Back to List",

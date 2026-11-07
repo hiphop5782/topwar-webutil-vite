@@ -527,6 +527,7 @@
         "table": { "rank": "総合順位", "nickname": "ニックネーム", "server": "サーバー", "merit": "累積ポイント", "level": "レベル", "details": "詳細", "date": "記録日", "round": "ラウンド", "change": "前日比" },
         "resultCount": "検索結果 {{count}}人",
         "totalCount": "全{{count}}人",
+        "export": { "copy": "Googleスプレッドシート用にコピー", "copied": "{{count}}人をコピーしました", "error": "検索結果をコピーできませんでした。" },
         "noResults": "条件に一致するプレイヤーがいません。",
         "detailsAria": "{{nickname}}のポイント履歴を見る",
         "backToList": "一覧に戻る",

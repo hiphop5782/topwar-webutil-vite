@@ -1,31 +1,13 @@
-import {
-    forwardRef,
-    useCallback,
-    useDeferredValue,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import { forwardRef, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-    FaArrowLeft,
-    FaCalendarDays,
-    FaChartLine,
-    FaMagnifyingGlass,
-    FaRotateRight,
-    FaTriangleExclamation,
-} from "react-icons/fa6";
+import { FaArrowLeft, FaCalendarDays, FaChartLine, FaCheck, FaCopy, FaMagnifyingGlass, FaRotateRight, FaTriangleExclamation } from "react-icons/fa6";
 import { TableVirtuoso } from "react-virtuoso";
 
 import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 
 import "./Ssc2PersonalRank.css";
 
-const PERSONAL_DATA_MODULES = import.meta.glob(
-    "/src/assets/json/ssc2/personal/*.json",
-    { import: "default" },
-);
+const PERSONAL_DATA_MODULES = import.meta.glob("/src/assets/json/ssc2/personal/*.json", { import: "default" });
 
 const PERSONAL_DATA_SOURCES = Object.entries(PERSONAL_DATA_MODULES)
     .sort(([left], [right]) => right.localeCompare(left));
@@ -59,6 +41,33 @@ function isValidUid(value) {
 
 function normalizeSearchValue(value) {
     return normalizeNicknameForSearch(value).normalize("NFD");
+}
+
+function sanitizeSpreadsheetCell(value) {
+    const text = String(value ?? "").replace(/[\t\r\n]+/g, " ").trim();
+    return /^[=+\-@]/.test(text) ? `'${text}` : text;
+}
+
+async function copyTextToClipboard(text) {
+    if (navigator.clipboard?.writeText) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return;
+        } catch {
+            // 권한 정책으로 Clipboard API가 거부되면 기존 복사 방식으로 재시도한다.
+        }
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand("copy");
+    textarea.remove();
+    if (!copied) throw new Error("Clipboard copy failed");
 }
 
 function getDocumentSnapshots(document) {
@@ -233,7 +242,9 @@ export default function Ssc2PersonalRank() {
     const [playerHistory, setPlayerHistory] = useState([]);
     const [historyLoading, setHistoryLoading] = useState(false);
     const [historyError, setHistoryError] = useState(false);
+    const [copyState, setCopyState] = useState("idle");
     const dateRequestRef = useRef(0);
+    const copyStateTimerRef = useRef(null);
 
     const deferredNicknameQuery = useDeferredValue(nicknameQuery);
     const deferredServerQuery = useDeferredValue(serverQuery);
@@ -264,6 +275,7 @@ export default function Ssc2PersonalRank() {
     }, []);
 
     useEffect(() => loadLatest(), [loadLatest]);
+    useEffect(() => () => clearTimeout(copyStateTimerRef.current), []);
 
     const prepareDateCatalog = useCallback(() => {
         setDateCatalogLoading(true);
@@ -346,6 +358,23 @@ export default function Ssc2PersonalRank() {
         setMinimumMerit("");
         setMaximumMerit("");
     }, []);
+
+    const copyFilteredPlayers = useCallback(async () => {
+        if (!activeSnapshot || filteredPlayers.length === 0) return;
+
+        const headers = [t("Ssc2PersonalRank.table.date"), t("Ssc2PersonalRank.table.round"), t("Ssc2PersonalRank.table.rank"), t("Ssc2PersonalRank.table.nickname"), t("Ssc2PersonalRank.table.server"), t("Ssc2PersonalRank.table.merit"), t("Ssc2PersonalRank.table.level")];
+        const rows = filteredPlayers.map(player => [activeSnapshot.date, activeSnapshot.round, player.rank, player.nickname, player.serverId, player.merit, player.level ?? ""]);
+        const clipboardText = [headers, ...rows].map(row => row.map(sanitizeSpreadsheetCell).join("\t")).join("\n");
+
+        clearTimeout(copyStateTimerRef.current);
+        try {
+            await copyTextToClipboard(clipboardText);
+            setCopyState("success");
+        } catch {
+            setCopyState("error");
+        }
+        copyStateTimerRef.current = setTimeout(() => setCopyState("idle"), 3000);
+    }, [activeSnapshot, filteredPlayers, t]);
 
     const openPlayerHistory = useCallback(player => {
         setSelectedPlayer({
@@ -550,8 +579,20 @@ export default function Ssc2PersonalRank() {
             {!loading && !loadError && activeSnapshot && (
                 <div className="card border-0 shadow-sm overflow-hidden">
                     <div className="card-header bg-transparent ssc2-personal-result-summary">
-                        <strong>{t("Ssc2PersonalRank.resultCount", { count: formatNumber(filteredPlayers.length) })}</strong>
-                        <span>{t("Ssc2PersonalRank.totalCount", { count: formatNumber(activeSnapshot.rankings.length) })}</span>
+                        <div className="ssc2-personal-result-counts">
+                            <strong>{t("Ssc2PersonalRank.resultCount", { count: formatNumber(filteredPlayers.length) })}</strong>
+                            <span>{t("Ssc2PersonalRank.totalCount", { count: formatNumber(activeSnapshot.rankings.length) })}</span>
+                        </div>
+                        <div className="ssc2-personal-export-actions">
+                            <span className={copyState === "error" ? "text-danger" : "text-success"} role="status" aria-live="polite">
+                                {copyState === "success" && t("Ssc2PersonalRank.export.copied", { count: formatNumber(filteredPlayers.length) })}
+                                {copyState === "error" && t("Ssc2PersonalRank.export.error")}
+                            </span>
+                            <button type="button" className="btn btn-outline-success btn-sm text-nowrap" disabled={filteredPlayers.length === 0} onClick={copyFilteredPlayers}>
+                                {copyState === "success" ? <FaCheck className="me-2" /> : <FaCopy className="me-2" />}
+                                {t("Ssc2PersonalRank.export.copy")}
+                            </button>
+                        </div>
                     </div>
                     {filteredPlayers.length === 0 ? (
                         <div className="ssc2-personal-empty">{t("Ssc2PersonalRank.noResults")}</div>

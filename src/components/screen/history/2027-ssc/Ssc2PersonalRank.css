@@ -94,6 +94,7 @@
 
 .ssc2-personal-result-summary {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
     align-items: center;
     justify-content: space-between;
@@ -101,6 +102,25 @@
     padding: 0.55rem 0.75rem;
     color: #475569;
     font-size: 0.82rem;
+}
+
+.ssc2-personal-result-counts,
+.ssc2-personal-export-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.ssc2-personal-export-actions {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.ssc2-personal-export-actions > span {
+    min-height: 1.2rem;
+    font-size: 0.76rem;
+    font-weight: 700;
 }
 
 .ssc2-personal-rank-virtuoso {
@@ -266,5 +286,11 @@
 
     .ssc2-personal-rank-virtuoso {
         height: 34rem;
+    }
+
+    .ssc2-personal-export-actions {
+        justify-content: space-between;
+        width: 100%;
+        margin-left: 0;
     }
 }

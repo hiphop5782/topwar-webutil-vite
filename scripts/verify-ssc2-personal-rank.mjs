@@ -55,6 +55,7 @@ const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] 
 try {
     const page = await browser.newPage();
     await page.setViewport({ width: 824, height: 871 });
+    await browser.defaultBrowserContext().overridePermissions(baseUrl, ["clipboard-read", "clipboard-write"]);
     page.on("pageerror", error => console.error("PAGE ERROR", error.message));
 
     await page.goto(`${baseUrl}/ko/history/ssc-2027/users`, { waitUntil: "networkidle0" });
@@ -167,6 +168,15 @@ try {
         return rows.length === 1 && rows[0].textContent.includes(nickname);
     }, {}, topPlayer.nickname);
 
+    await page.click(".ssc2-personal-export-actions button");
+    await page.waitForFunction(() => document.querySelector(".ssc2-personal-export-actions")?.textContent.includes("복사 완료"));
+    const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
+    const [clipboardHeader, clipboardRow, ...extraClipboardRows] = clipboardText.split(/\r?\n/);
+    assert.equal(clipboardHeader, "기록일\t라운드\t전체 순위\t닉네임\t서버\t누적 포인트\t레벨");
+    assert.equal(extraClipboardRows.length, 0, "Clipboard export ignored the current filtered result");
+    assert.ok(clipboardRow.includes(`\t${topPlayer.nickname}\t${topPlayer.serverId}\t${topPlayer.merit}\t`));
+    assert.equal(clipboardText.includes(String(topPlayer.uid)), false, "UID was copied to the spreadsheet export");
+
     await page.evaluate(() => {
         [...document.querySelectorAll(".ssc2-personal-filters button")]
             .find(button => button.textContent.includes("검색 초기화"))?.click();
@@ -199,8 +209,8 @@ try {
     assert.equal(await page.$eval("#ssc2-personal-minimum", input => input.value), "");
 
     for (const locale of [
-        { code: "en", title: "Personal Cumulative Rankings", dateLabel: "Record Date" },
-        { code: "ja", title: "個人累積ランキング", dateLabel: "記録日を選択" },
+        { code: "en", title: "Personal Cumulative Rankings", dateLabel: "Record Date", exportLabel: "Copy for Google Sheets" },
+        { code: "ja", title: "個人累積ランキング", dateLabel: "記録日を選択", exportLabel: "Googleスプレッドシート用にコピー" },
     ]) {
         await page.goto(`${baseUrl}/${locale.code}/history/ssc-2027/users`, { waitUntil: "networkidle0" });
         await page.waitForSelector(".ssc2-personal-rank-virtuoso", { timeout: 60_000 });
@@ -211,6 +221,10 @@ try {
         assert.equal(
             await page.$eval(".ssc2-personal-date-picker > span", element => element.textContent.trim()),
             locale.dateLabel,
+        );
+        assert.equal(
+            await page.$eval(".ssc2-personal-export-actions button", element => element.textContent.trim()),
+            locale.exportLabel,
         );
     }
 
