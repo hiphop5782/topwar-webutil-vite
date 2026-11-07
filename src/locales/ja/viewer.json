@@ -2280,7 +2280,7 @@
         "resultCount": "{{count}}人が見つかりました", "virtualScroll": "仮想スクロール",
         "noResults": "条件に一致するプレイヤーがいません。",
         "recentMoveTitle": "最近の移動: s{{from}} → s{{to}}",
-        "stats": { "total": "全体", "both": "重複調査人数", "power": "Top 100のみ", "realpower": "マップのみ", "powerPopulation": "Top 100人数", "realpowerPopulation": "マップ調査人数", "vennLabel": "Top 100 {{power}}人、重複調査人数 {{both}}人、マップ調査 {{realpower}}人" },
+        "stats": { "total": "人数", "longInactive": "長期未ログイン", "populationLabel": "長期未ログインを除く{{current}}人、長期未ログイン{{inactive}}人、全体{{total}}人", "both": "重複調査人数", "power": "Top 100のみ", "realpower": "マップのみ", "powerPopulation": "Top 100人数", "realpowerPopulation": "マップ調査人数", "vennLabel": "Top 100 {{power}}人、重複調査人数 {{both}}人、マップ調査 {{realpower}}人" },
         "filters": {
             "nickname": "ニックネーム検索", "nicknameLabel": "プレイヤーのニックネーム検索",
             "server": "サーバー番号", "alliance": "連盟名", "allianceLabel": "連盟名検索",

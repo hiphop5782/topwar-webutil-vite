@@ -2290,7 +2290,7 @@
         "resultCount": "{{count}} players found", "virtualScroll": "Virtual scroll",
         "noResults": "No players match the filters.",
         "recentMoveTitle": "Recent move: s{{from}} → s{{to}}",
-        "stats": { "total": "Total", "both": "Duplicate survey players", "power": "Top 100 only", "realpower": "Map only", "powerPopulation": "Top 100 players", "realpowerPopulation": "Map survey players", "vennLabel": "Top 100 {{power}}, duplicate survey players {{both}}, map survey {{realpower}}" },
+        "stats": { "total": "Players", "longInactive": "Long-term inactive", "populationLabel": "{{current}} excluding long-term inactive, {{inactive}} long-term inactive, {{total}} total", "both": "Duplicate survey players", "power": "Top 100 only", "realpower": "Map only", "powerPopulation": "Top 100 players", "realpowerPopulation": "Map survey players", "vennLabel": "Top 100 {{power}}, duplicate survey players {{both}}, map survey {{realpower}}" },
         "filters": {
             "nickname": "Search nickname", "nicknameLabel": "Search player nickname",
             "server": "Server number", "alliance": "Alliance name", "allianceLabel": "Search alliance name",

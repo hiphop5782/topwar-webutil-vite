@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet-async";
 import { loadRealPower } from "@src/services/topwarDataRepository";
 import { randomVoteColor, validVoteColor } from "./voteColors";
 import { buildRoster } from "./voteHistory";
+import { loginAgeDays, rankedVoteAlliances } from "./voteActivity";
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
 
 export default function AttendanceVoteCreator() {
@@ -101,7 +102,7 @@ export default function AttendanceVoteCreator() {
         setAllianceLoading(true);
         try {
             const data = await loadRealPower(vote.serverId);
-            setServerPlayers(Array.isArray(data?.players) ? data.players.filter(player => Number(player.level) >= 80) : []);
+            setServerPlayers(Array.isArray(data?.players) ? data.players.filter(player => Number(player.level) >= 80 && (player.serverId == null || String(player.serverId) === String(Number(vote.serverId)))).map(player => ({ ...player, voteLoginAge: loginAgeDays(player, data.exportedAt) })) : []);
         } catch {
             setServerPlayers([]);
             toast.error("서버의 길드 명단을 불러오지 못했습니다");
@@ -110,14 +111,7 @@ export default function AttendanceVoteCreator() {
         }
     }, [vote.serverId]);
 
-    const alliances = useMemo(() => [...serverPlayers.reduce((map, player) => {
-        const id = String(player.allianceId ?? "");
-        if (!id || id === "0") return map;
-        const current = map.get(id) || { id, tag: player.allianceTag || "", name: player.allianceName || "", count: 0 };
-        current.count += 1;
-        map.set(id, current);
-        return map;
-    }, new Map()).values()].sort((a, b) => `${a.tag} ${a.name}`.localeCompare(`${b.tag} ${b.name}`, undefined, { sensitivity: "base", numeric: true })), [serverPlayers]);
+    const alliances = useMemo(() => rankedVoteAlliances(serverPlayers), [serverPlayers]);
 
     const saveToDatabase = useCallback(async () => {
         if (!vote.title.trim()) return toast.error("투표 제목을 설정하세요");
@@ -129,7 +123,7 @@ export default function AttendanceVoteCreator() {
             setSaving(true);
             const serverId = String(Number(vote.serverId));
             const data = await loadRealPower(serverId);
-            const roster = buildRoster(data?.players, { ...vote, serverId });
+            const roster = buildRoster(data?.players, { ...vote, serverId }, data?.exportedAt);
             const selectedAlliance = alliances.find(alliance => alliance.id === vote.allianceId);
             const success = await saveVote({ ...vote, serverId, roster, choices: vote.choices.map(choice => ({ ...choice, color: validVoteColor(choice.color) ? choice.color : randomVoteColor() })), allianceTag: selectedAlliance?.tag || roster[0]?.allianceTag || "", allianceName: selectedAlliance?.name || roster[0]?.allianceName || "",
                 rosterSource: "snapshot" });
@@ -241,7 +235,7 @@ export default function AttendanceVoteCreator() {
                                 [{alliance.tag || "-"}] {alliance.name || alliance.id} ({alliance.count}명)
                             </option>)}
                         </select>}
-                        <small className="text-muted d-block mt-1">생성 당시 레벨 80 이상 대상자의 UID·닉네임·CP를 보존합니다. 변동 인원은 UID와 함께 직접 입력할 수 있습니다.</small>
+                        <small className="text-muted d-block mt-1">최근 7일 내 활동 인원 수, 합산 CP 순으로 표시합니다. 조사 시점 기준 30일 초과 미접속자도 명단에 보존하며, 닉네임 검색 전 초기 추천 목록에서만 숨깁니다. 레벨 80 이상 대상자의 UID·닉네임·CP를 보존하며 변동 인원은 UID와 함께 직접 입력할 수 있습니다.</small>
                     </div>}
                 </div>
             </div>

@@ -15,7 +15,7 @@
     "verify:content": "node scripts/verify-public-content.mjs",
     "import:heroes": "node scripts/import-hero-images.mjs",
     "render:mecha": "node scripts/render-spine-mecha.mjs",
-    "verify:vote": "node scripts/verify-vote-safety.mjs && node scripts/verify-vote-history.mjs && node scripts/verify-vote-translation.mjs && node scripts/verify-nickname-search.mjs && node scripts/verify-vote-guild-scope.mjs"
+    "verify:vote": "node scripts/verify-vote-safety.mjs && node scripts/verify-vote-history.mjs && node scripts/verify-vote-translation.mjs && node scripts/verify-nickname-search.mjs && node scripts/verify-vote-guild-scope.mjs && node scripts/verify-vote-activity.mjs"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",

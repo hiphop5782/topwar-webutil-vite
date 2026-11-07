@@ -1,4 +1,5 @@
 // Shared by the browser and the archive worker. Never copy whole Firestore records into public JSON.
+import { isLongInactive } from "./voteActivity.js";
 export const ARCHIVE_REPOSITORY = "hiphop5782/topwar-vote";
 export const ARCHIVE_BRANCH = "main";
 export const uidOf = player => String(player?.uid ?? "").trim();
@@ -19,7 +20,7 @@ export function voteState(vote, now = Date.now()) {
     if (vote?.expiresAt && dateMillis(vote.expiresAt) <= now) return "expired";
     return "active";
 }
-export function buildRoster(players, vote) {
+export function buildRoster(players, vote, surveyedAt) {
     if (!Array.isArray(players)) throw new Error("조사 명단을 불러오지 못했습니다.");
     const minLevel = Number.isFinite(Number(vote?.minLevel)) ? Number(vote.minLevel) : 80;
     const roster = new Map();
@@ -31,7 +32,7 @@ export function buildRoster(players, vote) {
         const nickname = String(player.nickname || player.username || "").trim();
         if (!/^\d+$/.test(uid) || !nickname) throw new Error("대상 명단에 UID 또는 닉네임이 없는 인원이 있습니다.");
         const power = Number(player.score ?? player.power ?? 0);
-        roster.set(uid, { uid, nickname, power: Number.isFinite(power) ? power : 0,
+        roster.set(uid, { uid, nickname, power: Number.isFinite(power) ? power : 0, longInactive: isLongInactive(player, surveyedAt),
             allianceId: String(player.allianceId ?? ""), allianceTag: String(player.allianceTag || ""), allianceName: String(player.allianceName || "") });
     }
     if (!roster.size) throw new Error(`레벨 ${minLevel} 이상인 대상자가 없습니다.`);

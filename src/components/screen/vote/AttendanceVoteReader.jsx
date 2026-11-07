@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 
 import { choiceColor } from "./voteColors";
+import { isLongInactive } from "./voteActivity";
 import { identityOf, sameVoter, finalVote } from "./voteHistory";
 import VoteInlineManagement from "./VoteInlineManagement";
 import { loadVoteHistory, loadArchivedVote } from "@src/services/voteArchiveRepository";
@@ -168,7 +169,7 @@ function VoteReader() {
             const unique = new Map();
             for (const rawPlayer of Array.isArray(data?.players) ? data.players : []) {
                 if (!rawPlayer || !(Number(rawPlayer.level) >= 80)) continue;
-                const player = { ...rawPlayer, ...normalizeVoteUser(rawPlayer) };
+                const player = { ...rawPlayer, ...normalizeVoteUser(rawPlayer), longInactive: isLongInactive(rawPlayer, data?.exportedAt) };
                 const name = playerName(player);
                 const key = identityOf(player);
                 if (name && !unique.has(key)) unique.set(key, player);
@@ -183,7 +184,7 @@ function VoteReader() {
     }, [serverId, vote?.targetScope, vote?.allianceId, rosterSource, status, archivedRoster, uuid, getVoteRoster, hasVote]);
 
     const suggestions = useMemo(() => {
-        return roster.filter(player => matchesNicknameSearch(playerName(player), nicknameQuery)).slice(0, 20);
+        return roster.filter(player => (nicknameQuery.trim() || !player.longInactive) && matchesNicknameSearch(playerName(player), nicknameQuery)).slice(0, 20);
     }, [nicknameQuery, roster]);
 
     const handleNicknameKeyDown = (event, index = -1) => {

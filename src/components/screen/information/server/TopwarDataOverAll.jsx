@@ -350,15 +350,16 @@ export default function TopwarDataOverAll() {
     }, [searchablePlayers, deferredQuery, deferredAllianceQuery, server, source, serverOut, movedOnly, movementHistory, level80Only]);
 
     const statistics = useMemo(() => {
-        const counts = { total: filteredPlayers.length, both: 0, power: 0, realpower: 0 };
+        const counts = { total: filteredPlayers.length, longInactive: 0, both: 0, power: 0, realpower: 0 };
         for (const player of filteredPlayers) {
+            if (getActivity(player.lastLogin, t).key === "stop") counts.longInactive += 1;
             const key = ["both", "power", "realpower"].includes(player.source)
                 ? player.source
                 : "power";
             counts[key] += 1;
         }
         return counts;
-    }, [filteredPlayers]);
+    }, [filteredPlayers, t]);
 
     useEffect(() => {
         const activeFilterCount = [
@@ -495,9 +496,12 @@ export default function TopwarDataOverAll() {
 
             {view === "players" && (<>
             <div className="overall-viewer__stats">
-                <article className="overall-viewer__total-stat">
+                <article className="overall-viewer__total-stat" aria-label={t("stats.populationLabel", { current: formatNumber(statistics.total - statistics.longInactive, locale), inactive: formatNumber(statistics.longInactive, locale), total: formatNumber(statistics.total, locale) })}>
                     <span>{t("stats.total")}</span>
-                    <strong>{formatNumber(statistics.total, locale)}</strong>
+                    <div className="overall-viewer__population">
+                        <strong>{formatNumber(statistics.total - statistics.longInactive, locale)}</strong>
+                        <small title={t("stats.longInactive")}>+{formatNumber(statistics.longInactive, locale)}</small>
+                    </div>
                 </article>
                 <div
                     className="overall-viewer__venn"

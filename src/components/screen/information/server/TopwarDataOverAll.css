@@ -106,6 +106,18 @@
     font-variant-numeric: tabular-nums;
 }
 
+.overall-viewer__population {
+    display: flex;
+    align-items: baseline;
+    gap: .35rem;
+}
+
+.overall-viewer__population small {
+    color: var(--bs-secondary-color);
+    font-size: .8rem;
+    font-variant-numeric: tabular-nums;
+}
+
 .overall-viewer__venn {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(5.8rem, .48fr) minmax(0, 1fr);

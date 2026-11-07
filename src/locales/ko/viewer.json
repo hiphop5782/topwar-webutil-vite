@@ -2291,7 +2291,7 @@
         "virtualScroll": "가상 스크롤",
         "noResults": "조건에 맞는 플레이어가 없습니다.",
         "recentMoveTitle": "최근 이동: s{{from}} → s{{to}}",
-        "stats": { "total": "전체", "both": "중복 조사 인원", "power": "Top 100만", "realpower": "지도만", "powerPopulation": "Top 100 인원", "realpowerPopulation": "지도 조사 인원", "vennLabel": "Top 100 {{power}}명, 중복 조사 인원 {{both}}명, 지도 조사 {{realpower}}명" },
+        "stats": { "total": "인원", "longInactive": "장기 미접속", "populationLabel": "장기 미접속 제외 {{current}}명, 장기 미접속 {{inactive}}명, 전체 {{total}}명", "both": "중복 조사 인원", "power": "Top 100만", "realpower": "지도만", "powerPopulation": "Top 100 인원", "realpowerPopulation": "지도 조사 인원", "vennLabel": "Top 100 {{power}}명, 중복 조사 인원 {{both}}명, 지도 조사 {{realpower}}명" },
         "filters": {
             "nickname": "닉네임 검색", "nicknameLabel": "플레이어 닉네임 검색",
             "server": "서버 번호", "alliance": "연맹명", "allianceLabel": "연맹명 검색",
