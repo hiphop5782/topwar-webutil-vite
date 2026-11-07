@@ -96,7 +96,7 @@ try {
     const filterLayout = await page.evaluate(() => {
         const rectangle = selector => {
             const bounds = document.querySelector(selector)?.getBoundingClientRect();
-            return bounds ? { top: bounds.top, bottom: bounds.bottom, width: bounds.width } : null;
+            return bounds ? { top: bounds.top, bottom: bounds.bottom, width: bounds.width, height: bounds.height } : null;
         };
         return {
             nickname: rectangle("#ssc2-personal-nickname"),
@@ -105,6 +105,7 @@ try {
             maximum: rectangle("#ssc2-personal-maximum"),
             primaryRow: rectangle(".ssc2-personal-filter-row.is-primary"),
             rangeRow: rectangle(".ssc2-personal-filter-row.is-range"),
+            reset: rectangle(".ssc2-personal-reset-button"),
         };
     });
     assert.ok(filterLayout.nickname.width > 150 && filterLayout.server.width > 150, "Primary filters are too narrow");
@@ -113,6 +114,8 @@ try {
         && Math.abs(filterLayout.minimum.top - filterLayout.maximum.top) < 4,
         "Point range filters are not on their own row",
     );
+    const filterControlHeights = [filterLayout.nickname.height, filterLayout.server.height, filterLayout.minimum.height, filterLayout.maximum.height, filterLayout.reset.height];
+    assert.ok(Math.max(...filterControlHeights) - Math.min(...filterControlHeights) < 1, "Personal ranking filter controls do not have a consistent height");
     assert.equal(
         await page.$eval(
             ".ssc2-personal-result-summary",

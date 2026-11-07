@@ -1,4 +1,6 @@
 .ssc2-personal-rank {
+    --ssc2-personal-control-height: 2.55rem;
+    --ssc2-personal-control-radius: 0.65rem;
     --ssc2-personal-row-height: 2.35rem;
     min-width: 0;
 }
@@ -90,6 +92,40 @@
     color: #475569;
     font-size: 0.76rem;
     font-weight: 700;
+}
+
+.ssc2-personal-input-group {
+    flex-wrap: nowrap;
+}
+
+.ssc2-personal-input-group > .input-group-text,
+.ssc2-personal-input-group > .form-control,
+.ssc2-personal-reset-button {
+    height: var(--ssc2-personal-control-height);
+    min-height: var(--ssc2-personal-control-height);
+    font-size: 0.875rem;
+}
+
+.ssc2-personal-input-group > .input-group-text {
+    display: grid;
+    flex: 0 0 var(--ssc2-personal-control-height);
+    place-items: center;
+    width: var(--ssc2-personal-control-height);
+    padding: 0;
+    color: #475569;
+    font-weight: 700;
+    border-radius: var(--ssc2-personal-control-radius) 0 0 var(--ssc2-personal-control-radius);
+}
+
+.ssc2-personal-input-group > .form-control {
+    min-width: 0;
+    padding: 0.45rem 0.75rem;
+    border-radius: 0 var(--ssc2-personal-control-radius) var(--ssc2-personal-control-radius) 0;
+}
+
+.ssc2-personal-reset-button {
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--ssc2-personal-control-radius);
 }
 
 .ssc2-personal-result-summary {
