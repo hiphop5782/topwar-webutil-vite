@@ -28,7 +28,7 @@ const oldest = Object.values(oldestSource.dates ?? {}).sort((left, right) => (
 ))[0];
 const players = latest?.rankings ?? [];
 const topPlayer = players[0];
-const unicodePlayer = players.find(player => player.nickname === "𝐌") ?? topPlayer;
+const unicodePlayer = players.find(player => String(player.nickname ?? "").normalize("NFKC").toLocaleLowerCase().includes("m")) ?? topPlayer;
 
 const hangulPartialTarget = players.map(player => {
     const characters = Array.from(String(player.nickname ?? ""));
@@ -136,6 +136,7 @@ try {
             oldestDate,
             new Intl.NumberFormat("ko-KR").format(oldest?.rankings?.length ?? 0),
         );
+        assert.equal(new URL(page.url()).searchParams.get("date"), oldestDate);
         await replaceInput(page, "#ssc2-personal-date", latestDate);
         await page.waitForFunction(
             (date, count) => (
@@ -146,8 +147,10 @@ try {
             latestDate,
             new Intl.NumberFormat("ko-KR").format(players.length),
         );
+        assert.equal(new URL(page.url()).searchParams.get("date"), latestDate);
     }
 
+    await page.waitForFunction(() => document.querySelectorAll(".ssc2-personal-rank-virtuoso tbody tr").length > 0);
     const renderedRows = await page.$$(".ssc2-personal-rank-virtuoso tbody tr").then(rows => rows.length);
     assert.ok(renderedRows > 0 && renderedRows < players.length, "Personal ranking was not virtualized");
     assert.ok(
@@ -157,6 +160,8 @@ try {
 
     await replaceInput(page, "#ssc2-personal-nickname", "m");
     await replaceInput(page, "#ssc2-personal-server", unicodePlayer.serverId);
+    assert.equal(new URL(page.url()).searchParams.get("nickname"), "m");
+    assert.equal(new URL(page.url()).searchParams.get("server"), String(unicodePlayer.serverId));
     await page.waitForFunction(nickname => document.body.textContent.includes(nickname), {}, unicodePlayer.nickname);
 
     await replaceInput(page, "#ssc2-personal-nickname", hangulPartialTarget.query);
@@ -170,6 +175,17 @@ try {
         const rows = document.querySelectorAll(".ssc2-personal-rank-virtuoso tbody tr");
         return rows.length === 1 && rows[0].textContent.includes(nickname);
     }, {}, topPlayer.nickname);
+    assert.equal(new URL(page.url()).searchParams.get("minPoint"), String(topPlayer.merit));
+    assert.equal(new URL(page.url()).searchParams.get("maxPoint"), String(topPlayer.merit));
+
+    await page.reload({ waitUntil: "networkidle0" });
+    await page.waitForSelector(".ssc2-personal-rank-virtuoso", { timeout: 60_000 });
+    await page.waitForFunction(nickname => {
+        const rows = document.querySelectorAll(".ssc2-personal-rank-virtuoso tbody tr");
+        return rows.length === 1 && rows[0].textContent.includes(nickname);
+    }, {}, topPlayer.nickname);
+    assert.equal(await page.$eval("#ssc2-personal-minimum", input => input.value), String(topPlayer.merit));
+    assert.equal(await page.$eval("#ssc2-personal-maximum", input => input.value), String(topPlayer.merit));
 
     await page.click(".ssc2-personal-export-actions button");
     await page.waitForFunction(() => document.querySelector(".ssc2-personal-export-actions")?.textContent.includes("복사 완료"));
@@ -185,6 +201,11 @@ try {
             .find(button => button.textContent.includes("검색 초기화"))?.click();
     });
     await page.waitForFunction(() => document.querySelector("#ssc2-personal-minimum")?.value === "");
+    const resetUrl = new URL(page.url());
+    assert.equal(resetUrl.searchParams.has("nickname"), false);
+    assert.equal(resetUrl.searchParams.has("server"), false);
+    assert.equal(resetUrl.searchParams.has("minPoint"), false);
+    assert.equal(resetUrl.searchParams.has("maxPoint"), false);
 
     await page.click(".ssc2-personal-rank-virtuoso tbody tr .ssc2-personal-detail-button");
     await page.waitForSelector("#ssc2-personal-history-title");

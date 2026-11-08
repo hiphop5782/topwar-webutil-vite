@@ -1,6 +1,7 @@
 import { forwardRef, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaCalendarDays, FaChartLine, FaCheck, FaCopy, FaMagnifyingGlass, FaRotateRight, FaTriangleExclamation } from "react-icons/fa6";
+import { useSearchParams } from "react-router-dom";
 import { TableVirtuoso } from "react-virtuoso";
 
 import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
@@ -8,6 +9,13 @@ import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearc
 import "./Ssc2PersonalRank.css";
 
 const PERSONAL_DATA_MODULES = import.meta.glob("/src/assets/json/ssc2/personal/*.json", { import: "default" });
+const PERSONAL_SEARCH_PARAM_KEYS = {
+    date: "date",
+    nickname: "nickname",
+    server: "server",
+    minimumMerit: "minPoint",
+    maximumMerit: "maxPoint",
+};
 
 const PERSONAL_DATA_SOURCES = Object.entries(PERSONAL_DATA_MODULES)
     .sort(([left], [right]) => right.localeCompare(left));
@@ -227,6 +235,7 @@ function LoadingRows({ compact = false }) {
 
 export default function Ssc2PersonalRank() {
     const { t, i18n } = useTranslation("viewer");
+    const [searchParams, setSearchParams] = useSearchParams();
     const [activeSnapshot, setActiveSnapshot] = useState(null);
     const [selectedDate, setSelectedDate] = useState("");
     const [availableDates, setAvailableDates] = useState([]);
@@ -234,35 +243,52 @@ export default function Ssc2PersonalRank() {
     const [dateError, setDateError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState(false);
-    const [nicknameQuery, setNicknameQuery] = useState("");
-    const [serverQuery, setServerQuery] = useState("");
-    const [minimumMerit, setMinimumMerit] = useState("");
-    const [maximumMerit, setMaximumMerit] = useState("");
     const [selectedPlayer, setSelectedPlayer] = useState(null);
     const [playerHistory, setPlayerHistory] = useState([]);
     const [historyLoading, setHistoryLoading] = useState(false);
     const [historyError, setHistoryError] = useState(false);
     const [copyState, setCopyState] = useState("idle");
-    const dateRequestRef = useRef(0);
     const copyStateTimerRef = useRef(null);
+    const searchParamsRef = useRef(searchParams);
+    searchParamsRef.current = searchParams;
+    const nicknameQuery = searchParams.get(PERSONAL_SEARCH_PARAM_KEYS.nickname) ?? "";
+    const serverQuery = (searchParams.get(PERSONAL_SEARCH_PARAM_KEYS.server) ?? "").replace(/\D/g, "");
+    const minimumMerit = (searchParams.get(PERSONAL_SEARCH_PARAM_KEYS.minimumMerit) ?? "").replace(/\D/g, "");
+    const maximumMerit = (searchParams.get(PERSONAL_SEARCH_PARAM_KEYS.maximumMerit) ?? "").replace(/\D/g, "");
+    const requestedDateParam = searchParams.get(PERSONAL_SEARCH_PARAM_KEYS.date) ?? "";
+    const requestedDate = /^\d{4}-\d{2}-\d{2}$/.test(requestedDateParam) ? requestedDateParam : "";
 
     const deferredNicknameQuery = useDeferredValue(nicknameQuery);
     const deferredServerQuery = useDeferredValue(serverQuery);
     const deferredMinimumMerit = useDeferredValue(minimumMerit);
     const deferredMaximumMerit = useDeferredValue(maximumMerit);
 
-    const loadLatest = useCallback(() => {
+    const commitSearchParams = useCallback(update => {
+        const next = new URLSearchParams(searchParamsRef.current);
+        update(next);
+        searchParamsRef.current = next;
+        setSearchParams(next, { replace: true });
+    }, [setSearchParams]);
+
+    const loadSnapshot = useCallback(() => {
         let active = true;
         setLoading(true);
         setLoadError(false);
-        setDateError(false);
+        if (requestedDate) setSelectedDate(requestedDate);
 
-        loadLatestSnapshot()
+        const snapshotPromise = requestedDate ? loadSnapshotByDate(requestedDate) : loadLatestSnapshot();
+        snapshotPromise
             .then(snapshot => {
                 if (!active) return;
+                if (!snapshot) {
+                    setDateError(true);
+                    commitSearchParams(next => next.delete(PERSONAL_SEARCH_PARAM_KEYS.date));
+                    return;
+                }
                 setActiveSnapshot(snapshot);
                 setSelectedDate(snapshot.date);
                 setAvailableDates(current => current.length > 0 ? current : [snapshot.date]);
+                setDateError(false);
             })
             .catch(() => {
                 if (active) setLoadError(true);
@@ -272,10 +298,15 @@ export default function Ssc2PersonalRank() {
             });
 
         return () => { active = false; };
-    }, []);
+    }, [commitSearchParams, requestedDate]);
 
-    useEffect(() => loadLatest(), [loadLatest]);
+    useEffect(() => loadSnapshot(), [loadSnapshot]);
     useEffect(() => () => clearTimeout(copyStateTimerRef.current), []);
+
+    useEffect(() => {
+        if (!requestedDateParam || requestedDate) return;
+        commitSearchParams(next => next.delete(PERSONAL_SEARCH_PARAM_KEYS.date));
+    }, [commitSearchParams, requestedDate, requestedDateParam]);
 
     const prepareDateCatalog = useCallback(() => {
         setDateCatalogLoading(true);
@@ -287,33 +318,9 @@ export default function Ssc2PersonalRank() {
 
     const changeSnapshotDate = useCallback(event => {
         const nextDate = event.target.value;
-        if (!nextDate || nextDate === activeSnapshot?.date) return;
-
-        const requestId = dateRequestRef.current + 1;
-        dateRequestRef.current = requestId;
-        setSelectedDate(nextDate);
-        setDateError(false);
-        setLoading(true);
-
-        loadSnapshotByDate(nextDate)
-            .then(snapshot => {
-                if (dateRequestRef.current !== requestId) return;
-                if (!snapshot) {
-                    setSelectedDate(activeSnapshot?.date ?? "");
-                    setDateError(true);
-                    return;
-                }
-                setActiveSnapshot(snapshot);
-            })
-            .catch(() => {
-                if (dateRequestRef.current !== requestId) return;
-                setSelectedDate(activeSnapshot?.date ?? "");
-                setDateError(true);
-            })
-            .finally(() => {
-                if (dateRequestRef.current === requestId) setLoading(false);
-            });
-    }, [activeSnapshot]);
+        if (!nextDate || nextDate === selectedDate) return;
+        commitSearchParams(next => next.set(PERSONAL_SEARCH_PARAM_KEYS.date, nextDate));
+    }, [commitSearchParams, selectedDate]);
 
     const numberFormatter = useMemo(
         () => new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 0 }),
@@ -352,12 +359,21 @@ export default function Ssc2PersonalRank() {
         activeSnapshot,
     ]);
 
+    const updateFilter = useCallback((key, value) => {
+        commitSearchParams(next => {
+            if (value) next.set(key, value);
+            else next.delete(key);
+        });
+    }, [commitSearchParams]);
+
     const resetFilters = useCallback(() => {
-        setNicknameQuery("");
-        setServerQuery("");
-        setMinimumMerit("");
-        setMaximumMerit("");
-    }, []);
+        commitSearchParams(next => {
+            next.delete(PERSONAL_SEARCH_PARAM_KEYS.nickname);
+            next.delete(PERSONAL_SEARCH_PARAM_KEYS.server);
+            next.delete(PERSONAL_SEARCH_PARAM_KEYS.minimumMerit);
+            next.delete(PERSONAL_SEARCH_PARAM_KEYS.maximumMerit);
+        });
+    }, [commitSearchParams]);
 
     const copyFilteredPlayers = useCallback(async () => {
         if (!activeSnapshot || filteredPlayers.length === 0) return;
@@ -518,7 +534,7 @@ export default function Ssc2PersonalRank() {
                                     className="form-control"
                                     value={nicknameQuery}
                                     placeholder={t("Ssc2PersonalRank.filters.nicknamePlaceholder")}
-                                    onChange={event => setNicknameQuery(event.target.value)}
+                                    onChange={event => updateFilter(PERSONAL_SEARCH_PARAM_KEYS.nickname, event.target.value)}
                                 />
                             </div>
                         </label>
@@ -533,7 +549,7 @@ export default function Ssc2PersonalRank() {
                                     className="form-control"
                                     value={serverQuery}
                                     placeholder={t("Ssc2PersonalRank.filters.serverPlaceholder")}
-                                    onChange={event => setServerQuery(event.target.value.replace(/\D/g, ""))}
+                                    onChange={event => updateFilter(PERSONAL_SEARCH_PARAM_KEYS.server, event.target.value.replace(/\D/g, ""))}
                                 />
                             </div>
                         </label>
@@ -550,7 +566,7 @@ export default function Ssc2PersonalRank() {
                                     className="form-control numeric-cell"
                                     value={minimumMerit}
                                     placeholder={t("Ssc2PersonalRank.filters.minimumPlaceholder")}
-                                    onChange={event => setMinimumMerit(event.target.value.replace(/\D/g, ""))}
+                                    onChange={event => updateFilter(PERSONAL_SEARCH_PARAM_KEYS.minimumMerit, event.target.value.replace(/\D/g, ""))}
                                 />
                             </div>
                         </label>
@@ -565,7 +581,7 @@ export default function Ssc2PersonalRank() {
                                     className="form-control numeric-cell"
                                     value={maximumMerit}
                                     placeholder={t("Ssc2PersonalRank.filters.maximumPlaceholder")}
-                                    onChange={event => setMaximumMerit(event.target.value.replace(/\D/g, ""))}
+                                    onChange={event => updateFilter(PERSONAL_SEARCH_PARAM_KEYS.maximumMerit, event.target.value.replace(/\D/g, ""))}
                                 />
                             </div>
                         </label>
@@ -580,7 +596,7 @@ export default function Ssc2PersonalRank() {
             {!loading && loadError && (
                 <div className="alert alert-danger d-flex flex-wrap align-items-center justify-content-between gap-2">
                     <span><FaTriangleExclamation className="me-2" />{t("Ssc2PersonalRank.loadError")}</span>
-                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={loadLatest}>
+                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={loadSnapshot}>
                         {t("Ssc2PersonalRank.retry")}
                     </button>
                 </div>
