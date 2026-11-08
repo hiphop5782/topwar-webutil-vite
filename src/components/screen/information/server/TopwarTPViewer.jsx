@@ -636,7 +636,7 @@ export default function TopwarTPViewer() {
 
             <div className="tp-viewer__filters">
                 <label><span>{t("nickname")}</span><div className="input-group"><span className="input-group-text"><FaMagnifyingGlass /></span><CompositionSearchInput className="form-control" value={query} onValueChange={setQuery} placeholder={t("nicknamePlaceholder")} /></div></label>
-                <label><span>{t("server")}</span><input className="form-control" type="number" min="1" inputMode="numeric" value={server} onChange={(event) => setServer(event.target.value)} placeholder={t("serverPlaceholder")} /></label>
+                <label><span>{t("server")}</span><input className="form-control" inputMode="numeric" value={server} onChange={(event) => setServer(event.target.value)} placeholder={t("serverPlaceholder")} /></label>
                 <button type="button" className="btn btn-outline-secondary" onClick={() => { setQuery(""); setServer(""); }}><FaRotateRight /> {t("reset")}</button>
             </div>
 
@@ -653,7 +653,7 @@ export default function TopwarTPViewer() {
                     const playerObservedAt = player.displayCollectedAt || observedAt;
                     return <article className={`tp-viewer__player tp-viewer__player--${playerBranch}`} key={uid || player.rank}>
                         <button type="button" className="tp-viewer__player-head" onClick={() => toggle(uid)} aria-expanded={isOpen}>
-                            <span className="tp-viewer__identity"><strong>{player.username || uid}</strong></span>
+                            <span className="tp-viewer__identity" data-branch-label={t(BRANCH_META[playerBranch]?.translationKey ?? "branchUnknown")}><strong>{player.username || uid}</strong></span>
                             <span className="tp-viewer__head-server"><small>{t("serverShort")}</small><strong>{player.serverId}</strong></span>
                             <span className="tp-viewer__head-stat tp-viewer__head-power"><small>{t("combatPower")}</small><strong>{player.TP || formatMillions(player.rankingPower, locale)}</strong></span>
                             <span className="tp-viewer__head-stat tp-viewer__head-army"><small>{t("totalArmy")}</small><strong>{number(player.displayTotalArmy, locale)}</strong></span>
