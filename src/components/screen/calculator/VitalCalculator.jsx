@@ -324,10 +324,10 @@ function VitalCalculator() {
                                     <div className="input-group">
                                         <input
                                             id="vital-speed"
-                                            type="number"
+                                            type="text"
                                             min="0"
                                             step="0.1"
-                                            inputMode="decimal"
+                                            inputMode="numeric"
                                             className="form-control form-control-lg text-end"
                                             value={vitSpeed}
                                             onChange={(event) =>
@@ -360,10 +360,10 @@ function VitalCalculator() {
                                     <div className="input-group">
                                         <input
                                             id="base-speed"
-                                            type="number"
+                                            type="text"
                                             min="0"
                                             step="0.1"
-                                            inputMode="decimal"
+                                            inputMode="numeric"
                                             className="form-control form-control-lg text-end"
                                             value={baseSpeed}
                                             onChange={(event) =>
@@ -459,10 +459,10 @@ function VitalCalculator() {
                             <div className="input-group">
                                 <input
                                     id="additional-speed"
-                                    type="number"
+                                    type="text"
                                     min="0"
                                     step="0.1"
-                                    inputMode="decimal"
+                                    inputMode="numeric"
                                     className="form-control form-control-lg text-end"
                                     value={addSpeed}
                                     onChange={(event) =>

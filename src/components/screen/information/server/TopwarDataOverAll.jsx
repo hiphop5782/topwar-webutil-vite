@@ -540,7 +540,8 @@ export default function TopwarDataOverAll() {
                 </label>
                 <input
                     className="form-control"
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     min="1"
                     value={server}
                     onChange={(event) => setServer(event.target.value)}
@@ -584,7 +585,8 @@ export default function TopwarDataOverAll() {
                         </select>
                         <input
                             className="form-control"
-                            type="number"
+                            type="text"
+                            inputMode="numeric"
                             min="1"
                             value={serverOut}
                             disabled={movementLoading}

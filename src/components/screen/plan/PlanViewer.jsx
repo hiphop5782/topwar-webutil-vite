@@ -526,7 +526,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
                             <label>항목 이름<input className="form-control" value={itemDraft.title} onChange={event => setItemDraft(current => ({ ...current, title: event.target.value }))} /></label>
                             <label>상태<input className="form-control" value={itemDraft.status} onChange={event => setItemDraft(current => ({ ...current, status: event.target.value }))} placeholder="예: 중요, 협상 완료, 협상 결렬" /></label>
                             <label className="plan-color-field">색상<span><input type="color" value={itemDraft.color} onChange={event => setItemDraft(current => ({ ...current, color: event.target.value }))} /><input className="form-control" value={itemDraft.color} onChange={event => setItemDraft(current => ({ ...current, color: event.target.value }))} /></span></label>
-                            <label>정원<input className="form-control" type="number" min="1" value={itemDraft.capacity} onChange={event => setItemDraft(current => ({ ...current, capacity: event.target.value }))} placeholder="비워두면 제한 없음" /></label>
+                            <label>정원<input className="form-control" type="text" inputMode="numeric" min="1" value={itemDraft.capacity} onChange={event => setItemDraft(current => ({ ...current, capacity: event.target.value }))} placeholder="비워두면 제한 없음" /></label>
                             <label className="plan-editor-memo">메모<textarea className="form-control" rows="3" value={itemDraft.memo} onChange={event => setItemDraft(current => ({ ...current, memo: event.target.value }))} placeholder="구성원에게 표시할 작전 메모" /></label>
                             <div className="plan-editor-actions"><button className="btn btn-primary" onClick={() => saveItem(item)}>변경 저장</button><button className="btn btn-outline-secondary" onClick={() => setEditingItemId("")}>취소</button></div>
                         </div>}
@@ -545,9 +545,9 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             {showAdvancedSelection && <div className="plan-select-tools">
                 <div className="plan-power-select">
                     <span>전투력 구간</span>
-                    <input className="form-control form-control-sm" type="number" min="0" step="1" placeholder="최소 M" value={powerRange.min} onChange={event => setPowerRange(current => ({ ...current, min: event.target.value }))} />
+                    <input className="form-control form-control-sm" type="text" inputMode="numeric" min="0" step="1" placeholder="최소 M" value={powerRange.min} onChange={event => setPowerRange(current => ({ ...current, min: event.target.value }))} />
                     <span>~</span>
-                    <input className="form-control form-control-sm" type="number" min="0" step="1" placeholder="최대 M" value={powerRange.max} onChange={event => setPowerRange(current => ({ ...current, max: event.target.value }))} />
+                    <input className="form-control form-control-sm" type="text" inputMode="numeric" min="0" step="1" placeholder="최대 M" value={powerRange.max} onChange={event => setPowerRange(current => ({ ...current, max: event.target.value }))} />
                     <button className="btn btn-sm btn-warning" onClick={selectPowerRange}>구간 선택</button>
                 </div>
                 <small>전투력 구간 선택은 현재 검색·상태 필터 결과에 적용되며 기존 선택은 유지됩니다.</small>

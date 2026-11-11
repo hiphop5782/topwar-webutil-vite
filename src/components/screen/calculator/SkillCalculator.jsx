@@ -309,7 +309,8 @@ function SkillCalculator() {
                                         <div className="input-group">
                                             <input
                                                 id="shard-count"
-                                                type="number"
+                                                type="text"
+                                                inputMode="numeric"
                                                 min="0"
                                                 step="1"
                                                 className="form-control form-control-lg text-end"
@@ -414,7 +415,8 @@ function SkillCalculator() {
                                                             <div className="input-group">
                                                                 <input
                                                                     id={`skill-level-${level}`}
-                                                                    type="number"
+                                                                    type="text"
+                                                                    inputMode="numeric"
                                                                     min="0"
                                                                     step="1"
                                                                     className="form-control text-end"

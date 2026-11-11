@@ -609,7 +609,7 @@ export default function EternalLandDarkforce() {
                             >
                                 <div className="input-group">
                                     <input
-                                        type="number"
+                                        type="text"
                                         inputMode="numeric"
                                         className="form-control"
                                         name="delay"
@@ -762,7 +762,7 @@ export default function EternalLandDarkforce() {
                             >
                                 <div className="input-group">
                                     <input
-                                        type="number"
+                                        type="text"
                                         inputMode="numeric"
                                         className="form-control"
                                         name="currentScore"

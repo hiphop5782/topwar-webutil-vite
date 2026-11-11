@@ -1311,7 +1311,8 @@ export default function TitanRefineSimulator() {
 
                 <div className="input-group input-group-sm">
                     <input
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
                         className="form-control text-end"
                         value={draft.value}
                         onChange={onValueChange}

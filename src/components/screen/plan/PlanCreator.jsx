@@ -102,7 +102,7 @@ export default function PlanCreator() {
         <form className="plan-card plan-form" onSubmit={save}>
             <label>{t("creator.server")}<input className="form-control" inputMode="numeric" value={form.serverId} onChange={e => { update("serverId", e.target.value.replace(/\D/g, "")); setPlayers([]); }} placeholder="3223" /></label>
             <label>{t("creator.minLevel")}
-                <input className="form-control" type="number" inputMode="numeric" min="1" max="80" value={form.minLevel} onChange={e => { update("minLevel", e.target.value.replace(/\D/g, "")); setPlayers([]); }} />
+                <input className="form-control" type="text" inputMode="numeric" min="1" max="80" value={form.minLevel} onChange={e => { update("minLevel", e.target.value.replace(/\D/g, "")); setPlayers([]); }} />
                 <small className="text-muted">{t("creator.minLevelHelp")}</small>
             </label>
             <label>{t("creator.planTitle")}<input className="form-control" value={form.title} onChange={e => update("title", e.target.value)} /></label>

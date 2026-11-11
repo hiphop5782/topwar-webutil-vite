@@ -699,7 +699,8 @@ const TitanResearchSimulator = () => {
                                     <div className="input-group">
                                         <input
                                             id="titan-create-count"
-                                            type="number"
+                                            type="text"
+                                            inputMode="numeric"
                                             min={
                                                 MIN_CREATE_COUNT
                                             }

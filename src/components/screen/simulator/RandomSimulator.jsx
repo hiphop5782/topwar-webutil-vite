@@ -110,7 +110,7 @@ function RandomSimulator() {
                         <div key={index} className="mt-2 p-2 shadow-sm rounded">
                             <label>항목 이름 <input type="text" name="name" onChange={inputItem} placeholder="(ex) 에픽 만능 조각" data-no={item.no} defaultValue={item.name}/></label>
                             &nbsp;&nbsp;&nbsp;
-                            <label>당첨 확률 <input type="number" name="rate" onChange={inputItem} placeholder="% 제외하고 입력" data-no={item.no} defaultValue={item.rate}/> %</label>
+                            <label>당첨 확률 <input type="text" inputMode="numeric" name="rate" onChange={inputItem} placeholder="% 제외하고 입력" data-no={item.no} defaultValue={item.rate}/> %</label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                     ))}
@@ -129,7 +129,7 @@ function RandomSimulator() {
                     </small></p>
                 </div>
                 <div className="col-12 text-end">
-                    <input type="number" min="1" defaultValue={count} onChange={e=>setCount(parseInt(e.target.value))} className="text-end"/> 번
+                    <input type="text" inputMode="numeric" min="1" defaultValue={count} onChange={e=>setCount(parseInt(e.target.value))} className="text-end"/> 번
                 </div>
             </div>
             <div className="row mt-2">
