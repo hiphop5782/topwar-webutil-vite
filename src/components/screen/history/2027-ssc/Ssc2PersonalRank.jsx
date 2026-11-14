@@ -105,9 +105,6 @@ function normalizeRanking(row, index) {
         nicknameSearch: normalizeSearchValue(nickname),
         merit,
         serverId,
-        level: row?.level !== null && row?.level !== "" && Number.isFinite(Number(row.level))
-            ? Number(row.level)
-            : null,
     };
 }
 
@@ -323,8 +320,8 @@ export default function Ssc2PersonalRank() {
     const copyFilteredPlayers = useCallback(async () => {
         if (!activeSnapshot || filteredPlayers.length === 0) return;
 
-        const headers = [t("Ssc2PersonalRank.table.date"), t("Ssc2PersonalRank.table.round"), t("Ssc2PersonalRank.table.rank"), t("Ssc2PersonalRank.table.nickname"), t("Ssc2PersonalRank.table.server"), t("Ssc2PersonalRank.table.merit"), t("Ssc2PersonalRank.table.level")];
-        const rows = filteredPlayers.map(player => [activeSnapshot.date, activeSnapshot.round, player.rank, player.nickname, player.serverId, player.merit, player.level ?? ""]);
+        const headers = [t("Ssc2PersonalRank.table.date"), t("Ssc2PersonalRank.table.round"), t("Ssc2PersonalRank.table.rank"), t("Ssc2PersonalRank.table.nickname"), t("Ssc2PersonalRank.table.server"), t("Ssc2PersonalRank.table.merit")];
+        const rows = filteredPlayers.map(player => [activeSnapshot.date, activeSnapshot.round, player.rank, player.nickname, player.serverId, player.merit]);
         const clipboardText = [headers, ...rows].map(row => row.map(sanitizeSpreadsheetCell).join("\t")).join("\n");
 
         clearTimeout(copyStateTimerRef.current);
@@ -579,7 +576,6 @@ export default function Ssc2PersonalRank() {
                                     <th>{t("Ssc2PersonalRank.table.nickname")}</th>
                                     <th>{t("Ssc2PersonalRank.table.server")}</th>
                                     <th className="text-end">{t("Ssc2PersonalRank.table.merit")}</th>
-                                    <th className="ssc2-personal-col-level text-end">{t("Ssc2PersonalRank.table.level")}</th>
                                     <th className="ssc2-personal-col-details text-center">{t("Ssc2PersonalRank.table.details")}</th>
                                 </tr>
                             )}
@@ -588,7 +584,6 @@ export default function Ssc2PersonalRank() {
                                 <td className="ssc2-personal-name-cell" title={player.nickname}>{player.nickname}</td>
                                 <td>S{player.serverId}</td>
                                 <td className="numeric-cell text-end fw-bold">{formatNumber(player.merit)}</td>
-                                <td className="numeric-cell text-end">{player.level ?? "-"}</td>
                                 <td className="text-center">
                                     <button
                                         type="button"

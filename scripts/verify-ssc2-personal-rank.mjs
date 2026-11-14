@@ -182,9 +182,9 @@ try {
     await page.waitForFunction(() => document.querySelector(".ssc2-personal-export-actions")?.textContent.includes("복사 완료"));
     const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
     const [clipboardHeader, clipboardRow, ...extraClipboardRows] = clipboardText.split(/\r?\n/);
-    assert.equal(clipboardHeader, "기록일\t라운드\t전체 순위\t닉네임\t서버\t누적 포인트\t레벨");
+    assert.equal(clipboardHeader, "기록일\t라운드\t전체 순위\t닉네임\t서버\t누적 포인트");
     assert.equal(extraClipboardRows.length, 0, "Clipboard export ignored the current filtered result");
-    assert.ok(clipboardRow.includes(`\t${topPlayer.nickname}\t${topPlayer.serverId}\t${topPlayer.merit}\t`));
+    assert.ok(clipboardRow.endsWith(`\t${topPlayer.nickname}\t${topPlayer.serverId}\t${topPlayer.merit}`));
     assert.equal(clipboardText.includes(String(topPlayer.uid)), false, "UID was copied to the spreadsheet export");
 
     await page.evaluate(() => {
