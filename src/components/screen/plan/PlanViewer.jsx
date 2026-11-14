@@ -27,6 +27,7 @@ const cleanCapacity = value => {
 const formatPower = value => `${(Number(value || 0) / 1_000_000).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}M`;
 
 export default function PlanViewer() {
+    const { t } = useTranslation("plan");
     const { serverId: routeServerId } = useParams();
     const serverId = /^\d+$/.test(routeServerId || "") ? String(Number(routeServerId)) : "";
     const [password, setPassword] = useState("");
@@ -73,14 +74,14 @@ export default function PlanViewer() {
         if (!role || !serverId) return undefined;
         setLoadError("");
         const unsubscribePlan = onSnapshot(doc(db, "plans", serverId), snapshot => {
-            if (!snapshot.exists()) { setLoadError("등록된 계획이 없습니다."); setPlan(null); return; }
+            if (!snapshot.exists()) { setLoadError(t("auth.notFound")); setPlan(null); return; }
             setPlan({ id: snapshot.id, ...snapshot.data() });
-        }, error => { console.error(error); setLoadError("계획을 불러오지 못했습니다."); });
+        }, error => { console.error(error); setLoadError(t("auth.loadFailed")); });
         const unsubscribeArchives = onSnapshot(query(collection(db, "planArchives", serverId, "entries"), orderBy("archivedAt", "desc")), snapshot => {
             setArchives(snapshot.docs.map(item => ({ id: item.id, ...item.data() })));
         }, error => console.error("계획 이전 내역을 불러오지 못했습니다.", error));
         return () => { unsubscribePlan(); unsubscribeArchives(); };
-    }, [role, serverId]);
+    }, [role, serverId, t]);
 
     const enter = async event => {
         event.preventDefault();
@@ -88,10 +89,10 @@ export default function PlanViewer() {
         setChecking(true);
         try {
             const hash = await hashPlanPassword(password);
-            if (!await verifyHash(hash, remember)) return toast.error("비밀번호가 일치하지 않습니다.");
+            if (!await verifyHash(hash, remember)) return toast.error(t("auth.passwordMismatch"));
             setPassword("");
         } catch (error) {
-            console.error(error); toast.error("입장 정보를 확인하지 못했습니다.");
+            console.error(error); toast.error(t("auth.enterFailed"));
         } finally { setChecking(false); }
     };
 
@@ -102,8 +103,8 @@ export default function PlanViewer() {
     };
 
     if (!role) return <PasswordGate serverId={serverId} password={password} setPassword={setPassword} remember={remember} setRemember={setRemember} checking={checking} enter={enter} />;
-    if (loadError) return <div className="plan-page"><div className="alert alert-danger">{loadError}</div><button className="btn btn-outline-secondary" onClick={leave}>나가기</button></div>;
-    if (!plan) return <div className="plan-page"><div className="plan-loading">계획을 불러오는 중...</div></div>;
+    if (loadError) return <div className="plan-page"><div className="alert alert-danger">{loadError}</div><button className="btn btn-outline-secondary" onClick={leave}>{t("header.leave")}</button></div>;
+    if (!plan) return <div className="plan-page"><div className="plan-loading">{t("auth.loading")}</div></div>;
 
     return <PlanBoard plan={plan} archives={archives} serverId={serverId} role={role} leave={leave} />;
 }
@@ -194,11 +195,11 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         try {
             await runTransaction(db, async transaction => {
                 const snapshot = await transaction.get(planRef);
-                if (!snapshot.exists()) throw new Error("계획이 없습니다.");
+                if (!snapshot.exists()) throw new Error(t("messages.planMissing"));
                 transaction.update(planRef, { ...updater(snapshot.data()), updatedAt: new Date() });
             });
             return true;
-        } catch (error) { console.error(error); toast.error(error.message || "저장하지 못했습니다."); return false; }
+        } catch (error) { console.error(error); toast.error(error.message || t("messages.saveFailed")); return false; }
     };
 
     const voteResults = useMemo(() => {
@@ -208,9 +209,9 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
     const castResponse = async status => {
         const manualUid = manualVoter.uid.trim();
         const uid = manualVote ? manualUid : selectedVoter;
-        if (plan.status === "paused") return toast.error("종료된 계획에는 응답할 수 없습니다.");
-        if (!manualVote && !uid) return toast.error("명단에서 본인을 선택하세요.");
-        if (manualVote && (!/^\d+$/.test(manualUid) || !manualVoter.nickname.trim())) return toast.error("UID와 닉네임을 입력하세요.");
+        if (plan.status === "paused") return toast.error(t("messages.closedVote"));
+        if (!manualVote && !uid) return toast.error(t("messages.selectSelf"));
+        if (manualVote && (!/^\d+$/.test(manualUid) || !manualVoter.nickname.trim())) return toast.error(t("messages.manualRequired"));
         const saved = await transact(data => {
             const exists = (data.roster || []).some(player => player.uid === uid);
             return {
@@ -218,18 +219,18 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
                 responses: { ...(data.responses || {}), [uid]: { status, updatedAt: Date.now() } },
             };
         });
-        if (saved) { toast.success("응답을 저장했습니다."); setSelectedVoter(uid); setManualVote(false); setVoteSearch(manualVoter.nickname || voteSearch); }
+        if (saved) { toast.success(t("messages.responseSaved")); setSelectedVoter(uid); setManualVote(false); setVoteSearch(manualVoter.nickname || voteSearch); }
     };
 
     const changePlanState = async nextStatus => {
-        const label = nextStatus === "paused" ? "종료" : "재개";
-        if (!window.confirm(`이 계획을 ${label}할까요?`)) return;
+        const label = t(nextStatus === "paused" ? "messages.endAction" : "messages.resumeAction");
+        if (!window.confirm(t("messages.stateConfirm", { action: label }))) return;
         const saved = await transact(data => ({
             status: nextStatus,
             endedAt: nextStatus === "paused" ? new Date() : null,
             history: [...(data.history || []), { action: nextStatus === "paused" ? "paused" : "resumed", at: Date.now() }],
         }));
-        if (saved) toast.success(`계획을 ${label}했습니다.`);
+        if (saved) toast.success(t("messages.stateChanged", { action: label }));
     };
 
     const startPlanEdit = () => {
@@ -269,7 +270,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
     }).sort((a, b) => Number(b.power || 0) - Number(a.power || 0)), [roster, responses, assignments, adminSearch, filter]);
 
     const addItem = async () => {
-        const title = window.prompt("새 항목 이름");
+        const title = window.prompt(t("messages.newItem"));
         if (!title?.trim()) return;
         const item = { id: crypto.randomUUID(), title: title.trim(), status: "", memo: "", color: "#f59e0b", capacity: null, order: items.length };
         await transact(data => ({ contentRevision: (data.contentRevision || 1) + 1, items: [...(data.items || []), item] }));
@@ -279,7 +280,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         setItemDraft({ title: item.title || "", status: item.status || "", memo: item.memo || "", color: item.color || "#f59e0b", capacity: item.capacity || "" });
     };
     const saveItem = async item => {
-        if (!itemDraft.title.trim()) return toast.error("항목 이름을 입력하세요.");
+        if (!itemDraft.title.trim()) return toast.error(t("messages.itemNameRequired"));
         const saved = await transact(data => ({ contentRevision: (data.contentRevision || 1) + 1, items: (data.items || []).map(current => current.id === item.id ? {
             ...current,
             title: itemDraft.title.trim(),
@@ -288,7 +289,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             capacity: cleanCapacity(itemDraft.capacity),
             color: /^#[0-9a-f]{6}$/i.test(itemDraft.color) ? itemDraft.color : current.color,
         } : current) }));
-        if (saved) { setEditingItemId(""); toast.success("항목을 수정했습니다."); }
+        if (saved) { setEditingItemId(""); toast.success(t("messages.itemSaved")); }
     };
     const moveItem = async (item, direction) => {
         const index = items.findIndex(current => current.id === item.id); const target = index + direction;
@@ -297,12 +298,12 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         await transact(() => ({ items: reordered.map((current, order) => ({ ...current, order })) }));
     };
     const deleteItem = async item => {
-        if (!window.confirm(`'${item.title}' 항목과 배정을 삭제할까요?`)) return;
+        if (!window.confirm(t("messages.itemDeleteConfirm", { title: item.title }))) return;
         await transact(data => { const next = { ...(data.assignments || {}) }; delete next[item.id]; return { contentRevision: (data.contentRevision || 1) + 1, items: (data.items || []).filter(current => current.id !== item.id), assignments: next }; });
     };
 
     const assignSelected = async () => {
-        if (!assignmentTargets.size || !selected.size) return toast.error("사용자와 배정 항목을 선택하세요.");
+        if (!assignmentTargets.size || !selected.size) return toast.error(t("messages.selectUsersAndItems"));
         const targetIds = [...assignmentTargets];
         await transact(data => {
             const next = { ...(data.assignments || {}) };
@@ -312,7 +313,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             });
             return { assignments: next };
         });
-        toast.success(`${selected.size}명을 ${targetIds.length}개 항목에 배정했습니다.`);
+        toast.success(t("messages.assignedUsers", { users: selected.size, items: targetIds.length }));
         setSelected(new Set());
     };
     const selectAllRoster = () => setSelected(new Set(roster.map(player => player.uid)));
@@ -325,28 +326,28 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
     const selectPowerRange = () => {
         const minimum = powerRange.min === "" ? Number.NEGATIVE_INFINITY : Number(powerRange.min);
         const maximum = powerRange.max === "" ? Number.POSITIVE_INFINITY : Number(powerRange.max);
-        if (!Number.isFinite(minimum) && minimum !== Number.NEGATIVE_INFINITY) return toast.error("최소 전투력을 확인하세요.");
-        if (!Number.isFinite(maximum) && maximum !== Number.POSITIVE_INFINITY) return toast.error("최대 전투력을 확인하세요.");
-        if (minimum > maximum) return toast.error("최소 전투력이 최대 전투력보다 큽니다.");
+        if (!Number.isFinite(minimum) && minimum !== Number.NEGATIVE_INFINITY) return toast.error(t("messages.minPowerInvalid"));
+        if (!Number.isFinite(maximum) && maximum !== Number.POSITIVE_INFINITY) return toast.error(t("messages.maxPowerInvalid"));
+        if (minimum > maximum) return toast.error(t("messages.powerOrderInvalid"));
         const matched = visibleRoster.filter(player => {
             const powerInMillions = Number(player.power || 0) / 1_000_000;
             return powerInMillions >= minimum && powerInMillions <= maximum;
         });
         setSelected(current => new Set([...current, ...matched.map(player => player.uid)]));
-        toast.info(`${matched.length}명을 선택했습니다.`);
+        toast.info(t("messages.usersSelected", { count: matched.length }));
     };
     const unassign = async (itemId, uid) => transact(data => ({ assignments: { ...(data.assignments || {}), [itemId]: (data.assignments?.[itemId] || []).filter(value => value !== uid) } }));
 
     const addManualPlayer = async () => {
-        const uid = window.prompt("UID"); if (!/^\d+$/.test(uid || "")) return toast.error("숫자 UID를 입력하세요.");
-        const nickname = window.prompt("닉네임"); if (!nickname?.trim()) return;
+        const uid = window.prompt(t("messages.uidPrompt")); if (!/^\d+$/.test(uid || "")) return toast.error(t("messages.numericUid"));
+        const nickname = window.prompt(t("messages.nicknamePrompt")); if (!nickname?.trim()) return;
         await transact(data => {
-            if ((data.roster || []).some(player => player.uid === uid)) throw new Error("이미 있는 UID입니다.");
+            if ((data.roster || []).some(player => player.uid === uid)) throw new Error(t("messages.duplicateUid"));
             return { roster: [...(data.roster || []), { uid, nickname: nickname.trim(), power: 0, allianceId: "", allianceTag: "", allianceName: "", source: "manual" }] };
         });
     };
     const deletePlayer = async player => {
-        if (!window.confirm(`${player.nickname}님을 명단에서 삭제할까요? 투표 결과는 유지됩니다.`)) return;
+        if (!window.confirm(t("messages.deletePlayerConfirm", { name: player.nickname }))) return;
         await transact(data => ({
             roster: (data.roster || []).filter(current => current.uid !== player.uid),
             assignments: Object.fromEntries(Object.entries(data.assignments || {}).map(([id, uids]) => [id, (uids || []).filter(uid => uid !== player.uid)])),
@@ -359,10 +360,10 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             else next[player.uid] = { status, updatedAt: Date.now(), changedByAdmin: true };
             return { responses: next };
         });
-        if (saved) toast.success(`${player.nickname}님의 상태를 ${statusLabel(status)}으로 변경했습니다.`);
+        if (saved) toast.success(t("messages.statusChanged", { name: player.nickname, status: statusLabel(status) }));
     };
     const changeSelectedResponses = async () => {
-        if (!selected.size) return toast.error("상태를 변경할 인원을 선택하세요.");
+        if (!selected.size) return toast.error(t("messages.selectStatusUsers"));
         const selectedUids = [...selected];
         const saved = await transact(data => {
             const next = { ...(data.responses || {}) };
@@ -372,14 +373,14 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             });
             return { responses: next };
         });
-        if (saved) toast.success(`${selectedUids.length}명의 상태를 ${statusLabel(bulkStatus)}으로 변경했습니다.`);
+        if (saved) toast.success(t("messages.bulkStatusChanged", { count: selectedUids.length, status: statusLabel(bulkStatus) }));
     };
 
     const powerBalancedAssign = async () => {
         const targetIds = [...autoTargets];
         const candidates = roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0).sort((a, b) => Number(b.power || 0) - Number(a.power || 0));
-        if (!targetIds.length || !candidates.length) return toast.info("배치할 항목 또는 참여·미배정 인원이 없습니다.");
-        if (!window.confirm(`전투력 상위 ${candidates.length}명을 ${targetIds.length}개 항목의 총 전투력이 비슷하도록 배치할까요?`)) return;
+        if (!targetIds.length || !candidates.length) return toast.info(t("messages.noAutoTargets"));
+        if (!window.confirm(t("messages.powerConfirm", { users: candidates.length, items: targetIds.length }))) return;
         const saved = await transact(data => {
             const next = Object.fromEntries(Object.entries(data.assignments || {}).map(([id, uids]) => [id, [...(uids || [])]]));
             const currentRoster = data.roster || [];
@@ -400,13 +401,13 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             }
             return { assignments: next };
         });
-        if (saved) toast.success(`${candidates.length}명을 전투력 기준으로 균등 배치했습니다.`);
+        if (saved) toast.success(t("messages.powerDone", { count: candidates.length }));
     };
     const randomBalancedAssign = async () => {
         const targetIds = [...autoTargets];
         const candidates = roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0);
-        if (!targetIds.length || !candidates.length) return toast.info("배치할 항목 또는 참여·미배정 인원이 없습니다.");
-        if (!window.confirm(`${candidates.length}명을 ${targetIds.length}개 항목에 무작위로 균등 배치할까요?`)) return;
+        if (!targetIds.length || !candidates.length) return toast.info(t("messages.noAutoTargets"));
+        if (!window.confirm(t("messages.randomConfirm", { users: candidates.length, items: targetIds.length }))) return;
         const saved = await transact(data => {
             const next = Object.fromEntries(Object.entries(data.assignments || {}).map(([id, uids]) => [id, [...(uids || [])]]));
             const currentAssignments = data.assignments || {};
@@ -420,36 +421,36 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             }
             return { assignments: next };
         });
-        if (saved) toast.success(`${candidates.length}명을 무작위로 균등 배치했습니다.`);
+        if (saved) toast.success(t("messages.randomDone", { count: candidates.length }));
     };
 
-    const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: "삭제된 사용자" };
+    const playerByUid = uid => roster.find(player => player.uid === uid) || { uid, nickname: t("messages.deletedUser") };
     const buildPlanExportText = () => {
         const unassignedAttendees = roster.filter(player => responses[player.uid]?.status === "attending" && assignedItemIds(assignments, player.uid).length === 0);
         const lines = [
-            `[S${serverId}] ${plan.title || "작전 계획"}`,
+            `[S${serverId}] ${plan.title || t("export.defaultTitle")}`,
             plan.description?.trim() || "",
-            `전체 ${roster.length}명 · 참여 ${counts.attending}명 · 불참 ${counts.absent}명 · 미응답 ${counts.unanswered}명`,
+            t("export.summary", { all: roster.length, attending: counts.attending, absent: counts.absent, unanswered: counts.unanswered }),
             "",
         ];
 
         items.forEach((item, index) => {
             const assigned = (assignments[item.id] || []).map(uid => playerByUid(uid).nickname);
-            const itemMeta = [item.status?.trim(), `${assigned.length}${item.capacity ? ` / ${item.capacity}` : ""}명`].filter(Boolean).join(" · ");
+            const itemMeta = [item.status?.trim(), t(item.capacity ? "export.capacityCount" : "export.count", { count: assigned.length, capacity: item.capacity })].filter(Boolean).join(" · ");
             lines.push(`${index + 1}. ${item.title}${itemMeta ? ` (${itemMeta})` : ""}`);
-            if (item.memo?.trim()) lines.push(`   메모: ${item.memo.trim()}`);
-            lines.push(`   배정: ${assigned.length ? assigned.join(", ") : "없음"}`, "");
+            if (item.memo?.trim()) lines.push(`   ${t("export.memo")}: ${item.memo.trim()}`);
+            lines.push(`   ${t("export.assignment")}: ${assigned.length ? assigned.join(", ") : t("export.none")}`, "");
         });
 
-        lines.push(`참여·미배정 (${unassignedAttendees.length}명)`);
-        lines.push(unassignedAttendees.length ? unassignedAttendees.map(player => player.nickname).join(", ") : "없음");
+        lines.push(t("export.unassigned", { count: unassignedAttendees.length }));
+        lines.push(unassignedAttendees.length ? unassignedAttendees.map(player => player.nickname).join(", ") : t("export.none"));
         return lines.join("\n").replace(/\n{3,}/g, "\n\n").trim();
     };
     const copyPlanExport = async () => {
         const exportText = buildPlanExportText();
         try {
             await navigator.clipboard.writeText(exportText);
-            toast.success("전체 배정 결과를 복사했습니다.");
+            toast.success(t("messages.copied"));
         } catch {
             const textarea = document.createElement("textarea");
             textarea.value = exportText;
@@ -459,7 +460,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
             textarea.select();
             const copied = document.execCommand("copy");
             textarea.remove();
-            copied ? toast.success("전체 배정 결과를 복사했습니다.") : toast.error("복사하지 못했습니다. TXT 저장을 이용해 주세요.");
+            copied ? toast.success(t("messages.copied")) : toast.error(t("messages.copyFailed"));
         }
     };
     const downloadPlanExport = () => {
@@ -472,7 +473,7 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         anchor.click();
         anchor.remove();
         URL.revokeObjectURL(url);
-        toast.success("전체 배정 결과를 저장했습니다.");
+        toast.success(t("messages.downloaded"));
     };
 
     return <div className="plan-page" aria-busy={translating}>
@@ -513,22 +514,22 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
 
         {showHistory && <div className="plan-modal-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setShowHistory(false); }}><section className="plan-history-modal" role="dialog" aria-modal="true" aria-labelledby="plan-history-title"><header><div><h2 id="plan-history-title">{t("history.title")}</h2><p>{t("history.help")}</p></div><button onClick={() => setShowHistory(false)} aria-label={t("history.close")}>×</button></header><div className="plan-history-scroll"><article className="plan-archive-row current"><span><b>{plan.title || t("history.untitled")}</b><small>{t("history.summary", { type: t("history.current"), attending: counts.attending, items: items.length })}</small></span><em>{plan.status === "paused" ? t("history.ended") : t("history.active")}</em></article>{archives.map(archive => <article className="plan-archive-row" key={archive.id}><span><b>{archive.title || t("history.untitled")}</b><small>{t("history.summary", { type: t("history.previous"), attending: Object.values(archive.responses || {}).filter(response => response.status === "attending").length, items: (archive.items || []).length })}</small></span><time>{archive.archivedAt?.toDate?.().toLocaleString(i18n.language) || t("history.archiving")}</time></article>)}{!archives.length && <p className="plan-history-empty">{t("history.empty")}</p>}{!!(plan.history || []).length && <details className="plan-lifecycle"><summary>{t("history.changes", { count: (plan.history || []).length })}</summary><div>{[...(plan.history || [])].reverse().map((entry, index) => <p key={`${entry.at}-${index}`}><b>{t(`history.actions.${entry.action === "created" ? "created" : entry.action === "paused" ? "paused" : "resumed"}`)}</b><time>{new Date(entry.at).toLocaleString(i18n.language)}</time></p>)}</div></details>}</div></section></div>}
 
-        <section className="plan-section-head"><div><h2>{t("items.title")}</h2><p>{t("items.help")}</p></div>{admin && <div className="plan-export-actions"><button className="btn btn-outline-primary" onClick={copyPlanExport}>전체 복사</button><button className="btn btn-outline-secondary" onClick={downloadPlanExport}>TXT 저장</button>{plan.status !== "paused" && <button className="btn btn-primary" onClick={addItem}>{t("items.add")}</button>}</div>}</section>
+        <section className="plan-section-head"><div><h2>{t("items.title")}</h2><p>{t("items.help")}</p></div>{admin && <div className="plan-export-actions"><button className="btn btn-outline-primary" onClick={copyPlanExport}>{t("export.copy")}</button><button className="btn btn-outline-secondary" onClick={downloadPlanExport}>{t("export.save")}</button>{plan.status !== "paused" && <button className="btn btn-primary" onClick={addItem}>{t("items.add")}</button>}</div>}</section>
         <div className="plan-items">
             {items.length === 0 && <div className="plan-empty">{t("items.empty")}</div>}
             {items.map((item, index) => { const shownItem = translatedItems[item.id] || item; const includesSelectedVoter = !admin && selectedVoter && (assignments[item.id] || []).includes(selectedVoter); return <details ref={element => { if (element) itemElements.current.set(item.id, element); else itemElements.current.delete(item.id); }} className={`plan-item ${includesSelectedVoter ? "plan-item-mine" : ""}`} key={item.id}>
-                <summary><span className="plan-color" style={{ background: item.color }} /><span className="plan-item-main"><b>{translating ? <span className="plan-text-skeleton plan-item-title-skeleton" aria-hidden="true" /> : shownItem.title}</b><small>{translating ? <span className="plan-text-skeleton plan-item-detail-skeleton" aria-hidden="true" /> : [shownItem.status, shownItem.memo].filter(Boolean).join(" · ") || t("items.noMemo")}</small></span>{includesSelectedVoter && <span className="plan-mine-badge">✓ {t("vote.assignedHere")}</span>}<span className="plan-count">{(assignments[item.id] || []).length}{item.capacity ? ` / ${item.capacity}` : "명"}</span></summary>
+                <summary><span className="plan-color" style={{ background: item.color }} /><span className="plan-item-main"><b>{translating ? <span className="plan-text-skeleton plan-item-title-skeleton" aria-hidden="true" /> : shownItem.title}</b><small>{translating ? <span className="plan-text-skeleton plan-item-detail-skeleton" aria-hidden="true" /> : [shownItem.status, shownItem.memo].filter(Boolean).join(" · ") || t("items.noMemo")}</small></span>{includesSelectedVoter && <span className="plan-mine-badge">✓ {t("vote.assignedHere")}</span>}<span className="plan-count">{item.capacity ? t("export.capacityCount", { count: (assignments[item.id] || []).length, capacity: item.capacity }) : t("export.count", { count: (assignments[item.id] || []).length })}</span></summary>
                 <div className="plan-item-body">
                     {(assignments[item.id] || []).length === 0 ? <p className="text-muted">{t("items.none")}</p> : <div className="plan-assigned-list">{(assignments[item.id] || []).map(uid => { const player = playerByUid(uid); const status = responses[uid]?.status || "unanswered"; return <span key={uid} className={`plan-person status-${status} ${uid === selectedVoter && !admin ? "plan-person-me" : ""}`} title={`${player.nickname} · ${statusLabel(status)}`} aria-label={`${player.nickname}, ${statusLabel(status)}`}>{player.nickname}{uid === selectedVoter && !admin && <em>{t("vote.me")}</em>}{admin && <button onClick={() => unassign(item.id, uid)} aria-label={t("items.unassign", { name: player.nickname })}>×</button>}</span>; })}</div>}
                     {admin && plan.status !== "paused" && <>
-                        <div className="plan-item-controls"><button onClick={() => moveItem(item, -1)} disabled={index === 0}>↑ 위로</button><button onClick={() => moveItem(item, 1)} disabled={index === items.length - 1}>↓ 아래로</button><button onClick={() => editingItemId === item.id ? setEditingItemId("") : startEditItem(item)}>{editingItemId === item.id ? "편집 닫기" : "상태·색상·메모 편집"}</button><button className="danger" onClick={() => deleteItem(item)}>삭제</button></div>
+                        <div className="plan-item-controls"><button onClick={() => moveItem(item, -1)} disabled={index === 0}>↑ {t("itemEdit.moveUp")}</button><button onClick={() => moveItem(item, 1)} disabled={index === items.length - 1}>↓ {t("itemEdit.moveDown")}</button><button onClick={() => editingItemId === item.id ? setEditingItemId("") : startEditItem(item)}>{editingItemId === item.id ? t("itemEdit.close") : t("itemEdit.open")}</button><button className="danger" onClick={() => deleteItem(item)}>{t("itemEdit.delete")}</button></div>
                         {editingItemId === item.id && <div className="plan-item-editor">
-                            <label>항목 이름<input className="form-control" value={itemDraft.title} onChange={event => setItemDraft(current => ({ ...current, title: event.target.value }))} /></label>
-                            <label>상태<input className="form-control" value={itemDraft.status} onChange={event => setItemDraft(current => ({ ...current, status: event.target.value }))} placeholder="예: 중요, 협상 완료, 협상 결렬" /></label>
-                            <label className="plan-color-field">색상<span><input type="color" value={itemDraft.color} onChange={event => setItemDraft(current => ({ ...current, color: event.target.value }))} /><input className="form-control" value={itemDraft.color} onChange={event => setItemDraft(current => ({ ...current, color: event.target.value }))} /></span></label>
-                            <label>정원<input className="form-control" type="text" inputMode="numeric" min="1" value={itemDraft.capacity} onChange={event => setItemDraft(current => ({ ...current, capacity: event.target.value }))} placeholder="비워두면 제한 없음" /></label>
-                            <label className="plan-editor-memo">메모<textarea className="form-control" rows="3" value={itemDraft.memo} onChange={event => setItemDraft(current => ({ ...current, memo: event.target.value }))} placeholder="구성원에게 표시할 작전 메모" /></label>
-                            <div className="plan-editor-actions"><button className="btn btn-primary" onClick={() => saveItem(item)}>변경 저장</button><button className="btn btn-outline-secondary" onClick={() => setEditingItemId("")}>취소</button></div>
+                            <label>{t("itemEdit.name")}<input className="form-control" value={itemDraft.title} onChange={event => setItemDraft(current => ({ ...current, title: event.target.value }))} /></label>
+                            <label>{t("itemEdit.status")}<input className="form-control" value={itemDraft.status} onChange={event => setItemDraft(current => ({ ...current, status: event.target.value }))} placeholder={t("itemEdit.statusPlaceholder")} /></label>
+                            <label className="plan-color-field">{t("itemEdit.color")}<span><input type="color" value={itemDraft.color} onChange={event => setItemDraft(current => ({ ...current, color: event.target.value }))} /><input className="form-control" value={itemDraft.color} onChange={event => setItemDraft(current => ({ ...current, color: event.target.value }))} /></span></label>
+                            <label>{t("itemEdit.capacity")}<input className="form-control" type="text" inputMode="numeric" min="1" value={itemDraft.capacity} onChange={event => setItemDraft(current => ({ ...current, capacity: event.target.value }))} placeholder={t("itemEdit.capacityPlaceholder")} /></label>
+                            <label className="plan-editor-memo">{t("itemEdit.memo")}<textarea className="form-control" rows="3" value={itemDraft.memo} onChange={event => setItemDraft(current => ({ ...current, memo: event.target.value }))} placeholder={t("itemEdit.memoPlaceholder")} /></label>
+                            <div className="plan-editor-actions"><button className="btn btn-primary" onClick={() => saveItem(item)}>{t("itemEdit.save")}</button><button className="btn btn-outline-secondary" onClick={() => setEditingItemId("")}>{t("itemEdit.cancel")}</button></div>
                         </div>}
                     </>}
                 </div>
@@ -536,29 +537,29 @@ function PlanBoard({ plan, archives, serverId, role, leave }) {
         </div>
 
         {admin && plan.status !== "paused" && <section className="plan-card plan-admin">
-            <div className="plan-section-head"><div><h2>인원 배정</h2><p>검색과 상태 필터를 함께 사용할 수 있습니다.</p></div><button className="btn btn-outline-primary" onClick={addManualPlayer}>인원 직접 추가</button></div>
+            <div className="plan-section-head"><div><h2>{t("admin.assignmentTitle")}</h2><p>{t("admin.assignmentHelp")}</p></div><button className="btn btn-outline-primary" onClick={addManualPlayer}>{t("admin.addPlayer")}</button></div>
             <div className="plan-filters">
-                {[["all", `전체 ${roster.length}`], ["attending", `참여 ${counts.attending}`], ["absent", `불참 ${counts.absent}`], ["unanswered", `미응답 ${counts.unanswered}`], ["unassigned", `참여·미배정 ${counts.unassigned}`], ["assigned", "배정됨"], ["conflict", "상태 충돌"]].map(([key, label]) => <button key={key} className={filter === key ? "active" : ""} onClick={() => setFilter(key)}>{label}</button>)}
+                {[["all", `${t("stats.all")} ${roster.length}`], ["attending", `${t("stats.attending")} ${counts.attending}`], ["absent", `${t("stats.absent")} ${counts.absent}`], ["unanswered", `${t("stats.unanswered")} ${counts.unanswered}`], ["unassigned", `${t("stats.unassigned")} ${counts.unassigned}`], ["assigned", t("admin.assigned")], ["conflict", t("admin.conflict")]].map(([key, label]) => <button key={key} className={filter === key ? "active" : ""} onClick={() => setFilter(key)}>{label}</button>)}
             </div>
-            <div className="plan-roster-search"><input className="form-control" placeholder="닉네임·초성·자모 검색 (여러 명은 쉼표로 구분)" value={adminSearch} onPaste={() => { setSelected(new Set()); setBulkMode(""); }} onChange={event => { const value = event.target.value; setAdminSearch(value); if (hasMultiplePlanSearchQueries(value)) setFilter("all"); }} /><button className={`btn ${showAdvancedSelection ? "btn-secondary" : "btn-outline-secondary"}`} onClick={() => setShowAdvancedSelection(value => !value)}>고급 선택</button></div>
-            <div className="plan-roster-tools"><span>{visibleRoster.length}명 표시</span><button onClick={selectVisible}>현재 결과 전체 선택</button><button onClick={deselectVisible}>현재 결과 선택 해제</button><button onClick={selectAllRoster}>전체 명단 선택</button></div>
+            <div className="plan-roster-search"><input className="form-control" placeholder={t("admin.search")} value={adminSearch} onPaste={() => { setSelected(new Set()); setBulkMode(""); }} onChange={event => { const value = event.target.value; setAdminSearch(value); if (hasMultiplePlanSearchQueries(value)) setFilter("all"); }} /><button className={`btn ${showAdvancedSelection ? "btn-secondary" : "btn-outline-secondary"}`} onClick={() => setShowAdvancedSelection(value => !value)}>{t("admin.advanced")}</button></div>
+            <div className="plan-roster-tools"><span>{t("admin.shown", { count: visibleRoster.length })}</span><button onClick={selectVisible}>{t("admin.selectVisible")}</button><button onClick={deselectVisible}>{t("admin.deselectVisible")}</button><button onClick={selectAllRoster}>{t("admin.selectAllRoster")}</button></div>
             {showAdvancedSelection && <div className="plan-select-tools">
                 <div className="plan-power-select">
-                    <span>전투력 구간</span>
-                    <input className="form-control form-control-sm" type="text" inputMode="numeric" min="0" step="1" placeholder="최소 M" value={powerRange.min} onChange={event => setPowerRange(current => ({ ...current, min: event.target.value }))} />
+                    <span>{t("admin.powerRange")}</span>
+                    <input className="form-control form-control-sm" type="text" inputMode="numeric" min="0" step="1" placeholder={t("admin.minPower")} value={powerRange.min} onChange={event => setPowerRange(current => ({ ...current, min: event.target.value }))} />
                     <span>~</span>
-                    <input className="form-control form-control-sm" type="text" inputMode="numeric" min="0" step="1" placeholder="최대 M" value={powerRange.max} onChange={event => setPowerRange(current => ({ ...current, max: event.target.value }))} />
-                    <button className="btn btn-sm btn-warning" onClick={selectPowerRange}>구간 선택</button>
+                    <input className="form-control form-control-sm" type="text" inputMode="numeric" min="0" step="1" placeholder={t("admin.maxPower")} value={powerRange.max} onChange={event => setPowerRange(current => ({ ...current, max: event.target.value }))} />
+                    <button className="btn btn-sm btn-warning" onClick={selectPowerRange}>{t("admin.selectRange")}</button>
                 </div>
-                <small>전투력 구간 선택은 현재 검색·상태 필터 결과에 적용되며 기존 선택은 유지됩니다.</small>
+                <small>{t("admin.powerHelp")}</small>
             </div>}
-            <div className="plan-roster-list">{visibleRoster.map(player => { const status = responses[player.uid]?.status || "unanswered"; const assigned = assignedItemIds(assignments, player.uid); return <div className="plan-roster-row" key={player.uid}><input type="checkbox" aria-label={`${player.nickname} 선택`} checked={selected.has(player.uid)} onChange={event => setSelected(current => { const next = new Set(current); event.target.checked ? next.add(player.uid) : next.delete(player.uid); return next; })} /><span className="plan-roster-name"><b>{player.nickname}</b><small>CP {formatPower(player.power)}</small></span><select className={`form-select form-select-sm plan-status-select plan-status-${status}`} aria-label={`${player.nickname} 참여 상태`} value={status} onChange={event => changePlayerResponse(player, event.target.value)}><option value="attending">참여</option><option value="absent">불참</option><option value="unanswered">미응답</option></select><span className="plan-roster-assignments">{assigned.length ? assigned.map(id => items.find(item => item.id === id)?.title).filter(Boolean).join(", ") : "미배정"}{status === "absent" && assigned.length > 0 && <strong>상태 충돌</strong>}</span><button type="button" className="plan-delete-player" onClick={() => deletePlayer(player)}>삭제</button></div>; })}</div>
+            <div className="plan-roster-list">{visibleRoster.map(player => { const status = responses[player.uid]?.status || "unanswered"; const assigned = assignedItemIds(assignments, player.uid); return <div className="plan-roster-row" key={player.uid}><input type="checkbox" aria-label={t("admin.selectPlayer", { name: player.nickname })} checked={selected.has(player.uid)} onChange={event => setSelected(current => { const next = new Set(current); event.target.checked ? next.add(player.uid) : next.delete(player.uid); return next; })} /><span className="plan-roster-name"><b>{player.nickname}</b><small>CP {formatPower(player.power)}</small></span><select className={`form-select form-select-sm plan-status-select plan-status-${status}`} aria-label={t("admin.playerStatus", { name: player.nickname })} value={status} onChange={event => changePlayerResponse(player, event.target.value)}><option value="attending">{t("stats.attending")}</option><option value="absent">{t("stats.absent")}</option><option value="unanswered">{t("stats.unanswered")}</option></select><span className="plan-roster-assignments">{assigned.length ? assigned.map(id => items.find(item => item.id === id)?.title).filter(Boolean).join(", ") : t("admin.unassigned")}{status === "absent" && assigned.length > 0 && <strong>{t("admin.conflict")}</strong>}</span><button type="button" className="plan-delete-player" onClick={() => deletePlayer(player)}>{t("admin.delete")}</button></div>; })}</div>
             {selected.size > 0 && <div className="plan-selection-bar">
-                <div className="plan-selection-summary"><b>{selected.size}명 선택</b><button className={bulkMode === "status" ? "active" : ""} onClick={() => setBulkMode(mode => mode === "status" ? "" : "status")}>상태 변경</button><button className={bulkMode === "assignment" ? "active" : ""} onClick={() => setBulkMode(mode => mode === "assignment" ? "" : "assignment")}>항목 배정</button><button onClick={() => { setSelected(new Set()); setBulkMode(""); }}>선택 해제</button></div>
-                {bulkMode === "status" && <div className="plan-selection-panel"><select className="form-select" value={bulkStatus} onChange={event => setBulkStatus(event.target.value)}><option value="attending">참여</option><option value="absent">불참</option><option value="unanswered">미응답</option></select><button className="btn btn-warning" onClick={changeSelectedResponses}>선택 인원 상태 변경</button></div>}
-                {bulkMode === "assignment" && <div className="plan-selection-panel plan-bulk-targets"><div className="plan-target-heading"><span>배정할 항목 {assignmentTargets.size}개</span><button onClick={() => setAssignmentTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAssignmentTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={assignmentTargets.has(item.id)} onChange={event => setAssignmentTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-primary" onClick={assignSelected} disabled={!assignmentTargets.size}>선택된 모든 항목에 배정</button></div>}
+                <div className="plan-selection-summary"><b>{t("admin.selected", { count: selected.size })}</b><button className={bulkMode === "status" ? "active" : ""} onClick={() => setBulkMode(mode => mode === "status" ? "" : "status")}>{t("admin.changeStatus")}</button><button className={bulkMode === "assignment" ? "active" : ""} onClick={() => setBulkMode(mode => mode === "assignment" ? "" : "assignment")}>{t("admin.assignItem")}</button><button onClick={() => { setSelected(new Set()); setBulkMode(""); }}>{t("admin.clearSelection")}</button></div>
+                {bulkMode === "status" && <div className="plan-selection-panel"><select className="form-select" value={bulkStatus} onChange={event => setBulkStatus(event.target.value)}><option value="attending">{t("stats.attending")}</option><option value="absent">{t("stats.absent")}</option><option value="unanswered">{t("stats.unanswered")}</option></select><button className="btn btn-warning" onClick={changeSelectedResponses}>{t("admin.applyStatus")}</button></div>}
+                {bulkMode === "assignment" && <div className="plan-selection-panel plan-bulk-targets"><div className="plan-target-heading"><span>{t("admin.targetItems", { count: assignmentTargets.size })}</span><button onClick={() => setAssignmentTargets(new Set(items.map(item => item.id)))}>{t("admin.selectAll")}</button><button onClick={() => setAssignmentTargets(new Set())}>{t("admin.deselectAll")}</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={assignmentTargets.has(item.id)} onChange={event => setAssignmentTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><button className="btn btn-primary" onClick={assignSelected} disabled={!assignmentTargets.size}>{t("admin.assignAll")}</button></div>}
             </div>}
-            <details className="plan-balance-box"><summary>자동 균등 배치</summary><div className="plan-balance-content"><p>참여·미배정 인원을 선택한 항목에 배치합니다. 랜덤은 인원수를, 전투력 기준은 기존 배정을 포함한 총 전투력을 고르게 맞춥니다. 항목 정원은 두 방식 모두 적용됩니다.</p><div className="plan-target-heading"><span>배치할 항목 {autoTargets.size}개</span><button onClick={() => setAutoTargets(new Set(items.map(item => item.id)))}>전체 선택</button><button onClick={() => setAutoTargets(new Set())}>전체 해제</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={autoTargets.has(item.id)} onChange={event => setAutoTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><div className="plan-balance-actions"><button className="btn btn-outline-warning" onClick={randomBalancedAssign} disabled={!autoTargets.size}>랜덤 균등 배치</button><button className="btn btn-warning" onClick={powerBalancedAssign} disabled={!autoTargets.size}>전투력 균등 배치</button></div></div></details>
+            <details className="plan-balance-box"><summary>{t("admin.autoTitle")}</summary><div className="plan-balance-content"><p>{t("admin.autoHelp")}</p><div className="plan-target-heading"><span>{t("admin.autoTargets", { count: autoTargets.size })}</span><button onClick={() => setAutoTargets(new Set(items.map(item => item.id)))}>{t("admin.selectAll")}</button><button onClick={() => setAutoTargets(new Set())}>{t("admin.deselectAll")}</button></div><div className="plan-target-checks">{items.map(item => <label key={item.id}><input type="checkbox" checked={autoTargets.has(item.id)} onChange={event => setAutoTargets(current => { const next = new Set(current); event.target.checked ? next.add(item.id) : next.delete(item.id); return next; })} /> {item.title}</label>)}</div><div className="plan-balance-actions"><button className="btn btn-outline-warning" onClick={randomBalancedAssign} disabled={!autoTargets.size}>{t("admin.random")}</button><button className="btn btn-warning" onClick={powerBalancedAssign} disabled={!autoTargets.size}>{t("admin.powerBalanced")}</button></div></div></details>
         </section>}
     </div>;
 }

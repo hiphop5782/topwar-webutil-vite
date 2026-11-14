@@ -23,16 +23,16 @@ export default function PlanCreator() {
     const update = (key, value) => setForm(current => ({ ...current, [key]: value }));
 
     const loadRoster = async () => {
-        if (!validServer) return toast.error("서버 번호를 입력하세요.");
-        if (!validMinLevel) return toast.error("최소 레벨은 1~80 사이로 입력하세요.");
+        if (!validServer) return toast.error(t("creator.serverRequired"));
+        if (!validMinLevel) return toast.error(t("creator.levelInvalid"));
         setLoadingRoster(true);
         try {
             const data = await loadRealPower(String(Number(form.serverId)));
             const roster = buildRoster(data?.players, { serverId: String(Number(form.serverId)), targetScope: "server", minLevel: Number(form.minLevel) });
             setPlayers(roster);
-            toast.success(`${roster.length}명의 명단을 불러왔습니다.`);
+            toast.success(t("creator.loaded", { count: roster.length }));
         } catch (error) {
-            toast.error(error.message || "명단을 불러오지 못했습니다.");
+            toast.error(error.message || t("creator.loadFailed"));
         } finally {
             setLoadingRoster(false);
         }
@@ -40,14 +40,14 @@ export default function PlanCreator() {
 
     const save = async event => {
         event.preventDefault();
-        if (!canSave) return toast.error("필수 항목과 명단을 확인하세요.");
-        if (form.viewerPassword === form.adminPassword) return toast.error("사용자와 관리자 비밀번호는 다르게 설정하세요.");
+        if (!canSave) return toast.error(t("creator.required"));
+        if (form.viewerPassword === form.adminPassword) return toast.error(t("creator.passwordDifferent"));
         setSaving(true);
         try {
             const serverId = String(Number(form.serverId));
             const planRef = doc(db, "plans", serverId);
             const existingPlan = await getDoc(planRef);
-            if (existingPlan.exists() && !window.confirm("기존 계획을 이전 내역에 보관하고 새 계획을 시작할까요?")) return;
+            if (existingPlan.exists() && !window.confirm(t("creator.replaceConfirm"))) return;
             const [viewerHash, adminHash] = await Promise.all([
                 hashPlanPassword(form.viewerPassword),
                 hashPlanPassword(form.adminPassword),
@@ -85,11 +85,11 @@ export default function PlanCreator() {
             batch.set(doc(db, "planAccess", serverId, "keys", viewerHash), { role: "viewer", accessVersion, createdAt: serverTimestamp() });
             batch.set(doc(db, "planAccess", serverId, "keys", adminHash), { role: "admin", accessVersion, createdAt: serverTimestamp() });
             await batch.commit();
-            toast.success("계획을 생성했습니다.");
+            toast.success(t("creator.created"));
             navigate(`/${i18n.language}/plan/${serverId}`);
         } catch (error) {
             console.error(error);
-            toast.error(error.message || "계획을 저장하지 못했습니다.");
+            toast.error(error.message || t("creator.saveFailed"));
         } finally {
             setSaving(false);
         }
@@ -113,7 +113,7 @@ export default function PlanCreator() {
             </div>
             <div className="plan-roster-load">
                 <button type="button" className="btn btn-outline-primary" onClick={loadRoster} disabled={loadingRoster}>{loadingRoster ? t("creator.loading") : t("creator.loadRoster")}</button>
-                <span>{players.length ? `레벨 ${form.minLevel} 이상 ${players.length}명` : "최소 레벨을 확인한 뒤 명단을 불러오세요."}</span>
+                <span>{players.length ? t("creator.rosterSummary", { level: form.minLevel, count: players.length }) : t("creator.rosterGuide")}</span>
             </div>
             <button className="btn btn-primary btn-lg" disabled={!canSave || saving}>{saving ? t("creator.saving") : t("creator.create")}</button>
         </form>
