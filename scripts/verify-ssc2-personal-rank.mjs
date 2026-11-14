@@ -1,31 +1,22 @@
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import puppeteer from "puppeteer";
 
 const baseUrl = process.env.SSC2_VERIFY_URL ?? "http://127.0.0.1:4173";
 const dataDirectory = new URL("../src/assets/json/ssc2/personal/", import.meta.url);
-const dataFiles = (await readdir(dataDirectory))
-    .filter(fileName => fileName.endsWith(".json"))
-    .sort();
+const manifest = JSON.parse(await readFile(new URL("index.json", dataDirectory), "utf8"));
+const dataFiles = Object.keys(manifest.sources).sort();
 const newestFile = dataFiles.at(-1);
-
 assert.ok(newestFile, "No personal ranking data file found");
-
-const source = JSON.parse(await readFile(new URL(newestFile, dataDirectory), "utf8"));
 const oldestFile = dataFiles[0];
-const oldestSource = oldestFile === newestFile
-    ? source
-    : JSON.parse(await readFile(new URL(oldestFile, dataDirectory), "utf8"));
-const latestDate = newestFile.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1]
-    ?? Object.keys(source.dates ?? {}).sort().at(-1);
-const oldestDate = oldestFile.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1]
-    ?? Object.keys(oldestSource.dates ?? {}).sort().at(-1);
-const latest = Object.values(source.dates ?? {}).sort((left, right) => (
-    String(right?.date ?? "").localeCompare(String(left?.date ?? ""))
-))[0];
-const oldest = Object.values(oldestSource.dates ?? {}).sort((left, right) => (
-    String(right?.date ?? "").localeCompare(String(left?.date ?? ""))
-))[0];
+const latestDate = newestFile.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)[1];
+const oldestDate = oldestFile.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)[1];
+async function readLatest(file) {
+    const reference = Object.values(manifest.sources[file].dates).sort((left, right) => right.date.localeCompare(left.date))[0];
+    return JSON.parse(await readFile(new URL(`snapshots/${reference.id}.json`, dataDirectory), "utf8"));
+}
+const latest = await readLatest(newestFile);
+const oldest = await readLatest(oldestFile);
 const players = latest?.rankings ?? [];
 const topPlayer = players[0];
 const unicodePlayer = players.find(player => String(player.nickname ?? "").normalize("NFKC").toLocaleLowerCase().includes("m")) ?? topPlayer;
@@ -207,6 +198,7 @@ try {
     assert.equal(resetUrl.searchParams.has("minPoint"), false);
     assert.equal(resetUrl.searchParams.has("maxPoint"), false);
 
+    await page.waitForSelector(".ssc2-personal-rank-virtuoso tbody tr .ssc2-personal-detail-button", { visible: true });
     await page.click(".ssc2-personal-rank-virtuoso tbody tr .ssc2-personal-detail-button");
     await page.waitForSelector("#ssc2-personal-history-title");
     await page.waitForSelector(".ssc2-personal-history-virtuoso tbody tr", { timeout: 60_000 });

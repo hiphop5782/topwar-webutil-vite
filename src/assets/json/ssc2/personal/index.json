@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "cq26-all-server-merit-history-2026-11-01.json": {
+      "metadata": {
+        "schemaVersion": 1,
+        "dataset": "cq26-all-server-merit-history",
+        "timezone": "Asia/Seoul",
+        "updatedAt": "2026-11-01T16:04:15.644Z"
+      },
+      "dates": {
+        "2026-11-02": {
+          "id": "1551395f0506b5012a22a4faf8189305f9e1a5a5ae2ebc448de40dafd2bf2256",
+          "date": "2026-11-02"
+        }
+      }
+    },
+    "cq26-all-server-merit-history-2026-11-02.json": {
+      "metadata": {
+        "schemaVersion": 2,
+        "dataset": "cq26-all-server-merit-history",
+        "timezone": "Asia/Seoul",
+        "updatedAt": "2026-11-02T14:10:35.134Z"
+      },
+      "dates": {
+        "2026-11-02": {
+          "id": "2b2075af20b5edc7d19eefb74b6d65e5d9821939650f7d219647adaf93bf4c53",
+          "date": "2026-11-02"
+        }
+      }
+    },
+    "cq26-all-server-merit-history-2026-11-06.json": {
+      "metadata": {
+        "schemaVersion": 2,
+        "dataset": "cq26-all-server-merit-history",
+        "timezone": "Asia/Seoul",
+        "updatedAt": "2026-11-06T14:32:11.460Z"
+      },
+      "dates": {
+        "2026-11-02": {
+          "id": "2b2075af20b5edc7d19eefb74b6d65e5d9821939650f7d219647adaf93bf4c53",
+          "date": "2026-11-02"
+        },
+        "2026-11-06": {
+          "id": "25993d7dbf7997f0aec2c92f7c0636c0c8380388b238c909b9ea679c434cc872",
+          "date": "2026-11-06"
+        }
+      }
+    },
+    "cq26-all-server-merit-history-2026-11-10.json": {
+      "metadata": {
+        "schemaVersion": 2,
+        "dataset": "cq26-all-server-merit-history",
+        "timezone": "Asia/Seoul",
+        "updatedAt": "2026-11-10T15:27:58.584Z"
+      },
+      "dates": {
+        "2026-11-02": {
+          "id": "2b2075af20b5edc7d19eefb74b6d65e5d9821939650f7d219647adaf93bf4c53",
+          "date": "2026-11-02"
+        },
+        "2026-11-06": {
+          "id": "25993d7dbf7997f0aec2c92f7c0636c0c8380388b238c909b9ea679c434cc872",
+          "date": "2026-11-06"
+        },
+        "2026-11-11": {
+          "id": "de71c1d4770af994caf590e566b1f3e213aca4f5a3c10d5b5a581af9db6dc85e",
+          "date": "2026-11-11"
+        }
+      }
+    },
+    "cq26-all-server-merit-history-2026-11-11.json": {
+      "metadata": {
+        "schemaVersion": 2,
+        "dataset": "cq26-all-server-merit-history",
+        "timezone": "Asia/Seoul",
+        "updatedAt": "2026-11-10T15:27:58.584Z"
+      },
+      "dates": {
+        "2026-11-02": {
+          "id": "2b2075af20b5edc7d19eefb74b6d65e5d9821939650f7d219647adaf93bf4c53",
+          "date": "2026-11-02"
+        },
+        "2026-11-06": {
+          "id": "25993d7dbf7997f0aec2c92f7c0636c0c8380388b238c909b9ea679c434cc872",
+          "date": "2026-11-06"
+        },
+        "2026-11-11": {
+          "id": "de71c1d4770af994caf590e566b1f3e213aca4f5a3c10d5b5a581af9db6dc85e",
+          "date": "2026-11-11"
+        }
+      }
+    },
+    "cq26-all-server-merit-history-2026-11-14.json": {
+      "metadata": {
+        "schemaVersion": 2,
+        "dataset": "cq26-all-server-merit-history",
+        "timezone": "Asia/Seoul",
+        "updatedAt": "2026-11-14T16:02:26.600Z"
+      },
+      "dates": {
+        "2026-11-02": {
+          "id": "2b2075af20b5edc7d19eefb74b6d65e5d9821939650f7d219647adaf93bf4c53",
+          "date": "2026-11-02"
+        },
+        "2026-11-06": {
+          "id": "25993d7dbf7997f0aec2c92f7c0636c0c8380388b238c909b9ea679c434cc872",
+          "date": "2026-11-06"
+        },
+        "2026-11-11": {
+          "id": "de71c1d4770af994caf590e566b1f3e213aca4f5a3c10d5b5a581af9db6dc85e",
+          "date": "2026-11-11"
+        },
+        "2026-11-15": {
+          "id": "e021907651267de1fddf87d218978ce1b16cd4627b81eade4a113bc17d2558a4",
+          "date": "2026-11-15"
+        }
+      }
+    }
+  }
+}

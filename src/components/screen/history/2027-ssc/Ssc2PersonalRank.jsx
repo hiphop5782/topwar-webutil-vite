@@ -6,9 +6,11 @@ import { TableVirtuoso } from "react-virtuoso";
 
 import { normalizeNicknameForSearch } from "@src/utils/normalizeNicknameForSearch";
 
+import personalDataIndex from "@src/assets/json/ssc2/personal/index.json";
+
 import "./Ssc2PersonalRank.css";
 
-const PERSONAL_DATA_MODULES = import.meta.glob("/src/assets/json/ssc2/personal/*.json", { import: "default" });
+const PERSONAL_DATA_MODULES = import.meta.glob("/src/assets/json/ssc2/personal/snapshots/*.json", { import: "default" });
 const PERSONAL_SEARCH_PARAM_KEYS = {
     date: "date",
     nickname: "nickname",
@@ -17,11 +19,19 @@ const PERSONAL_SEARCH_PARAM_KEYS = {
     maximumMerit: "maxPoint",
 };
 
-const PERSONAL_DATA_SOURCES = Object.entries(PERSONAL_DATA_MODULES)
-    .sort(([left], [right]) => right.localeCompare(left));
+const PERSONAL_DATA_SOURCES = Object.entries(personalDataIndex.sources).sort(([left], [right]) => right.localeCompare(left)).map(([path, source]) => {
+    const latest = Object.values(source.dates).sort((left, right) => right.date.localeCompare(left.date))[0];
+    return { date: path.match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)[1], id: latest.id };
+});
+const snapshotPromises = new Map();
 
-let allDocumentsPromise = null;
-let availableDatesPromise = null;
+async function loadSourceSnapshot(source) {
+    if (!snapshotPromises.has(source.id)) {
+        const load = PERSONAL_DATA_MODULES[`/src/assets/json/ssc2/personal/snapshots/${source.id}.json`];
+        snapshotPromises.set(source.id, load().catch(error => { snapshotPromises.delete(source.id); throw error; }));
+    }
+    return { ...await snapshotPromises.get(source.id), date: source.date };
+}
 
 const VIRTUAL_TABLE_COMPONENTS = {
     Scroller: forwardRef(function PersonalRankScroller(props, ref) {
@@ -78,27 +88,6 @@ async function copyTextToClipboard(text) {
     if (!copied) throw new Error("Clipboard copy failed");
 }
 
-function getDocumentSnapshots(document) {
-    return Object.entries(document?.dates ?? {})
-        .map(([dateKey, snapshot]) => ({
-            ...snapshot,
-            date: String(snapshot?.date ?? dateKey),
-        }))
-        .filter(snapshot => /^\d{4}-\d{2}-\d{2}$/.test(snapshot.date) && Array.isArray(snapshot.rankings))
-        .sort((left, right) => right.date.localeCompare(left.date));
-}
-
-function getSourceSnapshots(sourcePath, document) {
-    const snapshots = getDocumentSnapshots(document);
-    const sourceDate = String(sourcePath).match(/(\d{4}-\d{2}-\d{2})(?=\.json$)/)?.[1];
-
-    if (sourceDate && snapshots.length > 0) {
-        return [{ ...snapshots[0], date: sourceDate }];
-    }
-
-    return snapshots;
-}
-
 function normalizeRanking(row, index) {
     const uid = String(row?.uid ?? "").trim();
     const merit = Number(row?.merit);
@@ -132,85 +121,41 @@ function normalizeSnapshot(snapshot) {
 }
 
 async function loadLatestSnapshot() {
-    for (const [sourcePath, loadDocument] of PERSONAL_DATA_SOURCES) {
-        const document = await loadDocument();
-        const [snapshot] = getSourceSnapshots(sourcePath, document);
-
-        if (!snapshot) continue;
-
-        return normalizeSnapshot(snapshot);
-    }
-
-    throw new Error("No personal ranking snapshot is available");
-}
-
-async function loadAllDocuments() {
-    if (!allDocumentsPromise) {
-        allDocumentsPromise = Promise.all(PERSONAL_DATA_SOURCES.map(
-            async ([sourcePath, loadDocument]) => ({ sourcePath, document: await loadDocument() }),
-        ))
-            .catch(error => {
-                allDocumentsPromise = null;
-                throw error;
-            });
-    }
-
-    return allDocumentsPromise;
+    if (!PERSONAL_DATA_SOURCES.length) throw new Error("No personal ranking snapshot is available");
+    return normalizeSnapshot(await loadSourceSnapshot(PERSONAL_DATA_SOURCES[0]));
 }
 
 async function loadAvailableDates() {
-    if (!availableDatesPromise) {
-        availableDatesPromise = loadAllDocuments()
-            .then(documents => [...new Set(
-                documents.flatMap(({ sourcePath, document }) => (
-                    getSourceSnapshots(sourcePath, document).map(snapshot => snapshot.date)
-                )),
-            )].sort((left, right) => right.localeCompare(left)))
-            .catch(error => {
-                availableDatesPromise = null;
-                throw error;
-            });
-    }
-
-    return availableDatesPromise;
+    return PERSONAL_DATA_SOURCES.map(source => source.date);
 }
 
 async function loadSnapshotByDate(date) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) return null;
-
-    const documents = await loadAllDocuments();
-    for (const { sourcePath, document } of documents) {
-        const snapshot = getSourceSnapshots(sourcePath, document).find(candidate => candidate.date === date);
-        if (snapshot) return normalizeSnapshot(snapshot);
-    }
-
-    return null;
+    const source = PERSONAL_DATA_SOURCES.find(source => source.date === date);
+    return source ? normalizeSnapshot(await loadSourceSnapshot(source)) : null;
 }
 
 async function loadPlayerHistory(uid) {
     if (!isValidUid(uid)) throw new Error("Invalid player identity");
 
-    const documents = await loadAllDocuments();
+    const snapshots = await Promise.all(PERSONAL_DATA_SOURCES.map(loadSourceSnapshot));
     const recordsByDate = new Map();
 
-    documents.forEach(({ sourcePath, document }) => {
-        getSourceSnapshots(sourcePath, document).forEach(snapshot => {
-            if (recordsByDate.has(snapshot.date)) return;
-            const player = snapshot.rankings.find(row => String(row?.uid ?? "") === uid);
-            if (!player) return;
+    snapshots.forEach(snapshot => {
+        if (recordsByDate.has(snapshot.date)) return;
+        const player = snapshot.rankings.find(row => String(row?.uid ?? "") === uid);
+        if (!player) return;
 
-            const normalizedPlayer = normalizeRanking(player, 0);
-            if (!normalizedPlayer) return;
+        const normalizedPlayer = normalizeRanking(player, 0);
+        if (!normalizedPlayer) return;
 
-            recordsByDate.set(snapshot.date, {
-                date: snapshot.date,
-                round: Number(snapshot.round ?? 0),
-                totalRound: Number(snapshot.totalRound ?? 0),
-                rank: normalizedPlayer.rank,
-                nickname: normalizedPlayer.nickname,
-                serverId: normalizedPlayer.serverId,
-                merit: normalizedPlayer.merit,
-            });
+        recordsByDate.set(snapshot.date, {
+            date: snapshot.date,
+            round: Number(snapshot.round ?? 0),
+            totalRound: Number(snapshot.totalRound ?? 0),
+            rank: normalizedPlayer.rank,
+            nickname: normalizedPlayer.nickname,
+            serverId: normalizedPlayer.serverId,
+            merit: normalizedPlayer.merit,
         });
     });
 
