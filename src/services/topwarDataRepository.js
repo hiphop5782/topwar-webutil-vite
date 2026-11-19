@@ -1,9 +1,9 @@
 const DEFAULT_BASE_URL =
     "https://raw.githubusercontent.com/hiphop5782/topwar-json/main";
 
-const BASE_URL = String(
-    import.meta.env.VITE_TOPWAR_DATA_BASE_URL || DEFAULT_BASE_URL,
-).replace(/\/+$/, "");
+const WORKER_SETTING = String(import.meta.env.VITE_TOPWAR_DATA_WORKER_URL || "").trim().replace(/\/+$/, "");
+const WORKER_URL = WORKER_SETTING === "off" ? "" : WORKER_SETTING;
+const BASE_URL = WORKER_URL || String(import.meta.env.VITE_TOPWAR_DATA_BASE_URL || DEFAULT_BASE_URL).replace(/\/+$/, "");
 
 const dataPromiseCache = new Map();
 const chunkedJsonPromiseCache = new Map();
@@ -447,6 +447,10 @@ function countSeasonServers(directory) {
 }
 
 async function loadHistoricalSeasonServerCount() {
+    if (WORKER_URL) {
+        const directory = await requestJson("_history/servers-7d.json", { noStore: true });
+        return directory === null ? null : countSeasonServers(directory);
+    }
     const until = new Date(Date.now() - 7 * 86400000).toISOString();
     const commitsUrl = new URL(
         "https://api.github.com/repos/hiphop5782/topwar-json/commits",

@@ -35,8 +35,9 @@ async function openCase(mode, language = 'ko') {
         let body;
         let status = 200;
         if (url.hostname === 'api.github.com') body = [];
-        else if (url.hostname === 'raw.githubusercontent.com') {
-            if (url.pathname.endsWith('/index.json')) body = { revision: 'fixture', datasets: { realpower: { serverIds: [3223] } } };
+        else if (['raw.githubusercontent.com', 'api.progamer.info'].includes(url.hostname)) {
+            if (url.pathname.endsWith('/_history/servers-7d.json')) body = null;
+            else if (url.pathname.endsWith('/index.json')) body = { revision: 'fixture', datasets: { realpower: { serverIds: [3223] } } };
             else if (url.pathname.endsWith('/servers/servers-object.json')) body = { seasons: { one: { servers: [3223] } } };
             else if (url.pathname.endsWith('/generated/homeStatistics.json')) {
                 body = base;

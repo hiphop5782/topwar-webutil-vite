@@ -70,9 +70,13 @@ jobs:
           CI: false
           PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
           VITE_CITY_REWARD_API_URL: ${{ vars.VITE_CITY_REWARD_API_URL }}
+          VITE_TOPWAR_DATA_WORKER_URL: ${{ vars.VITE_TOPWAR_DATA_WORKER_URL || 'https://api.progamer.info/data/topwar-json' }}
 
       - name: Verify vote lifecycle and archives
         run: npm run verify:vote
+
+      - name: Verify TopWar Worker integration
+        run: node scripts/verify-topwar-worker.mjs
 
       # 기본 프리렌더 결과 검증
       - name: Verify prerendered pages

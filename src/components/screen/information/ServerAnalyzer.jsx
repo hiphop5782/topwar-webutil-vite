@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { loadDataFile } from "@src/services/topwarDataRepository";
 
 import { ResponsiveHeatMapCanvas } from "@nivo/heatmap";
 import { FaArrowLeft, FaPlus, FaShare, FaShareNodes, FaXmark } from "react-icons/fa6";
@@ -45,7 +46,7 @@ export default function ServerAnalyzer() {
     const [cutoff, setCutoff] = useState(100);
 
     const loadServerList = useCallback(async ()=>{
-        const {data} = await axios.get("https://raw.githubusercontent.com/hiphop5782/topwar-json/main/servers.json");
+        const data = await loadDataFile("servers.json");
         setServerList([...data.list]);
     }, []);
     const addServerByParameter = useCallback(async (target) => {

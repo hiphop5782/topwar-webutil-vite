@@ -1,0 +1,10 @@
+{
+  "name": "topwar-json-api",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-18",
+  "workers_dev": true,
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://www.progamer.info,https://datahub.progamer.info,https://sysout.co.kr,https://topwar.sysout.co.kr,https://www.sysout.co.kr,http://localhost:5656"
+  }
+}
