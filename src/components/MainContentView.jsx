@@ -21,8 +21,11 @@ import AccountProfilePage from "@src/components/screen/trade/account-profile/Acc
 import KartzStatistics from "@src/components/screen/information/KartzStatistics";
 import { RecoilRoot } from "recoil";
 import ELScoreCalculator from "@src/components/screen/information/el/ELScoreCalculator";
-import KakaoAds from "@src/components/adsense/KakaoAds";
-import AdsterraBanner from "@src/components/adsense/AdsterraBanner";
+import GoogleAds from "@src/components/adsense/GoogleAds";
+// 기존 광고 복원 시 아래 import와 함수 내부 설정을 함께 활성화하고 해당 위치의 GoogleAds를 주석 처리한다.
+// import KakaoAds from "@src/components/adsense/KakaoAds";
+// import AdsterraBanner from "@src/components/adsense/AdsterraBanner";
+// import { useVisitorCountry } from "@src/hooks/useVisitorCountry";
 import EternalLandScore from "@src/components/screen/information/el/EternalLandScore";
 import EternalLandDarkforce from "@src/components/screen/information/el/EternalLandDarkforce";
 import AttendanceVoteCreator from "@src/components/screen/vote/AttendanceVoteCreator";
@@ -70,84 +73,42 @@ import RouteAnalytics from "@src/components/template/RouteAnalytics";
 import PlanCreator from "@src/components/screen/plan/PlanCreator";
 import PlanViewer from "@src/components/screen/plan/PlanViewer";
 import { useIsMobile } from "@src/hooks/useIsMobile";
-import { useVisitorCountry } from "@src/hooks/useVisitorCountry";
 
 export default function MainContentView() {
     const location = useLocation();
     // Bootstrap lg부터 160px 사이드 슬롯 두 개가 겹치지 않고 들어간다.
     const isBelowSideAdWidth = useIsMobile(991);
-    // 8/12 중앙 열이 728px보다 좁으면 320px 슬롯을 사용한다.
-    const useCompactBanner = useIsMobile(1091);
-    const visitorCountry = useVisitorCountry(location.search);
-    const useAdsterra = visitorCountry != null && visitorCountry !== "KR";
-    // 검색 조건이나 City Reward의 5초 갱신이 아닌 실제 경로 이동에만 광고를 갱신한다.
+    // 검색 조건 변경이나 데이터 갱신에는 광고를 다시 요청하지 않는다.
     const adPageKey = location.pathname;
+    // 기존 광고 복원용 설정 (한국: 애드핏, 해외: Adsterra).
+    // const useCompactBanner = useIsMobile(1091);
+    // const visitorCountry = useVisitorCountry(location.search);
+    // const useAdsterra = visitorCountry != null && visitorCountry !== "KR";
 
     return (
         <div className="row mb-5 pb-5">
-            {/* <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}> */}
             <div className="col-lg-2 d-none d-lg-flex justify-content-center align-items-start">
-                {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="2606768455"/> */}
-                {!isBelowSideAdWidth && visitorCountry && (
-                    useAdsterra ? (
-                        <AdsterraBanner
-                            key={`left-adsterra-${adPageKey}`}
-                            adKey="74d11ec5bd55d44100537e0fdfde2231"
-                            width={160}
-                            height={600}
-                        />
-                    ) : (
-                        <KakaoAds
-                            key={`left-kakao-${adPageKey}`}
-                            id="DAN-2TYGu5OktHTg0aW6"
-                            width={160}
-                            height={600}
-                        />
-                    )
-                )}
+                {!isBelowSideAdWidth && <GoogleAds key={`left-${adPageKey}`} vertical />}
+                {/* 기존 좌측 광고 복원용
+                {!isBelowSideAdWidth && visitorCountry && (useAdsterra
+                    ? <AdsterraBanner key={`left-adsterra-${adPageKey}`} adKey="74d11ec5bd55d44100537e0fdfde2231" width={160} height={600} />
+                    : <KakaoAds key={`left-kakao-${adPageKey}`} id="DAN-2TYGu5OktHTg0aW6" width={160} height={600} />)}
+                */}
             </div>
             <div className="col-lg-8">
                 <RouteSEO />
                 <RouteAnalytics />
-                {/* 화면 폭에 맞는 상단 수평 광고 하나만 요청한다. */}
-                <div className="row mb-4">
-                    <div className="col d-flex justify-content-center align-items-center">
-                        {visitorCountry && (
-                            useCompactBanner ? (
-                                useAdsterra ? (
-                                    <AdsterraBanner
-                                        key={`compact-adsterra-${adPageKey}`}
-                                        adKey="803200a0f22a3c468a48fa872462c0b7"
-                                        width={320}
-                                        height={50}
-                                    />
-                                ) : (
-                                    <KakaoAds
-                                        key={`compact-kakao-${adPageKey}`}
-                                        id="DAN-lZUjWtUlP8hglGID"
-                                        width={320}
-                                        height={50}
-                                    />
-                                )
-                            ) : (
-                                useAdsterra ? (
-                                    <AdsterraBanner
-                                        key={`wide-adsterra-${adPageKey}`}
-                                        adKey="c0635d2c36f9e90bd00715eb73b70551"
-                                        width={728}
-                                        height={90}
-                                    />
-                                ) : (
-                                    <KakaoAds
-                                        key={`wide-kakao-${adPageKey}`}
-                                        id="DAN-Z2S2sYjDqUqroYxO"
-                                        width={728}
-                                        height={90}
-                                    />
-                                )
-                            )
-                        )}
+                <div className="mb-4">
+                    <GoogleAds key={`top-${adPageKey}`} />
+                    {/* 기존 상단 광고 복원용
+                    <div className="d-flex justify-content-center align-items-center">
+                        {visitorCountry && (useCompactBanner ? (useAdsterra
+                            ? <AdsterraBanner key={`compact-adsterra-${adPageKey}`} adKey="803200a0f22a3c468a48fa872462c0b7" width={320} height={50} />
+                            : <KakaoAds key={`compact-kakao-${adPageKey}`} id="DAN-lZUjWtUlP8hglGID" width={320} height={50} />) : (useAdsterra
+                            ? <AdsterraBanner key={`wide-adsterra-${adPageKey}`} adKey="c0635d2c36f9e90bd00715eb73b70551" width={728} height={90} />
+                            : <KakaoAds key={`wide-kakao-${adPageKey}`} id="DAN-Z2S2sYjDqUqroYxO" width={728} height={90} />))}
                     </div>
+                    */}
                 </div>
 
                 <ResearchHub contextual />
@@ -253,26 +214,13 @@ export default function MainContentView() {
                     <Route path="*" element={<PageNotFound />}></Route>
                 </Routes>
             </div>
-            {/* <div className="col-md-2 d-none d-md-flex justify-content-center align-items-start" style={{minWidth:"160px"}}> */}
             <div className="col-lg-2 d-none d-lg-flex justify-content-center align-items-start">
-                {/* <GoogleAdsVertical dataAdClient="ca-pub-5256661935690588" dataAdSlot="8253345796"/> */}
-                {!isBelowSideAdWidth && visitorCountry && (
-                    useAdsterra ? (
-                        <AdsterraBanner
-                            key={`right-adsterra-${adPageKey}`}
-                            adKey="c122a76ecae2b7efdd6a5b10f03dd1f3"
-                            width={160}
-                            height={600}
-                        />
-                    ) : (
-                        <KakaoAds
-                            key={`right-kakao-${adPageKey}`}
-                            id="DAN-WwP4DvEIbCS6Wv93"
-                            width={160}
-                            height={600}
-                        />
-                    )
-                )}
+                {!isBelowSideAdWidth && <GoogleAds key={`right-${adPageKey}`} vertical />}
+                {/* 기존 우측 광고 복원용
+                {!isBelowSideAdWidth && visitorCountry && (useAdsterra
+                    ? <AdsterraBanner key={`right-adsterra-${adPageKey}`} adKey="c122a76ecae2b7efdd6a5b10f03dd1f3" width={160} height={600} />
+                    : <KakaoAds key={`right-kakao-${adPageKey}`} id="DAN-WwP4DvEIbCS6Wv93" width={160} height={600} />)}
+                */}
             </div>
         </div>
     )

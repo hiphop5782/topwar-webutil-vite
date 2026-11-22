@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import AdsterraBanner from "@src/components/adsense/AdsterraBanner";
-import { useIsMobile } from "@src/hooks/useIsMobile";
+import GoogleAds from "@src/components/adsense/GoogleAds";
+// 기존 도시보상 광고 복원 시 아래 import와 useCompactAd를 활성화하고 GoogleAds를 주석 처리한다.
+// import AdsterraBanner from "@src/components/adsense/AdsterraBanner";
+// import { useIsMobile } from "@src/hooks/useIsMobile";
 
 import "./CityRewardEvent.css";
 
@@ -105,8 +107,8 @@ async function fetchRewardData(url, signal) {
 }
 
 const CityRwardEvent = () => {
+  // const useCompactAd = useIsMobile(1091);
   const { t, i18n } = useTranslation("viewer");
-  const useCompactAd = useIsMobile(1091);
 
   const [locations, setLocations] = useState([]);
   const [newLocationSeenAt, setNewLocationSeenAt] = useState({});
@@ -692,7 +694,7 @@ const CityRwardEvent = () => {
       )}
 
 
-      {/* 도시보상 전용 Adsterra 광고 */}
+      {/* 도시보상 광고 */}
       <aside
         className="city-reward-ad"
         aria-label="Advertisement"
@@ -701,21 +703,12 @@ const CityRwardEvent = () => {
           AD
         </div>
 
-        {useCompactAd ? (
-          <AdsterraBanner
-            key="city-reward-mobile"
-            adKey="f02fa16ea5caa91326c99eb1c1d9c826"
-            width={320}
-            height={50}
-          />
-        ) : (
-          <AdsterraBanner
-            key="city-reward-desktop"
-            adKey="0ebcf48ecbb8ee85e2238f7220bdd6db"
-            width={728}
-            height={90}
-          />
-        )}
+        <GoogleAds />
+        {/* 기존 도시보상 광고 복원용
+        {useCompactAd
+          ? <AdsterraBanner key="city-reward-mobile" adKey="f02fa16ea5caa91326c99eb1c1d9c826" width={320} height={50} />
+          : <AdsterraBanner key="city-reward-desktop" adKey="0ebcf48ecbb8ee85e2238f7220bdd6db" width={728} height={90} />}
+        */}
       </aside>
 
 
