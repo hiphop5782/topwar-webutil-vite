@@ -72,15 +72,15 @@ import RouteSEO from "@src/components/template/RouteSEO";
 import RouteAnalytics from "@src/components/template/RouteAnalytics";
 import PlanCreator from "@src/components/screen/plan/PlanCreator";
 import PlanViewer from "@src/components/screen/plan/PlanViewer";
-import { useIsMobile } from "@src/hooks/useIsMobile";
+// import { useIsMobile } from "@src/hooks/useIsMobile";
 
 export default function MainContentView() {
     const location = useLocation();
-    // Bootstrap lg부터 160px 사이드 슬롯 두 개가 겹치지 않고 들어간다.
-    const isBelowSideAdWidth = useIsMobile(991);
+    // 사이드 광고는 CSS로 숨겨 화면 폭을 왕복해도 같은 광고 요소를 유지한다.
     // 검색 조건 변경이나 데이터 갱신에는 광고를 다시 요청하지 않는다.
     const adPageKey = location.pathname;
     // 기존 광고 복원용 설정 (한국: 애드핏, 해외: Adsterra).
+    // const isBelowSideAdWidth = useIsMobile(991);
     // const useCompactBanner = useIsMobile(1091);
     // const visitorCountry = useVisitorCountry(location.search);
     // const useAdsterra = visitorCountry != null && visitorCountry !== "KR";
@@ -88,7 +88,7 @@ export default function MainContentView() {
     return (
         <div className="row mb-5 pb-5">
             <div className="col-lg-2 d-none d-lg-flex justify-content-center align-items-start">
-                {!isBelowSideAdWidth && <GoogleAds key={`left-${adPageKey}`} vertical />}
+                <GoogleAds key={`left-${adPageKey}`} vertical />
                 {/* 기존 좌측 광고 복원용
                 {!isBelowSideAdWidth && visitorCountry && (useAdsterra
                     ? <AdsterraBanner key={`left-adsterra-${adPageKey}`} adKey="74d11ec5bd55d44100537e0fdfde2231" width={160} height={600} />
@@ -215,7 +215,7 @@ export default function MainContentView() {
                 </Routes>
             </div>
             <div className="col-lg-2 d-none d-lg-flex justify-content-center align-items-start">
-                {!isBelowSideAdWidth && <GoogleAds key={`right-${adPageKey}`} vertical />}
+                <GoogleAds key={`right-${adPageKey}`} vertical />
                 {/* 기존 우측 광고 복원용
                 {!isBelowSideAdWidth && visitorCountry && (useAdsterra
                     ? <AdsterraBanner key={`right-adsterra-${adPageKey}`} adKey="c122a76ecae2b7efdd6a5b10f03dd1f3" width={160} height={600} />
