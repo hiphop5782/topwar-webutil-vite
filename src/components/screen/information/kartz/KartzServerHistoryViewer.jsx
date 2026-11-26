@@ -376,14 +376,15 @@ export default function KartzServerHistoryViewer() {
         }
     }, [fileNames, t]);
 
-    if (indexLoading || fileLoading) {
+    if (indexLoading) {
         return <DataLoadingPlaceholder rows={8} cards={3} />;
     }
 
     return (<>
-        <ServerChooser onChangeServer={onChangeServer} enableShare={false} />
+        <ServerChooser onChangeServer={onChangeServer} enableShare={false} disabled={fileLoading} />
 
-        {isServerExist && (<>
+        {fileLoading && <DataLoadingPlaceholder rows={8} cards={3} />}
+        {isServerExist && !fileLoading && (<>
             {/* 주요 기간 버튼 생성 */}
             <div className="my-1">
                     <button data-analytics-action="period_3" className={`btn ${checkPeriod(3) ? 'btn-primary' : 'btn-outline-primary'} me-2`} onClick={() => changePeriod(3)}>{t("KartzServerHistoryViewer.recent-prefix")} 3{t("KartzServerHistoryViewer.recent-suffix")}</button>
