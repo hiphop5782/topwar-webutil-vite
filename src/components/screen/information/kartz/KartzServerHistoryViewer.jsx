@@ -359,8 +359,10 @@ export default function KartzServerHistoryViewer() {
 
         const newSelectedFiles = {};
         try {
-            for (const file of filenameList) {
-                newSelectedFiles[file.fileName] = await loadDataFile(file.path);
+            for (let offset = 0; offset < filenameList.length; offset += 4) {
+                const batch = filenameList.slice(offset, offset + 4);
+                const results = await Promise.all(batch.map(async file => [file.fileName, await loadDataFile(file.path)]));
+                Object.assign(newSelectedFiles, Object.fromEntries(results));
             }
 
             setSelectedFiles(newSelectedFiles);
