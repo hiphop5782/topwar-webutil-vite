@@ -165,6 +165,7 @@ export default function TopwarDataOverAll() {
     }, []);
 
     useEffect(() => {
+        if (!document) return;
         let cancelled = false;
         async function loadKartzHistory() {
             try {
@@ -182,7 +183,7 @@ export default function TopwarDataOverAll() {
         }
         loadKartzHistory();
         return () => { cancelled = true; };
-    }, []);
+    }, [document]);
     const requestedView = searchParams.get("view");
     const view = ["players", "servers", "alliances"].includes(requestedView)
         ? requestedView
@@ -214,6 +215,8 @@ export default function TopwarDataOverAll() {
     }, []);
 
     useEffect(() => {
+        if (!document) return;
+        let cancelled = false;
         async function loadMovementHistory() {
             try {
                 const files = await listOverallHistoryFiles("movement");
@@ -242,19 +245,21 @@ export default function TopwarDataOverAll() {
                         .localeCompare(String(left.detectedAt ?? "")));
                 }
 
-                setMovementHistory(grouped);
+                if (!cancelled) setMovementHistory(grouped);
             } catch (movementError) {
                 console.error("서버 이동 이력 로드 실패", movementError);
-                setMovementHistory(new Map());
+                if (!cancelled) setMovementHistory(new Map());
             } finally {
-                setMovementLoading(false);
+                if (!cancelled) setMovementLoading(false);
             }
         }
 
         loadMovementHistory();
-    }, []);
+        return () => { cancelled = true; };
+    }, [document]);
 
     useEffect(() => {
+        if (!document) return;
         let cancelled = false;
 
         async function loadNicknameHistory() {
@@ -300,7 +305,7 @@ export default function TopwarDataOverAll() {
 
         loadNicknameHistory();
         return () => { cancelled = true; };
-    }, []);
+    }, [document]);
 
     const players = useMemo(
         () => Array.isArray(document?.players) ? document.players : [],
@@ -308,7 +313,8 @@ export default function TopwarDataOverAll() {
     );
     const kartzIndexes = useMemo(() => buildKartzIndexes(kartzHistory), [kartzHistory]);
 
-    const searchablePlayers = useMemo(() => players
+    const sortedPlayers = useMemo(() => [...players].sort((left, right) => Number(right.power ?? 0) - Number(left.power ?? 0) || String(left.uid).localeCompare(String(right.uid))), [players]);
+    const searchablePlayers = useMemo(() => sortedPlayers
         .map((player) => ({
             ...player,
             nicknameSearchText: [
@@ -321,11 +327,7 @@ export default function TopwarDataOverAll() {
             allianceSearchText: [player.allianceTag, player.allianceName]
                 .map(normalize)
                 .join("\u0000"),
-        }))
-        .sort((left, right) =>
-            Number(right.power ?? 0) - Number(left.power ?? 0)
-            || String(left.uid).localeCompare(String(right.uid)),
-        ), [players, nicknameHistory]);
+        })), [sortedPlayers, nicknameHistory]);
 
     const filteredPlayers = useMemo(() => {
         const keyword = normalize(deferredQuery);

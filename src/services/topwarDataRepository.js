@@ -148,18 +148,12 @@ async function assembleChunkedJson(
 ) {
     validateChunkManifest(manifest, manifestPath);
 
-    /*
-     * 대형 파일의 모든 조각을 동시에 요청하면 브라우저 메모리 사용량이
-     * 급격하게 증가할 수 있으므로 순서대로 다운로드한다.
-     */
+    // 대형 조각은 최대 2개씩 받아 동시 다운로드의 메모리 부담을 제한한다.
     const chunks = [];
 
-    for (const partPath of manifest.parts) {
-        const text = await requestText(partPath, {
-            revision,
-        });
-
-        chunks.push(text);
+    for (let offset = 0; offset < manifest.parts.length; offset += 2) {
+        const batch = manifest.parts.slice(offset, offset + 2);
+        chunks.push(...await Promise.all(batch.map(partPath => requestText(partPath, { revision }))));
     }
 
     const combinedJson = chunks.join("");
@@ -408,18 +402,16 @@ export async function loadHomeStatistics() {
         index?.datasets?.generated?.homeStatistics
         || "generated/homeStatistics.json";
 
-    const statistics = await requestJson(path, {
-        revision: index.revision,
-    });
-
-    const latest = await loadServerDirectory();
-    const count = countSeasonServers(latest);
-    const change7d = await loadHistoricalSeasonServerCount()
-        .then(previousCount => previousCount === null ? null : count - previousCount)
-        .catch(error => {
+    const [statistics, latest, previousCount] = await Promise.all([
+        requestJson(path, { revision: index.revision }),
+        loadServerDirectory(),
+        loadHistoricalSeasonServerCount().catch(error => {
             console.error("Failed to load historical season server directory", error);
             return null;
-        });
+        }),
+    ]);
+    const count = countSeasonServers(latest);
+    const change7d = previousCount === null ? null : count - previousCount;
 
     return {
         ...statistics,

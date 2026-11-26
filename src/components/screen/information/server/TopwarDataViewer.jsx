@@ -9,14 +9,11 @@ export default function TopwarDataViewer() {
     const location = useLocation();
     const {t}= useTranslation("viewer");
     
-    // 현재 경로가 링크의 경로와 일치하는지 확인하는 함수
-    const getBtnClass = useCallback((path) => {
-        // 정확히 일치하거나, 하위 경로를 포함하는지 조건에 따라 설정
-        const isActive = location.pathname.endsWith(path);
-        return isActive 
-            ? "btn btn-primary w-100 text-nowrap"  // 활성화 시 (Fill)
-            : "btn btn-outline-primary w-100 text-nowrap"; // 비활성화 시 (Outline)
-    }, [location]);
+    const currentPath = location.pathname.replace(/\/+$/, "");
+    const getBtnClass = useCallback((path, color = "primary") => {
+        const isActive = currentPath.endsWith(path);
+        return `btn btn-${isActive ? color : `outline-${color}`} w-100 text-nowrap`;
+    }, [currentPath]);
 
     return (<>
         <div className="row mb-4">
@@ -29,8 +26,8 @@ export default function TopwarDataViewer() {
             <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
                 <LanguageRouterLink
                     to={`/information/data/overall`}
-                    className={`btn btn-danger w-100 text-nowrap fw-bold shadow-sm${location.pathname.endsWith("/information/data/overall") ? " active" : ""}`}
-                    aria-current={location.pathname.endsWith("/information/data/overall") ? "page" : undefined}
+                    className={`${getBtnClass("/information/data/overall", "danger")} fw-bold`}
+                    aria-current={currentPath.endsWith("/information/data/overall") ? "page" : undefined}
                 >
                     {t(`TopwarDataViewer.btn-overall`)}
                 </LanguageRouterLink>
