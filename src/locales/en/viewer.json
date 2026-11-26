@@ -177,6 +177,7 @@
         }
     },
     "TopwarDataViewer": {
+        "btn-player-detail": "Player lookup",
         "btn-player-data": "Player Data",
         "btn-overall": "All-in-One Search",
         "btn-troops": "Troop Data",

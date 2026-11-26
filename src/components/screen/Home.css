@@ -20,8 +20,8 @@
 
     border-radius: 1.25rem;
 
-    background-size: cover;
-    background-position: center;
+    background: radial-gradient(ellipse at 100% 0%, #385579 0%, transparent 65%), #172b49;
+    border: 1px solid #304868;
 }
 
 .home-hero-content {
@@ -46,8 +46,9 @@
 .home-hero h1 {
     margin-bottom: 0.75rem;
 
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    font-weight: 800;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -.045em;
 }
 
 .home-hero p {
@@ -56,6 +57,7 @@
     margin-bottom: 2rem;
 
     font-size: 1rem;
+    font-weight: 450;
 
     opacity: 0.82;
 }
@@ -109,6 +111,14 @@
 .home-intro-research {
     min-width: 0;
 }
+
+.home-data-shortcuts { min-width: 0; margin: 1.5rem 0; padding: 1.5rem; border: 1px solid #e1e6ed; border-radius: 1rem; background: #f8fafc; }
+.home-data-shortcuts h2 { margin-bottom: 1.25rem; color: #253248; font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; }
+.home-data-shortcuts__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.home-data-shortcuts__links a { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 70px; padding: 1rem; border: 1px solid #dbe2ec; border-radius: .65rem; color: #344b70; background: #fff; font-size: .9rem; font-weight: 600; text-decoration: none; }
+.home-data-shortcuts__links a:hover { border-color: #8398b7; background: #f1f5fa; }
+.home-data-shortcuts__links a:focus-visible { outline: 3px solid #93b6e9; outline-offset: 3px; }
+@media (max-width: 575.98px) { .home-data-shortcuts { padding: 1rem; } .home-data-shortcuts__links a { padding: .75rem; font-size: .8rem; } }
 
 .home-thief-map-card {
     width: min(100%, 459px);

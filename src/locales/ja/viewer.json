@@ -187,6 +187,7 @@
         "no-result": "検索結果がありません"
     },
     "TopwarDataViewer": {
+        "btn-player-detail": "プレイヤー統合検索",
         "btn-player-data": "プレイヤーデータ",
         "btn-overall": "オールインワン検索",
         "btn-troops": "兵力情報",

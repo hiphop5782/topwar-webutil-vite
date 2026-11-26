@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useLayoutEffect, useState } from "react";
 
 import ResearchHub from './post/ResearchHub';
-import BannerImage from "@src/assets/images/topwar-helper-banner.jpg";
 import { loadHomeStatistics, loadInvestigatedHomeStatistics } from "@src/services/topwarDataRepository";
 
 import "./Home.css";
@@ -298,20 +297,7 @@ function Home() {
                 HERO
             ======================================== */}
 
-            <section
-                className="home-hero"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(
-                            90deg,
-                            rgba(8, 12, 22, 0.94),
-                            rgba(8, 12, 22, 0.72),
-                            rgba(8, 12, 22, 0.35)
-                        ),
-                        url(${BannerImage})
-                    `,
-                }}
-            >
+            <section className="home-hero">
 
                 <div className="home-hero-content">
 
@@ -329,7 +315,8 @@ function Home() {
 
 
                     <div className="d-flex flex-wrap gap-2 mb-4">
-                        <LanguageRouterLink to="/post" className="btn btn-light">{t("home.research.read")}</LanguageRouterLink>
+                        <LanguageRouterLink to="/information/data/overall" className="btn btn-light">{t("TopwarDataViewer.btn-overall")}</LanguageRouterLink>
+                        <LanguageRouterLink to="/information/data/servers" className="btn btn-outline-light">{t("serverDirectory.title")}</LanguageRouterLink>
                         <LanguageRouterLink to="/about" className="btn btn-outline-light">{t("home.research.method")}</LanguageRouterLink>
                     </div>
 
@@ -342,9 +329,12 @@ function Home() {
 
 
             <div className="home-intro-grid">
-                <div className="home-intro-research">
-                    <ResearchHub compact />
-                </div>
+                <section className="home-data-shortcuts" aria-labelledby="home-data-shortcuts-title">
+                    <h2 id="home-data-shortcuts-title">{t("menu:info.sub.data")}</h2>
+                    <div className="home-data-shortcuts__links">
+                        {[['overall', 'TopwarDataViewer.btn-overall'], ['servers', 'serverDirectory.title'], ['troops', 'TopwarDataViewer.btn-troops'], ['realpower', 'TopwarDataViewer.btn-realpower']].map(([path, label]) => <LanguageRouterLink key={path} to={`/information/data/${path}`}><span>{t(label)}</span><span aria-hidden="true">↗</span></LanguageRouterLink>)}
+                    </div>
+                </section>
                 <ThiefHeatmapCard />
             </div>
 
@@ -1001,6 +991,7 @@ function Home() {
                 NOTICE
             ======================================== */}
 
+            <ResearchHub compact />
             <footer className="dashboard-footer">
 
                 <div>

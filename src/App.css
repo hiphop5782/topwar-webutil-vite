@@ -4,6 +4,8 @@
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-line-height: 1.6;
+  --bs-secondary-color: #657186;
+  --bs-secondary-rgb: 101, 113, 134;
 }
 
 html,
@@ -42,9 +44,11 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 1px;
-  background-color: var(--bs-primary);
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
 }
+::-webkit-scrollbar-thumb { background: #c5cdd8; border: 2px solid transparent; border-radius: 8px; background-clip: padding-box; }
 
 .btn.btn-colored {
   --bs-btn-color: #fff;
@@ -168,11 +172,23 @@ body {
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  box-shadow: none;
+}
+
+.app-navbar > .container-fluid { max-width: 1600px; padding-inline: 1.5rem; }
+.app-navbar .navbar-nav { align-items: center; gap: .15rem; }
+.app-navbar .dropdown-menu { padding: .4rem; border: 1px solid #e1e6ed; border-radius: .65rem; box-shadow: 0 12px 32px #25324814; }
+.app-navbar .dropdown-item { padding: .55rem .75rem; border-radius: .35rem; font-size: .88rem; }
+.app-navbar .app-navbar__language .btn { min-height: 36px; border-color: #dbe2ec; color: #526079; font-weight: 550; }
+@media (max-width: 991.98px) {
+  .app-navbar > .container-fluid { padding-inline: 1rem; }
+  .app-navbar .navbar-nav { align-items: stretch; padding-block: .75rem; }
+  .app-navbar .navbar-collapse { max-height: calc(100dvh - 70px); overflow-y: auto; }
+  .app-navbar .dropdown-menu { box-shadow: none; margin-block: .25rem .5rem; }
 }
 
 .app-navbar .navbar-brand {
-  font-weight: 900;
+  font-weight: 750;
   letter-spacing: -0.03em;
   color: #111827;
 }
@@ -183,7 +199,7 @@ body {
 
 .app-navbar .nav-link {
   color: #6b7280;
-  font-weight: 650;
+  font-weight: 550;
   border-radius: 0.65rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;

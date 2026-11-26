@@ -1,65 +1,47 @@
 import LanguageRouterLink from "@src/components/template/LanguageRouterLink";
-import { useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 
 import SupportBanner from "@src/components/template/SupportBanner";
+import "./TopwarDataViewer.css";
 
 export default function TopwarDataViewer() {
     const location = useLocation();
     const {t}= useTranslation("viewer");
+    const [menuExpanded, setMenuExpanded] = useState(false);
+    useEffect(() => { setMenuExpanded(false); }, [location.pathname]);
     
     const currentPath = location.pathname.replace(/\/+$/, "");
-    const getBtnClass = useCallback((path, color = "primary") => {
-        const isActive = currentPath.endsWith(path);
-        return `btn btn-${isActive ? color : `outline-${color}`} w-100 text-nowrap`;
-    }, [currentPath]);
+    const menus = [
+        { path: "/information/data/servers", label: t("serverDirectory.title") },
+        { path: "/information/data", label: t("TopwarDataViewer.btn-player-data") },
+        { path: "/information/data/overall", label: t("TopwarDataViewer.btn-overall"), color: "danger" },
+        { path: "/information/data/troops", label: t("TopwarDataViewer.btn-troops") },
+        { path: "/information/data/player-detail", label: t("TopwarDataViewer.btn-player-detail") },
+        { path: "/information/data/server", label: t("TopwarDataViewer.btn-server-data") },
+        { path: "/information/data/alliance", label: t("TopwarDataViewer.btn-alliance-data") },
+        { path: "/information/data/move", label: t("TopwarDataViewer.btn-server-move") },
+        { path: "/information/data/nickname", label: t("TopwarDataViewer.btn-nickname-history") },
+        { path: "/information/data/realpower", label: t("TopwarDataViewer.btn-realpower") },
+    ];
 
-    return (<>
-        <div className="row mb-4">
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to="/information/data/servers" className={getBtnClass("/information/data/servers")}>{t("serverDirectory.title")}</LanguageRouterLink>
+    return (<div className="data-workspace">
+        <nav className="data-navigation" aria-label={t("menu:info.sub.data")}>
+            <div className="data-navigation__heading"><span className="data-navigation__mark" aria-hidden="true" />{t("menu:info.sub.data")}</div>
+            <button type="button" className="data-navigation__toggle" aria-expanded={menuExpanded} aria-controls="data-navigation-links" onClick={() => setMenuExpanded(value => !value)}>
+                <span>{menus.find(menu => currentPath.endsWith(menu.path))?.label ?? t("menu:info.sub.data")}</span><span aria-hidden="true">{menuExpanded ? "−" : "+"}</span>
+            </button>
+            <div id="data-navigation-links" className={`data-navigation__links${menuExpanded ? " is-expanded" : ""}`}>
+                {menus.map(({ path, label, color = "primary" }) => {
+                    const active = currentPath.endsWith(path);
+                    return <LanguageRouterLink key={path} to={path} className={`btn btn-${active ? color : `outline-${color}`} data-navigation__link`} aria-current={active ? "page" : undefined}>{label}</LanguageRouterLink>;
+                })}
             </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data`} className={getBtnClass("/information/data")}>{t(`TopwarDataViewer.btn-player-data`)}</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink
-                    to={`/information/data/overall`}
-                    className={`${getBtnClass("/information/data/overall", "danger")} fw-bold`}
-                    aria-current={currentPath.endsWith("/information/data/overall") ? "page" : undefined}
-                >
-                    {t(`TopwarDataViewer.btn-overall`)}
-                </LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to="/information/data/troops" className={getBtnClass("/information/data/troops")}>{t("TopwarDataViewer.btn-troops")}</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/player-detail`} className={getBtnClass("/information/data/player-detail")}>플레이어 통합 조회</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/server`} className={getBtnClass("/information/data/server")}>{t(`TopwarDataViewer.btn-server-data`)}</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/alliance`} className={getBtnClass("/information/data/alliance")}>{t(`TopwarDataViewer.btn-alliance-data`)}</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/move`} className={getBtnClass("/information/data/move")}>{t(`TopwarDataViewer.btn-server-move`)}</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/nickname`} className={getBtnClass("/information/data/nickname")}>{t(`TopwarDataViewer.btn-nickname-history`)}</LanguageRouterLink>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 mb-2">
-                <LanguageRouterLink to={`/information/data/realpower`} className={getBtnClass("/information/data/realpower")}>{t(`TopwarDataViewer.btn-realpower`)}</LanguageRouterLink>
-            </div>
-        </div>
+        </nav>
 
-        <SupportBanner className="mb-4"></SupportBanner>
-
-        <hr/>
-
-        <Outlet/>
+        <Outlet />
+        <SupportBanner className="mt-5" />
 
         <section className="mt-5 pt-4 border-top" aria-labelledby="data-reading-guide">
             <div className="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3">
@@ -102,5 +84,5 @@ export default function TopwarDataViewer() {
                 </LanguageRouterLink>
             </div>
         </section>
-    </>);
+    </div>);
 }

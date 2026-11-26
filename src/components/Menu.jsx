@@ -177,12 +177,9 @@ function Menu() {
                 </button>
                 <div ref={collapseRef} className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto">
-                        <li className="nav-item">
-                            <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
-                        </li>
 
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:info.label`)}</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:info.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to="/information/appearance">{t('menu:appearance.title')}</LanguageRouterLink>
                                 {/* <LanguageRouterLink className="dropdown-item" to="/information/decor">장식 정보</LanguageRouterLink> */}
@@ -201,7 +198,7 @@ function Menu() {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:calculator.label`)}</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:calculator.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/calculator/vital`}>{t(`menu:calculator.sub.vital`)}</LanguageRouterLink>
                                 {/* <LanguageRouterLink className="dropdown-item" to="/calculator/gathering">채집 속도 계산기</LanguageRouterLink> */}
@@ -215,7 +212,7 @@ function Menu() {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:simulator.label`)}</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:simulator.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/titan-research`}>{t(`menu:simulator.sub.titan-research`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/titan-refine`}>{t(`menu:simulator.sub.titan-refine`)}</LanguageRouterLink>
@@ -231,16 +228,16 @@ function Menu() {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:util.label`)}</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:util.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/create`}>{t(`menu:util.sub.emoji.create`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/emoji/list`}>{t(`menu:util.sub.emoji.list`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
-                                <LanguageRouterLink className="nav-link" to={`/${lang}/event/city-reward`}>{t(`menu:util.sub.reward-finder`)}🔥</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/event/city-reward`}>{t(`menu:util.sub.reward-finder`)}</LanguageRouterLink>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:history.label`)}</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:history.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/history/ssc-2026`}>{t(`menu:history.sub.ssc2026`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/history/ssc-2027`}>
@@ -250,7 +247,7 @@ function Menu() {
                             </div>
                         </li>
                         {/* <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계정</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">계정</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/profile`}>계정 프로필</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/account/viewer`}>{t(`menu:account.sub.viewer`)} (구현중)</LanguageRouterLink>
@@ -258,23 +255,27 @@ function Menu() {
                             </div>
                         </li> */}
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{t(`menu:vip-lounge.label`)}</a>
+                            <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:vip-lounge.label`)}</button>
                             <div className="dropdown-menu">
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/3223`}>{t(`menu:vip-lounge.sub.s3223`)}🔥</LanguageRouterLink>
-                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/4369`}>{t(`menu:vip-lounge.sub.s4369`)}🔥</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/3223`}>{t(`menu:vip-lounge.sub.s3223`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/4369`}>{t(`menu:vip-lounge.sub.s4369`)}</LanguageRouterLink>
                             </div>
                         </li>
                         <li className="nav-item">
                             <LanguageRouterLink className="nav-link" to={`/${lang}/developer`}>{t(`menu:developer.label`)}</LanguageRouterLink>
                         </li>
 
-                        {/* ✅ 언어 선택 드롭다운 부분 */}
-                        <div className="dropdown ms-lg-2 mt-2 mt-lg-0">
-                            <button className="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                        <li className="nav-item">
+                            <LanguageRouterLink className="nav-link" to={`/${lang}/post`}>{t(`menu:post.label`)}</LanguageRouterLink>
+                        </li>
+
+                        {/* 언어 선택 */}
+                        <li className="dropdown app-navbar__language ms-lg-3 mt-2 mt-lg-0">
+                            <button className="btn btn-outline-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
                                 <span className={`fi fi-${getFlagCode(i18n.language)} me-2`}></span>
                                 {i18n.language.toUpperCase()}
                             </button>
-                            <ul className="dropdown-menu dropdown-menu-dark shadow">
+                            <ul className="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <button className="dropdown-item d-flex align-items-center" onClick={() => changeLanguage('ko')}>
                                         <span className="fi fi-kr me-2"></span> 한국어
@@ -291,7 +292,7 @@ function Menu() {
                                     </button>
                                 </li>
                             </ul>
-                        </div>
+                        </li>
                     </ul>
 
                     {/* <button className="btn btn-primary mt-3 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="menuCollapse" aria-expanded="true">메뉴 접기</button> */}

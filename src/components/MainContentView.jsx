@@ -111,8 +111,6 @@ export default function MainContentView() {
                     */}
                 </div>
 
-                <ResearchHub contextual />
-
                 {/* routes */}
                 <Routes>
                     <Route index element={<Home />}></Route>
@@ -213,6 +211,7 @@ export default function MainContentView() {
                     {/* 404 not found */}
                     <Route path="*" element={<PageNotFound />}></Route>
                 </Routes>
+                <ResearchHub contextual />
             </div>
             <div className="col-lg-2 d-none d-lg-flex justify-content-center align-items-start">
                 <GoogleAds key={`right-${adPageKey}`} vertical />

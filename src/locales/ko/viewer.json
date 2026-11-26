@@ -242,6 +242,7 @@
         "no-result": "검색 결과가 없습니다"
     },
     "TopwarDataViewer": {
+        "btn-player-detail": "플레이어 통합 조회",
         "btn-player-data": "유저 데이터",
         "btn-overall": "올인원 검색",
         "btn-troops": "병력 정보",
