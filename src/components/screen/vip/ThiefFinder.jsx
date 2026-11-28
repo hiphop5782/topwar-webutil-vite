@@ -50,6 +50,7 @@ const MASTER_ACCESS_CODE = "kid3223";
 
 const SERVER_ACCESS_CODES = Object.freeze({
     3223: "3223forever",
+    3436: "3436forever",
     4369: "4369forever"
 });
 

@@ -42,6 +42,7 @@ const fixedRoutes = [
     "/simulator/formation-perk",
     "/simulator/titan-research",
     "/simulator/titan-refine",
+    "/simulation/compare",
     "/developer",
     "/about",
     "/emoji/create",

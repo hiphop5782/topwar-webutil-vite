@@ -338,6 +338,12 @@ export const allowedPaths = [
         chatbot: true,
     },
     {
+        path: "/vip/3436",
+        label: "3436 서버 VIP 라운지",
+        examples: ["3436 VIP", "3436 도둑 찾기"],
+        chatbot: true,
+    },
+    {
         path: "/vip/4369",
         label: "4369 서버 VIP 라운지",
         examples: ["4369 VIP", "4369 도둑 찾기"],

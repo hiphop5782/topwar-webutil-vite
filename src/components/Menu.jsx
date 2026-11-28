@@ -259,6 +259,7 @@ function Menu() {
                             <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:vip-lounge.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/3223`}>{t(`menu:vip-lounge.sub.s3223`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/3436`}>{t(`menu:vip-lounge.sub.s3436`)}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/vip/4369`}>{t(`menu:vip-lounge.sub.s4369`)}</LanguageRouterLink>
                             </div>
                         </li>
