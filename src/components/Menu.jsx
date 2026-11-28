@@ -215,6 +215,7 @@ function Menu() {
                             <button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{t(`menu:simulator.label`)}</button>
                             <div className="dropdown-menu">
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/titan-research`}>{t(`menu:simulator.sub.titan-research`)}</LanguageRouterLink>
+                                <LanguageRouterLink className="dropdown-item" to="/simulation/compare">{t('compare:title')}</LanguageRouterLink>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/titan-refine`}>{t(`menu:simulator.sub.titan-refine`)}</LanguageRouterLink>
                                 <div className="dropdown-divider"></div>
                                 <LanguageRouterLink className="dropdown-item" to={`/${lang}/simulator/formation-perk`}>{t(`menu:simulator.sub.formation-perk`)}</LanguageRouterLink>

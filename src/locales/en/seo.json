@@ -1,4 +1,5 @@
 {
+    "simulation": {"compare": {"title": "Top War Player, Server and Alliance Comparison"}},
     "default": {
         "description": "Explore Top War data and tools on {{title}}."
     },

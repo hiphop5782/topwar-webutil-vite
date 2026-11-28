@@ -1,4 +1,5 @@
 {
+    "simulation": {"compare": {"title": "Top War プレイヤー・サーバー・連盟比較"}},
     "default": {
         "description": "{{title}}でTop War関連のデータとツールをご確認ください。"
     },

@@ -1,4 +1,5 @@
 import ResearchHub from './screen/post/ResearchHub';
+import CompareSimulator from './screen/simulation/CompareSimulator';
 import AppearanceGallery from './screen/information/appearance/AppearanceGallery';
 import ServerDirectory from "@src/components/screen/information/server/ServerDirectory";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -162,6 +163,7 @@ export default function MainContentView() {
                     <Route path="calculator/cost" element={<ItemLevelCostCalculator />}></Route>
 
                     <Route path="simulator/formation-perk" element={<FormationPerk />}></Route>
+                    <Route path="simulation/compare" element={<CompareSimulator />} />
                     <Route path="simulator/titan-research" element={<TitanResearchSimulator />}></Route>
                     <Route path="simulator/titan-refine" element={<TitanRefineSimulator />}></Route>
                     <Route path="developer" element={<Developer />}></Route>

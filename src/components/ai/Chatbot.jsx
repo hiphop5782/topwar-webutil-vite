@@ -14,7 +14,11 @@ import {
 } from "react-icons/fa6";
 
 import { useTranslation } from "react-i18next";
-import { chatbotActions } from "../../ai/actionRegistry";
+import { useLocation } from "react-router-dom";
+import { requestChat } from "@src/ai/chatClient";
+import { executeDataQuery } from "@src/ai/dataQuery";
+import * as dataRepository from "@src/services/topwarDataRepository";
+import ChatDataResult from "./ChatDataResult";
 
 import "./Chatbot.css";
 import SupportBanner from "@src/components/template/SupportBanner";
@@ -22,21 +26,25 @@ import SupportBanner from "@src/components/template/SupportBanner";
 export default function Chatbot() {
     const { runAction } = useChatActions();
     const { i18n } = useTranslation();
+    const location = useLocation();
 
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState("");
+    useEffect(() => { setIsOpen(false); }, [location.key]);
 
     const [messages, setMessages] = useState([
         {
             role: "assistant",
-            text: "안녕하세요. 어떤 기능을 원하세요?",
+            text: "유저·길드·서버 비교, 유저·서버 요약과 서버 이동 이력을 조회할 수 있습니다. 예: ‘3223과 3224 서버 비교해줘’",
         },
     ]);
 
     const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState("");
 
     const chatBodyRef = useRef(null);
     const inputRef = useRef(null);
+    const requestPendingRef = useRef(false);
 
     /**
      * 챗봇 닫기
@@ -58,9 +66,10 @@ export default function Chatbot() {
     const handleSend = useCallback(async () => {
         const text = input.trim();
 
-        if (!text || loading) {
+        if (!text || loading || requestPendingRef.current) {
             return;
         }
+        requestPendingRef.current = true;
 
         setMessages((prev) => [
             ...prev,
@@ -72,38 +81,15 @@ export default function Chatbot() {
 
         setInput("");
         setLoading(true);
+        setProgress("질문을 해석하고 있습니다…");
 
         try {
-            const data = {
-                message: text,
-                lang: i18n.language,
-                actions: chatbotActions,
-            };
-
-            console.log("chatbot request", data);
-
-            const response = await fetch(
-                `${
-                    import.meta.env.VITE_AI_CHATBOT_URL
-                }/api/chatbot/action`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error(
-                    `서버 요청에 실패했습니다. (${response.status})`
-                );
+            const result = await requestChat({ message: text, language: i18n.language, history: messages });
+            if (result.type === "data") {
+                const answer = await executeDataQuery(result.plan, dataRepository, setProgress);
+                setMessages(prev => [...prev, { role: "assistant", text: answer.text, result: answer }]);
+                return;
             }
-
-            const result = await response.json();
-
-            console.log("chatbot response", result);
 
             setMessages((prev) => [
                 ...prev,
@@ -140,6 +126,7 @@ export default function Chatbot() {
                 ...prev,
                 {
                     role: "assistant",
+                    error: true,
                     text:
                         error instanceof Error
                             ? error.message
@@ -147,11 +134,13 @@ export default function Chatbot() {
                 },
             ]);
         } finally {
+            requestPendingRef.current = false;
             setLoading(false);
         }
     }, [
         input,
         loading,
+        messages,
         i18n.language,
         runAction,
     ]);
@@ -329,6 +318,7 @@ export default function Chatbot() {
                                     >
                                         <div className="chatbot-message-box">
                                             {message.text}
+                                            {message.result && <ChatDataResult result={message.result} />}
                                         </div>
                                     </div>
                                 )
@@ -340,8 +330,7 @@ export default function Chatbot() {
                                         <FaSpinner className="fa-spin" />
 
                                         <span className="ms-2">
-                                            AI가 요청을 분석
-                                            중입니다...
+                                            {progress}
                                         </span>
                                     </div>
                                 </div>

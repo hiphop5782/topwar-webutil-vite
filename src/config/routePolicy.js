@@ -2,6 +2,7 @@ import { supportedLngs, defaultLng } from './languages.js';
 
 // Search eligibility is independent of ad eligibility.
 export const routePolicies = [
+    { pattern: /^\/simulation\/compare$/, key: 'simulation.compare', category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/information\/appearance$/, key: "information.appearance", category: 'data', index: false, languages: supportedLngs },
     { pattern: /^\/$/, key: "home", category: 'content', index: true, languages: supportedLngs },
     { pattern: /^\/post$/, key: "post.list", category: 'content', index: true, languages: ['ko'] },

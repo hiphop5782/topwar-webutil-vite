@@ -1,4 +1,5 @@
 export const allowedPaths = [
+    { path: '/simulation/compare', label: '비교 시뮬레이터', examples: ['비교 페이지', '캐릭터 비교 페이지', '서버 비교 시뮬레이터', '연맹 비교 페이지'], chatbot: true, queryParams: { type: { type: 'string', pattern: '^(players|servers|guilds)$', description: '비교 종류' }, left: { type: 'string', description: '확인된 왼쪽 대상 ID. 모르면 생략' }, right: { type: 'string', description: '확인된 오른쪽 대상 ID. 모르면 생략' } } },
     { path: "/information/data/servers", label: "서버 목록", examples: ["전체 서버", "시즌별 서버", "서버 그룹", "server list", "サーバー一覧"], chatbot: true, queryParams: { q: { type: "string", required: false, description: "검색할 서버 번호 또는 시즌/그룹 이름" } } },
     { 
         path: "/", 

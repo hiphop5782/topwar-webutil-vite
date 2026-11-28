@@ -1,4 +1,5 @@
 {
+    "simulation": {"compare": {"title": "Top War 캐릭터·서버·연맹 비교"}},
     "default": {
         "description": "{{title}}에서 Top War 관련 데이터와 도구를 확인하세요."
     },
