@@ -516,7 +516,7 @@ const TitanResearchSimulator = () => {
 
     return (<>
         <Helmet>
-            <title>Top War 타이탄 제작 시뮬레이터 | Progamer.info</title>
+            <title>Top War 타이탄 제작 시뮬레이터 | Topwar Helper</title>
         </Helmet>
 
         <main className="titan-research-simulator container py-4">

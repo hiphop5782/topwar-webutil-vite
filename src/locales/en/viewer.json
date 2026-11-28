@@ -265,7 +265,7 @@
     },
     "TopwarPlayerDataViewer": {
         "meta": {
-            "title": "Top War Player Data Viewer | Progamer.info",
+            "title": "Top War Player Data Viewer | Topwar Helper",
             "description": "Search Top War players by server and nickname, then review combat-power rank, activity status, country distribution, and alliance information.",
             "datasetName": "Top War Player Dataset"
         },
@@ -1592,7 +1592,7 @@
     },
     "eternalLandDarkforce": {
         "meta": {
-            "title": "Top War Eternal Land Dark Force Score Calculator | Progamer.info",
+            "title": "Top War Eternal Land Dark Force Score Calculator | Topwar Helper",
             "description": "Calculate estimated hourly, daily, and final Dark Force scores in Eternal Land using the hunting area, marches, Eternal Tech, and travel time.",
             "applicationName": "Top War Eternal Land Dark Force Score Calculator"
         },
@@ -1766,7 +1766,7 @@
     },
     "eternalLandScore": {
         "meta": {
-            "title": "Top War Eternal Land Facility Score Map | Progamer.info",
+            "title": "Top War Eternal Land Facility Score Map | Topwar Helper",
             "description": "Select occupied facilities on the Top War Eternal Land map and calculate estimated scores per minute, hour, and day.",
             "applicationName": "Top War Eternal Land Facility Score Map"
         },
@@ -1864,7 +1864,7 @@
     },
     "elScoreCalculator": {
         "meta": {
-            "title": "Top War Eternal Land Occupation Score Calculator | Progamer.info",
+            "title": "Top War Eternal Land Occupation Score Calculator | Topwar Helper",
             "description": "Enter the Eternal Land end time, participating servers, current scores, and occupied facilities to calculate score per minute, projected final scores, and rankings.",
             "applicationName": "Top War Eternal Land Occupation Score Calculator"
         },

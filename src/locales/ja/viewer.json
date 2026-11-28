@@ -264,7 +264,7 @@
     },
     "TopwarPlayerDataViewer": {
         "meta": {
-            "title": "Top War プレイヤーデータ検索 | Progamer.info",
+            "title": "Top War プレイヤーデータ検索 | Topwar Helper",
             "description": "Top Warのプレイヤーをサーバー番号とニックネームで検索し、戦力順位、活動状態、国別分布、連盟情報を確認できます。",
             "datasetName": "Top War プレイヤーデータ"
         },
@@ -1588,7 +1588,7 @@
     },
     "eternalLandDarkforce": {
         "meta": {
-            "title": "Top War 永遠の地 暗黒軍団スコア計算機 | Progamer.info",
+            "title": "Top War 永遠の地 暗黒軍団スコア計算機 | Topwar Helper",
             "description": "永遠の地の狩猟エリア、部隊数、永遠の科学、移動時間から、1時間・1日・終了時点の暗黒軍団スコアを計算します。",
             "applicationName": "Top War 永遠の地 暗黒軍団スコア計算機"
         },
@@ -1760,7 +1760,7 @@
     },
     "eternalLandScore": {
         "meta": {
-            "title": "Top War 永遠の地 施設スコアマップ | Progamer.info",
+            "title": "Top War 永遠の地 施設スコアマップ | Topwar Helper",
             "description": "Top Warの永遠の地マップで占領施設を選択し、1分・1時間・1日あたりの予想スコアを計算します。",
             "applicationName": "Top War 永遠の地 施設スコアマップ"
         },
@@ -1856,7 +1856,7 @@
     },
     "elScoreCalculator": {
         "meta": {
-            "title": "Top War 永遠の地 占領スコア計算機 | Progamer.info",
+            "title": "Top War 永遠の地 占領スコア計算機 | Topwar Helper",
             "description": "永遠の地の終了時刻、参加サーバー、現在スコア、占領施設を入力し、1分あたりのスコア、予想最終スコア、順位を計算します。",
             "applicationName": "Top War 永遠の地 占領スコア計算機"
         },

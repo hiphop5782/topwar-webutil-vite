@@ -10,8 +10,8 @@ export default function SEO({
     noindex,
 }) {
     const fullTitle = title
-        ? `${title} | Progamer.info`
-        : "Progamer.info";
+        ? `${title} | Topwar Helper`
+        : "Topwar Helper";
     const robots = noindex === undefined ? undefined : noindex
         ? "noindex, follow"
         : "index, follow";
@@ -38,7 +38,7 @@ export default function SEO({
                 />
             ))}
 
-            <meta property="og:site_name" content="Progamer.info" />
+            <meta property="og:site_name" content="Topwar Helper" />
             <meta property="og:type" content={type} />
             <meta property="og:title" content={fullTitle} />
             {description && (

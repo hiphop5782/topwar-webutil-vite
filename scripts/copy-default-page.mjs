@@ -11,7 +11,7 @@ for (const route of prerenderRoutes.filter(route => route !== '/')) {
     const directory = path.join('dist', route);
     await mkdir(directory, { recursive: true });
     const html = '<!doctype html><html lang="ko"><head><meta charset="utf-8">' +
-        '<title>페이지 이동 | Progamer.info</title><link rel="canonical" href="' + origin + target + '">' +
+        '<title>페이지 이동 | Topwar Helper</title><link rel="canonical" href="' + origin + target + '">' +
         '<meta http-equiv="refresh" content="0;url=' + target + '">' +
         '<script>location.replace(' + JSON.stringify(target) + '+location.search+location.hash)</script>' +
         '</head><body><a href="' + target + '">페이지로 이동</a></body></html>';

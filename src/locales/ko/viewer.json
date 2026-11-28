@@ -273,7 +273,7 @@
     },
     "TopwarPlayerDataViewer": {
         "meta": {
-            "title": "Top War 플레이어 데이터 조회 | Progamer.info",
+            "title": "Top War 플레이어 데이터 조회 | Topwar Helper",
             "description": "Top War 플레이어를 서버 번호와 닉네임으로 검색하고 전투력 순위, 활동 상태, 국가 분포와 연맹 정보를 확인합니다.",
             "datasetName": "Top War 플레이어 데이터"
         },
@@ -1597,7 +1597,7 @@
     },
     "eternalLandDarkforce": {
         "meta": {
-            "title": "Top War 영원의 땅 암흑 점수 계산기 | Progamer.info",
+            "title": "Top War 영원의 땅 암흑 점수 계산기 | Topwar Helper",
             "description": "영원의 땅 암흑 사냥 구역, 대열 수, 영원의 기술과 이동 시간을 입력해 시간당·일일 점수와 종료 시점 예상 점수를 계산합니다.",
             "applicationName": "Top War 영원의 땅 암흑 점수 계산기"
         },
@@ -1769,7 +1769,7 @@
     },
     "eternalLandScore": {
         "meta": {
-            "title": "Top War 영원의 땅 시설 점수 지도 | Progamer.info",
+            "title": "Top War 영원의 땅 시설 점수 지도 | Topwar Helper",
             "description": "Top War 영원의 땅 지도에서 점령 시설을 선택하고 분당, 시간당, 일일 예상 점수를 계산할 수 있는 비공식 도구입니다.",
             "applicationName": "Top War 영원의 땅 시설 점수 지도"
         },
@@ -1865,7 +1865,7 @@
     },
     "elScoreCalculator": {
         "meta": {
-            "title": "Top War 영원의 땅 점령 점수 계산기 | Progamer.info",
+            "title": "Top War 영원의 땅 점령 점수 계산기 | Topwar Helper",
             "description": "영원의 땅 종료 시간, 참가 서버, 현재 점수와 점령 시설을 입력해 서버별 분당 점수, 최종 예상 점수와 순위를 계산합니다.",
             "applicationName": "Top War 영원의 땅 점령 점수 계산기"
         },
